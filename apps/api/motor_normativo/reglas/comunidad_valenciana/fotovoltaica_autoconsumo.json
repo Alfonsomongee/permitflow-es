@@ -1,0 +1,183 @@
+{
+  "tipo_instalacion": "fotovoltaica_autoconsumo",
+  "comunidad": "comunidad_valenciana",
+  "version": "1.0.0",
+  "ultima_revision": "2026-06-17",
+  "revisado_por": "ai-agent",
+  "fuentes": [
+    "Ley 6/2024 + Decreto-ley 14/2020",
+    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+  ],
+  "reglas": [
+    {
+      "id": "VAL-FV-001",
+      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "condicion": {
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Comunicación telemática puesta en servicio BT",
+          "organismo": "Dirección General de Industria, Energía y Minas Generalitat Valenciana",
+          "base_legal": "Ley 6/2024 + Decreto-ley 14/2020",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CAU",
+            "CIE",
+            "MTD/Proyecto"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "MITECO (De oficio)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+        }
+      ]
+    },
+    {
+      "id": "VAL-FV-002",
+      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Comunicación telemática puesta en servicio BT",
+          "organismo": "Dirección General de Industria, Energía y Minas Generalitat Valenciana",
+          "base_legal": "Ley 6/2024 + Decreto-ley 14/2020",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CAU",
+            "CIE",
+            "MTD/Proyecto"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "MITECO (De oficio)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+        }
+      ]
+    },
+    {
+      "id": "VAL-FV-003",
+      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
+      "condicion": {
+        "or": [
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "terciario"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Comunicación telemática puesta en servicio BT",
+          "organismo": "Dirección General de Industria, Energía y Minas Generalitat Valenciana",
+          "base_legal": "Ley 6/2024 + Decreto-ley 14/2020",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CAU",
+            "CIE",
+            "MTD/Proyecto"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "MITECO (De oficio)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "tipo_instalacion": "fotovoltaica_autoconsumo",
+  "comunidad": "castilla_leon",
+  "version": "1.0.0",
+  "ultima_revision": "2026-06-17",
+  "revisado_por": "ai-agent",
+  "fuentes": [
+    "Decreto Ley 4/2020",
+    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+  ],
+  "reglas": [
+    {
+      "id": "CYL-FV-001",
+      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "condicion": {
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Inscripción IAPA 3363",
+          "organismo": "Servicio Territorial de Industria, Comercio y Economía",
+          "base_legal": "Decreto Ley 4/2020",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "CAU",
+            "DNI titular"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    },
+    {
+      "id": "CYL-FV-002",
+      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Inscripción IAPA 3363",
+          "organismo": "Servicio Territorial de Industria, Comercio y Economía",
+          "base_legal": "Decreto Ley 4/2020",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "CAU",
+            "DNI titular"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    },
+    {
+      "id": "CYL-FV-003",
+      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
+      "condicion": {
+        "or": [
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "terciario"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Inscripción IAPA 3363",
+          "organismo": "Servicio Territorial de Industria, Comercio y Economía",
+          "base_legal": "Decreto Ley 4/2020",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "CAU",
+            "DNI titular"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    }
+  ]
+}

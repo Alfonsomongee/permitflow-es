@@ -1,0 +1,269 @@
+{
+  "tipo_instalacion": "fotovoltaica_autoconsumo",
+  "comunidad": "andalucia",
+  "version": "1.0.0",
+  "ultima_revision": "2026-06-17",
+  "revisado_por": "pendiente-validacion-tecnica",
+  "fuentes": [
+    "RD 244/2019, de 5 de abril — autoconsumo eléctrico",
+    "RD 1183/2020, de 29 de diciembre — acceso y conexión a red",
+    "Decreto 141/2012, de 1 de junio — instalaciones eléctricas Andalucía",
+    "Resolución de 26 de mayo de 2021, DGRN Andalucía"
+  ],
+  "reglas": [
+    {
+      "id": "AND-FV-001",
+      "descripcion": "Autoconsumo residencial sin excedentes, potencia <= 10kW",
+      "condicion": "potencia_kw <= 10 AND uso == 'residencial'",
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Comunicación previa a la distribuidora",
+          "organismo": "Distribuidora de zona (Endesa/Iberdrola según municipio)",
+          "base_legal": "RD 244/2019, Art. 12.1 — instalaciones sin excedentes",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "solicitud_conexion_distribuidor",
+            "esquema_unifilar_firmado",
+            "memoria_tecnica_simplificada"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Para modalidad sin excedentes (con antivertido), la comunicación es suficiente. No requiere aprobación previa de la distribuidora, solo acuse de recibo.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE) — Baja Tensión",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "base_legal": "Decreto 141/2012 Andalucía, Art. 4 — instalaciones BT",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "documentos_requeridos": [
+            "cie_modelo_oficial_andalucia",
+            "memoria_tecnica_instalacion",
+            "caracteristicas_tecnicas_equipos",
+            "certificado_instalador_autorizado"
+          ],
+          "formulario_ref": "AND-CIE-BT-2021",
+          "paralelo_con": ["AND-FV-001-T1"],
+          "notas": "En instalaciones residenciales <= 10kW, el CIE lo emite directamente el instalador autorizado en BT. No requiere proyecto técnico. El instalador debe estar inscrito en el RIEL andaluz.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) — registro central",
+          "base_legal": "RD 244/2019, Art. 19 — registro de instalaciones de autoconsumo",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado_industria",
+            "datos_instalacion_formulario_miteco",
+            "contrato_con_distribuidora_si_con_excedentes"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Se realiza telemáticamente en la sede electrónica del MITECO. Requiere el CIE previamente tramitado. Paso obligatorio para activar la compensación de excedentes si aplica.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-FV-002",
+      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
+      "condicion": "potencia_kw > 10 AND potencia_kw <= 100 AND uso == 'residencial'",
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Solicitud de punto de acceso y conexión a la red",
+          "organismo": "Distribuidora de zona",
+          "base_legal": "RD 1183/2020, Art. 6 — solicitud de acceso",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 30,
+          "documentos_requeridos": [
+            "solicitud_acceso_conexion",
+            "memoria_tecnica_instalacion",
+            "esquema_unifilar_firmado",
+            "planos_situacion_emplazamiento"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "A diferencia de <= 10kW, aquí se requiere solicitud formal con respuesta de la distribuidora. La distribuidora tiene 30 días para responder con las condiciones técnicas de conexión.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Proyecto técnico de instalación",
+          "organismo": "Colegio Oficial de Ingenieros (visado colegial)",
+          "base_legal": "Decreto 141/2012 Andalucía, Art. 5 — instalaciones BT > 10kW",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "proyecto_tecnico_firmado_ingeniero",
+            "estudio_basico_seguridad_salud"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": ["AND-FV-002-T1"],
+          "notas": "El proyecto debe ser firmado por ingeniero industrial o ingeniero técnico industrial competente. El visado colegial es obligatorio en Andalucía para instalaciones > 10kW.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Autorización administrativa previa (si > 50kW)",
+          "organismo": "Delegación Territorial de Industria — Junta de Andalucía",
+          "base_legal": "Ley 24/2013 del Sector Eléctrico, Art. 53 — instalaciones > 50kW",
+          "plazo_estimado_dias": 60,
+          "plazo_legal_dias": 90,
+          "documentos_requeridos": [
+            "proyecto_tecnico_visado",
+            "estudio_impacto_ambiental_simplificado",
+            "justificante_pago_tasas"
+          ],
+          "formulario_ref": "AND-AAP-2020",
+          "paralelo_con": null,
+          "notas": "Solo aplica si potencia_kw > 50. Para instalaciones entre 10kW y 50kW este trámite no es necesario. Verificar condicion con potencia_kw > 50.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Certificado de Instalación Eléctrica (CIE) + Acta de puesta en servicio",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "base_legal": "Decreto 141/2012 Andalucía, Art. 8",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 30,
+          "documentos_requeridos": [
+            "cie_modelo_oficial_andalucia",
+            "acta_puesta_en_servicio",
+            "proyecto_as_built",
+            "certificado_fin_obra_director"
+          ],
+          "formulario_ref": "AND-CIE-BT-2021",
+          "paralelo_con": null,
+          "notas": "A diferencia de <= 10kW, aquí se requiere acta de puesta en servicio firmada por el director de obra además del CIE.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "MITECO — registro central",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Igual que en AND-FV-001 pero con documentación adicional del proyecto.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-FV-003",
+      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
+      "condicion": "uso == 'industrial' OR uso == 'terciario'",
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Solicitud de punto de acceso y conexión",
+          "organismo": "Distribuidora de zona",
+          "base_legal": "RD 1183/2020, Art. 6",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 30,
+          "documentos_requeridos": [
+            "solicitud_acceso_conexion",
+            "memoria_tecnica",
+            "esquema_unifilar"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "En uso industrial/terciario siempre se requiere solicitud formal independientemente de la potencia.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Proyecto técnico visado",
+          "organismo": "Colegio Oficial de Ingenieros",
+          "base_legal": "Decreto 141/2012 Andalucía, Art. 5",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "proyecto_tecnico_firmado",
+            "estudio_seguridad_salud"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": ["AND-FV-003-T1"],
+          "notas": "Obligatorio en usos industriales y terciarios con independencia de la potencia.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Licencia de obras / actividad (si aplica)",
+          "organismo": "Ayuntamiento del municipio",
+          "base_legal": "Ley 7/2021 LISTA Andalucía — actividades",
+          "plazo_estimado_dias": 45,
+          "plazo_legal_dias": 60,
+          "documentos_requeridos": [
+            "proyecto_tecnico",
+            "solicitud_licencia_obras",
+            "justificante_tasas_municipales"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": ["AND-FV-003-T1"],
+          "notas": "Requerimiento variable por municipio. Verificar con el ayuntamiento antes de tramitar. Algunos municipios exigen declaración responsable en lugar de licencia para instalaciones sobre cubierta existente.",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "CIE + Acta de puesta en servicio",
+          "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
+          "base_legal": "Decreto 141/2012 Andalucía, Art. 8",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 30,
+          "documentos_requeridos": [
+            "cie_modelo_oficial",
+            "acta_puesta_servicio",
+            "proyecto_as_built"
+          ],
+          "formulario_ref": "AND-CIE-BT-2021",
+          "paralelo_con": null,
+          "notas": "",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Inscripción RAC",
+          "organismo": "MITECO",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "tipo_instalacion": "fotovoltaica_autoconsumo",
+  "comunidad": "asturias",
+  "version": "1.0.0",
+  "ultima_revision": "2026-06-17",
+  "revisado_por": "ai-agent",
+  "fuentes": [
+    "Decreto 23/2025",
+    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+  ],
+  "reglas": [
+    {
+      "id": "AST-FV-001",
+      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "condicion": {
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Puesta en servicio BT (Trámite 0065T01)",
+          "organismo": "Consejería de Transición Ecológica",
+          "base_legal": "Decreto 23/2025",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "MTD/Proyecto",
+            "CAU",
+            "tasas"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    },
+    {
+      "id": "AST-FV-002",
+      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Puesta en servicio BT (Trámite 0065T01)",
+          "organismo": "Consejería de Transición Ecológica",
+          "base_legal": "Decreto 23/2025",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "MTD/Proyecto",
+            "CAU",
+            "tasas"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    },
+    {
+      "id": "AST-FV-003",
+      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
+      "condicion": {
+        "or": [
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "terciario"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Puesta en servicio BT (Trámite 0065T01)",
+          "organismo": "Consejería de Transición Ecológica",
+          "base_legal": "Decreto 23/2025",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "MTD/Proyecto",
+            "CAU",
+            "tasas"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Generado automáticamente"
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    }
+  ]
+}

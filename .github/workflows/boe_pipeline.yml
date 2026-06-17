@@ -1,0 +1,38 @@
+name: Pipeline BOE — Actualización normativa
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'  # Cada lunes a las 7:00 UTC (9:00 España)
+  workflow_dispatch:      # También ejecutable manualmente desde GitHub
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Instalar dependencias
+        working-directory: apps/api
+        run: uv sync
+
+      - name: Ejecutar pipeline BOE
+        working-directory: apps/api
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
+          RESEND_FROM_DOMAIN: ${{ secrets.RESEND_FROM_DOMAIN }}
+          ENVIRONMENT: production
+        run: uv run python scripts/boe_pipeline.py
+
+      - name: Subir borradores como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: borradores-${{ github.run_id }}
+          path: apps/api/motor_normativo/borradores/
+          if-no-files-found: ignore
+          retention-days: 30
