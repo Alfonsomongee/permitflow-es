@@ -1,0 +1,401 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "andalucia",
+  "version": "1.1.0",
+  "ultima_revision": "2026-06-17",
+  "revisado_por": "investigacion-deep-research-verificada",
+  "fuentes": [
+    "RD 1027/2007 RITE",
+    "RD 552/2019 RSIF",
+    "RD 115/2017 gases fluorados",
+    "Reglamento UE 2024/573",
+    "Decreto 59/2005 Junta Andalucía",
+    "Orden 5 de marzo de 2013 Junta Andalucía"
+  ],
+  "reglas": [
+    {
+      "id": "AND-CLIM-001",
+      "descripcion": "Potencia < 5kW",
+      "condicion": {
+        "<": [
+          {
+            "var": "potencia_kw"
+          },
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Licencia/DR municipal si hay obra exterior",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "solicitud_declaracion_responsable_obras",
+            "memoria_descriptiva_actuacion",
+            "presupuesto_ejecucion_material",
+            "autorizacion_comunidad_propietarios_si_elementos_comunes"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Obligaciones gases fluorados",
+          "organismo": "Empresa mantenedora certificada",
+          "base_legal": "RD 115/2017 gases fluorados",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificacion_personal_manipulacion_fgas",
+            "registro_tipo_cantidad_refrigerante",
+            "documentacion_equipo_precargado_si_aplica"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-CLIM-002",
+      "descripcion": "Potencia >= 5kW y <= 70kW",
+      "condicion": {
+        "and": [
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Licencia/DR municipal",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "solicitud_declaracion_responsable_obras",
+            "memoria_descriptiva",
+            "presupuesto",
+            "autorizacion_comunidad_si_fachada_cubierta"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Memoria técnica RITE",
+          "organismo": "Técnico/instalador habilitado",
+          "base_legal": "RD 1027/2007 Art. 15.1.b y Art. 17",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "memoria_tecnica_rite_modelo_autonomico",
+            "descripcion_instalacion",
+            "calculo_potencia_termica",
+            "planos_esquemas",
+            "justificacion_rite",
+            "datos_equipos",
+            "manual_uso_mantenimiento"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Ejecución por empresa habilitada RITE/frigorista",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_encargo_empresa_habilitada_rite"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Certificado de instalación térmica",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 1027/2007 Arts. 22-24",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_instalacion_termica_firmado_instalador",
+            "resultados_pruebas_puesta_marcha",
+            "declaracion_conformidad_ejecucion_rite"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Documentación RSIF Nivel 1 si aplica",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 552/2019 Art. 21",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "memoria_tecnica_instalacion_frigorifica",
+            "certificado_instalacion_rsif",
+            "certificado_instalacion_electrica",
+            "declaraciones_conformidad_equipos_presion",
+            "manual_instrucciones",
+            "libro_registro_instalacion_frigorifica",
+            "documentacion_refrigerante_carga"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 6,
+          "nombre": "Comunicación PUES",
+          "organismo": "Consejería Industria Junta Andalucía",
+          "base_legal": "Decreto 59/2005 + Orden 5 marzo 2013",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "comunicacion_puesta_funcionamiento",
+            "ficha_tecnica_descriptiva_rite",
+            "memoria_tecnica_rite",
+            "certificado_instalacion_termica",
+            "autorizacion_representacion_si_tercero"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": "PUES",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-CLIM-003",
+      "descripcion": "Potencia > 70kW",
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Licencia/DR municipal",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "licencia_urbanistica_o_declaracion_responsable",
+            "proyecto_tecnico_si_requerido",
+            "presupuesto_ejecucion_material",
+            "autorizacion_comunidad_propietarios_si_aplica",
+            "estudio_basico_seguridad_salud"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Proyecto técnico RITE",
+          "organismo": "Técnico competente",
+          "base_legal": "RD 1027/2007 Art. 15.1.a y Art. 16",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "proyecto_rite_firmado_tecnico_competente",
+            "memoria_descriptiva",
+            "calculos_justificativos",
+            "planos",
+            "esquemas_principio",
+            "pliego_condiciones",
+            "justificacion_rite",
+            "manual_uso_mantenimiento_proyecto"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "RSIF Nivel 1 o 2 según compresores",
+          "organismo": "Técnico competente",
+          "base_legal": "RD 552/2019",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "proyecto_tecnico_instalacion_frigorifica_nivel2",
+            "certificado_direccion_obra_tecnica",
+            "certificado_instalacion_rsif",
+            "certificado_instalacion_electrica",
+            "declaraciones_conformidad_equipos_presion",
+            "seguro_responsabilidad_civil_si_aplica",
+            "contrato_mantenimiento_rsif",
+            "manual_instrucciones",
+            "libro_registro",
+            "pruebas_presion_estanqueidad_vacio_carga"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Ejecución + Dirección técnica",
+          "organismo": "Director de obra",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_direccion_tecnica",
+            "acta_inicio_obra"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Certificado instalación térmica",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_instalacion_termica_firmado",
+            "certificado_direccion_tecnica_obra",
+            "resultados_pruebas",
+            "documentacion_garantias"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 6,
+          "nombre": "Inspección OCA si procede",
+          "organismo": "OCA",
+          "base_legal": "RD 552/2019 IF-14",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "acta_inspeccion_inicial_oca",
+            "resultado_favorable_inspeccion"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 7,
+          "nombre": "Comunicación PUES",
+          "organismo": "Consejería Industria Junta Andalucía",
+          "base_legal": "Decreto 59/2005 + Orden 5 marzo 2013",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "comunicacion_puesta_funcionamiento",
+            "ficha_tecnica_descriptiva_rite",
+            "proyecto_rite",
+            "certificado_instalacion_termica",
+            "certificado_direccion_tecnica",
+            "certificado_inspeccion_inicial_si_procede",
+            "autorizacion_representacion_si_aplica"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": "PUES",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 8,
+          "nombre": "Contrato mantenimiento",
+          "organismo": "Empresa mantenedora",
+          "base_legal": "RD 1027/2007 Arts. 25-26",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_mantenimiento_empresa_habilitada_rite",
+            "programa_mantenimiento_preventivo"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    }
+  ]
+}

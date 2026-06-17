@@ -28,7 +28,7 @@ def test_residencial_mayor_10kw(clasificador):
         municipio="Sevilla"
     )
     resultado = clasificador.clasificar(params)
-    assert len(resultado.tramites) == 5
+    assert len(resultado.tramites) == 4
     assert "Solicitud de punto de acceso" in resultado.tramites[0].nombre
 
 def test_comunidad_sin_normativa(clasificador):
@@ -41,3 +41,40 @@ def test_comunidad_sin_normativa(clasificador):
     )
     with pytest.raises(NormativaNoEncontradaError):
         clasificador.clasificar(params)
+
+def test_climatizacion_andalucia_5_70kw(clasificador):
+    params = ClasificadorInput(
+        tipo_instalacion="climatizacion_aerotermia",
+        comunidad="andalucia",
+        potencia_kw=12,
+        uso="residencial",
+        municipio="Sevilla"
+    )
+    resultado = clasificador.clasificar(params)
+    assert len(resultado.tramites) == 6
+    assert "PUES" in resultado.tramites[-1].nombre
+
+def test_gas_doméstico_andalucia(clasificador):
+    params = ClasificadorInput(
+        tipo_instalacion="gas_baja_presion",
+        comunidad="andalucia",
+        potencia_kw=24,
+        uso="residencial",
+        municipio="Sevilla",
+        combustible="gas_natural"
+    )
+    resultado = clasificador.clasificar(params)
+    assert len(resultado.tramites) == 5
+    assert "PUES" not in [t.nombre for t in resultado.tramites]
+
+def test_acs_andalucia_70kw(clasificador):
+    params = ClasificadorInput(
+        tipo_instalacion="acs",
+        comunidad="andalucia",
+        potencia_kw=30,
+        uso="residencial",
+        municipio="Sevilla"
+    )
+    resultado = clasificador.clasificar(params)
+    assert len(resultado.tramites) >= 5
+    assert "PUES" in resultado.tramites[-2].nombre or "PUES" in resultado.tramites[-1].nombre

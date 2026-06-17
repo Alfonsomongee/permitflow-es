@@ -12,6 +12,8 @@ interface FormData {
   potencia_kw: string;
   superficie_m2: string;
   uso: string;
+  combustible?: string;
+  presion_bar?: string;
 }
 
 export default function NuevaInstalacionPage() {
@@ -23,6 +25,8 @@ export default function NuevaInstalacionPage() {
     potencia_kw: "",
     superficie_m2: "",
     uso: "residencial",
+    combustible: "gas_natural",
+    presion_bar: "normal",
   });
   const [loading, setLoading] = useState(false);
   const [resultado, setResultado] = useState<any>(null);
@@ -67,6 +71,8 @@ export default function NuevaInstalacionPage() {
         potencia_kw: parseFloat(formData.potencia_kw) || 0,
         superficie_m2: formData.superficie_m2 ? parseFloat(formData.superficie_m2) : null,
         uso: formData.uso,
+        combustible: formData.combustible,
+        presion_bar: formData.presion_bar,
       };
 
       const res = await fetch(`${apiUrl}/api/v1/clasificador`, {
@@ -125,8 +131,9 @@ export default function NuevaInstalacionPage() {
               onChange={(e) => setFormData({...formData, tipo_instalacion: e.target.value})}
             >
               <option value="fotovoltaica_autoconsumo">Fotovoltaica de Autoconsumo</option>
-              <option value="climatizacion">Climatización</option>
-              <option value="acs">ACS</option>
+              <option value="climatizacion_aerotermia">Climatización / Aerotermia</option>
+              <option value="acs">Agua Caliente Sanitaria (ACS)</option>
+              <option value="gas_baja_presion">Gas Baja Presión</option>
             </select>
           </div>
         )}
@@ -145,14 +152,29 @@ export default function NuevaInstalacionPage() {
             <p className="text-sm text-text-secondary">Empieza a escribir para usar el autocompletado de Google Places.</p>
             
             <div className="mt-4">
-              <label className="block text-sm font-semibold mb-1">Comunidad Autónoma (Temporal)</label>
+              <label className="block text-sm font-semibold mb-1">Comunidad Autónoma</label>
               <select 
                 className="w-full p-3 border border-border rounded focus:ring-2 focus:ring-primary outline-none"
                 value={formData.comunidad}
                 onChange={(e) => setFormData({...formData, comunidad: e.target.value})}
               >
                 <option value="andalucia">Andalucía</option>
+                <option value="aragon">Aragón</option>
+                <option value="asturias">Asturias</option>
+                <option value="baleares">Illes Balears</option>
+                <option value="canarias">Canarias</option>
+                <option value="cantabria">Cantabria</option>
+                <option value="castilla_la_mancha">Castilla-La Mancha</option>
+                <option value="castilla_leon">Castilla y León</option>
+                <option value="cataluna">Cataluña</option>
+                <option value="comunidad_valenciana">Comunitat Valenciana</option>
+                <option value="extremadura">Extremadura</option>
+                <option value="galicia">Galicia</option>
+                <option value="la_rioja">La Rioja</option>
                 <option value="madrid">Madrid</option>
+                <option value="murcia">Región de Murcia</option>
+                <option value="navarra">Navarra</option>
+                <option value="pais_vasco">País Vasco</option>
               </select>
             </div>
           </div>
@@ -191,6 +213,29 @@ export default function NuevaInstalacionPage() {
                 <option value="terciario">Terciario</option>
               </select>
             </div>
+            {formData.tipo_instalacion === "gas_baja_presion" && (
+              <>
+                <div>
+                  <label className="block text-sm font-semibold mb-1">Tipo de combustible</label>
+                  <select className="w-full p-3 border border-border rounded focus:ring-2 focus:ring-primary outline-none"
+                    value={formData.combustible || "gas_natural"}
+                    onChange={(e) => setFormData({...formData, combustible: e.target.value})}>
+                    <option value="gas_natural">Gas natural canalizado</option>
+                    <option value="glp_deposito">GLP con depósito fijo</option>
+                    <option value="glp_envases">GLP con envases/botellas</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1">Presión de la red</label>
+                  <select className="w-full p-3 border border-border rounded focus:ring-2 focus:ring-primary outline-none"
+                    value={formData.presion_bar || "normal"}
+                    onChange={(e) => setFormData({...formData, presion_bar: e.target.value})}>
+                    <option value="normal">Normal (≤ 5 bar)</option>
+                    <option value="5+">Media/Alta (&gt; 5 bar)</option>
+                  </select>
+                </div>
+              </>
+            )}
           </div>
         )}
 

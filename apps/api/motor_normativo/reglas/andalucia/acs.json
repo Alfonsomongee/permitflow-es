@@ -1,0 +1,525 @@
+{
+  "tipo_instalacion": "acs",
+  "comunidad": "andalucia",
+  "version": "1.1.0",
+  "ultima_revision": "2026-06-17",
+  "revisado_por": "investigacion-deep-research-verificada",
+  "fuentes": [
+    "RD 1027/2007 RITE",
+    "RD 450/2022 CTE DB-HE4",
+    "RD 919/2006 ITC-ICG 07",
+    "RD 487/2022 Legionella",
+    "RD 614/2024",
+    "Decreto 59/2005 Junta Andalucía",
+    "Orden 5 marzo 2013"
+  ],
+  "reglas": [
+    {
+      "id": "AND-ACS-001",
+      "descripcion": "Potencia < 5kW",
+      "condicion": {
+        "<": [
+          {
+            "var": "potencia_kw"
+          },
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "DR municipal si hay obra exterior",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "solicitud_declaracion_responsable_obras",
+            "memoria_descriptiva",
+            "presupuesto",
+            "autorizacion_comunidad_si_elementos_comunes"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Justificación CTE DB-HE4 si edificio nuevo/reforma",
+          "organismo": "Ayuntamiento",
+          "base_legal": "RD 450/2022 CTE DB-HE4",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "calculo_demanda_acs_mensual_anual",
+            "justificacion_contribucion_renovable",
+            "ficha_tecnica_equipos",
+            "esquema_hidraulico"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-ACS-002",
+      "descripcion": "Potencia >= 5kW y <= 70kW, no industrial",
+      "condicion": {
+        "and": [
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "DR/Licencia municipal",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "solicitud_declaracion_responsable_obras",
+            "memoria_descriptiva",
+            "presupuesto",
+            "autorizacion_comunidad_si_aplica"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Justificación HE4 si aplica",
+          "organismo": "Técnico",
+          "base_legal": "RD 450/2022",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "calculo_demanda_acs",
+            "calculo_contribucion_renovable",
+            "ficha_tecnica_equipos",
+            "scopdhw_si_bomba_calor",
+            "esquema_hidraulico"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Memoria técnica RITE",
+          "organismo": "Técnico/instalador habilitado",
+          "base_legal": "RD 1027/2007 Art.15.1.b",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "memoria_tecnica_rite",
+            "descripcion_instalacion",
+            "calculo_potencia",
+            "planos_esquemas",
+            "justificacion_rite",
+            "datos_equipos_captadores_acumulador_bomba",
+            "manual_uso_mantenimiento"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Ejecución empresa habilitada",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_empresa_instaladora_habilitada_rite"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Certificado instalación térmica",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_instalacion_termica",
+            "resultados_pruebas",
+            "declaracion_conformidad_rite"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 6,
+          "nombre": "PUES",
+          "organismo": "Consejería Industria Junta Andalucía",
+          "base_legal": "Decreto 59/2005",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "comunicacion_puesta_funcionamiento",
+            "ficha_tecnica_descriptiva_rite",
+            "memoria_tecnica",
+            "certificado_instalacion_termica",
+            "autorizacion_representacion_si_aplica"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": "PUES",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 7,
+          "nombre": "Entrega documentación + mantenimiento",
+          "organismo": "Titular",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "proyecto_o_memoria_rite",
+            "manual_uso_mantenimiento",
+            "certificado_registrado",
+            "resultados_pruebas"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-ACS-003",
+      "descripcion": "Potencia > 70kW",
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Licencia municipal",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "licencia_urbanistica_o_declaracion_responsable",
+            "proyecto_tecnico_si_aplica",
+            "presupuesto",
+            "autorizacion_comunidad_si_aplica",
+            "estudio_basico_seguridad_salud"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Justificación HE4",
+          "organismo": "Técnico",
+          "base_legal": "RD 450/2022",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "calculo_demanda_acs_mensual_anual",
+            "perdidas_acumulacion_distribucion_recirculacion",
+            "calculo_contribucion_renovable_anual",
+            "ficha_tecnica_equipos",
+            "esquema_hidraulico",
+            "planos"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Proyecto técnico RITE",
+          "organismo": "Técnico competente",
+          "base_legal": "RD 1027/2007 Art.15.1.a",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "proyecto_rite_firmado_tecnico_competente",
+            "calculos_demanda_acs",
+            "calculos_acumulacion_recirculacion_perdidas",
+            "planos_sala_tecnica",
+            "esquemas_hidraulicos",
+            "fichas_tecnicas_captadores_acumuladores_bombas_intercambiadores",
+            "manual_uso_mantenimiento_proyecto"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Dirección técnica",
+          "organismo": "Director de obra",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_direccion_tecnica_instalacion"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Ejecución empresa habilitada",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_empresa_habilitada"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 6,
+          "nombre": "Certificado instalación térmica",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 1027/2007",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_instalacion_termica_firmado",
+            "certificado_direccion_tecnica",
+            "resultados_pruebas"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 7,
+          "nombre": "Inspección OCA si procede",
+          "organismo": "OCA",
+          "base_legal": "Normativa",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "acta_inspeccion_inicial_oca",
+            "resultado_favorable"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 8,
+          "nombre": "PUES",
+          "organismo": "Consejería Industria Junta Andalucía",
+          "base_legal": "Decreto 59/2005",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "comunicacion_puesta_funcionamiento",
+            "ficha_tecnica_descriptiva_rite",
+            "proyecto_rite",
+            "certificado_instalacion_termica",
+            "certificado_direccion_tecnica",
+            "certificado_inspeccion_inicial_si_procede",
+            "autorizacion_representacion_si_aplica"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": "PUES",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 9,
+          "nombre": "Contrato mantenimiento obligatorio",
+          "organismo": "Empresa mantenedora",
+          "base_legal": "RD 1027/2007 Arts.25-26",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_mantenimiento_empresa_habilitada",
+            "programa_mantenimiento"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 10,
+          "nombre": "Plan Prevención Legionella si ACS centralizada colectiva",
+          "organismo": "Titular/autoridad sanitaria",
+          "base_legal": "RD 487/2022 modificado RD 614/2024",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "plan_prevencion_control_legionella_o_plan_sanitario",
+            "programa_mantenimiento_legionella",
+            "controles_temperatura_desinfeccion",
+            "registros_analisis_si_proceden"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Obligatorio en ACS con acumulación/retorno en edificios colectivos o terciarios",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-ACS-GAS",
+      "descripcion": "Capa de gas sobre RITE",
+      "condicion": {
+        "and": [
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "combustible"
+              },
+              "gas"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado IRG-3 instalación individual",
+          "organismo": "Distribuidora/suministradora",
+          "base_legal": "RD 919/2006 ITC-ICG 07 Anexo",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_irg3_instalacion_individual_gas",
+            "croquis_instalacion",
+            "prueba_estanqueidad",
+            "fichas_aparatos_gas"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Solo si hay caldera o calentador de gas. Distinto del certificado RITE.",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Puesta en servicio con distribuidora",
+          "organismo": "Distribuidora",
+          "base_legal": "RD 919/2006 ITC-ICG 07 Art.3.5.1",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_irg3_firmado",
+            "contrato_suministro_gas",
+            "dni_nif_titular",
+            "cups_si_existe"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    }
+  ]
+}

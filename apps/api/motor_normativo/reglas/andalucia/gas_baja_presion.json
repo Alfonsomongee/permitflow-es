@@ -1,0 +1,486 @@
+{
+  "tipo_instalacion": "gas_baja_presion",
+  "comunidad": "andalucia",
+  "version": "1.1.0",
+  "ultima_revision": "2026-06-17",
+  "revisado_por": "investigacion-deep-research-verificada",
+  "fuentes": [
+    "RD 919/2006 ITC-ICG 07",
+    "RD 919/2006 ITC-ICG 03",
+    "RD 919/2006 ITC-ICG 06",
+    "RD 919/2006 ITC-ICG 09",
+    "RD 1434/2002",
+    "Decreto 94/2018 Junta Andalucía",
+    "Decreto 59/2005 Junta Andalucía",
+    "Decreto 441/2004 Andalucía derechos alta gas"
+  ],
+  "reglas": [
+    {
+      "id": "AND-GAS-001",
+      "descripcion": "IRI doméstica gas natural simple",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "combustible"
+              },
+              "gas_natural"
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "DR/Licencia municipal si hay obra",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "solicitud_declaracion_responsable_obras",
+            "memoria_descriptiva_si_aplica",
+            "autorizacion_comunidad_si_elementos_comunes"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud acometida si no existe",
+          "organismo": "Nedgia/distribuidora zona",
+          "base_legal": "RD 1434/2002 Art.25",
+          "plazo_estimado_dias": 21,
+          "plazo_legal_dias": 6,
+          "documentos_requeridos": [
+            "datos_titular",
+            "direccion_instalacion",
+            "uso_previsto",
+            "caudal_potencia_prevista",
+            "plano_situacion",
+            "prevision_puntos_consumo"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Ejecución por empresa instaladora habilitada categoría A/B/C",
+          "organismo": "Empresa instaladora",
+          "base_legal": "RD 919/2006 ITC-ICG 09",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_empresa_instaladora_gas_categoria_abc"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Certificado IRG-3 instalación individual",
+          "organismo": "Distribuidora/archivo titular",
+          "base_legal": "RD 919/2006 ITC-ICG 07 Anexo",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_irg3_instalacion_individual_gas",
+            "croquis_trazado_materiales_diametros",
+            "accesorios_caudales_aparatos",
+            "prueba_estanqueidad",
+            "certificado_chimenea_si_procede"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Contrato suministro + puesta en servicio distribuidora",
+          "organismo": "Distribuidora",
+          "base_legal": "RD 1434/2002 Arts.31-33",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "dni_nif_titular",
+            "certificado_irg3_firmado",
+            "cups_si_existe",
+            "referencia_catastral",
+            "cuenta_bancaria",
+            "contrato_suministro"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "NO requiere PUES para instalaciones simples sin proyecto. La ITC-ICG 07 no exige comunicación administrativa para IRI doméstica < 70kW",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-GAS-002",
+      "descripcion": "Instalación con proyecto obligatorio",
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "presion_bar"
+              },
+              "5+"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "DR/Licencia municipal",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "licencia_urbanistica_o_declaracion_responsable",
+            "proyecto_tecnico_si_aplica",
+            "presupuesto"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Proyecto técnico instalación receptora",
+          "organismo": "Técnico competente",
+          "base_legal": "RD 919/2006 ITC-ICG 07 Apdo.3.2 y 3.3",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "proyecto_tecnico_instalacion_receptora_gas",
+            "memoria_descriptiva",
+            "calculos_caudal_perdida_carga",
+            "planos_croquis_trazado",
+            "materiales_diametros_ventilacion",
+            "justificacion_une_60670_o_60620",
+            "presupuesto_instrucciones_mantenimiento"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Obligatorio si >70kW individual, >2000kW común, presión >5 bar o técnicas especiales",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Ejecución empresa habilitada",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_empresa_instaladora_habilitada"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Certificados IRG correspondientes",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_irg1_acometida_interior_si_aplica",
+            "certificado_irg2_instalacion_comun_si_aplica",
+            "certificado_irg3_instalacion_individual",
+            "certificado_pruebas_previas_puesta_servicio",
+            "certificado_chimenea_si_aplica",
+            "certificado_direccion_obra_si_hay_proyecto"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Comunicación PUES",
+          "organismo": "Consejería Industria Junta Andalucía",
+          "base_legal": "Decreto 59/2005 + Orden 5 marzo 2013",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "comunicacion_puesta_funcionamiento",
+            "ficha_tecnica_descriptiva",
+            "proyecto_tecnico_gas",
+            "certificados_irg",
+            "autorizacion_representacion_si_aplica"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Solo en instalaciones que requieren proyecto",
+          "plataforma": "PUES",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 6,
+          "nombre": "Contrato suministro + puesta en servicio",
+          "organismo": "Distribuidora/Comercializadora",
+          "base_legal": "RD 1434/2002",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificados_irg_firmados",
+            "contrato_suministro",
+            "dni_titular",
+            "cups_si_existe"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-GAS-003",
+      "descripcion": "Depósito fijo GLP",
+      "condicion": {
+        "==": [
+          {
+            "var": "combustible"
+          },
+          "glp_deposito"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "DR/Licencia municipal",
+          "organismo": "Ayuntamiento",
+          "base_legal": "Normativa municipal",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "licencia_urbanistica",
+            "proyecto_tecnico_si_aplica",
+            "presupuesto",
+            "estudio_basico_seguridad_salud"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "casi siempre por obra civil",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Memoria técnica o proyecto",
+          "organismo": "Técnico competente",
+          "base_legal": "RD 919/2006 ITC-ICG 03",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "memoria_tecnica_o_proyecto_glp",
+            "justificacion_itc_icg03",
+            "planos_ubicacion_distancias_seguridad"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Proyecto obligatorio si capacidad >13m3 o alimenta distribución canalizada",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Inspección inicial",
+          "organismo": "OCA",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "acta_inspeccion_inicial_oca_o_organismo_competente"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Comunicación PUES antes del primer llenado",
+          "organismo": "Consejería Industria Junta Andalucía",
+          "base_legal": "RD 919/2006 ITC-ICG 03 Apdo.5.6",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_instalacion_glp",
+            "certificado_inspeccion",
+            "memoria_o_proyecto",
+            "certificado_direccion_obra_si_proyecto",
+            "contrato_mantenimiento"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "El suministrador no puede llenar antes de la comunicación",
+          "plataforma": "PUES",
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Contrato mantenimiento",
+          "organismo": "Empresa mantenedora",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_mantenimiento_instalacion_glp"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 6,
+          "nombre": "Primer llenado por suministrador",
+          "organismo": "Suministrador",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "justificante_comunicacion_pues_presentada",
+            "contrato_suministro_glp"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    },
+    {
+      "id": "AND-GAS-004",
+      "descripcion": "GLP envases",
+      "condicion": {
+        "==": [
+          {
+            "var": "combustible"
+          },
+          "glp_envases"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Instalación por empresa habilitada",
+          "organismo": "Empresa habilitada",
+          "base_legal": "RD 919/2006 ITC-ICG 06",
+          "plazo_estimado_dias": 0,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "contrato_empresa_instaladora_gas"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado instalación",
+          "organismo": "Instalador",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "certificado_instalacion_envases_glp",
+            "croquis_ubicacion_envases",
+            "prueba_estanqueidad_instalacion_receptora_si_aplica"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "Sin comunicación administrativa. Titular e instalador conservan el certificado. Excepción: un único envase ≤15kg a aparato móvil no requiere ni esto.",
+          "plataforma": null,
+          "obsoleta": false,
+          "obsoleta_desde": null
+        }
+      ]
+    }
+  ]
+}

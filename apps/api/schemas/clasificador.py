@@ -8,6 +8,8 @@ class ClasificadorInput(BaseModel):
     superficie_m2: Optional[float] = Field(None, description="Superficie en m2, si aplica", ge=0)
     uso: str = Field(..., description="Uso de la instalación, ej. residencial, industrial, terciario")
     municipio: str = Field(..., description="Nombre del municipio")
+    combustible: Optional[str] = Field(None, description="Tipo de combustible: gas_natural, glp_deposito, glp_envases, gas")
+    presion_bar: Optional[str] = Field(None, description="Rango de presión: normal o 5+")
 
 class TramiteOutput(BaseModel):
     orden: int = Field(..., description="Orden del trámite")

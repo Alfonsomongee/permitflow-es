@@ -29,7 +29,9 @@ class Clasificador:
             "uso": params.uso,
             "municipio": params.municipio,
             "comunidad": params.comunidad,
-            "tipo_instalacion": params.tipo_instalacion
+            "tipo_instalacion": params.tipo_instalacion,
+            "combustible": params.combustible,
+            "presion_bar": params.presion_bar
         }
         
         for regla in data.get("reglas", []):
