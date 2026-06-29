@@ -9,9 +9,14 @@
  * y se recuperan en el cliente. Ver comentario al final del archivo.
  */
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { notFound } from "next/navigation";
 import { PlanTramitacionView } from "@/components/plan-tramitacion";
 import { type PlanTramitacion, type InstalacionParams } from "@/types/plan";
+import { ChatWidget } from "@/components/chat";
+import fs from "fs";
+import path from "path";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -91,7 +96,25 @@ export default async function PlanPage({ searchParams }: PageProps) {
     throw e;
   }
 
-  return <PlanTramitacionView plan={plan} params={instalacionParams} />;
+  let normativaJson: any = null;
+  try {
+    const filePath = path.join(process.cwd(), '../api/motor_normativo/reglas', instalacionParams.comunidad, instalacionParams.tipo_instalacion + '.json');
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    normativaJson = JSON.parse(fileContent);
+  } catch (e) {
+    // Ignore error if file is not found
+  }
+
+  return (
+    <>
+      <PlanTramitacionView plan={plan} params={instalacionParams} />
+      <ChatWidget
+        plan={plan}
+        params={instalacionParams}
+        normativaJson={normativaJson}
+      />
+    </>
+  );
 }
 
 /*

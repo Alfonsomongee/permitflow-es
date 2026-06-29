@@ -2,16 +2,24 @@
 
 export type Plataforma = "PUES" | "TECI" | "MITECO" | "distribuidora" | "ayuntamiento" | null;
 
+export interface DocumentoRequerido {
+  id: string;
+  label: string;
+  descripcion: string;
+  obligatorio: boolean;
+}
+
 export interface Tramite {
   orden: number;
   nombre: string;
   organismo: string;
   base_legal: string;
   plazo_estimado_dias: number | null;
-  documentos_requeridos: string[];
+  plazo_legal_dias: number | null;
+  documentos_requeridos: DocumentoRequerido[];
   notas: string | null;
   plataforma: Plataforma;
-  plazo_legal_dias: number | null;
+  plataforma_url: string | null;
   coste_estimado: string | null;
 }
 
