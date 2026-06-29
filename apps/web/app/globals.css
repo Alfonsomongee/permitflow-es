@@ -2,8 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fuentes locales (ya están en apps/web/app/fonts/) */
+@font-face {
+  font-family: "GeistMono";
+  src: url("/fonts/GeistMonoVF.woff") format("woff");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 @layer base {
+  :root {
+    --color-primary: #1B4FD8;
+    --color-primary-dark: #1340B0;
+    --color-primary-light: #EEF3FE;
+    --color-bg: #F9FAFB;
+    --color-surface: #ffffff;
+    --color-border: #E5E7EB;
+    --color-text-primary: #111827;
+    --color-text-secondary: #6B7280;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
-    @apply bg-white text-text-primary;
+    @apply bg-bg text-text-primary;
+  }
+
+  /* Foco visible accesible */
+  *:focus-visible {
+    outline: 2px solid #1B4FD8;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  /* Ocultar scrollbar manteniendo funcionalidad */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
