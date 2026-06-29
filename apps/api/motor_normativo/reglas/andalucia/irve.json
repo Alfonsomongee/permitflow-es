@@ -1,0 +1,337 @@
+{
+  "tipo_instalacion": "irve",
+  "comunidad": "andalucia",
+  "version": "1.0.0",
+  "ultima_revision": "2026-06-17",
+  "fuentes": [
+    "REBT RD 842/2002 ITC-BT-52",
+    "REBT RD 842/2002 ITC-BT-04",
+    "REBT RD 842/2002 ITC-BT-05",
+    "RD 184/2022",
+    "Orden TED/445/2023",
+    "Ley 7/2021 art.15",
+    "RDL 29/2021",
+    "RD 1183/2020",
+    "Circular CNMC 1/2024",
+    "Decreto 59/2005 Junta Andalucía",
+    "Orden 5 marzo 2013 Junta Andalucía",
+    "Orden 24 octubre 2005 Junta Andalucía"
+  ],
+  "reglas": [
+    {
+      "id": "AND-IRVE-001",
+      "condicion": {
+        "and": [
+          { "==": [{ "var": "acceso_publico" }, false] },
+          { "<=": [{ "var": "potencia_kw" }, 50] },
+          { "!=": [{ "var": "modo_recarga" }, "4"] },
+          { "!=": [{ "var": "ubicacion_irve" }, "exterior"] },
+          { "!=": [{ "var": "requiere_nuevo_suministro" }, true] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador/técnico habilitado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04",
+          "plazo_estimado_dias": 2,
+          "plataforma": null,
+          "documentos_requeridos": [
+            "memoria_tecnica_diseno_itc_bt_52",
+            "esquema_unifilar_conexion_elegido",
+            "datos_titular",
+            "datos_instalador",
+            "potencia_prevista",
+            "identificacion_puntos_recarga"
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Comunicación previa comunidad propietarios (si plaza comunitaria)",
+          "organismo": "Comunidad de propietarios",
+          "base_legal": "Ley 49/1960 art.17.5",
+          "plazo_estimado_dias": 7,
+          "plataforma": null,
+          "documentos_requeridos": [
+            "comunicacion_escrita_comunidad",
+            "identificacion_plaza",
+            "trazado_previsto",
+            "compromiso_asumir_coste"
+          ],
+          "notas": "Solo si la plaza está en garaje comunitario. No requiere acuerdo, solo comunicación previa. La comunidad no puede vetarlo si el interesado asume el coste."
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración responsable municipal si hay obra",
+          "organismo": "Ayuntamiento",
+          "base_legal": "RDL 29/2021 art.3",
+          "plazo_estimado_dias": 7,
+          "plataforma": "Sede electrónica ayuntamiento",
+          "documentos_requeridos": [
+            "formulario_declaracion_responsable_obras",
+            "memoria_descriptiva",
+            "plano_situacion",
+            "presupuesto_ejecucion_material",
+            "justificante_icio_tasa"
+          ],
+          "notas": "Solo si hay obra: rozas, canalizaciones, zanjas. RDL 29/2021 elimina licencia previa para IRVE sustituyéndola por declaración responsable."
+        },
+        {
+          "orden": 4,
+          "nombre": "Ejecución por instalador habilitado",
+          "organismo": "Empresa instaladora eléctrica habilitada",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
+          "plazo_estimado_dias": 0,
+          "documentos_requeridos": [
+            "contrato_instalador_habilitado_bt"
+          ]
+        },
+        {
+          "orden": 5,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador habilitado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04",
+          "plazo_estimado_dias": 1,
+          "documentos_requeridos": [
+            "cie_modelo_junta_andalucia",
+            "esquema_unifilar_ejecutado",
+            "resultado_verificaciones"
+          ]
+        },
+        {
+          "orden": 6,
+          "nombre": "Registro TECI",
+          "organismo": "Consejería Industria Energía Minas Junta Andalucía",
+          "base_legal": "Orden 24 octubre 2005 Junta Andalucía",
+          "plazo_estimado_dias": 1,
+          "plataforma": "TECI",
+          "coste_estimado": "13,37€ vivienda individual / 38,41€ otros usos",
+          "documentos_requeridos": [
+            "mtd_firmada",
+            "cie_modelo_junta",
+            "ficha_tecnica_descriptiva_bt",
+            "justificante_tasa_teci"
+          ],
+          "notas": "TECI para instalaciones sin proyecto. Si la instalación existente fue registrada por PUES, usar PUES aunque no requiera proyecto."
+        }
+      ]
+    },
+    {
+      "id": "AND-IRVE-002",
+      "condicion": {
+        "or": [
+          { "and": [{ "==": [{ "var": "ubicacion_irve" }, "interior"] }, { ">": [{ "var": "potencia_kw" }, 50] }] },
+          { "and": [{ "==": [{ "var": "ubicacion_irve" }, "exterior"] }, { ">": [{ "var": "potencia_kw" }, 10] }] },
+          { "==": [{ "var": "modo_recarga" }, "4"] },
+          { "==": [{ "var": "acceso_publico" }, true] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Comunicación/acuerdo comunidad propietarios si aplica",
+          "organismo": "Comunidad de propietarios",
+          "base_legal": "Ley 49/1960 art.17.5",
+          "plazo_estimado_dias": 7,
+          "documentos_requeridos": [
+            "comunicacion_escrita_comunidad",
+            "identificacion_plaza",
+            "trazado_previsto",
+            "compromiso_asumir_coste"
+          ],
+          "notas": "Solo si la plaza está en garaje comunitario. No requiere acuerdo, solo comunicación previa. La comunidad no puede vetarlo si el interesado asume el coste.",
+          "paralelo_con": [2]
+        },
+        {
+          "orden": 2,
+          "nombre": "Proyecto técnico BT + ITC-BT-52",
+          "organismo": "Técnico competente (ingeniero/ingeniero técnico)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 ITC-BT-52",
+          "plazo_estimado_dias": 10,
+          "documentos_requeridos": [
+            "proyecto_tecnico_bt_firmado_tecnico_competente",
+            "esquema_unifilar_itc_bt_52",
+            "calculo_potencia_simultaneidad",
+            "estudio_armonicos_si_mas_5_estaciones",
+            "memoria_descriptiva",
+            "pliego_condiciones"
+          ],
+          "notas": "Modo 4 siempre requiere proyecto. Exterior >10kW siempre requiere proyecto. Si >5 estaciones el proyectista debe estudiar necesidad de filtros de armónicos."
+        },
+        {
+          "orden": 3,
+          "nombre": "Solicitud nuevo suministro/aumento potencia si aplica",
+          "organismo": "E-Distribución o i-DE según zona",
+          "base_legal": "RD 1183/2020 + Circular CNMC 1/2024",
+          "plazo_estimado_dias": 21,
+          "plataforma": "Portal distribuidora",
+          "documentos_requeridos": [
+            "solicitud_alta_modificacion_suministro",
+            "cups_o_referencia_catastral",
+            "potencia_solicitada",
+            "numero_puntos_potencia_unitaria",
+            "esquema_unifilar",
+            "memoria_tecnica"
+          ],
+          "notas": "Plazo legal: 5 días BT ≤15kW sin extensión, 15 días resto BT. Real: 1-3 semanas BT simple, hasta 6 meses con obra de extensión.",
+          "paralelo_con": [2]
+        },
+        {
+          "orden": 4,
+          "nombre": "Declaración responsable municipal",
+          "organismo": "Ayuntamiento",
+          "base_legal": "RDL 29/2021 art.3",
+          "plazo_estimado_dias": 7,
+          "plataforma": "Sede electrónica ayuntamiento",
+          "documentos_requeridos": [
+            "formulario_declaracion_responsable_obras",
+            "memoria_descriptiva",
+            "plano_situacion",
+            "presupuesto_ejecucion_material",
+            "justificante_icio_tasa"
+          ],
+          "notas": "Solo si hay obra: rozas, canalizaciones, zanjas.",
+          "paralelo_con": [2]
+        },
+        {
+          "orden": 5,
+          "nombre": "Ejecución por instalador habilitado",
+          "organismo": "Empresa instaladora eléctrica habilitada",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
+          "plazo_estimado_dias": 0,
+          "documentos_requeridos": [
+            "contrato_instalador_habilitado_bt"
+          ]
+        },
+        {
+          "orden": 6,
+          "nombre": "Inspección inicial OCA",
+          "organismo": "OCA habilitada",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 7,
+          "documentos_requeridos": [
+            "acta_certificado_inspeccion_inicial_oca",
+            "resultado_favorable_sin_defectos_graves"
+          ],
+          "notas": "Obligatorio si requiere proyecto. Genera inspección periódica cada 5 años."
+        },
+        {
+          "orden": 7,
+          "nombre": "CIE + Certificado dirección técnica",
+          "organismo": "Técnico director + instalador",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04",
+          "plazo_estimado_dias": 1,
+          "documentos_requeridos": [
+            "cie_modelo_junta_andalucia",
+            "certificado_direccion_tecnica_final_obra",
+            "resultado_verificaciones_pruebas"
+          ]
+        },
+        {
+          "orden": 8,
+          "nombre": "Comunicación PUES",
+          "organismo": "Consejería Industria Energía Minas Junta Andalucía",
+          "base_legal": "Decreto 59/2005 art.5 + Orden 5 marzo 2013",
+          "plazo_estimado_dias": 3,
+          "plataforma": "PUES",
+          "coste_estimado": "62,25€ hasta 6.000€ presupuesto + incrementos por tramos",
+          "documentos_requeridos": [
+            "proyecto_tecnico_bt",
+            "certificado_direccion_tecnica",
+            "cie_modelo_junta",
+            "certificado_inspeccion_inicial_oca",
+            "ficha_tecnica_descriptiva_bt",
+            "justificante_tasa_pues"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AND-IRVE-003",
+      "condicion": {
+        "==": [{ "var": "acceso_publico" }, true]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Alta operador CPO/EMSP",
+          "organismo": "MITECO + Comunidad Autónoma",
+          "base_legal": "RD 184/2022 + Orden TED/445/2023",
+          "plazo_estimado_dias": 7,
+          "plataforma": "RIPREE MITECO",
+          "documentos_requeridos": [
+            "datos_cpo_emsp",
+            "nif_razon_social",
+            "ubicacion_coordenadas",
+            "potencia_conectores",
+            "horarios_formas_pago",
+            "accesibilidad_precio"
+          ],
+          "notas": "Toda IRVE de acceso público debe comunicar información estática al MITECO/RIPREE. Actualización en menos de 1 semana tras cambios."
+        },
+        {
+          "orden": 2,
+          "nombre": "Información dinámica SGV si ≥43 kW por punto",
+          "organismo": "MITECO vía REE/PASOS",
+          "base_legal": "Resolución MITECO 2 abril 2025",
+          "plazo_estimado_dias": 7,
+          "plataforma": "SGV/PASOS",
+          "documentos_requeridos": [
+            "datos_dinamicos_disponibilidad_precio_tiempo_real"
+          ],
+          "notas": "Solo obligatorio si potencia por punto ≥43 kW. Para puntos <43 kW la información dinámica es voluntaria."
+        },
+        {
+          "orden": 3,
+          "nombre": "Autorización art.53 si estación >250 kW",
+          "organismo": "Administración energética competente",
+          "base_legal": "RD 184/2022 art.9 + Ley 24/2013 art.53",
+          "plazo_estimado_dias": 180,
+          "documentos_requeridos": [
+            "proyecto_tecnico",
+            "separatas_afecciones",
+            "permisos_acceso_conexion",
+            "autorizaciones_sectoriales"
+          ],
+          "notas": "Solo si potencia total de la estación >250 kW. Puede requerir 3-12 meses o más."
+        }
+      ]
+    },
+    {
+      "id": "AND-IRVE-004",
+      "condicion": {
+        "==": [{ "var": "solicita_ayuda" }, true]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Solicitud MOVES III vía empresa adherida",
+          "organismo": "Agencia Andaluza de la Energía",
+          "base_legal": "RD 266/2021 + RDL 3/2025",
+          "plazo_estimado_dias": 30,
+          "plataforma": "Aplicación telemática MOVES Agencia Andaluza",
+          "documentos_requeridos": [
+            "formulario_otorgamiento_representacion_empresa_adherida",
+            "solicitud_telematica_moves"
+          ],
+          "notas": "Convocatoria 2025 cerrada. Expedientes concedidos en fase justificación hasta 31/12/2026. Para nuevas convocatorias consultar Agencia Andaluza de la Energía."
+        },
+        {
+          "orden": 2,
+          "nombre": "Justificación económica y técnica",
+          "organismo": "Agencia Andaluza de la Energía",
+          "base_legal": "RD 266/2021",
+          "plazo_estimado_dias": 30,
+          "documentos_requeridos": [
+            "facturas_pagadas",
+            "documentacion_legalizacion_irve",
+            "fotografias_instalacion",
+            "documentacion_exigida_convocatoria"
+          ],
+          "notas": "Plazo justificación: 6 meses si ayuda ≤10.000€, 12 meses si >10.000€, máximo 31/12/2026."
+        }
+      ]
+    }
+  ]
+}

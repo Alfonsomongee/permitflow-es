@@ -78,3 +78,25 @@ def test_acs_andalucia_70kw(clasificador):
     resultado = clasificador.clasificar(params)
     assert len(resultado.tramites) >= 5
     assert "PUES" in resultado.tramites[-2].nombre or "PUES" in resultado.tramites[-1].nombre
+
+def test_irve_andalucia(clasificador):
+    params = ClasificadorInput(
+        tipo_instalacion="irve",
+        comunidad="andalucia",
+        potencia_kw=22,
+        uso="residencial",
+        municipio="Sevilla",
+        acceso_publico=False,
+        modo_recarga="3",
+        ubicacion_irve="garaje_comunitario",
+        requiere_nuevo_suministro=False,
+        solicita_ayuda=True
+    )
+    resultado = clasificador.clasificar(params)
+    # Debería coger la regla AND-IRVE-001 y la AND-IRVE-004 (ayudas)
+    # total: 6 trámites de la 001 + 2 trámites de la 004 = 8 trámites
+    assert len(resultado.tramites) == 8
+    nombres_tramites = [t.nombre for t in resultado.tramites]
+    assert "Memoria Técnica de Diseño (MTD)" in nombres_tramites
+    assert "Registro TECI" in nombres_tramites
+    assert "Solicitud MOVES III vía empresa adherida" in nombres_tramites

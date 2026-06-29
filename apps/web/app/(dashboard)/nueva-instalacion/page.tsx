@@ -14,6 +14,13 @@ interface FormData {
   uso: string;
   combustible?: string;
   presion_bar?: string;
+  numero_puntos?: string;
+  potencia_por_punto_kw?: string;
+  modo_recarga?: string;
+  acceso_publico?: boolean;
+  ubicacion_irve?: string;
+  requiere_nuevo_suministro?: boolean;
+  solicita_ayuda?: boolean;
 }
 
 export default function NuevaInstalacionPage() {
@@ -27,6 +34,13 @@ export default function NuevaInstalacionPage() {
     uso: "residencial",
     combustible: "gas_natural",
     presion_bar: "normal",
+    numero_puntos: "1",
+    potencia_por_punto_kw: "7.4",
+    modo_recarga: "3",
+    acceso_publico: false,
+    ubicacion_irve: "garaje_comunitario",
+    requiere_nuevo_suministro: false,
+    solicita_ayuda: false,
   });
   const [loading, setLoading] = useState(false);
   const [resultado, setResultado] = useState<any>(null);
@@ -37,8 +51,8 @@ export default function NuevaInstalacionPage() {
   const [googleLoaded, setGoogleLoaded] = useState(false);
 
   useEffect(() => {
-    if (step === 2 && googleLoaded && window.google && autocompleteInputRef.current) {
-      const autocomplete = new window.google.maps.places.Autocomplete(
+    if (step === 2 && googleLoaded && (window as any).google && autocompleteInputRef.current) {
+      const autocomplete = new (window as any).google.maps.places.Autocomplete(
         autocompleteInputRef.current,
         {
           types: ["(cities)"],
@@ -73,6 +87,13 @@ export default function NuevaInstalacionPage() {
         uso: formData.uso,
         combustible: formData.combustible,
         presion_bar: formData.presion_bar,
+        numero_puntos: formData.tipo_instalacion === "irve" ? parseInt(formData.numero_puntos || "1") : null,
+        potencia_por_punto_kw: formData.tipo_instalacion === "irve" ? parseFloat(formData.potencia_por_punto_kw || "7.4") : null,
+        modo_recarga: formData.tipo_instalacion === "irve" ? formData.modo_recarga : null,
+        acceso_publico: formData.tipo_instalacion === "irve" ? formData.acceso_publico : null,
+        ubicacion_irve: formData.tipo_instalacion === "irve" ? formData.ubicacion_irve : null,
+        requiere_nuevo_suministro: formData.tipo_instalacion === "irve" ? formData.requiere_nuevo_suministro : null,
+        solicita_ayuda: formData.solicita_ayuda || false,
       };
 
       const res = await fetch(`${apiUrl}/api/v1/clasificador`, {
@@ -134,6 +155,7 @@ export default function NuevaInstalacionPage() {
               <option value="climatizacion_aerotermia">Climatización / Aerotermia</option>
               <option value="acs">Agua Caliente Sanitaria (ACS)</option>
               <option value="gas_baja_presion">Gas Baja Presión</option>
+              <option value="irve">Puntos de Recarga (IRVE)</option>
             </select>
           </div>
         )}
@@ -236,6 +258,50 @@ export default function NuevaInstalacionPage() {
                 </div>
               </>
             )}
+            {formData.tipo_instalacion === "irve" && (
+              <>
+                <div>
+                  <label className="block text-sm font-semibold mb-1">Ubicación</label>
+                  <select className="w-full p-3 border border-border rounded focus:ring-2 focus:ring-primary outline-none"
+                    value={formData.ubicacion_irve || "garaje_comunitario"}
+                    onChange={(e) => setFormData({...formData, ubicacion_irve: e.target.value})}>
+                    <option value="garaje_comunitario">Garaje comunitario</option>
+                    <option value="interior">Interior (aparcamiento o nave)</option>
+                    <option value="exterior">Exterior (recinto privado)</option>
+                    <option value="via_publica">Vía pública</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-1">Modo de recarga</label>
+                  <select className="w-full p-3 border border-border rounded focus:ring-2 focus:ring-primary outline-none"
+                    value={formData.modo_recarga || "3"}
+                    onChange={(e) => setFormData({...formData, modo_recarga: e.target.value})}>
+                    <option value="1">Modo 1 (Schuko básico sin comunicación)</option>
+                    <option value="2">Modo 2 (Schuko con cable de control)</option>
+                    <option value="3">Modo 3 (Wallbox - AC)</option>
+                    <option value="4">Modo 4 (Carga rápida - DC)</option>
+                  </select>
+                </div>
+                <div className="flex items-center space-x-2 mt-4">
+                  <input type="checkbox" id="acceso_publico" 
+                    checked={formData.acceso_publico || false}
+                    onChange={(e) => setFormData({...formData, acceso_publico: e.target.checked})} className="w-4 h-4 text-primary rounded border-border" />
+                  <label htmlFor="acceso_publico" className="text-sm font-semibold">De acceso público</label>
+                </div>
+                <div className="flex items-center space-x-2 mt-2">
+                  <input type="checkbox" id="requiere_nuevo_suministro" 
+                    checked={formData.requiere_nuevo_suministro || false}
+                    onChange={(e) => setFormData({...formData, requiere_nuevo_suministro: e.target.checked})} className="w-4 h-4 text-primary rounded border-border" />
+                  <label htmlFor="requiere_nuevo_suministro" className="text-sm font-semibold">Requiere nuevo suministro o aumento de potencia</label>
+                </div>
+                <div className="flex items-center space-x-2 mt-2">
+                  <input type="checkbox" id="solicita_ayuda" 
+                    checked={formData.solicita_ayuda || false}
+                    onChange={(e) => setFormData({...formData, solicita_ayuda: e.target.checked})} className="w-4 h-4 text-primary rounded border-border" />
+                  <label htmlFor="solicita_ayuda" className="text-sm font-semibold">Solicitar subvención (MOVES III)</label>
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -290,6 +356,12 @@ export default function NuevaInstalacionPage() {
                           {tramite.plazo_estimado_dias ? `${tramite.plazo_estimado_dias} días` : 'No especificado'}
                         </span>
                       </div>
+                      {tramite.plataforma && (
+                        <div><span className="font-bold">Plataforma:</span> {tramite.plataforma}</div>
+                      )}
+                      {tramite.coste_estimado && (
+                        <div><span className="font-bold">Coste administrativo:</span> {tramite.coste_estimado}</div>
+                      )}
                     </div>
 
                     <hr className="border-border" />
