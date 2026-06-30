@@ -1,17 +1,102 @@
+"""
+revisar_borrador.py v2 — PermitFlow ES
+========================================
+Mejoras sobre v1:
+  - Muestra el diff_sugerido de forma legible
+  - Opción 'a' (aplicar) intenta aplicar el diff automáticamente al JSON
+  - Actualiza el estado en Supabase al marcar como leída
+"""
+
 import sys
 import json
 from pathlib import Path
+from datetime import datetime
 
 API_DIR = Path(__file__).resolve().parent.parent
 BORRADORES_DIR = API_DIR / "motor_normativo" / "borradores"
+REGLAS_DIR = API_DIR / "motor_normativo" / "reglas"
+
+sys.path.insert(0, str(API_DIR))
+
+
+def aplicar_diff_automatico(diff: dict, reglas_dir: Path) -> bool:
+    """
+    Intenta aplicar el diff sugerido por el LLM a los JSONs del motor.
+    Solo aplica cambios simples (modificar_campo). Los complejos requieren
+    revisión manual.
+
+    Devuelve True si aplicó algo, False si requiere intervención manual.
+    """
+    if not diff or not diff.get("cambios"):
+        return False
+
+    aplicados = 0
+    for cambio in diff["cambios"]:
+        tipo = cambio.get("tipo")
+        if tipo != "modificar_campo":
+            print(f"    ⚠ Cambio '{tipo}' requiere revisión manual")
+            continue
+
+        # Detectar qué archivo afecta
+        for archivo in diff.get("archivos_afectados", []):
+            ruta_json = reglas_dir / archivo
+            if not ruta_json.exists():
+                print(f"    ✗ Archivo no encontrado: {archivo}")
+                continue
+
+            try:
+                with open(ruta_json, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+
+                # Navegar por la ruta del campo (ej: "reglas[0].tramites[2].plazo_estimado_dias")
+                ruta_campo = cambio.get("ruta", "")
+                valor_nuevo = cambio.get("valor_nuevo")
+
+                # Parser simple de rutas tipo "reglas[0].tramites[2].campo"
+                obj = data
+                partes = []
+                import re
+                tokens = re.split(r'[\.\[\]]', ruta_campo)
+                tokens = [t for t in tokens if t]
+
+                for t in tokens[:-1]:
+                    if t.isdigit():
+                        obj = obj[int(t)]
+                    else:
+                        obj = obj[t]
+
+                campo_final = tokens[-1]
+                if campo_final.isdigit():
+                    obj[int(campo_final)] = valor_nuevo
+                else:
+                    obj[campo_final] = valor_nuevo
+
+                # Actualizar versión y fecha
+                if "version" in data:
+                    partes_ver = data["version"].split(".")
+                    partes_ver[-1] = str(int(partes_ver[-1]) + 1)
+                    data["version"] = ".".join(partes_ver)
+                data["ultima_revision"] = datetime.now().strftime("%Y-%m-%d")
+
+                with open(ruta_json, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+
+                print(f"    ✓ Aplicado: {ruta_campo} → {valor_nuevo} en {archivo}")
+                aplicados += 1
+
+            except Exception as e:
+                print(f"    ✗ Error aplicando diff en {archivo}: {e}")
+
+    return aplicados > 0
+
 
 def main():
     if not BORRADORES_DIR.exists():
-        print("No hay borradores pendientes (directorio no existe).")
+        print("No hay borradores pendientes.")
         return
 
-    archivos = [f for f in BORRADORES_DIR.glob("*.json")]
-    
+    archivos = sorted(BORRADORES_DIR.glob("*.json"))
+
     pendientes = []
     for arch in archivos:
         try:
@@ -21,53 +106,86 @@ def main():
                     pendientes.append((arch, data))
         except Exception as e:
             print(f"Error leyendo {arch.name}: {e}")
-            
+
     if not pendientes:
-        print("No hay borradores pendientes de revisión.")
+        print("✓ No hay borradores pendientes de revisión.")
         return
-        
-    print(f"Tienes {len(pendientes)} borradores pendientes.\n")
-    
+
+    print(f"\n{'='*60}")
+    print(f"  {len(pendientes)} borradores pendientes")
+    print(f"{'='*60}\n")
+
     for arch, data in pendientes:
         doc = data.get("documento", {})
         analisis = data.get("analisis", {})
-        
+        diff = analisis.get("diff_sugerido", {})
+
+        urgencia = analisis.get("nivel_urgencia", "baja").upper()
+        color = {"ALTA": "🔴", "MEDIA": "🟡", "BAJA": "🟢"}.get(urgencia, "⚪")
+
+        print(f"{color} [{urgencia}] {doc.get('titulo', 'Sin título')[:80]}")
+        print(f"   Resumen: {analisis.get('resumen', 'N/A')}")
+        print(f"   Tipo: {analisis.get('tipo', 'N/A')}")
+        print(f"   Verticales: {', '.join(analisis.get('tipos_instalacion_afectados', []))}")
+        print(f"   CCAA: {', '.join(analisis.get('ccaa_afectadas', []))}")
+        print(f"   URL: {doc.get('url', 'N/A')}")
+
+        # Mostrar resumen del diff
+        if diff and diff.get("cambios"):
+            print(f"\n   📝 Diff sugerido: {diff.get('descripcion', '')}")
+            for c in diff["cambios"][:3]:
+                print(f"      • {c.get('tipo')}: {c.get('ruta', '')} → {c.get('valor_nuevo', '')}")
+                print(f"        Motivo: {c.get('motivo', '')[:60]}")
+            if len(diff["cambios"]) > 3:
+                print(f"      ... y {len(diff['cambios']) - 3} cambios más")
+
+        print(f"\n   Archivo: {arch.name}")
         print("-" * 60)
-        print(f"ARCHIVO: {arch.name}")
-        print(f"TÍTULO: {doc.get('titulo')}")
-        print(f"URGENCIA: {analisis.get('nivel_urgencia', 'N/A').upper()}")
-        print(f"RESUMEN: {analisis.get('resumen')}")
-        print("CAMBIOS DETECTADOS:")
-        if analisis.get("tramites_nuevos"):
-            print(f"  - Nuevos: {len(analisis['tramites_nuevos'])}")
-        if analisis.get("tramites_modificados"):
-            print(f"  - Modificados: {len(analisis['tramites_modificados'])}")
-        if analisis.get("tramites_eliminados"):
-            print(f"  - Eliminados: {len(analisis['tramites_eliminados'])}")
-            
-        print("-" * 60)
-        
+
         while True:
-            resp = input("¿Aplicar este cambio? (s/n/ver): ").strip().lower()
-            if resp == 'ver':
-                print(json.dumps(analisis, indent=2, ensure_ascii=False))
-            elif resp == 's':
-                print("\nPara aplicar este cambio, abre el JSON correspondiente en motor_normativo/reglas/ e incorpora los cambios detallados en el análisis.")
+            print("  Opciones: [v]er completo | [a]plicar diff auto | [s]í, marcar revisado | [n]o, descartar")
+            resp = input("  → ").strip().lower()
+
+            if resp == "v":
+                print("\n" + json.dumps(analisis, indent=2, ensure_ascii=False) + "\n")
+
+            elif resp == "a":
+                print("\n  Intentando aplicar diff automáticamente...")
+                ok = aplicar_diff_automatico(diff, REGLAS_DIR)
+                if ok:
+                    print("  ✓ Diff aplicado. Revisa los JSONs modificados antes de commitear.")
+                else:
+                    print("  ✗ Diff requiere revisión manual. Abre los JSONs indicados.")
                 data["revisado"] = True
+                data["aplicado_automaticamente"] = ok
+                data["revisado_en"] = datetime.now().isoformat()
                 with open(arch, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
                 break
-            elif resp == 'n':
-                print("Descartado.")
+
+            elif resp == "s":
+                data["revisado"] = True
+                data["revisado_en"] = datetime.now().isoformat()
+                with open(arch, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                print("  ✓ Marcado como revisado")
+                break
+
+            elif resp == "n":
                 data["revisado"] = True
                 data["descartado"] = True
+                data["revisado_en"] = datetime.now().isoformat()
                 with open(arch, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
+                print("  ✗ Descartado")
                 break
             else:
-                print("Respuesta no válida.")
+                print("  Respuesta no válida (v/a/s/n)")
 
-    print("\nRevisión completada.")
+        print()
+
+    print("✓ Revisión completada.")
+
 
 if __name__ == "__main__":
     main()

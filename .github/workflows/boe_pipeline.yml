@@ -1,13 +1,15 @@
-name: Pipeline BOE — Actualización normativa
+name: Pipeline BOE v2 — Actualización normativa automática
 
 on:
   schedule:
-    - cron: '0 7 * * 1'  # Cada lunes a las 7:00 UTC (9:00 España)
-  workflow_dispatch:      # También ejecutable manualmente desde GitHub
+    - cron: '0 7 * * 1'   # Lunes 9:00 España — después del fin de semana
+    - cron: '0 7 * * 4'   # Jueves 9:00 España — mitad de semana
+  workflow_dispatch:        # Ejecución manual desde GitHub Actions
 
 jobs:
   pipeline:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -16,15 +18,20 @@ jobs:
 
       - name: Instalar dependencias
         working-directory: apps/api
-        run: uv sync
+        run: |
+          uv sync
+          # supabase-python para guardar alertas en base de datos
+          uv add supabase
 
-      - name: Ejecutar pipeline BOE
+      - name: Ejecutar pipeline BOE v2
         working-directory: apps/api
         env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
-          RESEND_FROM_DOMAIN: ${{ secrets.RESEND_FROM_DOMAIN }}
+          DEEPSEEK_API_KEY:       ${{ secrets.DEEPSEEK_API_KEY }}
+          RESEND_API_KEY:         ${{ secrets.RESEND_API_KEY }}
+          NOTIFICATION_EMAIL:     ${{ secrets.NOTIFICATION_EMAIL }}
+          RESEND_FROM_DOMAIN:     ${{ secrets.RESEND_FROM_DOMAIN }}
+          SUPABASE_URL:           ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           ENVIRONMENT: production
         run: uv run python scripts/boe_pipeline.py
 
@@ -36,3 +43,21 @@ jobs:
           path: apps/api/motor_normativo/borradores/
           if-no-files-found: ignore
           retention-days: 30
+
+      - name: Abrir PR si hay borradores con diff aplicable
+        if: success()
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(normativa): actualización automática pipeline BOE"
+          title: "🔔 Actualización normativa detectada por pipeline BOE"
+          body: |
+            El pipeline BOE ha detectado cambios normativos relevantes.
+            
+            Revisa los borradores en `apps/api/motor_normativo/borradores/`
+            y los JSONs modificados antes de hacer merge.
+            
+            **Acción requerida:** Revisar y aprobar los cambios en el motor normativo.
+          branch: "normativa/pipeline-${{ github.run_id }}"
+          delete-branch: true
+          labels: "normativa,automated"

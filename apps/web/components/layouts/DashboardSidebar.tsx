@@ -11,6 +11,7 @@ import {
   Settings,
   Zap,
 } from "lucide-react";
+import { SidebarUser } from "./SidebarUser";
 
 const NAV_ITEMS = [
   { href: "/expedientes",         label: "Expedientes",   icon: LayoutGrid },
@@ -78,16 +79,7 @@ export function DashboardSidebar() {
           Ajustes
         </Link>
 
-        {/* Indicador de empresa / cuenta */}
-        <div className="mt-3 flex items-center gap-2.5 rounded-lg px-3 py-2.5">
-          <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-light text-[10px] font-semibold text-primary">
-            GE
-          </div>
-          <div className="min-w-0">
-            <p className="truncate text-xs font-medium text-text-primary">GreenEnergy SL</p>
-            <p className="text-[11px] text-text-secondary">Plan Pro</p>
-          </div>
-        </div>
+        <SidebarUser />
       </div>
     </aside>
   );

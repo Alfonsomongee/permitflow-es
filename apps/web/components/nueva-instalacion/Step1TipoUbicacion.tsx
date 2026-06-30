@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import {
   type FormState,
@@ -25,10 +25,12 @@ interface Step1Props {
 export function Step1TipoUbicacion({ state, onChange }: Step1Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+
   // Google Places Autocomplete — solo para municipio
   useEffect(() => {
     const el = inputRef.current;
-    if (!el || typeof window === "undefined" || !(window as any).google?.maps?.places) return;
+    if (!el || !scriptLoaded || typeof window === "undefined" || !(window as any).google?.maps?.places) return;
 
     const ac = new (window as any).google.maps.places.Autocomplete(el, {
       types: ["(cities)"],
@@ -36,11 +38,17 @@ export function Step1TipoUbicacion({ state, onChange }: Step1Props) {
       fields: ["name", "address_components"],
     });
 
-    ac.addListener("place_changed", () => {
+    const listener = ac.addListener("place_changed", () => {
       const place = ac.getPlace();
       if (place?.name) onChange({ municipio: place.name });
     });
-  }, [onChange]);
+
+    return () => {
+      if (typeof window !== "undefined" && (window as any).google?.maps?.event) {
+        (window as any).google.maps.event.removeListener(listener);
+      }
+    };
+  }, [onChange, scriptLoaded]);
 
   const cobertura = tieneCobertura(state.tipo_instalacion, state.comunidad);
 
@@ -48,7 +56,8 @@ export function Step1TipoUbicacion({ state, onChange }: Step1Props) {
     <div className="flex flex-col gap-5">
       <Script
         src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}&libraries=places`}
-        strategy="lazyOnload"
+        strategy="afterInteractive"
+        onLoad={() => setScriptLoaded(true)}
       />
 
       {/* Tipo de instalación */}

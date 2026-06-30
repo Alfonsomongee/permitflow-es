@@ -1,10 +1,11 @@
 "use client";
 
-import { Download, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type PlanTramitacion, type InstalacionParams, TIPO_LABEL, COMUNIDAD_LABEL } from "@/types/plan";
 import { TramiteCard } from "./TramiteCard";
 import { ResumenPanel } from "./ResumenPanel";
+import { ExportPdfButton } from "./ExportPdfButton";
 
 interface PlanTramitacionViewProps {
   plan: PlanTramitacion;
@@ -40,13 +41,7 @@ export function PlanTramitacionView({ plan, params }: PlanTramitacionViewProps) 
           </div>
         </div>
 
-        <button
-          className="flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-2 text-xs text-text-secondary hover:bg-bg transition-colors"
-          onClick={() => window.print()}
-        >
-          <Download size={13} aria-hidden />
-          Exportar PDF
-        </button>
+        <ExportPdfButton titulo={titulo} />
       </header>
 
       {/* Contenido principal */}
