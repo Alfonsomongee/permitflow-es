@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Check } from "lucide-react";
 import { type StepId, type StepMeta, type FormState } from "./types";
 
@@ -12,7 +11,7 @@ export function StepIndicator({ steps, currentStep, formState }: StepIndicatorPr
   return (
     <nav aria-label="Pasos del formulario">
       <ol className="flex flex-col gap-0">
-        {steps.map((step, i) => {
+        {steps.map((step) => {
           const isDone = step.id < currentStep;
           const isActive = step.id === currentStep;
           const isPending = step.id > currentStep;

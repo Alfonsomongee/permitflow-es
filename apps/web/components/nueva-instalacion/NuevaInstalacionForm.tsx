@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Zap } from "lucide-react";
 import {
@@ -8,34 +8,35 @@ import {
   type StepId,
   FORM_INITIAL,
   STEPS,
-  buildPlanUrl,
 } from "./types";
 import { StepIndicator } from "./StepIndicator";
 import { Step1TipoUbicacion } from "./Step1TipoUbicacion";
 import { Step2ParametrosTecnicos } from "./Step2ParametrosTecnicos";
 import { Step3Ayudas } from "./Step3Ayudas";
 
-// ─── Validaciones por paso ────────────────────────────────────────────────────
-
 function validateStep(step: StepId, state: FormState): string | null {
   if (step === 1) {
-    if (!state.tipo_instalacion) return "Selecciona el tipo de instalación.";
-    if (!state.comunidad) return "Selecciona una comunidad autónoma.";
-    if (!state.municipio.trim()) return "Escribe el municipio de la instalación.";
+    if (!state.tipo_instalacion) return "Selecciona el tipo de instalacion.";
+    if (!state.comunidad) return "Selecciona una comunidad autonoma.";
+    if (!state.municipio.trim()) return "Escribe el municipio de la instalacion.";
   }
+
   if (step === 2) {
     const kw = parseFloat(state.potencia_kw);
-    if (!state.potencia_kw || isNaN(kw) || kw <= 0)
-      return "Introduce una potencia válida (> 0 kW).";
+    if (!state.potencia_kw || Number.isNaN(kw) || kw <= 0) {
+      return "Introduce una potencia valida mayor que 0 kW.";
+    }
+
     if (state.tipo_instalacion === "irve") {
-      const puntos = parseInt(state.numero_puntos);
-      if (!puntos || puntos < 1) return "El número de puntos de recarga debe ser al menos 1.";
+      const puntos = parseInt(state.numero_puntos, 10);
+      if (!puntos || puntos < 1) {
+        return "El numero de puntos de recarga debe ser al menos 1.";
+      }
     }
   }
+
   return null;
 }
-
-// ─── Componente principal ─────────────────────────────────────────────────────
 
 export function NuevaInstalacionForm() {
   const router = useRouter();
@@ -55,6 +56,7 @@ export function NuevaInstalacionForm() {
       setValidationError(error);
       return;
     }
+
     if (step < 3) {
       setStep((s) => (s + 1) as StepId);
       setValidationError(null);
@@ -71,9 +73,33 @@ export function NuevaInstalacionForm() {
       setValidationError(error);
       return;
     }
+
     setLoading(true);
-    // Navega a la página del plan pasando los parámetros por URL
-    router.push(buildPlanUrl(state));
+    setValidationError(null);
+
+    try {
+      const res = await fetch("/api/clasificar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(state),
+      });
+
+      const data = (await res
+        .json()
+        .catch(() => ({ error: "Respuesta inesperada del servidor." }))) as {
+        expedienteId?: string;
+        error?: string;
+      };
+      if (!res.ok || !data.expedienteId) {
+        throw new Error(data.error ?? "No se pudo generar el plan de tramitacion.");
+      }
+
+      router.push(`/expedientes/${data.expedienteId}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Error inesperado al clasificar.";
+      setValidationError(message);
+      setLoading(false);
+    }
   };
 
   const STEP_COMPONENTS: Record<StepId, JSX.Element> = {
@@ -84,70 +110,58 @@ export function NuevaInstalacionForm() {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Topbar */}
       <header className="flex items-center justify-between border-b border-border bg-surface px-6 py-3">
         <div className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
             <Zap size={14} className="text-white" aria-hidden />
           </div>
           <span className="text-sm font-medium text-text-primary">
-            PermitFlow <span className="text-text-secondary font-normal">· Nueva instalación</span>
+            PermitFlow <span className="text-text-secondary font-normal">- Nueva instalacion</span>
           </span>
         </div>
         <button
           onClick={() => router.push("/expedientes")}
-          className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+          className="text-sm text-text-secondary transition-colors hover:text-text-primary"
         >
           Cancelar
         </button>
       </header>
 
-      {/* Layout principal */}
-      <main className="mx-auto grid max-w-4xl grid-cols-[260px_1fr] gap-0 py-10 px-6">
-        {/* Sidebar con pasos */}
-        <aside className="pr-10 pt-1">
+      <main className="mx-auto grid max-w-4xl grid-cols-1 gap-8 px-4 py-8 md:grid-cols-[260px_1fr] md:gap-0 md:px-6 md:py-10">
+        <aside className="pt-1 md:pr-10">
           <p className="mb-5 text-xs font-medium uppercase tracking-wider text-text-secondary">
             Pasos
           </p>
-          <StepIndicator
-            steps={STEPS}
-            currentStep={step}
-            formState={state}
-          />
+          <StepIndicator steps={STEPS} currentStep={step} formState={state} />
         </aside>
 
-        {/* Área del formulario */}
         <div className="flex flex-col gap-6">
-          {/* Cabecera del paso actual */}
           <div>
             <h1 className="text-lg font-medium text-text-primary">
               {STEPS[step - 1].label}
             </h1>
             <p className="mt-0.5 text-sm text-text-secondary">
-              {step === 1 && "Define el tipo de instalación y su localización."}
-              {step === 2 && "Introduce los datos técnicos específicos del vertical seleccionado."}
+              {step === 1 && "Define el tipo de instalacion y su localizacion."}
+              {step === 2 && "Introduce los datos tecnicos especificos del vertical seleccionado."}
               {step === 3 && "Comprueba si hay programas de ayuda aplicables."}
             </p>
           </div>
 
-          {/* Formulario del paso activo */}
           <div className="rounded-xl border border-border bg-surface p-6">
             {STEP_COMPONENTS[step]}
           </div>
 
-          {/* Error de validación */}
           {validationError && (
             <p className="rounded-lg border border-danger/30 bg-danger-light px-4 py-3 text-sm text-danger-dark">
               {validationError}
             </p>
           )}
 
-          {/* Navegación entre pasos */}
           <div className="flex items-center justify-between">
             <button
               onClick={handleBack}
               disabled={step === 1}
-              className="flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm text-text-secondary transition-colors hover:bg-bg disabled:opacity-30 disabled:cursor-not-allowed"
+              className="flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm text-text-secondary transition-colors hover:bg-bg disabled:cursor-not-allowed disabled:opacity-30"
             >
               <ArrowLeft size={14} aria-hidden />
               Anterior
@@ -172,7 +186,7 @@ export function NuevaInstalacionForm() {
                 ) : (
                   <Zap size={14} aria-hidden />
                 )}
-                {loading ? "Clasificando…" : "Generar plan de tramitación"}
+                {loading ? "Clasificando..." : "Generar plan de tramitacion"}
               </button>
             )}
           </div>

@@ -2,41 +2,17 @@
 
 import { useState } from "react";
 import {
-  ChevronDown,
-  Clock,
-  FileText,
-  ExternalLink,
-  Euro,
   AlertTriangle,
   CheckCircle2,
+  ChevronDown,
   Circle,
+  Clock,
+  Euro,
+  ExternalLink,
+  FileText,
 } from "lucide-react";
 import { PlataformaBadge } from "./PlataformaBadge";
-
-// ─── Tipos (refleja el nuevo schema Pydantic v1.1) ────────────────────────────
-
-export interface DocumentoRequerido {
-  id: string;
-  label: string;
-  descripcion: string;
-  obligatorio: boolean;
-}
-
-export interface Tramite {
-  orden: number;
-  nombre: string;
-  organismo: string;
-  base_legal: string;
-  plazo_estimado_dias: number | null;
-  plazo_legal_dias: number | null;
-  documentos_requeridos: DocumentoRequerido[];
-  notas: string | null;
-  plataforma: "PUES" | "TECI" | "MITECO" | "distribuidora" | "ayuntamiento" | null;
-  plataforma_url: string | null;
-  coste_estimado: string | null;
-}
-
-// ─── Subcomponentes ───────────────────────────────────────────────────────────
+import type { DocumentoRequerido, Tramite } from "@/types/plan";
 
 function PlazoBadge({
   estimado,
@@ -52,10 +28,12 @@ function PlazoBadge({
 
   return (
     <div className="flex items-center gap-1.5">
-      <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2.5 py-0.5 text-[11px] text-text-secondary">
-        <Clock size={11} aria-hidden />
-        ~{estimado} días
-      </span>
+      {estimado && (
+        <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2.5 py-0.5 text-[11px] text-text-secondary">
+          <Clock size={11} aria-hidden />
+          ~{estimado} dias
+        </span>
+      )}
       {legal && (
         <span
           className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
@@ -63,7 +41,7 @@ function PlazoBadge({
               ? "bg-success-light text-success-dark"
               : "bg-warning-light text-warning-dark"
           }`}
-          title={`Plazo legal máximo: ${legal} días`}
+          title={`Plazo legal maximo: ${legal} dias`}
         >
           {hayMargen ? (
             <CheckCircle2 size={10} aria-hidden />
@@ -83,8 +61,8 @@ function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
   return (
     <li className="border-b border-border last:border-0">
       <button
-        className="flex w-full items-start gap-2.5 py-2.5 text-left hover:bg-bg transition-colors px-1 rounded"
-        onClick={() => setExpanded((v) => !v)}
+        className="flex w-full items-start gap-2.5 rounded px-1 py-2.5 text-left transition-colors hover:bg-bg"
+        onClick={() => setExpanded((value) => !value)}
         aria-expanded={expanded}
       >
         {doc.obligatorio ? (
@@ -92,15 +70,15 @@ function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
         ) : (
           <Circle size={13} className="mt-0.5 flex-shrink-0 text-text-secondary/40" aria-hidden />
         )}
-        <div className="flex-1 min-w-0">
-          <span className="text-xs text-text-primary leading-snug">
+        <div className="min-w-0 flex-1">
+          <span className="text-xs leading-snug text-text-primary">
             {doc.label}
             {!doc.obligatorio && (
               <span className="ml-1.5 text-[10px] text-text-secondary">(opcional)</span>
             )}
           </span>
           {expanded && doc.descripcion && (
-            <p className="mt-1.5 text-xs text-text-secondary leading-relaxed">
+            <p className="mt-1.5 text-xs leading-relaxed text-text-secondary">
               {doc.descripcion}
             </p>
           )}
@@ -117,8 +95,6 @@ function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
   );
 }
 
-// ─── Componente principal ─────────────────────────────────────────────────────
-
 interface TramiteCardProps {
   tramite: Tramite;
   defaultOpen?: boolean;
@@ -127,32 +103,29 @@ interface TramiteCardProps {
 export function TramiteCard({ tramite, defaultOpen = false }: TramiteCardProps) {
   const [open, setOpen] = useState(defaultOpen);
 
-  const obligatorios = tramite.documentos_requeridos.filter((d) => d.obligatorio);
-  const opcionales = tramite.documentos_requeridos.filter((d) => !d.obligatorio);
+  const obligatorios = tramite.documentos_requeridos.filter((doc) => doc.obligatorio);
+  const opcionales = tramite.documentos_requeridos.filter((doc) => !doc.obligatorio);
 
   return (
-    <div className="rounded-xl border border-border bg-surface overflow-hidden">
-      {/* Cabecera */}
+    <div className="overflow-hidden rounded-xl border border-border bg-surface">
       <button
-        className="flex w-full items-start gap-4 p-5 text-left hover:bg-bg transition-colors"
-        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-start gap-4 p-5 text-left transition-colors hover:bg-bg"
+        onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
       >
-        {/* Número de orden */}
-        <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary text-white text-xs font-medium mt-0.5">
+        <span className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary text-xs font-medium text-white">
           {tramite.orden}
         </span>
 
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-text-primary leading-snug">
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-medium leading-snug text-text-primary">
             {tramite.nombre}
           </p>
-          <p className="mt-0.5 text-xs text-text-secondary truncate">
+          <p className="mt-0.5 truncate text-xs text-text-secondary">
             {tramite.organismo}
           </p>
         </div>
 
-        {/* Meta derecha */}
         <div className="flex flex-shrink-0 flex-col items-end gap-1.5">
           <div className="flex items-center gap-1.5">
             <PlataformaBadge plataforma={tramite.plataforma} />
@@ -171,12 +144,10 @@ export function TramiteCard({ tramite, defaultOpen = false }: TramiteCardProps) 
         </div>
       </button>
 
-      {/* Contenido expandido */}
       {open && (
-        <div className="border-t border-border divide-y divide-border">
-          {/* Base legal + enlace plataforma */}
-          <div className="px-5 py-3 flex items-start justify-between gap-4">
-            <p className="font-mono text-[11px] text-text-secondary leading-relaxed">
+        <div className="divide-y divide-border border-t border-border">
+          <div className="flex items-start justify-between gap-4 px-5 py-3">
+            <p className="font-mono text-[11px] leading-relaxed text-text-secondary">
               {tramite.base_legal}
             </p>
             {tramite.plataforma_url && (
@@ -184,7 +155,7 @@ export function TramiteCard({ tramite, defaultOpen = false }: TramiteCardProps) 
                 href={tramite.plataforma_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 flex items-center gap-1 rounded-lg border border-primary/30 bg-primary-light px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary hover:text-white transition-colors"
+                className="flex flex-shrink-0 items-center gap-1 rounded-lg border border-primary/30 bg-primary-light px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary hover:text-white"
               >
                 Tramitar online
                 <ExternalLink size={11} aria-hidden />
@@ -192,18 +163,16 @@ export function TramiteCard({ tramite, defaultOpen = false }: TramiteCardProps) 
             )}
           </div>
 
-          {/* Coste estimado */}
           {tramite.coste_estimado && (
             <div className="flex items-start gap-2.5 px-5 py-3">
               <Euro size={13} className="mt-0.5 flex-shrink-0 text-text-secondary/60" aria-hidden />
-              <p className="text-xs text-text-secondary leading-relaxed">
+              <p className="text-xs leading-relaxed text-text-secondary">
                 <span className="font-medium text-text-primary">Coste estimado: </span>
                 {tramite.coste_estimado}
               </p>
             </div>
           )}
 
-          {/* Documentos obligatorios */}
           {obligatorios.length > 0 && (
             <div className="px-5 py-3">
               <p className="mb-2 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
@@ -217,7 +186,6 @@ export function TramiteCard({ tramite, defaultOpen = false }: TramiteCardProps) 
             </div>
           )}
 
-          {/* Documentos opcionales */}
           {opcionales.length > 0 && (
             <div className="px-5 py-3">
               <p className="mb-2 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
@@ -231,15 +199,10 @@ export function TramiteCard({ tramite, defaultOpen = false }: TramiteCardProps) 
             </div>
           )}
 
-          {/* Notas */}
           {tramite.notas && (
-            <div className="flex gap-2.5 items-start px-5 py-3">
-              <AlertTriangle
-                size={13}
-                className="flex-shrink-0 mt-0.5 text-warning"
-                aria-hidden
-              />
-              <p className="text-xs text-text-secondary leading-relaxed">
+            <div className="flex items-start gap-2.5 px-5 py-3">
+              <AlertTriangle size={13} className="mt-0.5 flex-shrink-0 text-warning" aria-hidden />
+              <p className="text-xs leading-relaxed text-text-secondary">
                 {tramite.notas}
               </p>
             </div>

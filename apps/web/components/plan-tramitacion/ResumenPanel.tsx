@@ -2,8 +2,8 @@ import { AlertTriangle } from "lucide-react";
 import {
   type InstalacionParams,
   type PlanTramitacion,
-  TIPO_LABEL,
   COMUNIDAD_LABEL,
+  TIPO_LABEL,
 } from "@/types/plan";
 
 interface ResumenPanelProps {
@@ -19,34 +19,41 @@ function MetricRow({
   value: string | number;
 }) {
   return (
-    <div className="py-3 border-b border-border last:border-0">
+    <div className="border-b border-border py-3 last:border-0">
       <p className="text-xs text-text-secondary">{label}</p>
       <p className="mt-0.5 text-xl font-medium text-text-primary">{value}</p>
     </div>
   );
 }
 
-function ParamRow({ label, value }: { label: string; value?: string | number | boolean | null }) {
+function ParamRow({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | number | boolean | null;
+}) {
   if (value === undefined || value === null || value === "") return null;
-  const display =
-    typeof value === "boolean" ? (value ? "Sí" : "No") : String(value);
+  const display = typeof value === "boolean" ? (value ? "Si" : "No") : String(value);
+
   return (
-    <div className="flex justify-between items-start gap-2 py-1.5 text-xs border-b border-border last:border-0">
+    <div className="flex items-start justify-between gap-2 border-b border-border py-1.5 text-xs last:border-0">
       <span className="text-text-secondary">{label}</span>
-      <span className="text-text-primary font-medium text-right max-w-[140px]">{display}</span>
+      <span className="max-w-[140px] text-right font-medium text-text-primary">
+        {display}
+      </span>
     </div>
   );
 }
 
 export function ResumenPanel({ params, plan }: ResumenPanelProps) {
-  const organismos = new Set(plan.tramites.map((t) => t.organismo)).size;
+  const organismos = new Set(plan.tramites.map((tramite) => tramite.organismo)).size;
 
   return (
     <aside className="flex flex-col gap-4">
-      {/* Resumen de la instalación */}
       <div className="rounded-xl border border-border bg-surface p-4">
         <p className="mb-3 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
-          Instalación
+          Instalacion
         </p>
         <div>
           <ParamRow label="Tipo" value={TIPO_LABEL[params.tipo_instalacion] ?? params.tipo_instalacion} />
@@ -61,47 +68,45 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
           )}
           {params.ubicacion_irve && (
             <ParamRow
-              label="Ubicación"
+              label="Ubicacion"
               value={params.ubicacion_irve.replace(/_/g, " ")}
             />
           )}
           {params.acceso_publico !== undefined && (
             <ParamRow
               label="Acceso"
-              value={params.acceso_publico ? "Público (TECI/MITECO)" : "Privado (PUES)"}
+              value={params.acceso_publico ? "Publico (TECI/MITECO)" : "Privado (PUES)"}
             />
           )}
           {params.solicita_ayuda && (
-            <ParamRow label="Solicita ayuda" value="Sí (MOVES III / Next Gen)" />
+            <ParamRow label="Solicita ayuda" value="Si (MOVES III / Next Gen)" />
           )}
         </div>
       </div>
 
-      {/* Métricas del plan */}
       <div className="rounded-xl border border-border bg-surface p-4">
         <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
           Resumen del plan
         </p>
-        <MetricRow label="Trámites en total" value={plan.tramites.length} />
+        <MetricRow label="Tramites en total" value={plan.tramites.length} />
         {plan.tiempo_total_estimado_dias !== null && (
           <MetricRow
             label="Tiempo estimado"
-            value={`~${plan.tiempo_total_estimado_dias} días`}
+            value={`~${plan.tiempo_total_estimado_dias} dias`}
           />
         )}
         <MetricRow label="Organismos distintos" value={organismos} />
       </div>
 
-      {/* Advertencias del motor */}
       {plan.advertencias.length > 0 && (
         <div className="space-y-2">
-          {plan.advertencias.map((adv, i) => (
+          {plan.advertencias.map((advertencia, index) => (
             <div
-              key={i}
-              className="flex gap-2.5 items-start rounded-lg border border-warning bg-warning/10 px-3 py-2.5 text-xs text-warning-dark leading-relaxed"
+              key={index}
+              className="flex items-start gap-2.5 rounded-lg border border-warning bg-warning/10 px-3 py-2.5 text-xs leading-relaxed text-warning-dark"
             >
-              <AlertTriangle size={13} className="flex-shrink-0 mt-0.5" aria-hidden />
-              {adv}
+              <AlertTriangle size={13} className="mt-0.5 flex-shrink-0" aria-hidden />
+              {advertencia}
             </div>
           ))}
         </div>

@@ -1,29 +1,43 @@
-/**
- * apps/web/lib/expedientes.ts
- *
- * Todas las operaciones de base de datos sobre expedientes.
- * Solo se usa en Server Components y API Routes (usa supabaseAdmin).
- */
 import { supabaseAdmin, type DbExpediente } from "./supabase";
 import type { FormState } from "@/components/nueva-instalacion/types";
 import type { PlanTramitacion } from "@/types/plan";
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+function fallbackOrgName(clerkOrgId: string): string {
+  return `Organizacion ${clerkOrgId.slice(-6)}`;
+}
 
-async function getOrgId(clerkOrgId: string): Promise<string> {
+async function ensureOrgId(clerkOrgId: string): Promise<string> {
   const { data, error } = await supabaseAdmin
     .from("organizaciones")
     .select("id")
     .eq("clerk_org_id", clerkOrgId)
+    .maybeSingle();
+
+  if (data?.id) return data.id;
+
+  if (error) {
+    throw new Error(`Error consultando organizacion: ${error.message}`);
+  }
+
+  const { data: created, error: createError } = await supabaseAdmin
+    .from("organizaciones")
+    .insert({
+      clerk_org_id: clerkOrgId,
+      nombre: fallbackOrgName(clerkOrgId),
+    })
+    .select("id")
     .single();
 
-  if (error || !data) {
-    throw new Error(`Organización no encontrada para clerk_org_id: ${clerkOrgId}`);
+  if (createError || !created?.id) {
+    throw new Error(
+      `Error creando organizacion para Clerk (${clerkOrgId}): ${
+        createError?.message ?? "sin detalle"
+      }`
+    );
   }
-  return data.id;
-}
 
-// ─── Crear expediente ─────────────────────────────────────────────────────────
+  return created.id;
+}
 
 export async function crearExpediente({
   clerkOrgId,
@@ -36,7 +50,7 @@ export async function crearExpediente({
   formState: FormState;
   plan: PlanTramitacion;
 }): Promise<DbExpediente> {
-  const orgId = await getOrgId(clerkOrgId);
+  const orgId = await ensureOrgId(clerkOrgId);
 
   const { data, error } = await supabaseAdmin
     .from("expedientes")
@@ -48,7 +62,9 @@ export async function crearExpediente({
       municipio: formState.municipio,
       potencia_kw: parseFloat(formState.potencia_kw) || 0,
       uso: formState.uso,
-      numero_puntos: formState.numero_puntos ? parseInt(formState.numero_puntos) : null,
+      numero_puntos: formState.numero_puntos
+        ? parseInt(formState.numero_puntos, 10)
+        : null,
       modo_recarga: formState.modo_recarga || null,
       acceso_publico: formState.acceso_publico,
       ubicacion_irve: formState.ubicacion_irve || null,
@@ -68,10 +84,8 @@ export async function crearExpediente({
   return data;
 }
 
-// ─── Listar expedientes de una organización ───────────────────────────────────
-
 export async function listarExpedientes(clerkOrgId: string): Promise<DbExpediente[]> {
-  const orgId = await getOrgId(clerkOrgId);
+  const orgId = await ensureOrgId(clerkOrgId);
 
   const { data, error } = await supabaseAdmin
     .from("expedientes")
@@ -83,26 +97,22 @@ export async function listarExpedientes(clerkOrgId: string): Promise<DbExpedient
   return data ?? [];
 }
 
-// ─── Obtener un expediente por ID ─────────────────────────────────────────────
-
 export async function obtenerExpediente(
   id: string,
   clerkOrgId: string
 ): Promise<DbExpediente | null> {
-  const orgId = await getOrgId(clerkOrgId);
+  const orgId = await ensureOrgId(clerkOrgId);
 
   const { data, error } = await supabaseAdmin
     .from("expedientes")
     .select("*")
     .eq("id", id)
-    .eq("org_id", orgId)  // aislamiento por organización
+    .eq("org_id", orgId)
     .single();
 
   if (error) return null;
   return data;
 }
-
-// ─── Actualizar estado de un trámite ─────────────────────────────────────────
 
 export async function actualizarEstado(
   id: string,
@@ -110,10 +120,11 @@ export async function actualizarEstado(
   estado: DbExpediente["estado"],
   tramitesCompletados?: number
 ): Promise<void> {
-  const orgId = await getOrgId(clerkOrgId);
+  const orgId = await ensureOrgId(clerkOrgId);
+  const patch: Partial<Pick<DbExpediente, "estado" | "tramites_completados">> = {
+    estado,
+  };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const patch: Record<string, any> = { estado };
   if (tramitesCompletados !== undefined) {
     patch.tramites_completados = tramitesCompletados;
   }
@@ -127,13 +138,11 @@ export async function actualizarEstado(
   if (error) throw new Error(`Error actualizando estado: ${error.message}`);
 }
 
-// ─── Eliminar expediente ──────────────────────────────────────────────────────
-
 export async function eliminarExpediente(
   id: string,
   clerkOrgId: string
 ): Promise<void> {
-  const orgId = await getOrgId(clerkOrgId);
+  const orgId = await ensureOrgId(clerkOrgId);
 
   const { error } = await supabaseAdmin
     .from("expedientes")
@@ -144,17 +153,16 @@ export async function eliminarExpediente(
   if (error) throw new Error(`Error eliminando expediente: ${error.message}`);
 }
 
-// ─── KPIs para el dashboard ───────────────────────────────────────────────────
-
 export async function obtenerKpis(clerkOrgId: string) {
   const expedientes = await listarExpedientes(clerkOrgId);
 
   return {
     total: expedientes.length,
     en_tramitacion: expedientes.filter(
-      (e) => e.estado === "pendiente" || e.estado === "en_revision"
+      (expediente) =>
+        expediente.estado === "pendiente" || expediente.estado === "en_revision"
     ).length,
-    aprobados: expedientes.filter((e) => e.estado === "aprobado").length,
-    borradores: expedientes.filter((e) => e.estado === "borrador").length,
+    aprobados: expedientes.filter((expediente) => expediente.estado === "aprobado").length,
+    borradores: expedientes.filter((expediente) => expediente.estado === "borrador").length,
   };
 }

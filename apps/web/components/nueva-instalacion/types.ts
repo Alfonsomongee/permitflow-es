@@ -1,13 +1,13 @@
-// Estado completo del formulario — refleja ClasificadorInput del backend
+// Full form state matching the backend ClasificadorInput shape.
 
 export interface FormState {
-  // Paso 1: Tipo y ubicación
+  // Step 1: type and location
   tipo_instalacion: string;
   comunidad: string;
   municipio: string;
   uso: string;
 
-  // Paso 2: Parámetros técnicos (varían por vertical)
+  // Step 2: technical parameters by vertical
   potencia_kw: string;
   superficie_m2: string;
 
@@ -23,7 +23,7 @@ export interface FormState {
   combustible: string;
   presion_bar: string;
 
-  // Paso 3: Ayudas
+  // Step 3: grants
   solicita_ayuda: boolean;
 }
 
@@ -56,45 +56,43 @@ export interface StepMeta {
 export const STEPS: StepMeta[] = [
   {
     id: 1,
-    label: "Tipo y ubicación",
+    label: "Tipo y ubicacion",
     description: (s) =>
       s.tipo_instalacion && s.comunidad
-        ? `${TIPO_LABEL[s.tipo_instalacion] ?? s.tipo_instalacion} · ${COMUNIDAD_LABEL[s.comunidad] ?? s.comunidad}`
-        : "Selecciona el tipo de instalación",
+        ? `${TIPO_LABEL[s.tipo_instalacion] ?? s.tipo_instalacion} - ${COMUNIDAD_LABEL[s.comunidad] ?? s.comunidad}`
+        : "Selecciona el tipo de instalacion",
   },
   {
     id: 2,
-    label: "Parámetros técnicos",
+    label: "Parametros tecnicos",
     description: (s) =>
-      s.potencia_kw ? `${s.potencia_kw} kW` : "Potencia y características",
+      s.potencia_kw ? `${s.potencia_kw} kW` : "Potencia y caracteristicas",
   },
   {
     id: 3,
     label: "Ayudas y subvenciones",
-    description: () => "MOVES III, Next Gen EU…",
+    description: () => "MOVES III, Next Gen EU",
   },
 ];
 
-// ─── Labels ──────────────────────────────────────────────────────────────────
-
 export const TIPO_OPTIONS = [
   { value: "fotovoltaica_autoconsumo", label: "Fotovoltaica autoconsumo" },
-  { value: "irve", label: "Recarga de vehículo eléctrico (IRVE)" },
-  { value: "climatizacion_aerotermia", label: "Climatización y aerotermia" },
+  { value: "irve", label: "Recarga de vehiculo electrico (IRVE)" },
+  { value: "climatizacion_aerotermia", label: "Climatizacion y aerotermia" },
   { value: "acs", label: "Agua caliente sanitaria (ACS)" },
-  { value: "gas_baja_presion", label: "Gas baja presión" },
+  { value: "gas_baja_presion", label: "Gas baja presion" },
 ];
 
 export const COMUNIDAD_OPTIONS = [
-  { value: "andalucia", label: "Andalucía" },
-  { value: "aragon", label: "Aragón" },
+  { value: "andalucia", label: "Andalucia" },
+  { value: "aragon", label: "Aragon" },
   { value: "asturias", label: "Asturias" },
   { value: "baleares", label: "Baleares" },
   { value: "canarias", label: "Canarias" },
   { value: "cantabria", label: "Cantabria" },
   { value: "castilla_la_mancha", label: "Castilla-La Mancha" },
-  { value: "castilla_leon", label: "Castilla y León" },
-  { value: "cataluna", label: "Cataluña" },
+  { value: "castilla_leon", label: "Castilla y Leon" },
+  { value: "cataluna", label: "Cataluna" },
   { value: "comunidad_valenciana", label: "C. Valenciana" },
   { value: "extremadura", label: "Extremadura" },
   { value: "galicia", label: "Galicia" },
@@ -102,7 +100,7 @@ export const COMUNIDAD_OPTIONS = [
   { value: "madrid", label: "Madrid" },
   { value: "murcia", label: "Murcia" },
   { value: "navarra", label: "Navarra" },
-  { value: "pais_vasco", label: "País Vasco" },
+  { value: "pais_vasco", label: "Pais Vasco" },
 ];
 
 export const USO_OPTIONS = [
@@ -119,7 +117,6 @@ export const COMUNIDAD_LABEL: Record<string, string> = Object.fromEntries(
   COMUNIDAD_OPTIONS.map((o) => [o.value, o.label])
 );
 
-// Verticales disponibles con cobertura completa (Andalucía)
 export const VERTICALES_ANDALUCIA = new Set([
   "fotovoltaica_autoconsumo",
   "irve",
@@ -128,37 +125,7 @@ export const VERTICALES_ANDALUCIA = new Set([
   "gas_baja_presion",
 ]);
 
-/** Devuelve true si la combinación tipo+comunidad tiene normativa en el motor */
 export function tieneCobertura(tipo: string, comunidad: string): boolean {
   if (comunidad === "andalucia") return VERTICALES_ANDALUCIA.has(tipo);
-  // El resto de CCAA solo tienen fotovoltaica por ahora
   return tipo === "fotovoltaica_autoconsumo";
-}
-
-/** Construye los searchParams para la ruta del plan de tramitación */
-export function buildPlanUrl(state: FormState): string {
-  const params = new URLSearchParams({
-    tipo_instalacion: state.tipo_instalacion,
-    comunidad: state.comunidad,
-    municipio: state.municipio,
-    potencia_kw: state.potencia_kw,
-    uso: state.uso,
-    solicita_ayuda: String(state.solicita_ayuda),
-  });
-
-  if (state.tipo_instalacion === "irve") {
-    params.set("numero_puntos", state.numero_puntos);
-    params.set("potencia_por_punto_kw", state.potencia_por_punto_kw);
-    params.set("modo_recarga", state.modo_recarga);
-    params.set("acceso_publico", String(state.acceso_publico));
-    params.set("ubicacion_irve", state.ubicacion_irve);
-    params.set("requiere_nuevo_suministro", String(state.requiere_nuevo_suministro));
-  }
-
-  if (state.tipo_instalacion === "gas_baja_presion") {
-    params.set("combustible", state.combustible);
-    params.set("presion_bar", state.presion_bar);
-  }
-
-  return `/expedientes/nuevo?${params.toString()}`;
 }

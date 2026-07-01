@@ -22,6 +22,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
 
+type StripeObjectWithMetadata = {
+  metadata?: Stripe.Metadata | null;
+};
+
+type StripeSubscriptionWithPeriodEnd = Stripe.Subscription & {
+  current_period_end?: number;
+};
+
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = headers().get("stripe-signature")!;
@@ -62,8 +70,7 @@ export async function POST(req: Request) {
     case "customer.subscription.deleted":
     case "invoice.payment_failed": {
       const obj = event.data.object as Stripe.Subscription | Stripe.Invoice;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const orgId = (obj as any).metadata?.clerk_org_id;
+      const orgId = (obj as StripeObjectWithMetadata).metadata?.clerk_org_id;
       if (orgId) await desactivarSuscripcion(orgId);
       break;
     }
@@ -74,10 +81,9 @@ export async function POST(req: Request) {
 
 async function activarSuscripcion(clerkOrgId: string, sub: Stripe.Subscription) {
   const priceId = sub.items.data[0]?.price.id;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const subAny = sub as any;
-  const fin = subAny.current_period_end
-    ? new Date(subAny.current_period_end * 1000).toISOString()
+  const currentPeriodEnd = (sub as StripeSubscriptionWithPeriodEnd).current_period_end;
+  const fin = currentPeriodEnd
+    ? new Date(currentPeriodEnd * 1000).toISOString()
     : null;
 
   await supabaseAdmin
