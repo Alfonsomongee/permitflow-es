@@ -1,6 +1,11 @@
 import { supabaseAdmin, type DbExpediente } from "./supabase";
 import type { FormState } from "@/components/nueva-instalacion/types";
-import type { PlanTramitacion } from "@/types/plan";
+import type {
+  PlanTramitacion,
+  TramiteEstado,
+  TramitesEstadoMap,
+} from "@/types/plan";
+import { hoyIso } from "./plazos";
 
 function fallbackOrgName(clerkOrgId: string): string {
   return `Organizacion ${clerkOrgId.slice(-6)}`;
@@ -153,9 +158,90 @@ export async function eliminarExpediente(
   if (error) throw new Error(`Error eliminando expediente: ${error.message}`);
 }
 
-export async function obtenerKpis(clerkOrgId: string) {
-  const expedientes = await listarExpedientes(clerkOrgId);
+export interface PatchExpedienteInput {
+  tramite?: { orden: number; estado: TramiteEstado };
+  referencia_cliente?: string | null;
+  notas?: string | null;
+}
 
+export interface PatchExpedienteResult {
+  tramites_estado: TramitesEstadoMap;
+  tramites_completados: number;
+  referencia_cliente: string | null;
+  notas: string | null;
+  actualizado_en: string;
+}
+
+export async function aplicarPatchExpediente(
+  id: string,
+  clerkOrgId: string,
+  patch: PatchExpedienteInput
+): Promise<PatchExpedienteResult> {
+  // obtenerExpediente ya filtra por org_id: un usuario de otra organización
+  // recibe null y nunca llega al UPDATE (evita IDOR, misma lección que alertas).
+  const expediente = await obtenerExpediente(id, clerkOrgId);
+  if (!expediente) {
+    throw new Error("EXPEDIENTE_NO_ENCONTRADO");
+  }
+
+  const update: Record<string, unknown> = {
+    actualizado_en: new Date().toISOString(),
+  };
+
+  if (patch.tramite) {
+    const { orden, estado } = patch.tramite;
+    const totalTramites = expediente.plan_tramitacion?.tramites?.length ?? 0;
+    if (!Number.isInteger(orden) || orden < 1 || orden > totalTramites) {
+      throw new Error("ORDEN_INVALIDO");
+    }
+
+    const mapa: TramitesEstadoMap = { ...(expediente.tramites_estado ?? {}) };
+    const clave = String(orden);
+
+    if (estado === "pendiente") {
+      delete mapa[clave];
+    } else {
+      const previo = mapa[clave];
+      mapa[clave] = {
+        estado,
+        fecha_inicio: previo?.fecha_inicio ?? hoyIso(),
+        fecha_completado: estado === "completado" ? hoyIso() : null,
+      };
+    }
+
+    update.tramites_estado = mapa;
+    update.tramites_completados = Object.values(mapa).filter(
+      (t) => t.estado === "completado"
+    ).length;
+  }
+
+  if (patch.referencia_cliente !== undefined) {
+    update.referencia_cliente =
+      patch.referencia_cliente?.trim().slice(0, 120) || null;
+  }
+  if (patch.notas !== undefined) {
+    update.notas = patch.notas?.trim().slice(0, 4000) || null;
+  }
+
+  const { data, error } = await supabaseAdmin
+    .from("expedientes")
+    .update(update)
+    .eq("id", id)
+    .eq("org_id", expediente.org_id)
+    .select(
+      "tramites_estado, tramites_completados, referencia_cliente, notas, actualizado_en"
+    )
+    .single();
+
+  if (error || !data) {
+    throw new Error(
+      `Error actualizando expediente: ${error?.message ?? "sin detalle"}`
+    );
+  }
+  return data as PatchExpedienteResult;
+}
+
+export function obtenerKpis(expedientes: DbExpediente[]) {
   return {
     total: expedientes.length,
     en_tramitacion: expedientes.filter(

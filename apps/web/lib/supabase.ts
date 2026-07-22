@@ -7,7 +7,7 @@
  * - supabaseClient: usa ANON key, seguro para el navegador (respeta RLS).
  */
 import { createClient } from "@supabase/supabase-js";
-import type { PlanTramitacion } from "@/types/plan";
+import type { PlanTramitacion, TramitesEstadoMap } from "@/types/plan";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder";
@@ -58,6 +58,7 @@ export interface DbExpediente {
   tiempo_total_dias: number | null;
   estado: "borrador" | "pendiente" | "en_revision" | "aprobado" | "rechazado";
   tramites_completados: number;
+  tramites_estado: TramitesEstadoMap;
   referencia_cliente: string | null;
   notas: string | null;
   creado_en: string;

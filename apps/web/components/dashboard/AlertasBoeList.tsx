@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { FileText, AlertTriangle, Trash2, CheckCircle2 } from "lucide-react";
 import type { DbAlertaBoe } from "@/lib/supabase";
 
@@ -25,12 +26,19 @@ const TIPO_STYLES = {
   },
 } as const;
 
+interface ExpedienteAfectadoChip {
+  id: string;
+  etiqueta: string;
+}
+
 function AlertaItem({
   alerta,
   onMarcarLeida,
+  afectados = [],
 }: {
   alerta: DbAlertaBoe;
   onMarcarLeida: (id: string) => void;
+  afectados?: ExpedienteAfectadoChip[];
 }) {
   const styles = TIPO_STYLES[alerta.tipo];
   const Icon = styles.icon;
@@ -101,6 +109,29 @@ function AlertaItem({
               </div>
             )}
 
+            {/* Expedientes de la organización afectados por esta alerta */}
+            {afectados.length > 0 && (
+              <div className="flex w-full flex-wrap items-center gap-1.5">
+                <span className="text-[10px] font-medium text-warning-dark">
+                  Afecta a {afectados.length} expediente{afectados.length !== 1 ? "s" : ""}:
+                </span>
+                {afectados.slice(0, 4).map((e) => (
+                  <Link
+                    key={e.id}
+                    href={`/expedientes/${e.id}`}
+                    className="rounded-full border border-warning/40 bg-warning-light px-2 py-0.5 text-[10px] text-warning-dark transition-colors hover:border-warning"
+                  >
+                    {e.etiqueta}
+                  </Link>
+                ))}
+                {afectados.length > 4 && (
+                  <span className="text-[10px] text-text-secondary">
+                    +{afectados.length - 4} más
+                  </span>
+                )}
+              </div>
+            )}
+
             <span className="text-[11px] text-text-secondary ml-auto">{fecha}</span>
 
             {/* Enlace BOE */}
@@ -132,7 +163,13 @@ function AlertaItem({
   );
 }
 
-export function AlertasBoeList({ alertas }: { alertas: DbAlertaBoe[] }) {
+export function AlertasBoeList({
+  alertas,
+  expedientesPorAlerta = {},
+}: {
+  alertas: DbAlertaBoe[];
+  expedientesPorAlerta?: Record<string, ExpedienteAfectadoChip[]>;
+}) {
   const [lista, setLista] = useState(alertas);
 
   const marcarLeida = async (id: string) => {
@@ -171,7 +208,12 @@ export function AlertasBoeList({ alertas }: { alertas: DbAlertaBoe[] }) {
       )}
       <div className="flex flex-col gap-3">
         {lista.map((alerta) => (
-          <AlertaItem key={alerta.id} alerta={alerta} onMarcarLeida={marcarLeida} />
+          <AlertaItem
+            key={alerta.id}
+            alerta={alerta}
+            onMarcarLeida={marcarLeida}
+            afectados={expedientesPorAlerta[alerta.id]}
+          />
         ))}
       </div>
     </div>

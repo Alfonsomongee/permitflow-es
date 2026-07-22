@@ -25,12 +25,15 @@ def aplicar_diff_automatico(diff: dict, reglas_dir: Path) -> bool:
     Solo aplica cambios simples (modificar_campo). Los complejos requieren
     revisión manual.
 
-    Devuelve True si aplicó algo, False si requiere intervención manual.
+    Devuelve una tupla (bool, dict) donde el bool indica si aplicó algo,
+    y el dict contiene el contenido original de los archivos modificados
+    para poder revertirlos si es necesario.
     """
     if not diff or not diff.get("cambios"):
-        return False
+        return False, {}
 
     aplicados = 0
+    backups = {}
     for cambio in diff["cambios"]:
         tipo = cambio.get("tipo")
         if tipo != "modificar_campo":
@@ -39,7 +42,14 @@ def aplicar_diff_automatico(diff: dict, reglas_dir: Path) -> bool:
 
         # Detectar qué archivo afecta
         for archivo in diff.get("archivos_afectados", []):
-            ruta_json = reglas_dir / archivo
+            ruta_json = (reglas_dir / archivo).resolve()
+
+            # El LLM propone esta ruta a partir de texto externo (BOE/BOJA/etc.):
+            # nunca debe poder salir de reglas_dir.
+            if not ruta_json.is_relative_to(reglas_dir.resolve()):
+                print(f"    ✗ Ruta fuera de reglas_dir, ignorada: {archivo}")
+                continue
+
             if not ruta_json.exists():
                 print(f"    ✗ Archivo no encontrado: {archivo}")
                 continue
@@ -78,6 +88,10 @@ def aplicar_diff_automatico(diff: dict, reglas_dir: Path) -> bool:
                     data["version"] = ".".join(partes_ver)
                 data["ultima_revision"] = datetime.now().strftime("%Y-%m-%d")
 
+                if ruta_json not in backups:
+                    with open(ruta_json, "r", encoding="utf-8") as fb:
+                        backups[ruta_json] = fb.read()
+
                 with open(ruta_json, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -87,7 +101,7 @@ def aplicar_diff_automatico(diff: dict, reglas_dir: Path) -> bool:
             except Exception as e:
                 print(f"    ✗ Error aplicando diff en {archivo}: {e}")
 
-    return aplicados > 0
+    return aplicados > 0, backups
 
 
 def main():
@@ -151,14 +165,41 @@ def main():
 
             elif resp == "a":
                 print("\n  Intentando aplicar diff automáticamente...")
-                ok = aplicar_diff_automatico(diff, REGLAS_DIR)
+                ok, backups = aplicar_diff_automatico(diff, REGLAS_DIR)
                 if ok:
-                    print("  ✓ Diff aplicado. Revisa los JSONs modificados antes de commitear.")
+                    import subprocess
+                    print("  Ejecutando tests de validación (pytest)...")
+                    # Asumimos que API_DIR es donde debe correr pytest
+                    res = subprocess.run(
+                        ["uv", "run", "pytest", "tests/"], 
+                        cwd=str(API_DIR), 
+                        capture_output=True, 
+                        text=True
+                    )
+                    if res.returncode == 0:
+                        print("  ✓ Diff aplicado y tests aprobados. Revisa los JSONs antes de commitear.")
+                        data["revisado"] = True
+                        data["aplicado_automaticamente"] = True
+                        data["revisado_en"] = datetime.now().isoformat()
+                    else:
+                        print("  ✗ Los tests fallaron tras aplicar el diff. Revirtiendo cambios...")
+                        for ruta, original in backups.items():
+                            with open(ruta, "w", encoding="utf-8") as f:
+                                f.write(original)
+                        print("  ⚠ Borrador marcado como pendiente de revisión manual (tests fallidos).")
+                        # Lo dejamos sin marcar como revisado para que vuelva a salir
+                        data["revisado"] = False
+                        data["aplicado_automaticamente"] = False
+                        data.pop("revisado_en", None)
+                        
+                        # Guardar logs del error en el objeto para que el usuario pueda ver por qué falló
+                        data["ultimo_error_tests"] = res.stdout + "\n" + res.stderr
                 else:
-                    print("  ✗ Diff requiere revisión manual. Abre los JSONs indicados.")
-                data["revisado"] = True
-                data["aplicado_automaticamente"] = ok
-                data["revisado_en"] = datetime.now().isoformat()
+                    print("  ✗ Diff requiere revisión manual o estaba vacío.")
+                    data["revisado"] = True
+                    data["aplicado_automaticamente"] = False
+                    data["revisado_en"] = datetime.now().isoformat()
+
                 with open(arch, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
                 break

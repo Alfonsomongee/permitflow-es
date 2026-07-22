@@ -1,0 +1,14 @@
+{
+  "descripcion": "Fotovoltaica residencial 8kW en Andalucía",
+  "input": {
+    "tipo_instalacion": "fotovoltaica_autoconsumo",
+    "comunidad": "andalucia",
+    "potencia_kw": 8,
+    "uso": "residencial",
+    "municipio": "Sevilla"
+  },
+  "num_tramites_esperado": 4,
+  "tiempo_total_esperado_dias": 40,
+  "validado_por": "Auto - 2026-07-08",
+  "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
+}

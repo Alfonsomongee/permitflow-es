@@ -5,6 +5,8 @@ import path from "path";
 import { PlanTramitacionView } from "@/components/plan-tramitacion";
 import { ChatWidget } from "@/components/chat";
 import { obtenerExpediente } from "@/lib/expedientes";
+import { alertasNoLeidasParaExpediente } from "@/lib/alertas";
+import { AlertasExpedienteBanner } from "@/components/plan-tramitacion/AlertasExpedienteBanner";
 import type { InstalacionParams } from "@/types/plan";
 
 interface PageProps {
@@ -13,14 +15,21 @@ interface PageProps {
   };
 }
 
+const SLUG_SEGURO = /^[a-z_]+$/;
+
 function readNormativaJson(params: InstalacionParams): Record<string, unknown> | null {
+  if (!SLUG_SEGURO.test(params.comunidad) || !SLUG_SEGURO.test(params.tipo_instalacion)) {
+    return null;
+  }
+
   try {
-    const filePath = path.join(
-      process.cwd(),
-      "../api/motor_normativo/reglas",
-      params.comunidad,
-      `${params.tipo_instalacion}.json`
-    );
+    const reglasDir = path.resolve(process.cwd(), "../api/motor_normativo/reglas");
+    const filePath = path.resolve(reglasDir, params.comunidad, `${params.tipo_instalacion}.json`);
+
+    if (!filePath.startsWith(reglasDir + path.sep)) {
+      return null;
+    }
+
     const fileContent = fs.readFileSync(filePath, "utf-8");
     return JSON.parse(fileContent) as Record<string, unknown>;
   } catch {
@@ -55,9 +64,11 @@ export default async function ExpedienteDetallePage({ params }: PageProps) {
 
   const plan = expediente.plan_tramitacion;
   const normativaJson = readNormativaJson(instalacionParams);
+  const alertasRelacionadas = await alertasNoLeidasParaExpediente(orgId, expediente);
 
   return (
     <>
+      <AlertasExpedienteBanner alertas={alertasRelacionadas} />
       <PlanTramitacionView
         plan={plan}
         params={instalacionParams}
@@ -67,6 +78,9 @@ export default async function ExpedienteDetallePage({ params }: PageProps) {
           tramitesCompletados: expediente.tramites_completados,
           creadoEn: expediente.creado_en,
           actualizadoEn: expediente.actualizado_en,
+          tramitesEstado: expediente.tramites_estado ?? {},
+          referenciaCliente: expediente.referencia_cliente,
+          notas: expediente.notas,
         }}
       />
       <ChatWidget

@@ -5,6 +5,12 @@ import { Plus } from "lucide-react";
 import { ExpedientesTable } from "@/components/dashboard/ExpedientesTable";
 import { KpiGrid } from "@/components/dashboard/KpiGrid";
 import { listarExpedientes, obtenerKpis } from "@/lib/expedientes";
+import {
+  PlazosActivos,
+  type ExpedienteEstancado,
+  type PlazoActivo,
+} from "@/components/dashboard/PlazosActivos";
+import { diasEntre, hoyIso } from "@/lib/plazos";
 
 export default async function ExpedientesPage() {
   const { orgId } = await auth();
@@ -13,10 +19,8 @@ export default async function ExpedientesPage() {
     redirect("/sign-in");
   }
 
-  const [dbExpedientes, kpis] = await Promise.all([
-    listarExpedientes(orgId),
-    obtenerKpis(orgId),
-  ]);
+  const dbExpedientes = await listarExpedientes(orgId);
+  const kpis = obtenerKpis(dbExpedientes);
 
   const expedientesUI = dbExpedientes.map((expediente) => ({
     id: expediente.id,
@@ -31,6 +35,50 @@ export default async function ExpedientesPage() {
     fecha_actualizacion: expediente.actualizado_en,
     cliente: expediente.referencia_cliente ?? undefined,
   }));
+
+  // ── Plazos legales en curso + expedientes sin movimiento ────────────────
+  const plazos: PlazoActivo[] = [];
+  const estancados: ExpedienteEstancado[] = [];
+  const hoy = hoyIso();
+
+  for (const expediente of dbExpedientes) {
+    const etiqueta = expediente.referencia_cliente ?? expediente.municipio;
+    const estadosMap = expediente.tramites_estado ?? {};
+    const enCurso = Object.entries(estadosMap).filter(
+      ([, info]) => info.estado === "en_curso" && info.fecha_inicio
+    );
+
+    for (const [orden, info] of enCurso) {
+      const tramite = expediente.plan_tramitacion?.tramites?.find(
+        (t) => t.orden === Number(orden)
+      );
+      if (!tramite?.plazo_legal_dias || !info.fecha_inicio) continue;
+      plazos.push({
+        expedienteId: expediente.id,
+        etiqueta,
+        tramiteNombre: tramite.nombre,
+        plazoLegal: tramite.plazo_legal_dias,
+        diasRestantes:
+          tramite.plazo_legal_dias - diasEntre(info.fecha_inicio, hoy),
+      });
+    }
+
+    const sinMovimiento = diasEntre(expediente.actualizado_en.slice(0, 10), hoy);
+    const activo =
+      expediente.estado === "pendiente" || expediente.estado === "en_revision";
+    if (activo && enCurso.length === 0 && sinMovimiento >= 10) {
+      estancados.push({
+        expedienteId: expediente.id,
+        etiqueta,
+        diasSinMovimiento: sinMovimiento,
+      });
+    }
+  }
+
+  plazos.sort((a, b) => a.diasRestantes - b.diasRestantes);
+  estancados.sort((a, b) => b.diasSinMovimiento - a.diasSinMovimiento);
+  const plazosTop = plazos.slice(0, 5);
+  const estancadosTop = estancados.slice(0, 3);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
@@ -51,6 +99,8 @@ export default async function ExpedientesPage() {
           Nueva instalacion
         </Link>
       </div>
+
+      <PlazosActivos plazos={plazosTop} estancados={estancadosTop} />
 
       <div className="mb-6">
         <KpiGrid kpis={kpis} />

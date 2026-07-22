@@ -1,0 +1,19 @@
+{
+  "descripcion": "IRVE privada 22kW, sin acceso público, sin nuevo suministro, con ayuda MOVES III",
+  "input": {
+    "tipo_instalacion": "irve",
+    "comunidad": "andalucia",
+    "potencia_kw": 22,
+    "uso": "residencial",
+    "municipio": "Sevilla",
+    "acceso_publico": false,
+    "modo_recarga": "3",
+    "ubicacion_irve": "garaje_comunitario",
+    "requiere_nuevo_suministro": false,
+    "solicita_ayuda": true
+  },
+  "num_tramites_esperado": 5,
+  "tiempo_total_esperado_dias": 128,
+  "validado_por": "Auto - 2026-07-08",
+  "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
+}

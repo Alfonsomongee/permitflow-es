@@ -1,11 +1,26 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Literal, Optional
+
+TipoInstalacion = Literal[
+    "fotovoltaica_autoconsumo",
+    "irve",
+    "climatizacion_aerotermia",
+    "acs",
+    "gas_baja_presion",
+]
+
+ComunidadAutonoma = Literal[
+    "andalucia", "aragon", "asturias", "baleares", "canarias", "cantabria",
+    "castilla_la_mancha", "castilla_leon", "cataluna", "comunidad_valenciana",
+    "extremadura", "galicia", "la_rioja", "madrid", "murcia", "navarra",
+    "pais_vasco",
+]
 
 # ─── Input ────────────────────────────────────────────────────────────────────
 
 class ClasificadorInput(BaseModel):
-    tipo_instalacion: str = Field(..., description="Tipo de instalación, ej. fotovoltaica_autoconsumo")
-    comunidad: str = Field(..., description="Comunidad autónoma en formato slug, ej. andalucia")
+    tipo_instalacion: TipoInstalacion = Field(..., description="Tipo de instalación, ej. fotovoltaica_autoconsumo")
+    comunidad: ComunidadAutonoma = Field(..., description="Comunidad autónoma en formato slug, ej. andalucia")
     potencia_kw: float = Field(..., description="Potencia en kW", ge=0)
     superficie_m2: Optional[float] = Field(None, description="Superficie en m2, si aplica", ge=0)
     uso: str = Field(..., description="Uso de la instalación: residencial, industrial, terciario")
@@ -49,6 +64,13 @@ class TramiteOutput(BaseModel):
     plataforma: Optional[str] = Field(None, description="PUES | TECI | MITECO | distribuidora | ayuntamiento")
     plataforma_url: Optional[str] = Field(None, description="URL directa a la plataforma de tramitación")
     coste_estimado: Optional[str] = Field(None, description="Estimación de tasas o coste administrativo")
+    formulario_ref: Optional[str] = Field(None, description="Código o referencia del formulario/procedimiento oficial")
+    paralelo_con: Optional[int] = Field(
+        None, description="Orden (ya renumerado) del trámite con el que puede ejecutarse en paralelo"
+    )
+    regla_id: Optional[str] = Field(
+        None, description="Id de la regla del motor normativo que generó este trámite (clave estable para analítica)"
+    )
 
 
 class ClasificadorOutput(BaseModel):

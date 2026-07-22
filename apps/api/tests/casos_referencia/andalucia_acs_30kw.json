@@ -1,0 +1,14 @@
+{
+  "descripcion": "ACS 30kW en Andalucía",
+  "input": {
+    "tipo_instalacion": "acs",
+    "comunidad": "andalucia",
+    "potencia_kw": 30,
+    "uso": "residencial",
+    "municipio": "Sevilla"
+  },
+  "num_tramites_esperado": 2,
+  "tiempo_total_esperado_dias": 22,
+  "validado_por": "Auto - 2026-07-08",
+  "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
+}

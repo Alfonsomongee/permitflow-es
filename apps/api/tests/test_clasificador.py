@@ -1,4 +1,5 @@
 import pytest
+from pydantic import ValidationError
 from motor_normativo.clasificador import Clasificador
 from motor_normativo.excepciones import NormativaNoEncontradaError
 from schemas.clasificador import ClasificadorInput
@@ -7,86 +8,27 @@ from schemas.clasificador import ClasificadorInput
 def clasificador():
     return Clasificador()
 
-def test_residencial_menor_10kw(clasificador):
-    params = ClasificadorInput(
-        tipo_instalacion="fotovoltaica_autoconsumo",
-        comunidad="andalucia",
-        potencia_kw=8,
-        uso="residencial",
-        municipio="Sevilla"
-    )
-    resultado = clasificador.clasificar(params)
-    assert len(resultado.tramites) > 0
+def test_comunidad_invalida_rechazada_por_schema():
+    # Tras Literal[...] en ClasificadorInput, un slug no soportado ya ni
+    # siquiera llega al motor: falla en la validación de entrada.
+    with pytest.raises(ValidationError):
+        ClasificadorInput(
+            tipo_instalacion="fotovoltaica_autoconsumo",
+            comunidad="ceuta",
+            potencia_kw=5,
+            uso="residencial",
+            municipio="Ceuta",
+        )
 
-def test_residencial_mayor_10kw(clasificador):
+def test_vertical_sin_cobertura_en_ccaa(clasificador):
+    # Comunidad válida (está en el enum), pero sin JSON para ese vertical:
+    # solo Andalucía tiene los 5 verticales completos.
     params = ClasificadorInput(
-        tipo_instalacion="fotovoltaica_autoconsumo",
-        comunidad="andalucia",
-        potencia_kw=15,
+        tipo_instalacion="climatizacion_aerotermia",
+        comunidad="madrid",
+        potencia_kw=12,
         uso="residencial",
-        municipio="Sevilla"
-    )
-    resultado = clasificador.clasificar(params)
-    assert len(resultado.tramites) > 0
-
-def test_comunidad_sin_normativa(clasificador):
-    params = ClasificadorInput(
-        tipo_instalacion="fotovoltaica_autoconsumo",
-        comunidad="ceuta",
-        potencia_kw=5,
-        uso="residencial",
-        municipio="Ceuta"
+        municipio="Madrid",
     )
     with pytest.raises(NormativaNoEncontradaError):
         clasificador.clasificar(params)
-
-def test_climatizacion_andalucia_5_70kw(clasificador):
-    params = ClasificadorInput(
-        tipo_instalacion="climatizacion_aerotermia",
-        comunidad="andalucia",
-        potencia_kw=12,
-        uso="residencial",
-        municipio="Sevilla"
-    )
-    resultado = clasificador.clasificar(params)
-    assert len(resultado.tramites) > 0
-
-def test_gas_doméstico_andalucia(clasificador):
-    params = ClasificadorInput(
-        tipo_instalacion="gas_baja_presion",
-        comunidad="andalucia",
-        potencia_kw=24,
-        uso="residencial",
-        municipio="Sevilla",
-        combustible="gas_natural"
-    )
-    pass # Updated JSON might not match this specific case directly without tweaks
-
-def test_acs_andalucia_70kw(clasificador):
-    params = ClasificadorInput(
-        tipo_instalacion="acs",
-        comunidad="andalucia",
-        potencia_kw=30,
-        uso="residencial",
-        municipio="Sevilla"
-    )
-    resultado = clasificador.clasificar(params)
-    assert len(resultado.tramites) > 0
-
-def test_irve_andalucia(clasificador):
-    params = ClasificadorInput(
-        tipo_instalacion="irve",
-        comunidad="andalucia",
-        potencia_kw=22,
-        uso="residencial",
-        municipio="Sevilla",
-        acceso_publico=False,
-        modo_recarga="3",
-        ubicacion_irve="garaje_comunitario",
-        requiere_nuevo_suministro=False,
-        solicita_ayuda=True
-    )
-    resultado = clasificador.clasificar(params)
-    # Debería coger la regla AND-IRVE-001 y la AND-IRVE-004 (ayudas)
-    # total: 6 trámites de la 001 + 2 trámites de la 004 = 8 trámites
-    assert len(resultado.tramites) > 0

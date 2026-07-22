@@ -5,12 +5,20 @@ import { ArrowLeft, CheckCircle2, Clock3 } from "lucide-react";
 import {
   type InstalacionParams,
   type PlanTramitacion,
+  type TramitesEstadoMap,
   COMUNIDAD_LABEL,
   TIPO_LABEL,
 } from "@/types/plan";
 import { TramiteCard } from "./TramiteCard";
 import { ResumenPanel } from "./ResumenPanel";
 import { ExportPdfButton } from "./ExportPdfButton";
+import { DetallesExpediente } from "./DetallesExpediente";
+import { DocumentosPanel } from "./DocumentosPanel";
+import { TimelinePlan } from "./TimelinePlan";
+import { ValidadorPanel } from "./ValidadorPanel";
+import { useTramitesEstado } from "./useTramitesEstado";
+import { useEstadisticasPlazo } from "./useEstadisticasPlazo";
+import { claveTramite } from "@/lib/tramiteClave";
 
 type ExpedienteEstado =
   | "borrador"
@@ -28,6 +36,9 @@ interface PlanTramitacionViewProps {
     tramitesCompletados: number;
     creadoEn: string;
     actualizadoEn: string;
+    tramitesEstado: TramitesEstadoMap;
+    referenciaCliente: string | null;
+    notas: string | null;
   };
 }
 
@@ -53,14 +64,20 @@ export function PlanTramitacionView({
   params,
   expediente,
 }: PlanTramitacionViewProps) {
+  const { estados, completados, pendingOrden, error, setEstadoTramite } =
+    useTramitesEstado(expediente?.id ?? "", expediente?.tramitesEstado ?? {});
+  const estadisticasPlazo = useEstadisticasPlazo(expediente?.id);
+
   const titulo = TIPO_LABEL[params.tipo_instalacion] ?? params.tipo_instalacion;
   const ccaa = COMUNIDAD_LABEL[params.comunidad] ?? params.comunidad;
   const subtitulo = [titulo, ccaa, params.municipio, `${params.potencia_kw} kW`]
     .filter(Boolean)
     .join(" - ");
+
+  const tramitesCompletados = expediente ? completados : 0;
   const progreso =
     expediente && plan.tramites.length > 0
-      ? Math.round((expediente.tramitesCompletados / plan.tramites.length) * 100)
+      ? Math.round((tramitesCompletados / plan.tramites.length) * 100)
       : 0;
   const fechaActualizacion = formatDate(expediente?.actualizadoEn);
 
@@ -83,7 +100,7 @@ export function PlanTramitacionView({
           </div>
         </div>
 
-        <ExportPdfButton titulo={titulo} />
+        <ExportPdfButton titulo={titulo} expedienteId={expediente?.id} />
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
@@ -111,7 +128,7 @@ export function PlanTramitacionView({
                   Progreso
                 </p>
                 <p className="mt-0.5 text-sm font-medium text-text-primary">
-                  {expediente.tramitesCompletados}/{plan.tramites.length} ({progreso}%)
+                  {tramitesCompletados}/{plan.tramites.length} ({progreso}%)
                 </p>
               </div>
               {fechaActualizacion && (
@@ -130,17 +147,50 @@ export function PlanTramitacionView({
         </div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_300px]">
+          <TimelinePlan
+            tramites={plan.tramites}
+            estados={expediente ? estados : undefined}
+            tiempoSerie={plan.tiempo_total_estimado_dias}
+          />
+
           <div className="space-y-3">
+            {error && (
+              <p className="rounded-lg border border-danger/30 bg-danger-light px-4 py-2.5 text-xs text-danger-dark">
+                {error}
+              </p>
+            )}
             {plan.tramites.map((tramite, i) => (
               <TramiteCard
                 key={tramite.orden}
                 tramite={tramite}
                 defaultOpen={i < 2}
+                estadoInfo={estados[String(tramite.orden)]}
+                pending={pendingOrden === tramite.orden}
+                onEstadoChange={
+                  expediente
+                    ? (estado) => setEstadoTramite(tramite.orden, estado)
+                    : undefined
+                }
+                estadistica={estadisticasPlazo[claveTramite(tramite)]}
               />
             ))}
           </div>
 
-          <div className="lg:sticky lg:top-[61px] lg:self-start">
+          <div className="flex flex-col gap-4 lg:sticky lg:top-[61px] lg:self-start">
+            {expediente && <ValidadorPanel expedienteId={expediente.id} />}
+            {expediente && (
+              <DocumentosPanel
+                expedienteId={expediente.id}
+                tipoInstalacion={params.tipo_instalacion}
+              />
+            )}
+            {expediente && (
+              <DetallesExpediente
+                expedienteId={expediente.id}
+                referenciaCliente={expediente.referenciaCliente}
+                notas={expediente.notas}
+              />
+            )}
             <ResumenPanel plan={plan} params={params} />
           </div>
         </div>

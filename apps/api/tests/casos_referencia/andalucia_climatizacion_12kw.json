@@ -1,0 +1,14 @@
+{
+  "descripcion": "Climatización aerotermia 12kW en Andalucía",
+  "input": {
+    "tipo_instalacion": "climatizacion_aerotermia",
+    "comunidad": "andalucia",
+    "potencia_kw": 12,
+    "uso": "residencial",
+    "municipio": "Sevilla"
+  },
+  "num_tramites_esperado": 3,
+  "tiempo_total_esperado_dias": 23,
+  "validado_por": "Auto - 2026-07-08",
+  "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
+}

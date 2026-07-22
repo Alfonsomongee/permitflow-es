@@ -25,6 +25,33 @@ export interface Tramite {
   plataforma: Plataforma;
   plataforma_url: string | null;
   coste_estimado: string | null;
+  formulario_ref?: string | null;
+  paralelo_con?: number | null;
+  regla_id?: string | null;
+}
+
+export interface EstadisticaPlazo {
+  claveTramite: string;
+  nombreTramite: string;
+  plazoLegalDias: number | null;
+  muestraN: number;
+  mediaRealDias: number;
+  medianaRealDias: number;
+}
+
+export interface HallazgoValidacion {
+  id: string;
+  severidad: "error" | "aviso";
+  mensaje: string;
+  fuente: string | null;
+}
+
+export interface ValidacionResultado {
+  hallazgos: HallazgoValidacion[];
+  total_errores: number;
+  total_avisos: number;
+  total_definidas: number;
+  no_evaluables: string[];
 }
 
 export interface PlanTramitacion {
@@ -32,6 +59,19 @@ export interface PlanTramitacion {
   tiempo_total_estimado_dias: number | null;
   advertencias: string[];
 }
+
+export type TramiteEstado = "pendiente" | "en_curso" | "completado";
+
+export interface TramiteEstadoInfo {
+  estado: TramiteEstado;
+  /** Fecha ISO (YYYY-MM-DD) en que se inició/presentó el trámite */
+  fecha_inicio: string | null;
+  /** Fecha ISO (YYYY-MM-DD) de resolución */
+  fecha_completado: string | null;
+}
+
+/** Clave: orden del trámite como string (las claves JSON son strings) */
+export type TramitesEstadoMap = Record<string, TramiteEstadoInfo>;
 
 export interface InstalacionParams {
   tipo_instalacion: string;

@@ -5,13 +5,39 @@ import { Download, Loader2 } from "lucide-react";
 
 interface ExportPdfButtonProps {
   titulo?: string;
+  /** Si existe, descarga el PDF white-label generado en servidor */
+  expedienteId?: string;
 }
 
-export function ExportPdfButton({ titulo }: ExportPdfButtonProps) {
+export function ExportPdfButton({ titulo, expedienteId }: ExportPdfButtonProps) {
   const [printing, setPrinting] = useState(false);
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     setPrinting(true);
+
+    if (expedienteId) {
+      try {
+        const res = await fetch(
+          `/api/expedientes/${expedienteId}/documentos?tipo=plan`
+        );
+        if (!res.ok) throw new Error(String(res.status));
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `PermitFlow_${titulo ?? "plan"}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      } catch {
+        // Fallback silencioso a impresión (p. ej. plan Free → 402)
+        window.print();
+      } finally {
+        setPrinting(false);
+      }
+      return;
+    }
 
     const prevTitle = document.title;
     if (titulo) {

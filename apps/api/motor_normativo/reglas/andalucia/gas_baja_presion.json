@@ -18,8 +18,22 @@
       "descripcion": "Instalación receptora gas natural presión normal (<0,05 bar), uso residencial/terciario",
       "condicion": {
         "and": [
-          { "==": [{ "var": "combustible" }, "gas_natural"] },
-          { "==": [{ "var": "presion_bar" }, "normal"] }
+          {
+            "==": [
+              {
+                "var": "combustible"
+              },
+              "gas_natural"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "presion_bar"
+              },
+              "normal"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -73,7 +87,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora debe inspeccionar la instalación antes de dar el alta del suministro. La inspección verifica la estanqueidad y la conformidad con la UNE 60670."
+          "notas": "La distribuidora debe inspeccionar la instalación antes de dar el alta del suministro. La inspección verifica la estanqueidad y la conformidad con la UNE 60670.",
+          "paralelo_con": 1
         },
         {
           "orden": 3,
@@ -139,7 +154,12 @@
       "id": "AND-GAS-002",
       "descripcion": "Instalación de GLP en envases — normativa UNE 60002",
       "condicion": {
-        "==": [{ "var": "combustible" }, "glp_envases"]
+        "==": [
+          {
+            "var": "combustible"
+          },
+          "glp_envases"
+        ]
       },
       "tramites": [
         {
@@ -214,7 +234,12 @@
       "id": "AND-GAS-003",
       "descripcion": "Alta presión ≥5 bar — requiere proyecto técnico firmado por ingeniero",
       "condicion": {
-        "==": [{ "var": "presion_bar" }, "5+"]
+        "==": [
+          {
+            "var": "presion_bar"
+          },
+          "5+"
+        ]
       },
       "tramites": [
         {
@@ -290,6 +315,39 @@
           "notas": "El plazo de 90 días es el legal máximo. En la práctica, el trámite suele resolverse en 45-60 días hábiles en Andalucía. El silencio administrativo es negativo para este tipo de autorización."
         }
       ]
+    }
+  ],
+  "validaciones": [
+    {
+      "id": "AND-GAS-VAL-001",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "uso",
+        "potencia_kw"
+      ],
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
+        ]
+      },
+      "mensaje": "Uso residencial con potencia > 70 kW: configuración atípica que exige proyecto técnico. Verifique que la potencia introducida es correcta.",
+      "fuente": "RD 919/2006, ITC-ICG 07, apdo. 3.2",
+      "validado_por": null
     }
   ]
 }

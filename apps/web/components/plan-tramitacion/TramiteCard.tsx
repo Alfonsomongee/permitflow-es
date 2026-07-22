@@ -3,6 +3,8 @@
 import { useState } from "react";
 import {
   AlertTriangle,
+  BarChart3,
+  Check,
   CheckCircle2,
   ChevronDown,
   Circle,
@@ -10,17 +12,80 @@ import {
   Euro,
   ExternalLink,
   FileText,
+  Loader2,
 } from "lucide-react";
 import { PlataformaBadge } from "./PlataformaBadge";
-import type { DocumentoRequerido, Tramite } from "@/types/plan";
+import type {
+  DocumentoRequerido,
+  EstadisticaPlazo,
+  Tramite,
+  TramiteEstado,
+  TramiteEstadoInfo,
+} from "@/types/plan";
+import { calcularPlazo } from "@/lib/plazos";
+
+function EstadisticaRealBadge({ estadistica }: { estadistica?: EstadisticaPlazo }) {
+  if (!estadistica) return null;
+  return (
+    <span
+      className="inline-flex items-center gap-1 rounded-full border border-dashed border-border px-2.5 py-0.5 text-[10px] text-text-secondary"
+      title={`Basado en ${estadistica.muestraN} casos reales tramitados en PermitFlow`}
+    >
+      <BarChart3 size={10} aria-hidden />
+      media real: {estadistica.medianaRealDias}d
+    </span>
+  );
+}
 
 function PlazoBadge({
   estimado,
   legal,
+  estadoInfo,
 }: {
   estimado: number | null;
   legal: number | null;
+  estadoInfo?: TramiteEstadoInfo;
 }) {
+  const plazo = calcularPlazo(estadoInfo, legal);
+
+  // Trámite en curso con plazo legal: semáforo verde/ámbar/rojo
+  if (plazo && plazo.diasRestantes !== null && legal) {
+    const { diasTranscurridos, diasRestantes, vencido } = plazo;
+    const proximo = !vencido && diasRestantes <= 7;
+    const estilo = vencido
+      ? "bg-danger-light text-danger-dark"
+      : proximo
+        ? "bg-warning-light text-warning-dark"
+        : "bg-success-light text-success-dark";
+    const texto = vencido
+      ? `plazo vencido hace ${Math.abs(diasRestantes)}d`
+      : `dia ${diasTranscurridos} de ${legal} — quedan ${diasRestantes}d`;
+
+    return (
+      <span
+        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-medium ${estilo}`}
+        title="Dias naturales desde el inicio del tramite. Orientativo: algunos plazos legales se computan en dias habiles."
+      >
+        {vencido ? (
+          <AlertTriangle size={10} aria-hidden />
+        ) : (
+          <Clock size={10} aria-hidden />
+        )}
+        {texto}
+      </span>
+    );
+  }
+
+  // En curso pero sin plazo legal definido
+  if (plazo) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded-full bg-warning-light px-2.5 py-0.5 text-[11px] font-medium text-warning-dark">
+        <Clock size={10} aria-hidden />
+        en curso — dia {plazo.diasTranscurridos}
+      </span>
+    );
+  }
+
   if (!estimado && !legal) return null;
 
   const diff = legal && estimado ? legal - estimado : null;
@@ -52,6 +117,63 @@ function PlazoBadge({
         </span>
       )}
     </div>
+  );
+}
+
+const SIGUIENTE_ESTADO: Record<TramiteEstado, TramiteEstado> = {
+  pendiente: "en_curso",
+  en_curso: "completado",
+  completado: "pendiente",
+};
+
+const ESTADO_TITULO: Record<TramiteEstado, string> = {
+  pendiente: "Marcar como en curso",
+  en_curso: "Marcar como completado",
+  completado: "Volver a pendiente",
+};
+
+function EstadoTramiteButton({
+  orden,
+  estado,
+  pending,
+  onChange,
+}: {
+  orden: number;
+  estado: TramiteEstado;
+  pending: boolean;
+  onChange?: (estado: TramiteEstado) => void;
+}) {
+  const base =
+    "mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-medium transition-colors";
+
+  if (!onChange) {
+    // Solo lectura (plan sin expediente persistido)
+    return <span className={`${base} bg-primary text-white`}>{orden}</span>;
+  }
+
+  const estilo =
+    estado === "completado"
+      ? "bg-success text-white hover:opacity-90"
+      : estado === "en_curso"
+        ? "bg-warning text-white hover:opacity-90"
+        : "border-2 border-border bg-surface text-text-secondary hover:border-primary hover:text-primary";
+
+  return (
+    <button
+      onClick={() => onChange(SIGUIENTE_ESTADO[estado])}
+      disabled={pending}
+      className={`${base} ${estilo} disabled:opacity-60`}
+      title={ESTADO_TITULO[estado]}
+      aria-label={`Tramite ${orden}: ${ESTADO_TITULO[estado].toLowerCase()}`}
+    >
+      {pending ? (
+        <Loader2 size={12} className="animate-spin" aria-hidden />
+      ) : estado === "completado" ? (
+        <Check size={13} aria-hidden />
+      ) : (
+        orden
+      )}
+    </button>
   );
 }
 
@@ -98,51 +220,76 @@ function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
 interface TramiteCardProps {
   tramite: Tramite;
   defaultOpen?: boolean;
+  estadoInfo?: TramiteEstadoInfo;
+  pending?: boolean;
+  onEstadoChange?: (estado: TramiteEstado) => void;
+  estadistica?: EstadisticaPlazo;
 }
 
-export function TramiteCard({ tramite, defaultOpen = false }: TramiteCardProps) {
+export function TramiteCard({
+  tramite,
+  defaultOpen = false,
+  estadoInfo,
+  pending = false,
+  onEstadoChange,
+  estadistica,
+}: TramiteCardProps) {
   const [open, setOpen] = useState(defaultOpen);
+  const estado: TramiteEstado = estadoInfo?.estado ?? "pendiente";
 
   const obligatorios = tramite.documentos_requeridos.filter((doc) => doc.obligatorio);
   const opcionales = tramite.documentos_requeridos.filter((doc) => !doc.obligatorio);
 
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-surface">
-      <button
-        className="flex w-full items-start gap-4 p-5 text-left transition-colors hover:bg-bg"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-      >
-        <span className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary text-xs font-medium text-white">
-          {tramite.orden}
-        </span>
+      <div className="flex w-full items-start gap-4 p-5 transition-colors hover:bg-bg">
+        <EstadoTramiteButton
+          orden={tramite.orden}
+          estado={estado}
+          pending={pending}
+          onChange={onEstadoChange}
+        />
 
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium leading-snug text-text-primary">
-            {tramite.nombre}
-          </p>
-          <p className="mt-0.5 truncate text-xs text-text-secondary">
-            {tramite.organismo}
-          </p>
-        </div>
-
-        <div className="flex flex-shrink-0 flex-col items-end gap-1.5">
-          <div className="flex items-center gap-1.5">
-            <PlataformaBadge plataforma={tramite.plataforma} />
-            <ChevronDown
-              size={15}
-              className={`text-text-secondary transition-transform duration-200 ${
-                open ? "rotate-180" : ""
+        <button
+          className="flex min-w-0 flex-1 items-start gap-4 text-left"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+        >
+          <div className="min-w-0 flex-1">
+            <p
+              className={`text-sm font-medium leading-snug ${
+                estado === "completado"
+                  ? "text-text-secondary line-through"
+                  : "text-text-primary"
               }`}
-              aria-hidden
-            />
+            >
+              {tramite.nombre}
+            </p>
+            <p className="mt-0.5 truncate text-xs text-text-secondary">
+              {tramite.organismo}
+            </p>
           </div>
-          <PlazoBadge
-            estimado={tramite.plazo_estimado_dias}
-            legal={tramite.plazo_legal_dias}
-          />
-        </div>
-      </button>
+
+          <div className="flex flex-shrink-0 flex-col items-end gap-1.5">
+            <div className="flex items-center gap-1.5">
+              <PlataformaBadge plataforma={tramite.plataforma} />
+              <ChevronDown
+                size={15}
+                className={`text-text-secondary transition-transform duration-200 ${
+                  open ? "rotate-180" : ""
+                }`}
+                aria-hidden
+              />
+            </div>
+            <PlazoBadge
+              estimado={tramite.plazo_estimado_dias}
+              legal={tramite.plazo_legal_dias}
+              estadoInfo={estadoInfo}
+            />
+            <EstadisticaRealBadge estadistica={estadistica} />
+          </div>
+        </button>
+      </div>
 
       {open && (
         <div className="divide-y divide-border border-t border-border">

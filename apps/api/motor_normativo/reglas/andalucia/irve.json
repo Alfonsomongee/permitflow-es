@@ -23,11 +23,46 @@
       "descripcion": "IRVE privada ≤50 kW, sin acceso público, sin nuevo suministro, no Modo 4, no exterior",
       "condicion": {
         "and": [
-          { "==": [{ "var": "acceso_publico" }, false] },
-          { "<=": [{ "var": "potencia_kw" }, 50] },
-          { "!=": [{ "var": "modo_recarga" }, "4"] },
-          { "!=": [{ "var": "ubicacion_irve" }, "exterior"] },
-          { "!=": [{ "var": "requiere_nuevo_suministro" }, true] }
+          {
+            "==": [
+              {
+                "var": "acceso_publico"
+              },
+              false
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              50
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "ubicacion_irve"
+              },
+              "exterior"
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "requiere_nuevo_suministro"
+              },
+              true
+            ]
+          }
         ]
       },
       "tramites": [
@@ -177,7 +212,12 @@
       "id": "AND-IRVE-002",
       "descripcion": "IRVE pública o TECI — acceso público, cualquier potencia",
       "condicion": {
-        "==": [{ "var": "acceso_publico" }, true]
+        "==": [
+          {
+            "var": "acceso_publico"
+          },
+          true
+        ]
       },
       "tramites": [
         {
@@ -276,7 +316,12 @@
       "id": "AND-IRVE-003",
       "descripcion": "IRVE con nuevo suministro o aumento de potencia contratada",
       "condicion": {
-        "==": [{ "var": "requiere_nuevo_suministro" }, true]
+        "==": [
+          {
+            "var": "requiere_nuevo_suministro"
+          },
+          true
+        ]
       },
       "tramites": [
         {
@@ -311,7 +356,12 @@
       "id": "AND-IRVE-004",
       "descripcion": "Solicitud MOVES III — si solicita ayuda pública",
       "condicion": {
-        "==": [{ "var": "solicita_ayuda" }, true]
+        "==": [
+          {
+            "var": "solicita_ayuda"
+          },
+          true
+        ]
       },
       "tramites": [
         {
@@ -353,6 +403,117 @@
           "notas": "IMPORTANTE: La solicitud debe realizarse ANTES de iniciar la instalación (o al menos antes de la primera factura). Las ayudas MOVES III en Andalucía se gestionan a través de la AAE y tienen convocatorias periódicas con presupuesto limitado. Consultar disponibilidad de fondos antes de iniciar el trámite."
         }
       ]
+    }
+  ],
+  "validaciones": [
+    {
+      "id": "AND-IRVE-VAL-001",
+      "severidad": "error",
+      "campos_requeridos": [
+        "potencia_kw",
+        "numero_puntos",
+        "potencia_por_punto_kw"
+      ],
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "-": [
+                  {
+                    "*": [
+                      {
+                        "var": "potencia_por_punto_kw"
+                      },
+                      {
+                        "var": "numero_puntos"
+                      }
+                    ]
+                  },
+                  {
+                    "var": "potencia_kw"
+                  }
+                ]
+              },
+              0.5
+            ]
+          },
+          {
+            ">": [
+              {
+                "-": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  {
+                    "*": [
+                      {
+                        "var": "potencia_por_punto_kw"
+                      },
+                      {
+                        "var": "numero_puntos"
+                      }
+                    ]
+                  }
+                ]
+              },
+              0.5
+            ]
+          }
+        ]
+      },
+      "mensaje": "La potencia total declarada no coincide con nº de puntos × potencia por punto (tolerancia ±0,5 kW). Las discrepancias entre documentos son causa habitual de requerimiento de subsanación.",
+      "fuente": "Coherencia documental del expediente (guía de errores frecuentes PUES)",
+      "validado_por": null
+    },
+    {
+      "id": "AND-IRVE-VAL-002",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "acceso_publico",
+        "potencia_kw"
+      ],
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "acceso_publico"
+              },
+              true
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              50
+            ]
+          }
+        ]
+      },
+      "mensaje": "Punto de acceso público ≥ 50 kW: revise las obligaciones adicionales de pago puntual e información de precios.",
+      "fuente": "Reglamento (UE) 2023/1804 (AFIR), art. 5",
+      "validado_por": null
+    },
+    {
+      "id": "AND-IRVE-VAL-003",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "requiere_nuevo_suministro"
+      ],
+      "condicion": {
+        "==": [
+          {
+            "var": "requiere_nuevo_suministro"
+          },
+          true
+        ]
+      },
+      "mensaje": "Requiere nuevo suministro o aumento de potencia: solicite acceso y conexión a la distribuidora cuanto antes; su plazo no computa en los plazos administrativos y suele ser el cuello de botella real.",
+      "fuente": "RD 1183/2020, de acceso y conexión",
+      "validado_por": null
     }
   ]
 }

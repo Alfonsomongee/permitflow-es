@@ -1,0 +1,16 @@
+{
+  "descripcion": "Gas baja presión 24kW en Andalucía",
+  "input": {
+    "tipo_instalacion": "gas_baja_presion",
+    "comunidad": "andalucia",
+    "potencia_kw": 24,
+    "uso": "residencial",
+    "municipio": "Sevilla",
+    "combustible": "gas_natural",
+    "presion_bar": "normal"
+  },
+  "num_tramites_esperado": 4,
+  "tiempo_total_esperado_dias": 28,
+  "validado_por": "Auto - 2026-07-08",
+  "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
+}

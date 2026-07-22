@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "andalucia",
-  "version": "1.1.0",
-  "ultima_revision": "2026-06-29",
+  "version": "1.2.0",
+  "ultima_revision": "2026-07-22",
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
@@ -18,8 +18,22 @@
       "descripcion": "Autoconsumo sin excedentes o con excedentes ≤15 kW en uso residencial",
       "condicion": {
         "and": [
-          { "<=": [{ "var": "potencia_kw" }, 15] },
-          { "==": [{ "var": "uso" }, "residencial"] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              15
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -152,8 +166,22 @@
       "descripcion": "Autoconsumo >15 kW o uso terciario/industrial (requiere proyecto técnico)",
       "condicion": {
         "or": [
-          { ">": [{ "var": "potencia_kw" }, 15] },
-          { "!=": [{ "var": "uso" }, "residencial"] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              15
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -245,6 +273,7 @@
           "plataforma": "MITECO",
           "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
           "coste_estimado": "Sin coste (registro gratuito en sede MITECO)",
+          "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
             {
               "id": "formulario_rac",
@@ -287,7 +316,12 @@
       "id": "AND-FV-003",
       "descripcion": "Solicitud ayudas Next Generation (autoconsumo) — si solicita ayuda",
       "condicion": {
-        "==": [{ "var": "solicita_ayuda" }, true]
+        "==": [
+          {
+            "var": "solicita_ayuda"
+          },
+          true
+        ]
       },
       "tramites": [
         {
@@ -323,6 +357,26 @@
           "notas": "Las convocatorias PRTR tienen presupuesto limitado y se agotan rápidamente. Verificar disponibilidad en la web de la AAE antes de iniciar el procedimiento."
         }
       ]
+    }
+  ],
+  "validaciones": [
+    {
+      "id": "AND-FV-VAL-001",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "potencia_kw"
+      ],
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          100
+        ]
+      },
+      "mensaje": "Potencia superior a 100 kW: la instalación no puede acogerse al mecanismo de compensación simplificada de excedentes.",
+      "fuente": "RD 244/2019, art. 4 y 14",
+      "validado_por": null
     }
   ]
 }

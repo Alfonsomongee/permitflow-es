@@ -124,7 +124,7 @@ def descargar_boe_api_oficial(dias_atras: int = 7) -> list[dict]:
     documentos = []
     base_url = "https://api.boe.es/BOEAPI/v2/BOE/sumario"
 
-    with httpx.Client(follow_redirects=True, timeout=20, verify=False) as client:
+    with httpx.Client(follow_redirects=True, timeout=20) as client:
         for i in range(dias_atras):
             fecha_dt = datetime.now() - timedelta(days=i)
             # BOE no se publica sábados ni domingos
@@ -186,7 +186,7 @@ def descargar_texto_boe_api(id_doc: str) -> str:
     """
     url = f"https://api.boe.es/BOEAPI/v2/BOE/disposicion/{id_doc}"
     try:
-        with httpx.Client(follow_redirects=True, timeout=20, verify=False) as client:
+        with httpx.Client(follow_redirects=True, timeout=20) as client:
             response = client.get(url, headers={"Accept": "application/xml"})
             if response.status_code != 200:
                 return ""
@@ -456,7 +456,7 @@ async def extraer_texto_html(url: str, max_chars: int = 6000) -> str:
                     if stripped:
                         self.texts.append(stripped)
 
-        async with httpx.AsyncClient(follow_redirects=True, timeout=15, verify=False) as client:
+        async with httpx.AsyncClient(follow_redirects=True, timeout=15) as client:
             response = await client.get(url)
             if response.status_code != 200:
                 return ""

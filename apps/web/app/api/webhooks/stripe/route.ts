@@ -22,9 +22,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_placeholder"
 
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
 
-type StripeObjectWithMetadata = {
-  metadata?: Stripe.Metadata | null;
-};
 
 type StripeSubscriptionWithPeriodEnd = Stripe.Subscription & {
   current_period_end?: number;
@@ -67,10 +64,25 @@ export async function POST(req: Request) {
       break;
     }
 
-    case "customer.subscription.deleted":
+    case "customer.subscription.deleted": {
+      const sub = event.data.object as Stripe.Subscription;
+      const orgId = sub.metadata?.clerk_org_id;
+      if (orgId) await desactivarSuscripcion(orgId);
+      break;
+    }
+
     case "invoice.payment_failed": {
-      const obj = event.data.object as Stripe.Subscription | Stripe.Invoice;
-      const orgId = (obj as StripeObjectWithMetadata).metadata?.clerk_org_id;
+      const invoice = event.data.object as Stripe.Invoice;
+      // Invoice.metadata no hereda clerk_org_id de la suscripción: hay que
+      // resolverlo consultando la suscripción asociada a la factura.
+      const subscriptionProp = (invoice as unknown as { subscription?: string | { id?: string } })
+        .subscription;
+      const subscriptionId =
+        typeof subscriptionProp === "string" ? subscriptionProp : subscriptionProp?.id;
+      if (!subscriptionId) break;
+
+      const sub = await stripe.subscriptions.retrieve(subscriptionId);
+      const orgId = sub.metadata?.clerk_org_id;
       if (orgId) await desactivarSuscripcion(orgId);
       break;
     }
