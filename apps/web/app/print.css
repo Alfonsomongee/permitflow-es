@@ -10,9 +10,7 @@
 
 @media print {
   /* Ocultar elementos de navegación y UI */
-  header,
   nav,
-  aside,
   footer,
   .no-print,
   [data-chat-widget],

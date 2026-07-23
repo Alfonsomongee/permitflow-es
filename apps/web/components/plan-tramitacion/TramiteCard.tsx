@@ -225,7 +225,7 @@ export function TramiteCard({
 
   return (
     <div
-      className={`overflow-hidden rounded-2xl border bg-surface transition-shadow ${
+      className={`tramite-card overflow-hidden rounded-2xl border bg-surface transition-shadow ${
         open ? "border-primary/30 shadow-md" : "border-border shadow-sm hover:shadow-md"
       }`}
     >

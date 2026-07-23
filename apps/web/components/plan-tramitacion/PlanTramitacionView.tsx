@@ -118,7 +118,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
 
   return (
     <div className="min-h-screen bg-bg">
-      <div className="border-b border-border bg-surface px-4 py-2.5 sm:px-6">
+      <div className="no-print border-b border-border bg-surface px-4 py-2.5 sm:px-6">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link
             href="/expedientes"
@@ -131,7 +131,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
         </div>
       </div>
 
-      <header className="border-b border-border bg-gradient-to-br from-primary-light via-surface to-surface px-4 py-8 sm:px-6">
+      <div className="print-header border-b border-border bg-gradient-to-br from-primary-light via-surface to-surface px-4 py-8 sm:px-6 print:bg-none print:py-4">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="flex items-start gap-4">
@@ -176,7 +176,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
             )}
           </div>
         </div>
-      </header>
+      </div>
 
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
@@ -211,17 +211,19 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
           </div>
 
           <div className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start">
-            {expediente && <ValidadorPanel expedienteId={expediente.id} />}
-            {expediente && (
-              <DocumentosPanel expedienteId={expediente.id} tipoInstalacion={params.tipo_instalacion} />
-            )}
-            {expediente && (
-              <DetallesExpediente
-                expedienteId={expediente.id}
-                referenciaCliente={expediente.referenciaCliente}
-                notas={expediente.notas}
-              />
-            )}
+            <div className="no-print flex flex-col gap-4">
+              {expediente && <ValidadorPanel expedienteId={expediente.id} />}
+              {expediente && (
+                <DocumentosPanel expedienteId={expediente.id} tipoInstalacion={params.tipo_instalacion} />
+              )}
+              {expediente && (
+                <DetallesExpediente
+                  expedienteId={expediente.id}
+                  referenciaCliente={expediente.referenciaCliente}
+                  notas={expediente.notas}
+                />
+              )}
+            </div>
             <ResumenPanel plan={plan} params={params} />
           </div>
         </div>
