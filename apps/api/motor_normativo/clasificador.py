@@ -171,4 +171,5 @@ class Clasificador:
             tramites=tramites_output,
             tiempo_total_estimado_dias=tiempo_total,
             advertencias=advertencias,
+            nivel_verificacion=data.get("nivel_verificacion", "verificada"),
         )

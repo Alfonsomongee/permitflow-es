@@ -17,7 +17,12 @@
       "id": "AND-CLIM-001",
       "descripcion": "Instalación térmica ≤70 kW potencia nominal — régimen simplificado RITE",
       "condicion": {
-        "<=": [{ "var": "potencia_kw" }, 70]
+        "<=": [
+          {
+            "var": "potencia_kw"
+          },
+          70
+        ]
       },
       "tramites": [
         {
@@ -110,7 +115,12 @@
       "id": "AND-CLIM-002",
       "descripcion": "Instalación térmica >70 kW — requiere proyecto técnico e inspección OCA",
       "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          70
+        ]
       },
       "tramites": [
         {
@@ -193,5 +203,57 @@
         }
       ]
     }
-  ]
+  ],
+  "validaciones": [
+    {
+      "id": "AND-CLIM-VAL-001",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "uso",
+        "potencia_kw"
+      ],
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
+        ]
+      },
+      "mensaje": "Uso residencial con potencia térmica > 70 kW: configuración atípica que exige proyecto técnico RITE en lugar de memoria. Verifique que la potencia introducida es correcta.",
+      "fuente": "RD 1027/2007 (RITE), art. 15",
+      "validado_por": null
+    },
+    {
+      "id": "AND-CLIM-VAL-002",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "potencia_kw"
+      ],
+      "condicion": {
+        ">=": [
+          {
+            "var": "potencia_kw"
+          },
+          5
+        ]
+      },
+      "mensaje": "Instalación con refrigerantes: el Reglamento F-Gas (UE) 2024/573 restringe progresivamente los refrigerantes de alto PCA y exige personal frigorista certificado para la manipulación. Confirme el refrigerante del equipo antes de presentar.",
+      "fuente": "Reglamento (UE) 2024/573",
+      "validado_por": null
+    }
+  ],
+  "nivel_verificacion": "verificada"
 }

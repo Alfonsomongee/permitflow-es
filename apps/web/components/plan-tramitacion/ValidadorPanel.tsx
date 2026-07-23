@@ -41,6 +41,12 @@ export function ValidadorPanel({ expedienteId }: ValidadorPanelProps) {
     void validar();
   }, [validar]);
 
+  // Sin comprobaciones definidas para este vertical/comunidad: mejor no
+  // renderizar nada que mostrar un panel Pro que confiesa estar vacío.
+  if (!cargando && !error && !requiereUpgrade && resultado?.total_definidas === 0) {
+    return null;
+  }
+
   return (
     <div className="rounded-2xl border border-border bg-surface p-5">
       <div className="mb-3 flex items-center justify-between">

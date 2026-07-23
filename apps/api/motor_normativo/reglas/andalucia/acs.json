@@ -16,8 +16,22 @@
       "descripcion": "Instalación ACS residencial ≤70 kW — régimen simplificado",
       "condicion": {
         "and": [
-          { "<=": [{ "var": "potencia_kw" }, 70] },
-          { "==": [{ "var": "uso" }, "residencial"] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -86,8 +100,22 @@
       "descripcion": "Instalación ACS en uso terciario, colectivo o volumen acumulación >2.000 L — obliga protocolo legionella",
       "condicion": {
         "or": [
-          { "!=": [{ "var": "uso" }, "residencial"] },
-          { ">": [{ "var": "potencia_kw" }, 70] }
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -191,5 +219,44 @@
         }
       ]
     }
-  ]
+  ],
+  "validaciones": [
+    {
+      "id": "AND-ACS-VAL-001",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "uso"
+      ],
+      "condicion": {
+        "!=": [
+          {
+            "var": "uso"
+          },
+          "residencial"
+        ]
+      },
+      "mensaje": "ACS en edificio de uso colectivo o terciario: si la instalación tiene acumulación y circuito de retorno, es obligatorio el Plan de Prevención y Control de Legionella (PPCL) o Plan Sanitario del agua.",
+      "fuente": "RD 487/2022, modificado por RD 614/2024",
+      "validado_por": null
+    },
+    {
+      "id": "AND-ACS-VAL-002",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "combustible"
+      ],
+      "condicion": {
+        "==": [
+          {
+            "var": "combustible"
+          },
+          "gas"
+        ]
+      },
+      "mensaje": "ACS con caldera/calentador de gas: además del certificado RITE se requiere el certificado de instalación de gas IRG-3, que es un documento distinto y lo emite el instalador de gas habilitado.",
+      "fuente": "RD 919/2006, ITC-ICG 07",
+      "validado_por": null
+    }
+  ],
+  "nivel_verificacion": "verificada"
 }

@@ -58,6 +58,7 @@ export interface PlanTramitacion {
   tramites: Tramite[];
   tiempo_total_estimado_dias: number | null;
   advertencias: string[];
+  nivel_verificacion?: "verificada" | "generica";
 }
 
 export type TramiteEstado = "pendiente" | "en_curso" | "completado";

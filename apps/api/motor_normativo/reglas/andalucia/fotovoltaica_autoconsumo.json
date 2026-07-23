@@ -166,9 +166,30 @@
       "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado)",
       "condicion": {
         "and": [
-          { ">": [{ "var": "potencia_kw" }, 10] },
-          { "<=": [{ "var": "potencia_kw" }, 15] },
-          { "==": [{ "var": "uso" }, "residencial"] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              15
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -489,5 +510,6 @@
       "fuente": "RD 244/2019, art. 4 y 14",
       "validado_por": null
     }
-  ]
+  ],
+  "nivel_verificacion": "verificada"
 }

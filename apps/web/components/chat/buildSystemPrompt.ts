@@ -1,4 +1,9 @@
-import type { PlanTramitacion, InstalacionParams } from "@/types/plan";
+import {
+  COMUNIDAD_LABEL,
+  TIPO_LABEL,
+  type PlanTramitacion,
+  type InstalacionParams,
+} from "@/types/plan";
 
 /**
  * Construye el system prompt para DeepSeek combinando tres capas de contexto:
@@ -45,18 +50,8 @@ Reglas de comportamiento:
 
   // ── Capa 2: Contexto del expediente activo ─────────────────────────────────
   if (plan && params) {
-    const tipoLabel: Record<string, string> = {
-      fotovoltaica_autoconsumo: "Fotovoltaica autoconsumo",
-      irve: "IRVE",
-      climatizacion_aerotermia: "Climatización y aerotermia",
-      acs: "ACS",
-      gas_baja_presion: "Gas baja presión",
-    };
-    const comunidadLabel: Record<string, string> = {
-      andalucia: "Andalucía",
-      cataluna: "Cataluña",
-      madrid: "Madrid",
-    };
+    const tipoLabel = TIPO_LABEL;
+    const comunidadLabel = COMUNIDAD_LABEL;
 
     const resumenTramites = plan.tramites
       .map(
@@ -95,12 +90,33 @@ pronombres que hagan referencia al contexto, usa SIEMPRE la información anterio
 
   // ── Capa 3: Normativa JSON del vertical ────────────────────────────────────
   if (normativaJson) {
-    // Serializamos de forma compacta para no desperdiciar tokens
-    const normativaStr = JSON.stringify(normativaJson, null, 0);
-    // Limitar a ~6.000 caracteres para no saturar el contexto
+    // En lugar de volcar el fichero entero (y truncarlo por la mitad dejando
+    // JSON inválido en el contexto), enviamos solo las reglas que realmente
+    // aplicaron a ESTE expediente, identificadas por regla_id del plan.
+    const reglasAplicadas = new Set(
+      (plan?.tramites ?? []).map((t) => t.regla_id).filter(Boolean)
+    );
+    const fuente = normativaJson as {
+      reglas?: Array<{ id?: string }>;
+      fuentes?: string[];
+      version?: string;
+      ultima_revision?: string;
+    };
+    const relevante =
+      reglasAplicadas.size > 0 && Array.isArray(fuente.reglas)
+        ? {
+            version: fuente.version,
+            ultima_revision: fuente.ultima_revision,
+            fuentes: fuente.fuentes,
+            reglas: fuente.reglas.filter((r) => r.id && reglasAplicadas.has(r.id)),
+          }
+        : normativaJson;
+
+    const normativaStr = JSON.stringify(relevante, null, 0);
+    // Salvaguarda: si aun filtrado excede el límite, truncamos con aviso.
     const truncated =
-      normativaStr.length > 6000
-        ? normativaStr.slice(0, 6000) + "...[normativa truncada por longitud]"
+      normativaStr.length > 12000
+        ? normativaStr.slice(0, 12000) + "...[normativa truncada por longitud]"
         : normativaStr;
 
     sections.push(`

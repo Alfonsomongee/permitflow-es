@@ -36,9 +36,61 @@ import urllib.parse
 API_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(API_DIR))
 
-from servicios.ai_client import completar
+from typing import Any, Literal
+
+from pydantic import BaseModel, Field
+
+from servicios.ai_client import completar, completar_estructurado
 from config import settings
 import resend
+
+
+# ─── Esquema de validación de la respuesta del LLM ───────────────────────────
+# La superficie de error principal del pipeline es la interpretación del LLM,
+# no la API del BOE: un JSON malformado o con campos inventados no debe
+# propagarse silenciosamente a alertas_boe ni a los borradores del motor.
+
+class TramiteNuevoBoe(BaseModel):
+    nombre: str = ""
+    organismo: str = ""
+    base_legal: str = ""
+    descripcion: str = ""
+
+
+class TramiteModificadoBoe(BaseModel):
+    nombre_actual: str = ""
+    campo_afectado: str = ""
+    valor_anterior: Any = None
+    valor_nuevo: Any = None
+    justificacion: str = ""
+
+
+class CambioDiffBoe(BaseModel):
+    tipo: str = ""
+    ruta: str = ""
+    valor_actual: Any = None
+    valor_nuevo: Any = None
+    motivo: str = ""
+
+
+class DiffSugeridoBoe(BaseModel):
+    descripcion: str = ""
+    archivos_afectados: list[str] = Field(default_factory=list)
+    cambios: list[CambioDiffBoe] = Field(default_factory=list)
+
+
+class AnalisisBoe(BaseModel):
+    es_relevante: bool
+    resumen: str = ""
+    nivel_urgencia: Literal["alta", "media", "baja"] = "baja"
+    tipo: Literal["normativa_nueva", "modificacion", "derogacion"] = "normativa_nueva"
+    tipos_instalacion_afectados: list[str] = Field(default_factory=list)
+    ccaa_afectadas: list[str] = Field(default_factory=list)
+    tramites_nuevos: list[TramiteNuevoBoe] = Field(default_factory=list)
+    tramites_modificados: list[TramiteModificadoBoe] = Field(default_factory=list)
+    tramites_eliminados: list[str] = Field(default_factory=list)
+    diff_sugerido: DiffSugeridoBoe = Field(default_factory=DiffSugeridoBoe)
+    fuente_legal: str = ""
 
 # ─── Configuración ────────────────────────────────────────────────────────────
 
@@ -327,14 +379,13 @@ Si el documento NO es relevante para instalaciones técnicas, devuelve solo:
 {{"es_relevante": false, "resumen": "no relevante", "nivel_urgencia": "baja", "tipo": "normativa_nueva", "tipos_instalacion_afectados": [], "ccaa_afectadas": [], "tramites_nuevos": [], "tramites_modificados": [], "tramites_eliminados": [], "diff_sugerido": {{"descripcion": "", "archivos_afectados": [], "cambios": []}}, "fuente_legal": ""}}"""
 
     try:
-        respuesta = await completar(
+        analisis = await completar_estructurado(
             prompt=prompt,
+            schema=AnalisisBoe,
             system=system,
             max_tokens=2000,
-            temperatura=0.1,
-            json_mode=True,
         )
-        return json.loads(respuesta)
+        return analisis.model_dump()
     except Exception as e:
         print(f"  Error DeepSeek: {e}")
         return {
@@ -365,16 +416,30 @@ async def guardar_en_supabase(doc: dict, analisis: dict) -> bool:
         return False
 
     try:
+        # Semántica del frontend (alertaAfectaExpediente): null/[] = afecta a
+        # TODAS las CCAA/verticales; lista con valores = solo esas. Por tanto
+        # "estatal" y "general" deben traducirse a null, no guardarse como
+        # literales (guardados tal cual, una norma estatal no matchearía
+        # ningún expediente — justo lo contrario de lo correcto).
+        ccaa = analisis.get("ccaa_afectadas", [])
+        if not ccaa or "estatal" in ccaa:
+            ccaa = None
+        verticales = analisis.get("tipos_instalacion_afectados", [])
+        if not verticales or "general" in verticales:
+            verticales = None
+
         data = {
             "tipo": analisis.get("tipo", "normativa_nueva"),
             "titulo": doc.get("titulo", "")[:500],
             "resumen": analisis.get("resumen", "")[:1000],
             "fuente_url": doc.get("url_html", ""),
-            "ccaa_afectadas": analisis.get("ccaa_afectadas", []),
-            "verticales_afectados": analisis.get("tipos_instalacion_afectados", []),
+            "ccaa_afectadas": ccaa,
+            "verticales_afectados": verticales,
             "leida": False,
-            # Guardamos el diff completo en un campo extra (añadir a schema si no existe)
-            # "diff_sugerido": analisis.get("diff_sugerido"),
+            "nivel_urgencia": analisis.get("nivel_urgencia", "baja"),
+            "fuente": doc.get("fuente", ""),
+            "doc_id": (doc.get("id") or "")[:200],
+            "diff_sugerido": analisis.get("diff_sugerido"),
         }
 
         result = supabase.table("alertas_boe").insert(data).execute()

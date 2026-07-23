@@ -77,6 +77,58 @@ VALIDACIONES = {
             "validado_por": None,
         },
     ],
+    "climatizacion_aerotermia": [
+        {
+            "id": "AND-CLIM-VAL-001",
+            "severidad": "aviso",
+            "campos_requeridos": ["uso", "potencia_kw"],
+            "condicion": {"and": [
+                {"==": [{"var": "uso"}, "residencial"]},
+                {">": [{"var": "potencia_kw"}, 70]},
+            ]},
+            "mensaje": "Uso residencial con potencia térmica > 70 kW: configuración atípica "
+                       "que exige proyecto técnico RITE en lugar de memoria. Verifique que la "
+                       "potencia introducida es correcta.",
+            "fuente": "RD 1027/2007 (RITE), art. 15",
+            "validado_por": None,
+        },
+        {
+            "id": "AND-CLIM-VAL-002",
+            "severidad": "aviso",
+            "campos_requeridos": ["potencia_kw"],
+            "condicion": {">=": [{"var": "potencia_kw"}, 5]},
+            "mensaje": "Instalación con refrigerantes: el Reglamento F-Gas (UE) 2024/573 "
+                       "restringe progresivamente los refrigerantes de alto PCA y exige "
+                       "personal frigorista certificado para la manipulación. Confirme el "
+                       "refrigerante del equipo antes de presentar.",
+            "fuente": "Reglamento (UE) 2024/573",
+            "validado_por": None,
+        },
+    ],
+    "acs": [
+        {
+            "id": "AND-ACS-VAL-001",
+            "severidad": "aviso",
+            "campos_requeridos": ["uso"],
+            "condicion": {"!=": [{"var": "uso"}, "residencial"]},
+            "mensaje": "ACS en edificio de uso colectivo o terciario: si la instalación tiene "
+                       "acumulación y circuito de retorno, es obligatorio el Plan de Prevención "
+                       "y Control de Legionella (PPCL) o Plan Sanitario del agua.",
+            "fuente": "RD 487/2022, modificado por RD 614/2024",
+            "validado_por": None,
+        },
+        {
+            "id": "AND-ACS-VAL-002",
+            "severidad": "aviso",
+            "campos_requeridos": ["combustible"],
+            "condicion": {"==": [{"var": "combustible"}, "gas"]},
+            "mensaje": "ACS con caldera/calentador de gas: además del certificado RITE se "
+                       "requiere el certificado de instalación de gas IRG-3, que es un "
+                       "documento distinto y lo emite el instalador de gas habilitado.",
+            "fuente": "RD 919/2006, ITC-ICG 07",
+            "validado_por": None,
+        },
+    ],
 }
 
 # paralelo_con de ejemplo: en AND-GAS-001, la solicitud de acometida (orden 2)

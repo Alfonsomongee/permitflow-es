@@ -4,7 +4,13 @@ import { calcularVencimientoHabil } from "./festivos";
 const MS_DIA = 86_400_000;
 
 export function hoyIso(): string {
-  return new Date().toISOString().slice(0, 10);
+  // "Hoy" en la zona horaria administrativa española, no en UTC del servidor:
+  // a las 00:30 de Madrid, toISOString() todavía devuelve la fecha de ayer,
+  // lo que desplazaría fechas de inicio/completado de trámites legales.
+  // "en-CA" formatea como YYYY-MM-DD.
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Madrid" }).format(
+    new Date()
+  );
 }
 
 export function diasEntre(desdeIso: string, hastaIso: string = hoyIso()): number {

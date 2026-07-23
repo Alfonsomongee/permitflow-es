@@ -183,6 +183,13 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0 space-y-6">
+            {plan.nivel_verificacion === "generica" && (
+              <p className="rounded-xl border border-warning/30 bg-warning-light px-4 py-3 text-xs text-warning-dark">
+                Plan basado en la normativa estatal aplicable. La verificación de las
+                particularidades autonómicas de esta comunidad está en curso: contrasta
+                plataformas y registros antes de presentar.
+              </p>
+            )}
             <TimelinePlan
               tramites={plan.tramites}
               estados={expediente ? estados : undefined}

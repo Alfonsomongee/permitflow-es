@@ -77,3 +77,7 @@ class ClasificadorOutput(BaseModel):
     tramites: List[TramiteOutput] = Field(..., description="Lista ordenada de trámites")
     tiempo_total_estimado_dias: Optional[int] = Field(None, description="Suma de los plazos estimados")
     advertencias: List[str] = Field(default_factory=list, description="Advertencias generales")
+    nivel_verificacion: Literal["verificada", "generica"] = Field(
+        "verificada",
+        description="'generica' si el JSON de normativa aún no tiene verificación autonómica específica",
+    )
