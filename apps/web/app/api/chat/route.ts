@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     ...body,
     model: ALLOWED_MODEL,
     max_tokens: Math.min(Number(body.max_tokens) || MAX_TOKENS_CAP, MAX_TOKENS_CAP),
-    stream: false,
+    stream: true,
   };
 
   const res = await fetch("https://api.deepseek.com/chat/completions", {
@@ -45,6 +45,19 @@ export async function POST(req: NextRequest) {
     },
     body: JSON.stringify(safeBody),
   });
-  const data = await res.json();
-  return NextResponse.json(data, { status: res.status });
+
+  if (!res.ok || !res.body) {
+    const data = await res.json().catch(() => ({ error: `Error ${res.status}` }));
+    return NextResponse.json(data, { status: res.status || 502 });
+  }
+
+  // Passthrough del stream SSE de DeepSeek hacia el navegador.
+  return new NextResponse(res.body, {
+    status: 200,
+    headers: {
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-store",
+      Connection: "keep-alive",
+    },
+  });
 }

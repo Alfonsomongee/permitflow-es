@@ -52,11 +52,24 @@ export async function alertasNoLeidasParaExpediente(
     .eq("clerk_org_id", clerkOrgId)
     .maybeSingle();
 
-  let query = supabaseAdmin.from("alertas_boe").select("*").eq("leida", false);
+  let query = supabaseAdmin.from("alertas_boe").select("*");
   query = org?.id
     ? query.or(`org_id.is.null,org_id.eq.${org.id}`)
     : query.is("org_id", null);
 
-  const { data } = await query.order("creado_en", { ascending: false }).limit(20);
-  return (data ?? []).filter((a) => alertaAfectaExpediente(a, expediente));
+  const { data } = await query.order("creado_en", { ascending: false }).limit(50);
+  const alertas = (data ?? []).filter((a) => alertaAfectaExpediente(a, expediente));
+
+  // Excluir las ya leídas por ESTA organización (tabla alertas_leidas).
+  if (!org?.id || alertas.length === 0) return alertas;
+  const { data: leidas } = await supabaseAdmin
+    .from("alertas_leidas")
+    .select("alerta_id")
+    .eq("org_id", org.id)
+    .in(
+      "alerta_id",
+      alertas.map((a) => a.id)
+    );
+  const leidasSet = new Set((leidas ?? []).map((l) => l.alerta_id));
+  return alertas.filter((a) => !leidasSet.has(a.id));
 }

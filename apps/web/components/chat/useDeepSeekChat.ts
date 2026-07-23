@@ -56,29 +56,67 @@ export function useDeepSeekChat({
             ],
             temperature: 0.3,   // Bajo para respuestas normativas precisas
             max_tokens: 1024,
-            stream: false,
+            stream: true,
           }),
         });
 
-        if (!res.ok) {
+        if (!res.ok || !res.body) {
           const detail = await res.json().catch(() => ({}));
-          throw new Error(detail?.error?.message ?? `Error ${res.status}`);
+          throw new Error(detail?.error?.message ?? detail?.error ?? `Error ${res.status}`);
         }
 
-        const data = await res.json();
-        const assistantContent: string =
-          data.choices?.[0]?.message?.content ?? "Sin respuesta del modelo.";
-
-        const assistantMsg: ChatMessage = {
-          role: "assistant",
-          content: assistantContent,
+        // Streaming SSE: pintamos la respuesta token a token.
+        let content = "";
+        const pintar = (texto: string) => {
+          const actual: ChatMessage[] = [
+            ...updated,
+            { role: "assistant", content: texto },
+          ];
+          messagesRef.current = actual;
+          setMessages(actual);
         };
-        const withAssistant = [...updated, assistantMsg];
-        messagesRef.current = withAssistant;
-        setMessages([...withAssistant]);
+        pintar("");
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lineas = buffer.split("\n");
+          buffer = lineas.pop() ?? "";
+          for (const linea of lineas) {
+            const l = linea.trim();
+            if (!l.startsWith("data:")) continue;
+            const payload = l.slice(5).trim();
+            if (payload === "[DONE]") continue;
+            try {
+              const chunk = JSON.parse(payload) as {
+                choices?: Array<{ delta?: { content?: string } }>;
+              };
+              const delta = chunk.choices?.[0]?.delta?.content ?? "";
+              if (delta) {
+                content += delta;
+                pintar(content);
+              }
+            } catch {
+              // Chunk parcial o keep-alive: ignorar
+            }
+          }
+        }
+
+        if (!content) {
+          pintar("Sin respuesta del modelo.");
+        }
       } catch (err) {
         const msg = err instanceof Error ? err.message : "Error desconocido";
         setError(msg);
+        // Rollback: retiramos el mensaje de asistente parcial/vacío para no
+        // dejar una burbuja rota; el mensaje del usuario se conserva.
+        messagesRef.current = updated;
+        setMessages([...updated]);
       } finally {
         setLoading(false);
       }

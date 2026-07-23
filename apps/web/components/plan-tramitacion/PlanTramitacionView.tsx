@@ -13,6 +13,7 @@ import { TramiteCard } from "./TramiteCard";
 import { ResumenPanel } from "./ResumenPanel";
 import { ExportPdfButton } from "./ExportPdfButton";
 import { DetallesExpediente } from "./DetallesExpediente";
+import { HistorialPanel } from "./HistorialPanel";
 import { DocumentosPanel } from "./DocumentosPanel";
 import { TimelinePlan } from "./TimelinePlan";
 import { ValidadorPanel } from "./ValidadorPanel";
@@ -233,6 +234,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
                   notas={expediente.notas}
                 />
               )}
+              {expediente && <HistorialPanel expedienteId={expediente.id} />}
             </div>
             <ResumenPanel plan={plan} params={params} />
           </div>

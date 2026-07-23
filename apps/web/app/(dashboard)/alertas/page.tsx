@@ -27,8 +27,23 @@ async function getAlertas(clerkOrgId: string) {
     : query.is("org_id", null);
 
   const { data } = await query.order("creado_en", { ascending: false }).limit(50);
+  const alertas = data ?? [];
 
-  return data ?? [];
+  // Estado de lectura por organización: sobreescribimos `leida` con el valor
+  // real de este tenant (tabla alertas_leidas), sin tocar el componente.
+  if (org?.id && alertas.length > 0) {
+    const { data: leidas } = await supabaseAdmin
+      .from("alertas_leidas")
+      .select("alerta_id")
+      .eq("org_id", org.id)
+      .in(
+        "alerta_id",
+        alertas.map((a) => a.id)
+      );
+    const leidasSet = new Set((leidas ?? []).map((l) => l.alerta_id));
+    return alertas.map((a) => ({ ...a, leida: leidasSet.has(a.id) }));
+  }
+  return alertas;
 }
 
 export default async function AlertasPage() {
