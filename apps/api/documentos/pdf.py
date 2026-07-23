@@ -1,4 +1,5 @@
 """Renderizado PDF con fpdf2 (pure-Python: sin dependencias de sistema)."""
+import re
 from datetime import date
 
 from fpdf import FPDF
@@ -7,6 +8,7 @@ from fpdf.fonts import FontFace
 from .contextos import (
     datos_instalacion,
     estado_de_tramite,
+    etiqueta_comunidad,
     etiqueta_tipo,
     resumen_progreso,
 )
@@ -66,6 +68,138 @@ class PermitFlowPDF(FPDF):
             new_x="LMARGIN", new_y="NEXT",
         )
         self.cell(0, 4, f"Página {self.page_no()}/{{nb}}", align="C")
+
+
+# ── Presupuesto ───────────────────────────────────────────────────────────────
+
+def _importes_de_coste(texto: str | None) -> list[float]:
+    """Extrae importes en euros de un coste_estimado en texto libre.
+
+    Los JSONs de normativa escriben el coste en prosa ("Sin tasa (0 EUR)",
+    "aprox. 120 €", "35,50 euros"). Sumamos lo que se puede parsear y el
+    resto se refleja como 'a consultar', nunca como cero silencioso.
+    """
+    if not texto:
+        return []
+    importes: list[float] = []
+    for bruto in re.findall(r"(\d{1,3}(?:[.\s]\d{3})*(?:,\d{1,2})?|\d+(?:[.,]\d{1,2})?)\s*(?:€|EUR|euros?)", texto, flags=re.IGNORECASE):
+        limpio = bruto.replace(" ", "").replace(".", "").replace(",", ".")
+        try:
+            importes.append(float(limpio))
+        except ValueError:
+            continue
+    return importes
+
+
+def generar_presupuesto_pdf(payload: GenerarDocumentoInput) -> bytes:
+    """Resumen de una página para adjuntar a una oferta comercial.
+
+    A diferencia del plan, se dirige al cliente final de la instaladora: no
+    detalla documentación ni bases legales, sino alcance, coste y plazo.
+    """
+    exp, plan = payload.expediente, payload.plan
+    org = payload.organizacion
+    pdf = PermitFlowPDF(org.nombre, "Presupuesto de tramitación administrativa")
+    pdf.add_page()
+
+    pdf.set_font("helvetica", "B", 16)
+    pdf.set_text_color(0, 0, 0)
+    pdf.cell(0, 9, _s(etiqueta_tipo(exp.tipo_instalacion)), new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("helvetica", "", 10)
+    pdf.set_text_color(*GRIS)
+    pdf.cell(
+        0, 6,
+        _s(f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)}) - {exp.potencia_kw:g} kW"),
+        new_x="LMARGIN", new_y="NEXT",
+    )
+    pdf.ln(3)
+    pdf.set_text_color(0, 0, 0)
+
+    pdf.bloque_datos(datos_instalacion(exp))
+
+    # ── Alcance: qué trámites cubre la gestión ──
+    pdf.subtitulo("Alcance de la tramitación")
+    pdf.set_font("helvetica", "", 8.5)
+    cabecera = FontFace(emphasis="BOLD", color=(255, 255, 255), fill_color=BRAND)
+    total_conocido = 0.0
+    hay_desconocidos = False
+
+    with pdf.table(
+        col_widths=(9, 96, 45, 30),
+        text_align=("CENTER", "LEFT", "LEFT", "RIGHT"),
+        headings_style=cabecera,
+        line_height=4.8,
+    ) as tabla:
+        cab = tabla.row()
+        for h in ("Nº", "Trámite", "Organismo", "Tasas"):
+            cab.cell(h)
+        for t in plan.tramites:
+            importes = _importes_de_coste(t.coste_estimado)
+            if importes:
+                subtotal = sum(importes)
+                total_conocido += subtotal
+                texto_coste = f"{subtotal:,.2f} EUR".replace(",", "@").replace(".", ",").replace("@", ".")
+            elif t.coste_estimado:
+                hay_desconocidos = True
+                texto_coste = "a consultar"
+            else:
+                texto_coste = "-"
+            fila = tabla.row()
+            fila.cell(str(t.orden))
+            fila.cell(_s(t.nombre))
+            fila.cell(_s(t.organismo))
+            fila.cell(_s(texto_coste))
+    pdf.ln(3)
+
+    # ── Resumen económico y de plazos ──
+    pdf.subtitulo("Resumen")
+    total_fmt = f"{total_conocido:,.2f} EUR".replace(",", "@").replace(".", ",").replace("@", ".")
+    filas_resumen = [
+        ("Trámites incluidos", str(len(plan.tramites))),
+        ("Tasas administrativas identificadas", total_fmt),
+    ]
+    if plan.tiempo_total_estimado_dias:
+        filas_resumen.append(
+            ("Plazo estimado de tramitación", f"{plan.tiempo_total_estimado_dias} días")
+        )
+    pdf.bloque_datos(filas_resumen)
+
+    # ── Advertencias honestas ──
+    pdf.set_font("helvetica", "I", 7.5)
+    pdf.set_text_color(*GRIS)
+    avisos = [
+        "Las tasas indicadas son las identificadas en la normativa aplicable y no incluyen "
+        "honorarios técnicos, materiales ni ejecución de la instalación.",
+    ]
+    if hay_desconocidos:
+        avisos.append(
+            "Algunos trámites tienen tasas variables segun municipio u organismo: se han "
+            "marcado como 'a consultar' y no se suman al total."
+        )
+    if getattr(plan, "nivel_verificacion", "verificada") == "generica":
+        avisos.append(
+            "Plan basado en normativa estatal; las particularidades autonomicas de esta "
+            "comunidad estan pendientes de verificacion."
+        )
+    avisos.append(
+        "Los plazos son orientativos y dependen de la carga de trabajo de cada organismo."
+    )
+    for aviso in avisos:
+        pdf.multi_cell(0, 4, _s(f"- {aviso}"), new_x="LMARGIN", new_y="NEXT")
+
+    # ── Marca PermitFlow (plan gratuito) ──
+    if org.marca_permitflow:
+        pdf.ln(4)
+        pdf.set_font("helvetica", "B", 8)
+        pdf.set_text_color(*BRAND)
+        pdf.cell(
+            0, 5,
+            _s("Presupuesto generado automaticamente con PermitFlow ES - permitflow.es"),
+            new_x="LMARGIN", new_y="NEXT", align="C",
+        )
+    pdf.set_text_color(0, 0, 0)
+
+    return bytes(pdf.output())
 
     # ── Bloques reutilizables ────────────────────────────────────────────
     def bloque_datos(self, filas: list[tuple[str, str]]):

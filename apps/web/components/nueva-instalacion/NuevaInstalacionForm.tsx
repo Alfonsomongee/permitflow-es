@@ -13,6 +13,7 @@ import { StepIndicator } from "./StepIndicator";
 import { Step1TipoUbicacion } from "./Step1TipoUbicacion";
 import { Step2ParametrosTecnicos } from "./Step2ParametrosTecnicos";
 import { Step3Ayudas } from "./Step3Ayudas";
+import { PresupuestoButton } from "./PresupuestoButton";
 
 function validateStep(step: StepId, state: FormState): string | null {
   if (step === 1) {
@@ -176,18 +177,24 @@ export function NuevaInstalacionForm() {
                 <ArrowRight size={14} aria-hidden />
               </button>
             ) : (
-              <button
-                onClick={handleSubmit}
-                disabled={loading}
-                className="flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-              >
-                {loading ? (
-                  <Loader2 size={14} className="animate-spin" aria-hidden />
-                ) : (
-                  <Zap size={14} aria-hidden />
-                )}
-                {loading ? "Clasificando..." : "Generar plan de tramitacion"}
-              </button>
+              <div className="flex items-center gap-3">
+                <PresupuestoButton 
+                  formState={state} 
+                  disabled={loading || validateStep(step, state) !== null} 
+                />
+                <button
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  className="flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+                >
+                  {loading ? (
+                    <Loader2 size={14} className="animate-spin" aria-hidden />
+                  ) : (
+                    <Zap size={14} aria-hidden />
+                  )}
+                  {loading ? "Clasificando..." : "Generar plan de tramitacion"}
+                </button>
+              </div>
             )}
           </div>
         </div>

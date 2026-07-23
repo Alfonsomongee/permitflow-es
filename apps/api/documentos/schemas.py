@@ -8,6 +8,10 @@ from schemas.clasificador import ClasificadorOutput
 class OrganizacionDoc(BaseModel):
     nombre: str = Field(..., description="Nombre de la organización (white-label)")
     plan: Optional[str] = None
+    marca_permitflow: bool = Field(
+        False,
+        description="True en el plan gratuito: el PDF lleva marca visible de PermitFlow",
+    )
 
 
 class TramiteEstadoDoc(BaseModel):
@@ -17,7 +21,8 @@ class TramiteEstadoDoc(BaseModel):
 
 
 class ExpedienteDoc(BaseModel):
-    id: str
+    # En modo presupuesto todavía no existe expediente en BD: id vacío es válido.
+    id: str = ""
     tipo_instalacion: str
     comunidad: str
     municipio: str
@@ -37,7 +42,7 @@ class ExpedienteDoc(BaseModel):
 
 
 class GenerarDocumentoInput(BaseModel):
-    tipo: Literal["plan", "checklist", "mtd", "dossier"]
+    tipo: Literal["plan", "checklist", "mtd", "dossier", "presupuesto"]
     organizacion: OrganizacionDoc
     expediente: ExpedienteDoc
     plan: ClasificadorOutput

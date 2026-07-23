@@ -3,7 +3,7 @@ import re
 import zipfile
 
 from .mtd import generar_mtd_docx
-from .pdf import generar_checklist_pdf, generar_plan_pdf
+from .pdf import generar_checklist_pdf, generar_plan_pdf, generar_presupuesto_pdf
 from .schemas import GenerarDocumentoInput
 from .contextos import VERTICALES_MTD
 
@@ -24,7 +24,9 @@ def _slug(texto: str, fallback: str = "expediente") -> str:
 def _base_nombre(payload: GenerarDocumentoInput) -> str:
     exp = payload.expediente
     ref = _slug(exp.referencia_cliente or exp.municipio)
-    return f"PermitFlow_{ref}_{exp.id[:8]}"
+    # En modo presupuesto no hay expediente en BD (id vacío): omitimos el sufijo.
+    sufijo = f"_{exp.id[:8]}" if exp.id else ""
+    return f"PermitFlow_{ref}{sufijo}"
 
 
 def generar_documento(payload: GenerarDocumentoInput) -> tuple[bytes, str, str]:
@@ -36,6 +38,9 @@ def generar_documento(payload: GenerarDocumentoInput) -> tuple[bytes, str, str]:
 
     if payload.tipo == "checklist":
         return generar_checklist_pdf(payload), MEDIA_PDF, f"{base}_Checklist.pdf"
+
+    if payload.tipo == "presupuesto":
+        return generar_presupuesto_pdf(payload), MEDIA_PDF, f"{base}_Presupuesto.pdf"
 
     if payload.tipo == "mtd":
         try:
