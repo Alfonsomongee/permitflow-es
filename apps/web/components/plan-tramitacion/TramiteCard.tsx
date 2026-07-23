@@ -41,28 +41,34 @@ function PlazoBadge({
   estimado,
   legal,
   estadoInfo,
+  comunidad,
 }: {
   estimado: number | null;
   legal: number | null;
   estadoInfo?: TramiteEstadoInfo;
+  comunidad: string;
 }) {
-  const plazo = calcularPlazo(estadoInfo, legal);
+  const plazo = calcularPlazo(estadoInfo, legal, comunidad);
 
   if (plazo && plazo.diasRestantes !== null && legal) {
-    const { diasTranscurridos, diasRestantes, vencido } = plazo;
+    const { diasTranscurridos, diasRestantes, vencido, calendarioVerificado } = plazo;
     const proximo = !vencido && diasRestantes <= 7;
     const estilo = vencido ? "bg-danger text-white" : proximo ? "bg-warning text-white" : "bg-success text-white";
     const texto = vencido
       ? `vencido hace ${Math.abs(diasRestantes)}d`
-      : `día ${diasTranscurridos}/${legal} · quedan ${diasRestantes}d`;
+      : `día ${diasTranscurridos} · quedan ${diasRestantes}d (${legal} hábiles)`;
+    const titulo = calendarioVerificado
+      ? "Plazo en días hábiles (excluye sábados, domingos y festivos nacionales/autonómicos). No incluye festivos locales del municipio."
+      : "Calendario de festivos no cargado para este año: solo se excluyen fines de semana. Fecha orientativa.";
 
     return (
       <span
         className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold shadow-sm ${estilo}`}
-        title="Días naturales desde el inicio del trámite. Orientativo: algunos plazos legales se computan en días hábiles."
+        title={titulo}
       >
         {vencido ? <AlertTriangle size={11} aria-hidden /> : <Clock size={11} aria-hidden />}
         {texto}
+        {!calendarioVerificado && "*"}
       </span>
     );
   }
@@ -207,6 +213,7 @@ interface TramiteCardProps {
   pending?: boolean;
   onEstadoChange?: (estado: TramiteEstado) => void;
   estadistica?: EstadisticaPlazo;
+  comunidad: string;
 }
 
 export function TramiteCard({
@@ -216,6 +223,7 @@ export function TramiteCard({
   pending = false,
   onEstadoChange,
   estadistica,
+  comunidad,
 }: TramiteCardProps) {
   const [open, setOpen] = useState(defaultOpen);
   const estado: TramiteEstado = estadoInfo?.estado ?? "pendiente";
@@ -260,7 +268,12 @@ export function TramiteCard({
               />
             </div>
             <div className="flex flex-wrap items-center gap-1.5">
-              <PlazoBadge estimado={tramite.plazo_estimado_dias} legal={tramite.plazo_legal_dias} estadoInfo={estadoInfo} />
+              <PlazoBadge
+                estimado={tramite.plazo_estimado_dias}
+                legal={tramite.plazo_legal_dias}
+                estadoInfo={estadoInfo}
+                comunidad={comunidad}
+              />
               <EstadisticaRealBadge estadistica={estadistica} />
             </div>
           </div>

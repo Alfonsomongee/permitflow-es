@@ -34,6 +34,7 @@ interface PlanTramitacionViewProps {
     tramitesEstado: TramitesEstadoMap;
     referenciaCliente: string | null;
     notas: string | null;
+    version: number;
   };
 }
 
@@ -102,7 +103,8 @@ function StatChip({
 export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacionViewProps) {
   const { estados, completados, pendingOrden, error, setEstadoTramite } = useTramitesEstado(
     expediente?.id ?? "",
-    expediente?.tramitesEstado ?? {}
+    expediente?.tramitesEstado ?? {},
+    expediente?.version ?? 0
   );
   const estadisticasPlazo = useEstadisticasPlazo(expediente?.id);
 
@@ -205,6 +207,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
                     expediente ? (estado) => setEstadoTramite(tramite.orden, estado) : undefined
                   }
                   estadistica={estadisticasPlazo[claveTramite(tramite)]}
+                  comunidad={params.comunidad}
                 />
               ))}
             </div>

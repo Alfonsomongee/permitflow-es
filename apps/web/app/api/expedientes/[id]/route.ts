@@ -43,7 +43,7 @@ export async function PATCH(
   }
 
   try {
-    const resultado = await aplicarPatchExpediente(params.id, orgId, body);
+    const resultado = await aplicarPatchExpediente(params.id, orgId, userId, body);
     return NextResponse.json(resultado);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Error inesperado";
@@ -57,6 +57,15 @@ export async function PATCH(
       return NextResponse.json(
         { error: "El trámite indicado no existe en el plan" },
         { status: 400 }
+      );
+    }
+    if (message === "CONFLICTO_VERSION") {
+      return NextResponse.json(
+        {
+          error: "Otro usuario ha modificado este expediente. Recarga la página para ver los cambios.",
+          conflicto: true,
+        },
+        { status: 409 }
       );
     }
     return NextResponse.json({ error: message }, { status: 500 });

@@ -61,6 +61,7 @@ export interface DbExpediente {
   tramites_estado: TramitesEstadoMap;
   referencia_cliente: string | null;
   notas: string | null;
+  version: number;
   creado_en: string;
   actualizado_en: string;
 }

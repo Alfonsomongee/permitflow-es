@@ -162,6 +162,9 @@ export interface PatchExpedienteInput {
   tramite?: { orden: number; estado: TramiteEstado };
   referencia_cliente?: string | null;
   notas?: string | null;
+  /** Versión que el cliente leyó antes de mutar. Requerida en la práctica
+   * para cambios de trámite: sin ella no hay protección frente a lost update. */
+  version?: number;
 }
 
 export interface PatchExpedienteResult {
@@ -170,11 +173,13 @@ export interface PatchExpedienteResult {
   referencia_cliente: string | null;
   notas: string | null;
   actualizado_en: string;
+  version: number;
 }
 
 export async function aplicarPatchExpediente(
   id: string,
   clerkOrgId: string,
+  clerkUserId: string,
   patch: PatchExpedienteInput
 ): Promise<PatchExpedienteResult> {
   // obtenerExpediente ya filtra por org_id: un usuario de otra organización
@@ -186,7 +191,14 @@ export async function aplicarPatchExpediente(
 
   const update: Record<string, unknown> = {
     actualizado_en: new Date().toISOString(),
+    version: expediente.version + 1,
   };
+
+  // Se rellena solo si patch.tramite trae un cambio de estado, para
+  // insertar después la fila de auditoría (fuera de esta transacción:
+  // Supabase REST no da transacciones multi-tabla sin RPC, así que el
+  // registro de auditoría es "best effort" tras el UPDATE principal).
+  let auditoria: { orden: number; estadoAnterior: string; estadoNuevo: string } | null = null;
 
   if (patch.tramite) {
     const { orden, estado } = patch.tramite;
@@ -197,6 +209,7 @@ export async function aplicarPatchExpediente(
 
     const mapa: TramitesEstadoMap = { ...(expediente.tramites_estado ?? {}) };
     const clave = String(orden);
+    const estadoAnterior = mapa[clave]?.estado ?? "pendiente";
 
     if (estado === "pendiente") {
       delete mapa[clave];
@@ -213,6 +226,8 @@ export async function aplicarPatchExpediente(
     update.tramites_completados = Object.values(mapa).filter(
       (t) => t.estado === "completado"
     ).length;
+
+    auditoria = { orden, estadoAnterior, estadoNuevo: estado };
   }
 
   if (patch.referencia_cliente !== undefined) {
@@ -223,21 +238,49 @@ export async function aplicarPatchExpediente(
     update.notas = patch.notas?.trim().slice(0, 4000) || null;
   }
 
-  const { data, error } = await supabaseAdmin
+  let query = supabaseAdmin
     .from("expedientes")
     .update(update)
     .eq("id", id)
-    .eq("org_id", expediente.org_id)
-    .select(
-      "tramites_estado, tramites_completados, referencia_cliente, notas, actualizado_en"
-    )
-    .single();
+    .eq("org_id", expediente.org_id);
 
-  if (error || !data) {
-    throw new Error(
-      `Error actualizando expediente: ${error?.message ?? "sin detalle"}`
-    );
+  // Compare-And-Swap: si el cliente indicó la versión que leyó, exigimos
+  // que siga vigente. Si otro operario ya escribió antes, el WHERE no
+  // encuentra fila, el UPDATE afecta a 0 filas y `data` vuelve null.
+  if (patch.version !== undefined) {
+    query = query.eq("version", patch.version);
   }
+
+  const { data, error } = await query
+    .select(
+      "tramites_estado, tramites_completados, referencia_cliente, notas, actualizado_en, version"
+    )
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(`Error actualizando expediente: ${error.message}`);
+  }
+  if (!data) {
+    throw new Error("CONFLICTO_VERSION");
+  }
+
+  if (auditoria) {
+    const { error: auditError } = await supabaseAdmin.from("historial_tramites").insert({
+      expediente_id: id,
+      orden: auditoria.orden,
+      estado_anterior: auditoria.estadoAnterior,
+      estado_nuevo: auditoria.estadoNuevo,
+      operador_id: clerkUserId,
+    });
+    // Best-effort: un fallo al auditar no debe deshacer un cambio de estado
+    // que ya se persistió correctamente y que el usuario ya ve confirmado.
+    if (auditError) {
+      console.error(
+        `No se pudo registrar auditoría del trámite ${auditoria.orden} en expediente ${id}: ${auditError.message}`
+      );
+    }
+  }
+
   return data as PatchExpedienteResult;
 }
 

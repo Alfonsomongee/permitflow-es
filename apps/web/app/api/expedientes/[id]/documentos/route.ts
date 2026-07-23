@@ -86,7 +86,10 @@ export async function GET(
   try {
     motorRes = await fetch(`${API_URL}/api/v1/documentos/generar`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+      },
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(30_000),
     });

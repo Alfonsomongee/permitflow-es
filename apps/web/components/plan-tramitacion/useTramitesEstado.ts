@@ -14,9 +14,11 @@ interface UseTramitesEstadoReturn {
 
 export function useTramitesEstado(
   expedienteId: string,
-  inicial: TramitesEstadoMap
+  inicial: TramitesEstadoMap,
+  versionInicial: number
 ): UseTramitesEstadoReturn {
   const [estados, setEstados] = useState<TramitesEstadoMap>(inicial ?? {});
+  const [version, setVersion] = useState<number>(versionInicial);
   const [pendingOrden, setPendingOrden] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,7 +40,7 @@ export function useTramitesEstado(
         };
       }
 
-      // Optimistic update; rollback si el PATCH falla
+      // Optimistic update; rollback si el PATCH falla o hay conflicto de versión
       setEstados(siguiente);
       setPendingOrden(orden);
       setError(null);
@@ -47,18 +49,36 @@ export function useTramitesEstado(
         const res = await fetch(`/api/expedientes/${expedienteId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tramite: { orden, estado } }),
+          body: JSON.stringify({ tramite: { orden, estado }, version }),
         });
         const data = (await res.json().catch(() => ({}))) as {
           tramites_estado?: TramitesEstadoMap;
+          version?: number;
           error?: string;
+          conflicto?: boolean;
         };
+
+        if (res.status === 409) {
+          // Otro operario modificó el expediente primero: descartamos
+          // nuestro cambio optimista en vez de arriesgarnos a pisarlo.
+          setEstados(previo);
+          setError(
+            data.error ??
+              "Otro usuario ha modificado este expediente. Recarga la página para ver los cambios."
+          );
+          return;
+        }
+
         if (!res.ok) {
           throw new Error(data.error ?? `Error ${res.status}`);
         }
+
         // Reconciliar con la verdad del servidor (fechas calculadas allí)
         if (data.tramites_estado) {
           setEstados(data.tramites_estado);
+        }
+        if (data.version !== undefined) {
+          setVersion(data.version);
         }
       } catch (err) {
         setEstados(previo);
@@ -69,7 +89,7 @@ export function useTramitesEstado(
         setPendingOrden(null);
       }
     },
-    [expedienteId, estados, pendingOrden]
+    [expedienteId, estados, pendingOrden, version]
   );
 
   const completados = Object.values(estados).filter(

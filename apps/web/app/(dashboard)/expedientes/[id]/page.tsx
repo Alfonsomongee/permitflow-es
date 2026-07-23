@@ -81,6 +81,7 @@ export default async function ExpedienteDetallePage({ params }: PageProps) {
           tramitesEstado: expediente.tramites_estado ?? {},
           referenciaCliente: expediente.referencia_cliente,
           notas: expediente.notas,
+          version: expediente.version,
         }}
       />
       <ChatWidget

@@ -5,6 +5,9 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     DATABASE_URL: Optional[str] = None
     REDIS_URL: Optional[str] = None
+
+    # Seguridad interna: clave compartida con Next.js (cabecera X-Internal-Key)
+    INTERNAL_API_KEY: Optional[str] = None
     
     # API Keys
     DEEPSEEK_API_KEY: Optional[str] = None

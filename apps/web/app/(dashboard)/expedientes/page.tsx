@@ -11,6 +11,7 @@ import {
   type PlazoActivo,
 } from "@/components/dashboard/PlazosActivos";
 import { diasEntre, hoyIso } from "@/lib/plazos";
+import { calcularVencimientoHabil } from "@/lib/festivos";
 
 export default async function ExpedientesPage() {
   const { orgId } = await auth();
@@ -53,13 +54,17 @@ export default async function ExpedientesPage() {
         (t) => t.orden === Number(orden)
       );
       if (!tramite?.plazo_legal_dias || !info.fecha_inicio) continue;
+      const { fechaVencimiento } = calcularVencimientoHabil(
+        info.fecha_inicio,
+        tramite.plazo_legal_dias,
+        expediente.comunidad
+      );
       plazos.push({
         expedienteId: expediente.id,
         etiqueta,
         tramiteNombre: tramite.nombre,
         plazoLegal: tramite.plazo_legal_dias,
-        diasRestantes:
-          tramite.plazo_legal_dias - diasEntre(info.fecha_inicio, hoy),
+        diasRestantes: diasEntre(hoy, fechaVencimiento),
       });
     }
 

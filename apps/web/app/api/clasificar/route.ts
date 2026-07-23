@@ -48,7 +48,10 @@ export async function POST(req: Request) {
   try {
     motorRes = await fetch(`${API_URL}/api/v1/clasificador`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+      },
       signal: AbortSignal.timeout(15000),
       body: JSON.stringify({
         tipo_instalacion: formState.tipo_instalacion,
