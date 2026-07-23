@@ -1,4 +1,4 @@
-from sqlalchemy import String, DateTime, text
+from sqlalchemy import String, DateTime, text, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
@@ -11,4 +11,6 @@ class Organizacion(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, server_default=text("gen_random_uuid()"))
     clerk_org_id: Mapped[str] = mapped_column(String, unique=True, nullable=False, index=True)
     nombre: Mapped[str] = mapped_column(String, nullable=False)
+    plan: Mapped[str] = mapped_column(String, default="free", nullable=False)
+    suscripcion_activa: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     creado_en: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))

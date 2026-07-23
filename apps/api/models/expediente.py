@@ -35,6 +35,8 @@ class Expediente(Base):
     tiempo_total_dias: Mapped[int] = mapped_column(Integer, nullable=False)
     estado: Mapped[str] = mapped_column(String, default="pendiente", nullable=False)
     tramites_completados: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    referencia_cliente: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    notas: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     
     creado_en: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     actualizado_en: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
