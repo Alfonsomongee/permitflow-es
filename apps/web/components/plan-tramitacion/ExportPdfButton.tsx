@@ -17,9 +17,7 @@ export function ExportPdfButton({ titulo, expedienteId }: ExportPdfButtonProps) 
 
     if (expedienteId) {
       try {
-        const res = await fetch(
-          `/api/expedientes/${expedienteId}/documentos?tipo=plan`
-        );
+        const res = await fetch(`/api/expedientes/${expedienteId}/documentos?tipo=plan`);
         if (!res.ok) throw new Error(String(res.status));
         const blob = await res.blob();
         const url = URL.createObjectURL(blob);
@@ -31,7 +29,6 @@ export function ExportPdfButton({ titulo, expedienteId }: ExportPdfButtonProps) 
         a.remove();
         URL.revokeObjectURL(url);
       } catch {
-        // Fallback silencioso a impresión (p. ej. plan Free → 402)
         window.print();
       } finally {
         setPrinting(false);
@@ -55,7 +52,7 @@ export function ExportPdfButton({ titulo, expedienteId }: ExportPdfButtonProps) 
     <button
       onClick={handlePrint}
       disabled={printing}
-      className="flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-2 text-xs text-text-secondary transition-colors hover:bg-bg disabled:opacity-50"
+      className="flex items-center gap-1.5 rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-text-primary shadow-sm transition-colors hover:border-primary hover:text-primary disabled:opacity-50"
     >
       {printing ? (
         <Loader2 size={13} className="animate-spin" aria-hidden />

@@ -8,7 +8,7 @@
     "municipio": "Sevilla"
   },
   "num_tramites_esperado": 4,
-  "tiempo_total_esperado_dias": 40,
+  "tiempo_total_esperado_dias": 46,
   "validado_por": "Auto - 2026-07-08",
-  "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
+  "notas_validacion": "Actualizado tras la división de la regla AND-FV-001 en AND-FV-001 y AND-FV-001B (proyecto técnico para 10-15kW)."
 }

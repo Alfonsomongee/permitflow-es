@@ -13,16 +13,11 @@ interface DocumentosPanelProps {
   tipoInstalacion: string;
 }
 
-const BOTONES: Array<{
-  tipo: TipoDocumento;
-  label: string;
-  icon: typeof FileText;
-  soloMtd?: boolean;
-}> = [
-  { tipo: "plan", label: "Plan de tramitación (PDF)", icon: FileText },
-  { tipo: "checklist", label: "Checklist documentación (PDF)", icon: ListChecks },
-  { tipo: "mtd", label: "Borrador MTD (DOCX)", icon: FileType2, soloMtd: true },
-  { tipo: "dossier", label: "Dossier completo (ZIP)", icon: FileArchive },
+const BOTONES: Array<{ tipo: TipoDocumento; label: string; desc: string; icon: typeof FileText; soloMtd?: boolean }> = [
+  { tipo: "plan", label: "Plan de tramitación", desc: "PDF con la hoja de ruta completa", icon: FileText },
+  { tipo: "checklist", label: "Checklist documentación", desc: "PDF con todos los documentos a reunir", icon: ListChecks },
+  { tipo: "mtd", label: "Borrador MTD", desc: "DOCX editable", icon: FileType2, soloMtd: true },
+  { tipo: "dossier", label: "Dossier completo", desc: "Todo en un ZIP", icon: FileArchive },
 ];
 
 export function DocumentosPanel({ expedienteId, tipoInstalacion }: DocumentosPanelProps) {
@@ -37,9 +32,7 @@ export function DocumentosPanel({ expedienteId, tipoInstalacion }: DocumentosPan
     setRequiereUpgrade(false);
 
     try {
-      const res = await fetch(
-        `/api/expedientes/${expedienteId}/documentos?tipo=${tipo}`
-      );
+      const res = await fetch(`/api/expedientes/${expedienteId}/documentos?tipo=${tipo}`);
 
       if (res.status === 402) {
         setRequiereUpgrade(true);
@@ -71,36 +64,35 @@ export function DocumentosPanel({ expedienteId, tipoInstalacion }: DocumentosPan
   };
 
   return (
-    <div className="rounded-xl border border-border bg-surface p-4">
-      <p className="mb-3 flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
-        <FileText size={11} aria-hidden />
+    <div className="rounded-2xl border border-border bg-surface p-5">
+      <p className="mb-3 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-text-secondary">
+        <FileText size={12} aria-hidden />
         Documentos
       </p>
 
       <div className="flex flex-col gap-2">
-        {BOTONES.filter(
-          (b) => !b.soloMtd || VERTICALES_MTD.has(tipoInstalacion)
-        ).map(({ tipo, label, icon: Icon }) => (
+        {BOTONES.filter((b) => !b.soloMtd || VERTICALES_MTD.has(tipoInstalacion)).map(({ tipo, label, desc, icon: Icon }) => (
           <button
             key={tipo}
             onClick={() => descargar(tipo)}
             disabled={descargando !== null}
-            className="flex items-center gap-2 rounded-lg border border-border bg-bg px-3 py-2 text-left text-xs text-text-primary transition-colors hover:border-primary hover:text-primary disabled:opacity-50"
+            className="flex items-center gap-3 rounded-xl border border-border bg-bg px-3.5 py-3 text-left transition-colors hover:border-primary hover:bg-primary-light disabled:opacity-50"
           >
-            {descargando === tipo ? (
-              <Loader2 size={13} className="animate-spin" aria-hidden />
-            ) : (
-              <Icon size={13} aria-hidden />
-            )}
-            {label}
+            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-surface text-primary">
+              {descargando === tipo ? <Loader2 size={15} className="animate-spin" aria-hidden /> : <Icon size={15} aria-hidden />}
+            </span>
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-medium text-text-primary">{label}</span>
+              <span className="block truncate text-[11px] text-text-secondary">{desc}</span>
+            </span>
           </button>
         ))}
       </div>
 
       {requiereUpgrade && (
-        <p className="mt-3 rounded-lg bg-warning-light px-3 py-2 text-xs text-warning-dark">
+        <p className="mt-3 rounded-xl bg-warning-light px-3.5 py-2.5 text-xs text-warning-dark">
           La generación de documentos es una función del plan Pro.{" "}
-          <Link href="/#precios" className="font-medium underline">
+          <Link href="/#precios" className="font-semibold underline">
             Ver planes
           </Link>
         </p>

@@ -15,7 +15,7 @@
   "reglas": [
     {
       "id": "AND-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤15 kW en uso residencial",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
         "and": [
           {
@@ -23,7 +23,7 @@
               {
                 "var": "potencia_kw"
               },
-              15
+              10
             ]
           },
           {
@@ -67,7 +67,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para instalaciones ≤15 kW residenciales, la MTD sustituye al proyecto técnico. No requiere visado colegial."
+          "notas": "Para instalaciones ≤10 kW nominales de inversor, la MTD sustituye al proyecto técnico (ITC-FV-03, BOJA núm. 98 de 18/05/2007). No confundir con el umbral de 15 kW del RD 244/2019 art. 15, que exime de permisos de acceso y conexión con la distribuidora — son dos límites distintos que no coinciden."
         },
         {
           "orden": 2,
@@ -158,6 +158,117 @@
             }
           ],
           "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación."
+        }
+      ]
+    },
+    {
+      "id": "AND-FV-001B",
+      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado)",
+      "condicion": {
+        "and": [
+          { ">": [{ "var": "potencia_kw" }, 10] },
+          { "<=": [{ "var": "potencia_kw" }, 15] },
+          { "==": [{ "var": "uso" }, "residencial"] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación generadora",
+          "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
+          "base_legal": "ITC-FV-03 (BOJA núm. 98, 18/05/2007); REBT RD 842/2002; RD 244/2019",
+          "plazo_estimado_dias": 8,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios técnicos: NO VERIFICADO para este tramo concreto (orientativo, inferior al de instalaciones >15 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_fv_medio",
+              "label": "Proyecto técnico visado por colegio profesional",
+              "descripcion": "Proyecto completo de instalación fotovoltaica exigido por la ITC-FV-03 al superar los 10 kW de potencia nominal del inversor, aunque la instalación siga por debajo de los 15 kW que eximen de permisos de acceso y conexión.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Este tramo (10-15 kW residencial) se tramita a menudo erróneamente con MTD por confusión con el umbral de 15 kW del RD 244/2019. La ITC-FV-03 exige proyecto técnico a partir de 10 kW sin excepción."
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
+          "organismo": "Técnico competente (el mismo que firma el proyecto)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios técnicos",
+          "documentos_requeridos": [
+            {
+              "id": "cie_generadora_tecnico_medio",
+              "label": "CIE firmado por técnico competente",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro en PUES — Generación BT",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 45,
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/21139.html",
+          "coste_estimado": "Tasa Modelo 046: NO VERIFICADO importe exacto para este tramo (orientativo, entre la tasa de MTD y la de proyecto >15 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_visado_pues_fv_medio",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_tecnico_pues_medio",
+              "label": "CIE firmado por técnico",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_046_fv_medio",
+              "label": "Justificante de pago Modelo 046",
+              "descripcion": "Resguardo del pago de tasas administrativas de la Junta de Andalucía.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Comunicación de autoconsumo a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": 15,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (tramitación telemática gratuita)",
+          "documentos_requeridos": [
+            {
+              "id": "comunicacion_autoconsumo_dist_medio",
+              "label": "Formulario de comunicación de autoconsumo a la distribuidora",
+              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 15 exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
+              "obligatorio": true
+            },
+            {
+              "id": "registro_pues_fv_medio",
+              "label": "Número de registro PUES",
+              "descripcion": "Referencia del registro en la Delegación de Industria, que acredita la legalización de la instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia."
         }
       ]
     },

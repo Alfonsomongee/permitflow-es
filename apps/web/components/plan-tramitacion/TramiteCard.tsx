@@ -7,12 +7,12 @@ import {
   Check,
   CheckCircle2,
   ChevronDown,
-  Circle,
   Clock,
   Euro,
   ExternalLink,
   FileText,
   Loader2,
+  Scale,
 } from "lucide-react";
 import { PlataformaBadge } from "./PlataformaBadge";
 import type {
@@ -28,10 +28,10 @@ function EstadisticaRealBadge({ estadistica }: { estadistica?: EstadisticaPlazo 
   if (!estadistica) return null;
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-full border border-dashed border-border px-2.5 py-0.5 text-[10px] text-text-secondary"
+      className="inline-flex items-center gap-1 rounded-full border border-dashed border-border bg-surface px-2.5 py-1 text-[11px] font-medium text-text-secondary"
       title={`Basado en ${estadistica.muestraN} casos reales tramitados en PermitFlow`}
     >
-      <BarChart3 size={10} aria-hidden />
+      <BarChart3 size={11} aria-hidden />
       media real: {estadistica.medianaRealDias}d
     </span>
   );
@@ -48,40 +48,30 @@ function PlazoBadge({
 }) {
   const plazo = calcularPlazo(estadoInfo, legal);
 
-  // Trámite en curso con plazo legal: semáforo verde/ámbar/rojo
   if (plazo && plazo.diasRestantes !== null && legal) {
     const { diasTranscurridos, diasRestantes, vencido } = plazo;
     const proximo = !vencido && diasRestantes <= 7;
-    const estilo = vencido
-      ? "bg-danger-light text-danger-dark"
-      : proximo
-        ? "bg-warning-light text-warning-dark"
-        : "bg-success-light text-success-dark";
+    const estilo = vencido ? "bg-danger text-white" : proximo ? "bg-warning text-white" : "bg-success text-white";
     const texto = vencido
-      ? `plazo vencido hace ${Math.abs(diasRestantes)}d`
-      : `dia ${diasTranscurridos} de ${legal} — quedan ${diasRestantes}d`;
+      ? `vencido hace ${Math.abs(diasRestantes)}d`
+      : `día ${diasTranscurridos}/${legal} · quedan ${diasRestantes}d`;
 
     return (
       <span
-        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-medium ${estilo}`}
-        title="Dias naturales desde el inicio del tramite. Orientativo: algunos plazos legales se computan en dias habiles."
+        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold shadow-sm ${estilo}`}
+        title="Días naturales desde el inicio del trámite. Orientativo: algunos plazos legales se computan en días hábiles."
       >
-        {vencido ? (
-          <AlertTriangle size={10} aria-hidden />
-        ) : (
-          <Clock size={10} aria-hidden />
-        )}
+        {vencido ? <AlertTriangle size={11} aria-hidden /> : <Clock size={11} aria-hidden />}
         {texto}
       </span>
     );
   }
 
-  // En curso pero sin plazo legal definido
   if (plazo) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-warning-light px-2.5 py-0.5 text-[11px] font-medium text-warning-dark">
-        <Clock size={10} aria-hidden />
-        en curso — dia {plazo.diasTranscurridos}
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-warning px-3 py-1 text-[11px] font-semibold text-white shadow-sm">
+        <Clock size={11} aria-hidden />
+        en curso · día {plazo.diasTranscurridos}
       </span>
     );
   }
@@ -92,27 +82,21 @@ function PlazoBadge({
   const hayMargen = diff !== null && diff > 0;
 
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex flex-wrap items-center gap-1.5">
       {estimado && (
-        <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2.5 py-0.5 text-[11px] text-text-secondary">
+        <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface px-2.5 py-1 text-[11px] font-medium text-text-secondary">
           <Clock size={11} aria-hidden />
-          ~{estimado} dias
+          ~{estimado}d estimado
         </span>
       )}
       {legal && (
         <span
-          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
-            hayMargen
-              ? "bg-success-light text-success-dark"
-              : "bg-warning-light text-warning-dark"
+          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium ${
+            hayMargen ? "bg-success-light text-success-dark" : "bg-warning-light text-warning-dark"
           }`}
-          title={`Plazo legal maximo: ${legal} dias`}
+          title={`Plazo legal máximo: ${legal} días`}
         >
-          {hayMargen ? (
-            <CheckCircle2 size={10} aria-hidden />
-          ) : (
-            <AlertTriangle size={10} aria-hidden />
-          )}
+          {hayMargen ? <CheckCircle2 size={11} aria-hidden /> : <AlertTriangle size={11} aria-hidden />}
           legal: {legal}d
         </span>
       )}
@@ -144,32 +128,31 @@ function EstadoTramiteButton({
   onChange?: (estado: TramiteEstado) => void;
 }) {
   const base =
-    "mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-medium transition-colors";
+    "mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all";
 
   if (!onChange) {
-    // Solo lectura (plan sin expediente persistido)
-    return <span className={`${base} bg-primary text-white`}>{orden}</span>;
+    return <span className={`${base} bg-primary text-white shadow-sm`}>{orden}</span>;
   }
 
   const estilo =
     estado === "completado"
-      ? "bg-success text-white hover:opacity-90"
+      ? "bg-success text-white shadow-sm hover:opacity-90"
       : estado === "en_curso"
-        ? "bg-warning text-white hover:opacity-90"
-        : "border-2 border-border bg-surface text-text-secondary hover:border-primary hover:text-primary";
+        ? "bg-warning text-white shadow-sm hover:opacity-90"
+        : "border-2 border-border bg-surface text-text-secondary hover:border-primary hover:text-primary hover:scale-105";
 
   return (
     <button
       onClick={() => onChange(SIGUIENTE_ESTADO[estado])}
       disabled={pending}
-      className={`${base} ${estilo} disabled:opacity-60`}
+      className={`${base} ${estilo} disabled:opacity-60 disabled:hover:scale-100`}
       title={ESTADO_TITULO[estado]}
-      aria-label={`Tramite ${orden}: ${ESTADO_TITULO[estado].toLowerCase()}`}
+      aria-label={`Trámite ${orden}: ${ESTADO_TITULO[estado].toLowerCase()}`}
     >
       {pending ? (
-        <Loader2 size={12} className="animate-spin" aria-hidden />
+        <Loader2 size={15} className="animate-spin" aria-hidden />
       ) : estado === "completado" ? (
-        <Check size={13} aria-hidden />
+        <Check size={16} aria-hidden />
       ) : (
         orden
       )}
@@ -181,35 +164,35 @@ function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <li className="border-b border-border last:border-0">
+    <li className="border-b border-border/70 last:border-0">
       <button
-        className="flex w-full items-start gap-2.5 rounded px-1 py-2.5 text-left transition-colors hover:bg-bg"
+        className="flex w-full items-start gap-3 rounded-lg px-2 py-3 text-left transition-colors hover:bg-bg"
         onClick={() => setExpanded((value) => !value)}
         aria-expanded={expanded}
       >
-        {doc.obligatorio ? (
-          <FileText size={13} className="mt-0.5 flex-shrink-0 text-text-secondary/60" aria-hidden />
-        ) : (
-          <Circle size={13} className="mt-0.5 flex-shrink-0 text-text-secondary/40" aria-hidden />
-        )}
+        <span
+          className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border ${
+            doc.obligatorio ? "border-primary/30 bg-primary-light text-primary" : "border-border bg-bg text-text-secondary"
+          }`}
+        >
+          <FileText size={11} aria-hidden />
+        </span>
         <div className="min-w-0 flex-1">
-          <span className="text-xs leading-snug text-text-primary">
+          <span className="text-sm leading-snug text-text-primary">
             {doc.label}
             {!doc.obligatorio && (
-              <span className="ml-1.5 text-[10px] text-text-secondary">(opcional)</span>
+              <span className="ml-1.5 rounded bg-bg px-1.5 py-0.5 text-[10px] font-medium text-text-secondary">
+                opcional
+              </span>
             )}
           </span>
           {expanded && doc.descripcion && (
-            <p className="mt-1.5 text-xs leading-relaxed text-text-secondary">
-              {doc.descripcion}
-            </p>
+            <p className="mt-1.5 text-xs leading-relaxed text-text-secondary">{doc.descripcion}</p>
           )}
         </div>
         <ChevronDown
-          size={12}
-          className={`mt-0.5 flex-shrink-0 text-text-secondary/50 transition-transform ${
-            expanded ? "rotate-180" : ""
-          }`}
+          size={13}
+          className={`mt-1 flex-shrink-0 text-text-secondary/50 transition-transform ${expanded ? "rotate-180" : ""}`}
           aria-hidden
         />
       </button>
@@ -241,88 +224,87 @@ export function TramiteCard({
   const opcionales = tramite.documentos_requeridos.filter((doc) => !doc.obligatorio);
 
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-surface">
-      <div className="flex w-full items-start gap-4 p-5 transition-colors hover:bg-bg">
-        <EstadoTramiteButton
-          orden={tramite.orden}
-          estado={estado}
-          pending={pending}
-          onChange={onEstadoChange}
-        />
+    <div
+      className={`overflow-hidden rounded-2xl border bg-surface transition-shadow ${
+        open ? "border-primary/30 shadow-md" : "border-border shadow-sm hover:shadow-md"
+      }`}
+    >
+      <div className="flex w-full items-start gap-4 p-5 sm:p-6">
+        <EstadoTramiteButton orden={tramite.orden} estado={estado} pending={pending} onChange={onEstadoChange} />
 
         <button
-          className="flex min-w-0 flex-1 items-start gap-4 text-left"
+          className="flex min-w-0 flex-1 flex-col gap-3 text-left sm:flex-row sm:items-start sm:justify-between"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
         >
           <div className="min-w-0 flex-1">
             <p
-              className={`text-sm font-medium leading-snug ${
-                estado === "completado"
-                  ? "text-text-secondary line-through"
-                  : "text-text-primary"
+              className={`text-base font-semibold leading-snug ${
+                estado === "completado" ? "text-text-secondary line-through" : "text-text-primary"
               }`}
             >
               {tramite.nombre}
             </p>
-            <p className="mt-0.5 truncate text-xs text-text-secondary">
-              {tramite.organismo}
-            </p>
+            <p className="mt-1 truncate text-sm text-text-secondary">{tramite.organismo}</p>
           </div>
 
-          <div className="flex flex-shrink-0 flex-col items-end gap-1.5">
-            <div className="flex items-center gap-1.5">
+          <div className="flex flex-shrink-0 flex-wrap items-center gap-2 sm:flex-col sm:items-end">
+            <div className="flex items-center gap-2">
               <PlataformaBadge plataforma={tramite.plataforma} />
               <ChevronDown
-                size={15}
-                className={`text-text-secondary transition-transform duration-200 ${
+                size={16}
+                className={`hidden text-text-secondary transition-transform duration-200 sm:block ${
                   open ? "rotate-180" : ""
                 }`}
                 aria-hidden
               />
             </div>
-            <PlazoBadge
-              estimado={tramite.plazo_estimado_dias}
-              legal={tramite.plazo_legal_dias}
-              estadoInfo={estadoInfo}
-            />
-            <EstadisticaRealBadge estadistica={estadistica} />
+            <div className="flex flex-wrap items-center gap-1.5">
+              <PlazoBadge estimado={tramite.plazo_estimado_dias} legal={tramite.plazo_legal_dias} estadoInfo={estadoInfo} />
+              <EstadisticaRealBadge estadistica={estadistica} />
+            </div>
           </div>
         </button>
       </div>
 
       {open && (
-        <div className="divide-y divide-border border-t border-border">
-          <div className="flex items-start justify-between gap-4 px-5 py-3">
-            <p className="font-mono text-[11px] leading-relaxed text-text-secondary">
-              {tramite.base_legal}
-            </p>
-            {tramite.plataforma_url && (
+        <div className="divide-y divide-border/70 border-t border-border bg-bg/40">
+          <div className="grid grid-cols-1 gap-4 px-5 py-4 sm:grid-cols-2 sm:px-6">
+            <div className="flex items-start gap-2.5">
+              <Scale size={14} className="mt-0.5 flex-shrink-0 text-text-secondary" aria-hidden />
+              <div>
+                <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Base legal</p>
+                <p className="mt-0.5 text-xs leading-relaxed text-text-primary">{tramite.base_legal}</p>
+              </div>
+            </div>
+            {tramite.coste_estimado && (
+              <div className="flex items-start gap-2.5">
+                <Euro size={14} className="mt-0.5 flex-shrink-0 text-text-secondary" aria-hidden />
+                <div>
+                  <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Coste estimado</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-text-primary">{tramite.coste_estimado}</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {tramite.plataforma_url && (
+            <div className="px-5 py-3 sm:px-6">
               <a
                 href={tramite.plataforma_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-shrink-0 items-center gap-1 rounded-lg border border-primary/30 bg-primary-light px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary hover:text-white"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
               >
                 Tramitar online
-                <ExternalLink size={11} aria-hidden />
+                <ExternalLink size={12} aria-hidden />
               </a>
-            )}
-          </div>
-
-          {tramite.coste_estimado && (
-            <div className="flex items-start gap-2.5 px-5 py-3">
-              <Euro size={13} className="mt-0.5 flex-shrink-0 text-text-secondary/60" aria-hidden />
-              <p className="text-xs leading-relaxed text-text-secondary">
-                <span className="font-medium text-text-primary">Coste estimado: </span>
-                {tramite.coste_estimado}
-              </p>
             </div>
           )}
 
           {obligatorios.length > 0 && (
-            <div className="px-5 py-3">
-              <p className="mb-2 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
+            <div className="px-5 py-4 sm:px-6">
+              <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
                 Documentos obligatorios ({obligatorios.length})
               </p>
               <ul>
@@ -334,8 +316,8 @@ export function TramiteCard({
           )}
 
           {opcionales.length > 0 && (
-            <div className="px-5 py-3">
-              <p className="mb-2 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
+            <div className="px-5 py-4 sm:px-6">
+              <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
                 Documentos opcionales ({opcionales.length})
               </p>
               <ul>
@@ -347,11 +329,9 @@ export function TramiteCard({
           )}
 
           {tramite.notas && (
-            <div className="flex items-start gap-2.5 px-5 py-3">
-              <AlertTriangle size={13} className="mt-0.5 flex-shrink-0 text-warning" aria-hidden />
-              <p className="text-xs leading-relaxed text-text-secondary">
-                {tramite.notas}
-              </p>
+            <div className="flex items-start gap-2.5 bg-warning-light/50 px-5 py-4 sm:px-6">
+              <AlertTriangle size={14} className="mt-0.5 flex-shrink-0 text-warning-dark" aria-hidden />
+              <p className="text-xs leading-relaxed text-warning-dark">{tramite.notas}</p>
             </div>
           )}
         </div>
