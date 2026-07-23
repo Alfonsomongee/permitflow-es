@@ -5,6 +5,7 @@ export interface FormState {
   tipo_instalacion: string;
   comunidad: string;
   municipio: string;
+  referencia_cliente: string;
   uso: string;
 
   // Step 2: technical parameters by vertical
@@ -31,6 +32,7 @@ export const FORM_INITIAL: FormState = {
   tipo_instalacion: "fotovoltaica_autoconsumo",
   comunidad: "andalucia",
   municipio: "",
+  referencia_cliente: "",
   uso: "residencial",
   potencia_kw: "",
   superficie_m2: "",
