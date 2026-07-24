@@ -69,6 +69,30 @@ class PermitFlowPDF(FPDF):
         )
         self.cell(0, 4, f"Página {self.page_no()}/{{nb}}", align="C")
 
+    # ── Bloques reutilizables ────────────────────────────────────────────
+    def bloque_datos(self, filas: list[tuple[str, str]]):
+        self.set_font("helvetica", "", 9)
+        self.set_text_color(0, 0, 0)
+        estilo_cab = FontFace(emphasis="BOLD", fill_color=GRIS_CLARO)
+        with self.table(
+            col_widths=(58, 122),
+            first_row_as_headings=False,
+            line_height=6,
+            borders_layout="HORIZONTAL_LINES",
+        ) as tabla:
+            for etiqueta, valor in filas:
+                fila = tabla.row()
+                fila.cell(_s(etiqueta), style=estilo_cab)
+                fila.cell(_s(valor))
+        self.ln(4)
+
+    def subtitulo(self, texto: str):
+        self.set_font("helvetica", "B", 11)
+        self.set_text_color(*BRAND)
+        self.cell(0, 7, _s(texto), new_x="LMARGIN", new_y="NEXT")
+        self.ln(1)
+        self.set_text_color(0, 0, 0)
+
 
 # ── Presupuesto ───────────────────────────────────────────────────────────────
 
@@ -200,31 +224,6 @@ def generar_presupuesto_pdf(payload: GenerarDocumentoInput) -> bytes:
     pdf.set_text_color(0, 0, 0)
 
     return bytes(pdf.output())
-
-    # ── Bloques reutilizables ────────────────────────────────────────────
-    def bloque_datos(self, filas: list[tuple[str, str]]):
-        self.set_font("helvetica", "", 9)
-        self.set_text_color(0, 0, 0)
-        estilo_cab = FontFace(emphasis="BOLD", fill_color=GRIS_CLARO)
-        with self.table(
-            col_widths=(58, 122),
-            first_row_as_headings=False,
-            line_height=6,
-            borders_layout="HORIZONTAL_LINES",
-        ) as tabla:
-            for etiqueta, valor in filas:
-                fila = tabla.row()
-                fila.cell(_s(etiqueta), style=estilo_cab)
-                fila.cell(_s(valor))
-        self.ln(4)
-
-    def subtitulo(self, texto: str):
-        self.set_font("helvetica", "B", 11)
-        self.set_text_color(*BRAND)
-        self.cell(0, 7, _s(texto), new_x="LMARGIN", new_y="NEXT")
-        self.ln(1)
-        self.set_text_color(0, 0, 0)
-
 
 def generar_plan_pdf(payload: GenerarDocumentoInput) -> bytes:
     exp, plan = payload.expediente, payload.plan

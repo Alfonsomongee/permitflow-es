@@ -13,7 +13,7 @@
     "solicita_ayuda": true
   },
   "num_tramites_esperado": 5,
-  "tiempo_total_esperado_dias": 128,
+  "tiempo_total_esperado_dias": 103,
   "validado_por": "Auto - 2026-07-08",
   "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
 }

@@ -1,14 +1,15 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "andalucia",
-  "version": "1.1.0",
-  "ultima_revision": "2026-06-29",
+  "version": "1.2.0",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
     "RITE RD 1027/2007 (modificado RD 238/2013)",
     "RD 487/2022 Prevención de la Legionelosis",
     "Orden SSI/445/2015 criterios sanitarios agua de consumo",
     "Decreto 59/2005 Junta de Andalucía",
-    "CTE DB-HE4 Contribución mínima de energía renovable"
+    "CTE DB-HE4 Contribución mínima de energía renovable",
+    "RD 487/2022, de 21 de junio, art. 3.1, 7, 8 y 9 — verificado gap 5.2, criterio corregido (Fase 0 investigación)"
   ],
   "reglas": [
     {
@@ -97,7 +98,7 @@
     },
     {
       "id": "AND-ACS-002",
-      "descripcion": "Instalación ACS en uso terciario, colectivo o volumen acumulación >2.000 L — obliga protocolo legionella",
+      "descripcion": "Instalación ACS en uso terciario o potencia >70 kW: proyecto técnico RITE e inspección OCA (umbral RITE, no ligado a Legionella)",
       "condicion": {
         "or": [
           {
@@ -141,6 +142,86 @@
         },
         {
           "orden": 2,
+          "nombre": "Registro e inspección OCA (instalaciones >70 kW)",
+          "organismo": "OCA acreditada + Delegación Territorial de Industria",
+          "base_legal": "RITE RD 1027/2007 IT 4.3",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/21141.html",
+          "coste_estimado": "OCA: 300–600 €; Tasa PUES Modelo 046: 200–500 €",
+          "documentos_requeridos": [
+            {
+              "id": "acta_oca_acs",
+              "label": "Acta de inspección inicial de OCA",
+              "descripcion": "Informe de conformidad emitido por OCA acreditada.",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_acs_pues",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Proyecto completo con visado colegial para presentar en PUES.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
+        }
+      ]
+    },
+    {
+      "id": "AND-ACS-003",
+      "descripcion": "Plan de Prevención y Control de Legionella (PPCL/PSL). Criterio legal correcto: uso colectivo + acumulación + recirculación (RD 487/2022 art. 3.1). Incluye temporalmente el criterio antiguo de potencia/uso como red de seguridad hasta que el wizard capture los campos correctos (Bloque 9B).",
+      "condicion": {
+        "or": [
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "uso_colectivo"
+                  },
+                  true
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "acumulacion"
+                  },
+                  true
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "recirculacion"
+                  },
+                  true
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
           "nombre": "Elaboración del Plan de Autoprotección frente a Legionelosis",
           "organismo": "Empresa de control de legionella acreditada por la autoridad sanitaria de Andalucía",
           "base_legal": "RD 487/2022 Prevención de Legionelosis; Anexo 2 instalaciones de riesgo",
@@ -166,7 +247,7 @@
           "notas": "El RD 487/2022 (en vigor desde 2023) amplía las instalaciones sujetas a control de legionella. Hoteles, hospitales, gimnasios y cualquier instalación con acumuladores >2.000 L están obligados."
         },
         {
-          "orden": 3,
+          "orden": 2,
           "nombre": "Notificación sanitaria a la Consejería de Salud de Andalucía",
           "organismo": "Delegación Territorial de Salud y Consumo (Junta de Andalucía)",
           "base_legal": "RD 487/2022 art. 10; Decreto Andalucía de instalaciones de riesgo sanitario",
@@ -189,33 +270,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La notificación debe realizarse antes de la puesta en marcha de la instalación. Las inspecciones de Salud Pública son periódicas y no anunciadas."
-        },
-        {
-          "orden": 4,
-          "nombre": "Registro e inspección OCA (instalaciones >70 kW)",
-          "organismo": "OCA acreditada + Delegación Territorial de Industria",
-          "base_legal": "RITE RD 1027/2007 IT 4.3",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/21141.html",
-          "coste_estimado": "OCA: 300–600 €; Tasa PUES Modelo 046: 200–500 €",
-          "documentos_requeridos": [
-            {
-              "id": "acta_oca_acs",
-              "label": "Acta de inspección inicial de OCA",
-              "descripcion": "Informe de conformidad emitido por OCA acreditada.",
-              "obligatorio": true
-            },
-            {
-              "id": "proyecto_acs_pues",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Proyecto completo con visado colegial para presentar en PUES.",
-              "obligatorio": true
-            }
-          ],
-          "notas": null
+          "notas": "La notificación debe realizarse antes de la puesta en marcha de la instalación. Las inspecciones de Salud Pública son periódicas y no anunciadas. NOTA DE CRITERIO: el disparador legal correcto de esta obligación es el ámbito del art. 3.1 del RD 487/2022 (uso colectivo con posible aerosolización, típicamente ACS con acumulación y recirculación), NO la potencia. Mientras el wizard no capture uso_colectivo/acumulacion/recirculacion (Bloque 9B pendiente), esta regla usa el criterio de potencia/uso como red de seguridad transitoria para no perder cobertura; en cuanto existan esos campos, sustituir por el criterio legal correcto."
         }
       ]
     }
