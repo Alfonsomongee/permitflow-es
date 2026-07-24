@@ -1,193 +1,94 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "baleares",
+  "comunidad": "Illes Balears",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Ley 2/2019 + Decreto-ley 6/2025",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53.3)",
+    "Real Decreto 244/2019, de 5 de abril",
+    "Ley 10/2019, de 22 de febrero, de cambio climático y transición energética de las Illes Balears (BOE-A-2019-5579; arts. 47, 48, 52)",
+    "Decreto-ley 3/2024, de 24 de mayo, de medidas urgentes de simplificación y racionalización administrativas (BOE-A-2024-16940) — eleva umbral 100->500 kW",
+    "Ley 12/2017, de 29 de diciembre, de urbanismo de las Illes Balears (art. 153.1.e)",
+    "Convocatoria FOTOPAR 2026 (sede CAIB trámite 6439804)",
+    "Trámite 034 y trámite 2807998, sede electrónica CAIB"
   ],
   "reglas": [
     {
-      "id": "BAL-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "IB-FV-015",
+      "descripcion": "Autoconsumo renovable hasta 15 kW: exento de tasa; registro de pequeña potencia; comunicación previa urbanística",
+      "condicion": {"<=": [{"var": "potencia_kw"}, 15]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Procedimiento 001 UDIT",
-          "organismo": "Dirección General Economía Circular / Plataforma UDIT",
-          "base_legal": "Ley 2/2019 + Decreto-ley 6/2025",
+          "nombre": "Registro de instalación de producción de pequeña potencia conectada a red (trámite 034)",
+          "organismo": "D.G. de Economía Circular, Transición Energética y Cambio Climático",
+          "base_legal": "RD 244/2019; Ley 10/2019 art. 52",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
+          "plataforma": "Ventanilla de tramitación de autoconsumo de pequeña potencia (<=500 kW), sede CAIB",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
+          "coste_estimado": "0 EUR (exentas hasta 15 kW, tarifa 408.1.1)",
+          "formulario_ref": "034",
           "documentos_requeridos": [
-            "Justificante Inscripción",
-            "CIE",
-            "CAU"
+            {"id": "cie", "label": "Certificado de instalación BT para autoconsumo", "descripcion": "Instalador habilitado", "obligatorio": true},
+            {"id": "memoria", "label": "Memoria técnica", "descripcion": "Según potencia", "obligatorio": true},
+            {"id": "cp_urb", "label": "Comunicación previa urbanística", "descripcion": "Ley 12/2017 art. 153.1.e (cubierta)", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Exención de tasa hasta 15 kW. Inscripción de oficio en el Registro de autoconsumo de las Illes Balears. No se exige autorización administrativa (umbral 500 kW)."
         }
       ]
     },
     {
-      "id": "BAL-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "IB-FV-500",
+      "descripcion": "Autoconsumo >15 kW y <=500 kW: sin autorización administrativa previa (exención autonómica); tasa aplicable",
+      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 15]}, {"<=": [{"var": "potencia_kw"}, 500]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Procedimiento 001 UDIT",
-          "organismo": "Dirección General Economía Circular / Plataforma UDIT",
-          "base_legal": "Ley 2/2019 + Decreto-ley 6/2025",
-          "plazo_estimado_dias": 30,
+          "nombre": "Registro de instalación de producción de pequeña potencia (trámite 034)",
+          "organismo": "D.G. de Economía Circular, Transición Energética y Cambio Climático",
+          "base_legal": "Ley 10/2019 arts. 47 y 52; Decreto-ley 3/2024 (umbral 500 kW); RD 244/2019",
+          "plazo_estimado_dias": 45,
           "plazo_legal_dias": null,
+          "plataforma": "Ventanilla de autoconsumo de pequeña potencia (<=500 kW), sede CAIB",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
+          "coste_estimado": "Tasa aplicable >15 kW (tarifa 408); ampliaciones/modificaciones domésticas 46.76 EUR (modelo 046 ATIB)",
+          "formulario_ref": "034",
           "documentos_requeridos": [
-            "Justificante Inscripción",
-            "CIE",
-            "CAU"
+            {"id": "proyecto", "label": "Proyecto o memoria técnica", "descripcion": "Según potencia/tramos RD 244/2019", "obligatorio": true},
+            {"id": "cie", "label": "Certificado de instalación", "descripcion": "Instalador habilitado", "obligatorio": true},
+            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Con excedentes", "obligatorio": false}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "DIFERENCIA CLAVE FRENTE AL LOTE 2: Baleares eleva el umbral de exención de autorización a 500 kW (Decreto-ley 3/2024), como Andalucía. En suelo rústico el autoconsumo es uso admitido sin declaración de interés general (art. 48 Ley 10/2019)."
         }
       ]
     },
     {
-      "id": "BAL-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
-      "condicion": {
-        "or": [
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
-        ]
-      },
+      "id": "IB-FV-AUT",
+      "descripcion": "Instalaciones de producción >500 kW: autorización administrativa completa",
+      "condicion": {">": [{"var": "potencia_kw"}, 500]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Procedimiento 001 UDIT",
-          "organismo": "Dirección General Economía Circular / Plataforma UDIT",
-          "base_legal": "Ley 2/2019 + Decreto-ley 6/2025",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
+          "nombre": "Autorización de instalaciones de producción de energía eléctrica >500 kW",
+          "organismo": "D.G. competente en energía (Servicio de Combustibles y Energías Renovables)",
+          "base_legal": "Ley 24/2013 art. 53.1; RD 1955/2000; RD 413/2014; RD 244/2019",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "plataforma": "Sede electrónica CAIB (trámite 2807998); carga previa en intranet reenerfront",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/2807998/",
+          "coste_estimado": "Tasa autonómica de tramitación de instalaciones >500 kW — importe no verificado verbatim",
+          "formulario_ref": "2807998",
           "documentos_requeridos": [
-            "Justificante Inscripción",
-            "CIE",
-            "CAU"
+            {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Técnico competente", "obligatorio": true},
+            {"id": "eia", "label": "Estudio de impacto ambiental", "descripcion": "Si procede (Ley 12/2016 EA Illes Balears)", "obligatorio": false},
+            {"id": "aval", "label": "Aval/seguro de caución de acceso", "descripcion": "RD 1183/2020", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Plazo de resolución: 6 meses ('los que establecen los reales decretos anteriores, o en su defecto, 6 meses'). Efecto del silencio NO confirmado verbatim en norma balear (por analogía sectorial, presuntamente desestimatorio). Tramitación exclusivamente telemática."
         }
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }

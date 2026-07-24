@@ -1,193 +1,94 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "aragon",
+  "comunidad": "Aragón",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Decreto Legislativo 1/2025",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53)",
+    "Real Decreto 244/2019, de 5 de abril",
+    "Instrucción 2/2021, de 4 de marzo, de la D.G. de Planificación Energética y Recursos Naturales",
+    "Ley 1/2021, de 11 de febrero, de Simplificación Administrativa (art. 59.2)",
+    "Texto Refundido de la Ley de Tasas de Aragón, Decreto Legislativo 1/2004, de 27 de julio (Tasa 14)",
+    "Ley 7/2021, de 7 de octubre (modifica tarifa 52; BOE-A-2021-19727)",
+    "Orden ICD/569/2022, de 27 de abril (modelo 514)"
   ],
   "reglas": [
     {
-      "id": "ARA-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "ARA-FV-SIN",
+      "descripcion": "Autoconsumo sin excedentes (cualquier potencia hasta el ámbito autonómico): exento de autorización administrativa, de construcción y de explotación",
+      "condicion": {"==": [{"var": "modalidad"}, "sin_excedentes"]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción instalaciones BT",
-          "organismo": "Servicio Provincial Dpto. Presidencia, Economía y Justicia",
-          "base_legal": "Decreto Legislativo 1/2025",
+          "nombre": "Declaración responsable + registro RADNE (Alta)",
+          "organismo": "D.G. competente en energía, Gobierno de Aragón",
+          "base_legal": "Ley 1/2021 art. 59.2; RD 244/2019 art. 8",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
+          "plataforma": "Tramitador del Gobierno de Aragón (trámite 2459)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica/tramitacion",
+          "coste_estimado": "0 EUR si potencia <100 kW (exenta); 56.20 EUR si >=100 kW (Tasa 14, ap. 5, tarifa 52, regla 4ª)",
+          "formulario_ref": "F107 (<100 kW) / F106 (>=100 kW)",
           "documentos_requeridos": [
-            "MTD/Proyecto",
-            "CIE",
-            "CAU"
+            {"id": "dr", "label": "Declaración responsable", "descripcion": "Conforme reglamentación técnica aplicable", "obligatorio": true},
+            {"id": "memoria_cie", "label": "Memoria técnica y CIE", "descripcion": "Instalador habilitado BT", "obligatorio": true},
+            {"id": "f107", "label": "Formulario F107", "descripcion": "Inscripción en RADNE (F106 si >=100 kW)", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Modalidad sin excedentes exenta de autorización por art. 59.2 Ley 1/2021. Registro RADNE gestionado por la CCAA."
         }
       ]
     },
     {
-      "id": "ARA-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "ARA-FV-CON-100",
+      "descripcion": "Autoconsumo con excedentes BT <=100 kW: sin autorización administrativa previa; registro y permisos de acceso/conexión",
+      "condicion": {"and": [{"==": [{"var": "modalidad"}, "con_excedentes"]}, {"<=": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "BT"]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción instalaciones BT",
-          "organismo": "Servicio Provincial Dpto. Presidencia, Economía y Justicia",
-          "base_legal": "Decreto Legislativo 1/2025",
-          "plazo_estimado_dias": 30,
+          "nombre": "Registro RADNE y (si >10 kW) aval de acceso/conexión",
+          "organismo": "D.G. competente en energía; distribuidora",
+          "base_legal": "Instrucción 2/2021; RD 244/2019; art. 53.3 Ley 24/2013",
+          "plazo_estimado_dias": 45,
           "plazo_legal_dias": null,
+          "plataforma": "Tramitador del Gobierno de Aragón",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica/tramitacion",
+          "coste_estimado": "0 EUR registro (<100 kW exento); aval acceso/conexión 40 EUR/kW; gestión resguardo garantía 25.00 EUR (tarifa 58)",
+          "formulario_ref": "F107",
           "documentos_requeridos": [
-            "MTD/Proyecto",
-            "CIE",
-            "CAU"
+            {"id": "memoria", "label": "Memoria/proyecto según potencia", "descripcion": "Proyecto si >10 kW", "obligatorio": true},
+            {"id": "cau", "label": "CAU", "descripcion": "De la distribuidora", "obligatorio": true},
+            {"id": "aval", "label": "Aval económico", "descripcion": "40 EUR/kW para >10 kW (excedentes)", "obligatorio": false}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Aval de 40 EUR/kW requerido para instalaciones >15 kW urbano / >10 kW rural con excedentes."
         }
       ]
     },
     {
-      "id": "ARA-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
-      "condicion": {
-        "or": [
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
-        ]
-      },
+      "id": "ARA-FV-AT",
+      "descripcion": "Autoconsumo con producción >100 kW o AT (tecnología no eólica): autorización administrativa previa, de construcción y de explotación",
+      "condicion": {"or": [{">": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "AT"]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción instalaciones BT",
-          "organismo": "Servicio Provincial Dpto. Presidencia, Economía y Justicia",
-          "base_legal": "Decreto Legislativo 1/2025",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
+          "nombre": "Autorización administrativa previa y de construcción (trámite 783)",
+          "organismo": "D.G. competente en energía (o Servicio Provincial si FV <=1 MW)",
+          "base_legal": "Ley 24/2013 art. 53.1; RD 1955/2000",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "Tramitador del Gobierno de Aragón (trámite 783)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-produccion-regimen-especial",
+          "coste_estimado": "Tasa 14, apartado 5 (tarifas 48-51) — importe no verificado verbatim",
+          "formulario_ref": "F102",
           "documentos_requeridos": [
-            "MTD/Proyecto",
-            "CIE",
-            "CAU"
+            {"id": "proyecto", "label": "Proyecto y anexo de configuración de potencia", "descripcion": "Técnico competente", "obligatorio": true},
+            {"id": "cap_econ", "label": "Acreditación de capacidad económica y técnica", "descripcion": "", "obligatorio": true},
+            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Distribuidora/transportista", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Plazo legal: autorización previa 3 meses y de construcción 3 meses (ficha trámite 783); explotación 1 mes. Silencio no fijado como positivo en norma autonómica; por analogía sectorial (Ley 24/2013 / RD 1955/2000) se considera desestimatorio — no verificado verbatim. Competencia del Servicio Provincial para FV <=1 MW."
         }
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }

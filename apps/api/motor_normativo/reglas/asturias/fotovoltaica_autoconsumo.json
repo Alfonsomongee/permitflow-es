@@ -1,196 +1,91 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "asturias",
+  "comunidad": "Principado de Asturias",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Decreto 23/2025",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53)",
+    "Real Decreto 244/2019, de 5 de abril",
+    "Instrucciones técnicas BT fotovoltaica autoconsumo del Principado de Asturias (rev-03, 14/06/2022)",
+    "Decreto Legislativo del Principado de Asturias 1/1998, de 11 de junio (TR Leyes de Tasas y Precios Públicos; BOE-A-1998-23233), art. 39",
+    "Trámite AUTO0301T01 y RECE0049T01, sede electrónica del Principado de Asturias"
   ],
   "reglas": [
     {
-      "id": "AST-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "AST-FV-015",
+      "descripcion": "Autoconsumo BT hasta 15 kW: puesta en servicio telemática; CAU solicitado por instalador; sin autorización administrativa previa",
+      "condicion": {"and": [{"<=": [{"var": "potencia_kw"}, 15]}, {"==": [{"var": "tension"}, "BT"]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Puesta en servicio BT (Trámite 0065T01)",
-          "organismo": "Consejería de Transición Ecológica",
-          "base_legal": "Decreto 23/2025",
-          "plazo_estimado_dias": 15,
+          "nombre": "Puesta en servicio de instalación generadora de BT para autoconsumo",
+          "organismo": "Servicio de Industria y Energía / Servicio de Energías Renovables y Eficiencia Energética",
+          "base_legal": "Instrucciones BT autoconsumo; RD 244/2019; REBT ITC-BT-04",
+          "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
+          "plataforma": "Aplicación de instalaciones eléctricas del Principado de Asturias",
+          "plataforma_url": "https://www70.asturias.es/electricas/action/menuElectricas",
+          "coste_estimado": "Tasa de industria DL 1/1998 art. 39: cuota sobre presupuesto (2.686323 EUR por los primeros 3.005,06 EUR)",
+          "formulario_ref": "RECE0049T01",
           "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "tasas"
+            {"id": "cie", "label": "Certificado de instalación eléctrica BT", "descripcion": "Empresa instaladora habilitada", "obligatorio": true},
+            {"id": "memoria", "label": "Memoria técnica de diseño", "descripcion": "ITC-BT-04", "obligatorio": true},
+            {"id": "cau", "label": "CAU", "descripcion": "Solicitado por instalador a la distribuidora (FV <=15 kW)", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Para FV <=15 kW el CAU lo solicita el promotor/instalador; para el resto lo facilita la distribuidora en el trámite de acceso y conexión. Tramitación exclusivamente telemática."
         }
       ]
     },
     {
-      "id": "AST-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "AST-FV-100",
+      "descripcion": "Autoconsumo BT >15 kW y <=100 kW: proyecto; sin autorización administrativa previa",
+      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 15]}, {"<=": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "BT"]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Puesta en servicio BT (Trámite 0065T01)",
-          "organismo": "Consejería de Transición Ecológica",
-          "base_legal": "Decreto 23/2025",
-          "plazo_estimado_dias": 15,
+          "nombre": "Puesta en servicio con proyecto e inscripción RIPRE",
+          "organismo": "Servicio de Energías Renovables y Eficiencia Energética",
+          "base_legal": "RD 244/2019; art. 53.3 Ley 24/2013",
+          "plazo_estimado_dias": 45,
           "plazo_legal_dias": null,
+          "plataforma": "Aplicación de instalaciones eléctricas (www70.asturias.es/electricas)",
+          "plataforma_url": "https://www70.asturias.es/electricas/action/menuElectricas",
+          "coste_estimado": "Tasa de industria DL 1/1998 art. 39 (cuota progresiva sobre presupuesto) — escala completa no verificada",
+          "formulario_ref": "RECE0049T01",
           "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "tasas"
+            {"id": "proyecto", "label": "Proyecto técnico (pdf visado o declaración responsable del técnico)", "descripcion": "Técnico competente", "obligatorio": true},
+            {"id": "cie", "label": "Certificado de instalación eléctrica", "descripcion": "", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Hasta 100 kW en BT sin autorización administrativa previa (umbral estatal, sin extensión autonómica)."
         }
       ]
     },
     {
-      "id": "AST-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
-      "condicion": {
-        "or": [
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
-        ]
-      },
+      "id": "AST-FV-AUT",
+      "descripcion": "Producción >100 kW o AT: autorización administrativa de instalación de producción (renovables <=50 MW)",
+      "condicion": {"or": [{">": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "AT"]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Puesta en servicio BT (Trámite 0065T01)",
-          "organismo": "Consejería de Transición Ecológica",
-          "base_legal": "Decreto 23/2025",
-          "plazo_estimado_dias": 15,
+          "nombre": "Autorización de instalaciones de producción de energía eléctrica a partir de renovables (AUTO0301T01)",
+          "organismo": "Servicio de Energías Renovables y Eficiencia Energética (D.G. de Minería y Energía)",
+          "base_legal": "Ley 24/2013 art. 53; RD 1955/2000; RD 413/2014",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
+          "plataforma": "Sede electrónica del Principado de Asturias / Registro Electrónico",
+          "plataforma_url": "https://sede.asturias.es/-/dboid-6269000040819315407573",
+          "coste_estimado": "Tasa de industria DL 1/1998 art. 39 (cuota sobre presupuesto) — importe exacto no verificado",
+          "formulario_ref": "AUTO0301T01",
           "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "tasas"
+            {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Técnico competente", "obligatorio": true},
+            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Previos a la autorización de la instalación de generación", "obligatorio": true},
+            {"id": "eia", "label": "Documentación ambiental", "descripcion": "Ley 21/2013 si procede", "obligatorio": false}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Ficha oficial: plazo de resolución 'el establecido en la normativa de aplicación'; efecto del silencio 'No procede'. La autorización no se otorga sin permisos previos de acceso y conexión. Cubre instalaciones de producción <=50 MW."
         }
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }

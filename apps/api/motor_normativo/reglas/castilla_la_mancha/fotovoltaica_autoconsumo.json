@@ -1,196 +1,119 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "castilla_la_mancha",
+  "comunidad": "Castilla-La Mancha",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Ley 1/2021 + Procedimiento 1002274",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53)",
+    "Real Decreto 244/2019, de 5 de abril",
+    "Decreto 80/2007, de 19 de junio, modificado por Decreto 34/2017, de 2 de mayo",
+    "Instrucción 1/2020 de la Dirección General de Transición Energética sobre instalaciones de autoconsumo",
+    "Ley 1/2021, de 12 de febrero, de Simplificación Urbanística y Medidas Administrativas",
+    "Ley 7/2008, de 13 de noviembre, de Regulación de Tasas en materia de Industria, Energía y Minas de Castilla-La Mancha (BOE-A-2009-8665)",
+    "Resolución de 16/05/2024 de la D.G. de Tributos (DOCM nº 101, 24/05/2024), tarifas vigentes 2024"
   ],
   "reglas": [
     {
-      "id": "CLM-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "CLM-FV-010",
+      "descripcion": "Autoconsumo BT hasta 10 kW: memoria técnica, sin proyecto ni autorización administrativa previa; comunicación previa urbanística",
+      "condicion": {"and": [{"<=": [{"var": "potencia_kw"}, 10]}, {"==": [{"var": "tension"}, "BT"]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción BT Procedimiento 1002274",
-          "organismo": "Delegaciones Provinciales Desarrollo Sostenible JCCM",
-          "base_legal": "Ley 1/2021 + Procedimiento 1002274",
+          "nombre": "Registro/puesta en servicio de instalación de BT de autoconsumo (memoria técnica)",
+          "organismo": "Servicio de Industria y Energía de la Delegación Provincial competente",
+          "base_legal": "Instrucción 1/2020; Decreto 80/2007; RD 244/2019 art. 8",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramites/1004429",
+          "coste_estimado": "36.48 EUR (Tarifa 3.1.1, BT sin proyecto, Ley 7/2008)",
+          "formulario_ref": "1004429",
           "documentos_requeridos": [
-            "solicitud",
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
+            {"id": "solicitud", "label": "Solicitud normalizada", "descripcion": "Firmada por titular o representante", "obligatorio": true},
+            {"id": "cie", "label": "Certificado de instalación eléctrica (CIE)", "descripcion": "Emitido por empresa instaladora habilitada de BT", "obligatorio": true},
+            {"id": "memoria", "label": "Memoria técnica de diseño", "descripcion": "Según ITC-BT-04 del REBT", "obligatorio": true},
+            {"id": "cau", "label": "Código de autoconsumo (CAU)", "descripcion": "Solicitado a la distribuidora", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Sin autorización administrativa previa (potencia <=100 kW en BT, art. 53.3 Ley 24/2013). Licencia de obra sustituida por comunicación previa (Ley 1/2021)."
         }
       ]
     },
     {
-      "id": "CLM-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "CLM-FV-015",
+      "descripcion": "Autoconsumo BT >10 kW y <=15 kW: proyecto + certificado final de obra; sin autorización administrativa previa",
+      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 10]}, {"<=": [{"var": "potencia_kw"}, 15]}, {"==": [{"var": "tension"}, "BT"]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción BT Procedimiento 1002274",
-          "organismo": "Delegaciones Provinciales Desarrollo Sostenible JCCM",
-          "base_legal": "Ley 1/2021 + Procedimiento 1002274",
+          "nombre": "Registro/puesta en servicio con proyecto",
+          "organismo": "Servicio de Industria y Energía de la Delegación Provincial",
+          "base_legal": "Instrucción 1/2020; RD 244/2019",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la JCCM",
+          "plataforma_url": "https://www.jccm.es/tramites/1004429",
+          "coste_estimado": "36.48 EUR base (inversión <=10.000 EUR) + 6.14 EUR por cada 10.000 EUR o fracción adicional (Tarifa 3.1.2, Ley 7/2008)",
+          "formulario_ref": "1004429",
           "documentos_requeridos": [
-            "solicitud",
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
+            {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Firmado por técnico competente", "obligatorio": true},
+            {"id": "cfo", "label": "Certificado final de obra", "descripcion": "Técnico competente", "obligatorio": true},
+            {"id": "cie", "label": "Certificado de instalación eléctrica", "descripcion": "Empresa instaladora BT", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Umbral de proyecto en 10 kW según RD 244/2019 (tramo estatal, no propio)."
         }
       ]
     },
     {
-      "id": "CLM-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
-      "condicion": {
-        "or": [
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
-        ]
-      },
+      "id": "CLM-FV-100",
+      "descripcion": "Autoconsumo BT >15 kW y <=100 kW en BT: sin autorización administrativa previa; registro con proyecto",
+      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 15]}, {"<=": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "BT"]}]},
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción BT Procedimiento 1002274",
-          "organismo": "Delegaciones Provinciales Desarrollo Sostenible JCCM",
-          "base_legal": "Ley 1/2021 + Procedimiento 1002274",
-          "plazo_estimado_dias": 30,
+          "nombre": "Registro/puesta en servicio con proyecto",
+          "organismo": "Servicio de Industria y Energía de la Delegación Provincial",
+          "base_legal": "Instrucción 1/2020; art. 53.3 Ley 24/2013",
+          "plazo_estimado_dias": 45,
           "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la JCCM",
+          "plataforma_url": "https://www.jccm.es/tramites/1004429",
+          "coste_estimado": "36.48 EUR base + 6.14 EUR por cada 10.000 EUR o fracción (Tarifa 3.1.2, Ley 7/2008)",
+          "formulario_ref": "1004429",
           "documentos_requeridos": [
-            "solicitud",
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
+            {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Técnico competente", "obligatorio": true},
+            {"id": "cfo", "label": "Certificado final de obra", "descripcion": "Técnico competente", "obligatorio": true}
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
+          "notas": "Hasta 100 kW en BT quedan excluidas de autorización administrativa previa (art. 53.3 Ley 24/2013)."
+        }
+      ]
+    },
+    {
+      "id": "CLM-FV-AT",
+      "descripcion": "Autoconsumo con producción >100 kW o conexión en AT: autorización administrativa previa y de construcción",
+      "condicion": {"or": [{">": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "AT"]}]},
+      "tramites": [
         {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
+          "orden": 1,
+          "nombre": "Autorización administrativa previa y de construcción",
+          "organismo": "Dirección General de Transición Energética",
+          "base_legal": "Ley 24/2013 art. 53.1; Decreto 80/2007 (grupo segundo); RD 1955/2000",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la JCCM",
+          "plataforma_url": "https://www.jccm.es/tramites/1002105",
+          "coste_estimado": "Tarifa 3.2 (autorización previa) y 3.3 (de construcción) de la Ley 7/2008 — importe no verificado verbatim",
+          "formulario_ref": "1002105",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
+            {"id": "proyecto", "label": "Proyecto de la instalación", "descripcion": "Técnico competente", "obligatorio": true},
+            {"id": "eia", "label": "Documentación ambiental", "descripcion": "Ley 2/2020 de Evaluación Ambiental de CLM, si procede", "obligatorio": false},
+            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Otorgados por la distribuidora", "obligatorio": true}
           ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Tramitación conjunta de autorización previa y de construcción. Importe de tasa no verificado."
         }
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }
