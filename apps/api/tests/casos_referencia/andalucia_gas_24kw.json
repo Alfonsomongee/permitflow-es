@@ -9,8 +9,8 @@
     "combustible": "gas_natural",
     "presion_bar": "normal"
   },
-  "num_tramites_esperado": 4,
-  "tiempo_total_esperado_dias": 28,
+  "num_tramites_esperado": 1,
+  "tiempo_total_esperado_dias": 10,
   "validado_por": "Auto - 2026-07-08",
   "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
 }

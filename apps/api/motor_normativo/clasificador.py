@@ -64,6 +64,17 @@ class Clasificador:
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
+        presion_bar_val = params.presion_bar
+        if presion_bar_val == "normal":
+            presion_bar_val = 0.0
+        elif presion_bar_val == "5+":
+            presion_bar_val = 6.0
+        elif isinstance(presion_bar_val, str):
+            try:
+                presion_bar_val = float(presion_bar_val)
+            except ValueError:
+                pass
+
         eval_locals = {
             "potencia_kw": params.potencia_kw,
             "superficie_m2": params.superficie_m2,
@@ -72,7 +83,7 @@ class Clasificador:
             "comunidad": params.comunidad,
             "tipo_instalacion": params.tipo_instalacion,
             "combustible": params.combustible,
-            "presion_bar": params.presion_bar,
+            "presion_bar": presion_bar_val,
             "numero_puntos": params.numero_puntos,
             "potencia_por_punto_kw": params.potencia_por_punto_kw,
             "modo_recarga": params.modo_recarga,
