@@ -1,193 +1,42 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "murcia",
+  "comunidad": "Region de Murcia",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Orden EIE/18/2026 + ITC-BT-40",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013, de 26 de diciembre, del Sector Electrico (art. 53)",
+    "Real Decreto 244/2019, de 5 de abril",
+    "Resolucion DGIEM de aplicacion en la Region de Murcia del RD 1699/2011",
+    "Decreto Legislativo 1/2004, Texto Refundido de la Ley de Tasas (T610; H00001/H00002/H00003; T610.2 regimen especial)",
+    "Decreto 47/2003, de 16 de mayo, Registro de establecimientos industriales",
+    "Orden de convocatoria ayudas PYMES Programa Region de Murcia FEDER 2021-2027 (codigo 4609 sede CARM)"
   ],
   "reglas": [
     {
-      "id": "MUR-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "MUR-FV-010",
+      "descripcion": "Autoconsumo BT, P<=15 kW en suelo urbanizado (o sin excedentes cualquier P en BT)",
+      "condicion": {"and": [{"<=": [{"var": "potencia_kw"}, 15]}, {"==": [{"var": "tension"}, "BT"]}]},
       "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Procedimiento 0019 registro BT autoconsumo",
-          "organismo": "Dirección General Energía y Actividad Industrial",
-          "base_legal": "Orden EIE/18/2026 + ITC-BT-40",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
+        {"orden": 1, "nombre": "Registro de instalacion BT + Registro Administrativo de Autoconsumo (declaracion responsable)", "organismo": "Direccion General de Energia y Actividad Industrial y Minera", "base_legal": "RD 244/2019; ITC-BT-40", "plazo_estimado_dias": 1, "plazo_legal_dias": null, "plataforma": "Sede electronica de la CARM", "plataforma_url": "https://sede.carm.es", "coste_estimado": "tasa T610 (importe no verificado; bonificacion renovables 95%)", "formulario_ref": "0019", "documentos_requeridos": [{"id": "cie", "label": "CIE", "descripcion": "Certificado de instalacion electrica", "obligatorio": true}, {"id": "cau", "label": "CAU", "descripcion": "Codigo de autoconsumo de la distribuidora", "obligatorio": true}], "notas": "Procedimiento 0019 por declaracion responsable: inscripcion automatica. Exento de permiso de acceso si sin excedentes o <=15 kW en suelo urbanizado."}
       ]
     },
     {
-      "id": "MUR-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "MUR-FV-020",
+      "descripcion": "Autoconsumo BT con excedentes, 15<P<=100 kW",
+      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 15]}, {"<=": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "BT"]}]},
       "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Procedimiento 0019 registro BT autoconsumo",
-          "organismo": "Dirección General Energía y Actividad Industrial",
-          "base_legal": "Orden EIE/18/2026 + ITC-BT-40",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
+        {"orden": 1, "nombre": "Registro BT + autoconsumo + permiso de acceso y conexion", "organismo": "Direccion General de Energia y Actividad Industrial y Minera", "base_legal": "RD 244/2019; RD 1183/2020", "plazo_estimado_dias": 30, "plazo_legal_dias": null, "plataforma": "Sede electronica de la CARM", "plataforma_url": "https://sede.carm.es", "coste_estimado": "tasa T610 (importe no verificado)", "formulario_ref": "0019", "documentos_requeridos": [{"id": "acceso", "label": "Permiso de acceso y conexion", "descripcion": "Distribuidora (i-DE); informe garantia via proc. 3072 si P>100 kW", "obligatorio": true}], "notas": "Procedimiento 0019. Sin autorizacion administrativa previa (BT <=100 kW). Inscripcion PRETOR obligatoria si excedentes no acogidos a compensacion."}
       ]
     },
     {
-      "id": "MUR-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
-      "condicion": {
-        "or": [
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
-        ]
-      },
+      "id": "MUR-FV-030",
+      "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa",
+      "condicion": {"or": [{">": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "AT"]}]},
       "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Procedimiento 0019 registro BT autoconsumo",
-          "organismo": "Dirección General Energía y Actividad Industrial",
-          "base_legal": "Orden EIE/18/2026 + ITC-BT-40",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
+        {"orden": 1, "nombre": "Autorizacion de instalaciones electricas de alta tension (produccion)", "organismo": "Direccion General de Energia y Actividad Industrial y Minera", "base_legal": "art. 53 Ley 24/2013; RD 1955/2000", "plazo_estimado_dias": 120, "plazo_legal_dias": null, "plataforma": "Sede electronica de la CARM", "plataforma_url": "https://sede.carm.es", "coste_estimado": "tasa T610.2 (importe no verificado; bonificacion renovables 95% o 75% si presupuesto > 60.000,01 EUR)", "formulario_ref": "0007", "documentos_requeridos": [{"id": "proyecto", "label": "Proyecto de ejecucion", "descripcion": "Tecnico competente", "obligatorio": true}, {"id": "aval", "label": "Garantia 40 EUR/kW", "descripcion": "RD 1183/2020, informe previo procedimiento 3072", "obligatorio": true}, {"id": "pretor", "label": "Inscripcion PRETOR", "descripcion": "Obligatoria para excedentes no acogidos a compensacion", "obligatorio": true}], "notas": "Procedimiento 0007. Silencio NEGATIVO (art. 53 Ley 24/2013). AMBIGUEDAD: la sede CARM menciona 500 kW en contexto de inscripcion PRETOR; NO se confirmo decreto murciano de extension de la exencion de autorizacion administrativa a 500 kW."}
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }

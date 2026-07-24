@@ -1,193 +1,41 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "castilla_leon",
+  "comunidad": "Castilla y Leon",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Decreto Ley 4/2020",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013, de 26 de diciembre, del Sector Electrico (art. 53)",
+    "Real Decreto 244/2019, de 5 de abril",
+    "Decreto 46/2022, de 24 de noviembre (BOCYL 229, 28/11/2022)",
+    "Proyecto de decreto de modificacion del art. 3 del Decreto 46/2022 (dictamen Consejo Consultivo 05/03/2026, NO publicado en BOCYL)",
+    "Orden EYH/870/2024, de 6 de septiembre, de tarifas de tasas (BOCyL 16-09-2024); tasa 308.1 'Inscripcion y control de instalaciones electricas'"
   ],
   "reglas": [
     {
-      "id": "CYL-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "CYL-FV-010",
+      "descripcion": "Autoconsumo con excedentes, P<=10 kW",
+      "condicion": {"<=": [{"var": "potencia_kw"}, 10]},
       "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Inscripción IAPA 3363",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía",
-          "base_legal": "Decreto Ley 4/2020",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "DNI titular"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
+        {"orden": 1, "nombre": "Registro de instalacion de autoconsumo (memoria)", "organismo": "Servicio Territorial de Industria, Comercio y Economia", "base_legal": "Decreto 46/2022; RD 244/2019; ITC-BT-04", "plazo_estimado_dias": 20, "plazo_legal_dias": null, "plataforma": "Sede electronica de la Junta de Castilla y Leon", "plataforma_url": "https://www.tramitacastillayleon.jcyl.es", "coste_estimado": "tasa 308.1 (importe no verificado, Orden EYH/870/2024)", "formulario_ref": null, "documentos_requeridos": [{"id": "memoria", "label": "Memoria tecnica (formato libre)", "descripcion": "Sin formato oficial establecido por Industria", "obligatorio": true}, {"id": "cie", "label": "CIE de autoconsumo", "descripcion": "Certificado de instalacion electrica", "obligatorio": true}], "notas": "Memoria de formato libre. Comunicacion a la distribuidora. Sin plazo legal autonomico."}
       ]
     },
     {
-      "id": "CYL-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
+      "id": "CYL-FV-020",
+      "descripcion": "Autoconsumo 10<P<=100 kW",
+      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 10]}, {"<=": [{"var": "potencia_kw"}, 100]}]},
       "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Inscripción IAPA 3363",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía",
-          "base_legal": "Decreto Ley 4/2020",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "DNI titular"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
+        {"orden": 1, "nombre": "Autorizacion de explotacion e inscripcion", "organismo": "Servicio Territorial de Industria, Comercio y Economia", "base_legal": "Decreto 46/2022; art. 53 Ley 24/2013", "plazo_estimado_dias": 40, "plazo_legal_dias": null, "plataforma": "Sede electronica de la Junta de Castilla y Leon", "plataforma_url": "https://www.tramitacastillayleon.jcyl.es", "coste_estimado": "tasa 308.1 (importe no verificado)", "formulario_ref": null, "documentos_requeridos": [{"id": "proyecto", "label": "Proyecto/memoria", "descripcion": "Segun tipo de suelo y modalidad (urbano/no urbano afecta a con excedentes)", "obligatorio": true}], "notas": "<=100 kW en BT excluidas de autorizacion administrativa previa (art. 53.3 Ley 24/2013)."}
       ]
     },
     {
-      "id": "CYL-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
-      "condicion": {
-        "or": [
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
-        ]
-      },
+      "id": "CYL-FV-030",
+      "descripcion": "Autoconsumo P>100 kW: autorizacion administrativa completa",
+      "condicion": {">": [{"var": "potencia_kw"}, 100]},
       "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Inscripción IAPA 3363",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía",
-          "base_legal": "Decreto Ley 4/2020",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "DNI titular"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
+        {"orden": 1, "nombre": "Autorizacion administrativa previa y de construccion", "organismo": "Servicio Territorial de Industria, Comercio y Economia", "base_legal": "art. 53 Ley 24/2013; Decreto 46/2022", "plazo_estimado_dias": 90, "plazo_legal_dias": null, "plataforma": "Sede electronica de la Junta de Castilla y Leon", "plataforma_url": "https://www.tramitacastillayleon.jcyl.es", "coste_estimado": "tasa 308.1 (importe no verificado)", "formulario_ref": null, "documentos_requeridos": [{"id": "proyecto", "label": "Proyecto de ejecucion", "descripcion": "Firmado por tecnico competente", "obligatorio": true}, {"id": "acceso", "label": "Permisos de acceso y conexion", "descripcion": "De la distribuidora (i-DE, etc.)", "obligatorio": true}], "notas": "Silencio NEGATIVO (art. 53 Ley 24/2013). Exento de informacion publica si es autoconsumo (art. 10.2.d Decreto 46/2022). ATENCION: proyecto de modificacion (dictaminado 05/03/2026, NO publicado en BOCYL) elevaria este umbral a 500 kW modificando el art. 3 del Decreto 46/2022. Revisar publicacion antes de aplicar 500 kW."}
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }
