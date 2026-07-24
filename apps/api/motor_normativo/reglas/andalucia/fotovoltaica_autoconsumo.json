@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "andalucia",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "ultima_revision": "2026-07-24",
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
@@ -12,7 +12,9 @@
     "Orden 5 marzo 2013 Junta de Andalucía",
     "Ley 7/2021 Cambio Climático art. 16",
     "Decreto-ley 2/2018, de 26 de junio (Andalucía), disposición adicional única — verificado gap 5.3 (Fase 0 investigación)",
-    "Decreto-ley 3/2024, de 6 de febrero (Andalucía)"
+    "Decreto-ley 3/2024, de 6 de febrero (Andalucía)",
+    "Resolucion de 13 de octubre de 2023, Secretaria General de Energia -- VEAJA/9588 confirmado (Fase 1, bloque 2.2)",
+    "RD 477/2021 y cierre de convocatoria -- verificado (Fase 1, bloque 2.4)"
   ],
   "reglas": [
     {
@@ -99,7 +101,7 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/21139.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
           "coste_estimado": "Tasa Modelo 046: ~30–80 € según potencia instalada (epígrafe generación BT)",
           "documentos_requeridos": [
             {
@@ -243,8 +245,8 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/21139.html",
-          "coste_estimado": "Tasa Modelo 046: NO VERIFICADO importe exacto para este tramo (orientativo, entre la tasa de MTD y la de proyecto >15 kW)",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "coste_estimado": "62.25 EUR base hasta 6.000 EUR de presupuesto (+17.93 EUR/10.000 EUR adicionales; tope 159.18 EUR si >60.000 EUR) -- tarifa 7.2.1.2, Ley 10/2021 art. 44 (verificado Fase 1, bloque 2.3).",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv_medio",
@@ -379,8 +381,8 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/21139.html",
-          "coste_estimado": "Tasa Modelo 046: ~120–400 € según potencia",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "coste_estimado": "62.25 EUR base hasta 6.000 EUR de presupuesto (+17.93 EUR/10.000 EUR adicionales; tope 159.18 EUR si >60.000 EUR) -- tarifa 7.2.1.2, Ley 10/2021 art. 44 (verificado Fase 1, bloque 2.3).",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv",
@@ -493,13 +495,13 @@
         {
           "orden": 2,
           "nombre": "Autorización administrativa previa y de construcción",
-          "organismo": "Dirección General de Energía / Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": "NO VERIFICADO — posiblemente VEAJA o sede electrónica genérica de la Junta (pendiente confirmar en próxima fase)",
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
+          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
+          "coste_estimado": "320.65 EUR base hasta 5.000 EUR de presupuesto (+14.86 EUR/10.000 EUR adicionales; tope 1.061,21 EUR) -- tarifa 7.1.1.1, Ley 10/2021 art. 44",
           "documentos_requeridos": [
             {
               "id": "proyecto_ejecucion_fv_grande",
@@ -515,7 +517,7 @@
             }
           ],
           "formulario_ref": "9588",
-          "notas": "PENDIENTE DE VERIFICACIóN: el código de procedimiento 9588 y la denominación exacta en el catálogo de la Junta no se confirmaron con fuente primaria en la investigación de Fase 0. Plazos no verificados. Caso poco frecuente (FV >500 kW); revisar manualmente antes de presentar cualquier expediente real en este tramo."
+          "notas": "CIERRA lo pendiente de la Fase 0: plataforma confirmada VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000."
         },
         {
           "orden": 3,
@@ -594,35 +596,16 @@
       "tramites": [
         {
           "orden": 30,
-          "nombre": "Solicitud ayudas PRTR — Autoconsumo renovable",
+          "nombre": "PRTR / Next Generation autoconsumo (CERRADO — sin nuevas solicitudes en Andalucia)",
           "organismo": "Agencia Andaluza de la Energía (AAE) — Convocatoria Next Generation EU",
           "base_legal": "RD 477/2021 PRTR; Resolución convocatoria Junta de Andalucía",
-          "plazo_estimado_dias": 120,
-          "plazo_legal_dias": 180,
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.agenciaandaluzadelaenergia.es/es/autoconsumo-renovable",
-          "coste_estimado": "Sin coste de tramitación. Subvención: hasta 40% del coste elegible para uso residencial en comunidades de propietarios",
-          "documentos_requeridos": [
-            {
-              "id": "solicitud_prtr_fv",
-              "label": "Formulario de solicitud PRTR (sede AAE)",
-              "descripcion": "Solicitud telemática de la subvención con certificado digital. Debe presentarse ANTES de iniciar la instalación en la mayoría de convocatorias.",
-              "obligatorio": true
-            },
-            {
-              "id": "presupuesto_fv",
-              "label": "Presupuesto desglosado de instalación",
-              "descripcion": "Presupuesto de la empresa instaladora con desglose por partidas: paneles, inversor, estructura, cableado, mano de obra e IVA por separado.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_eficiencia_energetica",
-              "label": "Certificado de eficiencia energética del inmueble (si aplica)",
-              "descripcion": "Para algunas convocatorias, se requiere el certificado energético del edificio para acreditar la mejora derivada del autoconsumo.",
-              "obligatorio": false
-            }
-          ],
-          "notas": "Las convocatorias PRTR tienen presupuesto limitado y se agotan rápidamente. Verificar disponibilidad en la web de la AAE antes de iniciar el procedimiento."
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/24726.html",
+          "coste_estimado": "No aplica: convocatoria cerrada",
+          "documentos_requeridos": [],
+          "notas": "La convocatoria andaluza del RD 477/2021 (programas de incentivo 4, 5 y 6, autoconsumo residencial) cerro el plazo de nuevas solicitudes el 31/12/2023; el programa estatal en su conjunto cerro el 31/07/2024. Gestor: Agencia Andaluza de la Energia (fondos agotados / lista de espera). Existe un programa autonomico propio, INCEA (Incentivos Integrados de Competitividad y Energia en Andalucia), dirigido a EMPRESAS (no residencial, importe minimo 10.000 EUR, cobertura 35-65%) -- su base legal no esta verificada con fuente primaria: NO ofrecer como alternativa confirmada hasta verificarlo."
         }
       ]
     }

@@ -27,7 +27,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
           "plataforma_url": "https://www.jccm.es/tramites/1004429",
-          "coste_estimado": "36.48 EUR (Tarifa 3.1.1, BT sin proyecto, Ley 7/2008)",
+          "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
           "formulario_ref": "1004429",
           "documentos_requeridos": [
             {"id": "solicitud", "label": "Solicitud normalizada", "descripcion": "Firmada por titular o representante", "obligatorio": true},
@@ -53,7 +53,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la JCCM",
           "plataforma_url": "https://www.jccm.es/tramites/1004429",
-          "coste_estimado": "36.48 EUR base (inversión <=10.000 EUR) + 6.14 EUR por cada 10.000 EUR o fracción adicional (Tarifa 3.1.2, Ley 7/2008)",
+          "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
           "formulario_ref": "1004429",
           "documentos_requeridos": [
             {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Firmado por técnico competente", "obligatorio": true},
@@ -78,7 +78,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la JCCM",
           "plataforma_url": "https://www.jccm.es/tramites/1004429",
-          "coste_estimado": "36.48 EUR base + 6.14 EUR por cada 10.000 EUR o fracción (Tarifa 3.1.2, Ley 7/2008)",
+          "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
           "formulario_ref": "1004429",
           "documentos_requeridos": [
             {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Técnico competente", "obligatorio": true},
@@ -102,14 +102,15 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la JCCM",
           "plataforma_url": "https://www.jccm.es/tramites/1002105",
-          "coste_estimado": "Tarifa 3.2 (autorización previa) y 3.3 (de construcción) de la Ley 7/2008 — importe no verificado verbatim",
+          "coste_estimado": "Tarifa 3.2 (autorización previa) y 3.3 (de construcción) de la Ley 7/2008 mediante Modelo 046",
           "formulario_ref": "1002105",
           "documentos_requeridos": [
-            {"id": "proyecto", "label": "Proyecto de la instalación", "descripcion": "Técnico competente", "obligatorio": true},
+            {"id": "proyecto", "label": "Proyecto de la instalación", "descripcion": "Técnico competente (proyecto y separatas)", "obligatorio": true},
             {"id": "eia", "label": "Documentación ambiental", "descripcion": "Ley 2/2020 de Evaluación Ambiental de CLM, si procede", "obligatorio": false},
-            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Otorgados por la distribuidora", "obligatorio": true}
+            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Otorgados por la distribuidora", "obligatorio": true},
+            {"id": "aval", "label": "Resguardo garantía económica", "descripcion": "Fianza", "obligatorio": true}
           ],
-          "notas": "Tramitación conjunta de autorización previa y de construcción. Importe de tasa no verificado."
+          "notas": "Tramitación conjunta de autorización previa y de construcción. Plazo de resolución de tres meses, silencio desestimatorio."
         }
       ]
     }

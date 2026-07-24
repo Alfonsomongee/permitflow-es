@@ -1,72 +1,55 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "cataluna",
-  "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "comunidad": "cataluña",
+  "version": "1.1.0",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Decreto 131/2022 + Decreto Ley 16/2019",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013 art. 53",
+    "RD 244/2019",
+    "Decreto-ley 24/2021 (BOE-A-2021-21113)",
+    "Decreto-ley 16/2019",
+    "Decreto-ley 22/2025 (BOE-A-2026-562)",
+    "Decreto Legislativo 3/2008 (TR Tasas Generalitat)"
   ],
   "reglas": [
     {
-      "id": "CAT-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "id": "CAT-FV-1",
+      "descripcion": "Autoconsumo hasta 10 kW: declaración responsable BT y registro RAC",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción RITSIC",
-          "organismo": "OGE / FUE / ICAEN",
-          "base_legal": "Decreto 131/2022 + Decreto Ley 16/2019",
-          "plazo_estimado_dias": 7,
+          "nombre": "Declaración responsable BT e inscripción RAC",
+          "organismo": "Direcció General d'Energia",
+          "base_legal": "Decreto-ley 24/2021 art. 4; RD 244/2019",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integrals/detall/Installacio-electrica-de-baixa-tensio-00003",
+          "coste_estimado": null,
+          "formulario_ref": null,
           "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "Declaración Responsable",
-            "esquema unifilar"
+            {
+              "id": "mtd",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "MTD <10 kW",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "MITECO (De oficio)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 0,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+          "notas": "Exenta de tasa por ser <=100 kW"
         }
       ]
     },
     {
-      "id": "CAT-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
+      "id": "CAT-FV-2",
+      "descripcion": "Autoconsumo >10 y <=100 kW: autorización de explotación y RAC, exenta de tasa",
       "condicion": {
         "and": [
           {
@@ -84,68 +67,52 @@
               },
               100
             ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
           }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción RITSIC",
-          "organismo": "OGE / FUE / ICAEN",
-          "base_legal": "Decreto 131/2022 + Decreto Ley 16/2019",
-          "plazo_estimado_dias": 7,
+          "nombre": "Autorización de explotación e inscripción RAC",
+          "organismo": "Direcció General d'Energia",
+          "base_legal": "Decreto-ley 24/2021; RD 244/2019",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa / OGE",
+          "plataforma_url": "https://web.gencat.cat/es/tramits/tramits-temes/21526-installacio-generadora-autoconsum-compensacio",
+          "coste_estimado": null,
+          "formulario_ref": "21526",
           "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "Declaración Responsable",
-            "esquema unifilar"
+            {
+              "id": "proyecto",
+              "label": "Proyecto y CDO",
+              "descripcion": "Proyecto >10 kW",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "MITECO (De oficio)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 0,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+          "notas": "Exenta de tasa por ser <=100 kW"
         }
       ]
     },
     {
-      "id": "CAT-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
+      "id": "CAT-FV-3",
+      "descripcion": "Autoconsumo >100 y <=500 kW: exenta de autorización administrativa previa (DL 22/2025)",
       "condicion": {
-        "or": [
+        "and": [
           {
-            "==": [
+            ">": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "industrial"
+              100
             ]
           },
           {
-            "==": [
+            "<=": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "terciario"
+              500
             ]
           }
         ]
@@ -153,35 +120,63 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción RITSIC",
-          "organismo": "OGE / FUE / ICAEN",
-          "base_legal": "Decreto 131/2022 + Decreto Ley 16/2019",
-          "plazo_estimado_dias": 7,
+          "nombre": "Autorización de explotación definitiva e inscripción RIPRE/RAC",
+          "organismo": "Direcció General d'Energia",
+          "base_legal": "Decreto-ley 22/2025; Decreto-ley 12/2025",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa / OGE",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integrals/detall/Autoritzacio-dinstallacions-de-produccio-denergia-electrica-00001",
+          "coste_estimado": null,
+          "formulario_ref": null,
           "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "Declaración Responsable",
-            "esquema unifilar"
+            {
+              "id": "proyecto",
+              "label": "Proyecto de ejecución",
+              "descripcion": "Proyecto firmado por técnico competente",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
+          "notas": "Exenta de autorización administrativa previa y de construcción por Decreto-ley 22/2025 (rango 100-500 kW). Importe de tasa NO verificado (discrepancia de numeración en DLeg 3/2008), coste_estimado null hasta confirmar"
+        }
+      ]
+    },
+    {
+      "id": "CAT-FV-4",
+      "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción",
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          500
+        ]
+      },
+      "tramites": [
         {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "MITECO (De oficio)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 0,
+          "orden": 1,
+          "nombre": "Autorización administrativa previa y de construcción",
+          "organismo": "Direcció General d'Energia",
+          "base_legal": "Decreto-ley 16/2019; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "documentos_requeridos": [],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+          "plataforma": "Canal Empresa / OGE",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integrals/detall/Autoritzacio-dinstallacions-de-produccio-denergia-electrica-00001",
+          "coste_estimado": null,
+          "formulario_ref": "21912",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto",
+              "descripcion": "Proyecto y estudios ambientales si procede",
+              "obligatorio": true
+            }
+          ],
+          "notas": "SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Procedimiento integrado por fases sin plazo único simple en la norma. Importe de tasa NO verificado"
         }
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }

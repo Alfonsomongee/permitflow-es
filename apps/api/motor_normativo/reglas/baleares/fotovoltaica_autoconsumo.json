@@ -76,15 +76,15 @@
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "Sede electrónica CAIB (trámite 2807998); carga previa en intranet reenerfront",
-          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/2807998/",
-          "coste_estimado": "Tasa autonómica de tramitación de instalaciones >500 kW — importe no verificado verbatim",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/2807998",
+          "coste_estimado": "Sin restricciones monetarias pre-declaradas en la ficha base",
           "formulario_ref": "2807998",
           "documentos_requeridos": [
             {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Técnico competente", "obligatorio": true},
             {"id": "eia", "label": "Estudio de impacto ambiental", "descripcion": "Si procede (Ley 12/2016 EA Illes Balears)", "obligatorio": false},
             {"id": "aval", "label": "Aval/seguro de caución de acceso", "descripcion": "RD 1183/2020", "obligatorio": true}
           ],
-          "notas": "Plazo de resolución: 6 meses ('los que establecen los reales decretos anteriores, o en su defecto, 6 meses'). Efecto del silencio NO confirmado verbatim en norma balear (por analogía sectorial, presuntamente desestimatorio). Tramitación exclusivamente telemática."
+          "notas": "CRÍTICO: Bloqueo de redirección hasta que el usuario suba proyecto y EIA a https://intranet.caib.es/reenerfront/ y obtenga el código vinculante. Plazo de resolución: 6 meses ('los que establecen los reales decretos anteriores, o en su defecto, 6 meses'). Efecto del silencio NO confirmado verbatim (presuntamente desestimatorio)."
         }
       ]
     }

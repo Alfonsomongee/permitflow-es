@@ -1,71 +1,60 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "madrid",
-  "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "version": "1.1.0",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Decreto 21/2002 CAM",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013 art. 53",
+    "RD 244/2019",
+    "Decreto 86/2025 (BOCM nº 260, 31/10/2025)",
+    "Decreto Legislativo 1/2002 (TR Tasas CM), Cap. IX",
+    "Instrucción CM puesta en servicio autoconsumo"
   ],
   "reglas": [
     {
-      "id": "MAD-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "id": "MAD-FV-1",
+      "descripcion": "Autoconsumo BT hasta 10 kW: MTD, tramitación EICI y registro de oficio",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Trámite D50 inscripción RADNE",
-          "organismo": "Dirección General Transición Energética y Economía Circular",
-          "base_legal": "Decreto 21/2002 CAM",
-          "plazo_estimado_dias": 0,
+          "nombre": "Puesta en servicio y comunicación de datos",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI)",
+          "base_legal": "RD 244/2019; Decreto 86/2025",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
+          "plataforma": "sede.comunidad.madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/node/277497",
+          "coste_estimado": null,
+          "formulario_ref": null,
           "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "MTD"
+            {
+              "id": "mtd",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "MTD para potencia <10 kW",
+              "obligatorio": true
+            },
+            {
+              "id": "cie",
+              "label": "Certificado de instalación eléctrica",
+              "descripcion": "CIE de baja tensión",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "MITECO (De oficio)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 0,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+          "notas": "Inscripción de oficio en Registro de Autoconsumo por ser <100 kW BT"
         }
       ]
     },
     {
-      "id": "MAD-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
+      "id": "MAD-FV-2",
+      "descripcion": "Autoconsumo BT >10 y <=100 kW: proyecto + CDO, tramitación EICI",
       "condicion": {
         "and": [
           {
@@ -83,67 +72,52 @@
               },
               100
             ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
           }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Trámite D50 inscripción RADNE",
-          "organismo": "Dirección General Transición Energética y Economía Circular",
-          "base_legal": "Decreto 21/2002 CAM",
-          "plazo_estimado_dias": 0,
+          "nombre": "Puesta en servicio",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI)",
+          "base_legal": "RD 244/2019; Decreto 86/2025",
+          "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
+          "plataforma": "sede.comunidad.madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/node/212646",
+          "coste_estimado": null,
+          "formulario_ref": null,
           "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "MTD"
+            {
+              "id": "proyecto",
+              "label": "Proyecto y CDO",
+              "descripcion": "Proyecto y certificado de dirección de obra (>10 kW)",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "MITECO (De oficio)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 0,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+          "notas": ""
         }
       ]
     },
     {
-      "id": "MAD-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
+      "id": "MAD-FV-3",
+      "descripcion": "Autoconsumo >100 y <=500 kW: autorización de explotación en DG competente",
       "condicion": {
-        "or": [
+        "and": [
           {
-            "==": [
+            ">": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "industrial"
+              100
             ]
           },
           {
-            "==": [
+            "<=": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "terciario"
+              500
             ]
           }
         ]
@@ -151,34 +125,69 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Trámite D50 inscripción RADNE",
-          "organismo": "Dirección General Transición Energética y Economía Circular",
-          "base_legal": "Decreto 21/2002 CAM",
-          "plazo_estimado_dias": 0,
+          "nombre": "Autorización de explotación e inscripción registro producción",
+          "organismo": "Dirección General competente en materia de Energía",
+          "base_legal": "Decreto 86/2025",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
+          "plataforma": "tramita.comunidad.madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/node/220206",
+          "coste_estimado": "51.32 EUR (tramo base Tarifa 9.01, hasta 5000 EUR de presupuesto)",
+          "formulario_ref": null,
           "documentos_requeridos": [
-            "CIE",
-            "CAU",
-            "MTD"
+            {
+              "id": "proyecto",
+              "label": "Proyecto y CDO",
+              "descripcion": "Proyecto de ejecución",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
+          "notas": "Exenta de autorización administrativa previa por estar <=500 kW. Incremento por bloque adicional de presupuesto (>5000 EUR) NO verificado, no incluir en cálculo hasta confirmar"
+        }
+      ]
+    },
+    {
+      "id": "MAD-FV-4",
+      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa previa y de construcción",
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          500
+        ]
+      },
+      "tramites": [
         {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "MITECO (De oficio)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 0,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [],
+          "orden": 1,
+          "nombre": "Autorización administrativa previa y de construcción (expediente unificado)",
+          "organismo": "Dirección General competente en materia de Energía",
+          "base_legal": "Decreto 86/2025; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "tramita.comunidad.madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/node/212646",
+          "coste_estimado": "51.32 EUR (tramo base Tarifa 9.01, hasta 5000 EUR de presupuesto)",
           "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "La inscripción la realiza la administración automáticamente de oficio. No requiere trámite separado del usuario."
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto en formato publicable",
+              "descripcion": "Proyecto y hojas de características",
+              "obligatorio": true
+            },
+            {
+              "id": "tasa",
+              "label": "Justificante de pago de tasas",
+              "descripcion": "Abono de la tasa",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Plazo máximo de resolución 3 meses; SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Incremento por bloque adicional de presupuesto NO verificado"
         }
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }

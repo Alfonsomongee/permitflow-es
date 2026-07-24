@@ -24,15 +24,15 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "plataforma": "Aplicación de instalaciones eléctricas del Principado de Asturias",
-          "plataforma_url": "https://www70.asturias.es/electricas/action/menuElectricas",
-          "coste_estimado": "Tasa de industria DL 1/1998 art. 39: cuota sobre presupuesto (2.686323 EUR por los primeros 3.005,06 EUR)",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000006161836107573",
+          "coste_estimado": "Consultar anexos de la Ley de Tasas del Principado (habitualmente exenta la inscripción simple)",
           "formulario_ref": "RECE0049T01",
           "documentos_requeridos": [
             {"id": "cie", "label": "Certificado de instalación eléctrica BT", "descripcion": "Empresa instaladora habilitada", "obligatorio": true},
             {"id": "memoria", "label": "Memoria técnica de diseño", "descripcion": "ITC-BT-04", "obligatorio": true},
             {"id": "cau", "label": "CAU", "descripcion": "Solicitado por instalador a la distribuidora (FV <=15 kW)", "obligatorio": true}
           ],
-          "notas": "Para FV <=15 kW el CAU lo solicita el promotor/instalador; para el resto lo facilita la distribuidora en el trámite de acceso y conexión. Tramitación exclusivamente telemática."
+          "notas": "Para FV <=15 kW el CAU lo solicita el promotor/instalador; para el resto lo facilita la distribuidora en el trámite de acceso y conexión. Prohibido el enrutamiento a aplicaciones Java (www70)."
         }
       ]
     },
@@ -49,14 +49,14 @@
           "plazo_estimado_dias": 45,
           "plazo_legal_dias": null,
           "plataforma": "Aplicación de instalaciones eléctricas (www70.asturias.es/electricas)",
-          "plataforma_url": "https://www70.asturias.es/electricas/action/menuElectricas",
-          "coste_estimado": "Tasa de industria DL 1/1998 art. 39 (cuota progresiva sobre presupuesto) — escala completa no verificada",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000006161836107573",
+          "coste_estimado": "Consultar anexos de la Ley de Tasas del Principado (habitualmente exenta la inscripción simple)",
           "formulario_ref": "RECE0049T01",
           "documentos_requeridos": [
             {"id": "proyecto", "label": "Proyecto técnico (pdf visado o declaración responsable del técnico)", "descripcion": "Técnico competente", "obligatorio": true},
             {"id": "cie", "label": "Certificado de instalación eléctrica", "descripcion": "", "obligatorio": true}
           ],
-          "notas": "Hasta 100 kW en BT sin autorización administrativa previa (umbral estatal, sin extensión autonómica)."
+          "notas": "Hasta 100 kW en BT sin autorización administrativa previa. Prohibido el enrutamiento a aplicaciones Java (www70)."
         }
       ]
     },
@@ -73,15 +73,15 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede electrónica del Principado de Asturias / Registro Electrónico",
-          "plataforma_url": "https://sede.asturias.es/-/dboid-6269000040819315407573",
-          "coste_estimado": "Tasa de industria DL 1/1998 art. 39 (cuota sobre presupuesto) — importe exacto no verificado",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000040819315407573",
+          "coste_estimado": "Consultar anexos fiscales",
           "formulario_ref": "AUTO0301T01",
           "documentos_requeridos": [
             {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Técnico competente", "obligatorio": true},
             {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Previos a la autorización de la instalación de generación", "obligatorio": true},
             {"id": "eia", "label": "Documentación ambiental", "descripcion": "Ley 21/2013 si procede", "obligatorio": false}
           ],
-          "notas": "Ficha oficial: plazo de resolución 'el establecido en la normativa de aplicación'; efecto del silencio 'No procede'. La autorización no se otorga sin permisos previos de acceso y conexión. Cubre instalaciones de producción <=50 MW."
+          "notas": "Obligatorio acreditar capacidad técnica (3 años de experiencia o socio experto). Ficha oficial: plazo de resolución 'el establecido en la normativa de aplicación'; efecto del silencio 'No procede'. La autorización no se otorga sin permisos previos de acceso y conexión. Cubre instalaciones de producción <=50 MW."
         }
       ]
     }

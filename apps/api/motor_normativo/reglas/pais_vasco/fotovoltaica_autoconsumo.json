@@ -1,75 +1,55 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "pais_vasco",
-  "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
-  "revisado_por": "ai-agent",
+  "comunidad": "país vasco",
+  "version": "1.1.0",
+  "ultima_revision": "2026-07-24",
   "fuentes": [
-    "Ley 1/2024 Transición Energética Euskadi",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 24/2013 art. 53",
+    "RD 244/2019",
+    "Decreto 48/2020 (BOPV nº 78, 24/04/2020)",
+    "Ley 5/2023 y Ley 1/2024 (simplificación urbanística, no afecta umbral de autorización)",
+    "Decreto Legislativo 1/2025 actualizado por Ley 7/2025 Presupuestos 2026, Título VI Cap. I art. 129-132",
+    "Resolución 8/05/2025 EVE (Programa autoconsumo)"
   ],
   "reglas": [
     {
-      "id": "PVA-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "id": "PV-FV-1",
+      "descripcion": "Autoconsumo hasta 10 kW / sin excedentes cualquier potencia: exento de autorización",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Procedimiento GE-A declaración responsable puesta en servicio",
-          "organismo": "Delegaciones Territoriales Administración Industrial + EVE",
-          "base_legal": "Ley 1/2024 Transición Energética Euskadi",
-          "plazo_estimado_dias": 15,
+          "nombre": "Tramitación de generación (puesta en servicio) e inscripción",
+          "organismo": "Delegación Territorial de Administración Industrial",
+          "base_legal": "Decreto 48/2020 art. 2; RD 244/2019",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
+          "plataforma": "euskadi.eus (procedimiento GE)",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "coste_estimado": null,
+          "formulario_ref": "GE",
           "documentos_requeridos": [
-            "CIE visado",
-            "Certificado Dirección Técnica",
-            "protocolos ensayos",
-            "CAU"
+            {
+              "id": "mtd",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "MTD <10 kW",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Autoconsumo sin excedentes excluido de autorización con independencia de potencia"
         }
       ]
     },
     {
-      "id": "PVA-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
+      "id": "PV-FV-2",
+      "descripcion": "Autoconsumo con excedentes >10 y <=100 kW: puesta en servicio en Delegación Territorial",
       "condicion": {
         "and": [
           {
@@ -87,110 +67,69 @@
               },
               100
             ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
           }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Procedimiento GE-A declaración responsable puesta en servicio",
-          "organismo": "Delegaciones Territoriales Administración Industrial + EVE",
-          "base_legal": "Ley 1/2024 Transición Energética Euskadi",
-          "plazo_estimado_dias": 15,
+          "nombre": "Tramitación de generación e inscripción registro",
+          "organismo": "Delegación Territorial de Administración Industrial",
+          "base_legal": "Decreto 48/2020; RD 244/2019",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
+          "plataforma": "euskadi.eus (procedimiento GE)",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "coste_estimado": null,
+          "formulario_ref": "GE",
           "documentos_requeridos": [
-            "CIE visado",
-            "Certificado Dirección Técnica",
-            "protocolos ensayos",
-            "CAU"
+            {
+              "id": "proyecto",
+              "label": "Proyecto o MTD y CDO",
+              "descripcion": "Proyecto >10 kW",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": ""
         }
       ]
     },
     {
-      "id": "PVA-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
+      "id": "PV-FV-3",
+      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa",
       "condicion": {
-        "or": [
+        ">": [
           {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
+          100
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Procedimiento GE-A declaración responsable puesta en servicio",
-          "organismo": "Delegaciones Territoriales Administración Industrial + EVE",
-          "base_legal": "Ley 1/2024 Transición Energética Euskadi",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
+          "nombre": "Autorización administrativa previa (grupo primero)",
+          "organismo": "Dirección competente en materia de energía",
+          "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "plataforma": "euskadi.eus (procedimiento GE)",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "coste_estimado": "128.10 EUR hasta 600000 EUR de presupuesto + 76.86 EUR por cada 100000 EUR adicionales o fraccion; limite de aplicacion 787.77 EUR",
+          "formulario_ref": "GE",
           "documentos_requeridos": [
-            "CIE visado",
-            "Certificado Dirección Técnica",
-            "protocolos ensayos",
-            "CAU"
+            {
+              "id": "proyecto",
+              "label": "Proyecto técnico",
+              "descripcion": "Proyecto y datos técnicos de generación",
+              "obligatorio": true
+            }
           ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Generado automáticamente"
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)"
         }
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "validaciones": [],
+  "nivel_verificacion": "verificada"
 }
