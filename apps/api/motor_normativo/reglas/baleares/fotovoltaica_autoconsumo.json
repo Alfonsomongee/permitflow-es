@@ -14,7 +14,7 @@
   ],
   "reglas": [
     {
-      "id": "IB-FV-015",
+      "id": "BAL-FV-015",
       "descripcion": "Autoconsumo renovable hasta 15 kW: exento de tasa; registro de pequeña potencia; comunicación previa urbanística",
       "condicion": {
         "<=": [
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "id": "IB-FV-500",
+      "id": "BAL-FV-500",
       "descripcion": "Autoconsumo >15 kW y <=500 kW: sin autorización administrativa previa (exención autonómica); tasa aplicable",
       "condicion": {
         "and": [
@@ -122,7 +122,7 @@
       ]
     },
     {
-      "id": "IB-FV-AUT",
+      "id": "BAL-FV-AUT",
       "descripcion": "Instalaciones de producción >500 kW: autorización administrativa completa",
       "condicion": {
         ">": [

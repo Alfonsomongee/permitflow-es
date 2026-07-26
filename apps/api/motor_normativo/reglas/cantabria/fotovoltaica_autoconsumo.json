@@ -10,7 +10,7 @@
   ],
   "reglas": [
     {
-      "id": "CAN-FV-001",
+      "id": "CNT-FV-001",
       "descripcion": "Autoconsumo residencial, potencia <= 10kW",
       "condicion": {
         "and": [
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "id": "CAN-FV-002",
+      "id": "CNT-FV-002",
       "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
       "condicion": {
         "and": [
@@ -132,7 +132,7 @@
       ]
     },
     {
-      "id": "CAN-FV-003",
+      "id": "CNT-FV-003",
       "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
       "condicion": {
         "or": [
