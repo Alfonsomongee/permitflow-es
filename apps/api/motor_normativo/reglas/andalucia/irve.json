@@ -239,76 +239,88 @@
       ]
     },
     {
-      "id": "AND-IRVE-005",
-      "descripcion": "IRVE privada (sin acceso publico) que requiere proyecto tecnico: Modo 4, o exterior >10 kW, o no exterior >50 kW — tramitable por PUES",
+      "id": "AND-IRVE-005-T1",
+      "descripcion": "IRVE privada (sin acceso publico) que requiere proyecto tecnico: Modo 4, o exterior >10 kW, o no exterior >50 kW — tramitable por PUES (presupuesto <= 6k)",
       "condicion": {
         "and": [
           {
-            "==": [
-              {
-                "var": "acceso_publico"
-              },
-              false
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "requiere_nuevo_suministro"
-              },
-              true
-            ]
-          },
-          {
-            "or": [
+            "and": [
               {
                 "==": [
                   {
-                    "var": "modo_recarga"
+                    "var": "acceso_publico"
                   },
-                  "4"
+                  false
                 ]
               },
               {
-                "and": [
+                "!=": [
+                  {
+                    "var": "requiere_nuevo_suministro"
+                  },
+                  true
+                ]
+              },
+              {
+                "or": [
                   {
                     "==": [
                       {
-                        "var": "ubicacion_irve"
+                        "var": "modo_recarga"
                       },
-                      "exterior"
+                      "4"
                     ]
                   },
                   {
-                    ">": [
+                    "and": [
                       {
-                        "var": "potencia_kw"
+                        "==": [
+                          {
+                            "var": "ubicacion_irve"
+                          },
+                          "exterior"
+                        ]
                       },
-                      10
-                    ]
-                  }
-                ]
-              },
-              {
-                "and": [
-                  {
-                    "!=": [
                       {
-                        "var": "ubicacion_irve"
-                      },
-                      "exterior"
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          10
+                        ]
+                      }
                     ]
                   },
                   {
-                    ">": [
+                    "and": [
                       {
-                        "var": "potencia_kw"
+                        "!=": [
+                          {
+                            "var": "ubicacion_irve"
+                          },
+                          "exterior"
+                        ]
                       },
-                      50
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          50
+                        ]
+                      }
                     ]
                   }
                 ]
               }
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "presupuesto_eur"
+              },
+              6000
             ]
           }
         ]
@@ -323,7 +335,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios técnicos: 800–2.500 € según complejidad (orientativo)",
+          "coste_estimado": "62.25 EUR",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_bt_pues",
@@ -344,7 +356,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "62.25 EUR",
           "documentos_requeridos": [
             {
               "id": "cie_modelo_oficial_pues",
@@ -365,7 +377,363 @@
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
-          "coste_estimado": "62.25 EUR base hasta 6.000 EUR de presupuesto (+17.93 EUR/10.000 EUR adicionales; tope 159.18 EUR si >60.000 EUR) -- tarifa 7.2.1.2, Ley 10/2021 art. 44. CORRIGE cita erronea previa ('Grupo III, epigrafe 4.1.3', que no coincide con la estructura real del art. 44).",
+          "coste_estimado": "62.25 EUR",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_visado_pues_irve",
+              "label": "Proyecto técnico visado (copia)",
+              "descripcion": "Copia del proyecto técnico presentado ante el colegio profesional.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_firmado_pues_irve",
+              "label": "CIE firmado",
+              "descripcion": "Certificado de Instalación Eléctrica firmado y con datos del instalador.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasas_pues_irve",
+              "label": "Justificante de pago de tasas (Modelo 046)",
+              "descripcion": "Resguardo del pago de la tasa de la Junta de Andalucía correspondiente al registro de instalaciones eléctricas.",
+              "obligatorio": true
+            },
+            {
+              "id": "dni_nie_titular_pues_irve",
+              "label": "DNI/NIE del titular (o escritura + CIF si es empresa)",
+              "descripcion": "Documento acreditativo de la identidad del titular.",
+              "obligatorio": true
+            }
+          ],
+          "formulario_ref": "6505",
+          "notas": "Plazo legal de resolución: 45 días hábiles. Silencio administrativo positivo.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "AND-IRVE-005-T2",
+      "descripcion": "IRVE privada (sin acceso publico) que requiere proyecto tecnico: Modo 4, o exterior >10 kW, o no exterior >50 kW — tramitable por PUES (presupuesto 6k-60k)",
+      "condicion": {
+        "and": [
+          {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "acceso_publico"
+                  },
+                  false
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "requiere_nuevo_suministro"
+                  },
+                  true
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "==": [
+                      {
+                        "var": "modo_recarga"
+                      },
+                      "4"
+                    ]
+                  },
+                  {
+                    "and": [
+                      {
+                        "==": [
+                          {
+                            "var": "ubicacion_irve"
+                          },
+                          "exterior"
+                        ]
+                      },
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          10
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "and": [
+                      {
+                        "!=": [
+                          {
+                            "var": "ubicacion_irve"
+                          },
+                          "exterior"
+                        ]
+                      },
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          50
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              {
+                ">": [
+                  {
+                    "var": "presupuesto_eur"
+                  },
+                  6000
+                ]
+              },
+              {
+                "<=": [
+                  {
+                    "var": "presupuesto_eur"
+                  },
+                  60000
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación eléctrica",
+          "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04; ITC-BT-52 (RD 1053/2014, de 12 de diciembre)",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_bt_pues",
+              "label": "Proyecto técnico BT firmado y visado",
+              "descripcion": "Proyecto de instalación eléctrica en baja tensión firmado por técnico competente y visado por el Colegio Oficial de Ingenieros Industriales o COITIIA. Incluye memoria, planos, pliego de condiciones y presupuesto.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Requiere proyecto por superar los umbrales TECI (Modo 4, exterior >10 kW o interior >50 kW).",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador electricista autorizado (empresa instaladora)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05; Orden 5 marzo 2013 Junta de Andalucía",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "documentos_requeridos": [
+            {
+              "id": "cie_modelo_oficial_pues",
+              "label": "Certificado de Instalación Eléctrica (modelo oficial Junta de Andalucía)",
+              "descripcion": "Formulario oficial firmado por el instalador electricista habilitado, declarando que la instalación cumple el REBT y sus ITC.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "El CIE se presenta junto con el proyecto visado en el registro PUES.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro en PUES — Delegación Territorial de Industria",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 Junta de Andalucía; Orden 5 marzo 2013",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 45,
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_visado_pues_irve",
+              "label": "Proyecto técnico visado (copia)",
+              "descripcion": "Copia del proyecto técnico presentado ante el colegio profesional.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_firmado_pues_irve",
+              "label": "CIE firmado",
+              "descripcion": "Certificado de Instalación Eléctrica firmado y con datos del instalador.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasas_pues_irve",
+              "label": "Justificante de pago de tasas (Modelo 046)",
+              "descripcion": "Resguardo del pago de la tasa de la Junta de Andalucía correspondiente al registro de instalaciones eléctricas.",
+              "obligatorio": true
+            },
+            {
+              "id": "dni_nie_titular_pues_irve",
+              "label": "DNI/NIE del titular (o escritura + CIF si es empresa)",
+              "descripcion": "Documento acreditativo de la identidad del titular.",
+              "obligatorio": true
+            }
+          ],
+          "formulario_ref": "6505",
+          "notas": "Plazo legal de resolución: 45 días hábiles. Silencio administrativo positivo.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "AND-IRVE-005-T3",
+      "descripcion": "IRVE privada (sin acceso publico) que requiere proyecto tecnico: Modo 4, o exterior >10 kW, o no exterior >50 kW — tramitable por PUES (presupuesto > 60k)",
+      "condicion": {
+        "and": [
+          {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "acceso_publico"
+                  },
+                  false
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "requiere_nuevo_suministro"
+                  },
+                  true
+                ]
+              },
+              {
+                "or": [
+                  {
+                    "==": [
+                      {
+                        "var": "modo_recarga"
+                      },
+                      "4"
+                    ]
+                  },
+                  {
+                    "and": [
+                      {
+                        "==": [
+                          {
+                            "var": "ubicacion_irve"
+                          },
+                          "exterior"
+                        ]
+                      },
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          10
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "and": [
+                      {
+                        "!=": [
+                          {
+                            "var": "ubicacion_irve"
+                          },
+                          "exterior"
+                        ]
+                      },
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          50
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "presupuesto_eur"
+              },
+              60000
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación eléctrica",
+          "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04; ITC-BT-52 (RD 1053/2014, de 12 de diciembre)",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "159.18 EUR",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_bt_pues",
+              "label": "Proyecto técnico BT firmado y visado",
+              "descripcion": "Proyecto de instalación eléctrica en baja tensión firmado por técnico competente y visado por el Colegio Oficial de Ingenieros Industriales o COITIIA. Incluye memoria, planos, pliego de condiciones y presupuesto.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Requiere proyecto por superar los umbrales TECI (Modo 4, exterior >10 kW o interior >50 kW).",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador electricista autorizado (empresa instaladora)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05; Orden 5 marzo 2013 Junta de Andalucía",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "159.18 EUR",
+          "documentos_requeridos": [
+            {
+              "id": "cie_modelo_oficial_pues",
+              "label": "Certificado de Instalación Eléctrica (modelo oficial Junta de Andalucía)",
+              "descripcion": "Formulario oficial firmado por el instalador electricista habilitado, declarando que la instalación cumple el REBT y sus ITC.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "El CIE se presenta junto con el proyecto visado en el registro PUES.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro en PUES — Delegación Territorial de Industria",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 Junta de Andalucía; Orden 5 marzo 2013",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 45,
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "coste_estimado": "159.18 EUR",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_irve",

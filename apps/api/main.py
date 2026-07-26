@@ -7,6 +7,7 @@ from seguridad import verificar_clave_interna
 from routers.clasificador import router as clasificador_router
 from routers.documentos import router as documentos_router
 from routers.validador import router as validador_router
+from routers.orientacion import router as orientacion_router
 app = FastAPI(
     title="PermitFlow ES API",
     version="0.1.0",
@@ -34,3 +35,4 @@ async def health_check():
 app.include_router(clasificador_router, dependencies=[Depends(verificar_clave_interna)])
 app.include_router(documentos_router, dependencies=[Depends(verificar_clave_interna)])
 app.include_router(validador_router, dependencies=[Depends(verificar_clave_interna)])
+app.include_router(orientacion_router, dependencies=[Depends(verificar_clave_interna)])

@@ -18,6 +18,7 @@ from database import Base
 # Importar todos los modelos aquí para que Alembic los registre
 import models.organizacion
 import models.expediente
+import models.idoneidad_cache
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

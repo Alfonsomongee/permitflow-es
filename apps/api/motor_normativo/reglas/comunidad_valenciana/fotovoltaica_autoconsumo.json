@@ -97,24 +97,36 @@
       ]
     },
     {
-      "id": "CV-FV-3",
-      "descripcion": "Autoconsumo con excedentes >100 y <=500 kW: exenta de autorización previa y de construcción (Ley 6/2024)",
+      "id": "CV-FV-3-T1",
+      "descripcion": "Autoconsumo con excedentes >100 y <=500 kW: exenta de autorización previa y de construcción (Ley 6/2024) (presupuesto <= 6600)",
       "condicion": {
         "and": [
           {
-            ">": [
+            "and": [
               {
-                "var": "potencia_kw"
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
               },
-              100
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  500
+                ]
+              }
             ]
           },
           {
             "<=": [
               {
-                "var": "potencia_kw"
+                "var": "presupuesto_eur"
               },
-              500
+              6600
             ]
           }
         ]
@@ -129,7 +141,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "109.54 EUR (AAP) + 45.55 EUR primeros 6600 EUR de presupuesto + 12.02 EUR por cada 6600 EUR adicionales o fraccion; reduccion 25 por ciento si FV <=10 MW",
+          "coste_estimado": "109.54 EUR",
           "formulario_ref": null,
           "documentos_requeridos": [
             {
@@ -145,14 +157,86 @@
       ]
     },
     {
-      "id": "CV-FV-4",
-      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa completa",
+      "id": "CV-FV-3-T2",
+      "descripcion": "Autoconsumo con excedentes >100 y <=500 kW: exenta de autorización previa y de construcción (Ley 6/2024) (presupuesto > 6600)",
       "condicion": {
-        ">": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
+              },
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  500
+                ]
+              }
+            ]
           },
-          500
+          {
+            ">": [
+              {
+                "var": "presupuesto_eur"
+              },
+              6600
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorización de explotación e inscripción en Registro de producción",
+          "organismo": "Servicio Territorial competente en materia de energía",
+          "base_legal": "Ley 6/2024 (modifica Decreto 88/2005); Ley 24/2013 art. 53",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
+          "coste_estimado": "121.56 EUR (base + recargo)",
+          "formulario_ref": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto y CDO",
+              "descripcion": "Proyecto de ejecución",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRECCIÓN respecto a la entrega preliminar: la Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW, igual que Andalucía, Madrid y Cataluña. Verificar artículo exacto contra el DOGV antes de producción",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CV-FV-4-T1",
+      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa completa (presupuesto <= 6600)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "presupuesto_eur"
+              },
+              6600
+            ]
+          }
         ]
       },
       "tramites": [
@@ -165,7 +249,55 @@
           "plazo_legal_dias": 180,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "109.54 EUR (AAP) + 45.55 EUR primeros 6600 EUR de presupuesto + 12.02 EUR por cada 6600 EUR adicionales o fraccion; reduccion 25 por ciento si FV <=10 MW",
+          "coste_estimado": "109.54 EUR",
+          "formulario_ref": "15300",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto",
+              "descripcion": "Proyecto técnico y tasa abonada",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Grupo primero: plazo 6 meses; SILENCIO NEGATIVO (art. 6.3), igual que Andalucía",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CV-FV-4-T2",
+      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa completa (presupuesto > 6600)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "presupuesto_eur"
+              },
+              6600
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorización administrativa e inscripción en Registro de producción",
+          "organismo": "Servicio Territorial competente en materia de energía",
+          "base_legal": "Decreto 88/2005 art. 6; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
+          "coste_estimado": "121.56 EUR (base + recargo)",
           "formulario_ref": "15300",
           "documentos_requeridos": [
             {

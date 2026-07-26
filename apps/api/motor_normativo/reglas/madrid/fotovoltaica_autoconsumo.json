@@ -102,24 +102,36 @@
       ]
     },
     {
-      "id": "MAD-FV-3",
-      "descripcion": "Autoconsumo >100 y <=500 kW: autorización de explotación en DG competente",
+      "id": "MAD-FV-3-T1",
+      "descripcion": "Autoconsumo >100 y <=500 kW: autorización de explotación en DG competente (presupuesto <= 5k)",
       "condicion": {
         "and": [
           {
-            ">": [
+            "and": [
               {
-                "var": "potencia_kw"
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
               },
-              100
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  500
+                ]
+              }
             ]
           },
           {
             "<=": [
               {
-                "var": "potencia_kw"
+                "var": "presupuesto_eur"
               },
-              500
+              5000
             ]
           }
         ]
@@ -134,7 +146,7 @@
           "plazo_legal_dias": null,
           "plataforma": "tramita.comunidad.madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/220206",
-          "coste_estimado": "51.32 EUR (tramo base Tarifa 9.01, hasta 5000 EUR de presupuesto)",
+          "coste_estimado": "51.32 EUR",
           "formulario_ref": null,
           "documentos_requeridos": [
             {
@@ -150,14 +162,86 @@
       ]
     },
     {
-      "id": "MAD-FV-4",
-      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa previa y de construcción",
+      "id": "MAD-FV-3-T2",
+      "descripcion": "Autoconsumo >100 y <=500 kW: autorización de explotación en DG competente (presupuesto > 5k)",
       "condicion": {
-        ">": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
+              },
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  500
+                ]
+              }
+            ]
           },
-          500
+          {
+            ">": [
+              {
+                "var": "presupuesto_eur"
+              },
+              5000
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorización de explotación e inscripción registro producción",
+          "organismo": "Dirección General competente en materia de Energía",
+          "base_legal": "Decreto 86/2025",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "tramita.comunidad.madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/node/220206",
+          "coste_estimado": "100.00 EUR (estimado > 5k)",
+          "formulario_ref": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto y CDO",
+              "descripcion": "Proyecto de ejecución",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Exenta de autorización administrativa previa por estar <=500 kW. Incremento por bloque adicional de presupuesto (>5000 EUR) NO verificado, no incluir en cálculo hasta confirmar",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "MAD-FV-4-T1",
+      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa previa y de construcción (presupuesto <= 5k)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "presupuesto_eur"
+              },
+              5000
+            ]
+          }
         ]
       },
       "tramites": [
@@ -170,7 +254,61 @@
           "plazo_legal_dias": 90,
           "plataforma": "tramita.comunidad.madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/212646",
-          "coste_estimado": "51.32 EUR (tramo base Tarifa 9.01, hasta 5000 EUR de presupuesto)",
+          "coste_estimado": "51.32 EUR",
+          "formulario_ref": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto en formato publicable",
+              "descripcion": "Proyecto y hojas de características",
+              "obligatorio": true
+            },
+            {
+              "id": "tasa",
+              "label": "Justificante de pago de tasas",
+              "descripcion": "Abono de la tasa",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Plazo máximo de resolución 3 meses; SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Incremento por bloque adicional de presupuesto NO verificado",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "MAD-FV-4-T2",
+      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa previa y de construcción (presupuesto > 5k)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "presupuesto_eur"
+              },
+              5000
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorización administrativa previa y de construcción (expediente unificado)",
+          "organismo": "Dirección General competente en materia de Energía",
+          "base_legal": "Decreto 86/2025; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "tramita.comunidad.madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/node/212646",
+          "coste_estimado": "100.00 EUR (estimado > 5k)",
           "formulario_ref": null,
           "documentos_requeridos": [
             {

@@ -43,6 +43,8 @@ class ClasificadorInput(BaseModel):
     acumulacion: Optional[bool] = Field(None, description="True si tiene acumulación")
     recirculacion: Optional[bool] = Field(None, description="True si tiene recirculación")
     uso_colectivo: Optional[bool] = Field(None, description="True si es de uso colectivo")
+    
+    presupuesto_eur: Optional[float] = Field(None, description="Presupuesto de la instalación en euros")
 
 
 # ─── Output ───────────────────────────────────────────────────────────────────

@@ -97,14 +97,26 @@
       ]
     },
     {
-      "id": "PV-FV-3",
-      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa",
+      "id": "PV-FV-3-T1",
+      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa (presupuesto <= 600k)",
       "condicion": {
-        ">": [
+        "and": [
           {
-            "var": "potencia_kw"
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
           },
-          100
+          {
+            "<=": [
+              {
+                "var": "presupuesto_eur"
+              },
+              600000
+            ]
+          }
         ]
       },
       "tramites": [
@@ -117,7 +129,115 @@
           "plazo_legal_dias": 180,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
-          "coste_estimado": "128.10 EUR hasta 600000 EUR de presupuesto + 76.86 EUR por cada 100000 EUR adicionales o fraccion; limite de aplicacion 787.77 EUR",
+          "coste_estimado": "128.10 EUR",
+          "formulario_ref": "GE",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto técnico",
+              "descripcion": "Proyecto y datos técnicos de generación",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "PV-FV-3-T2",
+      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa (presupuesto 600k-1.5M)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "and": [
+              {
+                ">": [
+                  {
+                    "var": "presupuesto_eur"
+                  },
+                  600000
+                ]
+              },
+              {
+                "<=": [
+                  {
+                    "var": "presupuesto_eur"
+                  },
+                  1500000
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorización administrativa previa (grupo primero)",
+          "organismo": "Dirección competente en materia de energía",
+          "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "plataforma": "euskadi.eus (procedimiento GE)",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "coste_estimado": "204.96 EUR (estimado)",
+          "formulario_ref": "GE",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto técnico",
+              "descripcion": "Proyecto y datos técnicos de generación",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "PV-FV-3-T3",
+      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa (presupuesto > 1.5M)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "presupuesto_eur"
+              },
+              1500000
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorización administrativa previa (grupo primero)",
+          "organismo": "Dirección competente en materia de energía",
+          "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "plataforma": "euskadi.eus (procedimiento GE)",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "coste_estimado": "787.77 EUR",
           "formulario_ref": "GE",
           "documentos_requeridos": [
             {

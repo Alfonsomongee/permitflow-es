@@ -69,7 +69,7 @@
     },
     {
       "id": "NAV-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW y <= 100kW",
+      "descripcion": "Autoconsumo residencial, potencia > 10kW",
       "condicion": {
         "and": [
           {
@@ -78,14 +78,6 @@
                 "var": "potencia_kw"
               },
               10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
             ]
           },
           {

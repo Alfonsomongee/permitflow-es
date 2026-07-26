@@ -17,7 +17,7 @@ CAMPOS_INPUT = {
     "potencia_por_punto_kw", "modo_recarga", "acceso_publico",
     "ubicacion_irve", "requiere_nuevo_suministro", "modalidad",
     "modalidad_autoconsumo", "implantacion", "solicita_ayuda", "tension",
-    "acumulacion", "recirculacion", "uso_colectivo",
+    "acumulacion", "recirculacion", "uso_colectivo", "presupuesto_eur",
 }
 SLUGS = {
     "andalucia","aragon","asturias","baleares","canarias","cantabria",
@@ -71,8 +71,9 @@ def casos_prueba():
     acc_pub = [True, False]
     req_sum = [True, False]
     sol_ayu = [True, False]
+    pres = [1000, 5000, 10000, 70000, 400000, 700000, 2000000]
     
-    for p, u, m, t, ma, ap, rs, sa in product(pot, usos, mods, tension, mod_auto, acc_pub, req_sum, sol_ayu):
+    for p, u, m, t, ma, ap, rs, sa, pr in product(pot, usos, mods, tension, mod_auto, acc_pub, req_sum, sol_ayu, pres):
         yield {
             "potencia_kw": p, "uso": u, "modalidad": m, "municipio": "X",
             "superficie_m2": 100, "solicita_ayuda": sa, "tension": t,
@@ -81,7 +82,7 @@ def casos_prueba():
             "modo_recarga": "3", "acceso_publico": ap,
             "ubicacion_irve": "exterior", "requiere_nuevo_suministro": rs,
             "combustible": "gas_natural", "presion_bar": "normal",
-            "implantacion": "cubierta"
+            "implantacion": "cubierta", "presupuesto_eur": pr
         }
 
 def auditar(path: pathlib.Path):

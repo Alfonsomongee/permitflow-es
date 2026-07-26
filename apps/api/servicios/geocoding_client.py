@@ -37,3 +37,56 @@ async def resolver_comunidad_autonoma(municipio: str, provincia: str) -> str:
                 return slugify(nombre_ca)
                 
     raise ValueError(f"No se pudo resolver la CCAA para {municipio}, {provincia}")
+
+
+async def resolver_ubicacion(municipio: str, provincia: str) -> dict:
+    """
+    Devuelve {'comunidad': slug, 'lat': float, 'lon': float, 'provincia': str}.
+    Misma llamada a Google Geocoding, pero conservando geometry.location.
+    """
+    if not settings.GOOGLE_MAPS_API_KEY:
+        raise ValueError("GOOGLE_MAPS_API_KEY no está configurada")
+
+    url = "https://maps.googleapis.com/maps/api/geocode/json"
+    params = {
+        "address": f"{municipio}, {provincia}, España",
+        "key": settings.GOOGLE_MAPS_API_KEY,
+        "language": "es",
+    }
+
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+    if data.get("status") != "OK" or not data.get("results"):
+        raise ValueError(f"No se pudo resolver la ubicación para {municipio}, {provincia}")
+
+    result = data["results"][0]
+
+    # Extraer coordenadas
+    geometry = result.get("geometry", {})
+    location = geometry.get("location")
+    if not location:
+        raise ValueError(f"La respuesta de Geocoding no incluye geometry.location para {municipio}, {provincia}")
+
+    lat = location["lat"]
+    lon = location["lng"]
+
+    # Extraer CCAA
+    comunidad_slug = None
+    for component in result.get("address_components", []):
+        if "administrative_area_level_1" in component.get("types", []):
+            comunidad_slug = slugify(component["long_name"])
+            break
+
+    if not comunidad_slug:
+        raise ValueError(f"No se pudo extraer la CCAA de la respuesta para {municipio}, {provincia}")
+
+    return {
+        "comunidad": comunidad_slug,
+        "lat": lat,
+        "lon": lon,
+        "provincia": provincia,
+    }
+
