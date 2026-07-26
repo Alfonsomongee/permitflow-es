@@ -17,23 +17,11 @@
       "id": "GAL-FV-010",
       "descripcion": "Autoconsumo con excedentes en BT, P<=10 kW, sin proyecto",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "BT"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
@@ -87,14 +75,6 @@
               },
               100
             ]
-          },
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "BT"
-            ]
           }
         ]
       },
@@ -133,21 +113,69 @@
       "id": "GAL-FV-030",
       "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa completa",
       "condicion": {
-        "or": [
+        ">": [
           {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
+            "var": "potencia_kw"
           },
+          100
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorizacion administrativa previa y de construccion",
+          "organismo": "Direccion General de Energia (Xunta)",
+          "base_legal": "art. 53 Ley 24/2013; RD 1955/2000; Instruccion 2/2021",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede electronica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal/es/detalle-procedemento?codtram=IN407A",
+          "coste_estimado": "tasa Anexo 3 apartado 37 Ley 6/2003 (importe no verificado)",
+          "formulario_ref": "IN407A",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto de ejecucion",
+              "descripcion": "Firmado por tecnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "acceso",
+              "label": "Permisos de acceso y conexion",
+              "descripcion": "Otorgados por la distribuidora (UFD/BEGASA)",
+              "obligatorio": true
+            },
+            {
+              "id": "aval",
+              "label": "Aval 40 EUR/kW",
+              "descripcion": "Garantia RD 1183/2020 para P>100 kW",
+              "obligatorio": true
+            }
+          ],
+          "notas": "IN407A tramita de forma unificada AAP y AAC. Silencio administrativo NEGATIVO (art. 53 Ley 24/2013). Exento de informacion publica si no se pide utilidad publica ni EIA ordinaria.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "GAL-FV-030-AT",
+      "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa completa (Refinamiento AT)",
+      "condicion": {
+        "and": [
           {
             "==": [
               {
                 "var": "tension"
               },
               "AT"
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
             ]
           }
         ]
@@ -190,6 +218,14 @@
       ]
     }
   ],
-  "validaciones": [],
+  "validaciones": [
+    {
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "tension"
+      ],
+      "mensaje": "Si no se especifica el nivel de tensión, el plan asume Baja Tensión (BT) por defecto."
+    }
+  ],
   "nivel_verificacion": "generica"
 }

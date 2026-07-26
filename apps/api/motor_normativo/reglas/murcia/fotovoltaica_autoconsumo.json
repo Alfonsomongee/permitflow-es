@@ -16,23 +16,11 @@
       "id": "MUR-FV-010",
       "descripcion": "Autoconsumo BT, P<=15 kW en suelo urbanizado (o sin excedentes cualquier P en BT)",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              15
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "BT"
-            ]
-          }
+          15
         ]
       },
       "tramites": [
@@ -86,14 +74,6 @@
               },
               100
             ]
-          },
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "BT"
-            ]
           }
         ]
       },
@@ -126,21 +106,75 @@
       "id": "MUR-FV-030",
       "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa",
       "condicion": {
-        "or": [
+        ">": [
           {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
+            "var": "potencia_kw"
           },
+          100
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorizacion de instalaciones electricas de alta tension (produccion)",
+          "organismo": "Direccion General de Energia y Actividad Industrial y Minera",
+          "base_legal": "art. 53 Ley 24/2013; RD 1955/2000",
+          "plazo_estimado_dias": 120,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede electronica de la CARM",
+          "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=7&IDTIPO=240",
+          "coste_estimado": "tasa T610.2 (importe no verificado; bonificacion renovables 95% o 75% si presupuesto > 60.000,01 EUR)",
+          "formulario_ref": "0007",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto de ejecucion",
+              "descripcion": "Tecnico competente (formato GIS/SHP georreferenciado)",
+              "obligatorio": true
+            },
+            {
+              "id": "aval",
+              "label": "Garantia 40 EUR/kW",
+              "descripcion": "RD 1183/2020, informe previo procedimiento 3072",
+              "obligatorio": true
+            },
+            {
+              "id": "pretor",
+              "label": "Inscripcion PRETOR",
+              "descripcion": "Obligatoria para excedentes no acogidos a compensacion",
+              "obligatorio": true
+            },
+            {
+              "id": "separatas",
+              "label": "Separatas",
+              "descripcion": "Separatas de organismos afectados",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Tramite 0007. Efecto arrastre: si hay componentes de AT, arrastra a toda la instalacion a este tramite. Silencio NEGATIVO. Umbral maximo exento se mantiene en 100 kW.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "MUR-FV-030-AT",
+      "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa (Refinamiento AT)",
+      "condicion": {
+        "and": [
           {
             "==": [
               {
                 "var": "tension"
               },
               "AT"
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
             ]
           }
         ]
@@ -189,6 +223,14 @@
       ]
     }
   ],
-  "validaciones": [],
+  "validaciones": [
+    {
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "tension"
+      ],
+      "mensaje": "Si no se especifica el nivel de tensión, el plan asume Baja Tensión (BT) por defecto."
+    }
+  ],
   "nivel_verificacion": "generica"
 }

@@ -14,14 +14,14 @@
   ],
   "reglas": [
     {
-      "id": "ARA-FV-SIN",
-      "descripcion": "Autoconsumo sin excedentes (cualquier potencia hasta el ámbito autonómico): exento de autorización administrativa, de construcción y de explotación",
+      "id": "ARA-FV-BASE-100",
+      "descripcion": "Base: Autoconsumo <100 kW",
       "condicion": {
-        "==": [
+        "<": [
           {
-            "var": "modalidad"
+            "var": "potencia_kw"
           },
-          "sin_excedentes"
+          100
         ]
       },
       "tramites": [
@@ -34,8 +34,8 @@
           "plazo_legal_dias": null,
           "plataforma": "Tramitador del Gobierno de Aragón (trámite 2459)",
           "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica",
-          "coste_estimado": "0 EUR si potencia <100 kW (exenta); 56.20 EUR si >=100 kW (Tasa 14, ap. 5, tarifa 52, regla 4ª)",
-          "formulario_ref": "F107 (<100 kW) / F106 (>=100 kW)",
+          "coste_estimado": "0 EUR (exenta)",
+          "formulario_ref": "F107",
           "documentos_requeridos": [
             {
               "id": "dr",
@@ -52,65 +52,133 @@
             {
               "id": "f107",
               "label": "Formulario F107",
-              "descripcion": "Inscripción en RADNE (F106 si >=100 kW)",
+              "descripcion": "Inscripción en RADNE",
               "obligatorio": true
             }
           ],
-          "notas": "Modalidad sin excedentes exenta de autorización por art. 59.2 Ley 1/2021. Si P < 100 kW en BT, derivar a portal PEGASSO. Solo enviar a SEDA instalaciones que superen umbrales o apliquen a secciones específicas.",
+          "notas": "Si P < 100 kW en BT, derivar a portal PEGASSO. Solo enviar a SEDA instalaciones que superen umbrales.",
           "paralelo_con": null
         }
       ]
     },
     {
-      "id": "ARA-FV-CON-100",
-      "descripcion": "Autoconsumo con excedentes BT <=100 kW: sin autorización administrativa previa; registro y permisos de acceso/conexión",
+      "id": "ARA-FV-BASE-MAYOR100",
+      "descripcion": "Base: Autoconsumo >=100 kW",
       "condicion": {
-        "and": [
+        ">=": [
           {
-            "==": [
-              {
-                "var": "modalidad"
-              },
-              "con_excedentes"
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "BT"
-            ]
-          }
+          100
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro RADNE y (si >10 kW) aval de acceso/conexión",
-          "organismo": "D.G. competente en energía; distribuidora",
-          "base_legal": "Instrucción 2/2021; RD 244/2019; art. 53.3 Ley 24/2013",
-          "plazo_estimado_dias": 45,
+          "nombre": "Declaración responsable + registro RADNE (Alta)",
+          "organismo": "D.G. competente en energía, Gobierno de Aragón",
+          "base_legal": "Ley 1/2021 art. 59.2; RD 244/2019 art. 8",
+          "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
-          "plataforma": "Tramitador del Gobierno de Aragón",
+          "plataforma": "Tramitador del Gobierno de Aragón (trámite 2459)",
           "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica",
-          "coste_estimado": "0 EUR registro (<100 kW exento); aval acceso/conexión 40 EUR/kW; gestión resguardo garantía 25.00 EUR (tarifa 58)",
-          "formulario_ref": "F107",
+          "coste_estimado": "56.20 EUR (Tasa 14, ap. 5, tarifa 52, regla 4ª)",
+          "formulario_ref": "F106",
           "documentos_requeridos": [
             {
-              "id": "memoria",
-              "label": "Memoria/proyecto según potencia",
-              "descripcion": "Proyecto si >10 kW",
+              "id": "dr",
+              "label": "Declaración responsable",
+              "descripcion": "Conforme reglamentación técnica aplicable",
               "obligatorio": true
             },
+            {
+              "id": "memoria_cie",
+              "label": "Memoria técnica y CIE",
+              "descripcion": "Instalador habilitado",
+              "obligatorio": true
+            },
+            {
+              "id": "f106",
+              "label": "Formulario F106",
+              "descripcion": "Inscripción en RADNE",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Solo enviar a SEDA instalaciones que superen umbrales.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Autorización administrativa previa y de construcción (trámite 783)",
+          "organismo": "D.G. competente en energía (o Servicio Provincial si FV <=1 MW)",
+          "base_legal": "Ley 24/2013 art. 53.1; RD 1955/2000",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "Tramitador del Gobierno de Aragón (trámite 783)",
+          "plataforma_url": "https://www.aragon.es/-/energia-fotovoltaica-en-aragon",
+          "coste_estimado": "Tasa 14.1 (importe dependiente de la inversión del proyecto)",
+          "formulario_ref": "F102",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto y anexo de configuración de potencia",
+              "descripcion": "Técnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "cap_econ",
+              "label": "Acreditación de capacidad económica y técnica",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "acceso",
+              "label": "Permisos de acceso y conexión",
+              "descripcion": "Distribuidora/transportista",
+              "obligatorio": true
+            },
+            {
+              "id": "dia",
+              "label": "Declaración de Impacto Ambiental (DIA)",
+              "descripcion": "Si procede",
+              "obligatorio": true
+            },
+            {
+              "id": "caja_deposito",
+              "label": "Acreditación depósito en Caja Depósitos",
+              "descripcion": "Resguardo garantía económica",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Plazo legal: autorización previa 3 meses y de construcción 3 meses; explotación 1 mes. Silencio desestimatorio por analogía sectorial. Competencia del Servicio Provincial para FV <=1 MW. Requiere clasificar si en terreno rústico o urbano.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-FV-CON-EXCEDENTES",
+      "descripcion": "Refinamiento: Con excedentes",
+      "condicion": {
+        "==": [
+          {
+            "var": "modalidad_autoconsumo"
+          },
+          "con_excedentes"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Aval de acceso/conexión",
+          "organismo": "Distribuidora",
+          "base_legal": "Instrucción 2/2021; RD 244/2019; art. 53.3 Ley 24/2013",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Distribuidora",
+          "plataforma_url": null,
+          "coste_estimado": "25.00 EUR (gestión resguardo garantía tarifa 58)",
+          "formulario_ref": null,
+          "documentos_requeridos": [
             {
               "id": "cau",
               "label": "CAU",
@@ -120,28 +188,20 @@
             {
               "id": "aval",
               "label": "Aval económico",
-              "descripcion": "40 EUR/kW para >10 kW (excedentes)",
-              "obligatorio": false
+              "descripcion": "Resguardo del depósito",
+              "obligatorio": true
             }
           ],
-          "notas": "Aval de 40 EUR/kW requerido para instalaciones >15 kW urbano / >10 kW rural con excedentes. Si P < 100 kW en BT, derivar a portal PEGASSO.",
+          "notas": "Aval de 40 EUR/kW requerido para instalaciones con excedentes >15 kW urbano / >10 kW rural.",
           "paralelo_con": null
         }
       ]
     },
     {
       "id": "ARA-FV-AT",
-      "descripcion": "Autoconsumo con producción >100 kW o AT (tecnología no eólica): autorización administrativa previa, de construcción y de explotación",
+      "descripcion": "Refinamiento: Alta Tensión (para <100 kW)",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
+        "and": [
           {
             "==": [
               {
@@ -149,12 +209,20 @@
               },
               "AT"
             ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
           }
         ]
       },
       "tramites": [
         {
-          "orden": 1,
+          "orden": 2,
           "nombre": "Autorización administrativa previa y de construcción (trámite 783)",
           "organismo": "D.G. competente en energía (o Servicio Provincial si FV <=1 MW)",
           "base_legal": "Ley 24/2013 art. 53.1; RD 1955/2000",
@@ -202,6 +270,21 @@
       ]
     }
   ],
-  "validaciones": [],
+  "validaciones": [
+    {
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "tension"
+      ],
+      "mensaje": "Si no se especifica el nivel de tensión, el plan asume Baja Tensión (BT) por defecto."
+    },
+    {
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "modalidad_autoconsumo"
+      ],
+      "mensaje": "Si no se especifica la modalidad de autoconsumo, el plan asume 'sin excedentes'."
+    }
+  ],
   "nivel_verificacion": "verificada"
 }
