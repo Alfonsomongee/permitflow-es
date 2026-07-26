@@ -38,6 +38,11 @@ class ClasificadorInput(BaseModel):
     implantacion: Optional[str] = Field(None, description="cubierta | suelo | interior | exterior | via_publica | marquesina | fachada")
     solicita_ayuda: Optional[bool] = Field(False, description="True si solicita subvenciones")
     tension: Optional[Literal["BT", "AT"]] = Field(None, description="Nivel de tensión de conexión: BT o AT")
+    
+    # ACS specific fields
+    acumulacion: Optional[bool] = Field(None, description="True si tiene acumulación")
+    recirculacion: Optional[bool] = Field(None, description="True si tiene recirculación")
+    uso_colectivo: Optional[bool] = Field(None, description="True si es de uso colectivo")
 
 
 # ─── Output ───────────────────────────────────────────────────────────────────

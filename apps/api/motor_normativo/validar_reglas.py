@@ -17,6 +17,7 @@ CAMPOS_INPUT = {
     "potencia_por_punto_kw", "modo_recarga", "acceso_publico",
     "ubicacion_irve", "requiere_nuevo_suministro", "modalidad",
     "modalidad_autoconsumo", "implantacion", "solicita_ayuda", "tension",
+    "acumulacion", "recirculacion", "uso_colectivo",
 }
 SLUGS = {
     "andalucia","aragon","asturias","baleares","canarias","cantabria",
@@ -65,9 +66,23 @@ def casos_prueba():
     pot = [3, 10, 10.001, 15, 15.001, 70, 100, 100.001, 500, 500.001, 1000]
     usos = ["residencial", "terciario", "industrial"]
     mods = list(MODALIDAD_DOC) + [None]
-    for p, u, m in product(pot, usos, mods):
-        yield {"potencia_kw": p, "uso": u, "modalidad": m, "municipio": "X",
-               "superficie_m2": 100, "solicita_ayuda": False}
+    tension = ["BT", "AT", None]
+    mod_auto = ["sin_excedentes", "con_excedentes", None]
+    acc_pub = [True, False]
+    req_sum = [True, False]
+    sol_ayu = [True, False]
+    
+    for p, u, m, t, ma, ap, rs, sa in product(pot, usos, mods, tension, mod_auto, acc_pub, req_sum, sol_ayu):
+        yield {
+            "potencia_kw": p, "uso": u, "modalidad": m, "municipio": "X",
+            "superficie_m2": 100, "solicita_ayuda": sa, "tension": t,
+            "modalidad_autoconsumo": ma,
+            "numero_puntos": 2, "potencia_por_punto_kw": 22,
+            "modo_recarga": "3", "acceso_publico": ap,
+            "ubicacion_irve": "exterior", "requiere_nuevo_suministro": rs,
+            "combustible": "gas_natural", "presion_bar": "normal",
+            "implantacion": "cubierta"
+        }
 
 def auditar(path: pathlib.Path):
     inc = []
