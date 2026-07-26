@@ -176,7 +176,7 @@ export function SimuladorAhorro({ result }: Props) {
                 <p>Las cifras son <strong>orientativas</strong> y se calculan mediante parámetros estadísticos del mercado:</p>
                 <ul className="list-disc pl-4 opacity-80">
                   <li>Precio de la energía: {BENCHMARKS_FV.precio_kwh_defecto.valor} €/kWh (Impuestos incluidos. No incluye término de potencia).</li>
-                  <li>Coste de instalación subvencionable {sector}: {BENCHMARKS_FV.coste_eur_por_kwp[sector].min} - {BENCHMARKS_FV.coste_eur_por_kwp[sector].max} €/kWp.</li>
+                  <li>Coste de instalación llave en mano estimado ({sector}): {BENCHMARKS_FV.coste_eur_por_kwp[sector].min} - {BENCHMARKS_FV.coste_eur_por_kwp[sector].max} €/kWp.</li>
                   {!BENCHMARKS_FV.coste_eur_por_kwp[sector].verificada && (
                      <li className="text-warning">Atención: Algunos benchmarks (ej. coste por kWp) utilizan estimaciones de mercado que aún no han sido verificadas con fuentes oficiales.</li>
                   )}

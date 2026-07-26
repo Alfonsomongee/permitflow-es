@@ -10,21 +10,19 @@ export const BENCHMARKS_FV = {
   coste_eur_por_kwp: {
     residencial: {
       min: 900,
-      max: 1188, // Anexo III RD 477/2021: 1.188 €/kWp para P <= 10 kWp
-      fuente_max:
-        "RD 477/2021, Anexo III, costes unitarios máximos subvencionables (BOE-A-2021-10824) como techo de referencia oficial",
-      fuente_min: null,
+      max: 1400, // horquilla de MERCADO
+      fuente: null,
       fecha: "2026-07",
       verificada: false,
-      nota: "Techo anclado a referencia oficial de 2021 (1.188 €/kWp para P<=10kWp); el suelo es estimación de mercado. Mostrar siempre como horquilla orientativa.",
+      referencia_oficial: "RD 477/2021 Anexo III, Programa 4: \"Coste subvencionable unitario máximo: 1.188 €/kWp\" para instalaciones P ≤ 10 kWp (tope administrativo 2021, no precio de mercado)",
     },
     industrial_cubierta: {
       min: 600,
-      max: 910, // Anexo III RD 477/2021: 910 €/kWp para 10 < P <= 100 kWp (aprox. para industrial pequeño)
-      fuente_max: "RD 477/2021, Anexo III (BOE-A-2021-10824)",
-      fuente_min: null,
+      max: 1000, // horquilla de MERCADO
+      fuente: null,
       fecha: "2026-07",
       verificada: false,
+      referencia_oficial: "RD 477/2021 Anexo III, Programa 2: \"Coste subvencionable unitario máximo: 910 €/kWp\" para instalaciones 10 kWp < P ≤ 100 kWp (tope administrativo 2021, no precio de mercado)",
     },
   },
   ratio_autoconsumo_sin_bateria: {
