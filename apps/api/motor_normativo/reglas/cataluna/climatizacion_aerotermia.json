@@ -1,0 +1,145 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "cataluna",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1027/2007 (RITE)",
+    "Decret 192/2023, de 7 de novembre, de la seguretat industrial (Cataluña)",
+    "Instrucció 6/2011 de la Direcció General d'Energia i Mines"
+  ],
+  "reglas": [
+    {
+      "id": "CAT-CLI-001",
+      "descripcion": "Instalación térmica de 5 a 70 kW (MTD) - Declaración Responsable en RITSIC",
+      "condicion": {
+        "and": [
+          { ">=": [{ "var": "potencia_kw" }, 5] },
+          { "<=": [{ "var": "potencia_kw" }, 70] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_rite",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Descripción de la instalación.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones > 5 kW y <= 70 kW requieren MTD.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Declaración Responsable y Alta en RITSIC",
+          "organismo": "Generalitat de Catalunya (Canal Empresa)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
+          "coste_estimado": "Tasa RITSIC",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_rite",
+              "label": "Declaración Responsable",
+              "descripcion": "Formulario telemático.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Se inscribe la instalación en el RITSIC indicando que se dispone de MTD y Certificado.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CAT-CLI-002",
+      "descripcion": "Instalación térmica > 70 kW (Proyecto y ECA) - Declaración Responsable en RITSIC",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_rite",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Proyecto completo de climatización.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio proyecto para P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por ECA",
+          "organismo": "Entidad Colaboradora de la Administración (ECA)",
+          "base_legal": "RITE (RD 1027/2007) y Instrucció 6/2011",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste ECA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_eca_rite",
+              "label": "Certificado de Inspección Inicial",
+              "descripcion": "Certificado favorable.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Toda instalación > 70 kW requiere inspección inicial obligatoria por una entidad de inspección (ECA).",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración Responsable y Alta en RITSIC",
+          "organismo": "Generalitat de Catalunya (Canal Empresa)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
+          "coste_estimado": "Tasa RITSIC",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_rite_proy",
+              "label": "Declaración Responsable",
+              "descripcion": "Formulario telemático incluyendo datos de proyecto y ECA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Inscripción telemática en el RITSIC.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

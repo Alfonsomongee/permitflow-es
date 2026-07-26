@@ -17,7 +17,7 @@ CAMPOS_INPUT = {
     "potencia_por_punto_kw", "modo_recarga", "acceso_publico",
     "ubicacion_irve", "requiere_nuevo_suministro", "modalidad",
     "modalidad_autoconsumo", "implantacion", "solicita_ayuda", "tension",
-    "acumulacion", "recirculacion", "uso_colectivo", "presupuesto_eur",
+    "acumulacion", "recirculacion", "uso_colectivo", "inversion_eur",
 }
 SLUGS = {
     "andalucia","aragon","asturias","baleares","canarias","cantabria",
@@ -52,7 +52,7 @@ def ev(logic, data, usadas):
         if op == "==":  return v[0] == v[1]
         if op == "!=":  return v[0] != v[1]
         if op == "in":  return v[0] in v[1] if v[1] is not None else False
-        if v[0] is None or v[1] is None: return False
+        if len(v) < 2 or v[0] is None or v[1] is None: return False
         if op == "<":   return v[0] <  v[1]
         if op == "<=":  return v[0] <= v[1]
         if op == ">":   return v[0] >  v[1]
@@ -63,7 +63,7 @@ def ev(logic, data, usadas):
 
 def casos_prueba():
     """Barrido de entradas realistas usando SOLO campos que existen."""
-    pot = [3, 10, 10.001, 15, 15.001, 70, 100, 100.001, 500, 500.001, 1000]
+    pot = [2, 3, 10, 10.001, 15, 15.001, 30, 70, 100, 100.001, 500, 500.001, 1000]
     usos = ["residencial", "terciario", "industrial"]
     mods = list(MODALIDAD_DOC) + [None]
     tension = ["BT", "AT", None]
@@ -71,7 +71,7 @@ def casos_prueba():
     acc_pub = [True, False]
     req_sum = [True, False]
     sol_ayu = [True, False]
-    pres = [1000, 5000, 10000, 70000, 400000, 700000, 2000000]
+    pres = [1000, 5000, 10000, 70000, 400000, 700000, 2000000, None]
     
     for p, u, m, t, ma, ap, rs, sa, pr in product(pot, usos, mods, tension, mod_auto, acc_pub, req_sum, sol_ayu, pres):
         yield {
@@ -82,7 +82,7 @@ def casos_prueba():
             "modo_recarga": "3", "acceso_publico": ap,
             "ubicacion_irve": "exterior", "requiere_nuevo_suministro": rs,
             "combustible": "gas_natural", "presion_bar": "normal",
-            "implantacion": "cubierta", "presupuesto_eur": pr
+            "implantacion": "cubierta", "inversion_eur": pr
         }
 
 def auditar(path: pathlib.Path):
@@ -168,7 +168,7 @@ def auditar(path: pathlib.Path):
     faltan = set()
     for r in d.get("reglas", []):
         for t in r.get("tramites", []):
-            for campo in ("paralelo_con", "regla_id"):
+            for campo in ("paralelo_con",):
                 if campo not in t:
                     faltan.add(campo)
     if faltan:

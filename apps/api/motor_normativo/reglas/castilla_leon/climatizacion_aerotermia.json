@@ -1,0 +1,130 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "castilla_y_leon",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1027/2007 (RITE) (estatal)",
+    "Ley 6/2014, de 12 de septiembre, de Industria de Castilla y León",
+    "Sede Electrónica Junta de Castilla y León - IAPA 1468"
+  ],
+  "reglas": [
+    {
+      "id": "CYL-CLI-001",
+      "descripcion": "Instalación térmica de 5 a 70 kW (MTD)",
+      "condicion": {
+        "and": [
+          { ">=": [{ "var": "potencia_kw" }, 5] },
+          { "<=": [{ "var": "potencia_kw" }, 70] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_rite",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Descripción de la instalación.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones de 5 kW a 70 kW requieren MTD.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Regularización administrativa de instalaciones térmicas",
+          "organismo": "Junta de Castilla y León",
+          "base_legal": "IAPA 1468",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica JCyL",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_firmado",
+              "label": "Certificado de Instalación",
+              "descripcion": "Registro ante la Delegación Territorial.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Tramitación mediante IAPA 1468.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CYL-CLI-002",
+      "descripcion": "Instalación térmica > 70 kW (Proyecto)",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_rite",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Proyecto completo de climatización.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio proyecto para P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Regularización administrativa de instalaciones térmicas",
+          "organismo": "Junta de Castilla y León",
+          "base_legal": "IAPA 1468",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica JCyL",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_proyecto",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Firmado por instalador y director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_rite_adjunto",
+              "label": "Proyecto Técnico",
+              "descripcion": "Copia del proyecto.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "En Castilla y León no se requiere OCA obligatoria para inspección inicial con carácter general, quedando a criterio de la Administración (IAPA 1468).",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

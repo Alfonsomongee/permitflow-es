@@ -1,0 +1,156 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "canarias",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1027/2007 (RITE) (estatal)",
+    "Sede Electrónica Canarias - Trámite 3409"
+  ],
+  "reglas": [
+    {
+      "id": "CAN-CLI-001",
+      "descripcion": "Instalación térmica de 5 a 70 kW (MTD)",
+      "condicion": {
+        "and": [
+          { ">=": [{ "var": "potencia_kw" }, 5] },
+          { "<=": [{ "var": "potencia_kw" }, 70] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_rite",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Descripción de la instalación.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Puesta en funcionamiento de instalaciones térmicas en edificios",
+          "organismo": "Gobierno de Canarias",
+          "base_legal": "Normativa autonómica",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica Canarias",
+          "plataforma_url": "https://sede.gobiernodecanarias.org",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_firmado",
+              "label": "Certificado de Instalación",
+              "descripcion": "Registro en Canarias.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite SICAC 3409.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CAN-CLI-002",
+      "descripcion": "Instalación térmica > 70 kW (Proyecto y OCA)",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_rite",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Proyecto completo de climatización.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio proyecto para P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA)",
+          "base_legal": "RITE (RD 1027/2007) Art. 24",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste OCA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca_rite",
+              "label": "Certificado de Inspección Inicial",
+              "descripcion": "Certificado favorable emitido por la OCA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "En Canarias rige el RITE estatal: obligatoria la inspección inicial por OCA para > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Puesta en funcionamiento de instalaciones térmicas en edificios",
+          "organismo": "Gobierno de Canarias",
+          "base_legal": "Normativa autonómica",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica Canarias",
+          "plataforma_url": "https://sede.gobiernodecanarias.org",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_proyecto",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Firmado por instalador y director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_rite_adjunto",
+              "label": "Proyecto Técnico",
+              "descripcion": "Copia del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca_rite_adjunto",
+              "label": "Certificado OCA",
+              "descripcion": "Inspección inicial favorable.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite SICAC 3409.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "tipo_instalacion": "irve",
+  "comunidad": "baleares",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1053/2014 ITC-BT-52 (estatal)",
+    "Sede Electrónica CAIB - UDIT-045"
+  ],
+  "reglas": [
+    {
+      "id": "BAL-IRVE-001",
+      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD)",
+      "condicion": {
+        "not": {
+          "or": [
+            { "==": [{ "var": "modo_recarga" }, 4] },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+                { ">": [{ "var": "potencia_kw" }, 50] }
+              ]
+            },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+                { ">": [{ "var": "potencia_kw" }, 10] }
+              ]
+            }
+          ]
+        }
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador electricista autorizado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño (MTD)",
+              "descripcion": "Memoria que describe la instalación de recarga.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "CIE firmado por el instalador autorizado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Puesta en servicio de Instalaciones Eléctricas",
+          "organismo": "Govern Illes Balears (UDIT)",
+          "base_legal": "Normativa autonómica",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB",
+          "plataforma_url": "https://www.caib.es",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "cie_irve_firmado",
+              "label": "CIE de la instalación",
+              "descripcion": "Registro en UDIT.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Procedimiento UDIT-045 para zonas de acceso privado. Si es de acceso público va por la Dirección General de Energía.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "BAL-IRVE-002",
+      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA)",
+      "condicion": {
+        "or": [
+          { "==": [{ "var": "modo_recarga" }, 4] },
+          {
+            "and": [
+              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+              { ">": [{ "var": "potencia_kw" }, 50] }
+            ]
+          },
+          {
+            "and": [
+              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+              { ">": [{ "var": "potencia_kw" }, 10] }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación IRVE",
+          "organismo": "Ingeniero competente colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del proyectista",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Proyecto completo de la infraestructura de recarga.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste de inspección OCA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca_inicial",
+              "label": "Certificado de Inspección Inicial",
+              "descripcion": "Certificado emitido por la OCA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio si está en local de pública concurrencia, garaje >25 plazas, o requiere proyecto y >100 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Puesta en servicio de Instalaciones Eléctricas",
+          "organismo": "Govern Illes Balears (UDIT / Energía)",
+          "base_legal": "Normativa autonómica",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB",
+          "plataforma_url": "https://www.caib.es",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "cie_irve_firmado",
+              "label": "CIE de la instalación",
+              "descripcion": "CIE firmado por el instalador.",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico_irve_adjunto",
+              "label": "Proyecto técnico",
+              "descripcion": "Copia del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca_inicial_adjunto",
+              "label": "Certificado OCA",
+              "descripcion": "Certificado favorable.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Procedimiento UDIT-045 para acceso privado. Para acceso público se tramita a través de la Dirección General de Energía.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

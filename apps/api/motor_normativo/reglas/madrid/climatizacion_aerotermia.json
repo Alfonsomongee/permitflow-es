@@ -1,0 +1,194 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "madrid",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1027/2007 (RITE)",
+    "Decreto 38/2002, de 28 de febrero (Comunidad de Madrid)",
+    "Orden 9343/2003, modificada por Orden 688/2008 (Comunidad de Madrid)"
+  ],
+  "reglas": [
+    {
+      "id": "MAD-CLI-001",
+      "descripcion": "Instalación térmica de 5 a 70 kW (MTD) - Registro vía EICI",
+      "condicion": {
+        "and": [
+          { ">=": [{ "var": "potencia_kw" }, 5] },
+          { "<=": [{ "var": "potencia_kw" }, 70] },
+          { "!=": [{ "var": "tipo_actuacion" }, "sustitucion_simple"] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_rite",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Descripción de la instalación, equipos y esquemas.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado firmado por instalador y director de obra (si aplica).",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones de 5 a 70 kW requieren MTD.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro y Puesta en Servicio RITE",
+          "organismo": "EICI (Entidad de Inspección y Control Industrial)",
+          "base_legal": "Orden 9343/2003 (Madrid)",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "EICI Autorizada",
+          "plataforma_url": "https://tramita.comunidad.madrid/autorizaciones-licencias-permisos-carnes/puesta-servicio-instalaciones-termicas",
+          "coste_estimado": "Tasa EICI",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_firmado",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado registrado en la EICI.",
+              "obligatorio": true
+            },
+            {
+              "id": "mtd_rite_firmada",
+              "label": "Memoria Técnica",
+              "descripcion": "Copia de la MTD.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio registro a través de EICI en la Comunidad de Madrid.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "MAD-CLI-002",
+      "descripcion": "Instalación térmica > 70 kW (Proyecto y OCA) - Registro vía EICI",
+      "condicion": {
+        "and": [
+          { ">": [{ "var": "potencia_kw" }, 70] },
+          { "!=": [{ "var": "tipo_actuacion" }, "sustitucion_simple"] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_rite",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Proyecto completo de climatización.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio proyecto para P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "OCA (EICI)",
+          "base_legal": "RITE y Decreto 38/2002",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste OCA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca_rite",
+              "label": "Certificado de Inspección Inicial",
+              "descripcion": "Certificado favorable.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Toda instalación > 70 kW requiere inspección inicial.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro y Puesta en Servicio RITE",
+          "organismo": "EICI (Entidad de Inspección y Control Industrial)",
+          "base_legal": "Orden 9343/2003 (Madrid)",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "EICI Autorizada",
+          "plataforma_url": "https://tramita.comunidad.madrid/autorizaciones-licencias-permisos-carnes/puesta-servicio-instalaciones-termicas",
+          "coste_estimado": "Tasa EICI",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_proyecto",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Firmado por instalador y director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca_rite_adjunto",
+              "label": "Certificado de Inspección",
+              "descripcion": "Emitido por OCA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Tramitación a través de EICI.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "MAD-CLI-003",
+      "descripcion": "Exención de registro EICI para reposición <= 70 kW sin cambio de energía",
+      "condicion": {
+        "and": [
+          { "==": [{ "var": "tipo_actuacion" }, "sustitucion_simple"] },
+          { "<=": [{ "var": "potencia_kw" }, 70] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación Térmica (Conservación por titular)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "Orden 688/2008 (Madrid)",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "0 EUR (Tasas)",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_reposicion",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Emitido por el instalador y guardado por el titular.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Excepción Autonómica: La sustitución de generadores <= 70 kW sin cambio de fuente de energía y variando menos del 25% la potencia, NO requiere ser registrada en EICI.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

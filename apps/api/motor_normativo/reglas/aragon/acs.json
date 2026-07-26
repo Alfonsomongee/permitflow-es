@@ -1,0 +1,197 @@
+{
+  "tipo_instalacion": "acs",
+  "comunidad": "aragon",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1027/2007 (RITE)",
+    "RD 487/2022 (Prevención Legionelosis)",
+    "Orden SCO/3269/2006 (Aragón - ROESB)",
+    "Ley 2/2022 (simplificación administrativa Aragón)"
+  ],
+  "reglas": [
+    {
+      "id": "ARA-ACS-001",
+      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD)",
+      "condicion": {
+        "and": [
+          { ">=": [{ "var": "potencia_kw" }, 5] },
+          { "<=": [{ "var": "potencia_kw" }, 70] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_rite_c0006",
+              "label": "Memoria Técnica (Modelo C0006)",
+              "descripcion": "Descripción de la instalación ACS.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Comunicación de Puesta en Servicio (RITE)",
+          "organismo": "Gobierno de Aragón / Entidad Colaboradora (ECA)",
+          "base_legal": "Normativa autonómica de Aragón",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "DIGITA",
+          "plataforma_url": "https://www.aragon.es/tramites",
+          "coste_estimado": "Tasa 14 (Modelo 514)",
+          "documentos_requeridos": [
+            {
+              "id": "comunicacion_puesta_servicio",
+              "label": "Comunicación de puesta en servicio",
+              "descripcion": "Formulario oficial telemático.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_termico_firmado",
+              "label": "Certificado de Instalación",
+              "descripcion": "Copia firmada.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite de instalaciones térmicas en edificios.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-ACS-002",
+      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto y OCA)",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_rite",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Proyecto completo de ACS.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio proyecto para P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA / ECA)",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste OCA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca_rite",
+              "label": "Certificado de Inspección Inicial",
+              "descripcion": "Certificado favorable emitido por la OCA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio para potencias > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación de Puesta en Servicio (RITE)",
+          "organismo": "Gobierno de Aragón / Entidad Colaboradora (ECA)",
+          "base_legal": "Normativa autonómica de Aragón",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "DIGITA",
+          "plataforma_url": "https://www.aragon.es/tramites",
+          "coste_estimado": "Tasa 14 (Modelo 514)",
+          "documentos_requeridos": [
+            {
+              "id": "comunicacion_puesta_servicio_proy",
+              "label": "Comunicación de puesta en servicio",
+              "descripcion": "Formulario oficial telemático.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_termico_proyecto",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Firmado por instalador y director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca_rite_adjunto",
+              "label": "Certificado de Inspección OCA",
+              "descripcion": "Adjunto a la presentación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Registro en la plataforma DIGITA.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-ACS-003",
+      "descripcion": "Notificación de instalación de riesgo (Legionela)",
+      "condicion": {
+        "and": [
+          { ">": [{ "var": "potencia_kw" }, 70] },
+          { "!=": [{ "var": "uso" }, "residencial"] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 4,
+          "nombre": "Notificación de equipos de riesgo",
+          "organismo": "Departamento de Sanidad (Dirección General de Salud Pública) del Gobierno de Aragón",
+          "base_legal": "Ley 2/2022 y Orden SCO/3269/2006",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Registro Electrónico",
+          "plataforma_url": "https://www.aragon.es/tramites",
+          "coste_estimado": "Gratuito",
+          "documentos_requeridos": [
+            {
+              "id": "notificacion_sanidad",
+              "label": "Formulario de notificación a Sanidad",
+              "descripcion": "Comunicación de puesta en servicio del equipo de riesgo.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Plazo máximo de un mes desde la puesta en servicio.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

@@ -2,32 +2,81 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "extremadura",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
+  "ultima_revision": "2026-07-26",
   "revisado_por": "ai-agent",
   "fuentes": [
     "Ley 11/2018 LOTUS + Decreto 49/2004",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "Ley 18/2001 + Resolución 20/05/2025 (DOE 95)",
+    "RD 244/2019, de 5 de abril — autoconsumo eléctrico",
+    "RD-ley 18/2022, art. 115.5 Ley 24/2013 (umbral estatal exención AAP)"
   ],
   "reglas": [
     {
       "id": "EXT-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "descripcion": "Autoconsumo residencial, potencia <= 10kW (<= 2 kW)",
+      "condicion": {
+        "<=": [
+          {
+            "var": "potencia_kw"
+          },
+          2
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Trámite CIP 5625 (ficha FTD16)",
+          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
+          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
+          "coste_estimado": "78.57 EUR",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "MTD/Proyecto",
+            "CAU",
+            "Ficha FTD16 confeccionada en AGILE"
+          ],
+          "formulario_ref": "CIP_5625",
+          "paralelo_con": null,
+          "notas": "AGILE es la herramienta del técnico para confeccionar fichas, no el portal de presentación. Tasa Grupo 3 (código 120495): 78,57 EUR para <= 10 kW."
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    },
+    {
+      "id": "EXT-FV-001",
+      "descripcion": "Autoconsumo residencial, potencia <= 10kW (2-5 kW)",
       "condicion": {
         "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              2
+            ]
+          },
           {
             "<=": [
               {
                 "var": "potencia_kw"
               },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
+              5
             ]
           }
         ]
@@ -35,19 +84,80 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Ficha técnica BT Trámite IN0001",
+          "nombre": "Trámite CIP 5625 (ficha FTD16)",
           "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
           "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
+          "coste_estimado": "94.25 EUR",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
             "CIE",
             "MTD/Proyecto",
-            "CAU"
+            "CAU",
+            "Ficha FTD16 confeccionada en AGILE"
           ],
-          "formulario_ref": null,
+          "formulario_ref": "CIP_5625",
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "AGILE es la herramienta del técnico para confeccionar fichas, no el portal de presentación. Tasa Grupo 3 (código 120495): 78,57 EUR para <= 10 kW."
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    },
+    {
+      "id": "EXT-FV-001",
+      "descripcion": "Autoconsumo residencial, potencia <= 10kW (5-10 kW)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Trámite CIP 5625 (ficha FTD16)",
+          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
+          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
+          "coste_estimado": "117.85 EUR",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "MTD/Proyecto",
+            "CAU",
+            "Ficha FTD16 confeccionada en AGILE"
+          ],
+          "formulario_ref": "CIP_5625",
+          "paralelo_con": null,
+          "notas": "AGILE es la herramienta del técnico para confeccionar fichas, no el portal de presentación. Tasa Grupo 3 (código 120495): 78,57 EUR para <= 10 kW."
         },
         {
           "orden": 2,
@@ -68,7 +178,7 @@
     },
     {
       "id": "EXT-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW",
+      "descripcion": "Autoconsumo residencial, potencia > 10kW (10-20 kW)",
       "condicion": {
         "and": [
           {
@@ -80,11 +190,11 @@
             ]
           },
           {
-            "==": [
+            "<=": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "residencial"
+              20
             ]
           }
         ]
@@ -92,19 +202,139 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Ficha técnica BT Trámite IN0001",
+          "nombre": "Trámite CIP 5625 (ficha FTD16) o CIP 5873 (autorización explotación)",
           "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
           "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
+          "coste_estimado": "133.57 EUR",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
             "CIE",
             "MTD/Proyecto",
-            "CAU"
+            "CAU",
+            "Ficha técnica confeccionada en AGILE"
           ],
           "formulario_ref": null,
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). CIP 5625 con ficha FTD16 para <= 100 kW; CIP 5873 para autorización de explotación. Tasas Grupo 3 (código 120495): >10 a 50kW=94,25 EUR; >50 a 100kW=117,85 EUR; >100 a 250kW=133,57 EUR; >250kW=157,14 EUR + 7,86 EUR por cada 10kW extra."
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    },
+    {
+      "id": "EXT-FV-002",
+      "descripcion": "Autoconsumo residencial, potencia > 10kW (20-40 kW)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              20
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              40
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Trámite CIP 5625 (ficha FTD16) o CIP 5873 (autorización explotación)",
+          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
+          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
+          "coste_estimado": "157.14 EUR",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "MTD/Proyecto",
+            "CAU",
+            "Ficha técnica confeccionada en AGILE"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). CIP 5625 con ficha FTD16 para <= 100 kW; CIP 5873 para autorización de explotación. Tasas Grupo 3 (código 120495): >10 a 50kW=94,25 EUR; >50 a 100kW=117,85 EUR; >100 a 250kW=133,57 EUR; >250kW=157,14 EUR + 7,86 EUR por cada 10kW extra."
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
+          "base_legal": "RD 244/2019, Art. 19",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "cie_sellado",
+            "datos_instalacion_formulario_miteco"
+          ],
+          "formulario_ref": "MITECO-RAC-001",
+          "paralelo_con": null,
+          "notas": "Obligatorio para activar la compensación de excedentes."
+        }
+      ]
+    },
+    {
+      "id": "EXT-FV-002",
+      "descripcion": "Autoconsumo residencial, potencia > 10kW (40-100 kW)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              40
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Trámite CIP 5625 (ficha FTD16) o CIP 5873 (autorización explotación)",
+          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
+          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
+          "coste_estimado": "157.14 EUR + 7.86 euros por cada 10 kW adicionales",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "documentos_requeridos": [
+            "CIE",
+            "MTD/Proyecto",
+            "CAU",
+            "Ficha técnica confeccionada en AGILE"
+          ],
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). CIP 5625 con ficha FTD16 para <= 100 kW; CIP 5873 para autorización de explotación. Tasas Grupo 3 (código 120495): >10 a 50kW=94,25 EUR; >50 a 100kW=117,85 EUR; >100 a 250kW=133,57 EUR; >250kW=157,14 EUR + 7,86 EUR por cada 10kW extra."
         },
         {
           "orden": 2,
@@ -125,43 +355,33 @@
     },
     {
       "id": "EXT-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
+      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia (> 100 kW)",
       "condicion": {
-        "or": [
+        ">": [
           {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
+          100
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Ficha técnica BT Trámite IN0001",
+          "nombre": "Trámite CIP 5625 (ficha FTD16) o CIP 5873 (autorización explotación)",
           "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
           "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
+          "coste_estimado": "157.14 EUR + 7.86 euros por cada 10 kW adicionales",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
             "CIE",
             "MTD/Proyecto",
-            "CAU"
+            "CAU",
+            "Ficha técnica confeccionada en AGILE"
           ],
           "formulario_ref": null,
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). CIP 5625 con ficha FTD16 para <= 100 kW; CIP 5873 para autorización de explotación. Tasas Grupo 3 (código 120495): >10 a 50kW=94,25 EUR; >50 a 100kW=117,85 EUR; >100 a 250kW=133,57 EUR; >250kW=157,14 EUR + 7,86 EUR por cada 10kW extra."
         },
         {
           "orden": 2,
@@ -181,5 +401,5 @@
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "nivel_verificacion": "verificada"
 }

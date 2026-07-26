@@ -1,0 +1,230 @@
+{
+  "tipo_instalacion": "irve",
+  "comunidad": "aragon",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1053/2014 ITC-BT-52 (estatal)",
+    "Normativa de simplificación administrativa del Gobierno de Aragón"
+  ],
+  "reglas": [
+    {
+      "id": "ARA-IRVE-001",
+      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD)",
+      "condicion": {
+        "not": {
+          "or": [
+            { "==": [{ "var": "modo_recarga" }, 4] },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+                { ">": [{ "var": "potencia_kw" }, 50] }
+              ]
+            },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+                { ">": [{ "var": "potencia_kw" }, 10] }
+              ]
+            }
+          ]
+        }
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador electricista autorizado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño (Modelo C0001)",
+              "descripcion": "Memoria que describe la instalación de recarga.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve",
+              "label": "Certificado de Instalación Eléctrica (Modelo C0004)",
+              "descripcion": "CIE firmado por el instalador autorizado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Comunicación de puesta en servicio de baja tensión",
+          "organismo": "Gobierno de Aragón (DIGITA) o Entidad Colaboradora (AESSIA)",
+          "base_legal": "Reglamentación autonómica de Aragón",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": "DIGITA / AESSIA (Pegasso)",
+          "plataforma_url": "https://www.aragon.es/tramites",
+          "coste_estimado": "Tasa 14 (Modelo 514)",
+          "documentos_requeridos": [
+            {
+              "id": "comunicacion_e0001",
+              "label": "Comunicación (Modelo E0001)",
+              "descripcion": "Formulario de comunicación de puesta en servicio.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve_firmado",
+              "label": "CIE de la instalación",
+              "descripcion": "CIE firmado y tramitado telemáticamente.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La legalización se realiza preferentemente a través de la plataforma DIGITA del Gobierno de Aragón o entidades como AESSIA.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-IRVE-002",
+      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA)",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              { "==": [{ "var": "modo_recarga" }, 4] },
+              {
+                "and": [
+                  { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+                  { ">": [{ "var": "potencia_kw" }, 50] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+                  { ">": [{ "var": "potencia_kw" }, 10] }
+                ]
+              }
+            ]
+          },
+          { "<=": [{ "var": "potencia_kw" }, 3000] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación IRVE",
+          "organismo": "Ingeniero competente colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del proyectista",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Proyecto completo de la infraestructura de recarga.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste de inspección OCA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca_inicial",
+              "label": "Certificado de Inspección Inicial (Favorable)",
+              "descripcion": "Certificado emitido por la OCA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio según REBT para locales de pública concurrencia o garajes >25 plazas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación de puesta en servicio de baja tensión",
+          "organismo": "Gobierno de Aragón (DIGITA) o Entidad Colaboradora (AESSIA)",
+          "base_legal": "Reglamentación autonómica de Aragón",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": "DIGITA / AESSIA",
+          "plataforma_url": "https://www.aragon.es/tramites",
+          "coste_estimado": "Tasa 14 (Modelo 514)",
+          "documentos_requeridos": [
+            {
+              "id": "comunicacion_e0001",
+              "label": "Comunicación (Modelo E0001)",
+              "descripcion": "Formulario de comunicación.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve_firmado",
+              "label": "Certificado de Instalación Eléctrica (Modelo C0004)",
+              "descripcion": "CIE firmado.",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico_irve_adjunto",
+              "label": "Proyecto técnico",
+              "descripcion": "Proyecto visado.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca_inicial_adjunto",
+              "label": "Certificado OCA",
+              "descripcion": "Certificado favorable.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Tramitación en la plataforma DIGITA.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-IRVE-003",
+      "descripcion": "Autorización Administrativa Previa IRVE > 3 MW",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 3000]
+      },
+      "tramites": [
+        {
+          "orden": 0,
+          "nombre": "Autorización Administrativa Previa",
+          "organismo": "Gobierno de Aragón (Servicio Provincial de Industria)",
+          "base_legal": "Ley del Sector Eléctrico 24/2013",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": null,
+          "plataforma": "DIGITA",
+          "plataforma_url": "https://www.aragon.es/tramites",
+          "coste_estimado": "Tasas administrativas",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve_aap",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Proyecto completo de la infraestructura.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Para potencias > 3.000 kW (3 MW), se requiere autorización administrativa previa adicional.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

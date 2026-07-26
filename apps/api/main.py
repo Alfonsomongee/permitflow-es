@@ -32,7 +32,27 @@ app.add_middleware(
 async def health_check():
     return {"status": "ok", "version": "0.1.0"}
 
-app.include_router(clasificador_router, dependencies=[Depends(verificar_clave_interna)])
-app.include_router(documentos_router, dependencies=[Depends(verificar_clave_interna)])
-app.include_router(validador_router, dependencies=[Depends(verificar_clave_interna)])
-app.include_router(orientacion_router, dependencies=[Depends(verificar_clave_interna)])
+import secrets
+from fastapi.responses import JSONResponse
+from fastapi import Request
+
+@app.middleware("http")
+async def verificar_clave_global(request: Request, call_next):
+    if request.url.path == "/health":
+        return await call_next(request)
+
+    clave = settings.INTERNAL_API_KEY
+    if not clave:
+        # Esto no debería ocurrir gracias al fail-closed en config.py, pero por si acaso.
+        return JSONResponse(status_code=503, content={"detail": "INTERNAL_API_KEY no configurada"})
+
+    x_internal_key = request.headers.get("X-Internal-Key")
+    if not x_internal_key or not secrets.compare_digest(x_internal_key, clave):
+        return JSONResponse(status_code=401, content={"detail": "Clave interna inválida"})
+
+    return await call_next(request)
+
+app.include_router(clasificador_router)
+app.include_router(documentos_router)
+app.include_router(validador_router)
+app.include_router(orientacion_router)

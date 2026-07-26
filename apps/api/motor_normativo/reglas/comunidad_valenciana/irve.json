@@ -1,0 +1,219 @@
+{
+  "tipo_instalacion": "irve",
+  "comunidad": "comunidad_valenciana",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1053/2014 ITC-BT-52 (estatal)",
+    "Decreto-Ley 14/2020, de 7 de agosto, del Consell (Comunidad Valenciana)",
+    "Orden de 31 de mayo de 2004, de la Conselleria de Industria (Comunidad Valenciana)"
+  ],
+  "reglas": [
+    {
+      "id": "VAL-IRVE-001",
+      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD)",
+      "condicion": {
+        "not": {
+          "or": [
+            { "==": [{ "var": "modo_recarga" }, 4] },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+                { ">": [{ "var": "potencia_kw" }, 50] }
+              ]
+            },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+                { ">": [{ "var": "potencia_kw" }, 10] }
+              ]
+            }
+          ]
+        }
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador electricista autorizado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño (MTD)",
+              "descripcion": "Memoria que describe la instalación de recarga.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "CIE firmado por el instalador autorizado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Puesta en servicio de instalaciones eléctricas de baja tensión",
+          "organismo": "Generalitat Valenciana (Servicio Territorial de Industria)",
+          "base_legal": "Orden de 31 de mayo de 2004",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "PROP (gva.es)",
+          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "cie_irve_firmado",
+              "label": "CIE de la instalación",
+              "descripcion": "CIE firmado y registrado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Tramitación a través del PROP de la Generalitat Valenciana.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "VAL-IRVE-002",
+      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA) <= 250kW",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              { "==": [{ "var": "modo_recarga" }, 4] },
+              {
+                "and": [
+                  { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+                  { ">": [{ "var": "potencia_kw" }, 50] }
+                ]
+              },
+              {
+                "and": [
+                  { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+                  { ">": [{ "var": "potencia_kw" }, 10] }
+                ]
+              }
+            ]
+          },
+          { "<=": [{ "var": "potencia_kw" }, 250] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación IRVE",
+          "organismo": "Ingeniero competente colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del proyectista",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico visado o certificado",
+              "descripcion": "Proyecto completo de la infraestructura de recarga.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste de inspección OCA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca_inicial",
+              "label": "Certificado de Inspección Inicial (Favorable)",
+              "descripcion": "Certificado emitido por la OCA tras la revisión de la instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Toda instalación que requiere proyecto requiere inspección inicial según ITC-BT-05.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Puesta en servicio de instalaciones eléctricas de baja tensión",
+          "organismo": "Generalitat Valenciana (Servicio Territorial de Industria)",
+          "base_legal": "Orden de 31 de mayo de 2004",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "PROP (gva.es)",
+          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "cie_irve_firmado",
+              "label": "CIE de la instalación",
+              "descripcion": "CIE firmado por el instalador autorizado.",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico_irve_visado",
+              "label": "Proyecto técnico",
+              "descripcion": "Copia del proyecto técnico.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca_inicial_adjunto",
+              "label": "Certificado OCA",
+              "descripcion": "Certificado de inspección favorable.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Tramitación de Puesta en Servicio en GVA.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "VAL-IRVE-003",
+      "descripcion": "Autorización Administrativa Previa Autonómica para IRVE > 250 kW",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 250]
+      },
+      "tramites": [
+        {
+          "orden": 0,
+          "nombre": "Autorización Administrativa Previa y de Construcción",
+          "organismo": "Generalitat Valenciana (Conselleria competente en Energía)",
+          "base_legal": "Decreto-Ley 14/2020",
+          "plazo_estimado_dias": 60,
+          "plazo_legal_dias": 90,
+          "plataforma": "PROP (gva.es)",
+          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos",
+          "coste_estimado": "Tasa autonómica específica",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Proyecto completo de la infraestructura.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "En la Comunitat Valenciana, las infraestructuras de recarga de gran potencia (>250 kW) están sujetas a autorización administrativa previa autonómica antes de su ejecución, de forma adicional al trámite ordinario de Puesta en Servicio.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

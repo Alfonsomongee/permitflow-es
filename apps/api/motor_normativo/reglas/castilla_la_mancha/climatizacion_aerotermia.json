@@ -1,0 +1,130 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "castilla_la_mancha",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1027/2007 (RITE) (estatal)",
+    "Orden de 23 de junio de 2006 (DOCM)",
+    "Portal eDice-Térmicas (JCCM)"
+  ],
+  "reglas": [
+    {
+      "id": "CLM-CLI-001",
+      "descripcion": "Instalación térmica de 5 a 70 kW (MTD)",
+      "condicion": {
+        "and": [
+          { ">=": [{ "var": "potencia_kw" }, 5] },
+          { "<=": [{ "var": "potencia_kw" }, 70] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_rite",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Descripción de la instalación.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalación térmica",
+          "organismo": "Junta de Comunidades de Castilla-La Mancha",
+          "base_legal": "Orden de 23 de junio de 2006",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "eDice-Térmicas (JCCM)",
+          "plataforma_url": "https://edice.castillalamancha.es/",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_firmado",
+              "label": "Certificado de Instalación",
+              "descripcion": "Registro a través de eDice-Térmicas.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite de puesta en servicio en eDice-Térmicas.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CLM-CLI-002",
+      "descripcion": "Instalación térmica > 70 kW (Proyecto)",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_rite",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Proyecto completo de climatización.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio proyecto para P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalación térmica",
+          "organismo": "Junta de Comunidades de Castilla-La Mancha",
+          "base_legal": "Orden de 23 de junio de 2006",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "eDice-Térmicas (JCCM)",
+          "plataforma_url": "https://edice.castillalamancha.es/",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_proyecto",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Firmado por instalador y director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_rite_adjunto",
+              "label": "Proyecto Técnico",
+              "descripcion": "Copia del proyecto.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "En Castilla-La Mancha no es obligatoria la inspección OCA para puesta en servicio inicial de forma generalizada autonómica, salvo las periódicas estatales.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

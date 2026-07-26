@@ -2,55 +2,61 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "la_rioja",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
+  "ultima_revision": "2026-07-26",
   "revisado_por": "ai-agent",
   "fuentes": [
     "Ley 24/2013 + RD 244/2019 transposición directa",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "RD 244/2019, de 5 de abril — autoconsumo eléctrico",
+    "RD-ley 18/2022, art. 115.5 Ley 24/2013 (umbral estatal exención AAP)"
   ],
   "reglas": [
     {
       "id": "RIO-FV-001",
       "descripcion": "Autoconsumo residencial, potencia <= 10kW",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Puesta en servicio BT y alta registro",
+          "nombre": "Inscripción instalación Baja Tensión (Trámite 24196)",
           "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "Ley 24/2013 + RD 244/2019 transposición directa",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
+          "base_legal": "Ley 24/2013",
+          "coste_estimado": "29.45",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
           "documentos_requeridos": [
             "CIE",
-            "MTD/Proyecto",
-            "CAU"
+            "MTD (Memoria)"
           ],
-          "formulario_ref": null,
+          "formulario_ref": "24196",
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "Tasa 4.21.3.1 (Memoria): 29,45 EUR. Silencio administrativo positivo (3 meses)."
         },
         {
           "orden": 2,
+          "nombre": "Registro de Autoconsumo (Trámite 24593 - modelo AUTee)",
+          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
+          "base_legal": "RD 244/2019",
+          "coste_estimado": "0",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "documentos_requeridos": [
+            "CAU",
+            "Modelo AUTee",
+            "Resolución BT inscrita"
+          ],
+          "formulario_ref": "24593",
+          "paralelo_con": null,
+          "notas": "Requiere tener inscrita previamente la instalación BT (Trámite 24196). Silencio administrativo negativo (6 meses)."
+        },
+        {
+          "orden": 3,
           "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
           "organismo": "Ministerio para la Transición Ecológica (MITECO)",
           "base_legal": "RD 244/2019, Art. 19",
@@ -80,11 +86,11 @@
             ]
           },
           {
-            "==": [
+            "<=": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "residencial"
+              100
             ]
           }
         ]
@@ -92,22 +98,39 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Puesta en servicio BT y alta registro",
+          "nombre": "Inscripción instalación Baja Tensión (Trámite 24196)",
           "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "Ley 24/2013 + RD 244/2019 transposición directa",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
+          "base_legal": "Ley 24/2013",
+          "coste_estimado": "57.25",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
           "documentos_requeridos": [
             "CIE",
-            "MTD/Proyecto",
-            "CAU"
+            "Proyecto"
           ],
-          "formulario_ref": null,
+          "formulario_ref": "24196",
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). Tasa 4.21.2.1.1 (Proyecto): 57,25 EUR. Silencio administrativo positivo (3 meses)."
         },
         {
           "orden": 2,
+          "nombre": "Registro de Autoconsumo (Trámite 24593 - modelo AUTee)",
+          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
+          "base_legal": "RD 244/2019",
+          "coste_estimado": "0",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "documentos_requeridos": [
+            "CAU",
+            "Modelo AUTee",
+            "Resolución BT inscrita"
+          ],
+          "formulario_ref": "24593",
+          "paralelo_con": null,
+          "notas": "Requiere tener inscrita previamente la instalación BT (Trámite 24196). Silencio administrativo negativo (6 meses)."
+        },
+        {
+          "orden": 3,
           "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
           "organismo": "Ministerio para la Transición Ecológica (MITECO)",
           "base_legal": "RD 244/2019, Art. 19",
@@ -127,44 +150,49 @@
       "id": "RIO-FV-003",
       "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
       "condicion": {
-        "or": [
+        ">": [
           {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
+          100
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Puesta en servicio BT y alta registro",
+          "nombre": "Inscripción instalación Baja Tensión (Trámite 24196)",
           "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "Ley 24/2013 + RD 244/2019 transposición directa",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
+          "base_legal": "Ley 24/2013",
+          "coste_estimado": "Variable según documentación",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
           "documentos_requeridos": [
             "CIE",
-            "MTD/Proyecto",
-            "CAU"
+            "Proyecto o Memoria"
           ],
-          "formulario_ref": null,
+          "formulario_ref": "24196",
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). Tasas: 4.21.3.1 (Memoria) = 29,45 EUR; 4.21.2.1.1 (Proyecto) = 57,25 EUR. Silencio administrativo positivo (3 meses)."
         },
         {
           "orden": 2,
+          "nombre": "Registro de Autoconsumo (Trámite 24593 - modelo AUTee)",
+          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
+          "base_legal": "RD 244/2019",
+          "coste_estimado": "0",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "documentos_requeridos": [
+            "CAU",
+            "Modelo AUTee",
+            "Resolución BT inscrita"
+          ],
+          "formulario_ref": "24593",
+          "paralelo_con": null,
+          "notas": "Requiere tener inscrita previamente la instalación BT (Trámite 24196). Silencio administrativo negativo (6 meses)."
+        },
+        {
+          "orden": 3,
           "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
           "organismo": "Ministerio para la Transición Ecológica (MITECO)",
           "base_legal": "RD 244/2019, Art. 19",
@@ -181,5 +209,5 @@
       ]
     }
   ],
-  "nivel_verificacion": "generica"
+  "nivel_verificacion": "verificada"
 }

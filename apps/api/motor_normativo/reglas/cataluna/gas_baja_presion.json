@@ -1,0 +1,168 @@
+{
+  "tipo_instalacion": "gas_baja_presion",
+  "comunidad": "cataluna",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 919/2006 (estatal)",
+    "Decret 192/2023, de 7 de novembre, de la seguretat industrial (Cataluña)"
+  ],
+  "reglas": [
+    {
+      "id": "CAT-GAS-001",
+      "descripcion": "Instalación receptora de gas P <= 70 kW - Diseño y Puesta en Servicio en RITSIC",
+      "condicion": {
+        "<=": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación de Gas",
+          "organismo": "Empresa Instaladora de Gas Autorizada (RASIC)",
+          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_gas_cataluna",
+              "label": "Certificado de Instalación (IRG-3)",
+              "descripcion": "Certificado emitido tras superar las pruebas.",
+              "obligatorio": true
+            },
+            {
+              "id": "esquema_instalacion_gas",
+              "label": "Esquema de la instalación",
+              "descripcion": "Croquis con tuberías, llaves y aparatos.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Al no superar 70 kW, no requiere proyecto técnico. Instaladores deben estar inscritos en RASIC.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Declaración Responsable y Alta en RITSIC",
+          "organismo": "Generalitat de Catalunya (Canal Empresa)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
+          "coste_estimado": "Tasa administrativa",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_gas",
+              "label": "Declaración Responsable de Seguridad Industrial",
+              "descripcion": "Tramitación en línea indicando la finalización.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite 'Altes, modificacions i baixes d'instal·lacions de seguretat industrial' en Canal Empresa.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Puesta en servicio con la distribuidora",
+          "organismo": "Empresa Distribuidora de Gas (Ej. Nedgia Catalunya)",
+          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Derechos de alta",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_gas_cataluna_distribuidora",
+              "label": "Certificado de Instalación",
+              "descripcion": "Entregado a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "El técnico de la distribuidora verificará la instalación.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CAT-GAS-002",
+      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico y Alta RITSIC",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación de Gas",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas_cataluna",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Memoria, planos, cálculos.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Por superar 70 kW requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Dirección de Obra y Certificado de Instalación",
+          "organismo": "Director de obra e Instalador",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de Dirección de Obra",
+              "descripcion": "Firmado por el director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_gas_cataluna_proy",
+              "label": "Certificado de Instalación (IRG-3)",
+              "descripcion": "Firmado por instalador (RASIC).",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Son necesarios ambos certificados.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración Responsable y Alta en RITSIC",
+          "organismo": "Generalitat de Catalunya (Canal Empresa)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
+          "coste_estimado": "Tasa administrativa",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_gas_proy",
+              "label": "Declaración Responsable",
+              "descripcion": "Tramitación en línea indicando datos de proyecto y dirección de obra.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite 'Altes, modificacions i baixes' incluyendo la información del proyecto.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

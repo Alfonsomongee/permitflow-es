@@ -20,9 +20,10 @@ def test_comunidad_invalida_rechazada_por_schema():
             municipio="Ceuta",
         )
 
+from unittest.mock import patch
+
 def test_vertical_sin_cobertura_en_ccaa(clasificador):
-    # Comunidad válida (está en el enum), pero sin JSON para ese vertical:
-    # solo Andalucía tiene los 5 verticales completos.
+    # Simulamos que el archivo JSON no existe para probar la excepción
     params = ClasificadorInput(
         tipo_instalacion="climatizacion_aerotermia",
         comunidad="madrid",
@@ -30,5 +31,6 @@ def test_vertical_sin_cobertura_en_ccaa(clasificador):
         uso="residencial",
         municipio="Madrid",
     )
-    with pytest.raises(NormativaNoEncontradaError):
-        clasificador.clasificar(params)
+    with patch("pathlib.Path.exists", return_value=False):
+        with pytest.raises(NormativaNoEncontradaError):
+            clasificador.clasificar(params)

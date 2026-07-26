@@ -1,0 +1,183 @@
+{
+  "tipo_instalacion": "irve",
+  "comunidad": "pais_vasco",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1053/2014 ITC-BT-52 (estatal)",
+    "Decreto 81/2020, de 30 de junio, de seguridad industrial (País Vasco)"
+  ],
+  "reglas": [
+    {
+      "id": "PVA-IRVE-001",
+      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD) - Declaración Responsable",
+      "condicion": {
+        "not": {
+          "or": [
+            { "==": [{ "var": "modo_recarga" }, 4] },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+                { ">": [{ "var": "potencia_kw" }, 50] }
+              ]
+            },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+                { ">": [{ "var": "potencia_kw" }, 10] }
+              ]
+            }
+          ]
+        }
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador electricista autorizado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño (MTD)",
+              "descripcion": "Memoria que describe la instalación de recarga.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "CIE firmado por el instalador autorizado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Puesta en servicio de Instalaciones de Baja Tensión (Declaración Responsable)",
+          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
+          "base_legal": "Decreto 81/2020",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "euskadi.eus (Seguridad Industrial)",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_bt",
+              "label": "Declaración Responsable",
+              "descripcion": "Formulario telemático.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve_firmado",
+              "label": "CIE de la instalación",
+              "descripcion": "CIE y MTD quedan a disposición de la Administración.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "El Decreto 81/2020 introduce la Declaración Responsable como trámite único de Puesta en Servicio.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "PVA-IRVE-002",
+      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA) - Declaración Responsable",
+      "condicion": {
+        "or": [
+          { "==": [{ "var": "modo_recarga" }, 4] },
+          {
+            "and": [
+              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+              { ">": [{ "var": "potencia_kw" }, 50] }
+            ]
+          },
+          {
+            "and": [
+              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+              { ">": [{ "var": "potencia_kw" }, 10] }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación IRVE",
+          "organismo": "Ingeniero competente colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del proyectista",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Proyecto completo de la infraestructura de recarga.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste de inspección OCA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca_inicial",
+              "label": "Certificado de Inspección Inicial",
+              "descripcion": "Certificado emitido por la OCA tras la revisión.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Inspección obligatoria estatal.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Puesta en servicio de Instalaciones de Baja Tensión (Declaración Responsable)",
+          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
+          "base_legal": "Decreto 81/2020",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "euskadi.eus (Seguridad Industrial)",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_bt_proy",
+              "label": "Declaración Responsable",
+              "descripcion": "Formulario telemático.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca_inicial_adjunto",
+              "label": "Certificado OCA",
+              "descripcion": "Debe estar disponible para la Administración.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Alta en el registro de instalaciones de seguridad industrial (RSI).",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

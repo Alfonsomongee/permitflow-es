@@ -17,9 +17,9 @@ interface Step2Props {
 
 // ─── Sub-formularios por vertical ────────────────────────────────────────────
 
-function CamposPotenciaBase({ state, onChange }: Step2Props) {
+function CamposPotenciaBase({ state, onChange, label, hint }: Step2Props & { label?: string; hint?: string }) {
   return (
-    <Field label="Potencia total de la instalación (kW)">
+    <Field label={label || "Potencia total de la instalación (kW)"} hint={hint}>
       <NumberInput
         value={state.potencia_kw}
         onChange={(v) => onChange({ potencia_kw: v })}
@@ -53,7 +53,11 @@ function CamposDatosElectricos({ state, onChange }: Step2Props) {
 function CamposFotovoltaica({ state, onChange }: Step2Props) {
   return (
     <>
-      <CamposPotenciaBase state={state} onChange={onChange} />
+      <CamposPotenciaBase 
+        state={state} 
+        onChange={onChange} 
+        hint="Para fotovoltaica (RD 244/2019), introduce la potencia máxima del inversor (potencia nominal), NO la potencia pico de los paneles."
+      />
 
       <Field label="Superficie del generador (m²)" hint="Opcional. Se usa para verificar la coherencia con la potencia.">
         <NumberInput

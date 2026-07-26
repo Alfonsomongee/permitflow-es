@@ -1,0 +1,152 @@
+{
+  "tipo_instalacion": "gas_baja_presion",
+  "comunidad": "comunidad_valenciana",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 919/2006 (estatal) ITC-ICG 07"
+  ],
+  "reglas": [
+    {
+      "id": "VAL-GAS-001",
+      "descripcion": "Instalación receptora de gas P <= 70 kW - Diseño y Puesta en Servicio",
+      "condicion": {
+        "<=": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación de Gas",
+          "organismo": "Empresa Instaladora de Gas Autorizada",
+          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "Certificado emitido tras superar las pruebas de estanqueidad.",
+              "obligatorio": true
+            },
+            {
+              "id": "esquema_instalacion_gas",
+              "label": "Esquema de la instalación",
+              "descripcion": "Croquis con tuberías, llaves y aparatos.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Al no superar 70 kW, no requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Puesta en servicio con la distribuidora",
+          "organismo": "Empresa Distribuidora de Gas",
+          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Derechos de alta",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_gas_distribuidora",
+              "label": "Certificado de Instalación",
+              "descripcion": "Entregado a la distribuidora para contratar el suministro.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "En la Comunitat Valenciana no se requiere registro en Industria de las instalaciones individuales < 70kW; el Certificado se entrega directamente a la distribuidora, quien realiza las pruebas de estanqueidad y autoriza el llenado (alta).",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "VAL-GAS-002",
+      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación de Gas",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Memoria, planos, cálculos.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Por superar 70 kW requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Dirección de Obra y Certificado de Instalación",
+          "organismo": "Director de obra e Instalador",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de Dirección de Obra",
+              "descripcion": "Firmado por el director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_gas_proy",
+              "label": "Certificado de Instalación",
+              "descripcion": "Firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Son necesarios ambos certificados.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Puesta en servicio con la distribuidora",
+          "organismo": "Empresa Distribuidora de Gas",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Derechos de alta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas_adjunto",
+              "label": "Proyecto Técnico",
+              "descripcion": "Copia del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificados_gas_adjunto",
+              "label": "Certificados (Obra e Instalación)",
+              "descripcion": "Entregados a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las comprobaciones son realizadas por la distribuidora antes del primer llenado.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

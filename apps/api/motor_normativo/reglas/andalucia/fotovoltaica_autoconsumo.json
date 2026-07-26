@@ -170,7 +170,7 @@
       ]
     },
     {
-      "id": "AND-FV-001B-T1",
+      "id": "AND-FV-001B",
       "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto <= 6k)",
       "condicion": {
         "and": [
@@ -205,7 +205,7 @@
           {
             "<=": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               6000
             ]
@@ -318,7 +318,155 @@
       ]
     },
     {
-      "id": "AND-FV-001B-T2",
+      "id": "AND-FV-001B",
+      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto <= 6k) (Sin inversión informada)",
+      "condicion": {
+        "and": [
+          {
+            "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              },
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  15
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "uso"
+                  },
+                  "residencial"
+                ]
+              }
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "inversion_eur"
+              },
+              null
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación generadora",
+          "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
+          "base_legal": "ITC-FV-03 (BOJA núm. 98, 18/05/2007); REBT RD 842/2002; RD 244/2019",
+          "plazo_estimado_dias": 8,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_fv_medio",
+              "label": "Proyecto técnico visado por colegio profesional",
+              "descripcion": "Proyecto completo de instalación fotovoltaica exigido por la ITC-FV-03 al superar los 10 kW de potencia nominal del inversor, aunque la instalación siga por debajo de los 15 kW que eximen de permisos de acceso y conexión.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Este tramo (10-15 kW residencial) se tramita a menudo erróneamente con MTD por confusión con el umbral de 15 kW del RD 244/2019. La ITC-FV-03 exige proyecto técnico a partir de 10 kW sin excepción.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
+          "organismo": "Técnico competente (el mismo que firma el proyecto)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "cie_generadora_tecnico_medio",
+              "label": "CIE firmado por técnico competente",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro en PUES — Generación BT",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 45,
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_visado_pues_fv_medio",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_tecnico_pues_medio",
+              "label": "CIE firmado por técnico",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_046_fv_medio",
+              "label": "Justificante de pago Modelo 046",
+              "descripcion": "Resguardo del pago de tasas administrativas de la Junta de Andalucía.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Comunicación de autoconsumo a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": 15,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "comunicacion_autoconsumo_dist_medio",
+              "label": "Formulario de comunicación de autoconsumo a la distribuidora",
+              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 15 exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
+              "obligatorio": true
+            },
+            {
+              "id": "registro_pues_fv_medio",
+              "label": "Número de registro PUES",
+              "descripcion": "Referencia del registro en la Delegación de Industria, que acredita la legalización de la instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "AND-FV-001B",
       "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto 6k-60k)",
       "condicion": {
         "and": [
@@ -355,7 +503,7 @@
               {
                 ">": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   6000
                 ]
@@ -363,7 +511,7 @@
               {
                 "<=": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   60000
                 ]
@@ -478,7 +626,7 @@
       ]
     },
     {
-      "id": "AND-FV-001B-T3",
+      "id": "AND-FV-001B",
       "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto > 60k)",
       "condicion": {
         "and": [
@@ -513,7 +661,7 @@
           {
             ">": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               60000
             ]
@@ -626,7 +774,7 @@
       ]
     },
     {
-      "id": "AND-FV-002-T1",
+      "id": "AND-FV-002",
       "descripcion": "Autoconsumo >15 kW y <=500 kW, o uso terciario/industrial <=500 kW (requiere proyecto técnico; vía PUES) (presupuesto <= 6k)",
       "condicion": {
         "and": [
@@ -665,7 +813,7 @@
           {
             "<=": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               6000
             ]
@@ -806,7 +954,187 @@
       ]
     },
     {
-      "id": "AND-FV-002-T2",
+      "id": "AND-FV-002",
+      "descripcion": "Autoconsumo >15 kW y <=500 kW, o uso terciario/industrial <=500 kW (requiere proyecto técnico; vía PUES) (presupuesto <= 6k) (Sin inversión informada)",
+      "condicion": {
+        "and": [
+          {
+            "and": [
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  500
+                ]
+              },
+              {
+                "or": [
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      15
+                    ]
+                  },
+                  {
+                    "!=": [
+                      {
+                        "var": "uso"
+                      },
+                      "residencial"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "inversion_eur"
+              },
+              null
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación generadora",
+          "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_fv",
+              "label": "Proyecto técnico visado por colegio profesional",
+              "descripcion": "Proyecto completo de instalación fotovoltaica: memoria descriptiva, cálculos justificativos (generación, sombras, producción estimada), planos, pliego de condiciones y presupuesto. Visado por el COITIIA o colegio de ingenieros.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES adaptado el 04-03-2024 tras el Decreto-ley 3/2024, de 6 de febrero). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
+          "organismo": "Técnico competente (el mismo que firma el proyecto)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "cie_generadora_tecnico",
+              "label": "CIE firmado por técnico competente",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro en PUES — Generación BT",
+          "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
+          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 45,
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_visado_pues_fv",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_tecnico_pues",
+              "label": "CIE firmado por técnico",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora.",
+              "obligatorio": true
+            },
+            {
+              "id": "tasas_046_fv_grande",
+              "label": "Justificante Modelo 046",
+              "descripcion": "Pago previo de tasas administrativas.",
+              "obligatorio": true
+            },
+            {
+              "id": "doc_empresa_fv",
+              "label": "Escritura de constitución y CIF (si es empresa)",
+              "descripcion": "Documentación acreditativa de la persona jurídica titular de la instalación.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
+          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "MITECO",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "coste_estimado": "Depende de la inversión exacta",
+          "formulario_ref": "MITECO-RAC-001",
+          "documentos_requeridos": [
+            {
+              "id": "formulario_rac",
+              "label": "Formulario de inscripción RAC (sede MITECO)",
+              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO. Requiere certificado digital o Cl@ve. La distribuidora puede realizar este trámite en nombre del titular.",
+              "obligatorio": true
+            },
+            {
+              "id": "registro_pues_rac",
+              "label": "Número de registro PUES o autorización administrativa",
+              "descripcion": "Referencia del registro autonómico que acredita la legalización de la instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "El RAC es obligatorio para instalaciones con excedentes. Para autoconsumo sin excedentes es voluntario pero recomendable. La distribuidora lo realiza automáticamente en muchos casos.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Comunicación de autoconsumo a la distribuidora",
+          "organismo": "Endesa / E-Distribución",
+          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_contador_bidireccional",
+              "label": "Solicitud de contador bidireccional",
+              "descripcion": "Para modalidades con excedentes, solicitud a la distribuidora de instalación de contador bidireccional o telegestión para medir la energía vertida a la red.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "AND-FV-002",
       "descripcion": "Autoconsumo >15 kW y <=500 kW, o uso terciario/industrial <=500 kW (requiere proyecto técnico; vía PUES) (presupuesto 6k-60k)",
       "condicion": {
         "and": [
@@ -847,7 +1175,7 @@
               {
                 ">": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   6000
                 ]
@@ -855,7 +1183,7 @@
               {
                 "<=": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   60000
                 ]
@@ -998,7 +1326,7 @@
       ]
     },
     {
-      "id": "AND-FV-002-T3",
+      "id": "AND-FV-002",
       "descripcion": "Autoconsumo >15 kW y <=500 kW, o uso terciario/industrial <=500 kW (requiere proyecto técnico; vía PUES) (presupuesto > 60k)",
       "condicion": {
         "and": [
@@ -1037,7 +1365,7 @@
           {
             ">": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               60000
             ]
@@ -1178,7 +1506,7 @@
       ]
     },
     {
-      "id": "AND-FV-004-T1",
+      "id": "AND-FV-004",
       "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción (presupuesto <= 5k)",
       "condicion": {
         "and": [
@@ -1193,7 +1521,7 @@
           {
             "<=": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               5000
             ]
@@ -1317,7 +1645,146 @@
       ]
     },
     {
-      "id": "AND-FV-004-T2",
+      "id": "AND-FV-004",
+      "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción (presupuesto <= 5k) (Sin inversión informada)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "inversion_eur"
+              },
+              null
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación generadora",
+          "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_fv_grande",
+              "label": "Proyecto técnico visado por colegio profesional",
+              "descripcion": "Proyecto completo de instalación fotovoltaica >500 kW.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Autorización administrativa previa y de construcción",
+          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
+          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_ejecucion_fv_grande",
+              "label": "Proyecto de ejecución",
+              "descripcion": "Proyecto de ejecución visado para la autorización administrativa.",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_53_4",
+              "label": "Declaración responsable (art. 53.4 Ley 24/2013)",
+              "descripcion": "Declaración responsable exigida por la Ley del Sector Eléctrico para instalaciones que superan el umbral de exención.",
+              "obligatorio": true
+            }
+          ],
+          "formulario_ref": "9588",
+          "notas": "CIERRA lo pendiente de la Fase 0: plataforma confirmada VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
+          "organismo": "Técnico competente (el mismo que firma el proyecto)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "cie_generadora_tecnico_grande",
+              "label": "CIE firmado por técnico competente",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
+          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "MITECO",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "coste_estimado": "Depende de la inversión exacta",
+          "formulario_ref": "MITECO-RAC-001",
+          "documentos_requeridos": [
+            {
+              "id": "formulario_rac_grande",
+              "label": "Formulario de inscripción RAC (sede MITECO)",
+              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Comunicación de autoconsumo a la distribuidora",
+          "organismo": "Endesa / E-Distribución",
+          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_contador_bidireccional_grande",
+              "label": "Solicitud de contador bidireccional",
+              "descripcion": "Solicitud a la distribuidora de instalación de contador bidireccional o telegestión.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "AND-FV-004",
       "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción (presupuesto 5k-500k)",
       "condicion": {
         "and": [
@@ -1334,7 +1801,7 @@
               {
                 ">": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   5000
                 ]
@@ -1342,7 +1809,7 @@
               {
                 "<=": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   500000
                 ]
@@ -1468,7 +1935,7 @@
       ]
     },
     {
-      "id": "AND-FV-004-T3",
+      "id": "AND-FV-004",
       "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción (presupuesto > 500k)",
       "condicion": {
         "and": [
@@ -1483,7 +1950,7 @@
           {
             ">": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               500000
             ]

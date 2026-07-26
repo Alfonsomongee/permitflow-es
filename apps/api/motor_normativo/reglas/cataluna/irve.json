@@ -1,0 +1,208 @@
+{
+  "tipo_instalacion": "irve",
+  "comunidad": "cataluna",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1053/2014 ITC-BT-52 (estatal)",
+    "Decret 192/2023, de 7 de novembre, de la seguretat industrial (Cataluña)",
+    "Instrucción Técnica Complementaria SP 147 (Bomberos de la Generalitat)"
+  ],
+  "reglas": [
+    {
+      "id": "CAT-IRVE-001",
+      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD) - Declaración Responsable",
+      "condicion": {
+        "not": {
+          "or": [
+            { "==": [{ "var": "modo_recarga" }, 4] },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+                { ">": [{ "var": "potencia_kw" }, 50] }
+              ]
+            },
+            {
+              "and": [
+                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+                { ">": [{ "var": "potencia_kw" }, 10] }
+              ]
+            }
+          ]
+        }
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador electricista autorizado (RASIC)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño (MTD)",
+              "descripcion": "Memoria que describe la instalación de recarga.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "CIE firmado por el instalador autorizado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Declaración Responsable y Alta en RITSIC",
+          "organismo": "Generalitat de Catalunya (OGE / Canal Empresa)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
+          "coste_estimado": "Tasa RITSIC (variable según uso)",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_bt",
+              "label": "Declaración Responsable (Formulario Canal Empresa)",
+              "descripcion": "Formulario telemático de declaración responsable.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_irve_firmado",
+              "label": "CIE de la instalación",
+              "descripcion": "El instalador lo guarda pero lo referencia en la declaración.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La legalización se realiza mediante una Declaración Responsable en Canal Empresa, inscribiéndose en el RITSIC.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CAT-IRVE-002",
+      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (ECA) - Declaración Responsable",
+      "condicion": {
+        "or": [
+          { "==": [{ "var": "modo_recarga" }, 4] },
+          {
+            "and": [
+              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
+              { ">": [{ "var": "potencia_kw" }, 50] }
+            ]
+          },
+          {
+            "and": [
+              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
+              { ">": [{ "var": "potencia_kw" }, 10] }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación IRVE",
+          "organismo": "Ingeniero competente colegiado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del proyectista",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico visado o certificado",
+              "descripcion": "Proyecto completo de la infraestructura de recarga.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04. Considerar también requerimientos específicos de bomberos (SP 147) para aparcamientos interiores.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por ECA",
+          "organismo": "Entidad Colaboradora de la Administración (ECA)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste de inspección ECA (variable)",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_eca_inicial",
+              "label": "Certificado de Inspección Inicial (Favorable)",
+              "descripcion": "Certificado emitido por la ECA tras la revisión de la instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Toda instalación que requiere proyecto requiere inspección inicial según ITC-BT-05.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración Responsable y Alta en RITSIC",
+          "organismo": "Generalitat de Catalunya (OGE / Canal Empresa)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
+          "coste_estimado": "Tasa RITSIC (variable)",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_bt_proy",
+              "label": "Declaración Responsable (Formulario)",
+              "descripcion": "Formulario telemático indicando los datos del proyecto y certificado ECA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Tramitación electrónica en RITSIC.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CAT-IRVE-003",
+      "descripcion": "Registro adicional para Infraestructuras de Recarga Pública (RIE)",
+      "condicion": {
+        "==": [{ "var": "acceso_publico" }, "publico"]
+      },
+      "tramites": [
+        {
+          "orden": 4,
+          "nombre": "Inscripción en el Registro RIE",
+          "organismo": "ICAEN (Institut Català d'Energia)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa / ICAEN",
+          "plataforma_url": "https://canalempresa.gencat.cat",
+          "coste_estimado": "Gratuito",
+          "documentos_requeridos": [
+            {
+              "id": "formulario_rie",
+              "label": "Formulario de inscripción RIE",
+              "descripcion": "Registro censal para puntos de recarga de acceso público.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las estaciones de recarga de uso público deben inscribirse en el RIE del ICAEN.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

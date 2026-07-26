@@ -2,34 +2,24 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "navarra",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
+  "ultima_revision": "2026-07-26",
   "revisado_por": "ai-agent",
   "fuentes": [
     "Orden Foral 64/2022 + Decreto Foral Legislativo 1/2017",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "RD 244/2019, de 5 de abril — autoconsumo eléctrico",
+    "Decreto-ley Foral 4/2021, art. 14 (coordinación fotovoltaica foral)",
+    "RD-ley 18/2022, art. 115.5 Ley 24/2013 (umbral estatal exención AAP)"
   ],
   "reglas": [
     {
       "id": "NAV-FV-001",
       "descripcion": "Autoconsumo residencial, potencia <= 10kW",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
@@ -38,6 +28,7 @@
           "nombre": "Registro BT autoconsumo",
           "organismo": "Dirección General Energía I+D+i Empresarial",
           "base_legal": "Orden Foral 64/2022 + Decreto Foral Legislativo 1/2017",
+          "coste_estimado": "NO VERIFICADO — no localizado epígrafe en Ley Foral 2/2021",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
@@ -48,7 +39,7 @@
           ],
           "formulario_ref": null,
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "Registro autonómico."
         },
         {
           "orden": 2,
@@ -81,11 +72,11 @@
             ]
           },
           {
-            "==": [
+            "<=": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "residencial"
+              100
             ]
           }
         ]
@@ -96,6 +87,7 @@
           "nombre": "Registro BT autoconsumo",
           "organismo": "Dirección General Energía I+D+i Empresarial",
           "base_legal": "Orden Foral 64/2022 + Decreto Foral Legislativo 1/2017",
+          "coste_estimado": "NO VERIFICADO — no localizado epígrafe en Ley Foral 2/2021",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
@@ -106,7 +98,7 @@
           ],
           "formulario_ref": null,
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "El umbral estatal vigente para exención de autorización puede ser 500 kW según habilitación del RD-ley 18/2022. La coordinación fotovoltaica foral se rige por el art. 14 del Decreto-ley Foral 4/2021; supletoriamente, RD 1955/2000 (6 meses, silencio desestimatorio)."
         },
         {
           "orden": 2,
@@ -129,23 +121,11 @@
       "id": "NAV-FV-003",
       "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
       "condicion": {
-        "or": [
+        ">": [
           {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
+          100
         ]
       },
       "tramites": [
@@ -154,6 +134,7 @@
           "nombre": "Registro BT autoconsumo",
           "organismo": "Dirección General Energía I+D+i Empresarial",
           "base_legal": "Orden Foral 64/2022 + Decreto Foral Legislativo 1/2017",
+          "coste_estimado": "NO VERIFICADO — no localizado epígrafe en Ley Foral 2/2021",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
@@ -164,7 +145,7 @@
           ],
           "formulario_ref": null,
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "El umbral estatal vigente para exención de autorización puede ser 500 kW según habilitación del RD-ley 18/2022. La coordinación fotovoltaica foral se rige por el art. 14 del Decreto-ley Foral 4/2021; supletoriamente, RD 1955/2000 (6 meses, silencio desestimatorio)."
         },
         {
           "orden": 2,

@@ -2,34 +2,23 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cantabria",
   "version": "1.0.0",
-  "ultima_revision": "2026-06-17",
+  "ultima_revision": "2026-07-26",
   "revisado_por": "ai-agent",
   "fuentes": [
     "RD 244/2019 + Ley 1/2004",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico"
+    "RD 244/2019, de 5 de abril — autoconsumo eléctrico",
+    "RD-ley 18/2022, art. 115.5 Ley 24/2013 (umbral estatal exención AAP)"
   ],
   "reglas": [
     {
       "id": "CNT-FV-001",
       "descripcion": "Autoconsumo residencial, potencia <= 10kW",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
@@ -38,6 +27,7 @@
           "nombre": "Registro BT autoconsumo",
           "organismo": "Dirección General de Industria, Energía y Minas",
           "base_legal": "RD 244/2019 + Ley 1/2004",
+          "coste_estimado": "13.02",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
@@ -47,7 +37,7 @@
           ],
           "formulario_ref": null,
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "Tarifa 2.2.4 (13,02 EUR fijo - Ley 9/1992 mod. Ley 2/2022). Existe una bonificación temporal del 100% cuya vigencia para 2026 queda pendiente de confirmación."
         },
         {
           "orden": 2,
@@ -80,11 +70,11 @@
             ]
           },
           {
-            "==": [
+            "<=": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "residencial"
+              100
             ]
           }
         ]
@@ -95,6 +85,7 @@
           "nombre": "Registro BT autoconsumo",
           "organismo": "Dirección General de Industria, Energía y Minas",
           "base_legal": "RD 244/2019 + Ley 1/2004",
+          "coste_estimado": "13.02",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
@@ -104,7 +95,7 @@
           ],
           "formulario_ref": null,
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "El umbral estatal vigente para exención de autorización puede ser 500 kW según habilitación del RD-ley 18/2022. Tarifa 2.2.4 (13,02 EUR fijo - Ley 9/1992 mod. Ley 2/2022). Existe una bonificación temporal del 100% cuya vigencia para 2026 queda pendiente de confirmación."
         },
         {
           "orden": 2,
@@ -127,23 +118,11 @@
       "id": "CNT-FV-003",
       "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
       "condicion": {
-        "or": [
+        ">": [
           {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "terciario"
-            ]
-          }
+          100
         ]
       },
       "tramites": [
@@ -152,6 +131,7 @@
           "nombre": "Registro BT autoconsumo",
           "organismo": "Dirección General de Industria, Energía y Minas",
           "base_legal": "RD 244/2019 + Ley 1/2004",
+          "coste_estimado": "13.02",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "documentos_requeridos": [
@@ -161,7 +141,7 @@
           ],
           "formulario_ref": null,
           "paralelo_con": null,
-          "notas": "áticamente"
+          "notas": "El umbral estatal vigente para exención de autorización puede ser 500 kW según habilitación del RD-ley 18/2022. Tarifa 2.2.4 (13,02 EUR fijo - Ley 9/1992 mod. Ley 2/2022). Existe una bonificación temporal del 100% cuya vigencia para 2026 queda pendiente de confirmación."
         },
         {
           "orden": 2,

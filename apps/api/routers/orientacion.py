@@ -140,6 +140,11 @@ async def _check_rate_limit(
     prefix = f"ratelimit:{org_id}:"
     una_hora = datetime.now(timezone.utc) - timedelta(hours=1)
 
+    # Limpieza global de rate limits antiguos
+    await db.execute(
+        text("DELETE FROM idoneidad_cache WHERE clave LIKE 'ratelimit:%' AND calculado_en < now() - interval '2 hours'")
+    )
+
     result = await db.execute(
         select(func.count()).where(
             IdoneidadCache.clave.like(f"{prefix}%"),

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutGrid,
   Plus,
+  Compass,
   FileText,
   Bell,
   BarChart2,
@@ -16,6 +17,7 @@ import { SidebarUser } from "./SidebarUser";
 const NAV_ITEMS = [
   { href: "/expedientes",         label: "Expedientes",   icon: LayoutGrid },
   { href: "/nueva-instalacion",   label: "Nueva",         icon: Plus        },
+  { href: "/orientacion",         label: "Orientación",   icon: Compass     },
   { href: "/plantillas",          label: "Plantillas",    icon: FileText    },
   { href: "/alertas",             label: "Alertas BOE",   icon: Bell        },
   { href: "/estadisticas",        label: "Estadísticas",  icon: BarChart2   },

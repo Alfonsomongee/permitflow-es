@@ -1,0 +1,196 @@
+{
+  "tipo_instalacion": "gas_baja_presion",
+  "comunidad": "pais_vasco",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 919/2006 (estatal) ITC-ICG 07",
+    "Decreto 107/1998 (País Vasco)",
+    "Decreto 81/2020, de 30 de junio (País Vasco)"
+  ],
+  "reglas": [
+    {
+      "id": "PVA-GAS-001",
+      "descripcion": "Instalación receptora de gas P <= 70 kW - Diseño y Puesta en Servicio",
+      "condicion": {
+        "<=": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado de Instalación de Gas",
+          "organismo": "Empresa Instaladora de Gas Autorizada",
+          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "Certificado emitido tras superar las pruebas.",
+              "obligatorio": true
+            },
+            {
+              "id": "esquema_instalacion_gas",
+              "label": "Esquema de la instalación",
+              "descripcion": "Croquis con tuberías, llaves y aparatos.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Al no superar 70 kW, no requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Acta de Puesta en Servicio (Declaración Responsable)",
+          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
+          "base_legal": "Decreto 81/2020",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "euskadi.eus",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_gas",
+              "label": "Declaración Responsable",
+              "descripcion": "Trámite de Acta de puesta en servicio de instalaciones de gas.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones precisan de un instalador autorizado. Las inspecciones son coordinadas con las distribuidoras.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Puesta en servicio con la distribuidora",
+          "organismo": "Empresa Distribuidora de Gas (Ej. Nortegas)",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Derechos de alta",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_gas_distribuidora",
+              "label": "Certificado de Instalación",
+              "descripcion": "Entregado a la distribuidora para contratar el suministro.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La distribuidora verifica la estanqueidad antes del primer llenado.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "PVA-GAS-002",
+      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación de Gas",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Memoria, planos, cálculos.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Por superar 70 kW requiere proyecto técnico.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Dirección de Obra y Certificado de Instalación",
+          "organismo": "Director de obra e Instalador",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de Dirección de Obra",
+              "descripcion": "Firmado por el director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_gas_proy",
+              "label": "Certificado de Instalación",
+              "descripcion": "Firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Son necesarios ambos certificados.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Acta de Puesta en Servicio (Declaración Responsable)",
+          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
+          "base_legal": "Decreto 81/2020",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "euskadi.eus",
+          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
+          "coste_estimado": "Tasa autonómica",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_gas_proy",
+              "label": "Declaración Responsable",
+              "descripcion": "Incluyendo referencias del proyecto.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Alta en el registro industrial.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Puesta en servicio con la distribuidora",
+          "organismo": "Empresa Distribuidora de Gas",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": 7,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Derechos de alta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas_adjunto",
+              "label": "Proyecto Técnico",
+              "descripcion": "Copia del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificados_gas_adjunto",
+              "label": "Certificados (Obra e Instalación)",
+              "descripcion": "Entregados a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las comprobaciones son realizadas por la distribuidora antes del primer llenado.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

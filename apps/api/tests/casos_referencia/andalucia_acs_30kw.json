@@ -5,7 +5,8 @@
     "comunidad": "andalucia",
     "potencia_kw": 30,
     "uso": "residencial",
-    "municipio": "Sevilla"
+    "municipio": "Sevilla",
+    "inversion_eur": 5000
   },
   "num_tramites_esperado": 2,
   "tiempo_total_esperado_dias": 22,

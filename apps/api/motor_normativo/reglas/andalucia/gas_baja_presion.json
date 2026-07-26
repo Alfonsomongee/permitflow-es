@@ -23,11 +23,11 @@
             ]
           },
           {
-            "==": [
+            "<=": [
               {
                 "var": "presion_bar"
               },
-              "normal"
+              5
             ]
           },
           {
@@ -77,7 +77,7 @@
       ]
     },
     {
-      "id": "gas-con-proyecto-T1",
+      "id": "gas-con-proyecto",
       "descripcion": "Instalacion receptora de gas con potencia > 70 kW O presion de operacion > 5 bar O uso industrial: requiere proyecto y comunicacion de puesta en servicio (negacion exacta de la regla anterior). (presupuesto <= 2k)",
       "condicion": {
         "and": [
@@ -92,11 +92,11 @@
                 ]
               },
               {
-                "==": [
+                ">": [
                   {
                     "var": "presion_bar"
                   },
-                  "5+"
+                  5
                 ]
               },
               {
@@ -112,7 +112,7 @@
           {
             "<=": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               2000
             ]
@@ -162,7 +162,92 @@
       ]
     },
     {
-      "id": "gas-con-proyecto-T2",
+      "id": "gas-con-proyecto",
+      "descripcion": "Instalacion receptora de gas con potencia > 70 kW O presion de operacion > 5 bar O uso industrial: requiere proyecto y comunicacion de puesta en servicio (negacion exacta de la regla anterior). (presupuesto <= 2k) (Sin inversión informada)",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  70
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "presion_bar"
+                  },
+                  5
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "uso"
+                  },
+                  "industrial"
+                ]
+              }
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "inversion_eur"
+              },
+              null
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Comunicacion de puesta en servicio de instalacion receptora de gas (con proyecto)",
+          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "base_legal": "RD 919/2006 ITC-ICG 07 ap. 3.6; comunicacion en plazo de 30 dias desde la puesta en servicio",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto tecnico de la instalacion de gas",
+              "descripcion": "Proyecto firmado por tecnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de direccion y terminacion de obra (CERTEREG)",
+              "descripcion": "Certificado de direccion de obra de la instalacion receptora",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_gas",
+              "label": "Certificado de instalacion de gas",
+              "descripcion": "CERININD/CERINCOM emitido por empresa instaladora habilitada",
+              "obligatorio": true
+            },
+            {
+              "id": "pruebas_estanqueidad",
+              "label": "Certificado de pruebas previas y puesta en servicio",
+              "descripcion": "Certificado de pruebas previas",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Sin plazo legal de resolucion fijado por norma (comunicacion, no autorizacion).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "gas-con-proyecto",
       "descripcion": "Instalacion receptora de gas con potencia > 70 kW O presion de operacion > 5 bar O uso industrial: requiere proyecto y comunicacion de puesta en servicio (negacion exacta de la regla anterior). (presupuesto 2k-50k)",
       "condicion": {
         "and": [
@@ -177,11 +262,11 @@
                 ]
               },
               {
-                "==": [
+                ">": [
                   {
                     "var": "presion_bar"
                   },
-                  "5+"
+                  5
                 ]
               },
               {
@@ -199,7 +284,7 @@
               {
                 ">": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   2000
                 ]
@@ -207,7 +292,7 @@
               {
                 "<=": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   50000
                 ]
@@ -259,7 +344,7 @@
       ]
     },
     {
-      "id": "gas-con-proyecto-T3",
+      "id": "gas-con-proyecto",
       "descripcion": "Instalacion receptora de gas con potencia > 70 kW O presion de operacion > 5 bar O uso industrial: requiere proyecto y comunicacion de puesta en servicio (negacion exacta de la regla anterior). (presupuesto > 50k)",
       "condicion": {
         "and": [
@@ -274,11 +359,11 @@
                 ]
               },
               {
-                "==": [
+                ">": [
                   {
                     "var": "presion_bar"
                   },
-                  "5+"
+                  5
                 ]
               },
               {
@@ -294,7 +379,7 @@
           {
             ">": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               50000
             ]

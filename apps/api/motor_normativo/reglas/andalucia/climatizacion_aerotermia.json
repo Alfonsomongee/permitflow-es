@@ -154,7 +154,7 @@
       ]
     },
     {
-      "id": "clima-proyecto-mayor-70-T1",
+      "id": "clima-proyecto-mayor-70",
       "descripcion": "Instalacion termica con potencia nominal en calor o frio > 70 kW: proyecto. (presupuesto <= 5k)",
       "condicion": {
         "and": [
@@ -169,7 +169,7 @@
           {
             "<=": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               5000
             ]
@@ -219,7 +219,72 @@
       ]
     },
     {
-      "id": "clima-proyecto-mayor-70-T2",
+      "id": "clima-proyecto-mayor-70",
+      "descripcion": "Instalacion termica con potencia nominal en calor o frio > 70 kW: proyecto. (presupuesto <= 5k) (Sin inversión informada)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "inversion_eur"
+              },
+              null
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Registro y puesta en servicio de instalacion termica (proyecto)",
+          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "base_legal": "RD 1027/2007 art. 15.1.a y art. 24; Orden de 5 de marzo de 2013 (PUES)",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto",
+              "label": "Proyecto tecnico RITE",
+              "descripcion": "Proyecto de la instalacion firmado por tecnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalacion",
+              "descripcion": "Certificado de la instalacion termica (modelo IT 3.1.7)",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion",
+              "label": "Certificado de direccion de obra",
+              "descripcion": "Certificado de direccion facultativa cuando sea preceptivo",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_inspeccion_inicial",
+              "label": "Certificado de inspeccion inicial",
+              "descripcion": "Cuando sea preceptivo segun IT",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "clima-proyecto-mayor-70",
       "descripcion": "Instalacion termica con potencia nominal en calor o frio > 70 kW: proyecto. (presupuesto 5k-300k)",
       "condicion": {
         "and": [
@@ -236,7 +301,7 @@
               {
                 ">": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   5000
                 ]
@@ -244,7 +309,7 @@
               {
                 "<=": [
                   {
-                    "var": "presupuesto_eur"
+                    "var": "inversion_eur"
                   },
                   300000
                 ]
@@ -296,7 +361,7 @@
       ]
     },
     {
-      "id": "clima-proyecto-mayor-70-T3",
+      "id": "clima-proyecto-mayor-70",
       "descripcion": "Instalacion termica con potencia nominal en calor o frio > 70 kW: proyecto. (presupuesto > 300k)",
       "condicion": {
         "and": [
@@ -311,7 +376,7 @@
           {
             ">": [
               {
-                "var": "presupuesto_eur"
+                "var": "inversion_eur"
               },
               300000
             ]

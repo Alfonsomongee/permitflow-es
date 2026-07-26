@@ -1,0 +1,185 @@
+{
+  "tipo_instalacion": "acs",
+  "comunidad": "cataluna",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1027/2007 (RITE)",
+    "RD 487/2022 (Prevención Legionelosis)",
+    "Decret 352/2004, de 27 de juliol, sobre legionel·losi (Cataluña)",
+    "Decret 192/2023, de 7 de novembre, de la seguretat industrial (Cataluña)"
+  ],
+  "reglas": [
+    {
+      "id": "CAT-ACS-001",
+      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD) - Declaración Responsable en RITSIC",
+      "condicion": {
+        "and": [
+          { ">=": [{ "var": "potencia_kw" }, 5] },
+          { "<=": [{ "var": "potencia_kw" }, 70] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_rite",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Descripción de la instalación ACS.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado firmado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones ACS > 5 kW y <= 70 kW requieren MTD.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Declaración Responsable y Alta en RITSIC",
+          "organismo": "Generalitat de Catalunya (Canal Empresa)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
+          "coste_estimado": "Tasa RITSIC",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_rite",
+              "label": "Declaración Responsable",
+              "descripcion": "Formulario telemático.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Se inscribe la instalación en el RITSIC.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CAT-ACS-002",
+      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto y ECA) - Declaración Responsable en RITSIC",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_rite",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Proyecto completo de ACS.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio proyecto para P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por ECA",
+          "organismo": "Entidad Colaboradora de la Administración (ECA)",
+          "base_legal": "RITE y Instrucció 6/2011",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste ECA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_eca_rite",
+              "label": "Certificado de Inspección Inicial",
+              "descripcion": "Certificado favorable.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Toda instalación > 70 kW requiere inspección inicial obligatoria.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración Responsable y Alta en RITSIC",
+          "organismo": "Generalitat de Catalunya (Canal Empresa)",
+          "base_legal": "Decret 192/2023",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
+          "coste_estimado": "Tasa RITSIC",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable_rite_proy",
+              "label": "Declaración Responsable",
+              "descripcion": "Formulario telemático indicando datos de proyecto y ECA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Inscripción en RITSIC.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "CAT-ACS-003",
+      "descripcion": "Notificación de instalación de riesgo de Legionela al Censo Municipal (ASPCAT)",
+      "condicion": {
+        "and": [
+          { ">": [{ "var": "potencia_kw" }, 70] },
+          { "!=": [{ "var": "uso" }, "residencial"] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 4,
+          "nombre": "Notificación al Censo Municipal de Instalaciones de Riesgo",
+          "organismo": "Ayuntamiento correspondiente / ASPCAT",
+          "base_legal": "Decret 352/2004",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Gratuito",
+          "documentos_requeridos": [
+            {
+              "id": "notificacion_censo_municipal",
+              "label": "Impreso de declaración al Censo municipal",
+              "descripcion": "Comunicación formal al ayuntamiento sobre la existencia de instalación ACS con retorno.",
+              "obligatorio": true
+            },
+            {
+              "id": "ppcl_cataluna",
+              "label": "Plan de Prevención y Control de Legionel·la (PPCL)",
+              "descripcion": "Debe estar a disposición de la ASPCAT.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "En Cataluña (art. 11 del Decret 352/2004) es obligatorio notificar la existencia de instalaciones de riesgo al Censo municipal del ayuntamiento.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "tipo_instalacion": "acs",
+  "comunidad": "madrid",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-26",
+  "fuentes": [
+    "RD 1027/2007 (RITE)",
+    "RD 487/2022 (Prevención Legionelosis)",
+    "Orden 9343/2003 (Comunidad de Madrid)"
+  ],
+  "reglas": [
+    {
+      "id": "MAD-ACS-001",
+      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD) - Registro vía EICI",
+      "condicion": {
+        "and": [
+          { ">=": [{ "var": "potencia_kw" }, 5] },
+          { "<=": [{ "var": "potencia_kw" }, 70] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD)",
+          "organismo": "Instalador térmico habilitado",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_rite",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Descripción de la instalación ACS.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Certificado firmado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones ACS > 5 kW y <= 70 kW requieren MTD.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro y Puesta en Servicio RITE",
+          "organismo": "EICI (Entidad de Inspección y Control Industrial)",
+          "base_legal": "Orden 9343/2003 (Madrid)",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "EICI Autorizada",
+          "plataforma_url": "https://tramita.comunidad.madrid/autorizaciones-licencias-permisos-carnes/puesta-servicio-instalaciones-termicas",
+          "coste_estimado": "Tasa EICI",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_firmado",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Registrado por EICI.",
+              "obligatorio": true
+            },
+            {
+              "id": "mtd_rite_firmada",
+              "label": "Memoria Técnica",
+              "descripcion": "Copia de la MTD.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Registro a través de EICI delegado.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "MAD-ACS-002",
+      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto y OCA) - Registro vía EICI",
+      "condicion": {
+        ">": [{ "var": "potencia_kw" }, 70]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE (RD 1027/2007)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios de proyecto",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_rite",
+              "label": "Proyecto Técnico Visado",
+              "descripcion": "Proyecto completo de ACS.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Obligatorio proyecto para P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "OCA (EICI)",
+          "base_legal": "RITE y Decreto 38/2002",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Coste OCA",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca_rite",
+              "label": "Certificado de Inspección Inicial",
+              "descripcion": "Certificado favorable.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Inspección inicial obligatoria por ser P > 70 kW.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro y Puesta en Servicio RITE",
+          "organismo": "EICI (Entidad de Inspección y Control Industrial)",
+          "base_legal": "Orden 9343/2003 (Madrid)",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "EICI Autorizada",
+          "plataforma_url": "https://tramita.comunidad.madrid/autorizaciones-licencias-permisos-carnes/puesta-servicio-instalaciones-termicas",
+          "coste_estimado": "Tasa EICI",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_termico_proyecto",
+              "label": "Certificado de Instalación Térmica",
+              "descripcion": "Firmado por instalador y director de obra.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca_rite_adjunto",
+              "label": "Certificado de Inspección",
+              "descripcion": "Emitido por OCA.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Tramitación a través de EICI.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "MAD-ACS-003",
+      "descripcion": "Notificación de instalación de riesgo de Legionela a Sanidad Ambiental",
+      "condicion": {
+        "and": [
+          { ">": [{ "var": "potencia_kw" }, 70] },
+          { "!=": [{ "var": "uso" }, "residencial"] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 4,
+          "nombre": "Notificación de Instalación de Riesgo",
+          "organismo": "Dirección General de Salud Pública (Área de Sanidad Ambiental) CAM",
+          "base_legal": "RD 487/2022",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Gratuito",
+          "documentos_requeridos": [
+            {
+              "id": "notificacion_legionela",
+              "label": "Formulario de notificación de instalaciones",
+              "descripcion": "Comunicación a la autoridad sanitaria.",
+              "obligatorio": true
+            },
+            {
+              "id": "plan_prevencion",
+              "label": "Plan de Prevención y Control de Legionela (PPCL)",
+              "descripcion": "Documento técnico exigido por RD 487/2022.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Se utiliza el proxy (Potencia > 70 kW y uso no residencial) para asumir que la instalación cuenta con acumuladores grandes o circuito de retorno que la clasifican como riesgo.",
+          "paralelo_con": null
+        }
+      ]
+    }
+  ]
+}
