@@ -93,6 +93,8 @@ class Clasificador:
             "modalidad": params.modalidad,
             "implantacion": params.implantacion,
             "solicita_ayuda": params.solicita_ayuda,
+            "tension": params.tension,
+            "modalidad_autoconsumo": params.modalidad_autoconsumo,
         }
 
         tramites_output = []

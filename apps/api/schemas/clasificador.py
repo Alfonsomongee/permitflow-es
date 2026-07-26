@@ -34,8 +34,10 @@ class ClasificadorInput(BaseModel):
     ubicacion_irve: Optional[str] = Field(None, description="interior | exterior | via_publica | garaje_comunitario")
     requiere_nuevo_suministro: Optional[bool] = Field(None, description="True si requiere nuevo suministro o aumento de potencia")
     modalidad: Optional[str] = Field(None, description="nueva | ampliacion | modificacion | legalizacion")
+    modalidad_autoconsumo: Optional[Literal["sin_excedentes", "con_excedentes"]] = Field(None, description="Modalidad específica para autoconsumo: sin_excedentes o con_excedentes")
     implantacion: Optional[str] = Field(None, description="cubierta | suelo | interior | exterior | via_publica | marquesina | fachada")
     solicita_ayuda: Optional[bool] = Field(False, description="True si solicita subvenciones")
+    tension: Optional[Literal["BT", "AT"]] = Field(None, description="Nivel de tensión de conexión: BT o AT")
 
 
 # ─── Output ───────────────────────────────────────────────────────────────────
