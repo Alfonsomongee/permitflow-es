@@ -11,7 +11,7 @@ import logging
 import secrets
 from typing import Optional
 
-from fastapi import Header, HTTPException, status
+from fastapi import Header, HTTPException, status, Request
 
 from config import settings
 
@@ -19,8 +19,12 @@ logger = logging.getLogger(__name__)
 
 
 async def verificar_clave_interna(
+    request: Request,
     x_internal_key: Optional[str] = Header(default=None),
 ) -> None:
+    if request.url.path == "/health":
+        return
+
     clave = settings.INTERNAL_API_KEY
 
     if not clave:

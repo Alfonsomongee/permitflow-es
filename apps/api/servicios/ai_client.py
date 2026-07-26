@@ -117,3 +117,59 @@ async def completar_estructurado(
             )
 
     raise RuntimeError("unreachable")  # satisface al type-checker
+
+from typing import AsyncIterator, List, Dict, Any
+
+async def completar_stream(
+    mensajes: List[Dict[str, str]],
+    system: str = "",
+    max_tokens: int = 1000,
+    temperatura: float = 0.1,
+    usage_stats: dict = None,
+) -> AsyncIterator[str]:
+    """
+    Streaming de IA, ideado para el asistente conversacional.
+    Usa stream_options={"include_usage": True} para extraer contadores de tokens
+    en el chunk final (chunk.usage).
+    
+    Si se proporciona `usage_stats`, se poblará in-place con las estadísticas:
+      usage_stats["prompt_tokens"]
+      usage_stats["completion_tokens"]
+      usage_stats["prompt_cache_hit_tokens"] (DeepSeek específico, opcional)
+    """
+    msgs = []
+    if system:
+        msgs.append({"role": "system", "content": system})
+    msgs.extend(mensajes)
+
+    kwargs = {
+        "model": DEFAULT_MODEL,
+        "messages": msgs,
+        "max_tokens": max_tokens,
+        "temperature": temperatura,
+        "stream": True,
+        "stream_options": {"include_usage": True}
+    }
+
+    response = await _client.chat.completions.create(**kwargs)
+    
+    async for chunk in response:
+        # Extraer usage del chunk final (en DeepSeek / OpenAI, viene en un chunk vacío al final si include_usage=True)
+        if hasattr(chunk, "usage") and chunk.usage:
+            if usage_stats is not None:
+                usage_stats["prompt_tokens"] = chunk.usage.prompt_tokens
+                usage_stats["completion_tokens"] = chunk.usage.completion_tokens
+                
+                # DeepSeek expone prompt_cache_hit_tokens dentro de prompt_tokens_details
+                if hasattr(chunk.usage, "prompt_tokens_details") and chunk.usage.prompt_tokens_details:
+                    cache_hits = getattr(chunk.usage.prompt_tokens_details, "cached_tokens", 0)
+                    if hasattr(chunk.usage.prompt_tokens_details, "prompt_cache_hit_tokens"):
+                        cache_hits = chunk.usage.prompt_tokens_details.prompt_cache_hit_tokens
+                    usage_stats["prompt_cache_hit_tokens"] = cache_hits
+
+        # Extraer el texto del delta
+        if chunk.choices and len(chunk.choices) > 0:
+            delta = chunk.choices[0].delta
+            if delta and delta.content:
+                yield delta.content
+

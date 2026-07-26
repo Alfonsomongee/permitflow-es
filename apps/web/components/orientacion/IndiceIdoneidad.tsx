@@ -4,9 +4,7 @@ import { useState } from "react";
 import { Loader2, MapPin, AlertCircle, Info, Sun, Thermometer } from "lucide-react";
 import type { FichaTecnologia } from "@/content/tecnologias";
 
-type Props = {
-  tecnologiaId: FichaTecnologia["id"];
-};
+
 
 export type IdoneidadResult = {
   ubicacion: {

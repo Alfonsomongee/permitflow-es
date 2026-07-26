@@ -9,6 +9,7 @@
 
 import { DashboardSidebar } from "@/components/layouts/DashboardSidebar";
 import { DashboardTopbar } from "@/components/layouts/DashboardTopbar";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 import type { ReactNode } from "react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -17,13 +18,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       {/* Sidebar fija */}
       <DashboardSidebar />
 
-      {/* Área de contenido scrollable */}
       <div className="flex flex-1 flex-col overflow-hidden">
         <DashboardTopbar />
         <main className="flex-1 overflow-y-auto">
           {children}
         </main>
       </div>
+
+      <ChatWidget />
     </div>
   );
 }

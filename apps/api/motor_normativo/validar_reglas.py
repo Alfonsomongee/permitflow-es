@@ -61,29 +61,80 @@ def ev(logic, data, usadas):
         return False
     raise ValueError(f"operador no soportado: {op}")
 
-def casos_prueba():
-    """Barrido de entradas realistas usando SOLO campos que existen."""
-    pot = [2, 3, 10, 10.001, 15, 15.001, 30, 70, 100, 100.001, 500, 500.001, 1000]
-    usos = ["residencial", "terciario", "industrial"]
-    mods = list(MODALIDAD_DOC) + [None]
-    tension = ["BT", "AT", None]
-    mod_auto = ["sin_excedentes", "con_excedentes", None]
-    acc_pub = [True, False]
-    req_sum = [True, False]
-    sol_ayu = [True, False]
-    pres = [1000, 5000, 10000, 70000, 400000, 700000, 2000000, None]
-    
-    for p, u, m, t, ma, ap, rs, sa, pr in product(pot, usos, mods, tension, mod_auto, acc_pub, req_sum, sol_ayu, pres):
-        yield {
-            "potencia_kw": p, "uso": u, "modalidad": m, "municipio": "X",
-            "superficie_m2": 100, "solicita_ayuda": sa, "tension": t,
-            "modalidad_autoconsumo": ma,
-            "numero_puntos": 2, "potencia_por_punto_kw": 22,
-            "modo_recarga": "3", "acceso_publico": ap,
-            "ubicacion_irve": "exterior", "requiere_nuevo_suministro": rs,
-            "combustible": "gas_natural", "presion_bar": "normal",
-            "implantacion": "cubierta", "inversion_eur": pr
-        }
+def variables_de(cond, acc=None):
+    """Extrae las variables referenciadas en una condición JsonLogic."""
+    acc = set() if acc is None else acc
+    if isinstance(cond, dict):
+        for op, args in cond.items():
+            if op == "var":
+                acc.add(args if isinstance(args, str) else args[0])
+            else:
+                for a in (args if isinstance(args, list) else [args]):
+                    variables_de(a, acc)
+    return acc
+
+# Fronteras por campo — el producto se hace SOLO sobre las variables que usa cada regla
+VALORES = {
+    "potencia_kw": [2, 3, 10, 10.001, 15, 15.001, 30, 70, 100, 100.001, 500, 500.001, 1000],
+    "uso": ["residencial", "terciario", "industrial"],
+    "modalidad": list(MODALIDAD_DOC) + [None],
+    "tension": ["BT", "AT", None],
+    "modalidad_autoconsumo": ["sin_excedentes", "con_excedentes", None],
+    "acceso_publico": [True, False],
+    "requiere_nuevo_suministro": [True, False],
+    "solicita_ayuda": [True, False],
+    "inversion_eur": [0, 5000, 6010.12, 6010.13, 60000, 60001, 400000, 700000, 2000000, None],
+    "numero_puntos": [1, 2, 10, None],
+    "potencia_por_punto_kw": [7, 22, 50, None],
+    "modo_recarga": ["3", "4", None],
+    "ubicacion_irve": ["interior", "exterior", "garaje_comunitario", None],
+    "combustible": ["gas_natural", "glp", None],
+    "presion_bar": ["normal", "5+", None],
+    "implantacion": ["cubierta", "suelo", None],
+    "superficie_m2": [50, 100, 500, None],
+    "municipio": ["X"],
+    "acumulacion": [True, False, None],
+    "recirculacion": [True, False, None],
+    "uso_colectivo": [True, False, None],
+}
+
+# Valores por defecto para campos no barridos en un caso concreto
+DEFAULTS = {
+    "potencia_kw": 10, "uso": "residencial", "municipio": "X",
+    "superficie_m2": 100, "solicita_ayuda": False, "tension": "BT",
+    "modalidad_autoconsumo": None, "numero_puntos": 2,
+    "potencia_por_punto_kw": 22, "modo_recarga": "3",
+    "acceso_publico": False, "ubicacion_irve": "exterior",
+    "requiere_nuevo_suministro": False, "combustible": "gas_natural",
+    "presion_bar": "normal", "implantacion": "cubierta",
+    "modalidad": None, "inversion_eur": 5000,
+    "acumulacion": None, "recirculacion": None, "uso_colectivo": None,
+}
+
+def casos_por_regla(cond):
+    """Producto cartesiano SOLO de las variables que esta regla usa (típ. ≤4)."""
+    vars_usadas = variables_de(cond) & set(VALORES.keys())
+    if not vars_usadas:
+        yield dict(DEFAULTS)
+        return
+    campos = sorted(vars_usadas)
+    listas = [VALORES.get(c, [None]) for c in campos]
+    for combo in product(*listas):
+        caso = dict(DEFAULTS)
+        for c, v in zip(campos, combo):
+            caso[c] = v
+        yield caso
+
+def casos_cobertura_global():
+    """Barrido reducido para detectar planes vacíos: potencia × uso × tensión × inversión."""
+    for p, u, t, inv in product(
+        VALORES["potencia_kw"], VALORES["uso"], VALORES["tension"],
+        [0, 5000, 60001, 700000, None],
+    ):
+        caso = dict(DEFAULTS)
+        caso.update({"potencia_kw": p, "uso": u, "tension": t, "inversion_eur": inv})
+        yield caso
+
 
 def auditar(path: pathlib.Path):
     inc = []
@@ -102,16 +153,15 @@ def auditar(path: pathlib.Path):
     if d.get("tipo_instalacion") not in TIPOS:
         inc.append(("BLOQUEANTE", f"'tipo_instalacion': \"{d.get('tipo_instalacion')}\" invalido"))
 
-    # 3. variables usadas frente al contrato + alcanzabilidad
-    casos = list(casos_prueba())
-    vars_totales, nunca, cobertura = set(), [], {c_i: 0 for c_i in range(len(casos))}
+    # 3. variables usadas frente al contrato + alcanzabilidad (por regla)
+    vars_totales, nunca = set(), []
     for r in d.get("reglas", []):
         usadas, disparos = set(), 0
-        for i, c in enumerate(casos):
+        casos_r = list(casos_por_regla(r["condicion"]))
+        for c in casos_r:
             try:
                 if ev(r["condicion"], c, usadas):
                     disparos += 1
-                    cobertura[i] += 1
             except ValueError as e:
                 inc.append(("BLOQUEANTE", f"regla {r['id']}: {e}"))
                 break
@@ -125,11 +175,23 @@ def auditar(path: pathlib.Path):
                     f"{sorted(fantasma)} -> siempre None -> las condiciones que las usan son falsas"))
     if nunca:
         inc.append(("BLOQUEANTE", f"reglas que NUNCA disparan: {nunca}"))
+
+    # cobertura global: barrido reducido para detectar "planes vacíos"
+    casos_glob = list(casos_cobertura_global())
+    cobertura = {i: 0 for i in range(len(casos_glob))}
+    for r in d.get("reglas", []):
+        for i, c in enumerate(casos_glob):
+            dummy = set()
+            try:
+                if ev(r["condicion"], c, dummy):
+                    cobertura[i] += 1
+            except ValueError:
+                pass
     huerfanos = sum(1 for v in cobertura.values() if v == 0)
     if huerfanos:
-        pct = 100 * huerfanos / len(casos)
+        pct = 100 * huerfanos / len(casos_glob)
         inc.append(("BLOQUEANTE" if pct > 50 else "GRAVE",
-                    f"{huerfanos}/{len(casos)} casos ({pct:.0f}%) no activan ninguna regla -> plan vacio"))
+                    f"{huerfanos}/{len(casos_glob)} casos ({pct:.0f}%) no activan ninguna regla -> plan vacio"))
 
     # 4. modalidad usada con valores no documentados
     txt = json.dumps(d, ensure_ascii=False)

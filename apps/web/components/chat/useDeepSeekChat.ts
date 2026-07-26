@@ -8,8 +8,10 @@ export interface ChatMessage {
 }
 
 interface UseDeepSeekChatOptions {
-  /** Contexto del sistema: describe qué es PermitFlow, los verticales y la normativa activa */
-  systemPrompt: string;
+  expedienteId?: string;
+  comunidad?: string;
+  tecnologia?: string;
+  systemPrompt?: string;
 }
 
 interface UseDeepSeekChatReturn {
@@ -20,11 +22,13 @@ interface UseDeepSeekChatReturn {
   clearChat: () => void;
 }
 
-const DEEPSEEK_API_URL = "/api/chat";
+const DEEPSEEK_API_URL = "/api/asistente";
 
 export function useDeepSeekChat({
-  systemPrompt,
-}: UseDeepSeekChatOptions): UseDeepSeekChatReturn {
+  expedienteId,
+  comunidad,
+  tecnologia,
+}: UseDeepSeekChatOptions = {}): UseDeepSeekChatReturn {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -49,14 +53,10 @@ export function useDeepSeekChat({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "deepseek-chat",
-            messages: [
-              { role: "system", content: systemPrompt },
-              ...updated.map((m) => ({ role: m.role, content: m.content })),
-            ],
-            temperature: 0.3,   // Bajo para respuestas normativas precisas
-            max_tokens: 1024,
-            stream: true,
+            mensajes: updated.map((m) => ({ role: m.role, content: m.content })),
+            expediente_id: expedienteId,
+            comunidad: comunidad,
+            tecnologia: tecnologia,
           }),
         });
 
@@ -89,25 +89,29 @@ export function useDeepSeekChat({
           buffer = lineas.pop() ?? "";
           for (const linea of lineas) {
             const l = linea.trim();
-            if (!l.startsWith("data:")) continue;
-            const payload = l.slice(5).trim();
-            if (payload === "[DONE]") continue;
-            try {
-              const chunk = JSON.parse(payload) as {
-                choices?: Array<{ delta?: { content?: string } }>;
-              };
-              const delta = chunk.choices?.[0]?.delta?.content ?? "";
-              if (delta) {
-                content += delta;
-                pintar(content);
-              }
-            } catch {
-              // Chunk parcial o keep-alive: ignorar
+            // Data format is typically "0:"chunk""
+            if (l.startsWith("0:")) {
+                try {
+                    const chunk = JSON.parse(l.slice(2));
+                    if (chunk) {
+                        content += chunk;
+                        pintar(content);
+                    }
+                } catch {
+                    // Ignore parsing errors for partial chunks
+                }
+            } else if (l.startsWith("3:")) {
+                try {
+                    const err = JSON.parse(l.slice(2));
+                    setError(err);
+                } catch {
+                    setError("Error in stream");
+                }
             }
           }
         }
 
-        if (!content) {
+        if (!content && !error) {
           pintar("Sin respuesta del modelo.");
         }
       } catch (err) {
@@ -121,7 +125,7 @@ export function useDeepSeekChat({
         setLoading(false);
       }
     },
-    [loading, systemPrompt]
+    [loading, expedienteId, comunidad, tecnologia, error]
   );
 
   const clearChat = useCallback(() => {
