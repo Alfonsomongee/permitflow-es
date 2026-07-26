@@ -1,6 +1,6 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "Aragón",
+  "comunidad": "aragon",
   "version": "1.0.0",
   "ultima_revision": "2026-07-24",
   "fuentes": [
@@ -16,7 +16,14 @@
     {
       "id": "ARA-FV-SIN",
       "descripcion": "Autoconsumo sin excedentes (cualquier potencia hasta el ámbito autonómico): exento de autorización administrativa, de construcción y de explotación",
-      "condicion": {"==": [{"var": "modalidad"}, "sin_excedentes"]},
+      "condicion": {
+        "==": [
+          {
+            "var": "modalidad"
+          },
+          "sin_excedentes"
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -30,9 +37,24 @@
           "coste_estimado": "0 EUR si potencia <100 kW (exenta); 56.20 EUR si >=100 kW (Tasa 14, ap. 5, tarifa 52, regla 4ª)",
           "formulario_ref": "F107 (<100 kW) / F106 (>=100 kW)",
           "documentos_requeridos": [
-            {"id": "dr", "label": "Declaración responsable", "descripcion": "Conforme reglamentación técnica aplicable", "obligatorio": true},
-            {"id": "memoria_cie", "label": "Memoria técnica y CIE", "descripcion": "Instalador habilitado BT", "obligatorio": true},
-            {"id": "f107", "label": "Formulario F107", "descripcion": "Inscripción en RADNE (F106 si >=100 kW)", "obligatorio": true}
+            {
+              "id": "dr",
+              "label": "Declaración responsable",
+              "descripcion": "Conforme reglamentación técnica aplicable",
+              "obligatorio": true
+            },
+            {
+              "id": "memoria_cie",
+              "label": "Memoria técnica y CIE",
+              "descripcion": "Instalador habilitado BT",
+              "obligatorio": true
+            },
+            {
+              "id": "f107",
+              "label": "Formulario F107",
+              "descripcion": "Inscripción en RADNE (F106 si >=100 kW)",
+              "obligatorio": true
+            }
           ],
           "notas": "Modalidad sin excedentes exenta de autorización por art. 59.2 Ley 1/2021. Si P < 100 kW en BT, derivar a portal PEGASSO. Solo enviar a SEDA instalaciones que superen umbrales o apliquen a secciones específicas."
         }
@@ -41,7 +63,34 @@
     {
       "id": "ARA-FV-CON-100",
       "descripcion": "Autoconsumo con excedentes BT <=100 kW: sin autorización administrativa previa; registro y permisos de acceso/conexión",
-      "condicion": {"and": [{"==": [{"var": "modalidad"}, "con_excedentes"]}, {"<=": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "BT"]}]},
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "modalidad"
+              },
+              "con_excedentes"
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tension"
+              },
+              "BT"
+            ]
+          }
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -55,9 +104,24 @@
           "coste_estimado": "0 EUR registro (<100 kW exento); aval acceso/conexión 40 EUR/kW; gestión resguardo garantía 25.00 EUR (tarifa 58)",
           "formulario_ref": "F107",
           "documentos_requeridos": [
-            {"id": "memoria", "label": "Memoria/proyecto según potencia", "descripcion": "Proyecto si >10 kW", "obligatorio": true},
-            {"id": "cau", "label": "CAU", "descripcion": "De la distribuidora", "obligatorio": true},
-            {"id": "aval", "label": "Aval económico", "descripcion": "40 EUR/kW para >10 kW (excedentes)", "obligatorio": false}
+            {
+              "id": "memoria",
+              "label": "Memoria/proyecto según potencia",
+              "descripcion": "Proyecto si >10 kW",
+              "obligatorio": true
+            },
+            {
+              "id": "cau",
+              "label": "CAU",
+              "descripcion": "De la distribuidora",
+              "obligatorio": true
+            },
+            {
+              "id": "aval",
+              "label": "Aval económico",
+              "descripcion": "40 EUR/kW para >10 kW (excedentes)",
+              "obligatorio": false
+            }
           ],
           "notas": "Aval de 40 EUR/kW requerido para instalaciones >15 kW urbano / >10 kW rural con excedentes. Si P < 100 kW en BT, derivar a portal PEGASSO."
         }
@@ -66,7 +130,26 @@
     {
       "id": "ARA-FV-AT",
       "descripcion": "Autoconsumo con producción >100 kW o AT (tecnología no eólica): autorización administrativa previa, de construcción y de explotación",
-      "condicion": {"or": [{">": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "AT"]}]},
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tension"
+              },
+              "AT"
+            ]
+          }
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -80,11 +163,36 @@
           "coste_estimado": "Tasa 14.1 (importe dependiente de la inversión del proyecto)",
           "formulario_ref": "F102",
           "documentos_requeridos": [
-            {"id": "proyecto", "label": "Proyecto y anexo de configuración de potencia", "descripcion": "Técnico competente", "obligatorio": true},
-            {"id": "cap_econ", "label": "Acreditación de capacidad económica y técnica", "descripcion": "", "obligatorio": true},
-            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Distribuidora/transportista", "obligatorio": true},
-            {"id": "dia", "label": "Declaración de Impacto Ambiental (DIA)", "descripcion": "Si procede", "obligatorio": true},
-            {"id": "caja_deposito", "label": "Acreditación depósito en Caja Depósitos", "descripcion": "Resguardo garantía económica", "obligatorio": true}
+            {
+              "id": "proyecto",
+              "label": "Proyecto y anexo de configuración de potencia",
+              "descripcion": "Técnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "cap_econ",
+              "label": "Acreditación de capacidad económica y técnica",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "acceso",
+              "label": "Permisos de acceso y conexión",
+              "descripcion": "Distribuidora/transportista",
+              "obligatorio": true
+            },
+            {
+              "id": "dia",
+              "label": "Declaración de Impacto Ambiental (DIA)",
+              "descripcion": "Si procede",
+              "obligatorio": true
+            },
+            {
+              "id": "caja_deposito",
+              "label": "Acreditación depósito en Caja Depósitos",
+              "descripcion": "Resguardo garantía económica",
+              "obligatorio": true
+            }
           ],
           "notas": "Plazo legal: autorización previa 3 meses y de construcción 3 meses; explotación 1 mes. Silencio desestimatorio por analogía sectorial. Competencia del Servicio Provincial para FV <=1 MW. Requiere clasificar si en terreno rústico o urbano."
         }

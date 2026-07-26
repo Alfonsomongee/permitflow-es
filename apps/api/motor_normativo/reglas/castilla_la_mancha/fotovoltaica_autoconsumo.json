@@ -1,6 +1,6 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "Castilla-La Mancha",
+  "comunidad": "castilla_la_mancha",
   "version": "1.0.0",
   "ultima_revision": "2026-07-24",
   "fuentes": [
@@ -16,7 +16,26 @@
     {
       "id": "CLM-FV-010",
       "descripcion": "Autoconsumo BT hasta 10 kW: memoria técnica, sin proyecto ni autorización administrativa previa; comunicación previa urbanística",
-      "condicion": {"and": [{"<=": [{"var": "potencia_kw"}, 10]}, {"==": [{"var": "tension"}, "BT"]}]},
+      "condicion": {
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tension"
+              },
+              "BT"
+            ]
+          }
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -30,10 +49,30 @@
           "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
           "formulario_ref": "1004429",
           "documentos_requeridos": [
-            {"id": "solicitud", "label": "Solicitud normalizada", "descripcion": "Firmada por titular o representante", "obligatorio": true},
-            {"id": "cie", "label": "Certificado de instalación eléctrica (CIE)", "descripcion": "Emitido por empresa instaladora habilitada de BT", "obligatorio": true},
-            {"id": "memoria", "label": "Memoria técnica de diseño", "descripcion": "Según ITC-BT-04 del REBT", "obligatorio": true},
-            {"id": "cau", "label": "Código de autoconsumo (CAU)", "descripcion": "Solicitado a la distribuidora", "obligatorio": true}
+            {
+              "id": "solicitud",
+              "label": "Solicitud normalizada",
+              "descripcion": "Firmada por titular o representante",
+              "obligatorio": true
+            },
+            {
+              "id": "cie",
+              "label": "Certificado de instalación eléctrica (CIE)",
+              "descripcion": "Emitido por empresa instaladora habilitada de BT",
+              "obligatorio": true
+            },
+            {
+              "id": "memoria",
+              "label": "Memoria técnica de diseño",
+              "descripcion": "Según ITC-BT-04 del REBT",
+              "obligatorio": true
+            },
+            {
+              "id": "cau",
+              "label": "Código de autoconsumo (CAU)",
+              "descripcion": "Solicitado a la distribuidora",
+              "obligatorio": true
+            }
           ],
           "notas": "Sin autorización administrativa previa (potencia <=100 kW en BT, art. 53.3 Ley 24/2013). Licencia de obra sustituida por comunicación previa (Ley 1/2021)."
         }
@@ -42,7 +81,34 @@
     {
       "id": "CLM-FV-015",
       "descripcion": "Autoconsumo BT >10 kW y <=15 kW: proyecto + certificado final de obra; sin autorización administrativa previa",
-      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 10]}, {"<=": [{"var": "potencia_kw"}, 15]}, {"==": [{"var": "tension"}, "BT"]}]},
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              15
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tension"
+              },
+              "BT"
+            ]
+          }
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -56,9 +122,24 @@
           "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
           "formulario_ref": "1004429",
           "documentos_requeridos": [
-            {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Firmado por técnico competente", "obligatorio": true},
-            {"id": "cfo", "label": "Certificado final de obra", "descripcion": "Técnico competente", "obligatorio": true},
-            {"id": "cie", "label": "Certificado de instalación eléctrica", "descripcion": "Empresa instaladora BT", "obligatorio": true}
+            {
+              "id": "proyecto",
+              "label": "Proyecto técnico",
+              "descripcion": "Firmado por técnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "cfo",
+              "label": "Certificado final de obra",
+              "descripcion": "Técnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "cie",
+              "label": "Certificado de instalación eléctrica",
+              "descripcion": "Empresa instaladora BT",
+              "obligatorio": true
+            }
           ],
           "notas": "Umbral de proyecto en 10 kW según RD 244/2019 (tramo estatal, no propio)."
         }
@@ -67,7 +148,34 @@
     {
       "id": "CLM-FV-100",
       "descripcion": "Autoconsumo BT >15 kW y <=100 kW en BT: sin autorización administrativa previa; registro con proyecto",
-      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 15]}, {"<=": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "BT"]}]},
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              15
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tension"
+              },
+              "BT"
+            ]
+          }
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -81,8 +189,18 @@
           "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
           "formulario_ref": "1004429",
           "documentos_requeridos": [
-            {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Técnico competente", "obligatorio": true},
-            {"id": "cfo", "label": "Certificado final de obra", "descripcion": "Técnico competente", "obligatorio": true}
+            {
+              "id": "proyecto",
+              "label": "Proyecto técnico",
+              "descripcion": "Técnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "cfo",
+              "label": "Certificado final de obra",
+              "descripcion": "Técnico competente",
+              "obligatorio": true
+            }
           ],
           "notas": "Hasta 100 kW en BT quedan excluidas de autorización administrativa previa (art. 53.3 Ley 24/2013)."
         }
@@ -91,7 +209,26 @@
     {
       "id": "CLM-FV-AT",
       "descripcion": "Autoconsumo con producción >100 kW o conexión en AT: autorización administrativa previa y de construcción",
-      "condicion": {"or": [{">": [{"var": "potencia_kw"}, 100]}, {"==": [{"var": "tension"}, "AT"]}]},
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tension"
+              },
+              "AT"
+            ]
+          }
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -105,10 +242,30 @@
           "coste_estimado": "Tarifa 3.2 (autorización previa) y 3.3 (de construcción) de la Ley 7/2008 mediante Modelo 046",
           "formulario_ref": "1002105",
           "documentos_requeridos": [
-            {"id": "proyecto", "label": "Proyecto de la instalación", "descripcion": "Técnico competente (proyecto y separatas)", "obligatorio": true},
-            {"id": "eia", "label": "Documentación ambiental", "descripcion": "Ley 2/2020 de Evaluación Ambiental de CLM, si procede", "obligatorio": false},
-            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Otorgados por la distribuidora", "obligatorio": true},
-            {"id": "aval", "label": "Resguardo garantía económica", "descripcion": "Fianza", "obligatorio": true}
+            {
+              "id": "proyecto",
+              "label": "Proyecto de la instalación",
+              "descripcion": "Técnico competente (proyecto y separatas)",
+              "obligatorio": true
+            },
+            {
+              "id": "eia",
+              "label": "Documentación ambiental",
+              "descripcion": "Ley 2/2020 de Evaluación Ambiental de CLM, si procede",
+              "obligatorio": false
+            },
+            {
+              "id": "acceso",
+              "label": "Permisos de acceso y conexión",
+              "descripcion": "Otorgados por la distribuidora",
+              "obligatorio": true
+            },
+            {
+              "id": "aval",
+              "label": "Resguardo garantía económica",
+              "descripcion": "Fianza",
+              "obligatorio": true
+            }
           ],
           "notas": "Tramitación conjunta de autorización previa y de construcción. Plazo de resolución de tres meses, silencio desestimatorio."
         }

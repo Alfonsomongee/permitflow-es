@@ -1,6 +1,6 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
-  "comunidad": "Illes Balears",
+  "comunidad": "baleares",
   "version": "1.0.0",
   "ultima_revision": "2026-07-24",
   "fuentes": [
@@ -16,7 +16,14 @@
     {
       "id": "IB-FV-015",
       "descripcion": "Autoconsumo renovable hasta 15 kW: exento de tasa; registro de pequeña potencia; comunicación previa urbanística",
-      "condicion": {"<=": [{"var": "potencia_kw"}, 15]},
+      "condicion": {
+        "<=": [
+          {
+            "var": "potencia_kw"
+          },
+          15
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -30,9 +37,24 @@
           "coste_estimado": "0 EUR (exentas hasta 15 kW, tarifa 408.1.1)",
           "formulario_ref": "034",
           "documentos_requeridos": [
-            {"id": "cie", "label": "Certificado de instalación BT para autoconsumo", "descripcion": "Instalador habilitado", "obligatorio": true},
-            {"id": "memoria", "label": "Memoria técnica", "descripcion": "Según potencia", "obligatorio": true},
-            {"id": "cp_urb", "label": "Comunicación previa urbanística", "descripcion": "Ley 12/2017 art. 153.1.e (cubierta)", "obligatorio": true}
+            {
+              "id": "cie",
+              "label": "Certificado de instalación BT para autoconsumo",
+              "descripcion": "Instalador habilitado",
+              "obligatorio": true
+            },
+            {
+              "id": "memoria",
+              "label": "Memoria técnica",
+              "descripcion": "Según potencia",
+              "obligatorio": true
+            },
+            {
+              "id": "cp_urb",
+              "label": "Comunicación previa urbanística",
+              "descripcion": "Ley 12/2017 art. 153.1.e (cubierta)",
+              "obligatorio": true
+            }
           ],
           "notas": "Exención de tasa hasta 15 kW. Inscripción de oficio en el Registro de autoconsumo de las Illes Balears. No se exige autorización administrativa (umbral 500 kW)."
         }
@@ -41,7 +63,26 @@
     {
       "id": "IB-FV-500",
       "descripcion": "Autoconsumo >15 kW y <=500 kW: sin autorización administrativa previa (exención autonómica); tasa aplicable",
-      "condicion": {"and": [{">": [{"var": "potencia_kw"}, 15]}, {"<=": [{"var": "potencia_kw"}, 500]}]},
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              15
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          }
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -55,9 +96,24 @@
           "coste_estimado": "Tasa aplicable >15 kW (tarifa 408); ampliaciones/modificaciones domésticas 46.76 EUR (modelo 046 ATIB)",
           "formulario_ref": "034",
           "documentos_requeridos": [
-            {"id": "proyecto", "label": "Proyecto o memoria técnica", "descripcion": "Según potencia/tramos RD 244/2019", "obligatorio": true},
-            {"id": "cie", "label": "Certificado de instalación", "descripcion": "Instalador habilitado", "obligatorio": true},
-            {"id": "acceso", "label": "Permisos de acceso y conexión", "descripcion": "Con excedentes", "obligatorio": false}
+            {
+              "id": "proyecto",
+              "label": "Proyecto o memoria técnica",
+              "descripcion": "Según potencia/tramos RD 244/2019",
+              "obligatorio": true
+            },
+            {
+              "id": "cie",
+              "label": "Certificado de instalación",
+              "descripcion": "Instalador habilitado",
+              "obligatorio": true
+            },
+            {
+              "id": "acceso",
+              "label": "Permisos de acceso y conexión",
+              "descripcion": "Con excedentes",
+              "obligatorio": false
+            }
           ],
           "notas": "DIFERENCIA CLAVE FRENTE AL LOTE 2: Baleares eleva el umbral de exención de autorización a 500 kW (Decreto-ley 3/2024), como Andalucía. En suelo rústico el autoconsumo es uso admitido sin declaración de interés general (art. 48 Ley 10/2019)."
         }
@@ -66,7 +122,14 @@
     {
       "id": "IB-FV-AUT",
       "descripcion": "Instalaciones de producción >500 kW: autorización administrativa completa",
-      "condicion": {">": [{"var": "potencia_kw"}, 500]},
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          500
+        ]
+      },
       "tramites": [
         {
           "orden": 1,
@@ -80,9 +143,24 @@
           "coste_estimado": "Sin restricciones monetarias pre-declaradas en la ficha base",
           "formulario_ref": "2807998",
           "documentos_requeridos": [
-            {"id": "proyecto", "label": "Proyecto técnico", "descripcion": "Técnico competente", "obligatorio": true},
-            {"id": "eia", "label": "Estudio de impacto ambiental", "descripcion": "Si procede (Ley 12/2016 EA Illes Balears)", "obligatorio": false},
-            {"id": "aval", "label": "Aval/seguro de caución de acceso", "descripcion": "RD 1183/2020", "obligatorio": true}
+            {
+              "id": "proyecto",
+              "label": "Proyecto técnico",
+              "descripcion": "Técnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "eia",
+              "label": "Estudio de impacto ambiental",
+              "descripcion": "Si procede (Ley 12/2016 EA Illes Balears)",
+              "obligatorio": false
+            },
+            {
+              "id": "aval",
+              "label": "Aval/seguro de caución de acceso",
+              "descripcion": "RD 1183/2020",
+              "obligatorio": true
+            }
           ],
           "notas": "CRÍTICO: Bloqueo de redirección hasta que el usuario suba proyecto y EIA a https://intranet.caib.es/reenerfront/ y obtenga el código vinculante. Plazo de resolución: 6 meses ('los que establecen los reales decretos anteriores, o en su defecto, 6 meses'). Efecto del silencio NO confirmado verbatim (presuntamente desestimatorio)."
         }
