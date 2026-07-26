@@ -155,7 +155,6 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
                   <span className="flex items-center gap-1">
                     <MapPin size={13} aria-hidden />
                     {ccaa}
-                    {params.municipio ? ` · ${params.municipio}` : ""}
                   </span>
                   <span className="text-border">·</span>
                   <span className="font-medium">{params.potencia_kw} kW</span>
