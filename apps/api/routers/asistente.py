@@ -8,7 +8,7 @@ from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from database import get_session
+from database import get_db
 from models.expediente import Expediente
 from schemas.asistente import AsistenteChatRequest
 from servicios.ai_client import completar_stream
@@ -24,7 +24,7 @@ router = APIRouter(prefix="/api/v1/asistente", tags=["asistente"])
 async def chat_asistente(
     request: AsistenteChatRequest,
     x_org_id: uuid.UUID = Header(..., description="ID de la organización en Clerk"),
-    session: AsyncSession = Depends(get_session)
+    session: AsyncSession = Depends(get_db)
 ):
     # 1. Verificar presupuesto
     await verificar_presupuesto(x_org_id, session)
