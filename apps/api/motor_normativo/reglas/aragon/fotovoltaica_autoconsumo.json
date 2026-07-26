@@ -56,7 +56,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si P < 100 kW en BT, derivar a portal PEGASSO. Solo enviar a SEDA instalaciones que superen umbrales.",
+          "notas": "SEDA instalaciones que superen umbrales.",
           "paralelo_con": null
         }
       ]
@@ -104,7 +104,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Solo enviar a SEDA instalaciones que superen umbrales.",
+          "notas": "SEDA instalaciones que superen umbrales.",
           "paralelo_con": null
         },
         {
