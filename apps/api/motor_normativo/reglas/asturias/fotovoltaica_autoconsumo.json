@@ -66,7 +66,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para FV <=15 kW el CAU lo solicita el promotor/instalador; para el resto lo facilita la distribuidora en el trámite de acceso y conexión. Prohibido el enrutamiento a aplicaciones Java (www70)."
+          "notas": "Para FV <=15 kW el CAU lo solicita el promotor/instalador; para el resto lo facilita la distribuidora en el trámite de acceso y conexión. ."
         }
       ]
     },
@@ -127,7 +127,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 100 kW en BT sin autorización administrativa previa. Prohibido el enrutamiento a aplicaciones Java (www70)."
+          "notas": "Hasta 100 kW en BT sin autorización administrativa previa. ."
         }
       ]
     },
