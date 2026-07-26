@@ -27,7 +27,6 @@ export default async function ExpedienteDetallePage({ params }: PageProps) {
   const instalacionParams: InstalacionParams = {
     tipo_instalacion: expediente.tipo_instalacion,
     comunidad: expediente.comunidad,
-    municipio: expediente.municipio,
     potencia_kw: expediente.potencia_kw,
     uso: expediente.uso,
     numero_puntos: expediente.numero_puntos ?? undefined,

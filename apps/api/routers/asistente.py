@@ -10,6 +10,7 @@ from sqlalchemy import select
 
 from database import get_db
 from models.expediente import Expediente
+from models.organizacion import Organizacion
 from schemas.asistente import AsistenteChatRequest
 from servicios.ai_client import completar_stream
 from servicios.asistente_context import construir_contexto
@@ -23,18 +24,26 @@ router = APIRouter(prefix="/api/v1/asistente", tags=["asistente"])
 @router.post("/chat")
 async def chat_asistente(
     request: AsistenteChatRequest,
-    x_org_id: uuid.UUID = Header(..., description="ID de la organización en Clerk"),
+    x_org_id: str = Header(..., description="ID de la organización en Clerk"),
     session: AsyncSession = Depends(get_db)
 ):
-    # 1. Verificar presupuesto
-    await verificar_presupuesto(x_org_id, session)
+    # 0. Obtener la organización interna
+    stmt_org = select(Organizacion).where(Organizacion.clerk_org_id == x_org_id)
+    res_org = await session.execute(stmt_org)
+    organizacion = res_org.scalars().first()
+    if not organizacion:
+        raise HTTPException(status_code=403, detail="Organización no encontrada o sin acceso")
+    internal_org_id = organizacion.id
+
+    # 1. Verificar presupuesto usando el ID interno
+    await verificar_presupuesto(internal_org_id, session)
 
     # 2. Cargar expediente si aplica
     expediente = None
     if request.expediente_id:
         stmt = select(Expediente).where(
             Expediente.id == request.expediente_id,
-            Expediente.org_id == x_org_id
+            Expediente.org_id == internal_org_id
         )
         res = await session.execute(stmt)
         expediente = res.scalars().first()
@@ -126,7 +135,7 @@ async def chat_asistente(
             try:
                 async with async_session_maker() as stream_session:
                     await registrar_uso(
-                        org_id=x_org_id,
+                        org_id=internal_org_id,
                         session=stream_session,
                         tokens_entrada=usage_stats.get("prompt_tokens", 0),
                         tokens_entrada_cache=usage_stats.get("prompt_cache_hit_tokens", 0),

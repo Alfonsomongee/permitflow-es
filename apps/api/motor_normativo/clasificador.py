@@ -79,7 +79,6 @@ class Clasificador:
             "potencia_kw": params.potencia_kw,
             "superficie_m2": params.superficie_m2,
             "uso": params.uso,
-            "municipio": params.municipio,
             "comunidad": params.comunidad,
             "tipo_instalacion": params.tipo_instalacion,
             "combustible": params.combustible,

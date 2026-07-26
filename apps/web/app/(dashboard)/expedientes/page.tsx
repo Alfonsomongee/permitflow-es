@@ -27,7 +27,6 @@ export default async function ExpedientesPage() {
     id: expediente.id,
     tipo_instalacion: expediente.tipo_instalacion,
     comunidad: expediente.comunidad,
-    municipio: expediente.municipio,
     potencia_kw: expediente.potencia_kw,
     estado: expediente.estado,
     tramites_total: expediente.plan_tramitacion?.tramites?.length ?? 0,
@@ -43,7 +42,7 @@ export default async function ExpedientesPage() {
   const hoy = hoyIso();
 
   for (const expediente of dbExpedientes) {
-    const etiqueta = expediente.referencia_cliente ?? expediente.municipio;
+    const etiqueta = expediente.referencia_cliente ?? expediente.tipo_instalacion;
     const estadosMap = expediente.tramites_estado ?? {};
     const enCurso = Object.entries(estadosMap).filter(
       ([, info]) => info.estado === "en_curso" && info.fecha_inicio

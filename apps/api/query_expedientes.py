@@ -1,32 +1,22 @@
 import asyncio
-import asyncpg
 import os
+import json
+from dotenv import load_dotenv
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy import text
+
+load_dotenv()
 
 async def main():
-    env_path = '.env'
-    db_url = ""
-    with open(env_path) as f:
-        for line in f:
-            if line.startswith('DATABASE_URL='):
-                db_url = line.strip().split('=', 1)[1].strip('"\'')
-                break
+    db_url = os.environ.get('DATABASE_URL')
+    if db_url and db_url.startswith("postgresql://"):
+        db_url = db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    
+    engine = create_async_engine(db_url)
+    async with engine.connect() as conn:
+        result = await conn.execute(text("SELECT id, creado_en, actualizado_en, plan_tramitacion::text FROM expedientes WHERE comunidad = 'madrid' ORDER BY creado_en DESC LIMIT 5"))
+        rows = result.fetchall()
+        print(json.dumps([dict(r._mapping) for r in rows], default=str))
+    await engine.dispose()
 
-    if db_url.startswith('postgresql://'):
-        db_url = db_url.replace('postgresql://', 'postgres://', 1)
-        
-    conn = await asyncpg.connect(db_url)
-    try:
-        query = """
-        select column_name, data_type, column_default
-        from information_schema.columns
-        where table_name = 'expedientes'
-        order by column_name;
-        """
-        rows = await conn.fetch(query)
-        for row in rows:
-            print(dict(row))
-    finally:
-        await conn.close()
-
-if __name__ == '__main__':
-    asyncio.run(main())
+asyncio.run(main())

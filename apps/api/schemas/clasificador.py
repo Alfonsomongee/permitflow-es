@@ -24,7 +24,6 @@ class ClasificadorInput(BaseModel):
     potencia_kw: float = Field(..., description="Potencia en kW", ge=0)
     superficie_m2: Optional[float] = Field(None, description="Superficie en m2, si aplica", ge=0)
     uso: str = Field(..., description="Uso de la instalación: residencial, industrial, terciario")
-    municipio: str = Field(..., description="Nombre del municipio")
     combustible: Optional[str] = Field(None, description="Tipo de combustible: gas_natural, glp_deposito, glp_envases")
     presion_bar: Optional[str] = Field(None, description="Rango de presión: normal o 5+")
     numero_puntos: Optional[int] = Field(None, description="Número de puntos de recarga")

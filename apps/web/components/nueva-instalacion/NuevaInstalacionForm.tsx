@@ -19,7 +19,6 @@ function validateStep(step: StepId, state: FormState): string | null {
   if (step === 1) {
     if (!state.tipo_instalacion) return "Selecciona el tipo de instalacion.";
     if (!state.comunidad) return "Selecciona una comunidad autonoma.";
-    if (!state.municipio.trim()) return "Escribe el municipio de la instalacion.";
   }
 
   if (step === 2) {

@@ -83,7 +83,6 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
       const matchesEstado = filtro === "todos" || expediente.estado === filtro;
       const searchable = [
         expediente.cliente,
-        expediente.municipio,
         TIPO_LABEL[expediente.tipo_instalacion],
         expediente.tipo_instalacion,
         COMUNIDAD_LABEL[expediente.comunidad],
@@ -110,7 +109,7 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
             </span>
           </p>
           <p className="mt-0.5 text-xs text-text-secondary">
-            Busca por cliente, municipio, comunidad o tipo de instalacion.
+            Busca por cliente, comunidad o tipo de instalacion.
           </p>
         </div>
 
@@ -153,7 +152,7 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
           <table className="w-full">
             <thead>
               <tr className="border-b border-border">
-                {["Cliente / municipio", "CC. AA.", "Tipo", "Progreso", "Estado", "Actualizacion", ""].map((heading) => (
+                {["Cliente / Referencia", "CC. AA.", "Tipo", "Progreso", "Estado", "Actualizacion", ""].map((heading) => (
                   <th
                     key={heading}
                     className="px-5 py-3 text-left text-[11px] font-medium uppercase tracking-wider text-text-secondary"
@@ -168,9 +167,8 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
                 <tr key={expediente.id} className="group transition-colors hover:bg-bg">
                   <td className="px-5 py-3.5">
                     <p className="text-sm font-medium text-text-primary">
-                      {expediente.cliente ?? expediente.municipio}
+                      {expediente.cliente ?? "Sin referencia"}
                     </p>
-                    <p className="text-xs text-text-secondary">{expediente.municipio}</p>
                   </td>
                   <td className="px-5 py-3.5 text-sm text-text-secondary">
                     {COMUNIDAD_LABEL[expediente.comunidad] ?? expediente.comunidad}

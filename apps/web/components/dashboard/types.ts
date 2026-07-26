@@ -9,7 +9,6 @@ export interface Expediente {
   id: string;
   tipo_instalacion: string;
   comunidad: string;
-  municipio: string;
   potencia_kw: number;
   estado: EstadoExpediente;
   tramites_total: number;

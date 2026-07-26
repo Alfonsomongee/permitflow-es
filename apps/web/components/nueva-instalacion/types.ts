@@ -4,7 +4,6 @@ export interface FormState {
   // Step 1: type and location
   tipo_instalacion: string;
   comunidad: string;
-  municipio: string;
   referencia_cliente: string;
   uso: string;
 
@@ -35,7 +34,6 @@ export interface FormState {
 export const FORM_INITIAL: FormState = {
   tipo_instalacion: "fotovoltaica_autoconsumo",
   comunidad: "andalucia",
-  municipio: "",
   referencia_cliente: "",
   uso: "residencial",
   potencia_kw: "",

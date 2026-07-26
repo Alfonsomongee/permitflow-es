@@ -77,7 +77,6 @@ export type TramitesEstadoMap = Record<string, TramiteEstadoInfo>;
 export interface InstalacionParams {
   tipo_instalacion: string;
   comunidad: string;
-  municipio: string;
   potencia_kw: number;
   uso?: string;
   numero_puntos?: number;

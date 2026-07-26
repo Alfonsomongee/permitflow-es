@@ -15,7 +15,7 @@ class Expediente(Base):
     
     tipo_instalacion: Mapped[str] = mapped_column(String, nullable=False)
     comunidad: Mapped[str] = mapped_column(String, nullable=False)
-    municipio: Mapped[str] = mapped_column(String, nullable=False)
+    municipio: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     potencia_kw: Mapped[float] = mapped_column(Float, nullable=False)
     uso: Mapped[str] = mapped_column(String, nullable=False)
     

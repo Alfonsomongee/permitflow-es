@@ -22,7 +22,7 @@ export async function POST(req: Request) {
   }
 
   const formState = (await req.json()) as FormState;
-  if (!formState?.tipo_instalacion || !formState?.comunidad || !formState?.municipio?.trim()) {
+  if (!formState?.tipo_instalacion || !formState?.comunidad) {
     return NextResponse.json(
       { error: "Faltan datos de la instalación." },
       { status: 400 }
@@ -39,7 +39,6 @@ export async function POST(req: Request) {
   const paramsInstalacion = {
     tipo_instalacion: formState.tipo_instalacion,
     comunidad: formState.comunidad,
-    municipio: formState.municipio,
     potencia_kw: potencia,
     uso: formState.uso,
     numero_puntos: formState.numero_puntos

@@ -8,9 +8,9 @@ const API_URL =
   process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 function validateFormState(formState: FormState): string | null {
-  if (!formState.tipo_instalacion) return "Selecciona el tipo de instalacion.";
-  if (!formState.comunidad) return "Selecciona una comunidad autonoma.";
-  if (!formState.municipio?.trim()) return "Indica el municipio de la instalacion.";
+  if (!formState?.tipo_instalacion || !formState?.comunidad) {
+    return "Faltan campos obligatorios para clasificar.";
+  }
 
   const potencia = parseFloat(formState.potencia_kw);
   if (!formState.potencia_kw || Number.isNaN(potencia) || potencia <= 0) {
@@ -56,7 +56,6 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         tipo_instalacion: formState.tipo_instalacion,
         comunidad: formState.comunidad,
-        municipio: formState.municipio,
         potencia_kw: parseFloat(formState.potencia_kw) || 0,
         uso: formState.uso,
         numero_puntos: formState.numero_puntos
