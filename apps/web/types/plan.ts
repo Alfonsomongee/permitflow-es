@@ -1,10 +1,7 @@
-export type Plataforma =
-  | "PUES"
-  | "TECI"
-  | "MITECO"
-  | "distribuidora"
-  | "ayuntamiento"
-  | null;
+// El motor normativo (fuera de Andalucía) usa nombres de plataforma en texto
+// libre por comunidad (ej. "SIRECYL", "Sede Electrónica del Gobierno de Aragón"),
+// así que el tipo no puede ser un enum cerrado.
+export type Plataforma = string | null;
 
 export interface DocumentoRequerido {
   id: string;

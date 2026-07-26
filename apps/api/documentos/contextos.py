@@ -38,7 +38,8 @@ def datos_instalacion(exp: ExpedienteDoc) -> list[tuple[str, str]]:
     """Pares (etiqueta, valor) para las tablas de cabecera de todos los docs."""
     filas: list[tuple[str, str]] = [
         ("Tipo de instalación", etiqueta_tipo(exp.tipo_instalacion)),
-        ("Ubicación", f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)})"),
+        ("Ubicación", f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)})" if exp.municipio
+         else etiqueta_comunidad(exp.comunidad)),
         ("Potencia", f"{exp.potencia_kw:g} kW"),
     ]
     if exp.uso:

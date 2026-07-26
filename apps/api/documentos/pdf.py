@@ -133,7 +133,11 @@ def generar_presupuesto_pdf(payload: GenerarDocumentoInput) -> bytes:
     pdf.set_text_color(*GRIS)
     pdf.cell(
         0, 6,
-        _s(f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)}) - {exp.potencia_kw:g} kW"),
+        _s(
+            (f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)})" if exp.municipio
+             else etiqueta_comunidad(exp.comunidad))
+            + f" - {exp.potencia_kw:g} kW"
+        ),
         new_x="LMARGIN", new_y="NEXT",
     )
     pdf.ln(3)

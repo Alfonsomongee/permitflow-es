@@ -39,8 +39,10 @@ export function DocumentosPanel({ expedienteId, tipoInstalacion }: DocumentosPan
         return;
       }
       if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { error?: string };
-        throw new Error(data.error ?? `Error ${res.status}`);
+        const data = (await res.json().catch(() => ({}))) as { error?: unknown };
+        const mensaje =
+          typeof data.error === "string" ? data.error : `Error ${res.status}`;
+        throw new Error(mensaje);
       }
 
       const disposition = res.headers.get("Content-Disposition") ?? "";

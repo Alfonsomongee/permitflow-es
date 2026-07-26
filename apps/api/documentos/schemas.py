@@ -25,7 +25,9 @@ class ExpedienteDoc(BaseModel):
     id: str = ""
     tipo_instalacion: str
     comunidad: str
-    municipio: str
+    # Municipio se eliminó de la validación del clasificador (ver commit
+    # b6c153b); puede no llegar en el payload, así que ya no es obligatorio.
+    municipio: Optional[str] = None
     potencia_kw: float
     uso: Optional[str] = None
     numero_puntos: Optional[int] = None

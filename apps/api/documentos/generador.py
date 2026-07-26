@@ -23,7 +23,7 @@ def _slug(texto: str, fallback: str = "expediente") -> str:
 
 def _base_nombre(payload: GenerarDocumentoInput) -> str:
     exp = payload.expediente
-    ref = _slug(exp.referencia_cliente or exp.municipio)
+    ref = _slug(exp.referencia_cliente or exp.municipio or exp.comunidad)
     # En modo presupuesto no hay expediente en BD (id vacío): omitimos el sufijo.
     sufijo = f"_{exp.id[:8]}" if exp.id else ""
     return f"PermitFlow_{ref}{sufijo}"

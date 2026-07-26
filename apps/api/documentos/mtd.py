@@ -14,6 +14,7 @@ from .contextos import (
     VERTICALES_MTD,
     bases_legales_unicas,
     datos_instalacion,
+    etiqueta_comunidad,
     etiqueta_tipo,
 )
 from .schemas import GenerarDocumentoInput
@@ -79,7 +80,8 @@ def generar_mtd_docx(payload: GenerarDocumentoInput) -> bytes:
     _tabla_pares(doc, [
         ("Nombre / Razón social", POR_COMPLETAR),
         ("NIF / CIF", POR_COMPLETAR),
-        ("Dirección del emplazamiento", f"{POR_COMPLETAR} — {exp.municipio}"),
+        ("Dirección del emplazamiento",
+         f"{POR_COMPLETAR} — {exp.municipio}" if exp.municipio else POR_COMPLETAR),
         ("Teléfono / Email de contacto", POR_COMPLETAR),
     ])
 
@@ -120,7 +122,8 @@ def generar_mtd_docx(payload: GenerarDocumentoInput) -> bytes:
         "El técnico/instalador abajo firmante declara que los datos consignados son "
         "ciertos y que la instalación descrita cumple la normativa de aplicación."
     )
-    doc.add_paragraph(f"\nEn {exp.municipio}, a {date.today().strftime('%d/%m/%Y')}")
+    lugar = exp.municipio or etiqueta_comunidad(exp.comunidad)
+    doc.add_paragraph(f"\nEn {lugar}, a {date.today().strftime('%d/%m/%Y')}")
     doc.add_paragraph("\n\nFdo.: " + POR_COMPLETAR)
 
     buf = io.BytesIO()
