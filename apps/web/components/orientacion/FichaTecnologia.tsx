@@ -22,6 +22,7 @@ type Props = {
   ficha: FichaTecnologia;
 };
 
+export function FichaTecnologia({ ficha }: Props) {
   const [resultIdoneidad, setResultIdoneidad] = useState<IdoneidadResult | null>(null);
   const Icon = ICON_MAP[ficha.id];
 
