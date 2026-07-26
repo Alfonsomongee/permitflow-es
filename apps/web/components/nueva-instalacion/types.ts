@@ -24,6 +24,10 @@ export interface FormState {
   combustible: string;
   presion_bar: string;
 
+  // New electrical / autoconsumo data
+  tension: string;
+  modalidad_autoconsumo: string;
+
   // Step 3: grants
   solicita_ayuda: boolean;
 }
@@ -45,6 +49,8 @@ export const FORM_INITIAL: FormState = {
   combustible: "gas_natural",
   presion_bar: "normal",
   solicita_ayuda: false,
+  tension: "",
+  modalidad_autoconsumo: "",
 };
 
 export type StepId = 1 | 2 | 3;

@@ -31,6 +31,25 @@ function CamposPotenciaBase({ state, onChange }: Step2Props) {
   );
 }
 
+function CamposDatosElectricos({ state, onChange }: Step2Props) {
+  return (
+    <>
+      <SectionDivider label="Datos Eléctricos" />
+      <Field label="Nivel de tensión de conexión">
+        <ToggleGroup
+          value={state.tension as "BT" | "AT"}
+          onChange={(v) => onChange({ tension: v })}
+          options={[
+            { value: "BT", label: "Baja Tensión (BT)" },
+            { value: "AT", label: "Alta Tensión (AT)" },
+          ]}
+          cols={2}
+        />
+      </Field>
+    </>
+  );
+}
+
 function CamposFotovoltaica({ state, onChange }: Step2Props) {
   return (
     <>
@@ -52,6 +71,20 @@ function CamposFotovoltaica({ state, onChange }: Step2Props) {
           previa en Andalucía (no PUES).
         </InfoBanner>
       )}
+
+      <CamposDatosElectricos state={state} onChange={onChange} />
+
+      <Field label="Modalidad de Autoconsumo">
+        <ToggleGroup
+          value={state.modalidad_autoconsumo as "sin_excedentes" | "con_excedentes"}
+          onChange={(v) => onChange({ modalidad_autoconsumo: v })}
+          options={[
+            { value: "sin_excedentes", label: "Sin excedentes" },
+            { value: "con_excedentes", label: "Con excedentes" },
+          ]}
+          cols={2}
+        />
+      </Field>
     </>
   );
 }
@@ -150,6 +183,8 @@ function CamposIRVE({ state, onChange }: Step2Props) {
           la distribuidora de zona.
         </InfoBanner>
       )}
+
+      <CamposDatosElectricos state={state} onChange={onChange} />
     </>
   );
 }
