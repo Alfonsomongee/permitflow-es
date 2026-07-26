@@ -36,7 +36,7 @@ export function mapearAlertasAExpedientes(
   for (const alerta of alertas) {
     mapa[alerta.id] = activos
       .filter((e) => alertaAfectaExpediente(alerta, e))
-      .map((e) => ({ id: e.id, etiqueta: e.referencia_cliente ?? e.municipio }));
+      .map((e) => ({ id: e.id, etiqueta: e.referencia_cliente ?? e.tipo_instalacion }));
   }
   return mapa;
 }

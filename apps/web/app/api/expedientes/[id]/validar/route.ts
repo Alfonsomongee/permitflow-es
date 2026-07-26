@@ -37,7 +37,6 @@ export async function GET(
   const payload = {
     tipo_instalacion: expediente.tipo_instalacion,
     comunidad: expediente.comunidad,
-    municipio: expediente.municipio,
     potencia_kw: expediente.potencia_kw,
     uso: expediente.uso,
     numero_puntos: expediente.numero_puntos,

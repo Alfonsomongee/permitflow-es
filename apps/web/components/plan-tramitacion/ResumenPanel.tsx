@@ -47,7 +47,6 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
         <div className="divide-y divide-border/70">
           <ParamRow icon={Building2} label="Tipo" value={TIPO_LABEL[params.tipo_instalacion] ?? params.tipo_instalacion} />
           <ParamRow icon={MapPin} label="CC. AA." value={COMUNIDAD_LABEL[params.comunidad] ?? params.comunidad} />
-          <ParamRow label="Municipio" value={params.municipio} />
           <ParamRow icon={Gauge} label="Potencia" value={`${params.potencia_kw} kW`} />
           {params.numero_puntos && <ParamRow label="Puntos de recarga" value={params.numero_puntos} />}
           {params.modo_recarga && <ParamRow label="Modo de recarga" value={`Modo ${params.modo_recarga}`} />}
