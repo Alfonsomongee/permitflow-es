@@ -55,7 +55,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
-          "plataforma_url": null,
+          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
           "coste_estimado": "21.94 EUR -- tarifa 7.2.3.1, Ley 10/2021 art. 44",
           "documentos_requeridos": [
             {
@@ -126,7 +126,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
-          "plataforma_url": null,
+          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
           "coste_estimado": "45.77 EUR -- tarifa 7.2.3.1, Ley 10/2021 art. 44",
           "documentos_requeridos": [
             {
@@ -173,7 +173,7 @@
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
-          "plataforma_url": null,
+          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
           "coste_estimado": "66.43 EUR base hasta 5.000 EUR de presupuesto (+12.10 EUR/10.000 EUR adicionales; tope 424.48 EUR si >300.000 EUR) -- tarifa 7.2.3.2, Ley 10/2021 art. 44",
           "documentos_requeridos": [
             {

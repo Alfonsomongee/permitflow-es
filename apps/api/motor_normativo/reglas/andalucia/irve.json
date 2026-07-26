@@ -183,7 +183,7 @@
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "TECI (Tramitador Electrónico de Certificados de Instalación)",
-          "plataforma_url": null,
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/teci/login.jsp",
           "coste_estimado": "0 EUR (valor conservador: tasa de presentación TECI no verificada con fuente primaria en esta fase; pendiente de confirmar contra la Ley 10/2021 de tasas y precios públicos de Andalucía)",
           "documentos_requeridos": [
             {
