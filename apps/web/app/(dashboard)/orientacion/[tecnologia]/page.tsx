@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { TECNOLOGIAS } from "@/content/tecnologias";
 import type { FichaTecnologia } from "@/content/tecnologias";
-import { FichaTecnologia } from "@/components/orientacion/FichaTecnologia";
+import { FichaTecnologia as FichaTecnologiaView } from "@/components/orientacion/FichaTecnologia";
 
 const VALID_IDS = new Set<string>(TECNOLOGIAS.map((t) => t.id));
 
@@ -24,5 +24,5 @@ export default async function TecnologiaPage({ params }: Props) {
     (t) => t.id === tecnologia,
   ) as FichaTecnologia;
 
-  return <FichaTecnologia ficha={ficha} />;
+  return <FichaTecnologiaView ficha={ficha} />;
 }
