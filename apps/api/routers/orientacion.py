@@ -201,6 +201,9 @@ async def calcular_idoneidad(
         ubicacion = await resolver_ubicacion(payload.municipio, payload.provincia)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
+    except Exception as exc:
+        logger.exception("Error inesperado al geocodificar")
+        raise HTTPException(status_code=500, detail=f"Error interno al calcular idoneidad: {exc}")
 
     lat = ubicacion["lat"]
     lon = ubicacion["lon"]

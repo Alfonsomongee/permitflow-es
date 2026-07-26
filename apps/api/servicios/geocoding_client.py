@@ -25,9 +25,12 @@ async def resolver_comunidad_autonoma(municipio: str, provincia: str) -> str:
     }
     
     async with httpx.AsyncClient() as client:
-        response = await client.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
+        try:
+            response = await client.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+        except httpx.HTTPError as e:
+            raise ValueError(f"Error de red al contactar Geocoding: {e}")
         
     if data.get("status") == "OK" and data.get("results"):
         result = data["results"][0]
@@ -55,9 +58,12 @@ async def resolver_ubicacion(municipio: str, provincia: str) -> dict:
     }
 
     async with httpx.AsyncClient() as client:
-        response = await client.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
+        try:
+            response = await client.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+        except httpx.HTTPError as e:
+            raise ValueError(f"Error de red al contactar Geocoding: {e}")
 
     if data.get("status") != "OK" or not data.get("results"):
         raise ValueError(f"No se pudo resolver la ubicación para {municipio}, {provincia}")

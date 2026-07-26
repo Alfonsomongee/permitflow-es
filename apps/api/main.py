@@ -9,6 +9,11 @@ from routers.documentos import router as documentos_router
 from routers.validador import router as validador_router
 from routers.orientacion import router as orientacion_router
 from routers.asistente import router as asistente_router
+from fastapi.responses import JSONResponse
+import traceback
+import logging
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="PermitFlow ES API",
@@ -16,6 +21,15 @@ app = FastAPI(
     description="API para la clasificación y gestión de trámites de instalaciones en España.",
     dependencies=[Depends(verificar_clave_interna)]
 )
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request, exc):
+    logger.error(f"Excepción global no manejada: {exc}")
+    logger.error(traceback.format_exc())
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Error interno del servidor. Por favor, contacta con soporte."},
+    )
 
 ALLOWED_ORIGINS = [
     origin.strip()
