@@ -71,7 +71,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para instalaciones ≤10 kW nominales de inversor, la MTD sustituye al proyecto técnico (ITC-FV-03, BOJA núm. 98 de 18/05/2007). No confundir con el umbral de 15 kW del RD 244/2019 art. 15, que exime de permisos de acceso y conexión con la distribuidora — son dos límites distintos que no coinciden."
+          "notas": "Para instalaciones ≤10 kW nominales de inversor, la MTD sustituye al proyecto técnico (ITC-FV-03, BOJA núm. 98 de 18/05/2007). No confundir con el umbral de 15 kW del RD 244/2019 art. 15, que exime de permisos de acceso y conexión con la distribuidora — son dos límites distintos que no coinciden.",
+          "paralelo_con": null
         },
         {
           "orden": 2,
@@ -91,7 +92,8 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "paralelo_con": null
         },
         {
           "orden": 3,
@@ -135,7 +137,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo legal: 45 días hábiles, silencio positivo. Presentación telemática disponible con certificado digital en la sede de la Junta de Andalucía."
+          "notas": "Plazo legal: 45 días hábiles, silencio positivo. Presentación telemática disponible con certificado digital en la sede de la Junta de Andalucía.",
+          "paralelo_con": null
         },
         {
           "orden": 4,
@@ -161,7 +164,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación."
+          "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación.",
+          "paralelo_con": null
         }
       ]
     },
@@ -215,7 +219,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Este tramo (10-15 kW residencial) se tramita a menudo erróneamente con MTD por confusión con el umbral de 15 kW del RD 244/2019. La ITC-FV-03 exige proyecto técnico a partir de 10 kW sin excepción."
+          "notas": "Este tramo (10-15 kW residencial) se tramita a menudo erróneamente con MTD por confusión con el umbral de 15 kW del RD 244/2019. La ITC-FV-03 exige proyecto técnico a partir de 10 kW sin excepción.",
+          "paralelo_con": null
         },
         {
           "orden": 2,
@@ -235,7 +240,8 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "paralelo_con": null
         },
         {
           "orden": 3,
@@ -267,7 +273,8 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "paralelo_con": null
         },
         {
           "orden": 4,
@@ -293,7 +300,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia."
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.",
+          "paralelo_con": null
         }
       ]
     },
@@ -351,7 +359,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES adaptado el 04-03-2024 tras el Decreto-ley 3/2024, de 6 de febrero). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz."
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES adaptado el 04-03-2024 tras el Decreto-ley 3/2024, de 6 de febrero). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
+          "paralelo_con": null
         },
         {
           "orden": 2,
@@ -371,7 +380,8 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "paralelo_con": null
         },
         {
           "orden": 3,
@@ -409,7 +419,8 @@
               "obligatorio": false
             }
           ],
-          "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004)."
+          "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
+          "paralelo_con": null
         },
         {
           "orden": 4,
@@ -436,7 +447,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "El RAC es obligatorio para instalaciones con excedentes. Para autoconsumo sin excedentes es voluntario pero recomendable. La distribuidora lo realiza automáticamente en muchos casos."
+          "notas": "El RAC es obligatorio para instalaciones con excedentes. Para autoconsumo sin excedentes es voluntario pero recomendable. La distribuidora lo realiza automáticamente en muchos casos.",
+          "paralelo_con": null
         },
         {
           "orden": 5,
@@ -456,7 +468,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente."
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.",
+          "paralelo_con": null
         }
       ]
     },
@@ -490,7 +503,8 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "paralelo_con": null
         },
         {
           "orden": 2,
@@ -517,7 +531,8 @@
             }
           ],
           "formulario_ref": "9588",
-          "notas": "CIERRA lo pendiente de la Fase 0: plataforma confirmada VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000."
+          "notas": "CIERRA lo pendiente de la Fase 0: plataforma confirmada VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
+          "paralelo_con": null
         },
         {
           "orden": 3,
@@ -537,7 +552,8 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "paralelo_con": null
         },
         {
           "orden": 4,
@@ -558,7 +574,8 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "paralelo_con": null
         },
         {
           "orden": 5,
@@ -578,7 +595,8 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "paralelo_con": null
         }
       ]
     },
@@ -605,7 +623,8 @@
           "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/24726.html",
           "coste_estimado": "No aplica: convocatoria cerrada",
           "documentos_requeridos": [],
-          "notas": "La convocatoria andaluza del RD 477/2021 (programas de incentivo 4, 5 y 6, autoconsumo residencial) cerro el plazo de nuevas solicitudes el 31/12/2023; el programa estatal en su conjunto cerro el 31/07/2024. Gestor: Agencia Andaluza de la Energia (fondos agotados / lista de espera). Existe un programa autonomico propio, INCEA (Incentivos Integrados de Competitividad y Energia en Andalucia), dirigido a EMPRESAS (no residencial, importe minimo 10.000 EUR, cobertura 35-65%) -- su base legal no esta verificada con fuente primaria: NO ofrecer como alternativa confirmada hasta verificarlo."
+          "notas": "La convocatoria andaluza del RD 477/2021 (programas de incentivo 4, 5 y 6, autoconsumo residencial) cerro el plazo de nuevas solicitudes el 31/12/2023; el programa estatal en su conjunto cerro el 31/07/2024. Gestor: Agencia Andaluza de la Energia (fondos agotados / lista de espera). Existe un programa autonomico propio, INCEA (Incentivos Integrados de Competitividad y Energia en Andalucia), dirigido a EMPRESAS (no residencial, importe minimo 10.000 EUR, cobertura 35-65%) -- su base legal no esta verificada con fuente primaria: NO ofrecer como alternativa confirmada hasta verificarlo.",
+          "paralelo_con": null
         }
       ]
     }

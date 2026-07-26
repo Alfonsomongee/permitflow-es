@@ -56,7 +56,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Exención de tasa hasta 15 kW. Inscripción de oficio en el Registro de autoconsumo de las Illes Balears. No se exige autorización administrativa (umbral 500 kW)."
+          "notas": "Exención de tasa hasta 15 kW. Inscripción de oficio en el Registro de autoconsumo de las Illes Balears. No se exige autorización administrativa (umbral 500 kW).",
+          "paralelo_con": null
         }
       ]
     },
@@ -115,7 +116,8 @@
               "obligatorio": false
             }
           ],
-          "notas": "DIFERENCIA CLAVE FRENTE AL LOTE 2: Baleares eleva el umbral de exención de autorización a 500 kW (Decreto-ley 3/2024), como Andalucía. En suelo rústico el autoconsumo es uso admitido sin declaración de interés general (art. 48 Ley 10/2019)."
+          "notas": "DIFERENCIA CLAVE FRENTE AL LOTE 2: Baleares eleva el umbral de exención de autorización a 500 kW (Decreto-ley 3/2024), como Andalucía. En suelo rústico el autoconsumo es uso admitido sin declaración de interés general (art. 48 Ley 10/2019).",
+          "paralelo_con": null
         }
       ]
     },
@@ -162,7 +164,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "CRÍTICO: . Efecto del silencio NO confirmado verbatim (presuntamente desestimatorio)."
+          "notas": "CRÍTICO: . Efecto del silencio NO confirmado verbatim (presuntamente desestimatorio).",
+          "paralelo_con": null
         }
       ]
     }

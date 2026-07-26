@@ -48,7 +48,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Inscripción de oficio en Registro de Autoconsumo por ser <100 kW BT"
+          "notas": "Inscripción de oficio en Registro de Autoconsumo por ser <100 kW BT",
+          "paralelo_con": null
         }
       ]
     },
@@ -95,7 +96,8 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "paralelo_con": null
         }
       ]
     },
@@ -142,7 +144,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de autorización administrativa previa por estar <=500 kW. Incremento por bloque adicional de presupuesto (>5000 EUR) NO verificado, no incluir en cálculo hasta confirmar"
+          "notas": "Exenta de autorización administrativa previa por estar <=500 kW. Incremento por bloque adicional de presupuesto (>5000 EUR) NO verificado, no incluir en cálculo hasta confirmar",
+          "paralelo_con": null
         }
       ]
     },
@@ -183,7 +186,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo máximo de resolución 3 meses; SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Incremento por bloque adicional de presupuesto NO verificado"
+          "notas": "Plazo máximo de resolución 3 meses; SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Incremento por bloque adicional de presupuesto NO verificado",
+          "paralelo_con": null
         }
       ]
     }

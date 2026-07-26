@@ -65,7 +65,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion)."
+          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).",
+          "paralelo_con": null
         }
       ]
     },
@@ -117,7 +118,8 @@
               "obligatorio": false
             }
           ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion)."
+          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).",
+          "paralelo_con": null
         }
       ]
     },

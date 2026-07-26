@@ -61,7 +61,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "El tramite 3158 es exclusivo para instalaciones nuevas. Si se superpone a red preexistente: 6782. Contingencia: 6703. Rectificaciones: 6790. Anulacion: 6795."
+          "notas": "El tramite 3158 es exclusivo para instalaciones nuevas. Si se superpone a red preexistente: 6782. Contingencia: 6703. Rectificaciones: 6790. Anulacion: 6795.",
+          "paralelo_con": null
         }
       ]
     },
@@ -122,7 +123,8 @@
               "obligatorio": false
             }
           ],
-          "notas": "El tramite 3158 asume el CFO de forma nativa. Si se superpone a red preexistente: 6782."
+          "notas": "El tramite 3158 asume el CFO de forma nativa. Si se superpone a red preexistente: 6782.",
+          "paralelo_con": null
         }
       ]
     },
@@ -181,7 +183,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo legal de resolucion 6 meses (180 dias). Silencio DESESTIMATORIO. Singularidad insular: sistema electrico no peninsular; tributacion IGIC."
+          "notas": "Plazo legal de resolucion 6 meses (180 dias). Silencio DESESTIMATORIO. Singularidad insular: sistema electrico no peninsular; tributacion IGIC.",
+          "paralelo_con": null
         }
       ]
     }

@@ -43,7 +43,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Autoconsumo sin excedentes excluido de autorización con independencia de potencia"
+          "notas": "Autoconsumo sin excedentes excluido de autorización con independencia de potencia",
+          "paralelo_con": null
         }
       ]
     },
@@ -90,7 +91,8 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "paralelo_con": null
         }
       ]
     },
@@ -125,7 +127,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)"
+          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)",
+          "paralelo_con": null
         }
       ]
     }

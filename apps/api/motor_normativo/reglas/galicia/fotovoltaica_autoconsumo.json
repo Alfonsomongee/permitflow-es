@@ -62,7 +62,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Puesta en servicio inmediata tras presentacion (Instruccion 1/2022). Sede restringe documentos a 50MB máximo (sin comprimir/ZIP). Requisito inyectar huella digital de documentos fraccionados vía Autofirma."
+          "notas": "Puesta en servicio inmediata tras presentacion (Instruccion 1/2022). Sede restringe documentos a 50MB máximo (sin comprimir/ZIP). Requisito inyectar huella digital de documentos fraccionados vía Autofirma.",
+          "paralelo_con": null
         }
       ]
     },
@@ -123,7 +124,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "<=100 kW en BT: solo autorizacion de explotacion, no autorizacion administrativa previa. Tramitación electrónica IN408A absorbe parque FV."
+          "notas": "<=100 kW en BT: solo autorizacion de explotacion, no autorizacion administrativa previa. Tramitación electrónica IN408A absorbe parque FV.",
+          "paralelo_con": null
         }
       ]
     },
@@ -182,7 +184,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "IN407A tramita de forma unificada AAP y AAC. Silencio administrativo NEGATIVO (art. 53 Ley 24/2013). Exento de informacion publica si no se pide utilidad publica ni EIA ordinaria."
+          "notas": "IN407A tramita de forma unificada AAP y AAC. Silencio administrativo NEGATIVO (art. 53 Ley 24/2013). Exento de informacion publica si no se pide utilidad publica ni EIA ordinaria.",
+          "paralelo_con": null
         }
       ]
     }

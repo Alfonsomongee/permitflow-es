@@ -61,7 +61,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Tramite 0019. Declaracion responsable permite puesta en servicio inmediata. Fragmentar archivos a 5 MB (sin ZIP)."
+          "notas": "Tramite 0019. Declaracion responsable permite puesta en servicio inmediata. Fragmentar archivos a 5 MB (sin ZIP).",
+          "paralelo_con": null
         }
       ]
     },
@@ -116,7 +117,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Tramite 0019. Inscripcion PRETOR obligatoria si excedentes no acogidos a compensacion. Fragmentar archivos a 5 MB (sin ZIP)."
+          "notas": "Tramite 0019. Inscripcion PRETOR obligatoria si excedentes no acogidos a compensacion. Fragmentar archivos a 5 MB (sin ZIP).",
+          "paralelo_con": null
         }
       ]
     },
@@ -181,7 +183,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Tramite 0007. Efecto arrastre: si hay componentes de AT, arrastra a toda la instalacion a este tramite. Silencio NEGATIVO. Umbral maximo exento se mantiene en 100 kW."
+          "notas": "Tramite 0007. Efecto arrastre: si hay componentes de AT, arrastra a toda la instalacion a este tramite. Silencio NEGATIVO. Umbral maximo exento se mantiene en 100 kW.",
+          "paralelo_con": null
         }
       ]
     }

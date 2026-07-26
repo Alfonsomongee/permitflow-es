@@ -71,7 +71,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Sin plazo legal de resolucion fijado por norma."
+          "notas": "Sin plazo legal de resolucion fijado por norma.",
+          "paralelo_con": null
         }
       ]
     },
@@ -143,7 +144,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (comunicacion, no autorizacion)."
+          "notas": "Sin plazo legal de resolucion fijado por norma (comunicacion, no autorizacion).",
+          "paralelo_con": null
         }
       ]
     }

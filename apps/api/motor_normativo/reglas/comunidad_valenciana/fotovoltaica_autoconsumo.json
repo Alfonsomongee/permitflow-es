@@ -43,7 +43,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Inscripción de oficio en Registro de autoconsumo CV; autoconsumo sin excedentes exento de autorización con independencia de potencia"
+          "notas": "Inscripción de oficio en Registro de autoconsumo CV; autoconsumo sin excedentes exento de autorización con independencia de potencia",
+          "paralelo_con": null
         }
       ]
     },
@@ -90,7 +91,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Con excedentes <=100 kW: inscripción de oficio en Registro de producción"
+          "notas": "Con excedentes <=100 kW: inscripción de oficio en Registro de producción",
+          "paralelo_con": null
         }
       ]
     },
@@ -137,7 +139,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCIÓN respecto a la entrega preliminar: la Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW, igual que Andalucía, Madrid y Cataluña. Verificar artículo exacto contra el DOGV antes de producción"
+          "notas": "CORRECCIÓN respecto a la entrega preliminar: la Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW, igual que Andalucía, Madrid y Cataluña. Verificar artículo exacto contra el DOGV antes de producción",
+          "paralelo_con": null
         }
       ]
     },
@@ -172,7 +175,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; SILENCIO NEGATIVO (art. 6.3), igual que Andalucía"
+          "notas": "Grupo primero: plazo 6 meses; SILENCIO NEGATIVO (art. 6.3), igual que Andalucía",
+          "paralelo_con": null
         }
       ]
     }

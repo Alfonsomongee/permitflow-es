@@ -66,7 +66,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para FV <=15 kW el CAU lo solicita el promotor/instalador; para el resto lo facilita la distribuidora en el trámite de acceso y conexión. ."
+          "notas": "Para FV <=15 kW el CAU lo solicita el promotor/instalador; para el resto lo facilita la distribuidora en el trámite de acceso y conexión. .",
+          "paralelo_con": null
         }
       ]
     },
@@ -127,7 +128,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 100 kW en BT sin autorización administrativa previa. ."
+          "notas": "Hasta 100 kW en BT sin autorización administrativa previa. .",
+          "paralelo_con": null
         }
       ]
     },
@@ -186,7 +188,8 @@
               "obligatorio": false
             }
           ],
-          "notas": "Obligatorio acreditar capacidad técnica (3 años de experiencia o socio experto). Ficha oficial: plazo de resolución 'el establecido en la normativa de aplicación'; efecto del silencio 'No procede'. La autorización no se otorga sin permisos previos de acceso y conexión. Cubre instalaciones de producción <=50 MW."
+          "notas": "Obligatorio acreditar capacidad técnica (3 años de experiencia o socio experto). Ficha oficial: plazo de resolución 'el establecido en la normativa de aplicación'; efecto del silencio 'No procede'. La autorización no se otorga sin permisos previos de acceso y conexión. Cubre instalaciones de producción <=50 MW.",
+          "paralelo_con": null
         }
       ]
     }

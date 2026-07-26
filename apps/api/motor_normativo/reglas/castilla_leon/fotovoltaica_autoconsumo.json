@@ -48,7 +48,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Memoria de formato libre. Basado en IAPA 3363."
+          "notas": "Memoria de formato libre. Basado en IAPA 3363.",
+          "paralelo_con": null
         }
       ]
     },
@@ -107,7 +108,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "IAPA 477. Requiere presupuesto de desmantelamiento y resguardo de garantia antes de enlazar."
+          "notas": "IAPA 477. Requiere presupuesto de desmantelamiento y resguardo de garantia antes de enlazar.",
+          "paralelo_con": null
         }
       ]
     },
@@ -148,7 +150,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "IAPA 2014. El proceso está desdoblado en CyL. Primero se tramita AAP y posteriormente AAC."
+          "notas": "IAPA 2014. El proceso está desdoblado en CyL. Primero se tramita AAP y posteriormente AAC.",
+          "paralelo_con": null
         },
         {
           "orden": 2,
@@ -169,7 +172,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "IAPA 2015. Silencio NEGATIVO. Atencion: proyecto de modificacion (dictaminado 05/03/2026, NO publicado en BOCYL) elevaria exencion a 500 kW."
+          "notas": "IAPA 2015. Silencio NEGATIVO. Atencion: proyecto de modificacion (dictaminado 05/03/2026, NO publicado en BOCYL) elevaria exencion a 500 kW.",
+          "paralelo_con": null
         }
       ]
     }

@@ -74,7 +74,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Sin autorización administrativa previa (potencia <=100 kW en BT, art. 53.3 Ley 24/2013). Licencia de obra sustituida por comunicación previa (Ley 1/2021)."
+          "notas": "Sin autorización administrativa previa (potencia <=100 kW en BT, art. 53.3 Ley 24/2013). Licencia de obra sustituida por comunicación previa (Ley 1/2021).",
+          "paralelo_con": null
         }
       ]
     },
@@ -141,7 +142,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Umbral de proyecto en 10 kW según RD 244/2019 (tramo estatal, no propio)."
+          "notas": "Umbral de proyecto en 10 kW según RD 244/2019 (tramo estatal, no propio).",
+          "paralelo_con": null
         }
       ]
     },
@@ -202,7 +204,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 100 kW en BT quedan excluidas de autorización administrativa previa (art. 53.3 Ley 24/2013)."
+          "notas": "Hasta 100 kW en BT quedan excluidas de autorización administrativa previa (art. 53.3 Ley 24/2013).",
+          "paralelo_con": null
         }
       ]
     },
@@ -267,7 +270,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Tramitación conjunta de autorización previa y de construcción. Plazo de resolución de tres meses, silencio desestimatorio."
+          "notas": "Tramitación conjunta de autorización previa y de construcción. Plazo de resolución de tres meses, silencio desestimatorio.",
+          "paralelo_con": null
         }
       ]
     }

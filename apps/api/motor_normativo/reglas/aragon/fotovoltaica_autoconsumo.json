@@ -56,7 +56,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Modalidad sin excedentes exenta de autorización por art. 59.2 Ley 1/2021. Si P < 100 kW en BT, derivar a portal PEGASSO. Solo enviar a SEDA instalaciones que superen umbrales o apliquen a secciones específicas."
+          "notas": "Modalidad sin excedentes exenta de autorización por art. 59.2 Ley 1/2021. Si P < 100 kW en BT, derivar a portal PEGASSO. Solo enviar a SEDA instalaciones que superen umbrales o apliquen a secciones específicas.",
+          "paralelo_con": null
         }
       ]
     },
@@ -123,7 +124,8 @@
               "obligatorio": false
             }
           ],
-          "notas": "Aval de 40 EUR/kW requerido para instalaciones >15 kW urbano / >10 kW rural con excedentes. Si P < 100 kW en BT, derivar a portal PEGASSO."
+          "notas": "Aval de 40 EUR/kW requerido para instalaciones >15 kW urbano / >10 kW rural con excedentes. Si P < 100 kW en BT, derivar a portal PEGASSO.",
+          "paralelo_con": null
         }
       ]
     },
@@ -194,7 +196,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo legal: autorización previa 3 meses y de construcción 3 meses; explotación 1 mes. Silencio desestimatorio por analogía sectorial. Competencia del Servicio Provincial para FV <=1 MW. Requiere clasificar si en terreno rústico o urbano."
+          "notas": "Plazo legal: autorización previa 3 meses y de construcción 3 meses; explotación 1 mes. Silencio desestimatorio por analogía sectorial. Competencia del Servicio Provincial para FV <=1 MW. Requiere clasificar si en terreno rústico o urbano.",
+          "paralelo_con": null
         }
       ]
     }

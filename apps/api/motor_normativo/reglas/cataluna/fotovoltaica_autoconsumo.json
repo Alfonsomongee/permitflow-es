@@ -43,7 +43,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de tasa por ser <=100 kW"
+          "notas": "Exenta de tasa por ser <=100 kW",
+          "paralelo_con": null
         }
       ]
     },
@@ -90,7 +91,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de tasa por ser <=100 kW"
+          "notas": "Exenta de tasa por ser <=100 kW",
+          "paralelo_con": null
         }
       ]
     },
@@ -137,7 +139,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de autorización administrativa previa y de construcción por Decreto-ley 22/2025 (rango 100-500 kW). Importe de tasa NO verificado (discrepancia de numeración en DLeg 3/2008), coste_estimado null hasta confirmar"
+          "notas": "Exenta de autorización administrativa previa y de construcción por Decreto-ley 22/2025 (rango 100-500 kW). Importe de tasa NO verificado (discrepancia de numeración en DLeg 3/2008), coste_estimado null hasta confirmar",
+          "paralelo_con": null
         }
       ]
     },
@@ -172,7 +175,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Procedimiento integrado por fases sin plazo único simple en la norma. Importe de tasa NO verificado"
+          "notas": "SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Procedimiento integrado por fases sin plazo único simple en la norma. Importe de tasa NO verificado",
+          "paralelo_con": null
         }
       ]
     }
