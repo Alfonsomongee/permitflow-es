@@ -95,7 +95,7 @@ export function SimuladorAhorro({ result }: Props) {
             <label className="text-xs font-medium text-text-primary">Sector</label>
             <select
               value={sector}
-              onChange={(e) => setSector(e.target.value as any)}
+              onChange={(e) => setSector(e.target.value as "residencial" | "industrial_cubierta")}
               className="w-full rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             >
               <option value="residencial">Residencial</option>

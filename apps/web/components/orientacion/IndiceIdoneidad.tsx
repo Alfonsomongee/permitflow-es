@@ -77,8 +77,9 @@ export function IndiceIdoneidad({ tecnologiaId, onResult }: Props) {
       const data = await res.json();
       setResult(data);
       onResult?.(data);
-    } catch (err: any) {
-      setError(err.message || "Error de conexión");
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Error de conexión";
+      setError(errorMessage);
       onResult?.(null);
     } finally {
       setLoading(false);

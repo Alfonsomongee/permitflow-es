@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Zap, Wind, Droplets, Flame, Car, ArrowLeft, CheckCircle2, XCircle, BookOpen, Target } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { TECNOLOGIAS } from "@/content/tecnologias";
 import type { FichaTecnologia } from "@/content/tecnologias";
 import { IndiceIdoneidad } from "./IndiceIdoneidad";
 import type { IdoneidadResult } from "./IndiceIdoneidad";
