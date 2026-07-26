@@ -12,24 +12,36 @@
   ],
   "reglas": [
     {
-      "id": "clima-memoria-5-70",
-      "descripcion": "Instalacion termica con potencia nominal en calor o frio >= 5 kW y <= 70 kW: memoria tecnica de diseno.",
+      "id": "clima-memoria-5-70-residencial",
+      "descripcion": "Instalacion termica con potencia nominal en calor o frio >= 5 kW y <= 70 kW: memoria tecnica de diseno. (Uso residencial)",
       "condicion": {
         "and": [
           {
-            ">=": [
+            "and": [
               {
-                "var": "potencia_kw"
+                ">=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  5
+                ]
               },
-              5
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  70
+                ]
+              }
             ]
           },
           {
-            "<=": [
+            "==": [
               {
-                "var": "potencia_kw"
+                "var": "uso"
               },
-              70
+              "residencial"
             ]
           }
         ]
@@ -44,7 +56,78 @@
           "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": null,
-          "coste_estimado": "21.94 EUR (uso individual) / 45.77 EUR (otros usos) -- tarifa 7.2.3.1, Ley 10/2021 art. 44",
+          "coste_estimado": "21.94 EUR -- tarifa 7.2.3.1, Ley 10/2021 art. 44",
+          "documentos_requeridos": [
+            {
+              "id": "memoria_tecnica",
+              "label": "Memoria tecnica de diseno RITE",
+              "descripcion": "Memoria de la instalacion realmente ejecutada firmada por instalador habilitado o tecnico competente",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalacion",
+              "descripcion": "Certificado de la instalacion termica (modelo IT 3.1.8)",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_empresa_instaladora",
+              "label": "Habilitacion de empresa instaladora",
+              "descripcion": "Acreditacion de empresa instaladora habilitada de instalaciones termicas",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "clima-memoria-5-70-otros",
+      "descripcion": "Instalacion termica con potencia nominal en calor o frio >= 5 kW y <= 70 kW: memoria tecnica de diseno. (Otros usos)",
+      "condicion": {
+        "and": [
+          {
+            "and": [
+              {
+                ">=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  5
+                ]
+              },
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  70
+                ]
+              }
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Registro y puesta en servicio de instalacion termica (memoria tecnica)",
+          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "base_legal": "RD 1027/2007 art. 15.1.b y art. 24; Orden de 5 de marzo de 2013 (PUES)",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "PUES",
+          "plataforma_url": null,
+          "coste_estimado": "45.77 EUR -- tarifa 7.2.3.1, Ley 10/2021 art. 44",
           "documentos_requeridos": [
             {
               "id": "memoria_tecnica",
