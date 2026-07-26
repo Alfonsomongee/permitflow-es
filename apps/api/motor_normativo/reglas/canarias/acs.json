@@ -1,182 +1,197 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "canarias",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "RD 487/2022 (Prevención Legionelosis)",
-    "Sede Electrónica Canarias - Trámites 3409 y 5753"
+    "RITE RD 1027/2007",
+    "Decreto 141/2012, de 27 de diciembre, por el que se regulan las instalaciones térmicas en los edificios en la Comunidad Autónoma de Canarias",
+    "Orden de 15 de marzo de 2013, por la que se desarrolla el Decreto 141/2012",
+    "RD 314/2006 Código Técnico de la Edificación DB HE4"
   ],
   "reglas": [
     {
       "id": "CAN-ACS-001",
-      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 2,
+          "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
+          "organismo": "Instalador habilitado en instalaciones térmicas (categoría básica o superior)",
+          "base_legal": "RITE RD 1027/2007 IT 1.2.4; Decreto 141/2012 art. 8",
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
+              "id": "mtd_acs",
+              "label": "Memoria Técnica de Diseño de instalación térmica",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos de demanda, equipos y cumplimiento normativo.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Acreditación de la habilitación del instalador según RITE.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Puesta en funcionamiento de instalaciones térmicas en edificios",
-          "organismo": "Gobierno de Canarias",
-          "base_legal": "Normativa autonómica",
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante la Dirección General de Industria y Energía del Gobierno de Canarias",
+          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "base_legal": "Decreto 141/2012 art. 10; Orden 15/03/2013",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org",
-          "coste_estimado": "Tasa autonómica",
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobcan.es/sede/tramites/declaracion-responsable-instalaciones-termicas",
+          "coste_estimado": "0 € (tasa administrativa exenta)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_firmado",
-              "label": "Certificado de Instalación",
-              "descripcion": "Registro en Canarias.",
+              "id": "drps_acs",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "mtd_acs",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Misma MTD del trámite anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Mismo certificado del trámite anterior.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Trámite SICAC 3409.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
       "id": "CAN-ACS-002",
-      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto y OCA)",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de ACS.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "RITE (RD 1027/2007) Art. 24",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Coste OCA",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_oca_rite",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable emitido por la OCA.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "En Canarias rige el RITE estatal: obligatoria la inspección inicial por OCA para > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Puesta en funcionamiento de instalaciones térmicas en edificios",
-          "organismo": "Gobierno de Canarias",
-          "base_legal": "Normativa autonómica",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_oca_rite_adjunto",
-              "label": "Certificado OCA",
-              "descripcion": "Inspección inicial favorable.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Trámite SICAC 3409.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CAN-ACS-003",
-      "descripcion": "Mantenimiento del Plan de Prevención (Legionela)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico y ECA)",
       "condicion": {
         "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "!=": [{ "var": "uso" }, "residencial"] }
+          {
+            ">": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
-          "orden": 4,
-          "nombre": "Mantenimiento del Plan de Prevención (PPCL o PSL)",
-          "organismo": "Titular de la instalación",
-          "base_legal": "RD 487/2022 (estatal)",
-          "plazo_estimado_dias": 1,
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007 IT 1.2.4; Decreto 141/2012 art. 7",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de elaboración del plan",
+          "coste_estimado": "Variable según honorarios del técnico",
           "documentos_requeridos": [
             {
-              "id": "plan_prevencion_legionela",
-              "label": "PPCL o PSL",
-              "descripcion": "Plan de Prevención y Control de Legionella in situ.",
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico de instalación térmica",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, cálculos, planos, pliego de condiciones y presupuesto.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "En Canarias no se registran administrativamente los sistemas ACS, solo se mantiene el plan in situ. (El trámite SICAC 5753 es solo para torres de refrigeración y condensadores evaporativos).",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (ECA) emitido por Organismo de Control Autorizado (OCA)",
+          "organismo": "Organismo de Control Autorizado (OCA) acreditado en Canarias",
+          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 141/2012 art. 11",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 20,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según OCA (aprox. 300-600 €)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico",
+              "descripcion": "Mismo proyecto del trámite anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Acreditación del instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "acta_pruebas",
+              "label": "Acta de pruebas y puesta en marcha",
+              "descripcion": "Documento firmado por instalador que acredita el correcto funcionamiento.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación ante la Dirección General de Industria y Energía del Gobierno de Canarias",
+          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "base_legal": "Decreto 141/2012 art. 12; Orden 15/03/2013",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobcan.es/sede/tramites/registro-instalaciones-termicas",
+          "coste_estimado": "0 € (tasa administrativa exenta)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_registro",
+              "label": "Solicitud de registro de instalación térmica",
+              "descripcion": "Formulario oficial cumplimentado.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico",
+              "descripcion": "Mismo proyecto.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "eca_acs",
+              "label": "Certificado de Instalación (ECA) emitido por OCA",
+              "descripcion": "Certificado original firmado por OCA.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     }

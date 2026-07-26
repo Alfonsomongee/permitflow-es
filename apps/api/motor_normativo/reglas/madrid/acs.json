@@ -1,194 +1,165 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "madrid",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "RD 487/2022 (Prevención Legionelosis)",
-    "Orden 9343/2003 (Comunidad de Madrid)"
+    "RITE RD 1027/2007",
+    "RD 314/2006 CTE DB-HE4",
+    "Decreto 118/2022 de la Comunidad de Madrid (regulación puesta en servicio de instalaciones térmicas)",
+    "Orden 934/2023 de la Consejería de Medio Ambiente, Vivienda y Agricultura (procedimiento telemático)"
   ],
   "reglas": [
     {
       "id": "MAD-ACS-001",
-      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD) - Registro vía EICI",
+      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW (sin proyecto, memoria técnica)",
       "condicion": {
-        "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+        "<=": [
+          {
+            "var": "potencia_termica_kw"
+          },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 2,
+          "nombre": "Memoria Técnica de Diseño (MTD) para instalación térmica",
+          "organismo": "Instalador habilitado (carné de instalador térmico categoría básica o superior)",
+          "base_legal": "RITE IT 1.3.4; Decreto 118/2022 art. 5",
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación ACS.",
-              "obligatorio": true
+              "id": "mtd_termica",
+              "label": "Memoria Técnica de Diseño (MTD) según modelo oficial",
+              "requerido": true,
+              "formato": "PDF"
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador (carné vigente)",
+              "requerido": true,
+              "formato": "PDF"
             }
-          ],
-          "notas": "Las instalaciones ACS > 5 kW y <= 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Registro y Puesta en Servicio RITE",
-          "organismo": "EICI (Entidad de Inspección y Control Industrial)",
-          "base_legal": "Orden 9343/2003 (Madrid)",
+          "nombre": "Declaración Responsable de puesta en servicio (DRPS) ante el órgano competente de la Comunidad de Madrid",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Medio Ambiente, Vivienda y Agricultura)",
+          "base_legal": "Decreto 118/2022 art. 7; Orden 934/2023",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "EICI Autorizada",
-          "plataforma_url": "https://tramita.comunidad.madrid/autorizaciones-licencias-permisos-carnes/puesta-servicio-instalaciones-termicas",
-          "coste_estimado": "Tasa EICI",
+          "plazo_legal_dias": 15,
+          "plataforma": "Registro Industrial de la Comunidad de Madrid (RICM)",
+          "plataforma_url": "https://sede.comunidad.madrid/registro-industrial",
+          "coste_estimado": "0 € (tramitación telemática gratuita)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_firmado",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Registrado por EICI.",
-              "obligatorio": true
+              "id": "drps",
+              "label": "Declaración Responsable de Puesta en Servicio (DRPS) firmada electrónicamente",
+              "requerido": true,
+              "formato": "PDF"
             },
             {
-              "id": "mtd_rite_firmada",
-              "label": "Memoria Técnica",
-              "descripcion": "Copia de la MTD.",
-              "obligatorio": true
+              "id": "mtd_firmada",
+              "label": "MTD firmada por instalador",
+              "requerido": true,
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_eficiencia",
+              "label": "Certificado de eficiencia energética (si aplica por CTE)",
+              "requerido": false,
+              "formato": "PDF"
             }
-          ],
-          "notas": "Registro a través de EICI delegado.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
       "id": "MAD-ACS-002",
-      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto y OCA) - Registro vía EICI",
+      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico y EICI)",
       "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de ACS.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "OCA (EICI)",
-          "base_legal": "RITE y Decreto 38/2002",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Coste OCA",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_oca_rite",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Inspección inicial obligatoria por ser P > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro y Puesta en Servicio RITE",
-          "organismo": "EICI (Entidad de Inspección y Control Industrial)",
-          "base_legal": "Orden 9343/2003 (Madrid)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "EICI Autorizada",
-          "plataforma_url": "https://tramita.comunidad.madrid/autorizaciones-licencias-permisos-carnes/puesta-servicio-instalaciones-termicas",
-          "coste_estimado": "Tasa EICI",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_oca_rite_adjunto",
-              "label": "Certificado de Inspección",
-              "descripcion": "Emitido por OCA.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Tramitación a través de EICI.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "MAD-ACS-003",
-      "descripcion": "Notificación de instalación de riesgo de Legionela a Sanidad Ambiental",
-      "condicion": {
-        "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "!=": [{ "var": "uso" }, "residencial"] }
+        ">": [
+          {
+            "var": "potencia_termica_kw"
+          },
+          70
         ]
       },
       "tramites": [
         {
-          "orden": 4,
-          "nombre": "Notificación de Instalación de Riesgo",
-          "organismo": "Dirección General de Salud Pública (Área de Sanidad Ambiental) CAM",
-          "base_legal": "RD 487/2022",
+          "orden": 1,
+          "nombre": "Proyecto Técnico de instalación térmica (redactado por técnico titulado competente)",
+          "organismo": "Técnico titulado (ingeniero o arquitecto)",
+          "base_legal": "RITE IT 1.3.4; Decreto 118/2022 art. 6",
           "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios profesionales",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico visado por colegio profesional (si procede)",
+              "requerido": true,
+              "formato": "PDF"
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación (EICI) emitido por Organismo de Control (OCA) acreditado en Madrid",
+          "organismo": "Organismo de Control (OCA) autorizado por la Comunidad de Madrid (ej: TÜV Rheinland, Applus+, Bureau Veritas)",
+          "base_legal": "Decreto 118/2022 art. 8; Orden 934/2023",
+          "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Gratuito",
+          "coste_estimado": "Entre 300 y 800 € según potencia y complejidad",
           "documentos_requeridos": [
             {
-              "id": "notificacion_legionela",
-              "label": "Formulario de notificación de instalaciones",
-              "descripcion": "Comunicación a la autoridad sanitaria.",
-              "obligatorio": true
+              "id": "eici",
+              "label": "Certificado de Instalación (EICI) firmado por OCA",
+              "requerido": true,
+              "formato": "PDF"
             },
             {
-              "id": "plan_prevencion",
-              "label": "Plan de Prevención y Control de Legionela (PPCL)",
-              "descripcion": "Documento técnico exigido por RD 487/2022.",
-              "obligatorio": true
+              "id": "proyecto_visado",
+              "label": "Proyecto Técnico visado (copia)",
+              "requerido": true,
+              "formato": "PDF"
             }
-          ],
-          "notas": "Se utiliza el proxy (Potencia > 70 kW y uso no residencial) para asumir que la instalación cuenta con acumuladores grandes o circuito de retorno que la clasifican como riesgo.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración Responsable de puesta en servicio (DRPS) con EICI adjunto",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Medio Ambiente, Vivienda y Agricultura)",
+          "base_legal": "Decreto 118/2022 art. 7; Orden 934/2023",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Registro Industrial de la Comunidad de Madrid (RICM)",
+          "plataforma_url": "https://sede.comunidad.madrid/registro-industrial",
+          "coste_estimado": "0 € (tramitación telemática gratuita)",
+          "documentos_requeridos": [
+            {
+              "id": "drps",
+              "label": "Declaración Responsable de Puesta en Servicio (DRPS) firmada electrónicamente",
+              "requerido": true,
+              "formato": "PDF"
+            },
+            {
+              "id": "eici_adjunto",
+              "label": "EICI emitido por OCA",
+              "requerido": true,
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     }

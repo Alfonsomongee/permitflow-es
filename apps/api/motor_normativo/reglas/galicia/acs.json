@@ -1,164 +1,161 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "galicia",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "RD 487/2022 (Prevención Legionelosis)",
-    "Orden de 24 de febrero de 2010 (DOG nº 53)"
+    "RITE RD 1027/2007",
+    "Decreto 42/2019 de la Xunta de Galicia (regulación puesta en servicio de instalaciones térmicas)",
+    "Orden de 12 de junio de 2020 (procedimiento telemático)",
+    "RD 178/2021 (modificación RITE)"
   ],
   "reglas": [
     {
       "id": "GAL-ACS-001",
-      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW (sin proyecto, memoria técnica)",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 2,
+          "nombre": "Memoria Técnica de Diseño (MTD) según RITE",
+          "organismo": "Instalador habilitado (carné de instalador térmico)",
+          "base_legal": "RITE IT 1.2.4; Decreto 42/2019 art. 5",
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
-              "obligatorio": true
+              "id": "mtd_acs",
+              "label": "Memoria Técnica de Diseño"
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador"
             }
-          ],
-          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro de instalaciones térmicas en edificios",
-          "organismo": "Xunta de Galicia",
-          "base_legal": "Orden de 24 de febrero de 2010",
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS)",
+          "organismo": "Órgano competente de la Xunta de Galicia (Dirección General de Energía)",
+          "base_legal": "Decreto 42/2019 art. 7; Orden 12/06/2020",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Xunta",
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Xunta de Galicia",
           "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "Tasa autonómica",
+          "coste_estimado": "0 € (tasa administrativa exenta)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_firmado",
-              "label": "Certificado de Instalación",
-              "descripcion": "Registro en la Xunta.",
-              "obligatorio": true
+              "id": "mtd_acs",
+              "label": "Memoria Técnica de Diseño"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador"
+            },
+            {
+              "id": "certificado_materiales",
+              "label": "Certificado de materiales y equipos"
             }
-          ],
-          "notas": "Procedimiento IN622B.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
       "id": "GAL-ACS-002",
-      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto sin OCA inicial)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico)",
       "condicion": {
         "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "<=": [{ "var": "potencia_kw" }, 5000] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
+          "nombre": "Proyecto Técnico (PT) según RITE",
+          "organismo": "Técnico titulado competente (ingeniero)",
+          "base_legal": "RITE IT 1.2.4; Decreto 42/2019 art. 5",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
+          "coste_estimado": "Variable según honorarios profesionales",
           "documentos_requeridos": [
             {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de ACS.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico"
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra"
             }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro de instalaciones térmicas en edificios",
-          "organismo": "Xunta de Galicia",
-          "base_legal": "Orden de 24 de febrero de 2010",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Xunta",
-          "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
-            },
-            {
-              "id": "proyecto_rite_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento IN622B. En Galicia no es obligatoria la OCA inicial para la mayoría de instalaciones comunes (el límite de la OCA está en 5.000 kW calor).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "GAL-ACS-003",
-      "descripcion": "Mantenimiento del Plan de Prevención (Legionela)",
-      "condicion": {
-        "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "!=": [{ "var": "uso" }, "residencial"] }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 3,
-          "nombre": "Mantenimiento del Plan de Prevención (PPCL o PSL)",
-          "organismo": "Sergas (Salud Pública de Galicia)",
-          "base_legal": "RD 487/2022 (estatal)",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
+          "nombre": "Certificado de Instalación (CI) por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA) acreditado en Galicia",
+          "base_legal": "Decreto 42/2019 art. 6; RD 2200/1995",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 20,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de elaboración del plan",
+          "coste_estimado": "Variable según OCA (aprox. 200-500 €)",
           "documentos_requeridos": [
             {
-              "id": "plan_prevencion_legionela",
-              "label": "PPCL o PSL",
-              "descripcion": "Plan de Prevención y Control de Legionella a disposición de los inspectores.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico"
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra"
+            },
+            {
+              "id": "certificado_materiales",
+              "label": "Certificado de materiales y equipos"
             }
-          ],
-          "notas": "El control se realiza llevando in situ el Plan exigido por el Sergas. No hay un procedimiento unificado de alta telemática de la instalación (los códigos SA son para cursos).",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS)",
+          "organismo": "Órgano competente de la Xunta de Galicia (Dirección General de Energía)",
+          "base_legal": "Decreto 42/2019 art. 7; Orden 12/06/2020",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal",
+          "coste_estimado": "0 € (tasa administrativa exenta)",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca",
+              "label": "Certificado de Instalación emitido por OCA"
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico"
+            }
+          ]
         }
       ]
     }

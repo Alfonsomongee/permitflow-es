@@ -43,7 +43,6 @@ export interface DbExpediente {
   clerk_user_id: string;
   tipo_instalacion: string;
   comunidad: string;
-  municipio: string;
   potencia_kw: number;
   uso: string;
   numero_puntos: number | null;

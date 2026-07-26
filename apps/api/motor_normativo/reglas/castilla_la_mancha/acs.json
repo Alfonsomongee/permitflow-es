@@ -1,161 +1,162 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "castilla_la_mancha",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "RD 487/2022 (Prevención Legionelosis)",
-    "Portal eDice-Térmicas (JCCM)"
+    "RITE RD 1027/2007",
+    "Decreto 53/2003 de 20 de mayo (Castilla-La Mancha) por el que se regula la puesta en servicio de instalaciones térmicas en los edificios",
+    "Orden de 19 de noviembre de 2003 (Castilla-La Mancha) de desarrollo del Decreto 53/2003"
   ],
   "reglas": [
     {
       "id": "CLM-ACS-001",
-      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 2,
+          "nombre": "Memoria técnica de diseño (MTD) según RITE",
+          "organismo": "Instalador habilitado (categoría: instalador de climatización y ACS)",
+          "base_legal": "RITE RD 1027/2007; Decreto 53/2003 art. 5",
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
-              "obligatorio": true
+              "id": "mtd_acs",
+              "label": "Memoria técnica de diseño (MTD) de la instalación de ACS",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento del RITE"
             }
-          ],
-          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalación térmica",
-          "organismo": "Junta de Comunidades de Castilla-La Mancha",
-          "base_legal": "Orden de 23 de junio de 2006",
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el órgano competente de la comunidad autónoma",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible de Castilla-La Mancha)",
+          "base_legal": "Decreto 53/2003 art. 6; Orden 19/11/2003",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "eDice-Térmicas (JCCM)",
-          "plataforma_url": "https://edice.castillalamancha.es/",
-          "coste_estimado": "Tasa autonómica",
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-para-la-puesta-en-servicio-de-instalaciones-termicas",
+          "coste_estimado": "0 € (tasa administrativa no aplica)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_firmado",
-              "label": "Certificado de Instalación",
-              "descripcion": "Registro a través de eDice-Térmicas.",
-              "obligatorio": true
+              "id": "drps_acs",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador"
+            },
+            {
+              "id": "mtd_acs",
+              "label": "Memoria técnica de diseño (MTD)",
+              "descripcion": "Adjuntar la MTD generada en el paso anterior"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de habilitación del instalador",
+              "descripcion": "Copia del carné de instalador en vigor"
             }
-          ],
-          "notas": "Trámite de puesta en servicio en eDice-Térmicas.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
       "id": "CLM-ACS-002",
-      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto)",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de ACS.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Registro de instalación térmica",
-          "organismo": "Junta de Comunidades de Castilla-La Mancha",
-          "base_legal": "Orden de 23 de junio de 2006",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "eDice-Térmicas (JCCM)",
-          "plataforma_url": "https://edice.castillalamancha.es/",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
-            },
-            {
-              "id": "proyecto_rite_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "En Castilla-La Mancha no es obligatoria la inspección OCA para puesta en servicio inicial de forma generalizada autonómica, salvo las periódicas estatales.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CLM-ACS-003",
-      "descripcion": "Notificación de equipos de riesgo y PPCL (Legionela)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico y OCA)",
       "condicion": {
         "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "!=": [{ "var": "uso" }, "residencial"] }
+          {
+            ">": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
-          "orden": 3,
-          "nombre": "Mantenimiento del Plan de Prevención (PPCL o PSL)",
-          "organismo": "Sanidad Ambiental (JCCM)",
-          "base_legal": "RD 487/2022 (estatal)",
-          "plazo_estimado_dias": 1,
+          "orden": 1,
+          "nombre": "Proyecto técnico de la instalación de ACS",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007; Decreto 53/2003 art. 5",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de elaboración del plan",
+          "coste_estimado": "Variable según honorarios del técnico",
           "documentos_requeridos": [
             {
-              "id": "plan_prevencion_legionela",
-              "label": "PPCL o PSL",
-              "descripcion": "Plan de Prevención y Control de Legionella a disposición de los inspectores.",
-              "obligatorio": true
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico de la instalación de ACS",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto"
             }
-          ],
-          "notas": "El titular debe mantener in situ el plan, que será revisado por Sanidad Ambiental de la JCCM.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de la instalación emitido por Organismo de Control Autorizado (OCA)",
+          "organismo": "OCA acreditada en Castilla-La Mancha (ej. TÜV Rheinland, Bureau Veritas, Applus+, etc.)",
+          "base_legal": "RITE RD 1027/2007; Decreto 53/2003 art. 7",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 20,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Entre 300 y 800 € según complejidad",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico",
+              "descripcion": "Proyecto visado por colegio profesional (si procede)"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador",
+              "descripcion": "Copia del carné de instalador"
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el órgano competente de la comunidad autónoma",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible de Castilla-La Mancha)",
+          "base_legal": "Decreto 53/2003 art. 6; Orden 19/11/2003",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-para-la-puesta-en-servicio-de-instalaciones-termicas",
+          "coste_estimado": "0 €",
+          "documentos_requeridos": [
+            {
+              "id": "drps_acs",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador"
+            },
+            {
+              "id": "certificado_oca",
+              "label": "Certificado de OCA",
+              "descripcion": "Certificado favorable emitido por el OCA"
+            },
+            {
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico",
+              "descripcion": "Adjuntar el proyecto técnico"
+            }
+          ]
         }
       ]
     }

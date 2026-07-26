@@ -1,182 +1,174 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "pais_vasco",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "RD 487/2022 (Prevención Legionelosis)",
-    "Decreto 81/2020, de 30 de junio (País Vasco)"
+    "Decreto 47/2009, de 10 de febrero, sobre instalaciones térmicas en edificios (País Vasco)",
+    "RITE RD 1027/2007 y sus modificaciones",
+    "REBT RD 842/2002",
+    "Ley 21/2013 de evaluación ambiental",
+    "Decreto 213/2012, de 16 de octubre, de fomento de energías renovables (País Vasco)"
   ],
   "reglas": [
     {
-      "id": "PVA-ACS-001",
-      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD) - Declaración Responsable",
+      "id": "PV-ACS-001",
+      "descripcion": "Instalación de ACS con potencia térmica ≤ 70 kW en edificio existente o nueva construcción (sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
+          "nombre": "Memoria técnica de diseño (MTD) para instalaciones térmicas",
+          "organismo": "Instalador habilitado (categoría térmica)",
+          "base_legal": "RITE IT 1.2; Decreto 47/2009",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
-              "obligatorio": true
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño",
+              "formato": "pdf"
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "formato": "pdf"
             }
-          ],
-          "notas": "Las instalaciones > 5 kW y <= 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Puesta en servicio de instalaciones térmicas (Declaración Responsable)",
-          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
-          "base_legal": "Decreto 81/2020",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Tasa autonómica",
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el órgano competente de la Comunidad Autónoma",
+          "organismo": "Dirección de Energía, Minas y Administración Industrial del Gobierno Vasco",
+          "base_legal": "Decreto 47/2009 art. 10; RITE IT 1.3",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "Euskadi.eus - Ventanilla única de energía",
+          "plataforma_url": "https://www.euskadi.eus/tramites/declaracion-responsable-instalaciones-termicas/",
+          "coste_estimado": "0 € (tasa 0)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_rite",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario telemático.",
-              "obligatorio": true
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño firmada",
+              "formato": "pdf"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador",
+              "formato": "pdf"
+            },
+            {
+              "id": "certificado_materiales",
+              "label": "Certificado de materiales y equipos",
+              "formato": "pdf"
             }
-          ],
-          "notas": "Tramitación electrónica en euskadi.eus.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
-      "id": "PVA-ACS-002",
-      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto y OCA) - Declaración Responsable",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de ACS.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Coste OCA",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_oca_rite",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Inspección obligatoria estatal.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Puesta en servicio de instalaciones térmicas (Declaración Responsable)",
-          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
-          "base_legal": "Decreto 81/2020",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "declaracion_responsable_rite_proy",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario telemático.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "El titular declara disponer del proyecto y certificado OCA.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "PVA-ACS-003",
-      "descripcion": "Registro del Plan de Prevención de Legionela (Salud Pública)",
+      "id": "PV-ACS-002",
+      "descripcion": "Instalación de ACS con potencia térmica > 70 kW (requiere proyecto técnico y OCA)",
       "condicion": {
         "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "!=": [{ "var": "uso" }, "residencial"] }
+          {
+            ">": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
-          "orden": 4,
-          "nombre": "Declaración Responsable del PPCL a Salud Pública",
-          "organismo": "Departamento de Salud Pública (Gobierno Vasco)",
-          "base_legal": "RD 487/2022",
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "base_legal": "RITE IT 1.2; Decreto 47/2009",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Gratuito",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según proyecto",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_ppcl",
-              "label": "Declaración Responsable PPCL",
-              "descripcion": "Firmada por el titular y el responsable técnico.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico visado",
+              "formato": "pdf"
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación por OCA (Organismo de Control Autorizado)",
+          "organismo": "OCA acreditada en País Vasco (ej. TÜV Rheinland, Bureau Veritas, etc.)",
+          "base_legal": "RITE IT 1.3; Decreto 47/2009 art. 11",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "300-600 €",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "formato": "pdf"
             },
             {
-              "id": "registro_ppcl",
-              "label": "Registro del Plan de Prevención y Control de la Legionela",
-              "descripcion": "Registro preferentemente informático de las operaciones.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador",
+              "formato": "pdf"
+            },
+            {
+              "id": "certificado_materiales",
+              "label": "Certificado de materiales",
+              "formato": "pdf"
             }
-          ],
-          "notas": "Es obligatorio disponer de un Registro del Plan de Prevención y Control de la Legionela (PPCL) mediante Declaración Responsable.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) con certificado OCA",
+          "organismo": "Dirección de Energía, Minas y Administración Industrial del Gobierno Vasco",
+          "base_legal": "Decreto 47/2009 art. 10; RITE IT 1.3",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "Euskadi.eus - Ventanilla única de energía",
+          "plataforma_url": "https://www.euskadi.eus/tramites/declaracion-responsable-instalaciones-termicas/",
+          "coste_estimado": "0 € (tasa 0)",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca",
+              "label": "Certificado de OCA",
+              "formato": "pdf"
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "formato": "pdf"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador",
+              "formato": "pdf"
+            }
+          ]
         }
       ]
     }

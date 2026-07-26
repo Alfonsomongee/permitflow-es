@@ -1,149 +1,169 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "asturias",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE) (estatal)",
-    "Decreto 11/2015, de 4 de marzo (BOPA)",
-    "Sede Electrónica Asturias - Procedimiento RECE0050T01"
+    "RD 1027/2007 RITE",
+    "RD 238/2013 modificación RITE",
+    "Decreto 37/2001 de 26 de abril (Asturias) sobre puesta en servicio de instalaciones térmicas",
+    "Ley 21/2013 de evaluación ambiental",
+    "RD 842/2002 REBT (si aplica)"
   ],
   "reglas": [
     {
-      "id": "AST-CLI-001",
-      "descripcion": "Instalación térmica de 5 a 70 kW (MTD)",
+      "id": "AST-AER-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción (sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "climatizacion_aerotermia"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
+          "nombre": "Memoria técnica de diseño (MTD) según RITE",
+          "organismo": "Instalador habilitado (categoría térmica)",
+          "base_legal": "RITE RD 1027/2007 art. 10",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
-              "obligatorio": true
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño (MTD) según RITE"
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador (modelo según Decreto 37/2001)"
             }
-          ],
-          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Registro del certificado de instalación térmica de edificios",
-          "organismo": "Gobierno del Principado de Asturias",
-          "base_legal": "Decreto 11/2015 (Asturias)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Asturias",
+          "nombre": "Puesta en servicio ante el Órgano Competente de la Comunidad Autónoma (Industria)",
+          "organismo": "Consejería de Industria, Empleo y Promoción Económica del Principado de Asturias",
+          "base_legal": "Decreto 37/2001 de 26 de abril (Asturias) art. 5",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Principado de Asturias",
           "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa autonómica",
+          "coste_estimado": "Tasa según tarifa vigente (consultar)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_firmado",
-              "label": "Certificado de Instalación",
-              "descripcion": "Registro en Asturias.",
-              "obligatorio": true
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño (MTD) firmada"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable (modelo oficial)"
+            },
+            {
+              "id": "justificante_pago_tasa",
+              "label": "Justificante de pago de tasa de puesta en servicio"
             }
-          ],
-          "notas": "Procedimiento RECE0050T01.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
-      "id": "AST-CLI-002",
-      "descripcion": "Instalación térmica > 70 kW (Proyecto y OCA)",
+      "id": "AST-AER-002",
+      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "climatizacion_aerotermia"
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero)",
+          "base_legal": "RITE RD 1027/2007 art. 11",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
+          "coste_estimado": "Según honorarios del técnico",
           "documentos_requeridos": [
             {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de climatización.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico visado por colegio profesional"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado"
             }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "Decreto 11/2015 (Asturias) Art. 13",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Coste OCA",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_oca_rite",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable emitido por la OCA.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "En Asturias es obligatoria la inspección inicial por OCA para todas las instalaciones que requieran Proyecto (> 70 kW).",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro del certificado de instalación térmica de edificios",
-          "organismo": "Gobierno del Principado de Asturias",
-          "base_legal": "Decreto 11/2015 (Asturias)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Asturias",
+          "nombre": "Puesta en servicio ante el Órgano Competente de la Comunidad Autónoma (Industria)",
+          "organismo": "Consejería de Industria, Empleo y Promoción Económica del Principado de Asturias",
+          "base_legal": "Decreto 37/2001 de 26 de abril (Asturias) art. 5",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Principado de Asturias",
           "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa autonómica",
+          "coste_estimado": "Tasa según tarifa vigente (consultar)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico visado"
             },
             {
-              "id": "certificado_oca_rite_adjunto",
-              "label": "Certificado de Inspección OCA",
-              "descripcion": "Adjunto a la presentación.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable (modelo oficial)"
+            },
+            {
+              "id": "justificante_pago_tasa",
+              "label": "Justificante de pago de tasa de puesta en servicio"
             }
-          ],
-          "notas": "Procedimiento RECE0050T01.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

@@ -1,17 +1,17 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "andalucia",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 919/2006, ITC-ICG 07 (BOE-A-2006-15345)",
-    "Orden de 5 de marzo de 2013 (PUES), Junta de Andalucia",
-    "Ley 10/2021 de tasas, art. 44, tarifa 7.2.8 (actualizacion 2026)"
+    "RD 919/2006 RIGLO",
+    "Decreto 59/2005 de 1 de marzo (Andalucía) sobre instalaciones de gas",
+    "Orden de 5 de marzo de 2013 (Andalucía) por la que se regulan los procedimientos de puesta en servicio de instalaciones de gas"
   ],
   "reglas": [
     {
-      "id": "gas-sin-proyecto",
-      "descripcion": "Instalacion receptora de gas con potencia <= 70 kW Y presion de operacion <= 5 bar Y uso no industrial: no requiere proyecto (certificado de instalacion).",
+      "id": "AND-GAS-001",
+      "descripcion": "Instalación de gas baja presión ≤ 70 kW en uso doméstico (sin proyecto, con memoria técnica)",
       "condicion": {
         "and": [
           {
@@ -23,11 +23,75 @@
             ]
           },
           {
-            "<=": [
+            "==": [
               {
-                "var": "presion_bar"
+                "var": "uso"
               },
-              5
+              "domestico"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Instalación (MTI) de gas",
+          "organismo": "Instalador habilitado (categoría IG-I o IG-II)",
+          "base_legal": "RIGLO RD 919/2006; Decreto 59/2005",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "mti_gas",
+              "label": "Memoria Técnica de Instalación de gas",
+              "descripcion": "Documento firmado por instalador habilitado con datos de la instalación, esquema, materiales y cálculos."
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Acreditación de la categoría del instalador (IG-I o IG-II) según RIGLO."
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación (CI) y puesta en servicio",
+          "organismo": "Organismo de Control Autorizado (OCA) en Andalucía",
+          "base_legal": "Orden 5 marzo 2013 (Andalucía); RIGLO art. 7",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Registro Integrado Industrial de Andalucía (RIIA)",
+          "plataforma_url": "https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/riia/",
+          "coste_estimado": "Tasa de verificación OCA: 50-100 €",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "Documento oficial firmado por instalador y visado por OCA, según modelo de la Orden 5 marzo 2013."
+            },
+            {
+              "id": "mti_gas_firmada",
+              "label": "MTI firmada por instalador",
+              "descripcion": "Memoria Técnica de Instalación presentada previamente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AND-GAS-002",
+      "descripcion": "Instalación de gas baja presión > 70 kW o en uso no doméstico (con proyecto técnico)",
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
             ]
           },
           {
@@ -35,7 +99,7 @@
               {
                 "var": "uso"
               },
-              "industrial"
+              "domestico"
             ]
           }
         ]
@@ -43,442 +107,46 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificado de instalacion receptora de gas (sin proyecto)",
-          "organismo": "Empresa instaladora de gas habilitada / Delegacion Territorial de Industria (Junta de Andalucia)",
-          "base_legal": "RD 919/2006 ITC-ICG 07 ap. 4; ITC-ICG 08/09",
-          "plazo_estimado_dias": 10,
+          "nombre": "Proyecto Técnico de instalación de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial, químico, etc.)",
+          "base_legal": "RIGLO RD 919/2006; Decreto 59/2005",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Empresa instaladora habilitada",
+          "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "42.59 EUR -- tarifa 7.2.8.1, Ley 10/2021 art. 44",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_instalacion_gas",
-              "label": "Certificado de instalacion de gas",
-              "descripcion": "CERININD/CERINCOM emitido por empresa instaladora habilitada",
-              "obligatorio": true
-            },
-            {
-              "id": "pruebas_estanqueidad",
-              "label": "Certificado de pruebas previas",
-              "descripcion": "Certificado de pruebas previas y puesta en servicio",
-              "obligatorio": true
-            },
-            {
-              "id": "instrucciones_uso",
-              "label": "Instrucciones de uso y mantenimiento",
-              "descripcion": "Croquis del trazado y caracteristicas principales",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "gas-con-proyecto",
-      "descripcion": "Instalacion receptora de gas con potencia > 70 kW O presion de operacion > 5 bar O uso industrial: requiere proyecto y comunicacion de puesta en servicio (negacion exacta de la regla anterior). (presupuesto <= 2k)",
-      "condicion": {
-        "and": [
-          {
-            "or": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              },
-              {
-                ">": [
-                  {
-                    "var": "presion_bar"
-                  },
-                  5
-                ]
-              },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "industrial"
-                ]
-              }
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "inversion_eur"
-              },
-              2000
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Comunicacion de puesta en servicio de instalacion receptora de gas (con proyecto)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 919/2006 ITC-ICG 07 ap. 3.6; comunicacion en plazo de 30 dias desde la puesta en servicio",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Honorarios del técnico: 500-2000 €",
           "documentos_requeridos": [
             {
               "id": "proyecto_gas",
-              "label": "Proyecto tecnico de la instalacion de gas",
-              "descripcion": "Proyecto firmado por tecnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_direccion_obra",
-              "label": "Certificado de direccion y terminacion de obra (CERTEREG)",
-              "descripcion": "Certificado de direccion de obra de la instalacion receptora",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion_gas",
-              "label": "Certificado de instalacion de gas",
-              "descripcion": "CERININD/CERINCOM emitido por empresa instaladora habilitada",
-              "obligatorio": true
-            },
-            {
-              "id": "pruebas_estanqueidad",
-              "label": "Certificado de pruebas previas y puesta en servicio",
-              "descripcion": "Certificado de pruebas previas",
-              "obligatorio": true
+              "label": "Proyecto Técnico de gas",
+              "descripcion": "Documento firmado por técnico competente con memoria, planos, pliego de condiciones y presupuesto."
             }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (comunicacion, no autorizacion).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "gas-con-proyecto",
-      "descripcion": "Instalacion receptora de gas con potencia > 70 kW O presion de operacion > 5 bar O uso industrial: requiere proyecto y comunicacion de puesta en servicio (negacion exacta de la regla anterior). (presupuesto <= 2k) (Sin inversión informada)",
-      "condicion": {
-        "and": [
-          {
-            "or": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              },
-              {
-                ">": [
-                  {
-                    "var": "presion_bar"
-                  },
-                  5
-                ]
-              },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "industrial"
-                ]
-              }
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "inversion_eur"
-              },
-              null
-            ]
-          }
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Comunicacion de puesta en servicio de instalacion receptora de gas (con proyecto)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 919/2006 ITC-ICG 07 ap. 3.6; comunicacion en plazo de 30 dias desde la puesta en servicio",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "Depende de la inversión exacta",
+          "orden": 2,
+          "nombre": "Certificado de Instalación (CI) y puesta en servicio",
+          "organismo": "Organismo de Control Autorizado (OCA) en Andalucía",
+          "base_legal": "Orden 5 marzo 2013 (Andalucía); RIGLO art. 7",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Registro Integrado Industrial de Andalucía (RIIA)",
+          "plataforma_url": "https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/riia/",
+          "coste_estimado": "Tasa de verificación OCA: 100-200 €",
           "documentos_requeridos": [
             {
-              "id": "proyecto_gas",
-              "label": "Proyecto tecnico de la instalacion de gas",
-              "descripcion": "Proyecto firmado por tecnico competente",
-              "obligatorio": true
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "Documento oficial firmado por instalador y visado por OCA."
             },
             {
-              "id": "certificado_direccion_obra",
-              "label": "Certificado de direccion y terminacion de obra (CERTEREG)",
-              "descripcion": "Certificado de direccion de obra de la instalacion receptora",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion_gas",
-              "label": "Certificado de instalacion de gas",
-              "descripcion": "CERININD/CERINCOM emitido por empresa instaladora habilitada",
-              "obligatorio": true
-            },
-            {
-              "id": "pruebas_estanqueidad",
-              "label": "Certificado de pruebas previas y puesta en servicio",
-              "descripcion": "Certificado de pruebas previas",
-              "obligatorio": true
+              "id": "proyecto_gas_visado",
+              "label": "Proyecto visado por colegio profesional (si aplica)",
+              "descripcion": "Visado del proyecto por el colegio profesional correspondiente."
             }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (comunicacion, no autorizacion).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "gas-con-proyecto",
-      "descripcion": "Instalacion receptora de gas con potencia > 70 kW O presion de operacion > 5 bar O uso industrial: requiere proyecto y comunicacion de puesta en servicio (negacion exacta de la regla anterior). (presupuesto 2k-50k)",
-      "condicion": {
-        "and": [
-          {
-            "or": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              },
-              {
-                ">": [
-                  {
-                    "var": "presion_bar"
-                  },
-                  5
-                ]
-              },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "industrial"
-                ]
-              }
-            ]
-          },
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "inversion_eur"
-                  },
-                  2000
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "inversion_eur"
-                  },
-                  50000
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Comunicacion de puesta en servicio de instalacion receptora de gas (con proyecto)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 919/2006 ITC-ICG 07 ap. 3.6; comunicacion en plazo de 30 dias desde la puesta en servicio",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto tecnico de la instalacion de gas",
-              "descripcion": "Proyecto firmado por tecnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_direccion_obra",
-              "label": "Certificado de direccion y terminacion de obra (CERTEREG)",
-              "descripcion": "Certificado de direccion de obra de la instalacion receptora",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion_gas",
-              "label": "Certificado de instalacion de gas",
-              "descripcion": "CERININD/CERINCOM emitido por empresa instaladora habilitada",
-              "obligatorio": true
-            },
-            {
-              "id": "pruebas_estanqueidad",
-              "label": "Certificado de pruebas previas y puesta en servicio",
-              "descripcion": "Certificado de pruebas previas",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (comunicacion, no autorizacion).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "gas-con-proyecto",
-      "descripcion": "Instalacion receptora de gas con potencia > 70 kW O presion de operacion > 5 bar O uso industrial: requiere proyecto y comunicacion de puesta en servicio (negacion exacta de la regla anterior). (presupuesto > 50k)",
-      "condicion": {
-        "and": [
-          {
-            "or": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              },
-              {
-                ">": [
-                  {
-                    "var": "presion_bar"
-                  },
-                  5
-                ]
-              },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "industrial"
-                ]
-              }
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "inversion_eur"
-              },
-              50000
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Comunicacion de puesta en servicio de instalacion receptora de gas (con proyecto)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 919/2006 ITC-ICG 07 ap. 3.6; comunicacion en plazo de 30 dias desde la puesta en servicio",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "212.24 EUR",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto tecnico de la instalacion de gas",
-              "descripcion": "Proyecto firmado por tecnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_direccion_obra",
-              "label": "Certificado de direccion y terminacion de obra (CERTEREG)",
-              "descripcion": "Certificado de direccion de obra de la instalacion receptora",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion_gas",
-              "label": "Certificado de instalacion de gas",
-              "descripcion": "CERININD/CERINCOM emitido por empresa instaladora habilitada",
-              "obligatorio": true
-            },
-            {
-              "id": "pruebas_estanqueidad",
-              "label": "Certificado de pruebas previas y puesta en servicio",
-              "descripcion": "Certificado de pruebas previas",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (comunicacion, no autorizacion).",
-          "paralelo_con": null
+          ]
         }
       ]
     }
-  ],
-  "validaciones": [
-    {
-      "id": "val-gas-glp-fuera-alcance",
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "tipo_suministro"
-      ],
-      "condicion": {
-        "==": [
-          {
-            "var": "tipo_suministro"
-          },
-          "glp_deposito_fijo"
-        ]
-      },
-      "mensaje": "El GLP en deposito fijo se rige por ITC-ICG 03, no por ICG 07; este fichero no cubre ese supuesto (no confundir con gas canalizado).",
-      "fuente": "RD 919/2006 ITC-ICG 03",
-      "validado_por": null
-    },
-    {
-      "id": "val-gas-presion-baja-potencia",
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "presion_bar",
-        "potencia_kw"
-      ],
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "presion_bar"
-              },
-              5
-            ]
-          }
-        ]
-      },
-      "mensaje": "Instalacion de baja potencia pero presion >5 bar: requiere proyecto pese a estar por debajo de 70 kW.",
-      "fuente": "RD 919/2006 ITC-ICG 07",
-      "validado_por": null
-    }
-  ],
-  "nivel_verificacion": "verificada"
+  ]
 }

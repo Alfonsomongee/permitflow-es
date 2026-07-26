@@ -1,64 +1,120 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "canarias",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 24/2013, de 26 de diciembre, del Sector Electrico (art. 53)",
-    "Real Decreto 244/2019, de 5 de abril",
-    "Decreto 141/2009, de 10 de noviembre (BOC 230, 24/11/2009) (Anexo III: MTD FV <10 kW)",
-    "Ley 11/1997, de 2 de diciembre, de regulacion del Sector Electrico Canario",
-    "Ley 5/2021 (art. 3, compatibilidad urbanistica)",
-    "Modelo 700 - concepto 118 'Tasas en materia de industria y energia', tasa 11"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 141/2009, de 10 de noviembre, por el que se aprueba el Reglamento de la Actividad de Distribución de Energía Eléctrica en Canarias",
+    "Orden de 5 de marzo de 2013, por la que se regulan los procedimientos de puesta en servicio de instalaciones eléctricas de baja tensión en Canarias",
+    "Ley 7/2021 Cambio Climático art. 16",
+    "Decreto-ley 2/2018, de 26 de junio (Canarias), disposición adicional única",
+    "Decreto-ley 3/2024, de 6 de febrero (Canarias)",
+    "Resolución de 13 de octubre de 2023, Secretaría General de Energía de Canarias"
   ],
   "reglas": [
     {
-      "id": "CAN-FV-010",
-      "descripcion": "Autoconsumo BT, P<=10 kW",
+      "id": "CAN-FV-001",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
-        "<=": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
           },
-          10
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Comunicacion previa a la puesta en servicio (registro BT + autoconsumo)",
-          "organismo": "Direccion General de Energia (Gobierno de Canarias)",
-          "base_legal": "Decreto 141/2009 (Anexo III MTD FV <10 kW)",
-          "plazo_estimado_dias": 15,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
-          "plataforma": "Sede electronica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3158",
-          "coste_estimado": "Modelo 700 concepto 118 tasa 11 (importe no verificado)",
-          "formulario_ref": "3158",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "mtd",
-              "label": "Memoria tecnica de diseno FV <10 kW",
-              "descripcion": "Anexo III Decreto 141/2009",
-              "obligatorio": true
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación",
+              "formato": "PDF"
             },
             {
-              "id": "cie",
-              "label": "Certificado de instalacion electrica",
-              "descripcion": "Empresa instaladora categoria especialista E9",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Certificado firmado por instalador según ITC-BT-05",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable",
+              "descripcion": "Declaración del titular de la instalación",
+              "formato": "PDF"
             }
-          ],
-          "notas": "El tramite 3158 es exclusivo para instalaciones nuevas. Si se superpone a red preexistente: 6782. Contingencia: 6703. Rectificaciones: 6790. Anulacion: 6795.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de autoconsumo (Canarias)",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias",
+          "base_legal": "RD 244/2019 art. 11; Orden de 5 de marzo de 2013",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobcan.es/sede/",
+          "coste_estimado": "0 €",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Misma que la del trámite anterior",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Mismo que el del trámite anterior",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable",
+              "descripcion": "Misma que la del trámite anterior",
+              "formato": "PDF"
+            },
+            {
+              "id": "contrato_acceso",
+              "label": "Contrato de acceso y conexión",
+              "descripcion": "Documento firmado con la distribuidora",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "CAN-FV-020",
-      "descripcion": "Autoconsumo BT, 10<P<=100 kW",
+      "id": "CAN-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
       "condicion": {
-        "and": [
+        "or": [
           {
             ">": [
               {
@@ -68,11 +124,11 @@
             ]
           },
           {
-            "<=": [
+            "!=": [
               {
-                "var": "potencia_kw"
+                "var": "uso"
               },
-              100
+              "residencial"
             ]
           }
         ]
@@ -80,151 +136,92 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro y puesta en servicio (con Certificado Final de Obra)",
-          "organismo": "Direccion General de Energia (Gobierno de Canarias)",
-          "base_legal": "Decreto 141/2009",
-          "plazo_estimado_dias": 30,
+          "nombre": "Proyecto Técnico fotovoltaico",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede electronica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3158",
-          "coste_estimado": "Modelo 700 concepto 118 tasa 11 (importe no verificado)",
-          "formulario_ref": "3158",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
           "documentos_requeridos": [
             {
-              "id": "cfo",
-              "label": "Certificado Final de Obra",
-              "descripcion": "Obligatorio si P>10 kW",
-              "obligatorio": true
-            },
-            {
-              "id": "acceso",
-              "label": "Permiso de acceso y conexion",
-              "descripcion": "Endesa (necesario para P>100 kW siempre; para <=100 kW cuando la instalacion de consumo lo precise)",
-              "obligatorio": false
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Documento firmado por técnico competente",
+              "formato": "PDF"
             }
-          ],
-          "notas": "El tramite 3158 asume el CFO de forma nativa. Si se superpone a red preexistente: 6782.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CAN-FV-030",
-      "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa",
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Autorizacion administrativa de instalacion de produccion",
-          "organismo": "Direccion General de Energia (Gobierno de Canarias)",
-          "base_legal": "art. 11 Decreto 141/2009; art. 53 Ley 24/2013",
-          "plazo_estimado_dias": 120,
-          "plazo_legal_dias": 180,
-          "plataforma": "Sede electronica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/2721",
-          "coste_estimado": "Modelo 700 concepto 118 tasa 11 (importe no verificado)",
-          "formulario_ref": "2721",
+          "orden": 2,
+          "nombre": "Certificado de Inspección Inicial (OCA/EICI)",
+          "organismo": "Organismo de Control Autorizado (OCA) en Canarias",
+          "base_legal": "Orden de 5 de marzo de 2013; RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobcan.es/sede/",
+          "coste_estimado": "Variable según OCA (aprox. 200-500 €)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto tecnico visado",
-              "descripcion": "O declaracion responsable",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo que el del trámite anterior",
+              "formato": "PDF"
             },
             {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexion",
-              "descripcion": "Obligatorio",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Firmado por instalador",
+              "formato": "PDF"
             },
             {
-              "id": "aval",
-              "label": "Garantia RD 1183/2020",
-              "descripcion": "40 EUR/kW",
-              "obligatorio": true
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable",
+              "descripcion": "Del titular",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Plazo legal de resolucion 6 meses (180 dias). Silencio DESESTIMATORIO. Singularidad insular: sistema electrico no peninsular; tributacion IGIC.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CAN-FV-030-AT",
-      "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa (Refinamiento AT)",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "AT"
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Autorizacion administrativa de instalacion de produccion",
-          "organismo": "Direccion General de Energia (Gobierno de Canarias)",
-          "base_legal": "art. 11 Decreto 141/2009; art. 53 Ley 24/2013",
-          "plazo_estimado_dias": 120,
-          "plazo_legal_dias": 180,
-          "plataforma": "Sede electronica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/2721",
-          "coste_estimado": "Modelo 700 concepto 118 tasa 11 (importe no verificado)",
-          "formulario_ref": "2721",
+          "orden": 3,
+          "nombre": "Registro de autoconsumo (Canarias)",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias",
+          "base_legal": "RD 244/2019 art. 11; Orden de 5 de marzo de 2013",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobcan.es/sede/",
+          "coste_estimado": "0 €",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto tecnico visado",
-              "descripcion": "O declaracion responsable",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo que el del trámite anterior",
+              "formato": "PDF"
             },
             {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexion",
-              "descripcion": "Obligatorio",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Mismo que el del trámite anterior",
+              "formato": "PDF"
             },
             {
-              "id": "aval",
-              "label": "Garantia RD 1183/2020",
-              "descripcion": "40 EUR/kW",
-              "obligatorio": true
+              "id": "certificado_inspeccion",
+              "label": "Certificado de Inspección Inicial (OCA)",
+              "descripcion": "Emitido por OCA",
+              "formato": "PDF"
+            },
+            {
+              "id": "contrato_acceso",
+              "label": "Contrato de acceso y conexión",
+              "descripcion": "Documento firmado con la distribuidora",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Plazo legal de resolucion 6 meses (180 dias). Silencio DESESTIMATORIO. Singularidad insular: sistema electrico no peninsular; tributacion IGIC.",
-          "paralelo_con": null
+          ]
         }
       ]
     }
-  ],
-  "validaciones": [
-    {
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "tension"
-      ],
-      "mensaje": "Si no se especifica el nivel de tensión, el plan asume Baja Tensión (BT) por defecto."
-    }
-  ],
-  "nivel_verificacion": "generica"
+  ]
 }

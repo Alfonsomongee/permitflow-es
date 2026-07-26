@@ -1,193 +1,127 @@
 {
   "tipo_instalacion": "gas_baja_presion",
-  "comunidad": "castilla_y_leon",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "comunidad": "castilla_leon",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 919/2006 (estatal) ITC-ICG 07",
-    "Sede Electrónica Junta de Castilla y León - IAPA 1496"
+    "RD 919/2006 RIGLO",
+    "RD 842/2002 REBT",
+    "Decreto 54/2003 de 12 de junio (Castilla y León) por el que se regulan los procedimientos de puesta en servicio de instalaciones de gas",
+    "Orden FYM/775/2014 de 22 de septiembre (Castilla y León) sobre tramitación de instalaciones de gas"
   ],
   "reglas": [
     {
-      "id": "CYL-GAS-001",
-      "descripcion": "Instalación receptora de gas P <= 70 kW - IAPA 1496",
+      "id": "CYL-GBP-001",
+      "descripcion": "Instalación de gas de baja presión (≤ 0.05 bar) en vivienda unifamiliar con potencia ≤ 10 kW",
       "condicion": {
-        "<=": [{ "var": "potencia_kw" }, 70]
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              0.05
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_edificio"
+              },
+              "unifamiliar"
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificado de Instalación de Gas",
-          "organismo": "Empresa Instaladora de Gas Autorizada",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas",
-              "label": "Certificado de Instalación",
-              "descripcion": "Certificado emitido tras superar las pruebas.",
-              "obligatorio": true
-            },
-            {
-              "id": "esquema_instalacion_gas",
-              "label": "Esquema de la instalación",
-              "descripcion": "Croquis con tuberías y aparatos.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar 70 kW, no requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Comunicación de Instalación receptora de gas",
-          "organismo": "Junta de Castilla y León",
-          "base_legal": "IAPA 1496",
-          "plazo_estimado_dias": 3,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica JCyL",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
-          "coste_estimado": "Tasas administrativas",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas_firmado",
-              "label": "Certificado de Instalación de Gas",
-              "descripcion": "Registro autonómico.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento IAPA 1496.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas_distribuidora",
-              "label": "Certificado de Instalación",
-              "descripcion": "Entregado a la distribuidora.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La distribuidora verifica la estanqueidad antes del primer llenado.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CYL-GAS-002",
-      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación de Gas",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Memoria, planos, cálculos.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Por superar 70 kW requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificados de Dirección de Obra e Instalación",
-          "organismo": "Director de obra e Instalador",
-          "base_legal": "RD 919/2006",
+          "nombre": "Memoria técnica de instalación de gas (MTG) firmada por instalador habilitado",
+          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
+          "base_legal": "RD 919/2006 art. 5; Decreto 54/2003 art. 3",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador",
           "documentos_requeridos": [
             {
-              "id": "certificado_direccion_obra_gas",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "Firmado por el director de obra.",
+              "id": "mtg",
+              "label": "Memoria Técnica de Gas",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_gas_proy",
-              "label": "Certificado de Instalación",
-              "descripcion": "Firmado por instalador.",
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Ambos certificados son necesarios.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de puesta en servicio ante el órgano competente de la Comunidad Autónoma",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "Decreto 54/2003 art. 4; Orden FYM/775/2014",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Sede Electrónica de la Junta de Castilla y León",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "Tasa según tarifa vigente (aprox. 30-50 €)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_puesta_servicio",
+              "label": "Solicitud de puesta en servicio (modelo oficial)",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "mtg_firmada",
+              "label": "Memoria Técnica de Gas firmada",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "boletin_gas",
+              "label": "Boletín de instalación de gas (modelo oficial)",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Comunicación de Instalación receptora de gas",
-          "organismo": "Junta de Castilla y León",
-          "base_legal": "IAPA 1496",
-          "plazo_estimado_dias": 3,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica JCyL",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
-          "coste_estimado": "Tasas administrativas",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas_firmado",
-              "label": "Certificado de Instalación de Gas",
-              "descripcion": "Registro autonómico.",
-              "obligatorio": true
-            },
-            {
-              "id": "proyecto_gas_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento IAPA 1496.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 4,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "nombre": "Inspección inicial por OCA (Organismo de Control Autorizado) si procede",
+          "organismo": "OCA autorizada en Castilla y León (ej. TÜV Rheinland, Bureau Veritas, etc.)",
+          "base_legal": "RD 919/2006 art. 7; Decreto 54/2003 art. 5",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
+          "coste_estimado": "Según tarifa OCA (aprox. 100-200 €)",
           "documentos_requeridos": [
             {
-              "id": "certificados_gas_adjunto",
-              "label": "Certificados (Obra e Instalación)",
-              "descripcion": "Entregados a la distribuidora.",
+              "id": "informe_oca",
+              "label": "Informe de inspección OCA favorable",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Las comprobaciones son realizadas por la distribuidora antes del primer llenado.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

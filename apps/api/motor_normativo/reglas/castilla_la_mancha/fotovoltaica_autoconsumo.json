@@ -1,77 +1,79 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "castilla_la_mancha",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53)",
-    "Real Decreto 244/2019, de 5 de abril",
-    "Decreto 80/2007, de 19 de junio, modificado por Decreto 34/2017, de 2 de mayo",
-    "Instrucción 1/2020 de la Dirección General de Transición Energética sobre instalaciones de autoconsumo",
-    "Ley 1/2021, de 12 de febrero, de Simplificación Urbanística y Medidas Administrativas",
-    "Ley 7/2008, de 13 de noviembre, de Regulación de Tasas en materia de Industria, Energía y Minas de Castilla-La Mancha (BOE-A-2009-8665)",
-    "Resolución de 16/05/2024 de la D.G. de Tributos (DOCM nº 101, 24/05/2024), tarifas vigentes 2024"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 80/2017 de 5 de septiembre, por el que se regula la puesta en servicio de instalaciones eléctricas de baja tensión en Castilla-La Mancha",
+    "Orden de 26 de marzo de 2018 de la Consejería de Economía, Empresas y Empleo, por la que se desarrolla el Decreto 80/2017"
   ],
   "reglas": [
     {
-      "id": "CLM-FV-010",
-      "descripcion": "Autoconsumo BT hasta 10 kW: memoria técnica, sin proyecto ni autorización administrativa previa; comunicación previa urbanística",
+      "id": "CLM-FV-001",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
-        "<=": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
           },
-          10
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro/puesta en servicio de instalación de BT de autoconsumo (memoria técnica)",
-          "organismo": "Servicio de Industria y Energía de la Delegación Provincial competente",
-          "base_legal": "Instrucción 1/2020; Decreto 80/2007; RD 244/2019 art. 8",
-          "plazo_estimado_dias": 30,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 80/2017 art. 5",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramites/1004429",
-          "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
-          "formulario_ref": "1004429",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "solicitud",
-              "label": "Solicitud normalizada",
-              "descripcion": "Firmada por titular o representante",
-              "obligatorio": true
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo.",
+              "formato": "PDF"
             },
             {
-              "id": "cie",
-              "label": "Certificado de instalación eléctrica (CIE)",
-              "descripcion": "Emitido por empresa instaladora habilitada de BT",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Certificado firmado por el instalador indicando que la instalación se ha ejecutado según MTD y normativa.",
+              "formato": "PDF"
             },
             {
-              "id": "memoria",
-              "label": "Memoria técnica de diseño",
-              "descripcion": "Según ITC-BT-04 del REBT",
-              "obligatorio": true
-            },
-            {
-              "id": "cau",
-              "label": "Código de autoconsumo (CAU)",
-              "descripcion": "Solicitado a la distribuidora",
-              "obligatorio": true
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) ante el órgano competente",
+              "descripcion": "DR presentada telemáticamente en la plataforma de la Junta de Comunidades de Castilla-La Mancha (SIA o similar).",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Sin autorización administrativa previa (potencia <=100 kW en BT, art. 53.3 Ley 24/2013). Licencia de obra sustituida por comunicación previa (Ley 1/2021).",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
-      "id": "CLM-FV-015",
-      "descripcion": "Autoconsumo BT >10 kW y <=15 kW: proyecto + certificado final de obra; sin autorización administrativa previa",
+      "id": "CLM-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
       "condicion": {
-        "and": [
+        "or": [
           {
             ">": [
               {
@@ -81,11 +83,11 @@
             ]
           },
           {
-            "<=": [
+            "!=": [
               {
-                "var": "potencia_kw"
+                "var": "uso"
               },
-              15
+              "residencial"
             ]
           }
         ]
@@ -93,223 +95,62 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro/puesta en servicio con proyecto",
-          "organismo": "Servicio de Industria y Energía de la Delegación Provincial",
-          "base_legal": "Instrucción 1/2020; RD 244/2019",
-          "plazo_estimado_dias": 30,
+          "nombre": "Proyecto Técnico (PT) fotovoltaico",
+          "organismo": "Ingeniero técnico industrial o superior competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 80/2017 art. 6",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la JCCM",
-          "plataforma_url": "https://www.jccm.es/tramites/1004429",
-          "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
-          "formulario_ref": "1004429",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios profesionales (no tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto técnico",
-              "descripcion": "Firmado por técnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "cfo",
-              "label": "Certificado final de obra",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "cie",
-              "label": "Certificado de instalación eléctrica",
-              "descripcion": "Empresa instaladora BT",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto.",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Umbral de proyecto en 10 kW según RD 244/2019 (tramo estatal, no propio).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CLM-FV-100",
-      "descripcion": "Autoconsumo BT >15 kW y <=100 kW en BT: sin autorización administrativa previa; registro con proyecto",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              15
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Registro/puesta en servicio con proyecto",
-          "organismo": "Servicio de Industria y Energía de la Delegación Provincial",
-          "base_legal": "Instrucción 1/2020; art. 53.3 Ley 24/2013",
-          "plazo_estimado_dias": 45,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la JCCM",
-          "plataforma_url": "https://www.jccm.es/tramites/1004429",
-          "coste_estimado": "0 EUR (Exento de tasas administrativas según ficha del trámite 1004429)",
-          "formulario_ref": "1004429",
+          "orden": 2,
+          "nombre": "Certificado de Inspección Inicial (CII) por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Castilla-La Mancha",
+          "base_legal": "Decreto 80/2017 art. 7; Orden 26/03/2018",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "150-300 € según OCA y potencia",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto técnico",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "cfo",
-              "label": "Certificado final de obra",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
+              "id": "cii_oca",
+              "label": "Certificado de Inspección Inicial (CII)",
+              "descripcion": "Documento emitido por OCA tras inspección favorable de la instalación.",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Hasta 100 kW en BT quedan excluidas de autorización administrativa previa (art. 53.3 Ley 24/2013).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CLM-FV-AT",
-      "descripcion": "Autoconsumo con producción >100 kW o conexión en AT: autorización administrativa previa y de construcción",
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Autorización administrativa previa y de construcción",
-          "organismo": "Dirección General de Transición Energética",
-          "base_legal": "Ley 24/2013 art. 53.1; Decreto 80/2007 (grupo segundo); RD 1955/2000",
-          "plazo_estimado_dias": null,
+          "orden": 3,
+          "nombre": "Declaración Responsable (DR) con CII",
+          "organismo": "Dirección General de Energía (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Decreto 80/2017 art. 8; Orden 26/03/2018",
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la JCCM",
-          "plataforma_url": "https://www.jccm.es/tramites/1002105",
-          "coste_estimado": "Tarifa 3.2 (autorización previa) y 3.3 (de construcción) de la Ley 7/2008 mediante Modelo 046",
-          "formulario_ref": "1002105",
+          "plataforma": "SIA (Sistema de Información Administrativa) de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-para-la-puesta-en-servicio-de-instalaciones-electricas-de-baja-tension",
+          "coste_estimado": "0 €",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto de la instalación",
-              "descripcion": "Técnico competente (proyecto y separatas)",
-              "obligatorio": true
-            },
-            {
-              "id": "eia",
-              "label": "Documentación ambiental",
-              "descripcion": "Ley 2/2020 de Evaluación Ambiental de CLM, si procede",
-              "obligatorio": false
-            },
-            {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexión",
-              "descripcion": "Otorgados por la distribuidora",
-              "obligatorio": true
-            },
-            {
-              "id": "aval",
-              "label": "Resguardo garantía económica",
-              "descripcion": "Fianza",
-              "obligatorio": true
+              "id": "dr_cii",
+              "label": "Declaración Responsable (DR) con CII adjunto",
+              "descripcion": "DR telemática que incluye el CII emitido por OCA.",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Tramitación conjunta de autorización previa y de construcción. Plazo de resolución de tres meses, silencio desestimatorio.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CLM-FV-AT-AT",
-      "descripcion": "Autoconsumo con producción >100 kW o conexión en AT: autorización administrativa previa y de construcción (Refinamiento AT)",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "AT"
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Autorización administrativa previa y de construcción",
-          "organismo": "Dirección General de Transición Energética",
-          "base_legal": "Ley 24/2013 art. 53.1; Decreto 80/2007 (grupo segundo); RD 1955/2000",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la JCCM",
-          "plataforma_url": "https://www.jccm.es/tramites/1002105",
-          "coste_estimado": "Tarifa 3.2 (autorización previa) y 3.3 (de construcción) de la Ley 7/2008 mediante Modelo 046",
-          "formulario_ref": "1002105",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto",
-              "label": "Proyecto de la instalación",
-              "descripcion": "Técnico competente (proyecto y separatas)",
-              "obligatorio": true
-            },
-            {
-              "id": "eia",
-              "label": "Documentación ambiental",
-              "descripcion": "Ley 2/2020 de Evaluación Ambiental de CLM, si procede",
-              "obligatorio": false
-            },
-            {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexión",
-              "descripcion": "Otorgados por la distribuidora",
-              "obligatorio": true
-            },
-            {
-              "id": "aval",
-              "label": "Resguardo garantía económica",
-              "descripcion": "Fianza",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Tramitación conjunta de autorización previa y de construcción. Plazo de resolución de tres meses, silencio desestimatorio.",
-          "paralelo_con": null
+          ]
         }
       ]
     }
-  ],
-  "validaciones": [
-    {
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "tension"
-      ],
-      "mensaje": "Si no se especifica el nivel de tensión, el plan asume Baja Tensión (BT) por defecto."
-    }
-  ],
-  "nivel_verificacion": "verificada"
+  ]
 }

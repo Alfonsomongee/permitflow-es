@@ -1,63 +1,102 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "castilla_leon",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 24/2013, de 26 de diciembre, del Sector Electrico (art. 53)",
-    "Real Decreto 244/2019, de 5 de abril",
-    "Decreto 46/2022, de 24 de noviembre (BOCYL 229, 28/11/2022)",
-    "Proyecto de decreto de modificacion del art. 3 del Decreto 46/2022 (dictamen Consejo Consultivo 05/03/2026, NO publicado en BOCYL)",
-    "Orden EYH/870/2024, de 6 de septiembre, de tarifas de tasas (BOCyL 16-09-2024); tasa 308.1 'Inscripcion y control de instalaciones electricas'"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 127/2003, de 30 de octubre, por el que se regulan los procedimientos de puesta en servicio de las instalaciones industriales en Castilla y León",
+    "Orden FYM/238/2014, de 27 de marzo, por la que se regulan las instalaciones eléctricas de baja tensión en Castilla y León"
   ],
   "reglas": [
     {
-      "id": "CYL-FV-010",
-      "descripcion": "Autoconsumo con excedentes, P<=10 kW",
+      "id": "CYL-FV-001",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
-        "<=": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
           },
-          10
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro de instalacion de autoconsumo (memoria)",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economia",
-          "base_legal": "Decreto 46/2022; RD 244/2019; ITC-BT-04",
-          "plazo_estimado_dias": 20,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
-          "plataforma": "Sede electronica de la Junta de Castilla y Leon",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/36/1285262547887/Tramite",
-          "coste_estimado": "tasa 308.1 (importe no verificado, Orden EYH/870/2024)",
-          "formulario_ref": "3363",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "memoria",
-              "label": "Memoria tecnica (formato libre)",
-              "descripcion": "Sin formato oficial establecido por Industria",
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Declaración Responsable de puesta en servicio (autoconsumo ≤10 kW residencial)",
+          "organismo": "Órgano competente de industria de la Junta de Castilla y León (Dirección General de Energía y Minas o Servicio Territorial correspondiente)",
+          "base_legal": "Decreto 127/2003, art. 5; Orden FYM/238/2014",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "SIRECYL (Sistema de Registro de Instalaciones Eléctricas de Castilla y León)",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284400038490/Tramite",
+          "coste_estimado": "0 €",
+          "documentos_requeridos": [
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable",
+              "descripcion": "Formulario oficial firmado por el titular y el instalador, indicando cumplimiento normativo.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "cie",
-              "label": "CIE de autoconsumo",
-              "descripcion": "Certificado de instalacion electrica",
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Misma MTD del paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI) según ITC-BT-05",
+              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución de la instalación.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Memoria de formato libre. Basado en IAPA 3363.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
-      "id": "CYL-FV-020",
-      "descripcion": "Autoconsumo 10<P<=100 kW",
+      "id": "CYL-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y ECA)",
       "condicion": {
-        "and": [
+        "or": [
           {
             ">": [
               {
@@ -67,11 +106,11 @@
             ]
           },
           {
-            "<=": [
+            "!=": [
               {
-                "var": "potencia_kw"
+                "var": "uso"
               },
-              100
+              "residencial"
             ]
           }
         ]
@@ -79,105 +118,86 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Autorizacion de explotacion e inscripcion",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economia",
-          "base_legal": "Decreto 46/2022; art. 53 Ley 24/2013",
-          "plazo_estimado_dias": 40,
+          "nombre": "Proyecto Técnico (PT) fotovoltaico",
+          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede electronica de la Junta de Castilla y Leon",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284627297720/Tramite",
-          "coste_estimado": "tasa 308.1 (importe no verificado)",
-          "formulario_ref": "477",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico (no tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto/memoria",
-              "descripcion": "Segun tipo de suelo y modalidad (urbano/no urbano afecta a con excedentes)",
-              "obligatorio": true
-            },
-            {
-              "id": "cfo",
-              "label": "Certificado de Final de Obra",
-              "descripcion": "Obligatorio",
-              "obligatorio": true
-            },
-            {
-              "id": "desmantelamiento",
-              "label": "Presupuesto y resguardo",
-              "descripcion": "Presupuesto de desmantelamiento de la instalacion y resguardo de garantia economica",
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto y estudio básico de seguridad.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "IAPA 477. Requiere presupuesto de desmantelamiento y resguardo de garantia antes de enlazar.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CYL-FV-030",
-      "descripcion": "Autoconsumo P>100 kW: autorizacion administrativa completa",
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Autorizacion administrativa previa",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economia",
-          "base_legal": "art. 53 Ley 24/2013; Decreto 46/2022",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede electronica de la Junta de Castilla y Leon",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/_/1284627529084/Tramite",
-          "coste_estimado": "tasa 308.1",
-          "formulario_ref": "2014",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto",
-              "label": "Anteproyecto",
-              "descripcion": "Documentacion ambiental y viabilidad tecnico-economica",
-              "obligatorio": true
-            },
-            {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexion",
-              "descripcion": "De la distribuidora",
-              "obligatorio": true
-            }
-          ],
-          "notas": "IAPA 2014. El proceso está desdoblado en CyL. Primero se tramita AAP y posteriormente AAC.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Autorizacion administrativa de construccion",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economia",
-          "base_legal": "art. 53 Ley 24/2013; Decreto 46/2022",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede electronica de la Junta de Castilla y Leon",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/1/1284627534133/Tramite",
-          "coste_estimado": "tasa 308.1",
-          "formulario_ref": "2015",
+          "nombre": "Solicitud de puesta en servicio con ECA (Entidad Colaboradora de la Administración)",
+          "organismo": "ECA autorizada en Castilla y León (ej: OCA Instalaciones, S.L., Bureau Veritas, etc.)",
+          "base_legal": "Decreto 127/2003, art. 6; Orden FYM/238/2014",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "SIRECYL (Sistema de Registro de Instalaciones Eléctricas de Castilla y León)",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284400038490/Tramite",
+          "coste_estimado": "Variable según ECA (aprox. 200-500 €)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto de ejecucion",
-              "descripcion": "Proyecto definitivo y separatas para administraciones",
+              "id": "solicitud_eca",
+              "label": "Solicitud de inspección inicial",
+              "descripcion": "Formulario de la ECA solicitando la inspección de la instalación.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo proyecto del paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI) según ITC-BT-05",
+              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "IAPA 2015. Silencio NEGATIVO. Atencion: proyecto de modificacion (dictaminado 05/03/2026, NO publicado en BOCYL) elevaria exencion a 500 kW.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro en SIRECYL y obtención de CIE (Código de Identificación de la Instalación Eléctrica)",
+          "organismo": "Dirección General de Energía y Minas de la Junta de Castilla y León",
+          "base_legal": "Decreto 127/2003, art. 7; Orden FYM/238/2014",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "SIRECYL",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284400038490/Tramite",
+          "coste_estimado": "0 €",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_eca",
+              "label": "Certificado de inspección favorable de la ECA",
+              "descripcion": "Documento emitido por la ECA tras la inspección positiva.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable de puesta en servicio",
+              "descripcion": "Formulario oficial firmado por el titular y el instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     }
-  ],
-  "validaciones": [],
-  "nivel_verificacion": "generica"
+  ]
 }

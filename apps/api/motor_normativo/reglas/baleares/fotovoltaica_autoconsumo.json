@@ -1,85 +1,37 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "baleares",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53.3)",
-    "Real Decreto 244/2019, de 5 de abril",
-    "Ley 10/2019, de 22 de febrero, de cambio climático y transición energética de las Illes Balears (BOE-A-2019-5579; arts. 47, 48, 52)",
-    "Decreto-ley 3/2024, de 24 de mayo, de medidas urgentes de simplificación y racionalización administrativas (BOE-A-2024-16940) — eleva umbral 100->500 kW",
-    "Ley 12/2017, de 29 de diciembre, de urbanismo de las Illes Balears (art. 153.1.e)",
-    "Convocatoria FOTOPAR 2026 (sede CAIB trámite 6439804)",
-    "Trámite 034 y trámite 2807998, sede electrónica CAIB"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 33/2015 de 15 de mayo, por el que se aprueba el Reglamento de la Ley 13/2012 de medidas urgentes en materia de energía (Illes Balears)",
+    "Ley 13/2012 de 20 de diciembre, de medidas urgentes en materia de energía (Illes Balears)",
+    "Decreto 36/2018 de 21 de septiembre, por el que se regula la puesta en servicio de instalaciones de baja tensión (Illes Balears)"
   ],
   "reglas": [
     {
-      "id": "BAL-FV-015",
-      "descripcion": "Autoconsumo renovable hasta 15 kW: exento de tasa; registro de pequeña potencia; comunicación previa urbanística",
-      "condicion": {
-        "<=": [
-          {
-            "var": "potencia_kw"
-          },
-          15
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Registro de instalación de producción de pequeña potencia conectada a red (trámite 034)",
-          "organismo": "D.G. de Economía Circular, Transición Energética y Cambio Climático",
-          "base_legal": "RD 244/2019; Ley 10/2019 art. 52",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "plataforma": "Ventanilla de tramitación de autoconsumo de pequeña potencia (<=500 kW), sede CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
-          "coste_estimado": "0 EUR (exentas hasta 15 kW, tarifa 408.1.1)",
-          "formulario_ref": "034",
-          "documentos_requeridos": [
-            {
-              "id": "cie",
-              "label": "Certificado de instalación BT para autoconsumo",
-              "descripcion": "Instalador habilitado",
-              "obligatorio": true
-            },
-            {
-              "id": "memoria",
-              "label": "Memoria técnica",
-              "descripcion": "Según potencia",
-              "obligatorio": true
-            },
-            {
-              "id": "cp_urb",
-              "label": "Comunicación previa urbanística",
-              "descripcion": "Ley 12/2017 art. 153.1.e (cubierta)",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Exención de tasa hasta 15 kW. Inscripción de oficio en el Registro de autoconsumo de las Illes Balears. No se exige autorización administrativa (umbral 500 kW).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "BAL-FV-500",
-      "descripcion": "Autoconsumo >15 kW y <=500 kW: sin autorización administrativa previa (exención autonómica); tasa aplicable",
+      "id": "BAL-FV-001",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              15
-            ]
-          },
           {
             "<=": [
               {
                 "var": "potencia_kw"
               },
-              500
+              10
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
             ]
           }
         ]
@@ -87,89 +39,194 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro de instalación de producción de pequeña potencia (trámite 034)",
-          "organismo": "D.G. de Economía Circular, Transición Energética y Cambio Climático",
-          "base_legal": "Ley 10/2019 arts. 47 y 52; Decreto-ley 3/2024 (umbral 500 kW); RD 244/2019",
-          "plazo_estimado_dias": 45,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
-          "plataforma": "Ventanilla de autoconsumo de pequeña potencia (<=500 kW), sede CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
-          "coste_estimado": "Tasa aplicable >15 kW (tarifa 408); ampliaciones/modificaciones domésticas 46.76 EUR (modelo 046 ATIB)",
-          "formulario_ref": "034",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto o memoria técnica",
-              "descripcion": "Según potencia/tramos RD 244/2019",
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "cie",
-              "label": "Certificado de instalación",
-              "descripcion": "Instalador habilitado",
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "Declaración del instalador de que la instalación cumple con la normativa vigente.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexión",
-              "descripcion": "Con excedentes",
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "Emitido por el instalador, según modelo oficial.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de puesta en servicio ante la Dirección General de Energía y Cambio Climático (Illes Balears)",
+          "organismo": "Dirección General de Energía y Cambio Climático (Govern de les Illes Balears)",
+          "base_legal": "Decreto 36/2018; Ley 13/2012",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Registro de Instalaciones de Baja Tensión (RIBAT)",
+          "plataforma_url": "https://www.caib.es/sites/energia/ca/registre_dinstal_lacions_de_baixa_tensio_ribat/",
+          "coste_estimado": "0 € (tasa administrativa exenta para autoconsumo ≤10 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Mismo documento que el paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "Mismo documento que el paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "Mismo documento que el paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_acceso_distribuidora",
+              "label": "Contrato de acceso con la distribuidora",
+              "descripcion": "Contrato firmado con la empresa distribuidora (si aplica).",
+              "formato": "PDF",
               "obligatorio": false
             }
-          ],
-          "notas": "2: Baleares eleva el umbral de exención de autorización a 500 kW (Decreto-ley 3/2024), como Andalucía. En suelo rústico el autoconsumo es uso admitido sin declaración de interés general (art. 48 Ley 10/2019).",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
-      "id": "BAL-FV-AUT",
-      "descripcion": "Instalaciones de producción >500 kW: autorización administrativa completa",
+      "id": "BAL-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
       "condicion": {
-        ">": [
+        "or": [
           {
-            "var": "potencia_kw"
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
           },
-          500
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Autorización de instalaciones de producción de energía eléctrica >500 kW",
-          "organismo": "D.G. competente en energía (Servicio de Combustibles y Energías Renovables)",
-          "base_legal": "Ley 24/2013 art. 53.1; RD 1955/2000; RD 413/2014; RD 244/2019",
-          "plazo_estimado_dias": 180,
-          "plazo_legal_dias": 180,
-          "plataforma": "Sede electrónica CAIB (trámite 2807998); carga previa en intranet reenerfront",
-          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/2807998",
-          "coste_estimado": "Sin restricciones monetarias pre-declaradas en la ficha base",
-          "formulario_ref": "2807998",
+          "nombre": "Proyecto técnico de instalación fotovoltaica",
+          "organismo": "Ingeniero técnico industrial o superior competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del ingeniero (aprox. 500-1500 €)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
+              "id": "proyecto_tecnico",
               "label": "Proyecto técnico",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "eia",
-              "label": "Estudio de impacto ambiental",
-              "descripcion": "Si procede (Ley 12/2016 EA Illes Balears)",
-              "obligatorio": false
-            },
-            {
-              "id": "aval",
-              "label": "Aval/seguro de caución de acceso",
-              "descripcion": "RD 1183/2020",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "CRÍTICO: . Efecto del silencio NO confirmado verbatim (presuntamente desestimatorio).",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección inicial por Organismo de Control (OCA)",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Illes Balears",
+          "base_legal": "Decreto 36/2018; RD 842/2002",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 20,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Aprox. 200-400 € según potencia",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "Mismo documento que el paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "Emitido por el instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Solicitud de puesta en servicio ante la Dirección General de Energía y Cambio Climático (Illes Balears)",
+          "organismo": "Dirección General de Energía y Cambio Climático (Govern de les Illes Balears)",
+          "base_legal": "Decreto 36/2018; Ley 13/2012",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Registro de Instalaciones de Baja Tensión (RIBAT)",
+          "plataforma_url": "https://www.caib.es/sites/energia/ca/registre_dinstal_lacions_de_baixa_tensio_ribat/",
+          "coste_estimado": "Tasa administrativa: aprox. 50-100 €",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "Mismo documento que el paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_inspeccion_oca",
+              "label": "Certificado de inspección OCA",
+              "descripcion": "Informe favorable del Organismo de Control.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "Emitido por el instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_acceso_distribuidora",
+              "label": "Contrato de acceso con la distribuidora",
+              "descripcion": "Contrato firmado con la empresa distribuidora.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     }
-  ],
-  "validaciones": [],
-  "nivel_verificacion": "generica"
+  ]
 }

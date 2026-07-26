@@ -1,177 +1,27 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "andalucia",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE), art. 15.1 (BOE-A-2007-15820)",
-    "RD 178/2021 (modificacion RITE)",
-    "Orden de 5 de marzo de 2013 (PUES), Junta de Andalucia",
-    "Ley 10/2021 de tasas, art. 44, tarifa 7.2.3 (actualizacion 2026)",
-    "Reglamento (UE) 2024/573 (F-Gas)"
+    "RITE RD 1027/2007",
+    "RD 178/2021 de eficiencia energética",
+    "Decreto 59/2005 de 22 de febrero (Andalucía) por el que se regulan las instalaciones térmicas en los edificios",
+    "Orden de 5 de marzo de 2013 (Andalucía) por la que se desarrolla el Decreto 59/2005",
+    "Ley 7/2021 de Cambio Climático (Andalucía)"
   ],
   "reglas": [
     {
-      "id": "clima-memoria-5-70-residencial",
-      "descripcion": "Instalacion termica con potencia nominal en calor o frio >= 5 kW y <= 70 kW: memoria tecnica de diseno. (Uso residencial)",
+      "id": "AND-CLIMA-001",
+      "descripcion": "Instalación térmica de climatización con aerotermia de potencia ≤ 70 kW en edificio existente o nueva construcción (sin proyecto, solo memoria técnica)",
       "condicion": {
         "and": [
-          {
-            "and": [
-              {
-                ">=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  5
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              }
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Registro y puesta en servicio de instalacion termica (memoria tecnica)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 1027/2007 art. 15.1.b y art. 24; Orden de 5 de marzo de 2013 (PUES)",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "21.94 EUR -- tarifa 7.2.3.1, Ley 10/2021 art. 44",
-          "documentos_requeridos": [
-            {
-              "id": "memoria_tecnica",
-              "label": "Memoria tecnica de diseno RITE",
-              "descripcion": "Memoria de la instalacion realmente ejecutada firmada por instalador habilitado o tecnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion",
-              "label": "Certificado de instalacion",
-              "descripcion": "Certificado de la instalacion termica (modelo IT 3.1.8)",
-              "obligatorio": true
-            },
-            {
-              "id": "cert_empresa_instaladora",
-              "label": "Habilitacion de empresa instaladora",
-              "descripcion": "Acreditacion de empresa instaladora habilitada de instalaciones termicas",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "clima-memoria-5-70-otros",
-      "descripcion": "Instalacion termica con potencia nominal en calor o frio >= 5 kW y <= 70 kW: memoria tecnica de diseno. (Otros usos)",
-      "condicion": {
-        "and": [
-          {
-            "and": [
-              {
-                ">=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  5
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              }
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Registro y puesta en servicio de instalacion termica (memoria tecnica)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 1027/2007 art. 15.1.b y art. 24; Orden de 5 de marzo de 2013 (PUES)",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "45.77 EUR -- tarifa 7.2.3.1, Ley 10/2021 art. 44",
-          "documentos_requeridos": [
-            {
-              "id": "memoria_tecnica",
-              "label": "Memoria tecnica de diseno RITE",
-              "descripcion": "Memoria de la instalacion realmente ejecutada firmada por instalador habilitado o tecnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion",
-              "label": "Certificado de instalacion",
-              "descripcion": "Certificado de la instalacion termica (modelo IT 3.1.8)",
-              "obligatorio": true
-            },
-            {
-              "id": "cert_empresa_instaladora",
-              "label": "Habilitacion de empresa instaladora",
-              "descripcion": "Acreditacion de empresa instaladora habilitada de instalaciones termicas",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "clima-proyecto-mayor-70",
-      "descripcion": "Instalacion termica con potencia nominal en calor o frio > 70 kW: proyecto. (presupuesto <= 5k)",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
           {
             "<=": [
               {
-                "var": "inversion_eur"
+                "var": "potencia_kw"
               },
-              5000
+              70
             ]
           }
         ]
@@ -179,48 +29,70 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro y puesta en servicio de instalacion termica (proyecto)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 1027/2007 art. 15.1.a y art. 24; Orden de 5 de marzo de 2013 (PUES)",
-          "plazo_estimado_dias": 20,
+          "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
+          "organismo": "Instalador habilitado (categoría térmica o climatización)",
+          "base_legal": "RITE RD 1027/2007; Decreto 59/2005 art. 8",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "66.43 EUR",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto tecnico RITE",
-              "descripcion": "Proyecto de la instalacion firmado por tecnico competente",
+              "id": "mtd_termica",
+              "label": "Memoria Técnica de Diseño (MTD) de instalación térmica",
+              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación y cumple con RITE y normativa autonómica.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalacion",
-              "label": "Certificado de instalacion",
-              "descripcion": "Certificado de la instalacion termica (modelo IT 3.1.7)",
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Acreditación de la habilitación del instalador (carné profesional o certificado de empresa instaladora).",
+              "formato": "PDF",
               "obligatorio": true
-            },
-            {
-              "id": "certificado_direccion",
-              "label": "Certificado de direccion de obra",
-              "descripcion": "Certificado de direccion facultativa cuando sea preceptivo",
-              "obligatorio": true
-            },
-            {
-              "id": "cert_inspeccion_inicial",
-              "label": "Certificado de inspeccion inicial",
-              "descripcion": "Cuando sea preceptivo segun IT",
-              "obligatorio": false
             }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante la Junta de Andalucía",
+          "organismo": "Junta de Andalucía - Consejería de Industria, Energía y Minas (Ventanilla Electrónica PUES)",
+          "base_legal": "Decreto 59/2005 art. 10; Orden 5 marzo 2013",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "PUES (Punto Único de Entrada de Servicios)",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/pues.html",
+          "coste_estimado": "0 € (tasa administrativa exenta)",
+          "documentos_requeridos": [
+            {
+              "id": "drps_termica",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador, adjuntando MTD y certificado de instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "mtd_termica",
+              "label": "Memoria Técnica de Diseño (MTD) de instalación térmica",
+              "descripcion": "Mismo documento que en el paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Mismo documento que en el paso anterior.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     },
     {
-      "id": "clima-proyecto-mayor-70",
-      "descripcion": "Instalacion termica con potencia nominal en calor o frio > 70 kW: proyecto. (presupuesto <= 5k) (Sin inversión informada)",
+      "id": "AND-CLIMA-002",
+      "descripcion": "Instalación térmica de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico y OCA)",
       "condicion": {
         "and": [
           {
@@ -230,252 +102,92 @@
               },
               70
             ]
-          },
-          {
-            "==": [
-              {
-                "var": "inversion_eur"
-              },
-              null
-            ]
           }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro y puesta en servicio de instalacion termica (proyecto)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 1027/2007 art. 15.1.a y art. 24; Orden de 5 de marzo de 2013 (PUES)",
-          "plazo_estimado_dias": 20,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007 art. 11; Decreto 59/2005 art. 7",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "Depende de la inversión exacta",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios profesionales",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto tecnico RITE",
-              "descripcion": "Proyecto de la instalacion firmado por tecnico competente",
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico de instalación térmica",
+              "descripcion": "Documento técnico firmado por técnico competente que incluye memoria, cálculos, planos y cumplimiento normativo.",
+              "formato": "PDF",
               "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion",
-              "label": "Certificado de instalacion",
-              "descripcion": "Certificado de la instalacion termica (modelo IT 3.1.7)",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_direccion",
-              "label": "Certificado de direccion de obra",
-              "descripcion": "Certificado de direccion facultativa cuando sea preceptivo",
-              "obligatorio": true
-            },
-            {
-              "id": "cert_inspeccion_inicial",
-              "label": "Certificado de inspeccion inicial",
-              "descripcion": "Cuando sea preceptivo segun IT",
-              "obligatorio": false
             }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "clima-proyecto-mayor-70",
-      "descripcion": "Instalacion termica con potencia nominal en calor o frio > 70 kW: proyecto. (presupuesto 5k-300k)",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "inversion_eur"
-                  },
-                  5000
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "inversion_eur"
-                  },
-                  300000
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Registro y puesta en servicio de instalacion termica (proyecto)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 1027/2007 art. 15.1.a y art. 24; Orden de 5 de marzo de 2013 (PUES)",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "200.00 EUR (estimado tramo medio)",
+          "orden": 2,
+          "nombre": "Certificado de instalación por OCA (Organismo de Control Autorizado)",
+          "organismo": "OCA acreditada en Andalucía (ej: TÜV Rheinland, Applus, Bureau Veritas)",
+          "base_legal": "RITE RD 1027/2007 art. 12; Decreto 59/2005 art. 9",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "300-600 € según OCA",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto tecnico RITE",
-              "descripcion": "Proyecto de la instalacion firmado por tecnico competente",
+              "id": "certificado_oca_termica",
+              "label": "Certificado de OCA de instalación térmica",
+              "descripcion": "Informe favorable de OCA tras inspección de la instalación.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalacion",
-              "label": "Certificado de instalacion",
-              "descripcion": "Certificado de la instalacion termica (modelo IT 3.1.7)",
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico de instalación térmica",
+              "descripcion": "Mismo documento que en el paso anterior.",
+              "formato": "PDF",
               "obligatorio": true
-            },
-            {
-              "id": "certificado_direccion",
-              "label": "Certificado de direccion de obra",
-              "descripcion": "Certificado de direccion facultativa cuando sea preceptivo",
-              "obligatorio": true
-            },
-            {
-              "id": "cert_inspeccion_inicial",
-              "label": "Certificado de inspeccion inicial",
-              "descripcion": "Cuando sea preceptivo segun IT",
-              "obligatorio": false
             }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "clima-proyecto-mayor-70",
-      "descripcion": "Instalacion termica con potencia nominal en calor o frio > 70 kW: proyecto. (presupuesto > 300k)",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "inversion_eur"
-              },
-              300000
-            ]
-          }
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Registro y puesta en servicio de instalacion termica (proyecto)",
-          "organismo": "Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
-          "base_legal": "RD 1027/2007 art. 15.1.a y art. 24; Orden de 5 de marzo de 2013 (PUES)",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/haciendayadministracionpublica/vea-web/faces/vi/procedimientos.xhtml",
-          "coste_estimado": "424.48 EUR",
+          "orden": 3,
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante la Junta de Andalucía",
+          "organismo": "Junta de Andalucía - Consejería de Industria, Energía y Minas (Ventanilla Electrónica PUES)",
+          "base_legal": "Decreto 59/2005 art. 10; Orden 5 marzo 2013",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "PUES (Punto Único de Entrada de Servicios)",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/pues.html",
+          "coste_estimado": "0 € (tasa administrativa exenta)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto tecnico RITE",
-              "descripcion": "Proyecto de la instalacion firmado por tecnico competente",
+              "id": "drps_termica",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador, adjuntando proyecto y certificado OCA.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalacion",
-              "label": "Certificado de instalacion",
-              "descripcion": "Certificado de la instalacion termica (modelo IT 3.1.7)",
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico de instalación térmica",
+              "descripcion": "Mismo documento que en el paso anterior.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_direccion",
-              "label": "Certificado de direccion de obra",
-              "descripcion": "Certificado de direccion facultativa cuando sea preceptivo",
+              "id": "certificado_oca_termica",
+              "label": "Certificado de OCA de instalación térmica",
+              "descripcion": "Mismo documento que en el paso anterior.",
+              "formato": "PDF",
               "obligatorio": true
-            },
-            {
-              "id": "cert_inspeccion_inicial",
-              "label": "Certificado de inspeccion inicial",
-              "descripcion": "Cuando sea preceptivo segun IT",
-              "obligatorio": false
             }
-          ],
-          "notas": "Sin plazo legal de resolucion fijado por norma (registro de puesta en servicio, no autorizacion).",
-          "paralelo_con": null
+          ]
         }
       ]
-    },
-    {
-      "id": "clima-exento-menor-5",
-      "descripcion": "Instalacion termica con potencia nominal < 5 kW: no requiere documentacion tecnica ante la Administracion (negacion exacta de los universos anteriores).",
-      "condicion": {
-        "<": [
-          {
-            "var": "potencia_kw"
-          },
-          5
-        ]
-      },
-      "tramites": []
     }
-  ],
-  "validaciones": [
-    {
-      "id": "val-fgas-mantenedor",
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "potencia_kw"
-      ],
-      "condicion": {
-        "==": [
-          {
-            "var": "usa_gases_fluorados"
-          },
-          true
-        ]
-      },
-      "mensaje": "Equipo con gases fluorados: requiere mantenedor con certificacion de personal (Reglamento UE 2024/573; RD 115/2017). No existe registro autonomico de equipos F-Gas en Andalucia; el volcado es al Registro Unificado estatal (Orden TEC/544/2019).",
-      "fuente": "Reglamento (UE) 2024/573; RD 115/2017",
-      "validado_por": null
-    },
-    {
-      "id": "val-hueco-potencia",
-      "severidad": "error",
-      "campos_requeridos": [
-        "potencia_kw"
-      ],
-      "condicion": {
-        "==": [
-          {
-            "var": "potencia_kw"
-          },
-          null
-        ]
-      },
-      "mensaje": "Falta la potencia termica nominal; sin ella no se puede determinar el regimen (exento / memoria / proyecto).",
-      "fuente": "RD 1027/2007 art. 15.1",
-      "validado_por": null
-    }
-  ],
-  "nivel_verificacion": "verificada"
+  ]
 }

@@ -7,8 +7,8 @@
     "uso": "residencial",
     "municipio": "Sevilla"
   },
-  "num_tramites_esperado": 1,
-  "tiempo_total_esperado_dias": 15,
+  "num_tramites_esperado": 2,
+  "tiempo_total_esperado_dias": 7,
   "validado_por": "Auto - 2026-07-08",
   "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
 }

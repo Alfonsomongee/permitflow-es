@@ -1,172 +1,197 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "baleares",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 919/2006 (estatal) ITC-ICG 07",
-    "Sede Electrónica CAIB - Procedimiento UDIT-013"
+    "RD 919/2006 RIGLO",
+    "Decreto 36/2006 de 28 de abril, de la CAIB, por el que se regulan las instalaciones de gas en el ámbito de la Comunidad Autónoma de las Illes Balears",
+    "Orden de 10 de julio de 2007, de la Consejería de Comercio, Industria y Energía, por la que se desarrolla el Decreto 36/2006"
   ],
   "reglas": [
     {
       "id": "BAL-GAS-001",
-      "descripcion": "Instalación receptora de gas P <= 70 kW",
+      "descripcion": "Instalación de gas baja presión con potencia ≤ 70 kW en uso doméstico (memoria técnica)",
       "condicion": {
-        "<=": [{ "var": "potencia_kw" }, 70]
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "domestico"
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificado de Instalación de Gas",
-          "organismo": "Empresa Instaladora de Gas Autorizada",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "nombre": "Memoria Técnica de Diseño (MTD) de gas",
+          "organismo": "Instalador habilitado (categoría gasista)",
+          "base_legal": "RIGLO RD 919/2006; Decreto 36/2006 CAIB",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_gas",
+              "label": "Memoria Técnica de Diseño de gas",
+              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación (CI) de gas",
+          "organismo": "Instalador habilitado (categoría gasista)",
+          "base_legal": "RIGLO RD 919/2006 art. 5; Decreto 36/2006 CAIB",
           "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del instalador",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "certificado_gas",
-              "label": "Certificado de Instalación",
-              "descripcion": "Certificado emitido tras superar las pruebas.",
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución de la instalación",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación en el órgano competente de la CAIB",
+          "organismo": "Dirección General de Industria y Energía del Govern de les Illes Balears",
+          "base_legal": "Decreto 36/2006 CAIB art. 8",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Registro Industrial de Baleares (RIB)",
+          "plataforma_url": "https://www.caib.es/sites/industria/ca/registre_industrial/",
+          "coste_estimado": "0 € (tasa administrativa exenta para instalaciones ≤70 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "Mismo documento que en paso anterior",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "esquema_instalacion_gas",
-              "label": "Esquema de la instalación",
-              "descripcion": "Croquis con tuberías y aparatos.",
+              "id": "mtd_gas",
+              "label": "Memoria Técnica de Diseño de gas",
+              "descripcion": "Mismo documento que en paso anterior",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Al no superar 70 kW, no requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas_distribuidora",
-              "label": "Certificado de Instalación",
-              "descripcion": "Entregado a la distribuidora.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "En Baleares, las instalaciones estándar (<= 70 kW, baja presión) que no requieren proyecto se tramitan directamente con la distribuidora, SIN necesidad de registro en UDIT.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
       "id": "BAL-GAS-002",
-      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico",
+      "descripcion": "Instalación de gas baja presión con potencia > 70 kW o uso no doméstico (proyecto técnico)",
       "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "domestico"
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación de Gas",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 15,
+          "nombre": "Proyecto Técnico de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "base_legal": "RIGLO RD 919/2006; Decreto 36/2006 CAIB",
+          "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
+          "coste_estimado": "Variable según honorarios del técnico (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
               "id": "proyecto_gas",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Memoria, planos, cálculos.",
+              "label": "Proyecto Técnico de gas",
+              "descripcion": "Documento técnico firmado por técnico competente que describe la instalación",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Por superar 70 kW requiere proyecto técnico.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Certificados de Dirección de Obra e Instalación",
-          "organismo": "Director de obra e Instalador",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 2,
+          "nombre": "Certificado de Instalación (CI) de gas",
+          "organismo": "Instalador habilitado (categoría gasista)",
+          "base_legal": "RIGLO RD 919/2006 art. 5; Decreto 36/2006 CAIB",
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "certificado_direccion_obra_gas",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "Firmado por el director de obra.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_gas_proy",
-              "label": "Certificado de Instalación",
-              "descripcion": "Firmado por instalador.",
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución de la instalación",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Ambos certificados son necesarios.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Registro de instalaciones receptoras de gas (UDIT)",
-          "organismo": "Govern Illes Balears (UDIT)",
-          "base_legal": "Normativa autonómica",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es",
-          "coste_estimado": "Tasas administrativas",
+          "nombre": "Registro de la instalación en el órgano competente de la CAIB",
+          "organismo": "Dirección General de Industria y Energía del Govern de les Illes Balears",
+          "base_legal": "Decreto 36/2006 CAIB art. 8",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "Registro Industrial de Baleares (RIB)",
+          "plataforma_url": "https://www.caib.es/sites/industria/ca/registre_industrial/",
+          "coste_estimado": "0 € (tasa administrativa exenta para instalaciones ≤70 kW)",
           "documentos_requeridos": [
             {
-              "id": "certificado_gas_firmado",
-              "label": "Certificado de Instalación de Gas",
-              "descripcion": "Registro autonómico.",
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "Mismo documento que en paso anterior",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "proyecto_gas_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
+              "id": "proyecto_gas",
+              "label": "Proyecto Técnico de gas",
+              "descripcion": "Mismo documento que en paso anterior",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Procedimiento UDIT-013. Exigible en Baleares para las instalaciones que requieren proyecto.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 4,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
-          "documentos_requeridos": [
-            {
-              "id": "certificados_gas_adjunto",
-              "label": "Certificados (Obra e Instalación)",
-              "descripcion": "Entregados a la distribuidora.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Las comprobaciones son realizadas por la distribuidora antes del primer llenado.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

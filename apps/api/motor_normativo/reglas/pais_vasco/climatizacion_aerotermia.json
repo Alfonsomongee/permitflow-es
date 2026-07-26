@@ -1,143 +1,227 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "pais_vasco",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "Orden de 22 de julio de 2008 (País Vasco)",
-    "Decreto 81/2020, de 30 de junio, de seguridad industrial (País Vasco)"
+    "RITE RD 1027/2007",
+    "RD 115/2017 de eficiencia energética",
+    "Decreto 47/2009 del Gobierno Vasco sobre instalaciones térmicas en edificios",
+    "Orden de 12 de noviembre de 2012 del Consejero de Industria, Innovación, Comercio y Turismo (procedimiento de puesta en servicio)",
+    "Ley 4/2019 de Sostenibilidad Energética de la CAPV"
   ],
   "reglas": [
     {
-      "id": "PVA-CLI-001",
-      "descripcion": "Instalación térmica de 5 a 70 kW (MTD) - Declaración Responsable",
+      "id": "PV-AER-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 12 kW en vivienda unifamiliar (memoria técnica simplificada)",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              12
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_edificio"
+              },
+              "unifamiliar"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 2,
+          "nombre": "Memoria Técnica de Diseño (MTD) de climatización",
+          "organismo": "Instalador habilitado (carné de instalador térmico categoría básica o superior)",
+          "base_legal": "RITE RD 1027/2007; Decreto 47/2009",
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
+              "id": "mtd_climatizacion",
+              "label": "Memoria Técnica de Diseño (MTD) de climatización",
+              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación, cálculos de carga térmica, rendimiento y cumplimiento del RITE.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
-              "obligatorio": true
+              "id": "certificado_eficiencia_energetica",
+              "label": "Certificado de eficiencia energética del edificio (si aplica)",
+              "descripcion": "Certificado emitido por técnico competente que refleje la calificación energética tras la instalación.",
+              "formato": "PDF",
+              "obligatorio": false
             }
-          ],
-          "notas": "Las instalaciones > 5 kW y <= 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Puesta en servicio de instalaciones térmicas (Declaración Responsable)",
-          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
-          "base_legal": "Decreto 81/2020 y Orden de 22 de julio de 2008",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Tasa autonómica",
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el Órgano Territorial de Industria",
+          "organismo": "Órgano Territorial de Industria del Gobierno Vasco (Delegación Territorial correspondiente)",
+          "base_legal": "Orden de 12 de noviembre de 2012; Ley 4/2019",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "Euskadi.eus - Sede Electrónica",
+          "plataforma_url": "https://www.euskadi.eus/sede-electronica",
+          "coste_estimado": "0 € (tasa administrativa exenta para potencias ≤ 12 kW)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_rite",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario telemático.",
+              "id": "drps_climatizacion",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario normalizado firmado por el titular y el instalador, indicando datos de la instalación y cumplimiento normativo.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "mtd_firmada",
+              "label": "Memoria Técnica de Diseño firmada",
+              "descripcion": "Copia de la MTD firmada por el instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador (carné profesional)",
+              "descripcion": "Copia del carné de instalador térmico habilitado.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Se tramita telemáticamente mediante Declaración Responsable estandarizada.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
-      "id": "PVA-CLI-002",
-      "descripcion": "Instalación térmica > 70 kW (Proyecto y OCA) - Declaración Responsable",
+      "id": "PV-AER-002",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 12 kW o en edificio plurifamiliar/terciario (proyecto técnico y ECA)",
       "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              12
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "tipo_edificio"
+              },
+              "unifamiliar"
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
+          "nombre": "Proyecto técnico de climatización (visado colegial opcional)",
+          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero térmico, etc.)",
+          "base_legal": "RITE RD 1027/2007; Decreto 47/2009",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
+          "coste_estimado": "Variable según honorarios profesionales (aprox. 500-1500 €)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de climatización.",
+              "id": "proyecto_climatizacion",
+              "label": "Proyecto técnico de climatización",
+              "descripcion": "Documento técnico completo firmado por técnico competente, incluyendo memoria, cálculos, planos, pliego de condiciones y presupuesto.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Coste OCA",
+          "nombre": "Solicitud de autorización administrativa previa (si potencia > 70 kW) o comunicación previa",
+          "organismo": "Órgano Territorial de Industria del Gobierno Vasco",
+          "base_legal": "Ley 4/2019; Decreto 47/2009",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 45,
+          "plataforma": "Euskadi.eus - Sede Electrónica",
+          "plataforma_url": "https://www.euskadi.eus/sede-electronica",
+          "coste_estimado": "Tasa administrativa según potencia (consultar tarifas)",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_rite",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable.",
+              "id": "solicitud_autorizacion",
+              "label": "Solicitud de autorización administrativa",
+              "descripcion": "Formulario normalizado de solicitud.",
+              "formato": "PDF",
               "obligatorio": true
+            },
+            {
+              "id": "proyecto_visado",
+              "label": "Proyecto técnico visado (si procede)",
+              "descripcion": "Proyecto técnico con visado colegial si el colegio profesional lo exige.",
+              "formato": "PDF",
+              "obligatorio": false
             }
-          ],
-          "notas": "Inspección obligatoria estatal.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Puesta en servicio de instalaciones térmicas (Declaración Responsable)",
-          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
-          "base_legal": "Decreto 81/2020",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Tasa autonómica",
+          "nombre": "Certificado de instalación (ECA) emitido por Entidad Colaboradora de la Administración (ECA)",
+          "organismo": "Entidad Colaboradora de la Administración (ECA) autorizada en País Vasco (ej: TÜV Rheinland, Bureau Veritas, etc.)",
+          "base_legal": "Orden de 12 de noviembre de 2012; Ley 4/2019",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según ECA (aprox. 300-800 €)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_rite_proy",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario telemático.",
+              "id": "certificado_eca",
+              "label": "Certificado de instalación (ECA)",
+              "descripcion": "Certificado emitido por ECA que acredita que la instalación cumple con la normativa vigente.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_ejecutado",
+              "label": "Proyecto técnico ejecutado (as built)",
+              "descripcion": "Documentación final de obra firmada por técnico competente.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "El titular declara disponer del proyecto y certificado OCA.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 4,
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el Órgano Territorial de Industria",
+          "organismo": "Órgano Territorial de Industria del Gobierno Vasco",
+          "base_legal": "Orden de 12 de noviembre de 2012",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "Euskadi.eus - Sede Electrónica",
+          "plataforma_url": "https://www.euskadi.eus/sede-electronica",
+          "coste_estimado": "0 € (tasa administrativa exenta para potencias ≤ 70 kW; consultar para mayores)",
+          "documentos_requeridos": [
+            {
+              "id": "drps_climatizacion",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario normalizado firmado por el titular y el instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_eca_adjunto",
+              "label": "Certificado ECA",
+              "descripcion": "Copia del certificado ECA.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     }

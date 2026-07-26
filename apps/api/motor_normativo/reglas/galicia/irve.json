@@ -1,102 +1,37 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "galicia",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52 (estatal)",
-    "Sede Electrónica Xunta de Galicia - Procedimiento IN614C"
+    "RD 1053/2014 ITC-BT-52",
+    "RD 842/2002 REBT",
+    "Decreto 42/2019, de 18 de abril, por el que se regula la puesta en servicio de las instalaciones de infraestructura de recarga de vehículos eléctricos en Galicia",
+    "Orden de 29 de mayo de 2020 por la que se desarrolla el Decreto 42/2019"
   ],
   "reglas": [
     {
       "id": "GAL-IRVE-001",
-      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD)",
+      "descripcion": "Instalación de recarga de VE en vivienda unifamiliar o edificio existente con potencia ≤ 10 kW, sin obra nueva",
       "condicion": {
-        "not": {
-          "or": [
-            { "==": [{ "var": "modo_recarga" }, 4] },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-                { ">": [{ "var": "potencia_kw" }, 50] }
-              ]
-            },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-                { ">": [{ "var": "potencia_kw" }, 10] }
-              ]
-            }
-          ]
-        }
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Certificado de Instalación Eléctrica (CIE)",
-          "organismo": "Instalador electricista autorizado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Memoria que describe la instalación de recarga.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "CIE firmado por el instalador autorizado.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Registro de instalaciones eléctricas de baja tensión",
-          "organismo": "Xunta de Galicia",
-          "base_legal": "Normativa autonómica e ITC-BT-04",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Xunta",
-          "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "Tasas autonómicas",
-          "documentos_requeridos": [
-            {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "Registro para la puesta en servicio.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento IN614C de la Xunta de Galicia.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "GAL-IRVE-002",
-      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA)",
-      "condicion": {
-        "or": [
-          { "==": [{ "var": "modo_recarga" }, 4] },
+        "and": [
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-              { ">": [{ "var": "potencia_kw" }, 50] }
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
             ]
           },
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-              { ">": [{ "var": "potencia_kw" }, 10] }
+            "in": [
+              {
+                "var": "tipo_ubicacion"
+              },
+              [
+                "vivienda_unifamiliar",
+                "edificio_existente"
+              ]
             ]
           }
         ]
@@ -104,78 +39,191 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación IRVE",
-          "organismo": "Ingeniero competente colegiado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 10,
+          "nombre": "Memoria técnica de diseño (MTD) o proyecto técnico según REBT",
+          "organismo": "Instalador autorizado en baja tensión (categoría especialista)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 42/2019 art. 5",
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del proyectista",
+          "coste_estimado": "Incluido en honorarios del instalador",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Proyecto completo de la infraestructura de recarga.",
-              "obligatorio": true
+              "id": "mtd_irve",
+              "label": "Memoria técnica de diseño IRVE",
+              "descripcion": "Documento firmado por instalador autorizado que describe la instalación",
+              "requerido": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)",
+              "descripcion": "Certificado firmado por instalador autorizado según modelo de la comunidad",
+              "requerido": true
             }
-          ],
-          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "nombre": "Comunicación de puesta en servicio ante el órgano competente de la comunidad autónoma",
+          "organismo": "Dirección General de Energía y Minas de la Xunta de Galicia",
+          "base_legal": "Decreto 42/2019 art. 6; Orden 29/05/2020",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Plataforma de Industria y Energía (PIE)",
+          "plataforma_url": "https://www.xunta.gal/tramites/enerxia",
+          "coste_estimado": "0 € (tasa administrativa no aplicable)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_puesta_servicio",
+              "label": "Solicitud de puesta en servicio (modelo normalizado)",
+              "descripcion": "Formulario oficial cumplimentado y firmado",
+              "requerido": true
+            },
+            {
+              "id": "certificado_instalacion_oficial",
+              "label": "Certificado de instalación (modelo oficial)",
+              "descripcion": "Mismo documento que en paso anterior, pero presentado ante la administración",
+              "requerido": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del titular",
+              "descripcion": "Documento firmado por el titular de la instalación",
+              "requerido": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "GAL-IRVE-002",
+      "descripcion": "Instalación de recarga de VE en edificio de nueva construcción o con potencia > 10 kW",
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_ubicacion"
+              },
+              "edificio_nueva_construccion"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico firmado por técnico competente",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 42/2019 art. 5",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de inspección OCA",
+          "coste_estimado": "Según honorarios del técnico",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_inicial",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable emitido por la OCA.",
-              "obligatorio": true
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico de la instalación IRVE",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, etc.",
+              "requerido": true
             }
-          ],
-          "notas": "La obligatoriedad de la inspección inicial sigue los umbrales estatales generales.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación y dirección de obra",
+          "organismo": "Instalador autorizado y director de obra (si aplica)",
+          "base_legal": "REBT RD 842/2002; Decreto 42/2019 art. 5",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)",
+              "descripcion": "Firmado por instalador autorizado",
+              "requerido": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra (si procede)",
+              "descripcion": "Firmado por técnico competente",
+              "requerido": false
+            }
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Registro de instalaciones eléctricas de baja tensión",
-          "organismo": "Xunta de Galicia",
-          "base_legal": "Normativa autonómica",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Xunta",
-          "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "Tasas autonómicas",
+          "nombre": "Inspección inicial por Organismo de Control (OCA) si potencia > 10 kW o edificio de nueva construcción",
+          "organismo": "Organismo de Control Autorizado (OCA) en Galicia",
+          "base_legal": "Decreto 42/2019 art. 7; Orden 29/05/2020",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Registro de OCA de la Xunta de Galicia",
+          "plataforma_url": "https://www.xunta.gal/tramites/enerxia/oca",
+          "coste_estimado": "Según tarifa del OCA (aprox. 200-400 €)",
           "documentos_requeridos": [
             {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "CIE firmado por el instalador.",
-              "obligatorio": true
+              "id": "solicitud_inspeccion_oca",
+              "label": "Solicitud de inspección a OCA",
+              "descripcion": "Formulario de solicitud de inspección inicial",
+              "requerido": true
             },
             {
-              "id": "proyecto_tecnico_irve_adjunto",
-              "label": "Proyecto técnico",
-              "descripcion": "Copia del proyecto y certificado de dirección de obra.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico (copia)",
+              "descripcion": "Copia del proyecto técnico presentado",
+              "requerido": true
             },
             {
-              "id": "certificado_oca_inicial_adjunto",
-              "label": "Certificado OCA",
-              "descripcion": "Certificado favorable.",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Copia del certificado de instalación",
+              "requerido": true
             }
-          ],
-          "notas": "Procedimiento IN614C de la Xunta de Galicia.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 4,
+          "nombre": "Comunicación de puesta en servicio con certificado de OCA favorable",
+          "organismo": "Dirección General de Energía y Minas de la Xunta de Galicia",
+          "base_legal": "Decreto 42/2019 art. 6; Orden 29/05/2020",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Plataforma de Industria y Energía (PIE)",
+          "plataforma_url": "https://www.xunta.gal/tramites/enerxia",
+          "coste_estimado": "0 €",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_puesta_servicio",
+              "label": "Solicitud de puesta en servicio (modelo normalizado)",
+              "descripcion": "Formulario oficial cumplimentado y firmado",
+              "requerido": true
+            },
+            {
+              "id": "certificado_oca_favorable",
+              "label": "Certificado de inspección favorable del OCA",
+              "descripcion": "Documento emitido por el OCA tras inspección positiva",
+              "requerido": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del titular",
+              "descripcion": "Documento firmado por el titular",
+              "requerido": true
+            }
+          ]
         }
       ]
     }

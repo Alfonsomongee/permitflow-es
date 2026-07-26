@@ -1,166 +1,218 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "cataluna",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 919/2006 (estatal)",
-    "Decret 192/2023, de 7 de novembre, de la seguretat industrial (Cataluña)"
+    "RD 919/2006 RIGLO",
+    "Decreto 141/2015, de 30 de junio, por el que se regulan las instalaciones de gas en Cataluña",
+    "Orden de 10 de abril de 2017, por la que se aprueban los modelos de certificados de instalaciones de gas"
   ],
   "reglas": [
     {
-      "id": "CAT-GAS-001",
-      "descripcion": "Instalación receptora de gas P <= 70 kW - Diseño y Puesta en Servicio en RITSIC",
+      "id": "CAT-GBP-001",
+      "descripcion": "Instalación de gas de baja presión (≤0,05 bar) en vivienda unifamiliar o local comercial con potencia ≤70 kW",
       "condicion": {
-        "<=": [{ "var": "potencia_kw" }, 70]
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              0.05
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "in": [
+              {
+                "var": "tipo_edificio"
+              },
+              [
+                "unifamiliar",
+                "local_comercial"
+              ]
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificado de Instalación de Gas",
-          "organismo": "Empresa Instaladora de Gas Autorizada (RASIC)",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "nombre": "Certificado de Instalación (CI) por instalador habilitado",
+          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
+          "base_legal": "Decreto 141/2015 art. 12; RD 919/2006 art. 5",
           "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del instalador",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "certificado_gas_cataluna",
-              "label": "Certificado de Instalación (IRG-3)",
-              "descripcion": "Certificado emitido tras superar las pruebas.",
-              "obligatorio": true
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de Gas (modelo oficial)",
+              "requerido": true,
+              "formato": "pdf"
             },
             {
-              "id": "esquema_instalacion_gas",
-              "label": "Esquema de la instalación",
-              "descripcion": "Croquis con tuberías, llaves y aparatos.",
-              "obligatorio": true
+              "id": "memoria_tecnica",
+              "label": "Memoria técnica de la instalación",
+              "requerido": true,
+              "formato": "pdf"
             }
-          ],
-          "notas": "Al no superar 70 kW, no requiere proyecto técnico. Instaladores deben estar inscritos en RASIC.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable y Alta en RITSIC",
-          "organismo": "Generalitat de Catalunya (Canal Empresa)",
-          "base_legal": "Decret 192/2023",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
-          "coste_estimado": "Tasa administrativa",
+          "nombre": "Registro de la instalación en el órgano competente de la Generalitat de Catalunya",
+          "organismo": "Dirección General de Energía, Minas y Seguridad Industrial (DGEMSI)",
+          "base_legal": "Decreto 141/2015 art. 13; Orden 10/04/2017",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Registro de Instalaciones de Gas (RIG)",
+          "plataforma_url": "https://registreinstalacionsgas.gencat.cat",
+          "coste_estimado": "0 € (sin tasa)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_gas",
-              "label": "Declaración Responsable de Seguridad Industrial",
-              "descripcion": "Tramitación en línea indicando la finalización.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Trámite 'Altes, modificacions i baixes d'instal·lacions de seguretat industrial' en Canal Empresa.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas (Ej. Nedgia Catalunya)",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
-          "documentos_requeridos": [
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de Gas",
+              "requerido": true,
+              "formato": "pdf"
+            },
             {
-              "id": "certificado_gas_cataluna_distribuidora",
-              "label": "Certificado de Instalación",
-              "descripcion": "Entregado a la distribuidora.",
-              "obligatorio": true
+              "id": "boletin_instalador",
+              "label": "Boletín del instalador (copia del carné profesional)",
+              "requerido": true,
+              "formato": "pdf"
             }
-          ],
-          "notas": "El técnico de la distribuidora verificará la instalación.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
-      "id": "CAT-GAS-002",
-      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico y Alta RITSIC",
+      "id": "CAT-GBP-002",
+      "descripcion": "Instalación de gas de baja presión en edificio plurifamiliar o con potencia >70 kW (requiere proyecto técnico y ECA)",
       "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
+        "or": [
+          {
+            "==": [
+              {
+                "var": "tipo_edificio"
+              },
+              "plurifamiliar"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación de Gas",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "nombre": "Proyecto técnico de instalación de gas firmado por técnico competente",
+          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "base_legal": "Decreto 141/2015 art. 10; RD 919/2006 art. 4",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de la instalación de gas",
+              "requerido": true,
+              "formato": "pdf"
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de autorización administrativa previa (si aplica) y presentación del proyecto",
+          "organismo": "Dirección General de Energía, Minas y Seguridad Industrial (DGEMSI)",
+          "base_legal": "Decreto 141/2015 art. 11",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 60,
+          "plataforma": "Tràmits Gencat - Energia",
+          "plataforma_url": "https://tramits.gencat.cat/ca/ambits/energia",
+          "coste_estimado": "0 € (sin tasa)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
+              "requerido": true,
+              "formato": "pdf"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador",
+              "requerido": true,
+              "formato": "pdf"
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Certificado de Instalación (CI) y certificado de la ECA (Entidad Colaboradora de la Administración)",
+          "organismo": "ECA acreditada (ej. Applus, TÜV Rheinland, Bureau Veritas)",
+          "base_legal": "Decreto 141/2015 art. 12; RD 919/2006 art. 5",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
+          "coste_estimado": "Variable según ECA (aprox. 200-500 €)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_gas_cataluna",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Memoria, planos, cálculos.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Por superar 70 kW requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de Dirección de Obra y Certificado de Instalación",
-          "organismo": "Director de obra e Instalador",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 2,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_direccion_obra_gas",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "Firmado por el director de obra.",
-              "obligatorio": true
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de Gas",
+              "requerido": true,
+              "formato": "pdf"
             },
             {
-              "id": "certificado_gas_cataluna_proy",
-              "label": "Certificado de Instalación (IRG-3)",
-              "descripcion": "Firmado por instalador (RASIC).",
-              "obligatorio": true
+              "id": "certificado_eca",
+              "label": "Certificado de la ECA (verificación de la instalación)",
+              "requerido": true,
+              "formato": "pdf"
             }
-          ],
-          "notas": "Son necesarios ambos certificados.",
-          "paralelo_con": null
+          ]
         },
         {
-          "orden": 3,
-          "nombre": "Declaración Responsable y Alta en RITSIC",
-          "organismo": "Generalitat de Catalunya (Canal Empresa)",
-          "base_legal": "Decret 192/2023",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
-          "coste_estimado": "Tasa administrativa",
+          "orden": 4,
+          "nombre": "Registro de la instalación en el órgano competente de la Generalitat de Catalunya",
+          "organismo": "Dirección General de Energía, Minas y Seguridad Industrial (DGEMSI)",
+          "base_legal": "Decreto 141/2015 art. 13; Orden 10/04/2017",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Registro de Instalaciones de Gas (RIG)",
+          "plataforma_url": "https://registreinstalacionsgas.gencat.cat",
+          "coste_estimado": "0 € (sin tasa)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_gas_proy",
-              "label": "Declaración Responsable",
-              "descripcion": "Tramitación en línea indicando datos de proyecto y dirección de obra.",
-              "obligatorio": true
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de Gas",
+              "requerido": true,
+              "formato": "pdf"
+            },
+            {
+              "id": "certificado_eca",
+              "label": "Certificado de la ECA",
+              "requerido": true,
+              "formato": "pdf"
             }
-          ],
-          "notas": "Trámite 'Altes, modificacions i baixes' incluyendo la información del proyecto.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

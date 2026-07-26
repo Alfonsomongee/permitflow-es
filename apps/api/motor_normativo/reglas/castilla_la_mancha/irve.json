@@ -1,103 +1,38 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "castilla_la_mancha",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-04-07",
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52 (estatal)",
-    "Orden de 27 de febrero de 2004, de la Consejería de Industria y Trabajo",
-    "Trámite 1003040 JCCM (eDice-bt)"
+    "RD 1053/2014 ITC-BT-52 (IRVE)",
+    "RD 842/2002 REBT",
+    "Decreto 36/2018, de 22 de mayo, por el que se regulan las instalaciones de infraestructura de recarga de vehículos eléctricos en Castilla-La Mancha",
+    "Orden de 15 de junio de 2020, de la Consejería de Desarrollo Sostenible, por la que se establecen los procedimientos de puesta en servicio de instalaciones de recarga de vehículos eléctricos en Castilla-La Mancha"
   ],
   "reglas": [
     {
       "id": "CLM-IRVE-001",
-      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD)",
+      "descripcion": "Instalación de recarga de VE en edificio de viviendas o aparcamiento privado, potencia ≤ 50 kW, sin obra civil relevante",
       "condicion": {
-        "not": {
-          "or": [
-            { "==": [{ "var": "modo_recarga" }, 4] },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-                { ">": [{ "var": "potencia_kw" }, 50] }
-              ]
-            },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-                { ">": [{ "var": "potencia_kw" }, 10] }
-              ]
-            }
-          ]
-        }
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Certificado de Instalación Eléctrica (CIE)",
-          "organismo": "Instalador electricista autorizado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Memoria que describe la instalación de recarga.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "CIE firmado por el instalador autorizado.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Registro de instalación eléctrica de baja tensión",
-          "organismo": "Junta de Comunidades de Castilla-La Mancha",
-          "base_legal": "Orden de 27 de febrero de 2004",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "eDice-bt (JCCM)",
-          "plataforma_url": "https://www.jccm.es/tramites/1003040",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "CIE diligenciado telemáticamente.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento telemático a través de eDice-bt (Trámite 1003040).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CLM-IRVE-002",
-      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA)",
-      "condicion": {
-        "or": [
-          { "==": [{ "var": "modo_recarga" }, 4] },
+        "and": [
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-              { ">": [{ "var": "potencia_kw" }, 50] }
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              50
             ]
           },
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-              { ">": [{ "var": "potencia_kw" }, 10] }
+            "in": [
+              {
+                "var": "ubicacion"
+              },
+              [
+                "vivienda_unifamiliar",
+                "edificio_plurifamiliar",
+                "aparcamiento_privado"
+              ]
             ]
           }
         ]
@@ -105,78 +40,330 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación IRVE",
-          "organismo": "Ingeniero competente colegiado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 10,
+          "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones de recarga VE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 36/2018 art. 5",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del proyectista",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Proyecto completo de la infraestructura de recarga.",
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos, esquemas y cumplimiento normativo.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "Declaración del instalador de que la instalación cumple con la normativa vigente.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) ante el Órgano Competente de Industria de Castilla-La Mancha",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Orden 15/06/2020 art. 3; Decreto 36/2018 art. 6",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-de-re",
+          "coste_estimado": "0 € (tasa 0)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Misma MTD presentada en paso 1.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (modelo oficial)",
+              "descripcion": "Certificado firmado por instalador habilitado según modelo de la Orden 15/06/2020.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "Incluida en el certificado de instalación.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CLM-IRVE-002",
+      "descripcion": "Instalación de recarga de VE en edificio de viviendas o aparcamiento privado, potencia > 50 kW o con obra civil relevante",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  50
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "obra_civil_relevante"
+                  },
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "in": [
+              {
+                "var": "ubicacion"
+              },
+              [
+                "vivienda_unifamiliar",
+                "edificio_plurifamiliar",
+                "aparcamiento_privado"
+              ]
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico IRVE",
+          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 36/2018 art. 5",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de inspección OCA",
+          "coste_estimado": "Según honorarios del técnico (variable)",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_inicial",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado emitido por la OCA.",
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto Técnico IRVE",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto y estudio básico de seguridad.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Toda instalación que requiere proyecto requiere inspección inicial según normativa estatal (ITC-BT-05).",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de Autorización Administrativa Previa (si potencia > 50 kW) o Comunicación Previa (si ≤ 50 kW con obra civil)",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Decreto 36/2018 art. 6; Orden 15/06/2020 art. 4",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 60,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/autorizacion-administrativa-previa-de-instalaciones-de-recarga-de-vehiculos",
+          "coste_estimado": "0 € (tasa 0)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto Técnico IRVE",
+              "descripcion": "Mismo proyecto presentado en paso 1.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_tecnico",
+              "label": "Declaración responsable del técnico",
+              "descripcion": "Declaración del técnico de que el proyecto cumple la normativa.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Registro de instalación eléctrica de baja tensión",
-          "organismo": "Junta de Comunidades de Castilla-La Mancha",
-          "base_legal": "Orden de 27 de febrero de 2004",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "eDice-bt (JCCM)",
-          "plataforma_url": "https://www.jccm.es/tramites/1003040",
-          "coste_estimado": "Tasa autonómica",
+          "nombre": "Inspección Inicial por OCA (Organismo de Control Autorizado)",
+          "organismo": "OCA acreditada en Castilla-La Mancha (ej. TÜV Rheinland, Applus, Bureau Veritas)",
+          "base_legal": "Decreto 36/2018 art. 7; Orden 15/06/2020 art. 5",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según tarifa de la OCA (aprox. 200-500 €)",
           "documentos_requeridos": [
             {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "CIE firmado por el instalador.",
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto Técnico IRVE",
+              "descripcion": "Proyecto visado por colegio profesional (si aplica).",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "proyecto_tecnico_irve_adjunto",
-              "label": "Proyecto técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_oca_inicial_adjunto",
-              "label": "Certificado OCA",
-              "descripcion": "Certificado favorable.",
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (modelo oficial)",
+              "descripcion": "Firmado por instalador habilitado.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Procedimiento telemático a través de eDice-bt.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 4,
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) con informe favorable de OCA",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Orden 15/06/2020 art. 3; Decreto 36/2018 art. 6",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-de-re",
+          "coste_estimado": "0 € (tasa 0)",
+          "documentos_requeridos": [
+            {
+              "id": "informe_oca_favorable",
+              "label": "Informe favorable de OCA",
+              "descripcion": "Documento emitido por OCA tras inspección favorable.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (modelo oficial)",
+              "descripcion": "Mismo certificado presentado en inspección.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CLM-IRVE-003",
+      "descripcion": "Instalación de recarga de VE en edificio público o de uso público, cualquier potencia",
+      "condicion": {
+        "and": [
+          {
+            "in": [
+              {
+                "var": "ubicacion"
+              },
+              [
+                "edificio_publico",
+                "aparcamiento_publico",
+                "via_publica"
+              ]
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico IRVE",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 36/2018 art. 5",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según honorarios del técnico",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto Técnico IRVE",
+              "descripcion": "Incluye memoria, planos, pliego, presupuesto y estudio de seguridad.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de Autorización Administrativa Previa",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Decreto 36/2018 art. 6; Orden 15/06/2020 art. 4",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 60,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/autorizacion-administrativa-previa-de-instalaciones-de-recarga-de-vehiculos",
+          "coste_estimado": "0 € (tasa 0)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto Técnico IRVE",
+              "descripcion": "Mismo proyecto.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_tecnico",
+              "label": "Declaración responsable del técnico",
+              "descripcion": "Declaración de cumplimiento normativo.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Inspección Inicial por OCA",
+          "organismo": "OCA acreditada en Castilla-La Mancha",
+          "base_legal": "Decreto 36/2018 art. 7; Orden 15/06/2020 art. 5",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según tarifa OCA",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto Técnico IRVE",
+              "descripcion": "Proyecto visado.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (modelo oficial)",
+              "descripcion": "Firmado por instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 4,
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) con informe favorable de OCA",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Orden 15/06/2020 art. 3; Decreto 36/2018 art. 6",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-de-re",
+          "coste_estimado": "0 € (tasa 0)",
+          "documentos_requeridos": [
+            {
+              "id": "informe_oca_favorable",
+              "label": "Informe favorable de OCA",
+              "descripcion": "Documento OCA.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (modelo oficial)",
+              "descripcion": "Mismo certificado.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     }

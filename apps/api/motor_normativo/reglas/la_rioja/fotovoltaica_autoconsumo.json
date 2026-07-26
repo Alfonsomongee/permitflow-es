@@ -1,82 +1,150 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "la_rioja",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
-  "revisado_por": "ai-agent",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 24/2013 + RD 244/2019 transposición directa",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico",
-    "RD-ley 18/2022, art. 115.5 Ley 24/2013 (umbral estatal exención AAP)"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 48/2003, de 31 de octubre, por el que se regulan los procedimientos de puesta en servicio de las instalaciones industriales en La Rioja",
+    "Orden 5/2017, de 20 de febrero, de la Consejería de Administración Pública y Hacienda, por la que se desarrolla el Decreto 48/2003"
   ],
   "reglas": [
     {
       "id": "RIO-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
-        "<=": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
           },
-          10
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción instalación Baja Tensión (Trámite 24196)",
-          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "Ley 24/2013",
-          "coste_estimado": "29.45",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": 90,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
-            "CIE",
-            "MTD (Memoria)"
-          ],
-          "formulario_ref": "24196",
-          "paralelo_con": null,
-          "notas": "Tasa 4.21.3.1 (Memoria): 29,45 EUR. Silencio administrativo positivo (3 meses)."
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación y cumple con ITC-BT-40",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Certificado firmado por instalador que acredita que la instalación se ajusta al proyecto/MTD y al REBT",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Documento firmado por el titular declarando que cumple con los requisitos",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Registro de Autoconsumo (Trámite 24593 - modelo AUTee)",
-          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "RD 244/2019",
-          "coste_estimado": "0",
-          "plazo_estimado_dias": 180,
-          "plazo_legal_dias": 180,
+          "nombre": "Registro de autoconsumo (comunicación a la comunidad autónoma)",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de La Rioja",
+          "base_legal": "RD 244/2019 art. 11; Decreto 48/2003",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "0 € (tasa 0 para autoconsumo ≤10 kW)",
           "documentos_requeridos": [
-            "CAU",
-            "Modelo AUTee",
-            "Resolución BT inscrita"
-          ],
-          "formulario_ref": "24593",
-          "paralelo_con": null,
-          "notas": "Requiere tener inscrita previamente la instalación BT (Trámite 24196). Silencio administrativo negativo (6 meses)."
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Mismo documento que el paso anterior",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Mismo documento que el paso anterior",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Mismo documento que el paso anterior",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_acceso",
+              "label": "Contrato de acceso y conexión firmado con la distribuidora",
+              "descripcion": "Documento que acredita el punto de conexión y condiciones técnicas",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "nombre": "Puesta en servicio (comunicación a la comunidad autónoma)",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de La Rioja",
+          "base_legal": "Decreto 48/2003; Orden 5/2017",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "Sede Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "0 € (tasa 0 para autoconsumo ≤10 kW)",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Mismo documento que el paso anterior",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Mismo documento que el paso anterior",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     },
     {
       "id": "RIO-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW",
+      "descripcion": "Autoconsumo con excedentes >10 kW o uso no residencial (proyecto técnico, OCA)",
       "condicion": {
-        "and": [
+        "or": [
           {
             ">": [
               {
@@ -86,11 +154,11 @@
             ]
           },
           {
-            "<=": [
+            "!=": [
               {
-                "var": "potencia_kw"
+                "var": "uso"
               },
-              100
+              "residencial"
             ]
           }
         ]
@@ -98,116 +166,106 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción instalación Baja Tensión (Trámite 24196)",
-          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "Ley 24/2013",
-          "coste_estimado": "57.25",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": 90,
+          "nombre": "Proyecto Técnico (PT) fotovoltaico",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico (0 € tasa administrativa)",
           "documentos_requeridos": [
-            "CIE",
-            "Proyecto"
-          ],
-          "formulario_ref": "24196",
-          "paralelo_con": null,
-          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). Tasa 4.21.2.1.1 (Proyecto): 57,25 EUR. Silencio administrativo positivo (3 meses)."
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Registro de Autoconsumo (Trámite 24593 - modelo AUTee)",
-          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "RD 244/2019",
-          "coste_estimado": "0",
-          "plazo_estimado_dias": 180,
-          "plazo_legal_dias": 180,
+          "nombre": "Registro de autoconsumo (comunicación a la comunidad autónoma)",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de La Rioja",
+          "base_legal": "RD 244/2019 art. 11; Decreto 48/2003",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "0 € (tasa 0 para autoconsumo)",
           "documentos_requeridos": [
-            "CAU",
-            "Modelo AUTee",
-            "Resolución BT inscrita"
-          ],
-          "formulario_ref": "24593",
-          "paralelo_con": null,
-          "notas": "Requiere tener inscrita previamente la instalación BT (Trámite 24196). Silencio administrativo negativo (6 meses)."
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo documento que el paso anterior",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_acceso",
+              "label": "Contrato de acceso y conexión firmado con la distribuidora",
+              "descripcion": "Documento que acredita el punto de conexión y condiciones técnicas",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "nombre": "Inspección inicial por OCA (Organismo de Control Autorizado)",
+          "organismo": "OCA autorizada en La Rioja (ej. TÜV Rheinland, Applus, Bureau Veritas, etc.)",
+          "base_legal": "Decreto 48/2003; Orden 5/2017; RD 2200/1995",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según OCA (aprox. 200-500 €)",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
-      ]
-    },
-    {
-      "id": "RIO-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Inscripción instalación Baja Tensión (Trámite 24196)",
-          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "Ley 24/2013",
-          "coste_estimado": "Variable según documentación",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": 90,
-          "documentos_requeridos": [
-            "CIE",
-            "Proyecto o Memoria"
-          ],
-          "formulario_ref": "24196",
-          "paralelo_con": null,
-          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). Tasas: 4.21.3.1 (Memoria) = 29,45 EUR; 4.21.2.1.1 (Proyecto) = 57,25 EUR. Silencio administrativo positivo (3 meses)."
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo documento que el paso anterior",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Firmado por instalador habilitado",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         },
         {
-          "orden": 2,
-          "nombre": "Registro de Autoconsumo (Trámite 24593 - modelo AUTee)",
-          "organismo": "Dirección General Empresa, Energías y Cambio Climático",
-          "base_legal": "RD 244/2019",
-          "coste_estimado": "0",
-          "plazo_estimado_dias": 180,
-          "plazo_legal_dias": 180,
+          "orden": 4,
+          "nombre": "Puesta en servicio (comunicación a la comunidad autónoma con certificado OCA)",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de La Rioja",
+          "base_legal": "Decreto 48/2003; Orden 5/2017",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "Sede Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "0 € (tasa 0 para autoconsumo)",
           "documentos_requeridos": [
-            "CAU",
-            "Modelo AUTee",
-            "Resolución BT inscrita"
-          ],
-          "formulario_ref": "24593",
-          "paralelo_con": null,
-          "notas": "Requiere tener inscrita previamente la instalación BT (Trámite 24196). Silencio administrativo negativo (6 meses)."
-        },
-        {
-          "orden": 3,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+            {
+              "id": "certificado_oca",
+              "label": "Certificado de inspección OCA favorable",
+              "descripcion": "Documento emitido por OCA que acredita que la instalación cumple la normativa",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Documento firmado por el titular declarando que cumple con los requisitos",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     }
-  ],
-  "nivel_verificacion": "verificada"
+  ]
 }

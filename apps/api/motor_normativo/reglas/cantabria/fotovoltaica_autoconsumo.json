@@ -1,66 +1,98 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cantabria",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
-  "revisado_por": "ai-agent",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 244/2019 + Ley 1/2004",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico",
-    "RD-ley 18/2022, art. 115.5 Ley 24/2013 (umbral estatal exención AAP)"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 19/2004, de 26 de febrero, por el que se regulan las instalaciones eléctricas de baja tensión en Cantabria",
+    "Orden de 10 de abril de 2006, de la Consejería de Industria, Trabajo y Desarrollo Tecnológico, por la que se desarrolla el procedimiento de puesta en servicio de instalaciones eléctricas de baja tensión en Cantabria"
   ],
   "reglas": [
     {
-      "id": "CNT-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW",
+      "id": "CAN-FV-001",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
-        "<=": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
           },
-          10
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro BT autoconsumo",
-          "organismo": "Dirección General de Industria, Energía y Minas",
-          "base_legal": "RD 244/2019 + Ley 1/2004",
-          "coste_estimado": "13.02",
-          "plazo_estimado_dias": 15,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "Tarifa 2.2.4 (13,02 EUR fijo - Ley 9/1992 mod. Ley 2/2022). Existe una bonificación temporal del 100% cuya vigencia para 2026 queda pendiente de confirmación."
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y esquemas unifilares.",
+              "formato": "PDF"
+            }
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el órgano competente de la Comunidad Autónoma de Cantabria",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "Orden de 10 de abril de 2006; Decreto 19/2004",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es",
+          "coste_estimado": "0 € (tasa no aplicable para autoconsumo ≤10 kW)",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+            {
+              "id": "drps",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
+              "formato": "PDF"
+            },
+            {
+              "id": "mtd_firmada",
+              "label": "Memoria Técnica de Diseño firmada",
+              "descripcion": "MTD visada por el instalador.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)",
+              "descripcion": "Certificado firmado por el instalador según modelo de la comunidad.",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "CNT-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW",
+      "id": "CAN-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (requiere proyecto técnico y EICI)",
       "condicion": {
-        "and": [
+        "or": [
           {
             ">": [
               {
@@ -70,11 +102,11 @@
             ]
           },
           {
-            "<=": [
+            "!=": [
               {
-                "var": "potencia_kw"
+                "var": "uso"
               },
-              100
+              "residencial"
             ]
           }
         ]
@@ -82,84 +114,99 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro BT autoconsumo",
-          "organismo": "Dirección General de Industria, Energía y Minas",
-          "base_legal": "RD 244/2019 + Ley 1/2004",
-          "coste_estimado": "13.02",
+          "nombre": "Proyecto técnico de instalación fotovoltaica",
+          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
           "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "El umbral estatal vigente para exención de autorización puede ser 500 kW según habilitación del RD-ley 18/2022. Tarifa 2.2.4 (13,02 EUR fijo - Ley 9/1992 mod. Ley 2/2022). Existe una bonificación temporal del 100% cuya vigencia para 2026 queda pendiente de confirmación."
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto.",
+              "formato": "PDF"
+            }
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "nombre": "Solicitud de autorización administrativa previa (si >100 kW) o comunicación previa",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "RD 244/2019; Ley 24/2013",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 60,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es",
+          "coste_estimado": "Tasa según potencia (consultar normativa)",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
-      ]
-    },
-    {
-      "id": "CNT-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia",
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Registro BT autoconsumo",
-          "organismo": "Dirección General de Industria, Energía y Minas",
-          "base_legal": "RD 244/2019 + Ley 1/2004",
-          "coste_estimado": "13.02",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "El umbral estatal vigente para exención de autorización puede ser 500 kW según habilitación del RD-ley 18/2022. Tarifa 2.2.4 (13,02 EUR fijo - Ley 9/1992 mod. Ley 2/2022). Existe una bonificación temporal del 100% cuya vigencia para 2026 queda pendiente de confirmación."
+            {
+              "id": "solicitud_autorizacion",
+              "label": "Solicitud de autorización administrativa",
+              "descripcion": "Formulario oficial de solicitud.",
+              "formato": "PDF"
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "Proyecto visado por colegio profesional.",
+              "formato": "PDF"
+            }
+          ]
         },
         {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "orden": 3,
+          "nombre": "Inspección inicial por Organismo de Control (EICI) y emisión de certificado de inspección",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Cantabria",
+          "base_legal": "Decreto 19/2004; Orden de 10 de abril de 2006",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según EICI (aprox. 200-500 €)",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+            {
+              "id": "certificado_inspeccion_eici",
+              "label": "Certificado de inspección EICI",
+              "descripcion": "Documento emitido por EICI que acredita la conformidad de la instalación.",
+              "formato": "PDF"
+            }
+          ]
+        },
+        {
+          "orden": 4,
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) con certificado EICI",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "Orden de 10 de abril de 2006; Decreto 19/2004",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es",
+          "coste_estimado": "0 € (tasa no aplicable para autoconsumo ≤100 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "drps",
+              "label": "Declaración responsable de puesta en servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_inspeccion_eici",
+              "label": "Certificado de inspección EICI",
+              "descripcion": "Certificado de inspección favorable.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)",
+              "descripcion": "Certificado firmado por el instalador según modelo de la comunidad.",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     }
-  ],
-  "nivel_verificacion": "generica"
+  ]
 }

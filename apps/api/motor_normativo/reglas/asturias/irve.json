@@ -1,102 +1,36 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "asturias",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52 (estatal)",
-    "Sede Electrónica Asturias - Procedimiento RECE0017T01"
+    "RD 1053/2014 ITC-BT-52 (IRVE)",
+    "RD 842/2002 REBT",
+    "Decreto 13/2017, de 8 de marzo, del Principado de Asturias, por el que se regulan las instalaciones de infraestructura de recarga de vehículos eléctricos"
   ],
   "reglas": [
     {
       "id": "AST-IRVE-001",
-      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD)",
+      "descripcion": "Instalación de punto de recarga de vehículo eléctrico en vivienda unifamiliar o edificio existente con potencia ≤ 10 kW, sin obra nueva",
       "condicion": {
-        "not": {
-          "or": [
-            { "==": [{ "var": "modo_recarga" }, 4] },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-                { ">": [{ "var": "potencia_kw" }, 50] }
-              ]
-            },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-                { ">": [{ "var": "potencia_kw" }, 10] }
-              ]
-            }
-          ]
-        }
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Certificado de Instalación Eléctrica (CIE)",
-          "organismo": "Instalador electricista autorizado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Memoria que describe la instalación de recarga.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "CIE firmado por el instalador autorizado.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el registro de instalaciones eléctricas de baja tensión",
-          "organismo": "Gobierno del Principado de Asturias",
-          "base_legal": "Normativa autonómica",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "Registro para la puesta en servicio.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento RECE0017T01.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "AST-IRVE-002",
-      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA)",
-      "condicion": {
-        "or": [
-          { "==": [{ "var": "modo_recarga" }, 4] },
+        "and": [
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-              { ">": [{ "var": "potencia_kw" }, 50] }
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
             ]
           },
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-              { ">": [{ "var": "potencia_kw" }, 10] }
+            "in": [
+              {
+                "var": "tipo_ubicacion"
+              },
+              [
+                "vivienda_unifamiliar",
+                "edificio_existente"
+              ]
             ]
           }
         ]
@@ -104,78 +38,160 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación IRVE",
-          "organismo": "Ingeniero competente colegiado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 10,
+          "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 13/2017",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del proyectista",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Proyecto completo de la infraestructura de recarga.",
-              "obligatorio": true
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación",
+              "requerido": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "Emitido por el instalador tras finalizar la instalación",
+              "requerido": true
             }
-          ],
-          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "nombre": "Registro de la instalación en el Registro Industrial de Asturias",
+          "organismo": "Consejería de Industria, Empleo y Promoción Económica del Principado de Asturias",
+          "base_legal": "Decreto 13/2017; Ley 21/1992 de Industria",
           "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Registro Industrial de Asturias",
+          "plataforma_url": "https://www.asturias.es/industria/registro-industrial",
+          "coste_estimado": "0 € (tasa exenta para IRVE ≤ 10 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Documento técnico firmado por instalador habilitado",
+              "requerido": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "Emitido por el instalador",
+              "requerido": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable del titular",
+              "descripcion": "Documento firmado por el titular de la instalación",
+              "requerido": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AST-IRVE-002",
+      "descripcion": "Instalación de punto de recarga en edificio de nueva construcción o con potencia > 10 kW",
+      "condicion": {
+        "or": [
+          {
+            "==": [
+              {
+                "var": "tipo_ubicacion"
+              },
+              "edificio_nueva_construccion"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico IRVE",
+          "organismo": "Ingeniero técnico o superior competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 13/2017",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de inspección OCA",
+          "coste_estimado": "Variable según honorarios profesionales",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_inicial",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable emitido por la OCA.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico IRVE",
+              "descripcion": "Proyecto firmado por técnico competente visado por colegio profesional",
+              "requerido": true
             }
-          ],
-          "notas": "Obligatoria para todas las instalaciones que requieran Proyecto según la ITC-BT-05.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE) y Dirección de Obra",
+          "organismo": "Instalador electricista habilitado y director de obra (si aplica)",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "cie",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "Emitido por instalador habilitado",
+              "requerido": true
+            },
+            {
+              "id": "direccion_obra",
+              "label": "Certificado de Dirección de Obra (si procede)",
+              "descripcion": "Emitido por técnico competente",
+              "requerido": false
+            }
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Inscripción en el registro de instalaciones eléctricas de baja tensión",
-          "organismo": "Gobierno del Principado de Asturias",
-          "base_legal": "Normativa autonómica",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa autonómica",
+          "nombre": "Registro de la instalación en el Registro Industrial de Asturias",
+          "organismo": "Consejería de Industria, Empleo y Promoción Económica del Principado de Asturias",
+          "base_legal": "Decreto 13/2017; Ley 21/1992 de Industria",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Registro Industrial de Asturias",
+          "plataforma_url": "https://www.asturias.es/industria/registro-industrial",
+          "coste_estimado": "Tasa según tarifa (consultar)",
           "documentos_requeridos": [
             {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "CIE firmado por el instalador.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico IRVE",
+              "descripcion": "Visado por colegio profesional",
+              "requerido": true
             },
             {
-              "id": "proyecto_tecnico_irve_adjunto",
-              "label": "Proyecto técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
+              "id": "cie",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "Emitido por instalador",
+              "requerido": true
             },
             {
-              "id": "certificado_oca_inicial_adjunto",
-              "label": "Certificado OCA",
-              "descripcion": "Certificado favorable.",
-              "obligatorio": true
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable del titular",
+              "descripcion": "Firmada por el titular",
+              "requerido": true
             }
-          ],
-          "notas": "Procedimiento RECE0017T01.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

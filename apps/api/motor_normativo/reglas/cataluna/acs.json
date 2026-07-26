@@ -1,183 +1,186 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cataluna",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "RD 487/2022 (Prevención Legionelosis)",
-    "Decret 352/2004, de 27 de juliol, sobre legionel·losi (Cataluña)",
-    "Decret 192/2023, de 7 de novembre, de la seguretat industrial (Cataluña)"
+    "RITE RD 1027/2007",
+    "Decreto 141/2015 de la Generalitat de Catalunya (Puesta en servicio de instalaciones térmicas)",
+    "Orden TEC/164/2020 (Registro de instalaciones térmicas en Cataluña)",
+    "Ley 18/2017 de la Generalitat de Catalunya (Cambio climático)",
+    "RD 314/2006 CTE DB-HE"
   ],
   "reglas": [
     {
       "id": "CAT-ACS-001",
-      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD) - Declaración Responsable en RITSIC",
+      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW (sin proyecto, memoria técnica)",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
+          "nombre": "Memoria técnica de diseño (MTD) para instalación térmica",
+          "organismo": "Instalador habilitado (carné de instalador térmico categoría básica o superior)",
+          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 141/2015 art. 5",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación ACS.",
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño (MTD) firmada por instalador",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado.",
+              "id": "certificado_instalador",
+              "label": "Copia del carné de instalador térmico",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Las instalaciones ACS > 5 kW y <= 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable y Alta en RITSIC",
-          "organismo": "Generalitat de Catalunya (Canal Empresa)",
-          "base_legal": "Decret 192/2023",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
-          "coste_estimado": "Tasa RITSIC",
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante la Generalitat de Catalunya",
+          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial (DGEMSI)",
+          "base_legal": "Decreto 141/2015 art. 6; Orden TEC/164/2020",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "Gencat - Tràmits",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-posada-en-servei-instal·lacions-termiques",
+          "coste_estimado": "0 € (tasa administrativa no aplica)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_rite",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario telemático.",
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño (MTD) firmada por instalador",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Copia del carné de instalador térmico",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_materiales",
+              "label": "Certificado de materiales y equipos (marcado CE)",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Se inscribe la instalación en el RITSIC.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
       "id": "CAT-ACS-002",
-      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto y ECA) - Declaración Responsable en RITSIC",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de ACS.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inspección Inicial por ECA",
-          "organismo": "Entidad Colaboradora de la Administración (ECA)",
-          "base_legal": "RITE y Instrucció 6/2011",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Coste ECA",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_eca_rite",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Toda instalación > 70 kW requiere inspección inicial obligatoria.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Declaración Responsable y Alta en RITSIC",
-          "organismo": "Generalitat de Catalunya (Canal Empresa)",
-          "base_legal": "Decret 192/2023",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits-i-formularis/",
-          "coste_estimado": "Tasa RITSIC",
-          "documentos_requeridos": [
-            {
-              "id": "declaracion_responsable_rite_proy",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario telemático indicando datos de proyecto y ECA.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Inscripción en RITSIC.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CAT-ACS-003",
-      "descripcion": "Notificación de instalación de riesgo de Legionela al Censo Municipal (ASPCAT)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico)",
       "condicion": {
         "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "!=": [{ "var": "uso" }, "residencial"] }
+          {
+            ">": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
-          "orden": 4,
-          "nombre": "Notificación al Censo Municipal de Instalaciones de Riesgo",
-          "organismo": "Ayuntamiento correspondiente / ASPCAT",
-          "base_legal": "Decret 352/2004",
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 141/2015 art. 5",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Gratuito",
+          "coste_estimado": "Variable según honorarios profesionales",
           "documentos_requeridos": [
             {
-              "id": "notificacion_censo_municipal",
-              "label": "Impreso de declaración al Censo municipal",
-              "descripcion": "Comunicación formal al ayuntamiento sobre la existencia de instalación ACS con retorno.",
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (EICI) emitido por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA) acreditado en Cataluña (ej. Applus+, TÜV Rheinland, Bureau Veritas)",
+          "base_legal": "Decreto 141/2015 art. 7; RD 2200/1995 (Reglamento de la Infraestructura para la Calidad y Seguridad Industrial)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "300-600 € (según OCA y complejidad)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "ppcl_cataluna",
-              "label": "Plan de Prevención y Control de Legionel·la (PPCL)",
-              "descripcion": "Debe estar a disposición de la ASPCAT.",
+              "id": "certificado_materiales",
+              "label": "Certificado de materiales y equipos (marcado CE)",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Copia del carné de instalador térmico",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "En Cataluña (art. 11 del Decret 352/2004) es obligatorio notificar la existencia de instalaciones de riesgo al Censo municipal del ayuntamiento.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante la Generalitat de Catalunya",
+          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial (DGEMSI)",
+          "base_legal": "Decreto 141/2015 art. 6; Orden TEC/164/2020",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 10,
+          "plataforma": "Gencat - Tràmits",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-posada-en-servei-instal·lacions-termiques",
+          "coste_estimado": "0 € (tasa administrativa no aplica)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "eici",
+              "label": "Certificado de instalación (EICI) emitido por OCA",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Copia del carné de instalador térmico",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         }
       ]
     }

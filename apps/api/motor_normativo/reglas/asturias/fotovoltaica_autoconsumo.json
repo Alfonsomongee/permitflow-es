@@ -1,83 +1,136 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "asturias",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53)",
-    "Real Decreto 244/2019, de 5 de abril",
-    "Instrucciones técnicas BT fotovoltaica autoconsumo del Principado de Asturias (rev-03, 14/06/2022)",
-    "Decreto Legislativo del Principado de Asturias 1/1998, de 11 de junio (TR Leyes de Tasas y Precios Públicos; BOE-A-1998-23233), art. 39",
-    "Trámite AUTO0301T01 y RECE0049T01, sede electrónica del Principado de Asturias"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 13/2021, de 24 de febrero, del Principado de Asturias, por el que se regulan las instalaciones de producción de energía eléctrica a partir de fuentes renovables y se establecen medidas de simplificación administrativa"
   ],
   "reglas": [
     {
-      "id": "AST-FV-015",
-      "descripcion": "Autoconsumo BT hasta 15 kW: puesta en servicio telemática; CAU solicitado por instalador; sin autorización administrativa previa",
+      "id": "AST-FV-001",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
-        "<=": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
           },
-          15
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Puesta en servicio de instalación generadora de BT para autoconsumo",
-          "organismo": "Servicio de Industria y Energía / Servicio de Energías Renovables y Eficiencia Energética",
-          "base_legal": "Instrucciones BT autoconsumo; RD 244/2019; REBT ITC-BT-04",
-          "plazo_estimado_dias": 30,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
-          "plataforma": "Aplicación de instalaciones eléctricas del Principado de Asturias",
-          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000006161836107573",
-          "coste_estimado": "Consultar anexos de la Ley de Tasas del Principado (habitualmente exenta la inscripción simple)",
-          "formulario_ref": "RECE0049T01",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "cie",
-              "label": "Certificado de instalación eléctrica BT",
-              "descripcion": "Empresa instaladora habilitada",
-              "obligatorio": true
-            },
-            {
-              "id": "memoria",
-              "label": "Memoria técnica de diseño",
-              "descripcion": "ITC-BT-04",
-              "obligatorio": true
-            },
-            {
-              "id": "cau",
-              "label": "CAU",
-              "descripcion": "Solicitado por instalador a la distribuidora (FV <=15 kW)",
-              "obligatorio": true
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Para FV <=15 kW el CAU lo solicita el promotor/instalador; para el resto lo facilita la distribuidora en el trámite de acceso y conexión. .",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de Autorización Administrativa Previa (AAP) y de Construcción (AAC) simplificada",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "base_legal": "Decreto 13/2021, art. 10 y 11",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma_url": "https://sede.asturias.es",
+          "coste_estimado": "0 € (exento de tasas para autoconsumo ≤10 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable del titular",
+              "descripcion": "Documento firmado por el titular indicando cumplimiento normativo",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI) firmado por instalador",
+              "descripcion": "Certificado de fin de obra según REBT",
+              "formato": "PDF"
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción en el Registro de Autoconsumo de Asturias",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "base_legal": "Decreto 13/2021, art. 15",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 20,
+          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma_url": "https://sede.asturias.es",
+          "coste_estimado": "0 €",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Certificado de fin de obra según REBT",
+              "formato": "PDF"
+            },
+            {
+              "id": "boletin_instalacion",
+              "label": "Boletín de Instalación Eléctrica (CIE)",
+              "descripcion": "Boletín firmado por instalador y visado por OCA/EICI",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "AST-FV-100",
-      "descripcion": "Autoconsumo BT >15 kW y <=100 kW: proyecto; sin autorización administrativa previa",
+      "id": "AST-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico)",
       "condicion": {
-        "and": [
+        "or": [
           {
             ">": [
               {
                 "var": "potencia_kw"
               },
-              15
+              10
             ]
           },
           {
-            "<=": [
+            "!=": [
               {
-                "var": "potencia_kw"
+                "var": "uso"
               },
-              100
+              "residencial"
             ]
           }
         ]
@@ -85,151 +138,99 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Puesta en servicio con proyecto e inscripción RIPRE",
-          "organismo": "Servicio de Energías Renovables y Eficiencia Energética",
-          "base_legal": "RD 244/2019; art. 53.3 Ley 24/2013",
-          "plazo_estimado_dias": 45,
+          "nombre": "Proyecto Técnico (PT) fotovoltaico",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Aplicación de instalaciones eléctricas del Principado de Asturias",
-          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000006161836107573",
-          "coste_estimado": "Consultar anexos de la Ley de Tasas del Principado (habitualmente exenta la inscripción simple)",
-          "formulario_ref": "RECE0049T01",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto técnico (pdf visado o declaración responsable del técnico)",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "cie",
-              "label": "Certificado de instalación eléctrica",
-              "descripcion": "",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Documento firmado por técnico competente que describe la instalación",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Hasta 100 kW en BT sin autorización administrativa previa. .",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "AST-FV-AUT",
-      "descripcion": "Producción >100 kW o AT: autorización administrativa de instalación de producción (renovables <=50 MW)",
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Autorización de instalaciones de producción de energía eléctrica a partir de renovables (AUTO0301T01)",
-          "organismo": "Servicio de Energías Renovables y Eficiencia Energética (D.G. de Minería y Energía)",
-          "base_legal": "Ley 24/2013 art. 53; RD 1955/2000; RD 413/2014",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede electrónica del Principado de Asturias / Registro Electrónico",
-          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000040819315407573",
-          "coste_estimado": "Consultar anexos fiscales",
-          "formulario_ref": "AUTO0301T01",
+          "orden": 2,
+          "nombre": "Solicitud de Autorización Administrativa Previa (AAP) y de Construcción (AAC) ordinaria",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "base_legal": "Decreto 13/2021, art. 10 y 11",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 60,
+          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma_url": "https://sede.asturias.es",
+          "coste_estimado": "Tasa según potencia (consultar normativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto técnico",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Documento firmado por técnico competente",
+              "formato": "PDF"
             },
             {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexión",
-              "descripcion": "Previos a la autorización de la instalación de generación",
-              "obligatorio": true
-            },
-            {
-              "id": "eia",
-              "label": "Documentación ambiental",
-              "descripcion": "Ley 21/2013 si procede",
-              "obligatorio": false
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable del titular",
+              "descripcion": "Documento firmado por el titular",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Obligatorio acreditar capacidad técnica (3 años de experiencia o socio experto). Ficha oficial: plazo de resolución 'el establecido en la normativa de aplicación'; efecto del silencio 'No procede'. La autorización no se otorga sin permisos previos de acceso y conexión. Cubre instalaciones de producción <=50 MW.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "AST-FV-AUT-AT",
-      "descripcion": "Producción >100 kW o AT: autorización administrativa de instalación de producción (renovables <=50 MW) (Refinamiento AT)",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "AT"
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
-        ]
-      },
-      "tramites": [
+          ]
+        },
         {
-          "orden": 1,
-          "nombre": "Autorización de instalaciones de producción de energía eléctrica a partir de renovables (AUTO0301T01)",
-          "organismo": "Servicio de Energías Renovables y Eficiencia Energética (D.G. de Minería y Energía)",
-          "base_legal": "Ley 24/2013 art. 53; RD 1955/2000; RD 413/2014",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede electrónica del Principado de Asturias / Registro Electrónico",
-          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000040819315407573",
-          "coste_estimado": "Consultar anexos fiscales",
-          "formulario_ref": "AUTO0301T01",
+          "orden": 3,
+          "nombre": "Certificado de Instalación (CI) y Boletín (CIE) visado por OCA/EICI",
+          "organismo": "Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) en Asturias",
+          "base_legal": "REBT RD 842/2002; Decreto 13/2021",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según OCA/EICI",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto técnico",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Firmado por instalador",
+              "formato": "PDF"
             },
             {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexión",
-              "descripcion": "Previos a la autorización de la instalación de generación",
-              "obligatorio": true
-            },
-            {
-              "id": "eia",
-              "label": "Documentación ambiental",
-              "descripcion": "Ley 21/2013 si procede",
-              "obligatorio": false
+              "id": "boletin_instalacion",
+              "label": "Boletín de Instalación Eléctrica (CIE)",
+              "descripcion": "Firmado por instalador y visado por OCA/EICI",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Obligatorio acreditar capacidad técnica (3 años de experiencia o socio experto). Ficha oficial: plazo de resolución 'el establecido en la normativa de aplicación'; efecto del silencio 'No procede'. La autorización no se otorga sin permisos previos de acceso y conexión. Cubre instalaciones de producción <=50 MW.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 4,
+          "nombre": "Inscripción en el Registro de Autoconsumo de Asturias",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "base_legal": "Decreto 13/2021, art. 15",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 20,
+          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma_url": "https://sede.asturias.es",
+          "coste_estimado": "0 €",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Firmado por instalador",
+              "formato": "PDF"
+            },
+            {
+              "id": "boletin_instalacion",
+              "label": "Boletín de Instalación Eléctrica (CIE) visado",
+              "descripcion": "Visado por OCA/EICI",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     }
-  ],
-  "validaciones": [
-    {
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "tension"
-      ],
-      "mensaje": "Si no se especifica el nivel de tensión, el plan asume Baja Tensión (BT) por defecto."
-    }
-  ],
-  "nivel_verificacion": "generica"
+  ]
 }

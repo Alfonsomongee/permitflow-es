@@ -1,109 +1,36 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "madrid",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52 (estatal)",
-    "Decreto 38/2002, de 28 de febrero, por el que se regulan las actividades de control reglamentario de las instalaciones industriales en la Comunidad de Madrid",
-    "Orden 9344/2003, modificada por Orden 163/2024, de la Consejería de Economía y Empleo"
+    "RD 1053/2014 ITC-BT-52",
+    "RD 639/2016",
+    "RD 266/2021",
+    "Ley 24/2013 Sector Eléctrico",
+    "Decreto 127/2019 de la Comunidad de Madrid (reglamento de puesta en servicio de instalaciones eléctricas de baja tensión)",
+    "Orden 934/2022 de la Consejería de Economía, Hacienda y Empleo (procedimiento de puesta en servicio de IRVE en Madrid)"
   ],
   "reglas": [
     {
       "id": "MAD-IRVE-001",
-      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD) - Tramitación vía EICI",
+      "descripcion": "Instalación de recarga de vehículo eléctrico en edificio existente con potencia ≤ 10 kW (sin ampliación de potencia)",
       "condicion": {
-        "not": {
-          "or": [
-            { "==": [{ "var": "modo_recarga" }, 4] },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-                { ">": [{ "var": "potencia_kw" }, 50] }
-              ]
-            },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-                { ">": [{ "var": "potencia_kw" }, 10] }
-              ]
-            }
-          ]
-        }
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Certificado de Instalación Eléctrica (CIE)",
-          "organismo": "Instalador electricista autorizado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Memoria que describe la instalación de recarga.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "CIE firmado por el instalador autorizado.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Registro y Puesta en Servicio en Baja Tensión",
-          "organismo": "EICI (Entidad de Inspección y Control Industrial)",
-          "base_legal": "Orden 9344/2003 (Madrid)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "EICI Autorizada",
-          "plataforma_url": "https://tramita.comunidad.madrid/autorizaciones-licencias-permisos-carnes/puesta-servicio-baja-tension-0",
-          "coste_estimado": "Tasa EICI variable (aprox. 30-50 EUR)",
-          "documentos_requeridos": [
-            {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "CIE firmado por el instalador autorizado.",
-              "obligatorio": true
-            },
-            {
-              "id": "mtd_irve_firmada",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "MTD firmada por el instalador.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "En la Comunidad de Madrid, la puesta en servicio de instalaciones de baja tensión se realiza delegadamente y de forma obligatoria a través de una EICI. Requiere el flag 'requires_EICI_registration'.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "MAD-IRVE-002",
-      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA) - Tramitación vía EICI",
-      "condicion": {
-        "or": [
-          { "==": [{ "var": "modo_recarga" }, 4] },
+        "and": [
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-              { ">": [{ "var": "potencia_kw" }, 50] }
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
             ]
           },
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-              { ">": [{ "var": "potencia_kw" }, 10] }
+            "==": [
+              {
+                "var": "tipo_edificio"
+              },
+              "existente"
             ]
           }
         ]
@@ -111,78 +38,135 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación IRVE",
-          "organismo": "Ingeniero competente colegiado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 10,
+          "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 127/2019",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del proyectista",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico visado o certificado",
-              "descripcion": "Proyecto completo de la infraestructura de recarga.",
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "formato": "pdf",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "formato": "pdf",
               "obligatorio": true
             }
-          ],
-          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04 (modo 4, interior>50kW, exterior>10kW).",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA / EICI)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "nombre": "Registro en el órgano competente de la Comunidad de Madrid (EICI)",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Economía, Hacienda y Empleo)",
+          "base_legal": "Orden 934/2022; Decreto 127/2019",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "EICI (Expediente Industrial de la Comunidad de Madrid)",
+          "plataforma_url": "https://eici.madrid.org",
+          "coste_estimado": "0 € (tasa administrativa exenta para IRVE ≤ 10 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "formato": "pdf",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "formato": "pdf",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de instalación eléctrica (CIE) firmado por instalador",
+              "formato": "pdf",
+              "obligatorio": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MAD-IRVE-002",
+      "descripcion": "Instalación de recarga de vehículo eléctrico en edificio existente con potencia > 10 kW o nueva construcción",
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_edificio"
+              },
+              "nueva_construccion"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico IRVE",
+          "organismo": "Ingeniero técnico industrial o superior competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 127/2019",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de inspección OCA (variable)",
+          "coste_estimado": "Variable según honorarios profesionales",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_inicial",
-              "label": "Certificado de Inspección Inicial (Favorable)",
-              "descripcion": "Certificado emitido por la OCA tras la revisión de la instalación ejecutada frente al proyecto.",
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico IRVE",
+              "formato": "pdf",
               "obligatorio": true
             }
-          ],
-          "notas": "Toda instalación que requiere proyecto requiere inspección inicial según ITC-BT-05 (estatal).",
-          "paralelo_con": null
+          ]
         },
         {
-          "orden": 3,
-          "nombre": "Registro y Puesta en Servicio en Baja Tensión",
-          "organismo": "EICI (Entidad de Inspección y Control Industrial)",
-          "base_legal": "Orden 9344/2003 (Madrid)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "EICI Autorizada",
-          "plataforma_url": "https://tramita.comunidad.madrid/autorizaciones-licencias-permisos-carnes/puesta-servicio-baja-tension-0",
-          "coste_estimado": "Tasa EICI variable",
+          "orden": 2,
+          "nombre": "Registro en el órgano competente de la Comunidad de Madrid (EICI) con proyecto",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Economía, Hacienda y Empleo)",
+          "base_legal": "Orden 934/2022; Decreto 127/2019",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "EICI (Expediente Industrial de la Comunidad de Madrid)",
+          "plataforma_url": "https://eici.madrid.org",
+          "coste_estimado": "Tasa administrativa según tarifa (aprox. 50-100 €)",
           "documentos_requeridos": [
             {
-              "id": "cie_irve_firmado",
-              "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "CIE firmado por el instalador autorizado.",
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico IRVE",
+              "formato": "pdf",
               "obligatorio": true
             },
             {
-              "id": "proyecto_tecnico_irve_visado",
-              "label": "Proyecto técnico de la instalación",
-              "descripcion": "Copia del proyecto técnico.",
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de instalación eléctrica (CIE) firmado por instalador",
+              "formato": "pdf",
               "obligatorio": true
             },
             {
-              "id": "certificado_oca_inicial_adjunto",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado de inspección favorable emitido por la OCA.",
+              "id": "declaracion_responsable_direccion_obra",
+              "label": "Declaración responsable de dirección de obra",
+              "formato": "pdf",
               "obligatorio": true
             }
-          ],
-          "notas": "En la Comunidad de Madrid, la puesta en servicio se realiza a través de EICI. En muchos casos, la misma entidad EICI que registra la instalación puede realizar la inspección OCA.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

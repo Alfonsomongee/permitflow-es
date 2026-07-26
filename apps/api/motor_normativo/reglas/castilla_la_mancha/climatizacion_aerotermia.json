@@ -1,128 +1,191 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "castilla_la_mancha",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE) (estatal)",
-    "Orden de 23 de junio de 2006 (DOCM)",
-    "Portal eDice-Térmicas (JCCM)"
+    "RITE RD 1027/2007",
+    "RD 178/2021 de eficiencia energética",
+    "Decreto 53/2014 de Castilla-La Mancha, de 10 de julio, por el que se regulan las instalaciones térmicas en los edificios y se crea el Registro de Instalaciones Térmicas",
+    "Orden de 19/11/2014 de la Consejería de Fomento, por la que se desarrolla el Decreto 53/2014"
   ],
   "reglas": [
     {
-      "id": "CLM-CLI-001",
-      "descripcion": "Instalación térmica de 5 a 70 kW (MTD)",
+      "id": "CLM-AT-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción (sin proyecto, con memoria técnica)",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 2,
+          "nombre": "Memoria Técnica de Instalación Térmica (MTIT) - aerotermia",
+          "organismo": "Instalador habilitado en climatización (categoría según RITE)",
+          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 53/2014 art. 8",
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
-              "obligatorio": true
+              "id": "mtit_aerotermia",
+              "label": "Memoria Técnica de Instalación Térmica",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos de carga térmica, eficiencia, etc."
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
-              "obligatorio": true
+              "id": "certificado_eficiencia_energetica",
+              "label": "Certificado de Eficiencia Energética (si aplica por obra)",
+              "descripcion": "Solo si la instalación se realiza en el marco de una reforma que requiera certificado energético."
             }
-          ],
-          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalación térmica",
-          "organismo": "Junta de Comunidades de Castilla-La Mancha",
-          "base_legal": "Orden de 23 de junio de 2006",
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) ante el Órgano Competente de Industria de Castilla-La Mancha",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Decreto 53/2014 art. 10; Orden 19/11/2014",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "eDice-Térmicas (JCCM)",
-          "plataforma_url": "https://edice.castillalamancha.es/",
-          "coste_estimado": "Tasa autonómica",
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-termicas",
+          "coste_estimado": "0 € (tasa exenta)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_firmado",
-              "label": "Certificado de Instalación",
-              "descripcion": "Registro a través de eDice-Térmicas.",
-              "obligatorio": true
+              "id": "drps_instalacion_termica",
+              "label": "Declaración Responsable de Puesta en Servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador."
+            },
+            {
+              "id": "mtit_firmada",
+              "label": "Memoria Técnica firmada (copia)",
+              "descripcion": "Copia de la MTIT presentada en el paso anterior."
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador (carné profesional)",
+              "descripcion": "Acreditación de la habilitación del instalador."
             }
-          ],
-          "notas": "Trámite de puesta en servicio en eDice-Térmicas.",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
-      "id": "CLM-CLI-002",
-      "descripcion": "Instalación térmica > 70 kW (Proyecto)",
+      "id": "CLM-AT-002",
+      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal > 70 kW (requiere proyecto técnico y EICI)",
       "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
+          "nombre": "Proyecto Técnico de Instalación Térmica (PTIT) - aerotermia",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 53/2014 art. 7",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
+          "coste_estimado": "Variable según proyecto (honorarios técnicos)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de climatización.",
-              "obligatorio": true
+              "id": "proyecto_tecnico_termico",
+              "label": "Proyecto Técnico de Instalación Térmica",
+              "descripcion": "Documento visado por colegio profesional (si procede) que incluye memoria, cálculos, planos, pliego de condiciones, etc."
             }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalación térmica",
-          "organismo": "Junta de Comunidades de Castilla-La Mancha",
-          "base_legal": "Orden de 23 de junio de 2006",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "eDice-Térmicas (JCCM)",
-          "plataforma_url": "https://edice.castillalamancha.es/",
-          "coste_estimado": "Tasa autonómica",
+          "nombre": "Solicitud de Autorización Administrativa Previa (AAP) ante el Órgano Competente de Industria",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Decreto 53/2014 art. 6; Ley 21/1992 de Industria",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 60,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/autorizacion-administrativa-previa-de-instalaciones-termicas",
+          "coste_estimado": "Tasa según tarifa (consultar)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
+              "id": "solicitud_aap",
+              "label": "Solicitud de Autorización Administrativa Previa",
+              "descripcion": "Formulario oficial."
             },
             {
-              "id": "proyecto_rite_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
+              "id": "proyecto_tecnico_visado",
+              "label": "Proyecto Técnico visado (copia)",
+              "descripcion": "Proyecto visado por colegio profesional."
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador (carné profesional)",
+              "descripcion": "Acreditación de la habilitación del instalador."
             }
-          ],
-          "notas": "En Castilla-La Mancha no es obligatoria la inspección OCA para puesta en servicio inicial de forma generalizada autonómica, salvo las periódicas estatales.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Inspección Inicial por EICI (Entidad de Inspección y Control Industrial) y emisión de Certificado de Inspección",
+          "organismo": "EICI autorizada en Castilla-La Mancha (lista oficial)",
+          "base_legal": "Decreto 53/2014 art. 11; RD 2200/1995",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según EICI (aprox. 300-600 €)",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_inspeccion_eici",
+              "label": "Certificado de Inspección (favorable)",
+              "descripcion": "Documento emitido por EICI tras verificar la instalación."
+            }
+          ]
+        },
+        {
+          "orden": 4,
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) con certificado EICI favorable",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Decreto 53/2014 art. 10; Orden 19/11/2014",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-termicas",
+          "coste_estimado": "0 € (tasa exenta)",
+          "documentos_requeridos": [
+            {
+              "id": "drps_instalacion_termica",
+              "label": "Declaración Responsable de Puesta en Servicio",
+              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador."
+            },
+            {
+              "id": "certificado_inspeccion_eici",
+              "label": "Certificado de Inspección favorable (copia)",
+              "descripcion": "Copia del certificado emitido por EICI."
+            },
+            {
+              "id": "proyecto_tecnico_visado",
+              "label": "Proyecto Técnico visado (copia)",
+              "descripcion": "Copia del proyecto visado."
+            }
+          ]
         }
       ]
     }

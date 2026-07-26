@@ -1,109 +1,38 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "murcia",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-04-07",
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52 (estatal)",
-    "Decreto 20/2003, de 21 de marzo (BORM)",
-    "Sede Electrónica CARM - Procedimiento 19 (SIA 201487)"
+    "RD 1053/2014 ITC-BT-52",
+    "RD 842/2002 REBT",
+    "Decreto n.º 56/2019, de 26 de abril, por el que se regula la puesta en servicio de las instalaciones de infraestructura de recarga de vehículos eléctricos en la Región de Murcia",
+    "Orden de 10 de julio de 2019 de la Consejería de Empleo, Universidades, Empresa y Medio Ambiente por la que se desarrolla el Decreto n.º 56/2019"
   ],
   "reglas": [
     {
       "id": "MUR-IRVE-001",
-      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD)",
+      "descripcion": "Instalación de recarga de vehículo eléctrico en edificio de viviendas o aparcamiento privado de uso residencial con potencia ≤ 10 kW",
       "condicion": {
-        "not": {
-          "or": [
-            { "==": [{ "var": "modo_recarga" }, 4] },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-                { ">": [{ "var": "potencia_kw" }, 50] }
-              ]
-            },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-                { ">": [{ "var": "potencia_kw" }, 10] }
-              ]
-            }
-          ]
-        }
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Certificado de Instalación Eléctrica (CIE)",
-          "organismo": "Instalador electricista autorizado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Memoria que describe la instalación de recarga.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "CIE firmado por el instalador autorizado.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Registro de instalaciones eléctricas de baja tensión",
-          "organismo": "Comunidad Autónoma de la Región de Murcia (CARM)",
-          "base_legal": "Decreto 20/2003 (BORM)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CARM",
-          "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "declaracion_responsable_carm",
-              "label": "Declaración Responsable",
-              "descripcion": "Declaración del titular o representante.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "Registro en la Dirección General competente en energía.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento 19 (SIA 201487).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "MUR-IRVE-002",
-      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA)",
-      "condicion": {
-        "or": [
-          { "==": [{ "var": "modo_recarga" }, 4] },
+        "and": [
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-              { ">": [{ "var": "potencia_kw" }, 50] }
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
             ]
           },
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-              { ">": [{ "var": "potencia_kw" }, 10] }
+            "in": [
+              {
+                "var": "ubicacion"
+              },
+              [
+                "vivienda_unifamiliar",
+                "vivienda_plurifamiliar",
+                "aparcamiento_privado_residencial"
+              ]
             ]
           }
         ]
@@ -111,84 +40,322 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación IRVE",
-          "organismo": "Ingeniero competente colegiado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 10,
+          "nombre": "Memoria Técnica de Diseño (MTD) para IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto n.º 56/2019 art. 5",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del proyectista",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Proyecto completo de la infraestructura de recarga.",
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño para IRVE",
+              "descripcion": "Documento firmado por instalador electricista habilitado que describe la instalación, cumpliendo ITC-BT-52 y normativa autonómica.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "Declaración del instalador de que la instalación cumple la normativa vigente.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "Emitido por el instalador, según RD 842/2002.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "nombre": "Registro de la instalación en el órgano competente de la Comunidad Autónoma de la Región de Murcia",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (Consejería de Empresa, Empleo, Universidades y Portavocía)",
+          "base_legal": "Decreto n.º 56/2019 art. 6; Orden 10 julio 2019",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la CARM",
+          "plataforma_url": "https://sede.carm.es",
+          "coste_estimado": "0 € (tasa administrativa exenta para potencias ≤10 kW en uso residencial)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño para IRVE",
+              "descripcion": "Misma MTD presentada en el paso 1.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "Misma declaración del paso 1.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "Mismo CIE del paso 1.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "acreditacion_representacion",
+              "label": "Acreditación de representación (si procede)",
+              "descripcion": "Documento que acredite la representación del titular si la solicitud la realiza un tercero.",
+              "formato": "PDF",
+              "obligatorio": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MUR-IRVE-002",
+      "descripcion": "Instalación de recarga de vehículo eléctrico en edificio de viviendas o aparcamiento privado de uso residencial con potencia > 10 kW",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "in": [
+              {
+                "var": "ubicacion"
+              },
+              [
+                "vivienda_unifamiliar",
+                "vivienda_plurifamiliar",
+                "aparcamiento_privado_residencial"
+              ]
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico para IRVE",
+          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto n.º 56/2019 art. 5",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de inspección OCA",
+          "coste_estimado": "Variable según honorarios del técnico (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_inicial",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado emitido por la OCA.",
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico de la instalación IRVE",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto y cumplimiento normativo.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra (si aplica)",
+              "descripcion": "Emitido por el técnico director de obra.",
+              "formato": "PDF",
+              "obligatorio": false
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección inicial por Organismo de Control (OCA) y emisión de Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en la Región de Murcia",
+          "base_legal": "Decreto n.º 56/2019 art. 7; RD 842/2002",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según OCA (aprox. 200-400 €)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico de la instalación IRVE",
+              "descripcion": "Mismo proyecto del paso 1.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE) emitido por OCA",
+              "descripcion": "Emitido por el OCA tras inspección favorable.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Toda instalación que requiere proyecto requiere inspección inicial OCA.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Registro de instalaciones eléctricas de baja tensión",
-          "organismo": "Comunidad Autónoma de la Región de Murcia (CARM)",
-          "base_legal": "Decreto 20/2003 (BORM)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CARM",
+          "nombre": "Registro de la instalación en el órgano competente de la Comunidad Autónoma de la Región de Murcia",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (Consejería de Empresa, Empleo, Universidades y Portavocía)",
+          "base_legal": "Decreto n.º 56/2019 art. 6; Orden 10 julio 2019",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa autonómica",
+          "coste_estimado": "Tasa administrativa según tarifa (consultar sede)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_carm",
-              "label": "Declaración Responsable",
-              "descripcion": "Declaración del titular o representante.",
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico de la instalación IRVE",
+              "descripcion": "Mismo proyecto del paso 1.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "CIE firmado por el instalador.",
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE) emitido por OCA",
+              "descripcion": "Mismo CIE del paso 2.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "proyecto_tecnico_irve_adjunto",
-              "label": "Proyecto técnico",
-              "descripcion": "Copia del proyecto.",
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra (si aplica)",
+              "descripcion": "Mismo certificado del paso 1 si existe.",
+              "formato": "PDF",
+              "obligatorio": false
+            },
+            {
+              "id": "acreditacion_representacion",
+              "label": "Acreditación de representación (si procede)",
+              "descripcion": "Documento que acredite la representación del titular si la solicitud la realiza un tercero.",
+              "formato": "PDF",
+              "obligatorio": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MUR-IRVE-003",
+      "descripcion": "Instalación de recarga de vehículo eléctrico en edificio de uso distinto al residencial (terciario, industrial, etc.)",
+      "condicion": {
+        "and": [
+          {
+            "not": {
+              "in": [
+                {
+                  "var": "ubicacion"
+                },
+                [
+                  "vivienda_unifamiliar",
+                  "vivienda_plurifamiliar",
+                  "aparcamiento_privado_residencial"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico para IRVE",
+          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto n.º 56/2019 art. 5",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico (0 € tasa administrativa)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico de la instalación IRVE",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto y cumplimiento normativo.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_oca_inicial_adjunto",
-              "label": "Certificado OCA",
-              "descripcion": "Certificado favorable.",
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra (si aplica)",
+              "descripcion": "Emitido por el técnico director de obra.",
+              "formato": "PDF",
+              "obligatorio": false
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección inicial por Organismo de Control (OCA) y emisión de Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en la Región de Murcia",
+          "base_legal": "Decreto n.º 56/2019 art. 7; RD 842/2002",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según OCA (aprox. 200-400 €)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico de la instalación IRVE",
+              "descripcion": "Mismo proyecto del paso 1.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE) emitido por OCA",
+              "descripcion": "Emitido por el OCA tras inspección favorable.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Procedimiento 19 (SIA 201487).",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación en el órgano competente de la Comunidad Autónoma de la Región de Murcia",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (Consejería de Empresa, Empleo, Universidades y Portavocía)",
+          "base_legal": "Decreto n.º 56/2019 art. 6; Orden 10 julio 2019",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la CARM",
+          "plataforma_url": "https://sede.carm.es",
+          "coste_estimado": "Tasa administrativa según tarifa (consultar sede)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico de la instalación IRVE",
+              "descripcion": "Mismo proyecto del paso 1.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE) emitido por OCA",
+              "descripcion": "Mismo CIE del paso 2.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra (si aplica)",
+              "descripcion": "Mismo certificado del paso 1 si existe.",
+              "formato": "PDF",
+              "obligatorio": false
+            },
+            {
+              "id": "acreditacion_representacion",
+              "label": "Acreditación de representación (si procede)",
+              "descripcion": "Documento que acredite la representación del titular si la solicitud la realiza un tercero.",
+              "formato": "PDF",
+              "obligatorio": false
+            }
+          ]
         }
       ]
     }

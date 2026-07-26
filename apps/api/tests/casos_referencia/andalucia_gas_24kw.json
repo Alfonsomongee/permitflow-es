@@ -10,8 +10,8 @@
     "presion_bar": "normal",
     "inversion_eur": 5000
   },
-  "num_tramites_esperado": 1,
-  "tiempo_total_esperado_dias": 10,
+  "num_tramites_esperado": 2,
+  "tiempo_total_esperado_dias": 30,
   "validado_por": "Auto - 2026-07-08",
   "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
 }

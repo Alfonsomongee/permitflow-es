@@ -1,65 +1,137 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "galicia",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53)",
-    "Real Decreto 244/2019, de 5 de abril",
-    "Instrucción 2/2021, de 4 de marzo, DXPERN (DOG 49, 12/03/2021)",
-    "Instrucción 1/2022, de 21 de enero, DXPERN (DOG 19, 28/01/2022)",
-    "Ley 9/2021, de 25 de febrero, de simplificación administrativa (art. 50)",
-    "Ley 5/2017, de 19 de octubre (art. 38)",
-    "Ley 6/2003, de 9 de diciembre, de tasas, precios y exacciones reguladoras (Anexo 3, apartado 37; epígrafes 08/09 añadidos por Ley 5/2017)"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 62/2024, de 2 de mayo, por el que se regulan las instalaciones de baja tensión y se establece el procedimiento de puesta en servicio en Galicia",
+    "Orden de 12 de junio de 2024 por la que se desarrolla el Decreto 62/2024",
+    "Ley 7/2021 Cambio Climático art. 16"
   ],
   "reglas": [
     {
-      "id": "GAL-FV-010",
-      "descripcion": "Autoconsumo con excedentes en BT, P<=10 kW, sin proyecto",
+      "id": "GAL-FV-001",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
-        "<=": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
           },
-          10
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Registro/comunicacion puesta en servicio BT y registro de autoconsumo",
-          "organismo": "Direccion General de Energia (Xunta)",
-          "base_legal": "Instruccion 1/2022; ITC-BT-04",
-          "plazo_estimado_dias": 15,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 62/2024 art. 12",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
-          "plataforma": "Sede electronica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal/es/detalle-procedemento?codtram=IN614C",
-          "coste_estimado": "0 EUR (registro por declaracion)",
-          "formulario_ref": "IN614C",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "cie",
-              "label": "Certificado de instalacion electrica",
-              "descripcion": "CIE emitido por instalador autorizado",
-              "obligatorio": true
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y esquemas unifilares.",
+              "formato": "PDF"
             },
             {
-              "id": "memoria",
-              "label": "Memoria tecnica",
-              "descripcion": "MTD segun ITC-BT-04",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Certificado firmado por el instalador que acredita que la instalación se ajusta a la MTD y al REBT.",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Documento firmado por el titular declarando que cumple con la normativa.",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Puesta en servicio inmediata tras presentacion (Instruccion 1/2022). Sede restringe documentos a 50MB máximo (sin comprimir/ZIP). Requisito inyectar huella digital de documentos fraccionados vía Autofirma.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de la instalación en la Comunidad Autónoma (RITSG)",
+          "organismo": "Instituto Energético de Galicia (INEGA)",
+          "base_legal": "Decreto 62/2024 art. 15; Orden 12/06/2024",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Registro de Instalaciones Térmicas y de Baja Tensión de Galicia (RITSG)",
+          "plataforma_url": "https://www.inega.gal/rits",
+          "coste_estimado": "0 € (tasa única anual)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Mismo documento que en el trámite anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Mismo documento que en el trámite anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Mismo documento que en el trámite anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_occa",
+              "label": "Certificado de OCA (Organismo de Control Autorizado)",
+              "descripcion": "Para instalaciones >10 kW o en edificios de uso público, certificado de inspección inicial favorable.",
+              "formato": "PDF",
+              "condicion": {
+                "or": [
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "uso_edificio"
+                      },
+                      "publico"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "id": "GAL-FV-020",
-      "descripcion": "Autoconsumo BT, 10<P<=100 kW",
+      "id": "GAL-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 kW o en edificios de uso público (proyecto técnico y OCA)",
       "condicion": {
-        "and": [
+        "or": [
           {
             ">": [
               {
@@ -69,113 +141,11 @@
             ]
           },
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Autorizacion de explotacion e inscripcion en Registro de Autoconsumo de Galicia",
-          "organismo": "Direccion General de Energia (Xunta)",
-          "base_legal": "Instruccion 2/2021; art. 53 Ley 24/2013",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede electronica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal/es/detalle-procedemento?codtram=IN408A",
-          "coste_estimado": "tasa Anexo 3 apartado 37 Ley 6/2003 (importe no verificado)",
-          "formulario_ref": "IN408A",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto",
-              "label": "Proyecto/memoria",
-              "descripcion": "Segun ITC-BT-04",
-              "obligatorio": true
-            },
-            {
-              "id": "cie",
-              "label": "CIE",
-              "descripcion": "Certificado de instalacion electrica",
-              "obligatorio": true
-            }
-          ],
-          "notas": "<=100 kW en BT: solo autorizacion de explotacion, no autorizacion administrativa previa. Tramitación electrónica IN408A absorbe parque FV.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "GAL-FV-030",
-      "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa completa",
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Autorizacion administrativa previa y de construccion",
-          "organismo": "Direccion General de Energia (Xunta)",
-          "base_legal": "art. 53 Ley 24/2013; RD 1955/2000; Instruccion 2/2021",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede electronica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal/es/detalle-procedemento?codtram=IN407A",
-          "coste_estimado": "tasa Anexo 3 apartado 37 Ley 6/2003 (importe no verificado)",
-          "formulario_ref": "IN407A",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto",
-              "label": "Proyecto de ejecucion",
-              "descripcion": "Firmado por tecnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexion",
-              "descripcion": "Otorgados por la distribuidora (UFD/BEGASA)",
-              "obligatorio": true
-            },
-            {
-              "id": "aval",
-              "label": "Aval 40 EUR/kW",
-              "descripcion": "Garantia RD 1183/2020 para P>100 kW",
-              "obligatorio": true
-            }
-          ],
-          "notas": "IN407A tramita de forma unificada AAP y AAC. Silencio administrativo NEGATIVO (art. 53 Ley 24/2013). Exento de informacion publica si no se pide utilidad publica ni EIA ordinaria.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "GAL-FV-030-AT",
-      "descripcion": "Autoconsumo P>100 kW o conexion en AT: autorizacion administrativa completa (Refinamiento AT)",
-      "condicion": {
-        "and": [
-          {
             "==": [
               {
-                "var": "tension"
+                "var": "uso_edificio"
               },
-              "AT"
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
+              "publico"
             ]
           }
         ]
@@ -183,49 +153,86 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Autorizacion administrativa previa y de construccion",
-          "organismo": "Direccion General de Energia (Xunta)",
-          "base_legal": "art. 53 Ley 24/2013; RD 1955/2000; Instruccion 2/2021",
-          "plazo_estimado_dias": 90,
+          "nombre": "Proyecto Técnico (PT) fotovoltaico",
+          "organismo": "Ingeniero técnico industrial o superior competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 62/2024 art. 13",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede electronica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal/es/detalle-procedemento?codtram=IN407A",
-          "coste_estimado": "tasa Anexo 3 apartado 37 Ley 6/2003 (importe no verificado)",
-          "formulario_ref": "IN407A",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "1.500 - 3.000 € (honorarios profesionales)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto de ejecucion",
-              "descripcion": "Firmado por tecnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexion",
-              "descripcion": "Otorgados por la distribuidora (UFD/BEGASA)",
-              "obligatorio": true
-            },
-            {
-              "id": "aval",
-              "label": "Aval 40 EUR/kW",
-              "descripcion": "Garantia RD 1183/2020 para P>100 kW",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, cálculos, planos, pliego de condiciones y presupuesto.",
+              "formato": "PDF"
             }
-          ],
-          "notas": "IN407A tramita de forma unificada AAP y AAC. Silencio administrativo NEGATIVO (art. 53 Ley 24/2013). Exento de informacion publica si no se pide utilidad publica ni EIA ordinaria.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección inicial por OCA (Organismo de Control Autorizado)",
+          "organismo": "OCA acreditada en Galicia (ej: TÜV Rheinland, Applus, Bureau Veritas)",
+          "base_legal": "Decreto 62/2024 art. 14; Orden 12/06/2024",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 20,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "300 - 600 € (según potencia)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo documento que en el trámite anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Firmado por instalador habilitado.",
+              "formato": "PDF"
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación en la Comunidad Autónoma (RITSG)",
+          "organismo": "Instituto Energético de Galicia (INEGA)",
+          "base_legal": "Decreto 62/2024 art. 15; Orden 12/06/2024",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Registro de Instalaciones Térmicas y de Baja Tensión de Galicia (RITSG)",
+          "plataforma_url": "https://www.inega.gal/rits",
+          "coste_estimado": "0 € (tasa única anual)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo documento que en el trámite anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Mismo documento que en el trámite anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_occa",
+              "label": "Certificado de OCA (Organismo de Control Autorizado)",
+              "descripcion": "Certificado de inspección inicial favorable.",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Documento firmado por el titular declarando que cumple con la normativa.",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     }
-  ],
-  "validaciones": [
-    {
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "tension"
-      ],
-      "mensaje": "Si no se especifica el nivel de tensión, el plan asume Baja Tensión (BT) por defecto."
-    }
-  ],
-  "nivel_verificacion": "generica"
+  ]
 }

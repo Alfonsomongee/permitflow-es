@@ -111,7 +111,7 @@ async def chat_asistente(
 
     # Aquí resolvemos el problema de la sesión en StreamingResponse creando
     # una closure que abra su propia sesión efímera para guardar el uso.
-    from database import async_session_maker
+    from database import AsyncSessionLocal
     
     async def sse_generator_with_usage() -> AsyncGenerator[str, None]:
         usage_stats = {}
@@ -133,7 +133,7 @@ async def chat_asistente(
             
         if usage_stats:
             try:
-                async with async_session_maker() as stream_session:
+                async with AsyncSessionLocal() as stream_session:
                     await registrar_uso(
                         org_id=internal_org_id,
                         session=stream_session,

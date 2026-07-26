@@ -1,194 +1,184 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "murcia",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "RD 487/2022 (Prevención Legionelosis)",
-    "Sede Electrónica CARM - Procedimiento 61 (SIA 206530)"
+    "RITE RD 1027/2007",
+    "Decreto 56/2016 de 20 de julio, por el que se regulan las instalaciones térmicas en edificios en la Región de Murcia",
+    "Orden de 22 de febrero de 2017 de la Consejería de Desarrollo Económico, Turismo y Empleo por la que se desarrolla el Decreto 56/2016"
   ],
   "reglas": [
     {
       "id": "MUR-ACS-001",
-      "descripcion": "Instalación térmica ACS de 5 a 70 kW (MTD)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW (sin proyecto, solo memoria técnica)",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
+          "nombre": "Memoria Técnica (MT) según RITE",
+          "organismo": "Instalador habilitado (carné de instalador térmico)",
+          "base_legal": "RITE IT 1.3.4; Decreto 56/2016 art. 8",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador",
           "documentos_requeridos": [
             {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
-              "obligatorio": true
+              "id": "memoria_tecnica_rite",
+              "label": "Memoria técnica de la instalación térmica",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación y cumple con RITE",
+              "requerido": true
             },
             {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)",
+              "descripcion": "Certificado firmado por instalador que acredita la correcta ejecución",
+              "requerido": true
             }
-          ],
-          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalaciones térmicas en los edificios",
-          "organismo": "Comunidad Autónoma de la Región de Murcia (CARM)",
-          "base_legal": "Decreto 20/2003 (BORM)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CARM",
+          "nombre": "Comunicación de puesta en servicio al Órgano Competente",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (Consejería de Empresa, Empleo, Universidades y Portavocía)",
+          "base_legal": "Decreto 56/2016 art. 10; Orden 22/02/2017",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Comunidad Autónoma de la Región de Murcia",
           "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa autonómica",
+          "coste_estimado": "0 € (tasa 0)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_carm",
-              "label": "Declaración Responsable",
-              "descripcion": "Del titular de la instalación.",
-              "obligatorio": true
+              "id": "formulario_comunicacion",
+              "label": "Formulario de comunicación de puesta en servicio",
+              "descripcion": "Modelo oficial cumplimentado y firmado",
+              "requerido": true
             },
             {
-              "id": "certificado_termico_firmado",
-              "label": "Certificado de Instalación",
-              "descripcion": "Copia firmada.",
-              "obligatorio": true
+              "id": "memoria_tecnica_rite",
+              "label": "Memoria técnica",
+              "descripcion": "Copia de la memoria técnica",
+              "requerido": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Copia del certificado de instalación",
+              "requerido": true
             }
-          ],
-          "notas": "Procedimiento 61 (SIA 206530).",
-          "paralelo_con": null
+          ]
         }
       ]
     },
     {
       "id": "MUR-ACS-002",
-      "descripcion": "Instalación térmica ACS > 70 kW (Proyecto y OCA)",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de ACS.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Coste OCA",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_oca_rite",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable emitido por la OCA.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Toda instalación > 70 kW requiere inspección inicial obligatoria.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro de instalaciones térmicas en los edificios",
-          "organismo": "Comunidad Autónoma de la Región de Murcia (CARM)",
-          "base_legal": "Decreto 20/2003 (BORM)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CARM",
-          "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "declaracion_responsable_carm",
-              "label": "Declaración Responsable",
-              "descripcion": "Del titular de la instalación.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_oca_rite_adjunto",
-              "label": "Certificado de Inspección OCA",
-              "descripcion": "Adjunto a la presentación.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento 61 (SIA 206530).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "MUR-ACS-003",
-      "descripcion": "Notificación de instalación de riesgo (Legionela)",
+      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico)",
       "condicion": {
         "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "!=": [{ "var": "uso" }, "residencial"] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
-          "orden": 4,
-          "nombre": "Registro de instalaciones con riesgo de legionela",
-          "organismo": "Consejería de Salud (CARM)",
-          "base_legal": "RD 487/2022 (estatal)",
+          "orden": 1,
+          "nombre": "Proyecto Técnico (PT) según RITE",
+          "organismo": "Técnico titulado competente (ingeniero)",
+          "base_legal": "RITE IT 1.3.4; Decreto 56/2016 art. 8",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica CARM",
-          "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Gratuito",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según honorarios del técnico",
           "documentos_requeridos": [
             {
-              "id": "notificacion_sanidad_carm",
-              "label": "Formulario de notificación a Sanidad",
-              "descripcion": "Comunicación de equipos de riesgo.",
-              "obligatorio": true
+              "id": "proyecto_tecnico_rite",
+              "label": "Proyecto técnico de la instalación térmica",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, etc.",
+              "requerido": true
             }
-          ],
-          "notas": "Para instalaciones que usen agua y produzcan aerosoles (ej. torres de refrigeración).",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Dirección de Obra (CDO) y Certificado de Instalación",
+          "organismo": "Técnico titulado competente (dirección de obra) e instalador habilitado",
+          "base_legal": "RITE IT 1.3.4; Decreto 56/2016 art. 9",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del técnico e instalador",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico director de obra",
+              "requerido": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Firmado por instalador habilitado",
+              "requerido": true
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación de puesta en servicio al Órgano Competente",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (Consejería de Empresa, Empleo, Universidades y Portavocía)",
+          "base_legal": "Decreto 56/2016 art. 10; Orden 22/02/2017",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica de la Comunidad Autónoma de la Región de Murcia",
+          "plataforma_url": "https://sede.carm.es",
+          "coste_estimado": "0 € (tasa 0)",
+          "documentos_requeridos": [
+            {
+              "id": "formulario_comunicacion",
+              "label": "Formulario de comunicación de puesta en servicio",
+              "descripcion": "Modelo oficial cumplimentado y firmado",
+              "requerido": true
+            },
+            {
+              "id": "proyecto_tecnico_rite",
+              "label": "Proyecto técnico",
+              "descripcion": "Copia del proyecto técnico",
+              "requerido": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Copia del certificado de dirección de obra",
+              "requerido": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Copia del certificado de instalación",
+              "requerido": true
+            }
+          ]
         }
       ]
     }

@@ -1,290 +1,206 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "aragon",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 24/2013, de 26 de diciembre, del Sector Eléctrico (art. 53)",
-    "Real Decreto 244/2019, de 5 de abril",
-    "Instrucción 2/2021, de 4 de marzo, de la D.G. de Planificación Energética y Recursos Naturales",
-    "Ley 1/2021, de 11 de febrero, de Simplificación Administrativa (art. 59.2)",
-    "Texto Refundido de la Ley de Tasas de Aragón, Decreto Legislativo 1/2004, de 27 de julio (Tasa 14)",
-    "Ley 7/2021, de 7 de octubre (modifica tarifa 52; BOE-A-2021-19727)",
-    "Orden ICD/569/2022, de 27 de abril (modelo 514)"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 131/2005, de 7 de junio, del Gobierno de Aragón, por el que se regulan las instalaciones eléctricas de baja tensión y se establecen los procedimientos de puesta en servicio",
+    "Orden de 26 de junio de 2006, del Departamento de Industria, Comercio y Turismo, por la que se desarrolla el Decreto 131/2005",
+    "Ley 7/2021 Cambio Climático art. 16"
   ],
   "reglas": [
     {
-      "id": "ARA-FV-BASE-100",
-      "descripcion": "Base: Autoconsumo <100 kW",
-      "condicion": {
-        "<": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Declaración responsable + registro RADNE (Alta)",
-          "organismo": "D.G. competente en energía, Gobierno de Aragón",
-          "base_legal": "Ley 1/2021 art. 59.2; RD 244/2019 art. 8",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "plataforma": "Tramitador del Gobierno de Aragón (trámite 2459)",
-          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica",
-          "coste_estimado": "0 EUR (exenta)",
-          "formulario_ref": "F107",
-          "documentos_requeridos": [
-            {
-              "id": "dr",
-              "label": "Declaración responsable",
-              "descripcion": "Conforme reglamentación técnica aplicable",
-              "obligatorio": true
-            },
-            {
-              "id": "memoria_cie",
-              "label": "Memoria técnica y CIE",
-              "descripcion": "Instalador habilitado BT",
-              "obligatorio": true
-            },
-            {
-              "id": "f107",
-              "label": "Formulario F107",
-              "descripcion": "Inscripción en RADNE",
-              "obligatorio": true
-            }
-          ],
-          "notas": "SEDA instalaciones que superen umbrales.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "ARA-FV-BASE-MAYOR100",
-      "descripcion": "Base: Autoconsumo >=100 kW",
-      "condicion": {
-        ">=": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Declaración responsable + registro RADNE (Alta)",
-          "organismo": "D.G. competente en energía, Gobierno de Aragón",
-          "base_legal": "Ley 1/2021 art. 59.2; RD 244/2019 art. 8",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "plataforma": "Tramitador del Gobierno de Aragón (trámite 2459)",
-          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica",
-          "coste_estimado": "56.20 EUR (Tasa 14, ap. 5, tarifa 52, regla 4ª)",
-          "formulario_ref": "F106",
-          "documentos_requeridos": [
-            {
-              "id": "dr",
-              "label": "Declaración responsable",
-              "descripcion": "Conforme reglamentación técnica aplicable",
-              "obligatorio": true
-            },
-            {
-              "id": "memoria_cie",
-              "label": "Memoria técnica y CIE",
-              "descripcion": "Instalador habilitado",
-              "obligatorio": true
-            },
-            {
-              "id": "f106",
-              "label": "Formulario F106",
-              "descripcion": "Inscripción en RADNE",
-              "obligatorio": true
-            }
-          ],
-          "notas": "SEDA instalaciones que superen umbrales.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Autorización administrativa previa y de construcción (trámite 783)",
-          "organismo": "D.G. competente en energía (o Servicio Provincial si FV <=1 MW)",
-          "base_legal": "Ley 24/2013 art. 53.1; RD 1955/2000",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": 90,
-          "plataforma": "Tramitador del Gobierno de Aragón (trámite 783)",
-          "plataforma_url": "https://www.aragon.es/-/energia-fotovoltaica-en-aragon",
-          "coste_estimado": "Tasa 14.1 (importe dependiente de la inversión del proyecto)",
-          "formulario_ref": "F102",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto",
-              "label": "Proyecto y anexo de configuración de potencia",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
-            },
-            {
-              "id": "cap_econ",
-              "label": "Acreditación de capacidad económica y técnica",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexión",
-              "descripcion": "Distribuidora/transportista",
-              "obligatorio": true
-            },
-            {
-              "id": "dia",
-              "label": "Declaración de Impacto Ambiental (DIA)",
-              "descripcion": "Si procede",
-              "obligatorio": true
-            },
-            {
-              "id": "caja_deposito",
-              "label": "Acreditación depósito en Caja Depósitos",
-              "descripcion": "Resguardo garantía económica",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Plazo legal: autorización previa 3 meses y de construcción 3 meses; explotación 1 mes. Silencio desestimatorio por analogía sectorial. Competencia del Servicio Provincial para FV <=1 MW. Requiere clasificar si en terreno rústico o urbano.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "ARA-FV-CON-EXCEDENTES",
-      "descripcion": "Refinamiento: Con excedentes",
-      "condicion": {
-        "==": [
-          {
-            "var": "modalidad_autoconsumo"
-          },
-          "con_excedentes"
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Aval de acceso/conexión",
-          "organismo": "Distribuidora",
-          "base_legal": "Instrucción 2/2021; RD 244/2019; art. 53.3 Ley 24/2013",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": "Distribuidora",
-          "plataforma_url": null,
-          "coste_estimado": "25.00 EUR (gestión resguardo garantía tarifa 58)",
-          "formulario_ref": null,
-          "documentos_requeridos": [
-            {
-              "id": "cau",
-              "label": "CAU",
-              "descripcion": "De la distribuidora",
-              "obligatorio": true
-            },
-            {
-              "id": "aval",
-              "label": "Aval económico",
-              "descripcion": "Resguardo del depósito",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Aval de 40 EUR/kW requerido para instalaciones con excedentes >15 kW urbano / >10 kW rural.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "ARA-FV-AT",
-      "descripcion": "Refinamiento: Alta Tensión (para <100 kW)",
+      "id": "ARA-FV-001",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
         "and": [
           {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "AT"
-            ]
-          },
-          {
-            "<": [
+            "<=": [
               {
                 "var": "potencia_kw"
               },
-              100
+              10
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
             ]
           }
         ]
       },
       "tramites": [
         {
-          "orden": 2,
-          "nombre": "Autorización administrativa previa y de construcción (trámite 783)",
-          "organismo": "D.G. competente en energía (o Servicio Provincial si FV <=1 MW)",
-          "base_legal": "Ley 24/2013 art. 53.1; RD 1955/2000",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": 90,
-          "plataforma": "Tramitador del Gobierno de Aragón (trámite 783)",
-          "plataforma_url": "https://www.aragon.es/-/energia-fotovoltaica-en-aragon",
-          "coste_estimado": "Tasa 14.1 (importe dependiente de la inversión del proyecto)",
-          "formulario_ref": "F102",
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 131/2005 art. 10",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto",
-              "label": "Proyecto y anexo de configuración de potencia",
-              "descripcion": "Técnico competente",
-              "obligatorio": true
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo.",
+              "formato": "PDF"
             },
             {
-              "id": "cap_econ",
-              "label": "Acreditación de capacidad económica y técnica",
-              "descripcion": "",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Documento firmado por el instalador que acredita la ejecución de la instalación según MTD.",
+              "formato": "PDF"
             },
             {
-              "id": "acceso",
-              "label": "Permisos de acceso y conexión",
-              "descripcion": "Distribuidora/transportista",
-              "obligatorio": true
-            },
-            {
-              "id": "dia",
-              "label": "Declaración de Impacto Ambiental (DIA)",
-              "descripcion": "Si procede",
-              "obligatorio": true
-            },
-            {
-              "id": "caja_deposito",
-              "label": "Acreditación depósito en Caja Depósitos",
-              "descripcion": "Resguardo garantía económica",
-              "obligatorio": true
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Documento firmado por el titular manifestando que cumple los requisitos.",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Plazo legal: autorización previa 3 meses y de construcción 3 meses; explotación 1 mes. Silencio desestimatorio por analogía sectorial. Competencia del Servicio Provincial para FV <=1 MW. Requiere clasificar si en terreno rústico o urbano.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de la instalación en el órgano autonómico competente",
+          "organismo": "Dirección General de Energía y Minas del Gobierno de Aragón",
+          "base_legal": "Decreto 131/2005 art. 11; Orden 26/06/2006",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de Aragón",
+          "plataforma_url": "https://www.aragon.es/tramites/registro-instalaciones-electricas-baja-tension",
+          "coste_estimado": "0 € (tasa exenta para autoconsumo ≤10 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Mismo documento que en paso anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Mismo documento que en paso anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración Responsable (DR) del titular",
+              "descripcion": "Mismo documento que en paso anterior.",
+              "formato": "PDF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ARA-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico (PT) fotovoltaico",
+          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 131/2005 art. 10",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico (aprox. 500-2000 €)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, cálculos, pliego de condiciones y presupuesto.",
+              "formato": "PDF"
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de la OCA (Organismo de Control Autorizado) - EICI",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Aragón (ej. Applus+, TÜV Rheinland, Bureau Veritas, etc.)",
+          "base_legal": "Decreto 131/2005 art. 12; Orden 26/06/2006; RD 2200/1995",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según OCA (aprox. 300-800 €)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo documento que en paso anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Firmado por instalador habilitado.",
+              "formato": "PDF"
+            }
+          ]
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación en el órgano autonómico competente",
+          "organismo": "Dirección General de Energía y Minas del Gobierno de Aragón",
+          "base_legal": "Decreto 131/2005 art. 11; Orden 26/06/2006",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de Aragón",
+          "plataforma_url": "https://www.aragon.es/tramites/registro-instalaciones-electricas-baja-tension",
+          "coste_estimado": "0 € (tasa exenta para autoconsumo ≤100 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Mismo documento que en paso anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Mismo documento que en paso anterior.",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_oca",
+              "label": "Certificado de OCA (EICI)",
+              "descripcion": "Documento emitido por el OCA que verifica la conformidad de la instalación.",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     }
-  ],
-  "validaciones": [
-    {
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "tension"
-      ],
-      "mensaje": "Si no se especifica el nivel de tensión, el plan asume Baja Tensión (BT) por defecto."
-    },
-    {
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "modalidad_autoconsumo"
-      ],
-      "mensaje": "Si no se especifica la modalidad de autoconsumo, el plan asume 'sin excedentes'."
-    }
-  ],
-  "nivel_verificacion": "verificada"
+  ]
 }

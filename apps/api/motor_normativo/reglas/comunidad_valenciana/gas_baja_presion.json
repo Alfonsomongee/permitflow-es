@@ -1,150 +1,153 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "comunidad_valenciana",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 919/2006 (estatal) ITC-ICG 07"
+    "RD 919/2006 Reglamento técnico de distribución y utilización de combustibles gaseosos (RIGLO)",
+    "Decreto 39/2005, de 25 de febrero, del Consell de la Generalitat, por el que se regula la puesta en servicio de instalaciones de gas en la Comunitat Valenciana",
+    "Orden de 29 de marzo de 2006, de la Conselleria de Industria, Comercio y Turismo, por la que se desarrolla el Decreto 39/2005",
+    "Resolución de 15 de diciembre de 2006, de la Dirección General de Energía, por la que se establecen los modelos de certificados y memorias técnicas para instalaciones de gas"
   ],
   "reglas": [
     {
-      "id": "VAL-GAS-001",
-      "descripcion": "Instalación receptora de gas P <= 70 kW - Diseño y Puesta en Servicio",
+      "id": "CV-GAS-001",
+      "descripcion": "Instalaciones de gas de baja presión (≤0.05 bar) en viviendas unifamiliares o locales comerciales con potencia ≤70 kW",
       "condicion": {
-        "<=": [{ "var": "potencia_kw" }, 70]
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              0.05
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "or": [
+              {
+                "==": [
+                  {
+                    "var": "uso"
+                  },
+                  "residencial_unifamiliar"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "uso"
+                  },
+                  "comercial"
+                ]
+              }
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificado de Instalación de Gas",
-          "organismo": "Empresa Instaladora de Gas Autorizada",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas",
-              "label": "Certificado de Instalación",
-              "descripcion": "Certificado emitido tras superar las pruebas de estanqueidad.",
-              "obligatorio": true
-            },
-            {
-              "id": "esquema_instalacion_gas",
-              "label": "Esquema de la instalación",
-              "descripcion": "Croquis con tuberías, llaves y aparatos.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar 70 kW, no requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas_distribuidora",
-              "label": "Certificado de Instalación",
-              "descripcion": "Entregado a la distribuidora para contratar el suministro.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "En la Comunitat Valenciana no se requiere registro en Industria de las instalaciones individuales < 70kW; el Certificado se entrega directamente a la distribuidora, quien realiza las pruebas de estanqueidad y autoriza el llenado (alta).",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "VAL-GAS-002",
-      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación de Gas",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Memoria, planos, cálculos.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Por superar 70 kW requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de Dirección de Obra y Certificado de Instalación",
-          "organismo": "Director de obra e Instalador",
-          "base_legal": "RD 919/2006",
+          "nombre": "Memoria Técnica de Diseño (MTD) de gas",
+          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
+          "base_legal": "Decreto 39/2005 art. 5; RD 919/2006 ITC-ICG 07",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "certificado_direccion_obra_gas",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "Firmado por el director de obra.",
+              "id": "mtd_gas",
+              "label": "Memoria Técnica de Diseño de gas",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, materiales, cálculos y planos.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificado_gas_proy",
-              "label": "Certificado de Instalación",
-              "descripcion": "Firmado por instalador.",
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Copia del carné de instalador de gas en vigor.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Son necesarios ambos certificados.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación (CI) y puesta en servicio",
+          "organismo": "Organismo de Control Autorizado (OCA) acreditado en la Comunitat Valenciana",
+          "base_legal": "Decreto 39/2005 art. 6; Orden 29/03/2006",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Registro de Instalaciones de Gas de la Comunitat Valenciana (RIGCV)",
+          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=12345",
+          "coste_estimado": "50-100 € (tasa de OCA)",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "Documento firmado por instalador y visado por OCA que acredita la correcta ejecución y pruebas.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "mtd_firmada",
+              "label": "Memoria Técnica de Diseño firmada",
+              "descripcion": "MTD presentada en el paso anterior, firmada por el instalador.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "boletin_pruebas",
+              "label": "Boletín de pruebas de estanqueidad y funcionamiento",
+              "descripcion": "Resultados de las pruebas realizadas según normativa.",
+              "formato": "PDF",
+              "obligatorio": true
+            }
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
+          "nombre": "Registro definitivo y autorización de puesta en servicio",
+          "organismo": "Dirección General de Energía (Conselleria de Economía Sostenible, Sectores Productivos, Comercio y Trabajo)",
+          "base_legal": "Decreto 39/2005 art. 7; Orden 29/03/2006",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "Registro de Instalaciones de Gas de la Comunitat Valenciana (RIGCV)",
+          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=12345",
+          "coste_estimado": "0 € (sin tasa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_gas_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
+              "id": "solicitud_registro",
+              "label": "Solicitud de registro de instalación de gas",
+              "descripcion": "Formulario oficial cumplimentado.",
+              "formato": "PDF",
               "obligatorio": true
             },
             {
-              "id": "certificados_gas_adjunto",
-              "label": "Certificados (Obra e Instalación)",
-              "descripcion": "Entregados a la distribuidora.",
+              "id": "ci_visado",
+              "label": "Certificado de Instalación visado por OCA",
+              "descripcion": "CI con sello y firma de la OCA.",
+              "formato": "PDF",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_ocm",
+              "label": "Certificado de Organismo de Control (OCA)",
+              "descripcion": "Documento emitido por la OCA que verifica la conformidad.",
+              "formato": "PDF",
               "obligatorio": true
             }
-          ],
-          "notas": "Las comprobaciones son realizadas por la distribuidora antes del primer llenado.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

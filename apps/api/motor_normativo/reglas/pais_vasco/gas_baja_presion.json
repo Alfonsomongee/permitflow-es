@@ -1,194 +1,183 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "pais_vasco",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 919/2006 (estatal) ITC-ICG 07",
-    "Decreto 107/1998 (País Vasco)",
-    "Decreto 81/2020, de 30 de junio (País Vasco)"
+    "Decreto 213/2012, de 16 de octubre, de la Comunidad Autónoma del País Vasco, por el que se regulan las instalaciones de gas en el ámbito de la Comunidad Autónoma del País Vasco",
+    "Real Decreto 919/2006, de 28 de julio, por el que se aprueba el Reglamento técnico de distribución y utilización de combustibles gaseosos y sus instrucciones técnicas complementarias",
+    "Real Decreto 984/2015, de 30 de octubre, por el que se regula el mercado de gas natural y la actividad de distribución de gases licuados del petróleo",
+    "Ley 21/1992, de 16 de julio, de Industria",
+    "Real Decreto 2200/1995, de 28 de diciembre, por el que se aprueba el Reglamento de la Infraestructura para la Calidad y Seguridad Industrial"
   ],
   "reglas": [
     {
-      "id": "PVA-GAS-001",
-      "descripcion": "Instalación receptora de gas P <= 70 kW - Diseño y Puesta en Servicio",
+      "id": "PV-GAS-001",
+      "descripcion": "Instalaciones de gas de baja presión (≤0.05 bar) en edificios de viviendas o locales comerciales con potencia total ≤70 kW",
       "condicion": {
-        "<=": [{ "var": "potencia_kw" }, 70]
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              0.05
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_total_kw"
+              },
+              70
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificado de Instalación de Gas",
-          "organismo": "Empresa Instaladora de Gas Autorizada",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas",
-              "label": "Certificado de Instalación",
-              "descripcion": "Certificado emitido tras superar las pruebas.",
-              "obligatorio": true
-            },
-            {
-              "id": "esquema_instalacion_gas",
-              "label": "Esquema de la instalación",
-              "descripcion": "Croquis con tuberías, llaves y aparatos.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar 70 kW, no requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Acta de Puesta en Servicio (Declaración Responsable)",
-          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
-          "base_legal": "Decreto 81/2020",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "declaracion_responsable_gas",
-              "label": "Declaración Responsable",
-              "descripcion": "Trámite de Acta de puesta en servicio de instalaciones de gas.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Las instalaciones precisan de un instalador autorizado. Las inspecciones son coordinadas con las distribuidoras.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas (Ej. Nortegas)",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas_distribuidora",
-              "label": "Certificado de Instalación",
-              "descripcion": "Entregado a la distribuidora para contratar el suministro.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La distribuidora verifica la estanqueidad antes del primer llenado.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "PVA-GAS-002",
-      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación de Gas",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Memoria, planos, cálculos.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Por superar 70 kW requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de Dirección de Obra y Certificado de Instalación",
-          "organismo": "Director de obra e Instalador",
-          "base_legal": "RD 919/2006",
+          "nombre": "Memoria técnica de instalación de gas (MTI-Gas)",
+          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
+          "base_legal": "Decreto 213/2012, art. 10; RD 919/2006 ITC-ICG 01",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "certificado_direccion_obra_gas",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "Firmado por el director de obra.",
-              "obligatorio": true
+              "id": "mti_gas",
+              "label": "Memoria técnica de instalación de gas",
+              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación, materiales, cálculos y planos.",
+              "formato": "PDF"
             },
             {
-              "id": "certificado_gas_proy",
-              "label": "Certificado de Instalación",
-              "descripcion": "Firmado por instalador.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Acreditación de la habilitación del instalador (carné profesional).",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Son necesarios ambos certificados.",
-          "paralelo_con": null
+          ]
         },
         {
-          "orden": 3,
-          "nombre": "Acta de Puesta en Servicio (Declaración Responsable)",
-          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
-          "base_legal": "Decreto 81/2020",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Tasa autonómica",
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) y puesta en servicio",
+          "organismo": "Órgano competente de la Comunidad Autónoma del País Vasco (Dirección de Energía, Minas y Administración Industrial) o entidad colaboradora (ECA)",
+          "base_legal": "Decreto 213/2012, art. 11; RD 919/2006 ITC-ICG 01",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Euskadi.eus - Ventanilla de Industria",
+          "plataforma_url": "https://www.euskadi.eus/industria-energia-minas/",
+          "coste_estimado": "Tasa de puesta en servicio: 30-50 € (según ordenanza municipal)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_gas_proy",
-              "label": "Declaración Responsable",
-              "descripcion": "Incluyendo referencias del proyecto.",
-              "obligatorio": true
+              "id": "ci_gas",
+              "label": "Certificado de instalación de gas",
+              "descripcion": "Documento oficial firmado por instalador y visado por la entidad colaboradora (ECA) o directamente presentado ante el órgano competente.",
+              "formato": "PDF"
+            },
+            {
+              "id": "mti_gas_firmada",
+              "label": "Memoria técnica firmada",
+              "descripcion": "Copia de la MTI con firma del instalador.",
+              "formato": "PDF"
+            },
+            {
+              "id": "boletin_gas",
+              "label": "Boletín de instalación de gas (modelo oficial)",
+              "descripcion": "Formulario oficial de la comunidad autónoma para instalaciones de gas.",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Alta en el registro industrial.",
-          "paralelo_con": null
-        },
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PV-GAS-002",
+      "descripcion": "Instalaciones de gas de baja presión (>0.05 bar hasta 0.4 bar) o potencia >70 kW (requiere proyecto técnico)",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              {
+                ">": [
+                  {
+                    "var": "presion_bar"
+                  },
+                  0.05
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_total_kw"
+                  },
+                  70
+                ]
+              }
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              0.4
+            ]
+          }
+        ]
+      },
+      "tramites": [
         {
-          "orden": 4,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "base_legal": "Decreto 213/2012, art. 10; RD 919/2006 ITC-ICG 01",
+          "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
+          "coste_estimado": "Honorarios del técnico (variable, aprox. 500-1500 €)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_gas_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de instalación de gas",
+              "descripcion": "Documento técnico completo firmado por técnico competente, incluyendo memoria, cálculos, planos, pliego de condiciones y presupuesto.",
+              "formato": "PDF"
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) y puesta en servicio con ECA",
+          "organismo": "Entidad Colaboradora de la Administración (ECA) autorizada en País Vasco (ej: TÜV Rheinland, Bureau Veritas, etc.)",
+          "base_legal": "Decreto 213/2012, art. 11; RD 919/2006 ITC-ICG 01",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "Euskadi.eus - Ventanilla de Industria",
+          "plataforma_url": "https://www.euskadi.eus/industria-energia-minas/",
+          "coste_estimado": "Tasa de ECA: 200-400 € + tasa administrativa: 50-100 €",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas_eca",
+              "label": "Certificado de instalación emitido por ECA",
+              "descripcion": "Certificado firmado por la ECA que acredita que la instalación cumple la normativa.",
+              "formato": "PDF"
             },
             {
-              "id": "certificados_gas_adjunto",
-              "label": "Certificados (Obra e Instalación)",
-              "descripcion": "Entregados a la distribuidora.",
-              "obligatorio": true
+              "id": "proyecto_gas_visado",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Copia del proyecto con visado del colegio profesional correspondiente.",
+              "formato": "PDF"
+            },
+            {
+              "id": "boletin_gas",
+              "label": "Boletín de instalación de gas (modelo oficial)",
+              "descripcion": "Formulario oficial de la comunidad autónoma para instalaciones de gas.",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Las comprobaciones son realizadas por la distribuidora antes del primer llenado.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

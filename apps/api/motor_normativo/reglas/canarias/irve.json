@@ -1,103 +1,37 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "canarias",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52 (estatal)",
-    "Decreto 141/2009 (Canarias)",
-    "Sede Electrónica Canarias - Trámite 3158"
+    "RD 1053/2014 ITC-BT-52",
+    "RD 842/2002 REBT",
+    "Decreto 141/2016, de 10 de octubre, por el que se regulan las instalaciones eléctricas de baja tensión en Canarias",
+    "Orden de 5 de marzo de 2013, por la que se regulan los procedimientos administrativos asociados a las instalaciones eléctricas en Canarias"
   ],
   "reglas": [
     {
       "id": "CAN-IRVE-001",
-      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD)",
+      "descripcion": "Instalación de punto de recarga de vehículo eléctrico en vivienda unifamiliar o edificio existente con potencia ≤ 10 kW, sin obra nueva",
       "condicion": {
-        "not": {
-          "or": [
-            { "==": [{ "var": "modo_recarga" }, 4] },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-                { ">": [{ "var": "potencia_kw" }, 50] }
-              ]
-            },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-                { ">": [{ "var": "potencia_kw" }, 10] }
-              ]
-            }
-          ]
-        }
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Certificado de Instalación Eléctrica (CIE)",
-          "organismo": "Instalador electricista autorizado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Memoria que describe la instalación de recarga.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "CIE firmado por el instalador autorizado.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Comunicación previa a la puesta en servicio de instalaciones eléctricas",
-          "organismo": "Gobierno de Canarias",
-          "base_legal": "Decreto 141/2009 (Canarias)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "Registro en Canarias.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Trámite SICAC 3158.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "CAN-IRVE-002",
-      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA)",
-      "condicion": {
-        "or": [
-          { "==": [{ "var": "modo_recarga" }, 4] },
+        "and": [
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-              { ">": [{ "var": "potencia_kw" }, 50] }
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              10
             ]
           },
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-              { ">": [{ "var": "potencia_kw" }, 10] }
+            "in": [
+              {
+                "var": "tipo_emplazamiento"
+              },
+              [
+                "vivienda_unifamiliar",
+                "edificio_existente"
+              ]
             ]
           }
         ]
@@ -105,78 +39,143 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación IRVE",
-          "organismo": "Ingeniero competente colegiado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 10,
+          "nombre": "Memoria Técnica de Diseño (MTD) para IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 141/2016",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del proyectista",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Proyecto completo de la infraestructura de recarga.",
-              "obligatorio": true
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, esquema unifilar, protecciones, etc."
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "Declaración de que la instalación cumple con la normativa vigente"
             }
-          ],
-          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "Decreto 141/2009 (Canarias) y ITC-BT-05",
+          "nombre": "Registro en la Consejería de Transición Ecológica (Sede Electrónica)",
+          "organismo": "Consejería de Transición Ecológica y Energía del Gobierno de Canarias",
+          "base_legal": "Orden de 5 de marzo de 2013; Decreto 141/2016",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobcan.es/sede/",
+          "coste_estimado": "0 € (tasa administrativa exenta para IRVE ≤10 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)",
+              "descripcion": "Documento que acredita la correcta ejecución de la instalación"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAN-IRVE-002",
+      "descripcion": "Instalación de punto de recarga de vehículo eléctrico en edificio de nueva construcción o con potencia > 10 kW",
+      "condicion": {
+        "or": [
+          {
+            "==": [
+              {
+                "var": "tipo_emplazamiento"
+              },
+              "edificio_nueva_construccion"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico para IRVE",
+          "organismo": "Ingeniero técnico industrial o superior competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 141/2016",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de inspección OCA",
+          "coste_estimado": "Variable según honorarios profesionales",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_inicial",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado favorable emitido por la OCA.",
-              "obligatorio": true
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, etc."
             }
-          ],
-          "notas": "En Canarias, toda instalación que requiera proyecto (según Decreto 141/2009) debe aportar certificado de inspección inicial de una OCA.",
-          "paralelo_con": null
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación y puesta en servicio (OCA/EICI)",
+          "organismo": "Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) habilitada en Canarias",
+          "base_legal": "Decreto 141/2016; Orden de 5 de marzo de 2013",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobcan.es/sede/",
+          "coste_estimado": "200-400 € (según OCA/EICI)",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE"
+            },
+            {
+              "id": "certificado_ocm",
+              "label": "Certificado de inspección inicial (OCA/EICI)",
+              "descripcion": "Documento emitido por OCA/EICI que verifica el cumplimiento normativo"
+            }
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Comunicación previa a la puesta en servicio de instalaciones eléctricas",
-          "organismo": "Gobierno de Canarias",
-          "base_legal": "Decreto 141/2009 (Canarias)",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org",
-          "coste_estimado": "Tasa autonómica",
+          "nombre": "Registro en la Consejería de Transición Ecológica (Sede Electrónica)",
+          "organismo": "Consejería de Transición Ecológica y Energía del Gobierno de Canarias",
+          "base_legal": "Orden de 5 de marzo de 2013; Decreto 141/2016",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobcan.es/sede/",
+          "coste_estimado": "0 € (tasa administrativa exenta para IRVE)",
           "documentos_requeridos": [
             {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "CIE firmado por el instalador.",
-              "obligatorio": true
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE"
             },
             {
-              "id": "proyecto_tecnico_irve_adjunto",
-              "label": "Proyecto técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
+              "id": "certificado_ocm",
+              "label": "Certificado de inspección inicial (OCA/EICI)"
             },
             {
-              "id": "certificado_oca_inicial_adjunto",
-              "label": "Certificado OCA",
-              "descripcion": "Certificado favorable.",
-              "obligatorio": true
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)"
             }
-          ],
-          "notas": "Trámite SICAC 3158.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

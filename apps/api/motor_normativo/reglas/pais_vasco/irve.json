@@ -1,108 +1,34 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "pais_vasco",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52 (estatal)",
-    "Decreto 81/2020, de 30 de junio, de seguridad industrial (País Vasco)"
+    "RD 1053/2014 ITC-BT-52 (IRVE)",
+    "Decreto 47/2020, de 24 de marzo, de la Comunidad Autónoma del País Vasco, por el que se regulan los procedimientos de puesta en servicio de las instalaciones eléctricas de baja tensión y se crea el Registro de Instalaciones Eléctricas de Baja Tensión",
+    "Ley 21/2013 de Evaluación Ambiental",
+    "Real Decreto 842/2002 REBT"
   ],
   "reglas": [
     {
-      "id": "PVA-IRVE-001",
-      "descripcion": "IRVE que requiere Memoria Técnica de Diseño (MTD) - Declaración Responsable",
+      "id": "PV-IRVE-001",
+      "descripcion": "Instalación IRVE de potencia ≤ 50 kW en edificio existente (vivienda unifamiliar o comunidad de propietarios) sin obra nueva",
       "condicion": {
-        "not": {
-          "or": [
-            { "==": [{ "var": "modo_recarga" }, 4] },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-                { ">": [{ "var": "potencia_kw" }, 50] }
-              ]
-            },
-            {
-              "and": [
-                { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-                { ">": [{ "var": "potencia_kw" }, 10] }
-              ]
-            }
-          ]
-        }
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Certificado de Instalación Eléctrica (CIE)",
-          "organismo": "Instalador electricista autorizado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Memoria que describe la instalación de recarga.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "CIE firmado por el instalador autorizado.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Al no superar los umbrales de la ITC-BT-52, no se requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Puesta en servicio de Instalaciones de Baja Tensión (Declaración Responsable)",
-          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
-          "base_legal": "Decreto 81/2020",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus (Seguridad Industrial)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "declaracion_responsable_bt",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario telemático.",
-              "obligatorio": true
-            },
-            {
-              "id": "cie_irve_firmado",
-              "label": "CIE de la instalación",
-              "descripcion": "CIE y MTD quedan a disposición de la Administración.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "El Decreto 81/2020 introduce la Declaración Responsable como trámite único de Puesta en Servicio.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "PVA-IRVE-002",
-      "descripcion": "IRVE que requiere Proyecto Técnico e Inspección Inicial (OCA) - Declaración Responsable",
-      "condicion": {
-        "or": [
-          { "==": [{ "var": "modo_recarga" }, 4] },
+        "and": [
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "interior"] },
-              { ">": [{ "var": "potencia_kw" }, 50] }
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              50
             ]
           },
           {
-            "and": [
-              { "==": [{ "var": "ubicacion_irve" }, "exterior"] },
-              { ">": [{ "var": "potencia_kw" }, 10] }
+            "==": [
+              {
+                "var": "tipo_emplazamiento"
+              },
+              "existente"
             ]
           }
         ]
@@ -110,72 +36,131 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación IRVE",
-          "organismo": "Ingeniero competente colegiado",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 y ITC-BT-52",
-          "plazo_estimado_dias": 10,
+          "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 47/2020",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del proyectista",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Proyecto completo de la infraestructura de recarga.",
-              "obligatorio": true
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, esquema unifilar, protecciones, previsión de cargas y cumplimiento ITC-BT-52"
+            },
+            {
+              "id": "declaracion_responsable_instalador",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "Declaración del instalador de que la instalación cumple la normativa vigente"
             }
-          ],
-          "notas": "Obligatorio por superar los umbrales de la ITC-BT-04.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05",
-          "plazo_estimado_dias": 10,
+          "nombre": "Solicitud de puesta en servicio ante el Órgano Competente de la Comunidad Autónoma del País Vasco (OCE)",
+          "organismo": "Órgano Competente de la Comunidad Autónoma del País Vasco (OCE) - Dirección de Energía, Minas y Administración Industrial del Gobierno Vasco",
+          "base_legal": "Decreto 47/2020, art. 10 y 11",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Plataforma de Tramitación Electrónica del Gobierno Vasco (EuskoTramit)",
+          "plataforma_url": "https://www.euskadi.eus/tramites",
+          "coste_estimado": "0 € (tasa administrativa exenta para IRVE ≤ 50 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve_firmada",
+              "label": "MTD IRVE firmada por instalador",
+              "descripcion": "Memoria Técnica de Diseño visada por el instalador habilitado"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (modelo oficial)",
+              "descripcion": "Certificado firmado por instalador que acredita la ejecución conforme a MTD y normativa"
+            },
+            {
+              "id": "declaracion_responsable_propietario",
+              "label": "Declaración responsable del propietario",
+              "descripcion": "Declaración del titular de la instalación sobre la veracidad de los datos"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PV-IRVE-002",
+      "descripcion": "Instalación IRVE de potencia > 50 kW o en edificio de nueva construcción (obra nueva) o con modificaciones significativas",
+      "condicion": {
+        "or": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              50
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_emplazamiento"
+              },
+              "nueva_obra"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico IRVE",
+          "organismo": "Ingeniero técnico industrial o superior competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 47/2020 art. 7",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste de inspección OCA",
+          "coste_estimado": "Variable según honorarios profesionales (aprox. 500-1500 €)",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_inicial",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Certificado emitido por la OCA tras la revisión.",
-              "obligatorio": true
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto y estudio básico de seguridad"
             }
-          ],
-          "notas": "Inspección obligatoria estatal.",
-          "paralelo_con": null
+          ]
         },
         {
-          "orden": 3,
-          "nombre": "Puesta en servicio de Instalaciones de Baja Tensión (Declaración Responsable)",
-          "organismo": "Gobierno Vasco (Delegación Territorial de Industria)",
-          "base_legal": "Decreto 81/2020",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus (Seguridad Industrial)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0042410",
-          "coste_estimado": "Tasa autonómica",
+          "orden": 2,
+          "nombre": "Solicitud de autorización administrativa previa (si procede) y puesta en servicio ante OCE",
+          "organismo": "Órgano Competente de la Comunidad Autónoma del País Vasco (OCE) - Dirección de Energía, Minas y Administración Industrial del Gobierno Vasco",
+          "base_legal": "Decreto 47/2020, art. 8 y 11",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": 45,
+          "plataforma": "Plataforma de Tramitación Electrónica del Gobierno Vasco (EuskoTramit)",
+          "plataforma_url": "https://www.euskadi.eus/tramites",
+          "coste_estimado": "Tasa administrativa según tarifa (aprox. 50-200 €)",
           "documentos_requeridos": [
             {
-              "id": "declaracion_responsable_bt_proy",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario telemático.",
-              "obligatorio": true
+              "id": "proyecto_irve_firmado",
+              "label": "Proyecto técnico IRVE firmado",
+              "descripcion": "Proyecto visado por colegio profesional (si aplica) o firmado digitalmente"
             },
             {
-              "id": "certificado_oca_inicial_adjunto",
-              "label": "Certificado OCA",
-              "descripcion": "Debe estar disponible para la Administración.",
-              "obligatorio": true
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Certificado del técnico director de obra de que la instalación se ejecuta según proyecto"
+            },
+            {
+              "id": "certificado_instalacion_obra",
+              "label": "Certificado de Instalación (modelo oficial)",
+              "descripcion": "Certificado firmado por instalador habilitado"
+            },
+            {
+              "id": "declaracion_responsable_propietario",
+              "label": "Declaración responsable del propietario",
+              "descripcion": "Declaración del titular"
             }
-          ],
-          "notas": "Alta en el registro de instalaciones de seguridad industrial (RSI).",
-          "paralelo_con": null
+          ]
         }
       ]
     }

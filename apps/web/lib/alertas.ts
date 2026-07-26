@@ -10,7 +10,7 @@ const ESTADOS_ACTIVOS = new Set(["borrador", "pendiente", "en_revision"]);
 
 type ExpedienteMatch = Pick<
   DbExpediente,
-  "id" | "comunidad" | "tipo_instalacion" | "estado" | "referencia_cliente" | "municipio"
+  "id" | "comunidad" | "tipo_instalacion" | "estado" | "referencia_cliente"
 >;
 
 /** null o [] en el array de la alerta = afecta a todas las CCAA / verticales. */

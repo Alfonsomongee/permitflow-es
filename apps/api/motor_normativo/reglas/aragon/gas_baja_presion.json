@@ -1,199 +1,142 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "aragon",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 919/2006 (estatal) ITC-ICG 07",
-    "Normativa de simplificación administrativa de Aragón"
+    "RD 919/2006 RITE",
+    "RD 1027/2007 RITE",
+    "RD 238/2013 RITE",
+    "Decreto 108/2005, de 24 de mayo, del Gobierno de Aragón, por el que se regulan las instalaciones de gas en el ámbito de la Comunidad Autónoma de Aragón",
+    "Orden de 15 de diciembre de 2005, del Departamento de Industria, Comercio y Turismo, por la que se desarrolla el Decreto 108/2005",
+    "RD 842/2002 REBT (para instalaciones eléctricas auxiliares)",
+    "RD 919/2006 RIGLO (Reglamento de Instalaciones de Gas)"
   ],
   "reglas": [
     {
-      "id": "ARA-GAS-001",
-      "descripcion": "Instalación receptora de gas P <= 70 kW - Comunicación en DIGITA",
+      "id": "AR-GAS-001",
+      "descripcion": "Instalación de gas de baja presión (≤0.05 bar) en vivienda unifamiliar o local comercial con potencia ≤70 kW",
       "condicion": {
-        "<=": [{ "var": "potencia_kw" }, 70]
+        "and": [
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              0.05
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "or": [
+              {
+                "==": [
+                  {
+                    "var": "tipo_edificio"
+                  },
+                  "unifamiliar"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "tipo_edificio"
+                  },
+                  "local_comercial"
+                ]
+              }
+            ]
+          }
+        ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificado de Instalación de Gas",
-          "organismo": "Empresa Instaladora de Gas Autorizada",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
-          "plazo_estimado_dias": 1,
+          "nombre": "Memoria técnica de diseño (MTD) de gas",
+          "organismo": "Instalador habilitado en gas (categoría G1 o G2 según RIGLO)",
+          "base_legal": "RD 919/2006 RIGLO; Decreto 108/2005 Aragón",
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del instalador",
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
             {
-              "id": "certificado_gas",
-              "label": "Certificado de Instalación",
-              "descripcion": "Certificado emitido tras superar las pruebas.",
-              "obligatorio": true
+              "id": "mtd_gas",
+              "label": "Memoria técnica de diseño de gas",
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación",
+              "formato": "PDF"
             },
             {
-              "id": "esquema_instalacion_gas",
-              "label": "Esquema de la instalación",
-              "descripcion": "Croquis con tuberías y aparatos.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Acreditación de la habilitación del instalador",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Al no superar 70 kW, no requiere proyecto técnico.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Comunicación de puesta en servicio (Gas)",
-          "organismo": "Gobierno de Aragón (DIGITA)",
-          "base_legal": "Normativa autonómica de Aragón",
-          "plazo_estimado_dias": 3,
-          "plazo_legal_dias": 30,
-          "plataforma": "DIGITA / ECA",
-          "plataforma_url": "https://www.aragon.es/tramites",
-          "coste_estimado": "Tasas administrativas",
-          "documentos_requeridos": [
-            {
-              "id": "comunicacion_gas_e0003a",
-              "label": "Formulario Modelo E0003a",
-              "descripcion": "Comunicación de puesta en servicio.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_gas_firmado",
-              "label": "Certificado de Instalación de Gas",
-              "descripcion": "Copia firmada.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Inscripción en el Registro Único de Instalaciones (RUI-Aragón). El plazo es de 30 días desde la puesta en servicio.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_gas_distribuidora",
-              "label": "Certificado de Instalación",
-              "descripcion": "Entregado a la distribuidora.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La distribuidora verifica la estanqueidad antes del primer llenado.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "ARA-GAS-002",
-      "descripcion": "Instalación receptora de gas P > 70 kW - Proyecto Técnico",
-      "condicion": {
-        ">": [{ "var": "potencia_kw" }, 70]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación de Gas",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 ITC-ICG 07",
+          "nombre": "Solicitud de puesta en servicio (OCA/EICI)",
+          "organismo": "Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) habilitada en Aragón",
+          "base_legal": "Decreto 108/2005 Aragón; RD 919/2006 RIGLO",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
+          "plazo_legal_dias": 20,
+          "plataforma": "Registro Industrial de Aragón (RIA)",
+          "plataforma_url": "https://www.aragon.es/tramites/registro-industrial",
+          "coste_estimado": "Variable según OCA/EICI (aprox. 100-300 €)",
           "documentos_requeridos": [
             {
-              "id": "proyecto_gas",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Memoria, planos, cálculos.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Por superar 70 kW requiere proyecto técnico.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificados de Dirección de Obra e Instalación",
-          "organismo": "Director de obra e Instalador",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 2,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_direccion_obra_gas",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "Firmado por el director de obra.",
-              "obligatorio": true
+              "id": "mtd_gas",
+              "label": "Memoria técnica de diseño de gas",
+              "descripcion": "Mismo documento que en paso anterior",
+              "formato": "PDF"
             },
             {
-              "id": "certificado_gas_proy",
-              "label": "Certificado de Instalación",
-              "descripcion": "Firmado por instalador.",
-              "obligatorio": true
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "Mismo documento que en paso anterior",
+              "formato": "PDF"
+            },
+            {
+              "id": "boletin_gas",
+              "label": "Boletín de instalación de gas (modelo oficial)",
+              "descripcion": "Documento oficial firmado por instalador y visado por OCA/EICI",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Ambos certificados son necesarios.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Comunicación de puesta en servicio (Gas)",
-          "organismo": "Gobierno de Aragón (DIGITA)",
-          "base_legal": "Normativa autonómica de Aragón",
-          "plazo_estimado_dias": 3,
-          "plazo_legal_dias": 30,
-          "plataforma": "DIGITA / ECA",
-          "plataforma_url": "https://www.aragon.es/tramites",
-          "coste_estimado": "Tasas administrativas",
+          "nombre": "Registro de la instalación en el Registro Industrial de Aragón",
+          "organismo": "Dirección General de Industria, Comercio y Turismo del Gobierno de Aragón",
+          "base_legal": "Decreto 108/2005 Aragón",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "Registro Industrial de Aragón (RIA)",
+          "plataforma_url": "https://www.aragon.es/tramites/registro-industrial",
+          "coste_estimado": "0 € (tasa administrativa no aplicable)",
           "documentos_requeridos": [
             {
-              "id": "comunicacion_gas_e0003a_proy",
-              "label": "Formulario Modelo E0003a",
-              "descripcion": "Comunicación de puesta en servicio.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Puede intervenir una ECA para el diligenciado de la documentación técnica.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 4,
-          "nombre": "Puesta en servicio con la distribuidora",
-          "organismo": "Empresa Distribuidora de Gas",
-          "base_legal": "RD 919/2006",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Derechos de alta",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
+              "id": "boletin_gas",
+              "label": "Boletín de instalación de gas",
+              "descripcion": "Mismo documento que en paso anterior",
+              "formato": "PDF"
             },
             {
-              "id": "certificados_gas_adjunto",
-              "label": "Certificados (Obra e Instalación)",
-              "descripcion": "Entregados a la distribuidora.",
-              "obligatorio": true
+              "id": "certificado_ocaeici",
+              "label": "Certificado de inspección favorable de OCA/EICI",
+              "descripcion": "Documento emitido por el organismo de control",
+              "formato": "PDF"
             }
-          ],
-          "notas": "Las comprobaciones son realizadas por la distribuidora antes del primer llenado.",
-          "paralelo_con": null
+          ]
         }
       ]
     }

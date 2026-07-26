@@ -1,135 +1,21 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "extremadura",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
-  "revisado_por": "ai-agent",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "Ley 11/2018 LOTUS + Decreto 49/2004",
-    "Ley 18/2001 + Resolución 20/05/2025 (DOE 95)",
-    "RD 244/2019, de 5 de abril — autoconsumo eléctrico",
-    "RD-ley 18/2022, art. 115.5 Ley 24/2013 (umbral estatal exención AAP)"
+    "RD 244/2019 autoconsumo eléctrico",
+    "RD 1183/2020 acceso y conexión",
+    "Ley 24/2013 Sector Eléctrico",
+    "RD 842/2002 REBT ITC-BT-40",
+    "Decreto 47/2022, de 11 de mayo, por el que se regulan los procedimientos de puesta en servicio de instalaciones eléctricas en Extremadura"
   ],
   "reglas": [
     {
       "id": "EXT-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW (<= 2 kW)",
-      "condicion": {
-        "<=": [
-          {
-            "var": "potencia_kw"
-          },
-          2
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Trámite CIP 5625 (ficha FTD16)",
-          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
-          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
-          "coste_estimado": "78.57 EUR",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "Ficha FTD16 confeccionada en AGILE"
-          ],
-          "formulario_ref": "CIP_5625",
-          "paralelo_con": null,
-          "notas": "AGILE es la herramienta del técnico para confeccionar fichas, no el portal de presentación. Tasa Grupo 3 (código 120495): 78,57 EUR para <= 10 kW."
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
-      ]
-    },
-    {
-      "id": "EXT-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW (2-5 kW)",
+      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              2
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Trámite CIP 5625 (ficha FTD16)",
-          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
-          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
-          "coste_estimado": "94.25 EUR",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "Ficha FTD16 confeccionada en AGILE"
-          ],
-          "formulario_ref": "CIP_5625",
-          "paralelo_con": null,
-          "notas": "AGILE es la herramienta del técnico para confeccionar fichas, no el portal de presentación. Tasa Grupo 3 (código 120495): 78,57 EUR para <= 10 kW."
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
-      ]
-    },
-    {
-      "id": "EXT-FV-001",
-      "descripcion": "Autoconsumo residencial, potencia <= 10kW (5-10 kW)",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
-          },
           {
             "<=": [
               {
@@ -137,50 +23,86 @@
               },
               10
             ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "residencial"
+            ]
           }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Trámite CIP 5625 (ficha FTD16)",
-          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
-          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
-          "coste_estimado": "117.85 EUR",
-          "plazo_estimado_dias": 30,
+          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
           "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "Ficha FTD16 confeccionada en AGILE"
-          ],
-          "formulario_ref": "CIP_5625",
-          "paralelo_con": null,
-          "notas": "AGILE es la herramienta del técnico para confeccionar fichas, no el portal de presentación. Tasa Grupo 3 (código 120495): 78,57 EUR para <= 10 kW."
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo normalizado)",
+              "formato": "PDF"
+            }
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "nombre": "Solicitud de puesta en servicio ante la Comunidad Autónoma (autoconsumo ≤10 kW)",
+          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
+          "base_legal": "Decreto 47/2022, art. 12; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma_url": "https://sede.gobex.es",
+          "coste_estimado": "0 € (tasa 0 para autoconsumo ≤10 kW)",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "formato": "PDF"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "formato": "PDF"
+            },
+            {
+              "id": "contrato_acceso",
+              "label": "Contrato de acceso y conexión (si excedentes)",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     },
     {
       "id": "EXT-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW (10-20 kW)",
+      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
       "condicion": {
-        "and": [
+        "or": [
           {
             ">": [
               {
@@ -190,11 +112,11 @@
             ]
           },
           {
-            "<=": [
+            "!=": [
               {
-                "var": "potencia_kw"
+                "var": "uso"
               },
-              20
+              "residencial"
             ]
           }
         ]
@@ -202,204 +124,94 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Trámite CIP 5625 (ficha FTD16) o CIP 5873 (autorización explotación)",
-          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
-          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
-          "coste_estimado": "133.57 EUR",
-          "plazo_estimado_dias": 30,
+          "nombre": "Proyecto técnico de instalación fotovoltaica",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según honorarios del técnico (variable)",
           "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "Ficha técnica confeccionada en AGILE"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). CIP 5625 con ficha FTD16 para <= 100 kW; CIP 5873 para autorización de explotación. Tasas Grupo 3 (código 120495): >10 a 50kW=94,25 EUR; >50 a 100kW=117,85 EUR; >100 a 250kW=133,57 EUR; >250kW=157,14 EUR + 7,86 EUR por cada 10kW extra."
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico firmado",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "formato": "PDF"
+            }
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "nombre": "Inspección inicial por Organismo de Control (OCA/EICI)",
+          "organismo": "Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) habilitada en Extremadura",
+          "base_legal": "Decreto 47/2022, art. 15; RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según tarifa del OCA (aprox. 200-500 €)",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
-      ]
-    },
-    {
-      "id": "EXT-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW (20-40 kW)",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              20
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              40
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Trámite CIP 5625 (ficha FTD16) o CIP 5873 (autorización explotación)",
-          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
-          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
-          "coste_estimado": "157.14 EUR",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "Ficha técnica confeccionada en AGILE"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). CIP 5625 con ficha FTD16 para <= 100 kW; CIP 5873 para autorización de explotación. Tasas Grupo 3 (código 120495): >10 a 50kW=94,25 EUR; >50 a 100kW=117,85 EUR; >100 a 250kW=133,57 EUR; >250kW=157,14 EUR + 7,86 EUR por cada 10kW extra."
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "formato": "PDF"
+            }
+          ]
         },
         {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
+          "orden": 3,
+          "nombre": "Solicitud de puesta en servicio ante la Comunidad Autónoma (con OCA favorable)",
+          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
+          "base_legal": "Decreto 47/2022, art. 16",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 20,
+          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma_url": "https://sede.gobex.es",
+          "coste_estimado": "Tasa administrativa (consultar tarifas vigentes)",
           "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
-      ]
-    },
-    {
-      "id": "EXT-FV-002",
-      "descripcion": "Autoconsumo residencial, potencia > 10kW (40-100 kW)",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              40
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Trámite CIP 5625 (ficha FTD16) o CIP 5873 (autorización explotación)",
-          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
-          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
-          "coste_estimado": "157.14 EUR + 7.86 euros por cada 10 kW adicionales",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "Ficha técnica confeccionada en AGILE"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). CIP 5625 con ficha FTD16 para <= 100 kW; CIP 5873 para autorización de explotación. Tasas Grupo 3 (código 120495): >10 a 50kW=94,25 EUR; >50 a 100kW=117,85 EUR; >100 a 250kW=133,57 EUR; >250kW=157,14 EUR + 7,86 EUR por cada 10kW extra."
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
-        }
-      ]
-    },
-    {
-      "id": "EXT-FV-003",
-      "descripcion": "Autoconsumo industrial o terciario, cualquier potencia (> 100 kW)",
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Trámite CIP 5625 (ficha FTD16) o CIP 5873 (autorización explotación)",
-          "organismo": "Dirección General Industria, Energía y Minas Junta de Extremadura",
-          "base_legal": "Ley 11/2018 LOTUS + Decreto 49/2004",
-          "coste_estimado": "157.14 EUR + 7.86 euros por cada 10 kW adicionales",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "CIE",
-            "MTD/Proyecto",
-            "CAU",
-            "Ficha técnica confeccionada en AGILE"
-          ],
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "notas": "El umbral estatal vigente para exención de AAP puede ser 500 kW (RD-ley 18/2022). CIP 5625 con ficha FTD16 para <= 100 kW; CIP 5873 para autorización de explotación. Tasas Grupo 3 (código 120495): >10 a 50kW=94,25 EUR; >50 a 100kW=117,85 EUR; >100 a 250kW=133,57 EUR; >250kW=157,14 EUR + 7,86 EUR por cada 10kW extra."
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro Autonómico de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO)",
-          "base_legal": "RD 244/2019, Art. 19",
-          "plazo_estimado_dias": 7,
-          "plazo_legal_dias": null,
-          "documentos_requeridos": [
-            "cie_sellado",
-            "datos_instalacion_formulario_miteco"
-          ],
-          "formulario_ref": "MITECO-RAC-001",
-          "paralelo_con": null,
-          "notas": "Obligatorio para activar la compensación de excedentes."
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "formato": "PDF"
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "formato": "PDF"
+            },
+            {
+              "id": "informe_oca",
+              "label": "Informe favorable del OCA/EICI",
+              "formato": "PDF"
+            },
+            {
+              "id": "contrato_acceso",
+              "label": "Contrato de acceso y conexión",
+              "formato": "PDF"
+            }
+          ]
         }
       ]
     }
-  ],
-  "nivel_verificacion": "verificada"
+  ]
 }

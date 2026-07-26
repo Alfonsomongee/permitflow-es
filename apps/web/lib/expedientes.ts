@@ -64,7 +64,6 @@ export async function crearExpediente({
       clerk_user_id: clerkUserId,
       tipo_instalacion: formState.tipo_instalacion,
       comunidad: formState.comunidad,
-      municipio: "",
       potencia_kw: parseFloat(formState.potencia_kw) || 0,
       uso: formState.uso,
       numero_puntos: formState.numero_puntos

@@ -1,149 +1,27 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "galicia",
-  "version": "1.0.0",
-  "ultima_revision": "2026-07-26",
+  "version": "1.1.0",
+  "ultima_revision": "2025-03-01",
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "Orden de 24 de febrero de 2010 (DOG nº 53)",
-    "Sede Electrónica Xunta de Galicia - Procedimiento IN622B"
+    "RITE RD 1027/2007",
+    "REBT RD 842/2002",
+    "Decreto 42/2019 de la Xunta de Galicia (regulación de instalaciones térmicas en edificios)",
+    "Orden de 12 de junio de 2020 (procedimiento de puesta en servicio de instalaciones térmicas en Galicia)",
+    "Ley 9/2021 de simplificación administrativa de Galicia"
   ],
   "reglas": [
     {
-      "id": "GAL-CLI-001",
-      "descripcion": "Instalación térmica de 5 a 70 kW (MTD)",
+      "id": "GAL-CLIMA-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción",
       "condicion": {
         "and": [
-          { ">=": [{ "var": "potencia_kw" }, 5] },
-          { "<=": [{ "var": "potencia_kw" }, 70] }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD)",
-          "organismo": "Instalador térmico habilitado",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 2,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Descripción de la instalación.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion_termica",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Certificado firmado por instalador.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Instalaciones de 5 kW a 70 kW requieren MTD.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro de instalaciones térmicas en edificios",
-          "organismo": "Xunta de Galicia",
-          "base_legal": "Orden de 24 de febrero de 2010",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Xunta",
-          "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_termico_firmado",
-              "label": "Certificado de Instalación",
-              "descripcion": "Registro en la Xunta.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento IN622B.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "GAL-CLI-002",
-      "descripcion": "Instalación térmica > 70 kW y <= 5000 kW (Proyecto sin OCA inicial obligatoria)",
-      "condicion": {
-        "and": [
-          { ">": [{ "var": "potencia_kw" }, 70] },
-          { "<=": [{ "var": "potencia_kw" }, 5000] }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de climatización.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro de instalaciones térmicas en edificios",
-          "organismo": "Xunta de Galicia",
-          "base_legal": "Orden de 24 de febrero de 2010",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Xunta",
-          "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "Tasa autonómica",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
-            },
-            {
-              "id": "proyecto_rite_adjunto",
-              "label": "Proyecto Técnico",
-              "descripcion": "Copia del proyecto.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Procedimiento IN622B. Por debajo de 5000 kW en calor (o 1000 kW en frío) no se requiere OCA inicial según la Orden de 24/02/2010.",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "GAL-CLI-003",
-      "descripcion": "Instalación térmica > 5000 kW (calor) o > 1000 kW (frío) (Proyecto y OCA)",
-      "condicion": {
-        "or": [
           {
-            "and": [
-              { ">": [{ "var": "potencia_kw" }, 5000] },
-              { "==": [{ "var": "tipo_climatizacion" }, "calor"] }
-            ]
-          },
-          {
-            "and": [
-              { ">": [{ "var": "potencia_kw" }, 1000] },
-              { "==": [{ "var": "tipo_climatizacion" }, "frio"] }
+            "<=": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
             ]
           }
         ]
@@ -151,72 +29,146 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de Instalación Térmica",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE (RD 1027/2007)",
+          "nombre": "Memoria técnica de diseño (MTD) de instalación térmica",
+          "organismo": "Instalador habilitado (categoría térmica o climatización)",
+          "base_legal": "RITE IT 1.2.4; Decreto 42/2019 art. 8",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño (MTD) según RITE"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador (modelo Xunta)"
+            }
+          ]
+        },
+        {
+          "orden": 2,
+          "nombre": "Presentación de declaración responsable de puesta en servicio ante el órgano competente de la Xunta de Galicia",
+          "organismo": "Dirección General de Energía y Minas (Consellería de Economía e Industria)",
+          "base_legal": "Decreto 42/2019 art. 10; Orden 12/06/2020",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": 15,
+          "plataforma": "SIEL (Sistema de Información de Energía de Galicia)",
+          "plataforma_url": "https://siel.xunta.gal",
+          "coste_estimado": "0 € (tasa exenta para instalaciones ≤70 kW)",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño (MTD)"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador"
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable firmada"
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra (si procede)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "GAL-CLIMA-002",
+      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal > 70 kW (requiere proyecto técnico y OCA)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_termica_kw"
+              },
+              70
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE IT 1.2.4; Decreto 42/2019 art. 7",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios de proyecto",
+          "coste_estimado": "Variable según honorarios profesionales",
           "documentos_requeridos": [
             {
-              "id": "proyecto_rite",
-              "label": "Proyecto Técnico Visado",
-              "descripcion": "Proyecto completo de climatización.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico visado por colegio profesional"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado"
             }
-          ],
-          "notas": "Obligatorio proyecto para P > 70 kW.",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA)",
-          "base_legal": "Orden de 24 de febrero de 2010 (Galicia)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
+          "nombre": "Inspección inicial por Organismo de Control (OCA) autorizado en Galicia",
+          "organismo": "OCA autorizado por la Xunta de Galicia (ej. Applus, TÜV, Bureau Veritas)",
+          "base_legal": "RITE IT 3; Decreto 42/2019 art. 11",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Coste OCA",
+          "coste_estimado": "300-600 € según OCA",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca_rite",
-              "label": "Certificado de Inspección Inicial",
-              "descripcion": "Calificación 'aceptable' emitida por la OCA.",
-              "obligatorio": true
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico"
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador"
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra"
             }
-          ],
-          "notas": "La orden gallega exige inspección OCA inicial para > 5000 kW (calor) o > 1000 kW (frío).",
-          "paralelo_con": null
+          ]
         },
         {
           "orden": 3,
-          "nombre": "Inscripción en el Registro de instalaciones térmicas en edificios",
-          "organismo": "Xunta de Galicia",
-          "base_legal": "Orden de 24 de febrero de 2010",
+          "nombre": "Presentación de certificado de inspección y declaración responsable de puesta en servicio ante la Xunta de Galicia",
+          "organismo": "Dirección General de Energía y Minas (Consellería de Economía e Industria)",
+          "base_legal": "Decreto 42/2019 art. 10; Orden 12/06/2020",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica Xunta",
-          "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "Tasa autonómica",
+          "plazo_legal_dias": 15,
+          "plataforma": "SIEL (Sistema de Información de Energía de Galicia)",
+          "plataforma_url": "https://siel.xunta.gal",
+          "coste_estimado": "0 € (tasa exenta)",
           "documentos_requeridos": [
             {
-              "id": "certificado_termico_proyecto",
-              "label": "Certificado de Instalación Térmica",
-              "descripcion": "Firmado por instalador y director de obra.",
-              "obligatorio": true
+              "id": "certificado_inspeccion_oca",
+              "label": "Certificado de inspección favorable de OCA"
             },
             {
-              "id": "certificado_oca_rite_adjunto",
-              "label": "Certificado OCA",
-              "descripcion": "Adjunto a la presentación.",
-              "obligatorio": true
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable firmada por instalador y titular"
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico (copia)"
             }
-          ],
-          "notas": "Procedimiento IN622B.",
-          "paralelo_con": null
+          ]
         }
       ]
     }
