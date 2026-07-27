@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "asturias",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "estricta",
   "estado": "verificado",
@@ -21,8 +21,22 @@
       "descripcion": "Autoconsumo <= 500 kW (Uso No Industrial): Exento de AAP. Memoria Técnica o Proyecto según REBT.",
       "condicion": {
         "and": [
-          { "<=": [ { "var": "potencia_kw" }, 500 ] },
-          { "!=": [ { "var": "uso" }, "industrial" ] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -114,8 +128,22 @@
       "descripcion": "Autoconsumo <= 500 kW (Uso Industrial): Exento de AAP. Registro en División A del RII.",
       "condicion": {
         "and": [
-          { "<=": [ { "var": "potencia_kw" }, 500 ] },
-          { "==": [ { "var": "uso" }, "industrial" ] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -201,8 +229,22 @@
       "descripcion": "Autoconsumo > 500 kW (Uso No Industrial): Autorización Administrativa Previa obligatoria.",
       "condicion": {
         "and": [
-          { ">": [ { "var": "potencia_kw" }, 500 ] },
-          { "!=": [ { "var": "uso" }, "industrial" ] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -288,8 +330,22 @@
       "descripcion": "Autoconsumo > 500 kW (Uso Industrial): Autorización Administrativa Previa y RII.",
       "condicion": {
         "and": [
-          { ">": [ { "var": "potencia_kw" }, 500 ] },
-          { "==": [ { "var": "uso" }, "industrial" ] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso"
+              },
+              "industrial"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -374,7 +430,12 @@
       "id": "AST-FV-RIPRE",
       "descripcion": "Inscripción en el RIPRE para instalaciones de generación de más de 1 kW",
       "condicion": {
-        ">": [ { "var": "potencia_kw" }, 1 ]
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          1
+        ]
       },
       "tramites": [
         {

@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "asturias",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "estricta",
   "estado": "verificado",
@@ -19,8 +19,22 @@
       "descripcion": "Instalación receptora de gas en presión normal (MOP <= 5 bar) y P <= 70 kW",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "==": [
+              {
+                "var": "presion_bar"
+              },
+              "normal"
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -118,8 +132,22 @@
       "descripcion": "Instalación receptora de gas en presión normal (MOP <= 5 bar) y P > 70 kW",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { ">": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "==": [
+              {
+                "var": "presion_bar"
+              },
+              "normal"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -216,7 +244,12 @@
       "id": "AST-GAS-003",
       "descripcion": "Instalación receptora de gas en presión MOP > 5 bar",
       "condicion": {
-        "==": [ { "var": "presion_bar" }, "5+" ]
+        "==": [
+          {
+            "var": "presion_bar"
+          },
+          "5+"
+        ]
       },
       "tramites": [
         {

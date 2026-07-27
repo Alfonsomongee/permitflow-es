@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "asturias",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "estricta",
   "estado": "verificado",
@@ -19,8 +19,22 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia <= 70 kW (Memoria Técnica, sin proyecto)",
       "condicion": {
         "and": [
-          { "<=": [ { "var": "potencia_kw" }, 70 ] },
-          { "==": [ { "var": "tipo_instalacion" }, "climatizacion_aerotermia" ] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "climatizacion_aerotermia"
+            ]
+          }
         ]
       },
       "tramites": [
@@ -95,8 +109,22 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         "and": [
-          { ">": [ { "var": "potencia_kw" }, 70 ] },
-          { "==": [ { "var": "tipo_instalacion" }, "climatizacion_aerotermia" ] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "climatizacion_aerotermia"
+            ]
+          }
         ]
       },
       "tramites": [
