@@ -11,6 +11,7 @@ import {
   BarChart2,
   Settings,
   Zap,
+  Calculator,
 } from "lucide-react";
 import { SidebarUser } from "./SidebarUser";
 
@@ -21,6 +22,7 @@ const NAV_ITEMS = [
   { href: "/plantillas",          label: "Plantillas",    icon: FileText    },
   { href: "/alertas",             label: "Alertas BOE",   icon: Bell        },
   { href: "/estadisticas",        label: "Estadísticas",  icon: BarChart2   },
+  { href: "/simulador",           label: "Simulador AI",  icon: Calculator  },
 ] as const;
 
 export function DashboardSidebar() {
