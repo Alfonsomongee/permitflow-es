@@ -126,7 +126,8 @@ class Clasificador:
                         base_legal="N/A",
                         tipo_actuacion="revision_manual",
                         notas="Conflicto detectado: Se indica tensión BT genérica pero existen niveles específicos AT.",
-                        documentos_requeridos=[]
+                        documentos_requeridos=[],
+                        regla_id="REVISION-MANUAL-FV-TENSION-CONFLICTIVA"
                     )
                 ],
                 tiempo_total_estimado_dias=0,
@@ -144,7 +145,8 @@ class Clasificador:
                         base_legal="N/A",
                         tipo_actuacion="revision_manual",
                         notas="No se puede determinar la puesta en servicio ni el tipo de inscripción registral sin conocer el nivel de tensión.",
-                        documentos_requeridos=[]
+                        documentos_requeridos=[],
+                        regla_id="REVISION-MANUAL-FV-TENSION-AUSENTE"
                     )
                 ],
                 tiempo_total_estimado_dias=0,

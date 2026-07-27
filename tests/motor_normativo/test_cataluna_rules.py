@@ -270,7 +270,7 @@ def test_cataluna_aerotermia_potencia_fronteras():
 
 def test_cataluna_gas_alta_presion():
     data = load_rules("gas_baja_presion.json")
-    r_ap = rule_condition(data, "CAT-GAS-PROYECTO-ALTA-PRESION")
+    r_ap = rule_condition(data, "CAT-GAS-CON-PROYECTO")
 
     assert jsonLogic(r_ap, {"presion_resultante_bar": 5.1})  is True
     assert jsonLogic(r_ap, {"presion_resultante_bar": 5.0})  is False
@@ -279,7 +279,7 @@ def test_cataluna_gas_alta_presion():
 
 def test_cataluna_gas_potencia_individual():
     data = load_rules("gas_baja_presion.json")
-    r = rule_condition(data, "CAT-GAS-PROYECTO-POTENCIA-INDIVIDUAL")
+    r = rule_condition(data, "CAT-GAS-CON-PROYECTO")
 
     ctx_ok = {
         "presion_resultante_bar": 0.1,
@@ -297,7 +297,7 @@ def test_cataluna_gas_potencia_individual():
 
 def test_cataluna_gas_potencia_comun():
     data = load_rules("gas_baja_presion.json")
-    r = rule_condition(data, "CAT-GAS-PROYECTO-COMUN")
+    r = rule_condition(data, "CAT-GAS-CON-PROYECTO")
 
     base = {"presion_resultante_bar": 0.1}
 
@@ -310,7 +310,7 @@ def test_cataluna_gas_potencia_comun():
 
 def test_cataluna_gas_ampliacion():
     data = load_rules("gas_baja_presion.json")
-    r = rule_condition(data, "CAT-GAS-PROYECTO-AMPLIACION")
+    r = rule_condition(data, "CAT-GAS-CON-PROYECTO")
 
     base = {
         "presion_resultante_bar": 0.1,
@@ -331,7 +331,7 @@ def test_cataluna_gas_ampliacion():
 def test_cataluna_gas_ampliacion_resultante_cruza_umbral_individual():
     """Ampliación 20% pero potencia resultante >70 kW → proyecto (por INDIVIDUAL, no por % ampliación)."""
     data = load_rules("gas_baja_presion.json")
-    r_ind = rule_condition(data, "CAT-GAS-PROYECTO-POTENCIA-INDIVIDUAL")
+    r_ind = rule_condition(data, "CAT-GAS-CON-PROYECTO")
 
     ctx = {
         "presion_resultante_bar": 0.1,
@@ -344,7 +344,7 @@ def test_cataluna_gas_ampliacion_resultante_cruza_umbral_individual():
 def test_cataluna_gas_ampliacion_resultante_cruza_presion():
     """Ampliación con presión resultante >5 bar → proyecto (por ALTA-PRESION)."""
     data = load_rules("gas_baja_presion.json")
-    r_ap = rule_condition(data, "CAT-GAS-PROYECTO-ALTA-PRESION")
+    r_ap = rule_condition(data, "CAT-GAS-CON-PROYECTO")
 
     assert jsonLogic(r_ap, {"presion_resultante_bar": 5.01}) is True
 
@@ -400,8 +400,8 @@ def test_cataluna_gas_sin_proyecto():
 
 def test_cataluna_irve_declaracion_vs_autorizacion():
     data = load_rules("irve.json")
-    r_decl = rule_condition(data, "CAT-IRVE-DECLARACION-RESPONSABLE")
-    r_aut  = rule_condition(data, "CAT-IRVE-AUTORIZACION")
+    r_decl = rule_condition(data, "CAT-IRVE-MTD")
+    r_aut  = rule_condition(data, "CAT-IRVE-PROYECTO")
 
     base = {"potencia_kw": 22, "modo_recarga": "3", "ubicacion_irve": "interior"}
 
@@ -526,15 +526,15 @@ def test_cataluna_irve_via_publica_barcelona_activa():
 
 def test_cataluna_fv_ritsic_siempre():
     data = load_rules("fotovoltaica_autoconsumo.json")
-    r = rule_condition(data, "CAT-FV-BT-ALTA-RITSIC")
+    r = rule_condition(data, "CAT-FV-BT-RITSIC")
 
-    assert jsonLogic(r, {"tipo_instalacion": "fotovoltaica_autoconsumo"}) is True
-    assert jsonLogic(r, {"tipo_instalacion": "irve"})                     is False
+    assert jsonLogic(r, {"tipo_instalacion": "fotovoltaica_autoconsumo", "nivel_tension_conexion": "bt"}) is True
+    assert jsonLogic(r, {"tipo_instalacion": "irve", "nivel_tension_conexion": "bt"})                     is False
 
 
 def test_cataluna_fv_aap_aac_gran_instalacion():
     data = load_rules("fotovoltaica_autoconsumo.json")
-    r = rule_condition(data, "CAT-FV-AAP-AAC-GRAN-INSTALACION")
+    r = rule_condition(data, "CAT-FV-AAP-AAC-MAS-500")
 
     assert jsonLogic(r, {"potencia_kw": 501})  is True
     assert jsonLogic(r, {"potencia_kw": 500})  is False
@@ -544,7 +544,7 @@ def test_cataluna_fv_aap_aac_gran_instalacion():
 def test_cataluna_fv_exencion_aap_aac_fronteras():
     """Exención AAP/AAC: solo para potencia >100 y <=500 kW (Decret Llei 22/2025)."""
     data = load_rules("fotovoltaica_autoconsumo.json")
-    r = rule_condition(data, "CAT-FV-DECLARACION-PRODUCCION-100-500")
+    r = rule_condition(data, "CAT-FV-EXENCION-AAP-AAC-100-500")
 
     # 100 exacto → NO activa (>100 estricto)
     assert jsonLogic(r, {"potencia_kw": 100})   is False
@@ -581,7 +581,7 @@ def test_cataluna_fv_tramite_21526_viejo_id_no_existe():
 def test_cataluna_fv_ripre_requiere_flag():
     """RIPRE solo se activa cuando requiere_registro_produccion == True."""
     data = load_rules("fotovoltaica_autoconsumo.json")
-    r = rule_condition(data, "CAT-FV-RIPRE-EXCEDENTES-SIN-COMP")
+    r = rule_condition(data, "CAT-FV-RIPRE")
 
     ctx_si = {"modalidad_autoconsumo": "con_excedentes_sin_compensacion", "requiere_registro_produccion": True}
     ctx_no = {"modalidad_autoconsumo": "con_excedentes_sin_compensacion", "requiere_registro_produccion": False}
@@ -614,12 +614,6 @@ def test_cataluna_fv_acceso_conexion():
     assert jsonLogic(r, ctx_no_acceso)    is False
 
 
-def test_cataluna_fv_puesta_servicio_siempre():
-    data = load_rules("fotovoltaica_autoconsumo.json")
-    r = rule_condition(data, "CAT-FV-PUESTA-SERVICIO")
-
-    assert jsonLogic(r, {"tipo_instalacion": "fotovoltaica_autoconsumo"}) is True
-    assert jsonLogic(r, {"tipo_instalacion": "irve"})                     is False
 
 
 # ─── 7. Integración con el clasificador ──────────────────────────────────────
@@ -650,7 +644,7 @@ def test_cataluna_clasificador_gas_proyecto_presion():
     )
     res = c.clasificar(params)
     ids = [t.regla_id for t in res.tramites]
-    assert "CAT-GAS-PROYECTO-ALTA-PRESION" in ids
+    assert "CAT-GAS-CON-PROYECTO" in ids
 
 
 def test_cataluna_clasificador_gas_clase_invalida():
@@ -671,11 +665,11 @@ def test_cataluna_clasificador_fv_ritsic_presente():
         tipo_instalacion="fotovoltaica_autoconsumo", comunidad="cataluna",
         potencia_kw=50, uso="residencial",
         modalidad_autoconsumo="sin_excedentes",
-        ubicacion_suelo="urbanizado", requiere_acceso_conexion=False,
+        ubicacion_suelo="urbanizado", requiere_acceso_conexion=False, tension="BT",
     )
     res = c.clasificar(params)
     ids = [t.regla_id for t in res.tramites]
-    assert "CAT-FV-BT-ALTA-RITSIC" in ids
+    assert "CAT-FV-BT-RITSIC" in ids
 
 
 def test_cataluna_clasificador_fv_21526_aparece_nuevo_id():
@@ -719,7 +713,7 @@ def test_cataluna_clasificador_fv_ripre_false_no_aparece():
     )
     res = c.clasificar(params)
     ids = [t.regla_id for t in res.tramites]
-    assert "CAT-FV-RIPRE-EXCEDENTES-SIN-COMP" not in ids
+    assert "CAT-FV-RIPRE" not in ids
 
 
 def test_cataluna_clasificador_fv_ripre_true_aparece():
@@ -735,7 +729,7 @@ def test_cataluna_clasificador_fv_ripre_true_aparece():
     )
     res = c.clasificar(params)
     ids = [t.regla_id for t in res.tramites]
-    assert "CAT-FV-RIPRE-EXCEDENTES-SIN-COMP" in ids
+    assert "CAT-FV-RIPRE" in ids
 
 
 def test_cataluna_schema_tension_sincronizacion():
@@ -744,8 +738,7 @@ def test_cataluna_schema_tension_sincronizacion():
         tipo_instalacion="fotovoltaica_autoconsumo", comunidad="cataluna",
         potencia_kw=50, uso="residencial",
         modalidad_autoconsumo="sin_excedentes",
-        ubicacion_suelo="urbanizado", requiere_acceso_conexion=False,
-        tension="BT",
+        ubicacion_suelo="urbanizado", requiere_acceso_conexion=False, tension="BT",
     )
     assert params.nivel_tension_conexion == "bt"
 
@@ -757,7 +750,7 @@ def test_cataluna_schema_tension_incompatible_error():
             tipo_instalacion="fotovoltaica_autoconsumo", comunidad="cataluna",
             potencia_kw=50, uso="residencial",
             modalidad_autoconsumo="sin_excedentes",
-            ubicacion_suelo="urbanizado", requiere_acceso_conexion=False,
+            ubicacion_suelo="urbanizado", requiere_acceso_conexion=False, tension="BT",
             tension="BT",
             nivel_tension_conexion="at",
         )

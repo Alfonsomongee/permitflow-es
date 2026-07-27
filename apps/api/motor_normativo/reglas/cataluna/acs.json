@@ -1,18 +1,20 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cataluna",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
-  "aviso": "Auditado y adaptado según investigación consolidada. Marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación electrónica obligatoria. Plazos y tasas: null (no contrastados oficialmente). Inspección periódica ACS centralizada >70kW: verificación parcial pendiente ITA 9 completa.",
-  "huecos_verificacion": [],
+  "aviso": "Reglas RITE y sanitarias revisadas. Los plazos y tasas no se automatizan. La inspección periódica de ACS centralizada se mantiene con verificación parcial hasta confirmar literalmente la ITA 9 completa.",
+  "huecos_verificacion": [
+    "Confirmar directamente en el texto oficial completo de la ITA 9 el alcance y periodicidad de la inspección de ACS centralizada >70 kW con acumulación o retorno."
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 314/2006 CTE DB-HE",
     "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
     "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes",
-    "Decret 352/2004, de 27 de juliol, pel qual s'estableixen les condicions higienicosanitàries per a la prevenció i el control de la legionel·losi",
+    "Decret 352/2004, de 27 de juliol",
     "RD 487/2022",
     "RD 614/2024"
   ],
@@ -22,26 +24,41 @@
       "campos_requeridos": [
         "potencia_kw"
       ],
-      "accion_si_faltan": "revision_manual",
-      "notas": "incluida_ambito_legionella se exige solo cuando acs_centralizada=true o potencia_kw>=70 (lógica en el validador Python)."
+      "accion_si_faltan": "revision_manual"
     },
     {
-      "id": "CAT-ACS-VALIDACION-INSPECCION-CENTRALIZADA",
+      "id": "CAT-ACS-VALIDACION-INSPECCION",
       "condicion_aplicacion": {
         "and": [
-          {"==": [{"var": "acs_centralizada"}, true]},
-          {">":  [{"var": "potencia_kw"}, 70]}
+          {
+            "==": [
+              {
+                "var": "acs_centralizada"
+              },
+              true
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
-      "campos_requeridos": ["dispone_acumulacion", "dispone_circuito_retorno"],
-      "accion_si_faltan": "revision_manual",
-      "notas": "Para instalaciones ACS centralizadas >70 kW se requieren datos de acumulación y retorno para determinar si aplica inspección periódica."
+      "campos_requeridos": [
+        "dispone_acumulacion",
+        "dispone_circuito_retorno"
+      ],
+      "accion_si_faltan": "revision_manual"
     }
   ],
   "reglas": [
     {
       "id": "CAT-ACS-INFO",
-      "descripcion": "Instalación de ACS con potencia < 5 kW",
+      "descripcion": "ACS <5 kW: sin presentación documental de alta RITE por potencia",
       "condicion": {
         "and": [
           {
@@ -65,8 +82,8 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "No requiere presentación de documentación para el alta RITE por razón de potencia, sin perjuicio del cumplimiento técnico y de otras obligaciones aplicables.",
-          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "nombre": "Información: no requiere presentación documental de alta RITE por razón de potencia",
+          "organismo": "Departament d’Empresa i Treball - Servei de Seguretat d’Instal·lacions",
           "base_legal": "RITE RD 1027/2007; Decret 192/2023",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
@@ -76,14 +93,15 @@
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-ACS-INFO",
+          "tipo_actuacion": "informativa",
           "documentos_requeridos": [],
-          "notas": "Instalación de muy pequeña potencia exenta de registro formal de alta, pero obligada al cumplimiento de los requisitos técnicos del RITE."
+          "notas": "No equivale a exención del cumplimiento técnico del RITE ni de otras obligaciones."
         }
       ]
     },
     {
       "id": "CAT-ACS-MTD",
-      "descripcion": "Instalación de ACS con potencia 5 kW <= potencia < 70 kW (memoria técnica, sin proyecto)",
+      "descripcion": "ACS de 5 a <70 kW: memoria técnica",
       "condicion": {
         "and": [
           {
@@ -115,9 +133,9 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de diseño (MTD) para instalación térmica",
-          "organismo": "Instalador habilitado (carné de instalador térmico)",
-          "base_legal": "RITE RD 1027/2007; Decret 192/2023",
+          "nombre": "Memoria técnica de diseño de la instalación térmica",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -126,16 +144,11 @@
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-ACS-MTD",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
-              "label": "Memoria técnica de diseño (MTD) firmada por instalador",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Copia del carné de instalador térmico",
+              "label": "Memoria técnica de diseño",
               "descripcion": "",
               "obligatorio": true
             }
@@ -144,40 +157,41 @@
         },
         {
           "orden": 2,
-          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
-          "base_legal": "RITE RD 1027/2007 art. 23-24; Llei 9/2014; Decret 192/2023",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis",
+          "organismo": "Departament d’Empresa i Treball - Servei de Seguretat d’Instal·lacions",
+          "base_legal": "RITE RD 1027/2007; Llei 9/2014; Decret 192/2023",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
           "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Presentacio-de-la-declaracio-responsable-per-a-installacions-termiques-en-edificis",
           "coste_estimado": null,
           "formulario_ref": null,
-          "registro_salida": "RITSIC",
-          "medio_presentacion": "electronico_obligatorio",
           "paralelo_con": null,
           "regla_id": "CAT-ACS-MTD",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
-              "label": "Memoria técnica de diseño (MTD)",
+              "label": "Memoria técnica de diseño",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalador",
-              "label": "Copia del carné de instalador térmico",
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de instalación térmica",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el Registre d'Instal·lacions Tècniques de Seguretat Industrial de Catalunya (RITSIC)."
+          "notas": "Presentación electrónica obligatoria y alta en RITSIC.",
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio"
         }
       ]
     },
     {
       "id": "CAT-ACS-PROYECTO",
-      "descripcion": "Instalación de ACS con potencia >= 70 kW (requiere proyecto técnico)",
+      "descripcion": "ACS >=70 kW: proyecto técnico",
       "condicion": {
         "and": [
           {
@@ -202,8 +216,8 @@
         {
           "orden": 1,
           "nombre": "Proyecto técnico de instalación térmica",
-          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007; Decret 192/2023",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -212,10 +226,11 @@
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-ACS-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "proyecto_termico",
-              "label": "Proyecto técnico firmado por técnico competente",
+              "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
             }
@@ -224,19 +239,18 @@
         },
         {
           "orden": 2,
-          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
-          "base_legal": "RITE RD 1027/2007 art. 23-24; Llei 9/2014; Decret 192/2023",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis",
+          "organismo": "Departament d’Empresa i Treball - Servei de Seguretat d’Instal·lacions",
+          "base_legal": "RITE RD 1027/2007; Llei 9/2014; Decret 192/2023",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
           "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Presentacio-de-la-declaracio-responsable-per-a-installacions-termiques-en-edificis",
           "coste_estimado": null,
           "formulario_ref": null,
-          "registro_salida": "RITSIC",
-          "medio_presentacion": "electronico_obligatorio",
           "paralelo_con": null,
           "regla_id": "CAT-ACS-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "proyecto_termico",
@@ -246,18 +260,26 @@
             },
             {
               "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra (CDO)",
-              "descripcion": "Firmado por técnico competente y visado.",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica",
+              "label": "Certificado de instalación térmica",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC."
+          "notas": "Presentación electrónica obligatoria y alta en RITSIC.",
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio"
         }
       ]
     },
     {
       "id": "CAT-ACS-LEGIONELLA",
-      "descripcion": "Requisitos específicos de prevención y control de legionelosis para instalaciones de ACS",
+      "descripcion": "Obligaciones de prevención de legionelosis",
       "condicion": {
         "and": [
           {
@@ -281,8 +303,8 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Implantación y mantenimiento del Plan de Prevención y Control de Legionelosis (PPCL) o Plan Sanitario frente a Legionella (PSL)",
-          "organismo": "Titular de la instalación / autoridad sanitaria competente - ASPCAT",
+          "nombre": "Implantación y mantenimiento del PPCL o PSL",
+          "organismo": "Titular de la instalación / autoridad sanitaria competente (ASPCAT)",
           "base_legal": "Decret 352/2004; RD 487/2022; RD 614/2024",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
@@ -292,39 +314,77 @@
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-ACS-LEGIONELLA",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "libro_registro_legionella",
-              "label": "Libro de registro y mantenimiento sanitario",
-              "descripcion": "Operaciones de mantenimiento, limpieza y desinfección.",
+              "id": "ppcl_psl",
+              "label": "PPCL o PSL y registros asociados",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Obligación sanitaria documental, operativa y de mantenimiento. No se ha identificado una solicitud administrativa única aplicable a toda instalación."
+          "notas": "Obligación sanitaria; no se modela como una solicitud administrativa universal."
         }
       ]
     },
     {
       "id": "CAT-ACS-INSPECCION-PERIODICA",
-      "descripcion": "ACS centralizada con potencia >70 kW y acumulación o circuito de retorno: inspección periódica cada 4 años (ITA 9, Decret 192/2023). Verificación parcial.",
+      "descripcion": "Posible inspección periódica de ACS centralizada >70 kW con acumulación o retorno",
       "nivel_verificacion_regla": "parcial",
       "condicion": {
         "and": [
-          {"==": [{"var": "tipo_instalacion"}, "acs"]},
-          {">":  [{"var": "potencia_kw"}, 70]},
-          {"==": [{"var": "acs_centralizada"}, true]},
-          {"or": [
-            {"==": [{"var": "dispone_acumulacion"}, true]},
-            {"==": [{"var": "dispone_circuito_retorno"}, true]}
-          ]}
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "acs_centralizada"
+              },
+              true
+            ]
+          },
+          {
+            "or": [
+              {
+                "==": [
+                  {
+                    "var": "dispone_acumulacion"
+                  },
+                  true
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "dispone_circuito_retorno"
+                  },
+                  true
+                ]
+              }
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inspecció periòdica d'instal·lació tèrmica d'ACS centralitzada (>70 kW amb acumulació o retorn)",
-          "organismo": "Organisme de control acreditat (OCA) - àmbit RITE",
-          "base_legal": "RITE RD 1027/2007; Decret 192/2023 ITA 9 (verificación parcial)",
+          "nombre": "Revisión manual: posible inspección periódica de seguridad",
+          "organismo": "Organismo de control habilitado",
+          "base_legal": "Decret 192/2023, ITA 9 (pendiente de confirmación literal)",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -333,15 +393,9 @@
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-ACS-INSPECCION-PERIODICA",
-          "documentos_requeridos": [
-            {
-              "id": "informe_inspeccion_periodica",
-              "label": "Informe de inspección periódica emitido por OCA",
-              "descripcion": "Periodicidad 4 años. Alcance pendiente de confirmación con ITA 9 oficial del Decret 192/2023.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "VERIFICACIÓN PARCIAL: La obligación de inspección periódica para ACS centralizada >70 kW con acumulación o retorno procede de material sectorial basado en ITA 9. No se ha localizado el texto literal de la ITA 9 del Decret 192/2023. No debe afirmarse como obligación cerrada sin confirmar."
+          "tipo_actuacion": "revision_manual",
+          "documentos_requeridos": [],
+          "notas": "No debe presentarse como obligación cerrada hasta confirmar la ITA 9 oficial completa."
         }
       ]
     }

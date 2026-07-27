@@ -46,10 +46,14 @@ def test_fv_madrid_bt_normalizacion(clasificador):
     res = clasificador.clasificar(params)
     tramites = res.tramites
     assert len(tramites) == 2
-    assert tramites[0].regla_id == "MAD-FV-BT-PUESTA-SERVICIO"
-    assert tramites[0].tipo_actuacion == "accion_usuario"
-    assert tramites[1].regla_id == "MAD-FV-REGISTRO-OFICIO"
-    assert tramites[1].tipo_actuacion == "oficio_administracion"
+    
+    por_id = {tramite.regla_id: tramite for tramite in res.tramites}
+    assert set(por_id.keys()) == {
+        "MAD-FV-BT-PUESTA-SERVICIO",
+        "MAD-FV-REGISTRO-OFICIO",
+    }
+    assert por_id["MAD-FV-BT-PUESTA-SERVICIO"].tipo_actuacion == "accion_usuario"
+    assert por_id["MAD-FV-REGISTRO-OFICIO"].tipo_actuacion == "oficio_administracion"
 
 def test_fv_madrid_bt_conflicto(clasificador):
     with pytest.raises(ValidationError):
@@ -72,3 +76,4 @@ def test_fv_madrid_sin_tension(clasificador):
     res = clasificador.clasificar(params)
     assert len(res.tramites) == 1
     assert res.tramites[0].tipo_actuacion == "revision_manual"
+    assert res.tramites[0].regla_id == "REVISION-MANUAL-FV-TENSION-AUSENTE"

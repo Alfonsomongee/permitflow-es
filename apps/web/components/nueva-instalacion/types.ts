@@ -20,6 +20,9 @@ export const FORM_INITIAL: FormState = {
   presion_bar: "normal",
   solicita_ayuda: false,
   tension: "",
+  nivel_tension_consumidor: "",
+  nivel_tension_generacion: "",
+  nivel_tension_conexion: "",
   modalidad_autoconsumo: "",
 };
 

@@ -30,6 +30,9 @@ export const nuevaInstalacionSchema = z.object({
 
   // PV
   tension: z.string(),
+  nivel_tension_consumidor: z.string().optional(),
+  nivel_tension_generacion: z.string().optional(),
+  nivel_tension_conexion: z.string().optional(),
   modalidad_autoconsumo: z.string(),
 
   // Step 3

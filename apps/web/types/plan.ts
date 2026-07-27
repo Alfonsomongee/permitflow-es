@@ -82,6 +82,13 @@ export interface InstalacionParams {
   acceso_publico?: boolean;
   ubicacion_irve?: string;
   solicita_ayuda?: boolean;
+  tension?: string;
+  nivel_tension_consumidor?: string;
+  nivel_tension_generacion?: string;
+  nivel_tension_conexion?: string;
+  modalidad_autoconsumo?: string;
+  combustible?: string;
+  presion_bar?: string;
 }
 
 export const TIPO_LABEL: Record<string, string> = {

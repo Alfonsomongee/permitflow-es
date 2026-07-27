@@ -1,17 +1,17 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "cataluna",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
-  "aviso": "Gas: datos de entrada exclusivamente numéricos (potencia_resultante_kw, presion_resultante_bar). Proyecto obligatorio si presión >5 bar, potencia individual >70 kW, común/conexion_servicio >2000 kW, o ampliación >30%. EIC: no se exige universalmente. Plazos y tasas: null.",
+  "aviso": "Dos reglas principales mutuamente excluyentes. Datos resultantes numéricos. La intervención de organismo de control no se universaliza.",
   "huecos_verificacion": [
-    "EIC gas: pendiente confirmar si la Generalitat exige inspección EIC en algún supuesto específico no cubierto por el campo presion_resultante_bar > 5"
+    "Pendiente de determinar los supuestos sectoriales expresos de inspección inicial por organismo de control en instalaciones receptoras de gas.",
+    "Una presión resultante >5 bar debe revisarse además respecto del alcance semántico del vertical gas_baja_presion."
   ],
   "fuentes": [
-    "RD 919/2006 Reglamento técnico de distribución y utilización de combustibles gaseosos (RDUCG)",
-    "ITC-ICG 07 y 08 (diseño, proyecto e instalación gas natural)",
+    "RD 919/2006 y ITC-ICG-07",
     "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
     "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
   ],
@@ -19,293 +19,56 @@
     {
       "id": "CAT-GAS-VALIDACION-DATOS",
       "campos_requeridos": [
+        "clase_instalacion_gas",
         "potencia_resultante_kw",
-        "presion_resultante_bar"
-      ],
-      "accion_si_faltan": "revision_manual"
-    },
-    {
-      "id": "CAT-GAS-VALIDACION-AMPLIACION",
-      "campos_requeridos": [
-        "es_ampliacion",
-        "incremento_potencia_pct"
+        "presion_resultante_bar",
+        "es_ampliacion"
       ],
       "accion_si_faltan": "revision_manual"
     },
     {
       "id": "CAT-GAS-VALIDACION-CLASE",
       "campo": "clase_instalacion_gas",
-      "valores_permitidos": ["individual", "comun", "conexion_servicio"],
+      "valores_permitidos": [
+        "individual",
+        "comun",
+        "conexion_servicio"
+      ],
       "obligatorio": true,
-      "accion_si_invalido": "revision_manual",
-      "notas": "Una clase de instalación de gas desconocida no debe alcanzar la lógica JSONLogic. El Literal de Pydantic (individual|comun|conexion_servicio) en el schema garantiza esto a nivel de API."
+      "accion_si_invalido": "revision_manual"
+    },
+    {
+      "id": "CAT-GAS-VALIDACION-AMPLIACION",
+      "condicion_aplicacion": {
+        "==": [
+          {
+            "var": "es_ampliacion"
+          },
+          true
+        ]
+      },
+      "campos_requeridos": [
+        "incremento_potencia_pct"
+      ],
+      "accion_si_faltan": "revision_manual"
     }
   ],
   "reglas": [
     {
-      "id": "CAT-GAS-PROYECTO-ALTA-PRESION",
-      "descripcion": "Instalación de gas que supera 5 bar de presión resultante: requiere proyecto técnico obligatorio, independientemente de la potencia",
-      "condicion": {
-        ">": [
-          {
-            "var": "presion_resultante_bar"
-          },
-          5
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto técnico de instalación de gas (alta presión > 5 bar)",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 RDUCG; ITC-ICG 07-08; Llei 9/2014; Decret 192/2023",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": null,
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas firmado por técnico competente",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La presión de diseño superior a 5 bar exige obligatoriamente proyecto técnico, con independencia de la potencia de la instalación."
-        },
-        {
-          "orden": 2,
-          "nombre": "Sol·licitud d'autorització administrativa d'instal·lació (RITSIC) per a instal·lació de gas",
-          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
-          "base_legal": "RD 919/2006; Llei 9/2014; Decret 192/2023",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
-          "coste_estimado": null,
-          "formulario_ref": null,
-          "registro_salida": "RITSIC",
-          "medio_presentacion": "electronico_obligatorio",
-          "paralelo_con": null,
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalador_gas",
-              "label": "Copia del carné de instalador de gas (EBA/EBI)",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Tramitación electrónica obligatoria. Produce alta en el RITSIC."
-        }
-      ]
-    },
-    {
-      "id": "CAT-GAS-PROYECTO-POTENCIA-INDIVIDUAL",
-      "descripcion": "Instalación individual de gas con potencia > 70 kW (requiere proyecto técnico aunque la presión sea <= 5 bar)",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "presion_resultante_bar"
-              },
-              5
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "clase_instalacion_gas"
-              },
-              "individual"
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "potencia_resultante_kw"
-              },
-              70
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto técnico de instalación de gas (potencia individual > 70 kW)",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 RDUCG; ITC-ICG 07-08; Llei 9/2014; Decret 192/2023",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": null,
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas firmado por técnico competente",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Sol·licitud d'autorització administrativa d'instal·lació (RITSIC) per a instal·lació de gas",
-          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
-          "base_legal": "RD 919/2006; Llei 9/2014; Decret 192/2023",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
-          "coste_estimado": null,
-          "formulario_ref": null,
-          "registro_salida": "RITSIC",
-          "medio_presentacion": "electronico_obligatorio",
-          "paralelo_con": null,
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalador_gas",
-              "label": "Copia del carné de instalador de gas (EBA/EBI)",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Tramitación electrónica obligatoria. Produce alta en el RITSIC."
-        }
-      ]
-    },
-    {
-      "id": "CAT-GAS-PROYECTO-COMUN",
-      "descripcion": "Instalación común o de conexión de servicio con potencia > 2000 kW (requiere proyecto técnico)",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "presion_resultante_bar"
-              },
-              5
-            ]
-          },
-          {
-            "in": [
-              {
-                "var": "clase_instalacion_gas"
-              },
-              [
-                "comun",
-                "conexion_servicio"
-              ]
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "potencia_resultante_kw"
-              },
-              2000
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto técnico de instalación de gas (potencia común/conexión servicio > 2000 kW)",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 RDUCG; ITC-ICG 07-08; Llei 9/2014; Decret 192/2023",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": null,
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas firmado por técnico competente",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Sol·licitud d'autorització administrativa d'instal·lació (RITSIC) per a instal·lació de gas",
-          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
-          "base_legal": "RD 919/2006; Llei 9/2014; Decret 192/2023",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
-          "coste_estimado": null,
-          "formulario_ref": null,
-          "registro_salida": "RITSIC",
-          "medio_presentacion": "electronico_obligatorio",
-          "paralelo_con": null,
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalador_gas",
-              "label": "Copia del carné de instalador de gas (EBA/EBI)",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Tramitación electrónica obligatoria. Produce alta en el RITSIC."
-        }
-      ]
-    },
-    {
-      "id": "CAT-GAS-PROYECTO-AMPLIACION",
-      "descripcion": "Ampliación de instalación de gas con incremento > 30% o que supere los umbrales de proyecto (70 kW individual / 2000 kW común-conexión / 5 bar)",
+      "id": "CAT-GAS-CON-PROYECTO",
+      "descripcion": "Instalación receptora de gas que requiere proyecto",
       "condicion": {
         "and": [
           {
             "==": [
               {
-                "var": "es_ampliacion"
+                "var": "tipo_instalacion"
               },
-              true
+              "gas_baja_presion"
             ]
           },
           {
             "or": [
-              {
-                ">": [
-                  {
-                    "var": "incremento_potencia_pct"
-                  },
-                  30
-                ]
-              },
               {
                 ">": [
                   {
@@ -356,134 +119,6 @@
                     ]
                   }
                 ]
-              }
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto técnico de ampliación de instalación de gas",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RD 919/2006 RDUCG; ITC-ICG 07-08; Llei 9/2014; Decret 192/2023",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": null,
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_ampliacion_gas",
-              "label": "Proyecto técnico de ampliación de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Necesario cuando el incremento de potencia supera el 30% o la instalación resultante supera los umbrales que exigen proyecto."
-        },
-        {
-          "orden": 2,
-          "nombre": "Sol·licitud d'autorització administrativa d'instal·lació (RITSIC) per a modificació d'instal·lació de gas",
-          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
-          "base_legal": "RD 919/2006; Llei 9/2014; Decret 192/2023",
-          "plazo_estimado_dias": null,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
-          "coste_estimado": null,
-          "formulario_ref": null,
-          "registro_salida": "RITSIC",
-          "medio_presentacion": "electronico_obligatorio",
-          "paralelo_con": null,
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_ampliacion_gas",
-              "label": "Proyecto técnico de ampliación",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalador_gas",
-              "label": "Copia del carné de instalador de gas (EBA/EBI)",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Tramitación electrónica obligatoria. Produce actualización del alta en el RITSIC."
-        }
-      ]
-    },
-    {
-      "id": "CAT-GAS-SIN-PROYECTO",
-      "descripcion": "Instalación de gas que no supera ningún umbral de proyecto (presión <= 5 bar, potencia individual <= 70 kW o común/conexión servicio <= 2000 kW, y si ampliación: <= 30%)",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "presion_resultante_bar"
-              },
-              5
-            ]
-          },
-          {
-            "or": [
-              {
-                "and": [
-                  {
-                    "==": [
-                      {
-                        "var": "clase_instalacion_gas"
-                      },
-                      "individual"
-                    ]
-                  },
-                  {
-                    "<=": [
-                      {
-                        "var": "potencia_resultante_kw"
-                      },
-                      70
-                    ]
-                  }
-                ]
-              },
-              {
-                "and": [
-                  {
-                    "in": [
-                      {
-                        "var": "clase_instalacion_gas"
-                      },
-                      [
-                        "comun",
-                        "conexion_servicio"
-                      ]
-                    ]
-                  },
-                  {
-                    "<=": [
-                      {
-                        "var": "potencia_resultante_kw"
-                      },
-                      2000
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "or": [
-              {
-                "!": [
-                  {
-                    "var": "es_ampliacion"
-                  }
-                ]
               },
               {
                 "and": [
@@ -496,7 +131,7 @@
                     ]
                   },
                   {
-                    "<=": [
+                    ">": [
                       {
                         "var": "incremento_potencia_pct"
                       },
@@ -512,8 +147,32 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificat d'instal·lació de gas (CIG) i alta a RITSIC per declaració responsable",
-          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "nombre": "Proyecto técnico de instalación receptora de gas",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RD 919/2006; ITC-ICG-07",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-GAS-CON-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Presentació de la declaració responsable per a instal·lacions de gasos combustibles (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d’Empresa i Treball - Servei de Seguretat d’Instal·lacions",
           "base_legal": "RD 919/2006; Llei 9/2014; Decret 192/2023",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
@@ -521,24 +180,153 @@
           "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
           "coste_estimado": null,
           "formulario_ref": null,
-          "registro_salida": "RITSIC",
-          "medio_presentacion": "electronico_obligatorio",
           "paralelo_con": null,
+          "regla_id": "CAT-GAS-CON-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "certificado_instalacion_gas",
-              "label": "Certificado de instalación de gas (CIG) emitido por instalador habilitado",
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalador_gas",
-              "label": "Copia del carné de instalador de gas (EBA/EBI)",
+              "id": "certificado_instalacion_gas",
+              "label": "Certificado de instalación de gas",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Instalación sin proyecto requerido. Alta en RITSIC mediante declaración responsable con presentación electrónica obligatoria."
+          "notas": "Presentación electrónica obligatoria y alta o actualización en RITSIC.",
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio"
+        }
+      ]
+    },
+    {
+      "id": "CAT-GAS-SIN-PROYECTO",
+      "descripcion": "Instalación receptora de gas que no requiere proyecto",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "gas_baja_presion"
+            ]
+          },
+          {
+            "!": {
+              "or": [
+                {
+                  ">": [
+                    {
+                      "var": "presion_resultante_bar"
+                    },
+                    5
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "clase_instalacion_gas"
+                        },
+                        "individual"
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_resultante_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "clase_instalacion_gas"
+                        },
+                        [
+                          "comun",
+                          "conexion_servicio"
+                        ]
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_resultante_kw"
+                        },
+                        2000
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "es_ampliacion"
+                        },
+                        true
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "incremento_potencia_pct"
+                        },
+                        30
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Presentació de la declaració responsable per a instal·lacions de gasos combustibles (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d’Empresa i Treball - Servei de Seguretat d’Instal·lacions",
+          "base_legal": "RD 919/2006; Llei 9/2014; Decret 192/2023",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-GAS-SIN-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion_gas",
+              "label": "Certificado de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "memoria_tecnica_gas",
+              "label": "Memoria técnica, cuando proceda",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Presentación electrónica obligatoria y alta o actualización en RITSIC.",
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio"
         }
       ]
     }
