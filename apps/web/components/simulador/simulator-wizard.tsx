@@ -22,7 +22,10 @@ const inmuebleSchema = z.object({
 });
 
 const presupuestoSchema = z.object({
-  presupuesto: z.coerce.number().min(1000, 'El presupuesto mínimo es 1000€').max(100000, 'El presupuesto máximo es 100000€'),
+  presupuesto: z.number({
+    required_error: 'El presupuesto es requerido',
+    invalid_type_error: 'Debe ser un número',
+  }).min(1000, 'El presupuesto mínimo es 1000€').max(100000, 'El presupuesto máximo es 100000€'),
 });
 
 export function SimulatorWizard() {
@@ -175,7 +178,7 @@ export function SimulatorWizard() {
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="presupuesto">Presupuesto (€)</Label>
-                    <Input id="presupuesto" type="number" {...presupuestoForm.register('presupuesto')} />
+                    <Input id="presupuesto" type="number" {...presupuestoForm.register('presupuesto', { valueAsNumber: true })} />
                     {presupuestoForm.formState.errors.presupuesto && (
                       <p className="text-sm text-destructive">{presupuestoForm.formState.errors.presupuesto.message}</p>
                     )}
