@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -15,9 +15,9 @@ import { Progress } from '@/components/ui/progress';
 import { InformeInteractivo } from './informe-interactivo';
 import type { FacturaResponse, GenerarResponse, EstudioResponse } from '@/types/simulador';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
 const POLL_INTERVAL_MS = 3000;
 const POLL_TIMEOUT_MS = 90_000;
+const MAX_PDF_SIZE = 10 * 1024 * 1024;
 
 // Tipos de inmueble no residenciales: redirigir a contacto
 const TIPO_NO_RESIDENCIAL = new Set(['empresa', 'comunidad_vecinos']);
@@ -63,6 +63,14 @@ export function SimulatorWizard() {
   const [errorMensaje, setErrorMensaje] = useState<string | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
 
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
+
   const isSimulating = simulacionEstado === 'subiendo_factura' || simulacionEstado === 'generando_informe';
 
   const inmuebleForm = useForm<z.infer<typeof inmuebleSchema>>({
@@ -94,16 +102,25 @@ export function SimulatorWizard() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const extension = file.name.split('.').pop()?.toLowerCase();
+
     // Imágenes: aviso educativo con enlaces a áreas de cliente (rama de producto, no error)
-    if (file.type === 'image/jpeg' || file.type === 'image/png') {
+    if (file.type.startsWith('image/')) {
       setFileError('error_image');
       setFacturaFile(null);
       e.target.value = '';
       return;
     }
 
-    if (file.type !== 'application/pdf') {
+    if (file.type !== 'application/pdf' && extension !== 'pdf') {
       setFileError('Solo se admiten archivos PDF.');
+      setFacturaFile(null);
+      e.target.value = '';
+      return;
+    }
+
+    if (file.size > MAX_PDF_SIZE) {
+      setFileError('El archivo es demasiado grande (máximo 10 MB).');
       setFacturaFile(null);
       e.target.value = '';
       return;
@@ -114,7 +131,11 @@ export function SimulatorWizard() {
   };
 
   const simulate = async () => {
-    if (!facturaFile) return;
+    if (!facturaFile || isSimulating) return;
+
+    abortControllerRef.current?.abort();
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
 
     setSimulacionEstado('subiendo_factura');
     setErrorMensaje(null);
@@ -124,10 +145,10 @@ export function SimulatorWizard() {
       const formData = new FormData();
       formData.append('file', facturaFile);
 
-      const facturaRes = await fetch(`${API_URL}/simulador/factura`, {
+      const facturaRes = await fetch('/api/simulador/factura', {
         method: 'POST',
-        headers: { 'X-Internal-Key': process.env.NEXT_PUBLIC_INTERNAL_KEY ?? '' },
         body: formData,
+        signal: controller.signal,
       });
 
       if (!facturaRes.ok) {
@@ -148,17 +169,18 @@ export function SimulatorWizard() {
       // --- Paso 2: Generar informe ---
       setSimulacionEstado('generando_informe');
 
-      const generarRes = await fetch(`${API_URL}/simulador/generar`, {
+      const generarRes = await fetch('/api/simulador/generar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Internal-Key': process.env.NEXT_PUBLIC_INTERNAL_KEY ?? '',
         },
         body: JSON.stringify({
           analisis_id: factura.id,
           region: codigoPostal,
           tipo_inmueble: storedTipoInmueble ?? 'vivienda_unifamiliar',
+          presupuesto: globalPresupuesto,
         }),
+        signal: controller.signal,
       });
 
       if (!generarRes.ok) {
@@ -178,13 +200,19 @@ export function SimulatorWizard() {
           return;
         }
 
-        await new Promise(r => setTimeout(r, POLL_INTERVAL_MS));
+        await new Promise((resolve, reject) => {
+          const timeoutId = setTimeout(resolve, POLL_INTERVAL_MS);
+          controller.signal.addEventListener('abort', () => {
+            clearTimeout(timeoutId);
+            reject(new DOMException('Aborted', 'AbortError'));
+          }, { once: true });
+        });
 
-        const estudioRes = await fetch(`${API_URL}/simulador/estudio/${estudio_id}`, {
+        const estudioRes = await fetch(`/api/simulador/estudio/${estudio_id}`, {
           headers: {
-            'X-Internal-Key': process.env.NEXT_PUBLIC_INTERNAL_KEY ?? '',
             'X-Estudio-Token': token,
           },
+          signal: controller.signal,
         });
 
         if (!estudioRes.ok) {
@@ -208,6 +236,9 @@ export function SimulatorWizard() {
         // estado === 'pendiente': continuar polling
       }
     } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        return; // Ignorar si el usuario canceló
+      }
       const msg = e instanceof Error ? e.message : 'Error desconocido. Inténtalo de nuevo.';
       setSimulacionEstado('error');
       setErrorMensaje(msg);

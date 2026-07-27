@@ -110,62 +110,6 @@ function PlazoBadge({
   );
 }
 
-const SIGUIENTE_ESTADO: Record<TramiteEstado, TramiteEstado> = {
-  pendiente: "en_curso",
-  en_curso: "completado",
-  completado: "pendiente",
-};
-
-const ESTADO_TITULO: Record<TramiteEstado, string> = {
-  pendiente: "Marcar como en curso",
-  en_curso: "Marcar como completado",
-  completado: "Volver a pendiente",
-};
-
-function EstadoTramiteButton({
-  orden,
-  estado,
-  pending,
-  onChange,
-}: {
-  orden: number;
-  estado: TramiteEstado;
-  pending: boolean;
-  onChange?: (estado: TramiteEstado) => void;
-}) {
-  const base =
-    "mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all";
-
-  if (!onChange) {
-    return <span className={`${base} bg-primary text-white shadow-sm`}>{orden}</span>;
-  }
-
-  const estilo =
-    estado === "completado"
-      ? "bg-success text-white shadow-sm hover:opacity-90"
-      : estado === "en_curso"
-        ? "bg-warning text-white shadow-sm hover:opacity-90"
-        : "border-2 border-border bg-surface text-text-secondary hover:border-primary hover:text-primary hover:scale-105";
-
-  return (
-    <button
-      onClick={() => onChange(SIGUIENTE_ESTADO[estado])}
-      disabled={pending}
-      className={`${base} ${estilo} disabled:opacity-60 disabled:hover:scale-100`}
-      title={ESTADO_TITULO[estado]}
-      aria-label={`Trámite ${orden}: ${ESTADO_TITULO[estado].toLowerCase()}`}
-    >
-      {pending ? (
-        <Loader2 size={15} className="animate-spin" aria-hidden />
-      ) : estado === "completado" ? (
-        <Check size={16} aria-hidden />
-      ) : (
-        orden
-      )}
-    </button>
-  );
-}
-
 function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -192,9 +136,17 @@ function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
               </span>
             )}
           </span>
-          {expanded && doc.descripcion && (
-            <p className="mt-1.5 text-xs leading-relaxed text-text-secondary">{doc.descripcion}</p>
-          )}
+          <div
+            className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+              expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            }`}
+          >
+            <div className="overflow-hidden">
+              {doc.descripcion && (
+                <p className="mt-1.5 text-xs leading-relaxed text-text-secondary">{doc.descripcion}</p>
+              )}
+            </div>
+          </div>
         </div>
         <ChevronDown
           size={13}
@@ -231,6 +183,8 @@ export function TramiteCard({
   const obligatorios = tramite.documentos_requeridos.filter((doc) => doc.obligatorio);
   const opcionales = tramite.documentos_requeridos.filter((doc) => !doc.obligatorio);
 
+  const StatusIcon = estado === "completado" ? CheckCircle2 : estado === "en_curso" ? Loader2 : null;
+
   return (
     <div
       className={`tramite-card overflow-hidden rounded-2xl border bg-surface transition-shadow ${
@@ -238,36 +192,34 @@ export function TramiteCard({
       }`}
     >
       <div className="flex w-full items-start gap-4 p-5 sm:p-6">
-        <EstadoTramiteButton orden={tramite.orden} estado={estado} pending={pending} onChange={onEstadoChange} />
+        {/* Número de orden */}
+        <div className={`mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold shadow-sm transition-colors ${
+          estado === "completado" ? "bg-success text-white" : estado === "en_curso" ? "bg-warning text-white" : "bg-bg border border-border text-text-secondary"
+        }`}>
+          {estado === "completado" ? <Check size={16} /> : tramite.orden}
+        </div>
 
-        <button
-          className="flex min-w-0 flex-1 flex-col gap-3 text-left sm:flex-row sm:items-start sm:justify-between"
-          onClick={() => setOpen((value) => !value)}
-          aria-expanded={open}
-        >
-          <div className="min-w-0 flex-1">
-            <p
-              className={`text-base font-semibold leading-snug ${
-                estado === "completado" ? "text-text-secondary line-through" : "text-text-primary"
-              }`}
-            >
-              {tramite.nombre}
-            </p>
-            <p className="mt-1 truncate text-sm text-text-secondary">{tramite.organismo}</p>
-          </div>
-
-          <div className="flex flex-shrink-0 flex-wrap items-center gap-2 sm:flex-col sm:items-end">
-            <div className="flex items-center gap-2">
-              <PlataformaBadge plataforma={tramite.plataforma} />
-              <ChevronDown
-                size={16}
-                className={`hidden text-text-secondary transition-transform duration-200 sm:block ${
-                  open ? "rotate-180" : ""
+        {/* Contenido principal (clicable para expandir) */}
+        <div className="flex min-w-0 flex-1 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          
+          <button
+            className="flex min-w-0 flex-1 flex-col gap-2 text-left"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+          >
+            <div className="min-w-0">
+              <p
+                className={`text-base font-semibold leading-snug transition-colors ${
+                  estado === "completado" ? "text-text-secondary" : "text-text-primary"
                 }`}
-                aria-hidden
-              />
+              >
+                {tramite.nombre}
+              </p>
+              <p className="mt-1 truncate text-sm text-text-secondary">{tramite.organismo}</p>
             </div>
-            <div className="flex flex-wrap items-center gap-1.5">
+
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              <PlataformaBadge plataforma={tramite.plataforma} />
               <PlazoBadge
                 estimado={tramite.plazo_estimado_dias}
                 legal={tramite.plazo_legal_dias}
@@ -276,79 +228,134 @@ export function TramiteCard({
               />
               <EstadisticaRealBadge estadistica={estadistica} />
             </div>
+          </button>
+
+          {/* Botonera derecha: Estado y flecha */}
+          <div className="flex flex-shrink-0 items-center gap-3">
+            {onEstadoChange ? (
+              <div className="relative">
+                <select
+                  value={estado}
+                  onChange={(e) => onEstadoChange(e.target.value as TramiteEstado)}
+                  disabled={pending}
+                  className={`h-9 w-36 appearance-none rounded-xl border pl-3 pr-8 text-xs font-semibold shadow-sm outline-none transition-colors disabled:opacity-50 ${
+                    estado === "completado" ? "border-success bg-success-light text-success-dark" :
+                    estado === "en_curso" ? "border-warning bg-warning-light text-warning-dark" :
+                    "border-border bg-surface text-text-primary hover:border-primary focus:border-primary"
+                  }`}
+                >
+                  <option value="pendiente">Pendiente</option>
+                  <option value="en_curso">En curso</option>
+                  <option value="completado">Completado</option>
+                </select>
+                <div className="pointer-events-none absolute right-2.5 top-0 flex h-full items-center">
+                  {pending ? (
+                    <Loader2 size={14} className="animate-spin text-current opacity-70" />
+                  ) : (
+                    <ChevronDown size={14} className="text-current opacity-70" />
+                  )}
+                </div>
+              </div>
+            ) : (
+              <span className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold ${
+                  estado === "completado" ? "border-success bg-success-light text-success-dark" :
+                  estado === "en_curso" ? "border-warning bg-warning-light text-warning-dark" :
+                  "border-border bg-surface text-text-primary"
+              }`}>
+                {StatusIcon && <StatusIcon size={14} />}
+                {estado === "completado" ? "Completado" : estado === "en_curso" ? "En curso" : "Pendiente"}
+              </span>
+            )}
+            
+            <button
+              onClick={() => setOpen((value) => !value)}
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface text-text-secondary shadow-sm transition-colors hover:border-primary hover:text-primary"
+            >
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+                aria-hidden
+              />
+            </button>
           </div>
-        </button>
+        </div>
       </div>
 
-      {open && (
-        <div className="divide-y divide-border/70 border-t border-border bg-bg/40">
-          <div className="grid grid-cols-1 gap-4 px-5 py-4 sm:grid-cols-2 sm:px-6">
-            <div className="flex items-start gap-2.5">
-              <Scale size={14} className="mt-0.5 flex-shrink-0 text-text-secondary" aria-hidden />
-              <div>
-                <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Base legal</p>
-                <p className="mt-0.5 text-xs leading-relaxed text-text-primary">{tramite.base_legal}</p>
-              </div>
-            </div>
-            {tramite.coste_estimado && (
+      <div
+        className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="divide-y divide-border/70 border-t border-border bg-bg/40">
+            <div className="grid grid-cols-1 gap-4 px-5 py-4 sm:grid-cols-2 sm:px-6">
               <div className="flex items-start gap-2.5">
-                <Euro size={14} className="mt-0.5 flex-shrink-0 text-text-secondary" aria-hidden />
+                <Scale size={14} className="mt-0.5 flex-shrink-0 text-text-secondary" aria-hidden />
                 <div>
-                  <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Coste estimado</p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-text-primary">{tramite.coste_estimado}</p>
+                  <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Base legal</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-text-primary">{tramite.base_legal}</p>
                 </div>
+              </div>
+              {tramite.coste_estimado && (
+                <div className="flex items-start gap-2.5">
+                  <Euro size={14} className="mt-0.5 flex-shrink-0 text-text-secondary" aria-hidden />
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Coste estimado</p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-text-primary">{tramite.coste_estimado}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {tramite.plataforma_url && (
+              <div className="px-5 py-3 sm:px-6">
+                <a
+                  href={tramite.plataforma_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
+                >
+                  Tramitar online
+                  <ExternalLink size={12} aria-hidden />
+                </a>
+              </div>
+            )}
+
+            {obligatorios.length > 0 && (
+              <div className="px-5 py-4 sm:px-6">
+                <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
+                  Documentos obligatorios ({obligatorios.length})
+                </p>
+                <ul>
+                  {obligatorios.map((doc) => (
+                    <DocumentoItem key={doc.id} doc={doc} />
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {opcionales.length > 0 && (
+              <div className="px-5 py-4 sm:px-6">
+                <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
+                  Documentos opcionales ({opcionales.length})
+                </p>
+                <ul>
+                  {opcionales.map((doc) => (
+                    <DocumentoItem key={doc.id} doc={doc} />
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {tramite.notas && (
+              <div className="flex items-start gap-2.5 bg-warning-light/50 px-5 py-4 sm:px-6">
+                <AlertTriangle size={14} className="mt-0.5 flex-shrink-0 text-warning-dark" aria-hidden />
+                <p className="text-xs leading-relaxed text-warning-dark">{tramite.notas}</p>
               </div>
             )}
           </div>
-
-          {tramite.plataforma_url && (
-            <div className="px-5 py-3 sm:px-6">
-              <a
-                href={tramite.plataforma_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
-              >
-                Tramitar online
-                <ExternalLink size={12} aria-hidden />
-              </a>
-            </div>
-          )}
-
-          {obligatorios.length > 0 && (
-            <div className="px-5 py-4 sm:px-6">
-              <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
-                Documentos obligatorios ({obligatorios.length})
-              </p>
-              <ul>
-                {obligatorios.map((doc) => (
-                  <DocumentoItem key={doc.id} doc={doc} />
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {opcionales.length > 0 && (
-            <div className="px-5 py-4 sm:px-6">
-              <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-text-secondary">
-                Documentos opcionales ({opcionales.length})
-              </p>
-              <ul>
-                {opcionales.map((doc) => (
-                  <DocumentoItem key={doc.id} doc={doc} />
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {tramite.notas && (
-            <div className="flex items-start gap-2.5 bg-warning-light/50 px-5 py-4 sm:px-6">
-              <AlertTriangle size={14} className="mt-0.5 flex-shrink-0 text-warning-dark" aria-hidden />
-              <p className="text-xs leading-relaxed text-warning-dark">{tramite.notas}</p>
-            </div>
-          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { AlertTriangle, CheckCircle2, Loader2, RotateCw, ShieldCheck, XCircle } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Loader2, RotateCw, XCircle } from "lucide-react";
 import type { ValidacionResultado } from "@/types/plan";
 
 interface ValidadorPanelProps {
@@ -48,19 +48,16 @@ export function ValidadorPanel({ expedienteId }: ValidadorPanelProps) {
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-surface p-5">
-      <div className="mb-3 flex items-center justify-between">
-        <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-text-secondary">
-          <ShieldCheck size={12} aria-hidden />
-          Validación pre-presentación
-        </p>
+    <div className="p-3">
+      <div className="mb-3 flex justify-end">
         <button
           onClick={() => void validar()}
           disabled={cargando}
           title="Volver a validar"
-          className="flex h-7 w-7 items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-bg hover:text-primary disabled:opacity-40"
+          className="flex h-7 items-center justify-center gap-1.5 rounded-lg text-xs font-medium text-text-secondary transition-colors hover:text-primary disabled:opacity-40"
         >
-          {cargando ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <RotateCw size={14} aria-hidden />}
+          {cargando ? <Loader2 size={13} className="animate-spin" aria-hidden /> : <RotateCw size={13} aria-hidden />}
+          Re-validar
         </button>
       </div>
 

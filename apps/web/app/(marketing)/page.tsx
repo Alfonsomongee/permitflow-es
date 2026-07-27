@@ -9,6 +9,7 @@ import { HeroSection } from "@/components/marketing/HeroSection";
 import { VerticalesSection } from "@/components/marketing/VerticalesSection";
 import { ComoFuncionaSection } from "@/components/marketing/ComoFuncionaSection";
 import { PreciosSection } from "@/components/marketing/PreciosSection";
+import { Footer } from "@/components/marketing/Footer";
 
 export default function LandingPage() {
   return (
@@ -18,6 +19,7 @@ export default function LandingPage() {
       <VerticalesSection />
       <ComoFuncionaSection />
       <PreciosSection />
+      <Footer />
     </>
   );
 }

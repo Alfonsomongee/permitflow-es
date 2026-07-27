@@ -1,5 +1,6 @@
 "use client";
 
+import { useFormContext, Controller } from "react-hook-form";
 import {
   type FormState,
   TIPO_OPTIONS,
@@ -14,31 +15,42 @@ import {
   InfoBanner,
 } from "./FormPrimitives";
 
-interface Step1Props {
-  state: FormState;
-  onChange: (patch: Partial<FormState>) => void;
-}
-
-export function Step1TipoUbicacion({ state, onChange }: Step1Props) {
-  const cobertura = tieneCobertura(state.tipo_instalacion, state.comunidad);
+export function Step1TipoUbicacion() {
+  const { control, watch } = useFormContext<FormState>();
+  
+  const tipoInstalacion = watch("tipo_instalacion");
+  const comunidad = watch("comunidad");
+  const cobertura = tieneCobertura(tipoInstalacion, comunidad);
 
   return (
     <div className="flex flex-col gap-5">
-      <Field label="Tipo de instalacion">
-        <Select
-          value={state.tipo_instalacion}
-          onChange={(v) => onChange({ tipo_instalacion: v })}
-          options={TIPO_OPTIONS}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="tipo_instalacion"
+        render={({ field, fieldState }) => (
+          <Field label="Tipo de instalacion" error={fieldState.error?.message}>
+            <Select
+              value={field.value}
+              onChange={field.onChange}
+              options={TIPO_OPTIONS}
+            />
+          </Field>
+        )}
+      />
 
-      <Field label="Comunidad autonoma">
-        <Select
-          value={state.comunidad}
-          onChange={(v) => onChange({ comunidad: v })}
-          options={COMUNIDAD_OPTIONS}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="comunidad"
+        render={({ field, fieldState }) => (
+          <Field label="Comunidad autonoma" error={fieldState.error?.message}>
+            <Select
+              value={field.value}
+              onChange={field.onChange}
+              options={COMUNIDAD_OPTIONS}
+            />
+          </Field>
+        )}
+      />
 
       {!cobertura && (
         <InfoBanner type="warning">
@@ -47,14 +59,20 @@ export function Step1TipoUbicacion({ state, onChange }: Step1Props) {
         </InfoBanner>
       )}
 
-      <Field label="Uso de la instalacion">
-        <ToggleGroup
-          value={state.uso as "residencial" | "terciario" | "industrial"}
-          onChange={(v) => onChange({ uso: v })}
-          options={USO_OPTIONS}
-          cols={3}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="uso"
+        render={({ field, fieldState }) => (
+          <Field label="Uso de la instalacion" error={fieldState.error?.message}>
+            <ToggleGroup
+              value={field.value as "residencial" | "terciario" | "industrial"}
+              onChange={field.onChange}
+              options={USO_OPTIONS}
+              cols={3}
+            />
+          </Field>
+        )}
+      />
     </div>
   );
 }

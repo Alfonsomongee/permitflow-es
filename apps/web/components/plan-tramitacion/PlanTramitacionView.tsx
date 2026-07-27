@@ -11,7 +11,7 @@ import {
 } from "@/types/plan";
 import { TramiteCard } from "./TramiteCard";
 import { ResumenPanel } from "./ResumenPanel";
-import { ExportPdfButton } from "./ExportPdfButton";
+import { ExportPdfButtons } from "./ExportPdfButton";
 import { DetallesExpediente } from "./DetallesExpediente";
 import { HistorialPanel } from "./HistorialPanel";
 import { DocumentosPanel } from "./DocumentosPanel";
@@ -20,6 +20,8 @@ import { ValidadorPanel } from "./ValidadorPanel";
 import { useTramitesEstado } from "./useTramitesEstado";
 import { useEstadisticasPlazo } from "./useEstadisticasPlazo";
 import { claveTramite } from "@/lib/tramiteClave";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ShieldCheck, FileText } from "lucide-react";
 
 type ExpedienteEstado = "borrador" | "pendiente" | "en_revision" | "aprobado" | "rechazado";
 
@@ -130,7 +132,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
             <ArrowLeft size={15} aria-hidden />
             Expedientes
           </Link>
-          <ExportPdfButton titulo={titulo} expedienteId={expediente?.id} />
+          <ExportPdfButtons titulo={titulo} expedienteId={expediente?.id} />
         </div>
       </div>
 
@@ -221,10 +223,30 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
           </div>
 
           <div className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start">
+            <ResumenPanel plan={plan} params={params} />
+            
             <div className="no-print flex flex-col gap-4">
-              {expediente && <ValidadorPanel expedienteId={expediente.id} />}
               {expediente && (
-                <DocumentosPanel expedienteId={expediente.id} tipoInstalacion={params.tipo_instalacion} />
+                <div className="rounded-2xl border border-border bg-surface p-2 shadow-sm">
+                  <Tabs defaultValue="validacion">
+                    <TabsList className="w-full">
+                      <TabsTrigger value="validacion" className="w-full">
+                        <ShieldCheck size={14} className="mr-2" aria-hidden />
+                        Validación
+                      </TabsTrigger>
+                      <TabsTrigger value="documentos" className="w-full">
+                        <FileText size={14} className="mr-2" aria-hidden />
+                        Documentos
+                      </TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="validacion" className="mt-2">
+                      <ValidadorPanel expedienteId={expediente.id} />
+                    </TabsContent>
+                    <TabsContent value="documentos" className="mt-2">
+                      <DocumentosPanel expedienteId={expediente.id} tipoInstalacion={params.tipo_instalacion} />
+                    </TabsContent>
+                  </Tabs>
+                </div>
               )}
               {expediente && (
                 <DetallesExpediente
@@ -235,7 +257,6 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
               )}
               {expediente && <HistorialPanel expedienteId={expediente.id} />}
             </div>
-            <ResumenPanel plan={plan} params={params} />
           </div>
         </div>
       </main>

@@ -1,12 +1,8 @@
 "use client";
 
+import { useFormContext, Controller } from "react-hook-form";
 import { type FormState } from "./types";
 import { BoolToggle, Field, InfoBanner } from "./FormPrimitives";
-
-interface Step3Props {
-  state: FormState;
-  onChange: (patch: Partial<FormState>) => void;
-}
 
 // Ayudas disponibles según el tipo de instalación
 const AYUDAS_POR_TIPO: Record<
@@ -48,9 +44,13 @@ const AYUDAS_POR_TIPO: Record<
   gas_baja_presion: [],
 };
 
-export function Step3Ayudas({ state, onChange }: Step3Props) {
-  const ayudasDisponibles =
-    AYUDAS_POR_TIPO[state.tipo_instalacion] ?? [];
+export function Step3Ayudas() {
+  const { control, watch } = useFormContext<FormState>();
+  
+  const tipoInstalacion = watch("tipo_instalacion");
+  const solicitaAyuda = watch("solicita_ayuda");
+  
+  const ayudasDisponibles = AYUDAS_POR_TIPO[tipoInstalacion] ?? [];
 
   return (
     <div className="flex flex-col gap-5">
@@ -76,19 +76,26 @@ export function Step3Ayudas({ state, onChange }: Step3Props) {
             ))}
           </div>
 
-          <Field
-            label="¿Quieres incluir la tramitación de ayudas en el plan?"
-            hint="Activar esta opción añadirá los trámites necesarios para solicitar la subvención al plan de tramitación."
-          >
-            <BoolToggle
-              value={state.solicita_ayuda}
-              onChange={(v) => onChange({ solicita_ayuda: v })}
-              labelTrue="Sí, incluir tramitación de ayudas"
-              labelFalse="No, solo la instalación"
-            />
-          </Field>
+          <Controller
+            control={control}
+            name="solicita_ayuda"
+            render={({ field, fieldState }) => (
+              <Field
+                label="¿Quieres incluir la tramitación de ayudas en el plan?"
+                error={fieldState.error?.message}
+                hint="Activar esta opción añadirá los trámites necesarios para solicitar la subvención al plan de tramitación."
+              >
+                <BoolToggle
+                  value={field.value}
+                  onChange={field.onChange}
+                  labelTrue="Sí, incluir tramitación de ayudas"
+                  labelFalse="No, solo la instalación"
+                />
+              </Field>
+            )}
+          />
 
-          {state.solicita_ayuda && (
+          {solicitaAyuda && (
             <InfoBanner>
               Se añadirán los pasos de solicitud, documentación justificativa y
               plazos de resolución propios de cada programa al plan final.

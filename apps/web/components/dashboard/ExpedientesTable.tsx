@@ -2,7 +2,24 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Filter, Plus, Search } from "lucide-react";
+import { ArrowUpRight, Filter, Plus, Search, ChevronLeft, ChevronRight, ArrowUpDown } from "lucide-react";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  flexRender,
+  type ColumnDef,
+  type SortingState,
+} from "@tanstack/react-table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   type Expediente,
   type EstadoExpediente,
@@ -43,7 +60,7 @@ function ProgressBar({
   const pct = total > 0 ? Math.round((completados / total) * 100) : 0;
   return (
     <div className="flex items-center gap-2">
-      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-bg">
+      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-border">
         <div
           className="h-full rounded-full bg-primary transition-all"
           style={{ width: `${pct}%` }}
@@ -75,8 +92,10 @@ interface ExpedientesTableProps {
 export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
   const [filtro, setFiltro] = useState<EstadoExpediente | "todos">("todos");
   const [query, setQuery] = useState("");
+  const [sorting, setSorting] = useState<SortingState>([]);
 
-  const filtered = useMemo(() => {
+  // Filtrado customizado antes de pasarlo a TanStack (más fácil para multi-campos)
+  const filteredData = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return expedientes.filter((expediente) => {
@@ -96,20 +115,122 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
     });
   }, [expedientes, filtro, query]);
 
+  const columns: ColumnDef<Expediente>[] = useMemo(
+    () => [
+      {
+        accessorKey: "cliente",
+        header: ({ column }) => (
+          <button
+            className="flex items-center gap-1 hover:text-text-primary"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Cliente / Referencia
+            <ArrowUpDown size={12} />
+          </button>
+        ),
+        cell: ({ row }) => (
+          <p className="font-medium text-text-primary">
+            {row.original.cliente ?? "Sin referencia"}
+          </p>
+        ),
+      },
+      {
+        accessorKey: "comunidad",
+        header: "CC. AA.",
+        cell: ({ row }) => (
+          <span className="text-text-secondary">
+            {COMUNIDAD_LABEL[row.original.comunidad] ?? row.original.comunidad}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "tipo_instalacion",
+        header: "Tipo",
+        cell: ({ row }) => (
+          <span className="text-text-secondary">
+            {TIPO_LABEL[row.original.tipo_instalacion] ?? row.original.tipo_instalacion}
+          </span>
+        ),
+      },
+      {
+        id: "progreso",
+        header: "Progreso",
+        cell: ({ row }) => (
+          <ProgressBar
+            completados={row.original.tramites_completados}
+            total={row.original.tramites_total}
+          />
+        ),
+      },
+      {
+        accessorKey: "estado",
+        header: "Estado",
+        cell: ({ row }) => <EstadoBadge estado={row.original.estado} />,
+      },
+      {
+        accessorKey: "fecha_actualizacion",
+        header: ({ column }) => (
+          <button
+            className="flex items-center gap-1 hover:text-text-primary"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Actualización
+            <ArrowUpDown size={12} />
+          </button>
+        ),
+        cell: ({ row }) => (
+          <span className="text-text-secondary">
+            {formatFecha(row.original.fecha_actualizacion)}
+          </span>
+        ),
+      },
+      {
+        id: "acciones",
+        header: "",
+        cell: ({ row }) => (
+          <Link
+            href={`/expedientes/${row.original.id}`}
+            className="flex items-center gap-1 text-primary opacity-100 transition-opacity lg:opacity-0 lg:group-hover:opacity-100"
+          >
+            Ver plan <ArrowUpRight size={12} aria-hidden />
+          </Link>
+        ),
+      },
+    ],
+    []
+  );
+
+  const table = useReactTable({
+    data: filteredData,
+    columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 10,
+      },
+    },
+  });
+
   const hasFilters = filtro !== "todos" || query.trim() !== "";
 
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-surface">
+    <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
       <div className="flex flex-col gap-3 border-b border-border px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <p className="text-sm font-medium text-text-primary">
-            {filtered.length}{" "}
+            {filteredData.length}{" "}
             <span className="font-normal text-text-secondary">
-              {filtered.length === 1 ? "expediente" : "expedientes"}
+              {filteredData.length === 1 ? "expediente" : "expedientes"}
             </span>
           </p>
           <p className="mt-0.5 text-xs text-text-secondary">
-            Busca por cliente, comunidad o tipo de instalacion.
+            Busca por cliente, comunidad o tipo de instalación.
           </p>
         </div>
 
@@ -123,7 +244,7 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Buscar"
+              placeholder="Buscar..."
               className="h-9 w-full rounded-lg border border-border bg-bg pl-9 pr-3 text-sm text-text-primary outline-none transition-colors placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary/20 sm:w-64"
             />
           </label>
@@ -136,7 +257,7 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
                 onClick={() => setFiltro(option.value)}
                 className={`whitespace-nowrap rounded-full px-3 py-1 text-xs transition-colors ${
                   filtro === option.value
-                    ? "bg-primary font-medium text-white"
+                    ? "bg-primary font-medium text-white shadow-sm"
                     : "text-text-secondary hover:bg-bg"
                 }`}
               >
@@ -147,77 +268,85 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
         </div>
       </div>
 
-      {filtered.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border">
-                {["Cliente / Referencia", "CC. AA.", "Tipo", "Progreso", "Estado", "Actualizacion", ""].map((heading) => (
-                  <th
-                    key={heading}
-                    className="px-5 py-3 text-left text-[11px] font-medium uppercase tracking-wider text-text-secondary"
-                  >
-                    {heading}
-                  </th>
+      {filteredData.length > 0 ? (
+        <>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id} className="hover:bg-transparent">
+                    {headerGroup.headers.map((header) => (
+                      <TableHead
+                        key={header.id}
+                        className="h-10 text-[11px] font-medium uppercase tracking-wider text-text-secondary"
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                    ))}
+                  </TableRow>
                 ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {filtered.map((expediente) => (
-                <tr key={expediente.id} className="group transition-colors hover:bg-bg">
-                  <td className="px-5 py-3.5">
-                    <p className="text-sm font-medium text-text-primary">
-                      {expediente.cliente ?? "Sin referencia"}
-                    </p>
-                  </td>
-                  <td className="px-5 py-3.5 text-sm text-text-secondary">
-                    {COMUNIDAD_LABEL[expediente.comunidad] ?? expediente.comunidad}
-                  </td>
-                  <td className="px-5 py-3.5 text-sm text-text-secondary">
-                    {TIPO_LABEL[expediente.tipo_instalacion] ?? expediente.tipo_instalacion}
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <ProgressBar
-                      completados={expediente.tramites_completados}
-                      total={expediente.tramites_total}
-                    />
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <EstadoBadge estado={expediente.estado} />
-                  </td>
-                  <td className="px-5 py-3.5 text-xs text-text-secondary">
-                    {formatFecha(expediente.fecha_actualizacion)}
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <Link
-                      href={`/expedientes/${expediente.id}`}
-                      className="flex items-center gap-1 text-xs text-primary opacity-100 transition-opacity lg:opacity-0 lg:group-hover:opacity-100"
-                    >
-                      Ver plan <ArrowUpRight size={12} aria-hidden />
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    className="group transition-colors hover:bg-bg/50"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="py-3.5 text-sm">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Paginación */}
+          {table.getPageCount() > 1 && (
+            <div className="flex items-center justify-between border-t border-border px-5 py-3">
+              <p className="text-xs text-text-secondary">
+                Mostrando {table.getRowModel().rows.length} de {filteredData.length} expedientes
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-bg disabled:opacity-50"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-text-secondary hover:bg-bg disabled:opacity-50"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       ) : (
         <div className="flex flex-col items-center px-6 py-16 text-center">
           <p className="text-sm font-medium text-text-primary">
-            {hasFilters ? "No hay expedientes con esos filtros" : "Aun no hay expedientes"}
+            {hasFilters ? "No hay expedientes con esos filtros" : "Aún no hay expedientes"}
           </p>
           <p className="mt-1 max-w-md text-sm text-text-secondary">
             {hasFilters
-              ? "Prueba a cambiar la busqueda o el estado seleccionado."
-              : "Genera tu primer plan de tramitacion para empezar a organizar documentos, plazos y organismos."}
+              ? "Prueba a cambiar la búsqueda o el estado seleccionado."
+              : "Genera tu primer plan de tramitación para empezar a organizar documentos, plazos y organismos."}
           </p>
           {!hasFilters && (
             <Link
               href="/nueva-instalacion"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-opacity hover:opacity-90"
             >
               <Plus size={15} aria-hidden />
-              Nueva instalacion
+              Nueva instalación
             </Link>
           )}
         </div>

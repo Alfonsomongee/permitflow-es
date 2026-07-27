@@ -1,5 +1,6 @@
 "use client";
 
+import { useFormContext, Controller } from "react-hook-form";
 import { type FormState } from "./types";
 import {
   Field,
@@ -10,115 +11,156 @@ import {
   InfoBanner,
 } from "./FormPrimitives";
 
-interface Step2Props {
-  state: FormState;
-  onChange: (patch: Partial<FormState>) => void;
-}
-
 // ─── Sub-formularios por vertical ────────────────────────────────────────────
 
-function CamposPotenciaBase({ state, onChange, label, hint }: Step2Props & { label?: string; hint?: string }) {
+function CamposPotenciaBase({ label, hint }: { label?: string; hint?: string }) {
+  const { control } = useFormContext<FormState>();
   return (
-    <Field label={label || "Potencia total de la instalación (kW)"} hint={hint}>
-      <NumberInput
-        value={state.potencia_kw}
-        onChange={(v) => onChange({ potencia_kw: v })}
-        placeholder="ej. 9.9"
-        min={0}
-        suffix="kW"
-      />
-    </Field>
+    <Controller
+      control={control}
+      name="potencia_kw"
+      render={({ field, fieldState }) => (
+        <Field label={label || "Potencia total de la instalación (kW)"} hint={hint} error={fieldState.error?.message}>
+          <NumberInput
+            value={field.value}
+            onChange={field.onChange}
+            placeholder="ej. 9.9"
+            min={0}
+            suffix="kW"
+          />
+        </Field>
+      )}
+    />
   );
 }
 
-function CamposDatosElectricos({ state, onChange }: Step2Props) {
+function CamposDatosElectricos() {
+  const { control } = useFormContext<FormState>();
   return (
     <>
       <SectionDivider label="Datos Eléctricos" />
-      <Field label="Nivel de tensión de conexión">
-        <ToggleGroup
-          value={state.tension as "BT" | "AT"}
-          onChange={(v) => onChange({ tension: v })}
-          options={[
-            { value: "BT", label: "Baja Tensión (BT)" },
-            { value: "AT", label: "Alta Tensión (AT)" },
-          ]}
-          cols={2}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="tension"
+        render={({ field, fieldState }) => (
+          <Field label="Nivel de tensión de conexión" error={fieldState.error?.message}>
+            <ToggleGroup
+              value={field.value as "BT" | "AT"}
+              onChange={field.onChange}
+              options={[
+                { value: "BT", label: "Baja Tensión (BT)" },
+                { value: "AT", label: "Alta Tensión (AT)" },
+              ]}
+              cols={2}
+            />
+          </Field>
+        )}
+      />
     </>
   );
 }
 
-function CamposFotovoltaica({ state, onChange }: Step2Props) {
+function CamposFotovoltaica() {
+  const { control, watch } = useFormContext<FormState>();
+  const potencia = parseFloat(watch("potencia_kw"));
+  
   return (
     <>
       <CamposPotenciaBase 
-        state={state} 
-        onChange={onChange} 
         hint="Para fotovoltaica (RD 244/2019), introduce la potencia máxima del inversor (potencia nominal), NO la potencia pico de los paneles."
       />
 
-      <Field label="Superficie del generador (m²)" hint="Opcional. Se usa para verificar la coherencia con la potencia.">
-        <NumberInput
-          value={state.superficie_m2}
-          onChange={(v) => onChange({ superficie_m2: v })}
-          placeholder="ej. 50"
-          min={0}
-          suffix="m²"
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="superficie_m2"
+        render={({ field, fieldState }) => (
+          <Field label="Superficie del generador (m²)" hint="Opcional. Se usa para verificar la coherencia con la potencia." error={fieldState.error?.message}>
+            <NumberInput
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="ej. 50"
+              min={0}
+              suffix="m²"
+            />
+          </Field>
+        )}
+      />
 
-      {parseFloat(state.potencia_kw) > 100 && (
+      {potencia > 100 && (
         <InfoBanner>
           Instalaciones superiores a 100 kW requieren autorización administrativa
           previa en Andalucía (no PUES).
         </InfoBanner>
       )}
 
-      <CamposDatosElectricos state={state} onChange={onChange} />
+      <CamposDatosElectricos />
 
-      <Field label="Modalidad de Autoconsumo">
-        <ToggleGroup
-          value={state.modalidad_autoconsumo as "sin_excedentes" | "con_excedentes"}
-          onChange={(v) => onChange({ modalidad_autoconsumo: v })}
-          options={[
-            { value: "sin_excedentes", label: "Sin excedentes" },
-            { value: "con_excedentes", label: "Con excedentes" },
-          ]}
-          cols={2}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="modalidad_autoconsumo"
+        render={({ field, fieldState }) => (
+          <Field label="Modalidad de Autoconsumo" error={fieldState.error?.message}>
+            <ToggleGroup
+              value={field.value as "sin_excedentes" | "con_excedentes"}
+              onChange={field.onChange}
+              options={[
+                { value: "sin_excedentes", label: "Sin excedentes" },
+                { value: "con_excedentes", label: "Con excedentes" },
+              ]}
+              cols={2}
+            />
+          </Field>
+        )}
+      />
     </>
   );
 }
 
-function CamposIRVE({ state, onChange }: Step2Props) {
-  const potenciaPunto = parseFloat(state.potencia_por_punto_kw) || 0;
-  const numPuntos = parseInt(state.numero_puntos) || 1;
+function CamposIRVE() {
+  const { control, watch } = useFormContext<FormState>();
+  
+  const potenciaPuntoKw = watch("potencia_por_punto_kw");
+  const numeroPuntos = watch("numero_puntos");
+  const requiereSuministro = watch("requiere_nuevo_suministro");
+  const accesoPublico = watch("acceso_publico");
+  
+  const potenciaPunto = parseFloat(potenciaPuntoKw) || 0;
+  const numPuntos = parseInt(numeroPuntos) || 1;
   const potenciaTotal = potenciaPunto * numPuntos;
 
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
-        <Field label="Número de puntos de recarga">
-          <NumberInput
-            value={state.numero_puntos}
-            onChange={(v) => onChange({ numero_puntos: v })}
-            placeholder="1"
-            min={1}
-            step={1}
-          />
-        </Field>
-        <Field label="Potencia por punto (kW)">
-          <NumberInput
-            value={state.potencia_por_punto_kw}
-            onChange={(v) => onChange({ potencia_por_punto_kw: v })}
-            placeholder="7.4"
-            min={1.4}
-            suffix="kW"
-          />
-        </Field>
+        <Controller
+          control={control}
+          name="numero_puntos"
+          render={({ field, fieldState }) => (
+            <Field label="Número de puntos de recarga" error={fieldState.error?.message}>
+              <NumberInput
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="1"
+                min={1}
+                step={1}
+              />
+            </Field>
+          )}
+        />
+        <Controller
+          control={control}
+          name="potencia_por_punto_kw"
+          render={({ field, fieldState }) => (
+            <Field label="Potencia por punto (kW)" error={fieldState.error?.message}>
+              <NumberInput
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="7.4"
+                min={1.4}
+                suffix="kW"
+              />
+            </Field>
+          )}
+        />
       </div>
 
       {potenciaTotal > 0 && (
@@ -128,127 +170,175 @@ function CamposIRVE({ state, onChange }: Step2Props) {
         </div>
       )}
 
-      <Field label="Modo de recarga">
-        <ToggleGroup
-          value={state.modo_recarga as "1" | "2" | "3" | "4"}
-          onChange={(v) => onChange({ modo_recarga: v })}
-          options={[
-            { value: "1", label: "Modo 1", description: "≤16 A, sin piloto" },
-            { value: "2", label: "Modo 2", description: "Cable con caja" },
-            { value: "3", label: "Modo 3", description: "7,4–22 kW AC" },
-            { value: "4", label: "Modo 4 (DC)", description: "22–350 kW" },
-          ]}
-          cols={4}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="modo_recarga"
+        render={({ field, fieldState }) => (
+          <Field label="Modo de recarga" error={fieldState.error?.message}>
+            <ToggleGroup
+              value={field.value as "1" | "2" | "3" | "4"}
+              onChange={field.onChange}
+              options={[
+                { value: "1", label: "Modo 1", description: "≤16 A, sin piloto" },
+                { value: "2", label: "Modo 2", description: "Cable con caja" },
+                { value: "3", label: "Modo 3", description: "7,4–22 kW AC" },
+                { value: "4", label: "Modo 4 (DC)", description: "22–350 kW" },
+              ]}
+              cols={4}
+            />
+          </Field>
+        )}
+      />
 
       <SectionDivider label="Características" />
 
-      <Field label="Ubicación de la instalación">
-        <ToggleGroup
-          value={state.ubicacion_irve as "interior" | "exterior" | "via_publica" | "garaje_comunitario"}
-          onChange={(v) => onChange({ ubicacion_irve: v })}
-          options={[
-            { value: "interior", label: "Interior privado" },
-            { value: "garaje_comunitario", label: "Garaje comunitario" },
-            { value: "exterior", label: "Exterior" },
-            { value: "via_publica", label: "Vía pública" },
-          ]}
-          cols={2}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="ubicacion_irve"
+        render={({ field, fieldState }) => (
+          <Field label="Ubicación de la instalación" error={fieldState.error?.message}>
+            <ToggleGroup
+              value={field.value as "interior" | "exterior" | "via_publica" | "garaje_comunitario"}
+              onChange={field.onChange}
+              options={[
+                { value: "interior", label: "Interior privado" },
+                { value: "garaje_comunitario", label: "Garaje comunitario" },
+                { value: "exterior", label: "Exterior" },
+                { value: "via_publica", label: "Vía pública" },
+              ]}
+              cols={2}
+            />
+          </Field>
+        )}
+      />
 
-      <Field
-        label="¿La instalación es de acceso público?"
-        hint={
-          state.acceso_publico
-            ? "El acceso público activa la tramitación TECI y el registro obligatorio en MITECO."
-            : "Las instalaciones privadas tramitan por PUES en Industria de la CC. AA."
-        }
-      >
-        <BoolToggle
-          value={state.acceso_publico}
-          onChange={(v) => onChange({ acceso_publico: v })}
-          labelTrue="Sí (acceso público — TECI / MITECO)"
-          labelFalse="No (uso privado — PUES)"
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="acceso_publico"
+        render={({ field, fieldState }) => (
+          <Field
+            label="¿La instalación es de acceso público?"
+            error={fieldState.error?.message}
+            hint={
+              accesoPublico
+                ? "El acceso público activa la tramitación TECI y el registro obligatorio en MITECO."
+                : "Las instalaciones privadas tramitan por PUES en Industria de la CC. AA."
+            }
+          >
+            <BoolToggle
+              value={field.value}
+              onChange={field.onChange}
+              labelTrue="Sí (acceso público — TECI / MITECO)"
+              labelFalse="No (uso privado — PUES)"
+            />
+          </Field>
+        )}
+      />
 
-      <Field label="¿Requiere nuevo suministro o aumento de potencia contratada?">
-        <BoolToggle
-          value={state.requiere_nuevo_suministro}
-          onChange={(v) => onChange({ requiere_nuevo_suministro: v })}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="requiere_nuevo_suministro"
+        render={({ field, fieldState }) => (
+          <Field label="¿Requiere nuevo suministro o aumento de potencia contratada?" error={fieldState.error?.message}>
+            <BoolToggle
+              value={field.value}
+              onChange={field.onChange}
+            />
+          </Field>
+        )}
+      />
 
-      {state.requiere_nuevo_suministro && (
+      {requiereSuministro && (
         <InfoBanner>
           Se añadirán trámites de solicitud de acceso a la red y coordinación con
           la distribuidora de zona.
         </InfoBanner>
       )}
 
-      <CamposDatosElectricos state={state} onChange={onChange} />
+      <CamposDatosElectricos />
     </>
   );
 }
 
-function CamposGas({ state, onChange }: Step2Props) {
+function CamposGas() {
+  const { control } = useFormContext<FormState>();
+  
   return (
     <>
-      <CamposPotenciaBase state={state} onChange={onChange} />
+      <CamposPotenciaBase />
 
-      <Field label="Tipo de combustible">
-        <ToggleGroup
-          value={state.combustible as "gas_natural" | "glp_deposito" | "glp_envases"}
-          onChange={(v) => onChange({ combustible: v })}
-          options={[
-            { value: "gas_natural", label: "Gas natural" },
-            { value: "glp_deposito", label: "GLP (depósito)" },
-            { value: "glp_envases", label: "GLP (envases)" },
-          ]}
-          cols={3}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="combustible"
+        render={({ field, fieldState }) => (
+          <Field label="Tipo de combustible" error={fieldState.error?.message}>
+            <ToggleGroup
+              value={field.value as "gas_natural" | "glp_deposito" | "glp_envases"}
+              onChange={field.onChange}
+              options={[
+                { value: "gas_natural", label: "Gas natural" },
+                { value: "glp_deposito", label: "GLP (depósito)" },
+                { value: "glp_envases", label: "GLP (envases)" },
+              ]}
+              cols={3}
+            />
+          </Field>
+        )}
+      />
 
-      <Field
-        label="Rango de presión de la red"
-        hint="La presión 5+ bar requiere proyecto técnico firmado por ingeniero."
-      >
-        <ToggleGroup
-          value={state.presion_bar as "normal" | "5+"}
-          onChange={(v) => onChange({ presion_bar: v })}
-          options={[
-            { value: "normal", label: "Presión normal (< 5 bar)" },
-            { value: "5+", label: "Alta presión (≥ 5 bar)" },
-          ]}
-          cols={2}
-        />
-      </Field>
+      <Controller
+        control={control}
+        name="presion_bar"
+        render={({ field, fieldState }) => (
+          <Field
+            label="Rango de presión de la red"
+            error={fieldState.error?.message}
+            hint="La presión 5+ bar requiere proyecto técnico firmado por ingeniero."
+          >
+            <ToggleGroup
+              value={field.value as "normal" | "5+"}
+              onChange={field.onChange}
+              options={[
+                { value: "normal", label: "Presión normal (< 5 bar)" },
+                { value: "5+", label: "Alta presión (≥ 5 bar)" },
+              ]}
+              cols={2}
+            />
+          </Field>
+        )}
+      />
     </>
   );
 }
 
-function CamposClimatizacionACS({ state, onChange }: Step2Props) {
+function CamposClimatizacionACS() {
+  const { control } = useFormContext<FormState>();
+  
   return (
     <>
-      <CamposPotenciaBase state={state} onChange={onChange} />
-      <Field label="Superficie climatizada (m²)" hint="Necesaria para clasificar si aplica RITE completo.">
-        <NumberInput
-          value={state.superficie_m2}
-          onChange={(v) => onChange({ superficie_m2: v })}
-          placeholder="ej. 200"
-          min={0}
-          suffix="m²"
-        />
-      </Field>
+      <CamposPotenciaBase />
+      <Controller
+        control={control}
+        name="superficie_m2"
+        render={({ field, fieldState }) => (
+          <Field label="Superficie climatizada (m²)" hint="Necesaria para clasificar si aplica RITE completo." error={fieldState.error?.message}>
+            <NumberInput
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="ej. 200"
+              min={0}
+              suffix="m²"
+            />
+          </Field>
+        )}
+      />
     </>
   );
 }
 
 // ─── Componente raíz del paso 2 ───────────────────────────────────────────────
 
-const STEP2_MAP: Record<string, (p: Step2Props) => JSX.Element> = {
+const STEP2_MAP: Record<string, () => JSX.Element> = {
   fotovoltaica_autoconsumo: CamposFotovoltaica,
   irve: CamposIRVE,
   gas_baja_presion: CamposGas,
@@ -256,11 +346,15 @@ const STEP2_MAP: Record<string, (p: Step2Props) => JSX.Element> = {
   acs: CamposClimatizacionACS,
 };
 
-export function Step2ParametrosTecnicos({ state, onChange }: Step2Props) {
-  const VerticalForm = STEP2_MAP[state.tipo_instalacion] ?? CamposPotenciaBase;
+export function Step2ParametrosTecnicos() {
+  const { watch } = useFormContext<FormState>();
+  const tipoInstalacion = watch("tipo_instalacion");
+  
+  const VerticalForm = STEP2_MAP[tipoInstalacion] ?? CamposPotenciaBase;
+  
   return (
     <div className="flex flex-col gap-5">
-      <VerticalForm state={state} onChange={onChange} />
+      <VerticalForm />
     </div>
   );
 }

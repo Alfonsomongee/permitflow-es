@@ -103,19 +103,17 @@ export function FichaTecnologia({ ficha }: Props) {
         </div>
       </div>
 
-      {/* Índice de idoneidad geográfica (solo FV y aerotermia) */}
-      {(ficha.id === "fotovoltaica_autoconsumo" || ficha.id === "climatizacion_aerotermia") && (
-        <div className="mb-8">
-          <IndiceIdoneidad 
-            tecnologiaId={ficha.id} 
-            onResult={setResultIdoneidad} 
-          />
-          
-          {ficha.id === "fotovoltaica_autoconsumo" && resultIdoneidad && resultIdoneidad.idoneidad.fotovoltaica_autoconsumo.disponible && (
-            <SimuladorAhorro result={resultIdoneidad} />
-          )}
-        </div>
-      )}
+      {/* Contexto normativo y fiscal (mostrado para todas las tecnologías) */}
+      <div className="mb-8">
+        <IndiceIdoneidad 
+          tecnologiaId={ficha.id} 
+          onResult={setResultIdoneidad} 
+        />
+        
+        {ficha.id === "fotovoltaica_autoconsumo" && resultIdoneidad && resultIdoneidad.idoneidad?.fotovoltaica_autoconsumo?.disponible && (
+          <SimuladorAhorro result={resultIdoneidad} />
+        )}
+      </div>
 
       {/* Factor decisivo */}
       <section className="mb-8 rounded-xl border border-primary/20 bg-primary-light p-5">

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { ExpedientesTable } from "@/components/dashboard/ExpedientesTable";
-import { KpiGrid } from "@/components/dashboard/KpiGrid";
+import { KpiCards } from "@/components/dashboard/KpiCards";
 import { listarExpedientes, obtenerKpis } from "@/lib/expedientes";
 import {
   PlazosActivos,
@@ -107,7 +107,29 @@ export default async function ExpedientesPage() {
       <PlazosActivos plazos={plazosTop} estancados={estancadosTop} />
 
       <div className="mb-6">
-        <KpiGrid kpis={kpis} />
+        <KpiCards
+          items={[
+            { label: "Total expedientes", value: kpis.total },
+            {
+              label: "En tramitación",
+              value: kpis.en_tramitacion,
+              subtext: "Pendiente + En revisión",
+              accent: "warning",
+            },
+            {
+              label: "Aprobados",
+              value: kpis.aprobados,
+              subtext: "Tramitación completada",
+              accent: "success",
+            },
+            {
+              label: "Borradores",
+              value: kpis.borradores,
+              subtext: "Sin enviar",
+              accent: "primary",
+            },
+          ]}
+        />
       </div>
 
       <ExpedientesTable expedientes={expedientesUI} />

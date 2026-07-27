@@ -11,16 +11,22 @@ import type { ReactNode } from "react";
 interface FieldProps {
   label: string;
   hint?: string;
+  error?: string;
   children: ReactNode;
   className?: string;
 }
 
-export function Field({ label, hint, children, className = "" }: FieldProps) {
+export function Field({ label, hint, error, children, className = "" }: FieldProps) {
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       <label className="text-xs font-medium text-text-secondary">{label}</label>
       {children}
-      {hint && (
+      {error && (
+        <p className="text-xs text-danger-dark font-medium leading-relaxed" aria-live="polite">
+          {error}
+        </p>
+      )}
+      {hint && !error && (
         <p className="text-xs text-text-secondary/70 leading-relaxed">{hint}</p>
       )}
     </div>

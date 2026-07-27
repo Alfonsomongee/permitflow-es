@@ -1,35 +1,7 @@
 // Full form state matching the backend ClasificadorInput shape.
+import type { NuevaInstalacionFormData } from "../../lib/validations/nuevaInstalacion";
 
-export interface FormState {
-  // Step 1: type and location
-  tipo_instalacion: string;
-  comunidad: string;
-  referencia_cliente: string;
-  uso: string;
-
-  // Step 2: technical parameters by vertical
-  potencia_kw: string;
-  superficie_m2: string;
-
-  // IRVE
-  numero_puntos: string;
-  potencia_por_punto_kw: string;
-  modo_recarga: string;
-  acceso_publico: boolean;
-  ubicacion_irve: string;
-  requiere_nuevo_suministro: boolean;
-
-  // Gas
-  combustible: string;
-  presion_bar: string;
-
-  // New electrical / autoconsumo data
-  tension: string;
-  modalidad_autoconsumo: string;
-
-  // Step 3: grants
-  solicita_ayuda: boolean;
-}
+export type FormState = NuevaInstalacionFormData;
 
 export const FORM_INITIAL: FormState = {
   tipo_instalacion: "fotovoltaica_autoconsumo",

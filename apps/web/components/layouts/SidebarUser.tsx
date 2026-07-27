@@ -2,11 +2,6 @@
 
 import { UserButton, useUser } from "@clerk/nextjs";
 
-/**
- * Reemplaza el bloque estático de "GreenEnergy SL" del DashboardSidebar.
- * Muestra el avatar de Clerk + nombre + email del usuario autenticado.
- * Pégalo en la parte inferior del DashboardSidebar en lugar del bloque hardcoded.
- */
 export function SidebarUser() {
   const { user } = useUser();
 
@@ -21,19 +16,24 @@ export function SidebarUser() {
   const email = user.primaryEmailAddress?.emailAddress ?? "";
 
   return (
-    <div className="flex items-center gap-2.5 rounded-lg px-3 py-2.5">
-      <UserButton
-        appearance={{
-          elements: {
-            avatarBox: "h-7 w-7",
-          },
-        }}
-      />
+    <div className="flex items-center gap-3 rounded-lg px-2 py-2 hover:bg-bg/50 transition-colors">
+      <div className="flex-shrink-0">
+        <UserButton
+          appearance={{
+            elements: {
+              avatarBox: "h-8 w-8",
+              userButtonPopoverCard: "shadow-md border border-[#E5E5E5]",
+            },
+          }}
+        />
+      </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-xs font-medium text-text-primary">
+        <p className="truncate text-sm font-medium text-text-primary leading-tight">
           {displayName}
         </p>
-        <p className="truncate text-[11px] text-text-secondary">{email}</p>
+        <p className="truncate text-[11px] text-text-secondary leading-tight mt-0.5">
+          {email}
+        </p>
       </div>
     </div>
   );

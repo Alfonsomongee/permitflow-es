@@ -73,11 +73,12 @@ export function HistorialPanel({ expedienteId }: { expedienteId: string }) {
       </button>
 
       {abierto && (
-        <ul className="mt-3 flex flex-col gap-2.5">
+        <ul className="mt-3 flex max-h-64 flex-col gap-2.5 overflow-y-auto pr-2 custom-scrollbar">
           {entradas.map((e) => {
             const fecha = new Date(e.creado_en).toLocaleDateString("es-ES", {
               day: "2-digit",
               month: "short",
+              year: "numeric",
               hour: "2-digit",
               minute: "2-digit",
             });

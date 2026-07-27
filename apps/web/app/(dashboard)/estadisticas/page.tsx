@@ -1,35 +1,33 @@
-import { StatsKPICards } from "@/components/dashboard/StatsKPICards";
+import { KpiCards } from "@/components/dashboard/KpiCards";
 import { StatsCharts } from "@/components/dashboard/StatsCharts";
-import { StatsExpedientesTableWrapper } from "@/components/dashboard/StatsExpedientesTableWrapper";
-import type { KPIData } from "@/components/dashboard/StatsKPICards";
-import type { TendenciaData, EstadoData } from "@/components/dashboard/StatsCharts";
+import { ExpedientesTable } from "@/components/dashboard/ExpedientesTable";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { listarExpedientes } from "@/lib/expedientes";
+import { FileText, CheckCircle, Clock, TrendingUp } from "lucide-react";
 
-// Datos de demo hasta conectar con Supabase
-const DEMO_KPIS: KPIData = {
-  total_expedientes: 127,
-  tasa_aprobacion: 84,
-  tiempo_medio_dias: 23,
-  tipos_activos: 5,
-};
+import { DEMO_KPIS, DEMO_TENDENCIA, DEMO_ESTADOS } from "@/lib/demo-data";
 
-const DEMO_TENDENCIA: TendenciaData[] = [
-  { mes: "Ene", creados: 8, resueltos: 5 },
-  { mes: "Feb", creados: 11, resueltos: 9 },
-  { mes: "Mar", creados: 14, resueltos: 12 },
-  { mes: "Abr", creados: 18, resueltos: 15 },
-  { mes: "May", creados: 22, resueltos: 19 },
-  { mes: "Jun", creados: 16, resueltos: 14 },
-  { mes: "Jul", creados: 20, resueltos: 17 },
-];
+export default async function EstadisticasPage() {
+  const { orgId } = await auth();
 
-const DEMO_ESTADOS: EstadoData[] = [
-  { estado: "Aprobado", cantidad: 68, color: "#16A34A" },
-  { estado: "En revisión", cantidad: 31, color: "#D97706" },
-  { estado: "Subsanación", cantidad: 14, color: "#DC2626" },
-  { estado: "Presentado", cantidad: 14, color: "#1B4FD8" },
-];
+  if (!orgId) {
+    redirect("/sign-in");
+  }
 
-export default function EstadisticasPage() {
+  const dbExpedientes = await listarExpedientes(orgId);
+  const expedientesUI = dbExpedientes.map((expediente) => ({
+    id: expediente.id,
+    tipo_instalacion: expediente.tipo_instalacion,
+    comunidad: expediente.comunidad,
+    potencia_kw: expediente.potencia_kw,
+    estado: expediente.estado,
+    tramites_total: expediente.plan_tramitacion?.tramites?.length ?? 0,
+    tramites_completados: expediente.tramites_completados,
+    fecha_creacion: expediente.creado_en,
+    fecha_actualizacion: expediente.actualizado_en,
+    cliente: expediente.referencia_cliente ?? undefined,
+  }));
   return (
     <div className="space-y-6 p-6">
       <div>
@@ -39,11 +37,42 @@ export default function EstadisticasPage() {
         </p>
       </div>
 
-      <StatsKPICards data={DEMO_KPIS} />
+      <KpiCards
+        items={[
+          {
+            icon: <FileText size={16} />,
+            label: "Total Expedientes",
+            value: DEMO_KPIS.total_expedientes,
+            subtext: "En la plataforma",
+          },
+          {
+            icon: <CheckCircle size={16} />,
+            label: "Tasa de Éxito",
+            value: DEMO_KPIS.tasa_aprobacion,
+            suffix: "%",
+            subtext: "Expedientes aprobados",
+            accent: "success",
+          },
+          {
+            icon: <Clock size={16} />,
+            label: "Tiempo Medio",
+            value: DEMO_KPIS.tiempo_medio_dias,
+            suffix: "días",
+            subtext: "De tramitación",
+          },
+          {
+            icon: <TrendingUp size={16} />,
+            label: "Tecnologías Activas",
+            value: DEMO_KPIS.tipos_activos,
+            subtext: "Tipos en gestión",
+            accent: "primary",
+          },
+        ]}
+      />
 
       <StatsCharts tendencia={DEMO_TENDENCIA} estados={DEMO_ESTADOS} />
 
-      <StatsExpedientesTableWrapper />
+      <ExpedientesTable expedientes={expedientesUI} />
     </div>
   );
 }

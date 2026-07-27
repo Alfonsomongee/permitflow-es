@@ -24,13 +24,13 @@ function ParamRow({
   const display = typeof value === "boolean" ? (value ? "Sí" : "No") : String(value);
 
   return (
-    <div className="flex items-center justify-between gap-3 py-2 text-sm">
-      <span className="flex items-center gap-2 text-text-secondary">
+    <>
+      <span className="flex items-center gap-2 text-sm text-text-secondary">
         {Icon && <Icon size={13} className="flex-shrink-0" aria-hidden />}
         {label}
       </span>
-      <span className="max-w-[150px] truncate text-right font-medium text-text-primary">{display}</span>
-    </div>
+      <span className="max-w-[150px] truncate text-right font-medium text-text-primary" title={display}>{display}</span>
+    </>
   );
 }
 
@@ -44,7 +44,7 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
           <Zap size={12} aria-hidden />
           Instalación
         </p>
-        <div className="divide-y divide-border/70">
+        <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-2">
           <ParamRow icon={Building2} label="Tipo" value={TIPO_LABEL[params.tipo_instalacion] ?? params.tipo_instalacion} />
           <ParamRow icon={MapPin} label="CC. AA." value={COMUNIDAD_LABEL[params.comunidad] ?? params.comunidad} />
           <ParamRow icon={Gauge} label="Potencia" value={`${params.potencia_kw} kW`} />
@@ -52,9 +52,9 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
           {params.modo_recarga && <ParamRow label="Modo de recarga" value={`Modo ${params.modo_recarga}`} />}
           {params.ubicacion_irve && <ParamRow label="Ubicación" value={params.ubicacion_irve.replace(/_/g, " ")} />}
           {params.acceso_publico !== undefined && (
-            <ParamRow label="Acceso" value={params.acceso_publico ? "Público (TECI/MITECO)" : "Privado (PUES)"} />
+            <ParamRow label="Acceso" value={params.acceso_publico ? "Público (TECI)" : "Privado (PUES)"} />
           )}
-          {params.solicita_ayuda && <ParamRow label="Solicita ayuda" value="Sí (MOVES III / Next Gen)" />}
+          {params.solicita_ayuda && <ParamRow label="Solicita ayuda" value="Sí (MOVES/NextGen)" />}
         </div>
       </div>
 

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
-import { FileText, AlertTriangle, Trash2, CheckCircle2 } from "lucide-react";
+import { FileText, AlertTriangle, Trash2, CheckCircle2, Filter } from "lucide-react";
+import { toast } from "sonner";
 import type { DbAlertaBoe } from "@/lib/supabase";
 
 const TIPO_STYLES = {
@@ -40,7 +41,7 @@ function AlertaItem({
   onMarcarLeida: (id: string) => void;
   afectados?: ExpedienteAfectadoChip[];
 }) {
-  const styles = TIPO_STYLES[alerta.tipo];
+  const styles = TIPO_STYLES[alerta.tipo] || TIPO_STYLES.modificacion;
   const Icon = styles.icon;
 
   const fecha = new Date(alerta.creado_en).toLocaleDateString("es-ES", {
@@ -51,8 +52,8 @@ function AlertaItem({
 
   return (
     <div
-      className={`rounded-xl border p-4 transition-opacity ${
-        alerta.leida ? "opacity-60 border-border" : "border-border bg-surface shadow-sm"
+      className={`rounded-xl border p-4 transition-all ${
+        alerta.leida ? "opacity-60 border-border bg-bg/50" : "border-border bg-surface shadow-sm hover:shadow-md"
       }`}
     >
       <div className="flex items-start gap-3">
@@ -109,7 +110,7 @@ function AlertaItem({
               </div>
             )}
 
-            {/* Expedientes de la organización afectados por esta alerta */}
+            {/* Expedientes afectados */}
             {afectados.length > 0 && (
               <div className="flex w-full flex-wrap items-center gap-1.5">
                 <span className="text-[10px] font-medium text-warning-dark">
@@ -119,7 +120,7 @@ function AlertaItem({
                   <Link
                     key={e.id}
                     href={`/expedientes/${e.id}`}
-                    className="rounded-full border border-warning/40 bg-warning-light px-2 py-0.5 text-[10px] text-warning-dark transition-colors hover:border-warning"
+                    className="rounded-full border border-warning/40 bg-warning-light px-2 py-0.5 text-[10px] text-warning-dark transition-colors hover:border-warning hover:bg-warning/20"
                   >
                     {e.etiqueta}
                   </Link>
@@ -150,7 +151,7 @@ function AlertaItem({
             {!alerta.leida && (
               <button
                 onClick={() => onMarcarLeida(alerta.id)}
-                className="flex items-center gap-1 text-[11px] text-text-secondary hover:text-success transition-colors"
+                className="flex items-center gap-1 rounded-full border border-border px-2 py-1 text-[11px] text-text-secondary hover:bg-success hover:text-white transition-colors"
               >
                 <CheckCircle2 size={12} aria-hidden />
                 Marcar leída
@@ -171,25 +172,36 @@ export function AlertasBoeList({
   expedientesPorAlerta?: Record<string, ExpedienteAfectadoChip[]>;
 }) {
   const [lista, setLista] = useState(alertas);
+  const [filtroTipo, setFiltroTipo] = useState<string>("todos");
 
   const marcarLeida = async (id: string) => {
     // Optimistic update
     setLista((prev) =>
       prev.map((a) => (a.id === id ? { ...a, leida: true } : a))
     );
-    // Persistir en Supabase vía API Route
-    await fetch("/api/alertas/leer", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
-    });
+    toast.success("Alerta marcada como leída");
+
+    try {
+      await fetch("/api/alertas/leer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+    } catch {
+      toast.error("Error al guardar en el servidor");
+    }
   };
+
+  const listaFiltrada = useMemo(() => {
+    if (filtroTipo === "todos") return lista;
+    return lista.filter((a) => a.tipo === filtroTipo);
+  }, [lista, filtroTipo]);
 
   const noLeidas = lista.filter((a) => !a.leida).length;
 
   if (lista.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
+      <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-surface py-20 text-center shadow-sm">
         <CheckCircle2 size={32} className="text-success mb-3" aria-hidden />
         <p className="text-sm font-medium text-text-primary">Todo al día</p>
         <p className="mt-1 text-xs text-text-secondary">
@@ -201,20 +213,45 @@ export function AlertasBoeList({
 
   return (
     <div>
-      {noLeidas > 0 && (
-        <p className="mb-4 text-xs text-text-secondary">
-          {noLeidas} alerta{noLeidas !== 1 ? "s" : ""} sin leer
-        </p>
-      )}
+      <div className="mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+        {noLeidas > 0 ? (
+          <p className="text-xs text-text-secondary">
+            <strong className="font-semibold text-text-primary">{noLeidas}</strong> alerta{noLeidas !== 1 ? "s" : ""} sin leer
+          </p>
+        ) : (
+          <p className="text-xs text-text-secondary">Todas las alertas leídas</p>
+        )}
+        
+        <div className="flex items-center gap-2">
+          <Filter size={14} className="text-text-secondary" />
+          <select
+            value={filtroTipo}
+            onChange={(e) => setFiltroTipo(e.target.value)}
+            className="rounded-lg border border-border bg-surface px-2 py-1 text-xs text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+          >
+            <option value="todos">Todos los tipos</option>
+            <option value="normativa_nueva">Normativa nueva</option>
+            <option value="modificacion">Modificación</option>
+            <option value="derogacion">Derogación</option>
+          </select>
+        </div>
+      </div>
+
       <div className="flex flex-col gap-3">
-        {lista.map((alerta) => (
-          <AlertaItem
-            key={alerta.id}
-            alerta={alerta}
-            onMarcarLeida={marcarLeida}
-            afectados={expedientesPorAlerta[alerta.id]}
-          />
-        ))}
+        {listaFiltrada.length > 0 ? (
+          listaFiltrada.map((alerta) => (
+            <AlertaItem
+              key={alerta.id}
+              alerta={alerta}
+              onMarcarLeida={marcarLeida}
+              afectados={expedientesPorAlerta[alerta.id]}
+            />
+          ))
+        ) : (
+          <p className="py-10 text-center text-sm text-text-secondary">
+            No hay alertas que coincidan con los filtros.
+          </p>
+        )}
       </div>
     </div>
   );

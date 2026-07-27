@@ -7,6 +7,7 @@
  */
 import Link from "next/link";
 import { Check } from "lucide-react";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const PLANES = [
   {
@@ -83,73 +84,78 @@ export function PreciosSection() {
   return (
     <section id="precios" className="border-b border-border bg-bg py-16">
       <div className="mx-auto max-w-6xl px-6">
-        <p className="mb-2 text-xs font-medium uppercase tracking-wider text-text-secondary">
-          Precios
-        </p>
-        <h2 className="mb-3 text-3xl font-medium tracking-tight text-text-primary">
-          Transparente desde el primer día
-        </h2>
-        <p className="mb-10 max-w-lg text-sm text-text-secondary leading-relaxed">
-          Empieza gratis con 5 clasificaciones al mes. Sin tarjeta de crédito.
-          Escala cuando tu equipo crezca.
-        </p>
+        <FadeIn>
+          <p className="mb-2 text-xs font-medium uppercase tracking-wider text-text-secondary">
+            Precios
+          </p>
+          <h2 className="mb-3 text-3xl font-medium tracking-tight text-text-primary">
+            Transparente desde el primer día
+          </h2>
+          <p className="mb-10 max-w-lg text-sm text-text-secondary leading-relaxed">
+            Empieza gratis con 5 clasificaciones al mes. Sin tarjeta de crédito.
+            Escala cuando tu equipo crezca.
+          </p>
+        </FadeIn>
 
         <div className="grid gap-4 lg:grid-cols-3">
-          {PLANES.map((plan) => (
-            <div
-              key={plan.nombre}
-              className={`relative flex flex-col rounded-2xl border p-6 ${
-                plan.destacado
-                  ? "border-primary bg-surface shadow-sm"
-                  : "border-border bg-surface"
-              }`}
-            >
-              {plan.destacado && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="rounded-full bg-primary px-3 py-1 text-[11px] font-medium text-white">
-                    Más popular
-                  </span>
-                </div>
-              )}
-
-              <div className="mb-5">
-                <p className="text-sm font-medium text-text-secondary">{plan.nombre}</p>
-                <div className="mt-1 flex items-baseline gap-1">
-                  <span className="text-3xl font-medium text-text-primary">{plan.precio}</span>
-                  {plan.periodo && (
-                    <span className="text-sm text-text-secondary">{plan.periodo}</span>
-                  )}
-                </div>
-                <p className="mt-1.5 text-xs text-text-secondary">{plan.descripcion}</p>
-              </div>
-
-              <Link
-                href={plan.ctaHref}
-                className={`mb-5 block rounded-lg py-2.5 text-center text-sm font-medium transition-opacity ${
+          {PLANES.map((plan, idx) => (
+            <FadeIn key={plan.nombre} delay={idx * 0.1}>
+              <div
+                className={`relative flex h-full flex-col rounded-2xl border p-6 transition-transform hover:-translate-y-1 ${
                   plan.destacado
-                    ? "bg-primary text-white hover:opacity-90"
-                    : "border border-border text-text-primary hover:bg-bg"
+                    ? "border-primary bg-surface shadow-md"
+                    : "border-border bg-surface hover:shadow-sm"
                 }`}
               >
-                {plan.cta}
-              </Link>
+                {plan.destacado && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="rounded-full bg-primary px-3 py-1 text-[11px] font-medium text-white shadow-sm">
+                      Más popular
+                    </span>
+                  </div>
+                )}
 
-              <ul className="flex flex-col gap-2.5">
-                {plan.features.map((f) => (
-                  <FeatureItem key={f} text={f} available />
-                ))}
-                {plan.disabled.map((f) => (
-                  <FeatureItem key={f} text={f} available={false} />
-                ))}
-              </ul>
-            </div>
+                <div className="mb-5">
+                  <p className="text-sm font-medium text-text-secondary">{plan.nombre}</p>
+                  <div className="mt-1 flex items-baseline gap-1">
+                    <span className="text-3xl font-medium text-text-primary">{plan.precio}</span>
+                    {plan.periodo && (
+                      <span className="text-sm text-text-secondary">{plan.periodo}</span>
+                    )}
+                  </div>
+                  <p className="mt-1.5 text-xs text-text-secondary">{plan.descripcion}</p>
+                </div>
+
+                <Link
+                  href={plan.ctaHref}
+                  className={`mb-5 block rounded-lg py-2.5 text-center text-sm font-medium transition-opacity ${
+                    plan.destacado
+                      ? "bg-primary text-white hover:opacity-90"
+                      : "border border-border text-text-primary hover:bg-bg"
+                  }`}
+                >
+                  {plan.cta}
+                </Link>
+
+                <ul className="flex flex-col gap-2.5 mt-auto">
+                  {plan.features.map((f) => (
+                    <FeatureItem key={f} text={f} available />
+                  ))}
+                  {plan.disabled.map((f) => (
+                    <FeatureItem key={f} text={f} available={false} />
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
           ))}
         </div>
 
-        <p className="mt-6 text-center text-xs text-text-secondary">
-          Todos los planes incluyen acceso al motor normativo de Andalucía completo.
-          Precios sin IVA.
-        </p>
+        <FadeIn delay={0.4}>
+          <p className="mt-6 text-center text-xs text-text-secondary">
+            Todos los planes incluyen acceso al motor normativo de Andalucía completo.
+            Precios sin IVA.
+          </p>
+        </FadeIn>
       </div>
     </section>
   );

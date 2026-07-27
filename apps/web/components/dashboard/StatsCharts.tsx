@@ -6,13 +6,17 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
   PieChart,
   Pie,
-  Cell,
-  Legend,
 } from "recharts";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "@/components/ui/chart";
 
 export type TendenciaData = {
   mes: string;
@@ -31,69 +35,120 @@ type Props = {
   estados: EstadoData[];
 };
 
+const tendenciaConfig = {
+  creados: {
+    label: "Creados",
+    color: "hsl(var(--primary))",
+  },
+  resueltos: {
+    label: "Resueltos",
+    color: "hsl(var(--success))",
+  },
+} satisfies ChartConfig;
+
+const estadosConfig = {
+  "Aprobado": {
+    label: "Aprobado",
+    color: "hsl(var(--success))",
+  },
+  "En revisión": {
+    label: "En revisión",
+    color: "hsl(var(--warning))",
+  },
+  "Subsanación": {
+    label: "Subsanación",
+    color: "hsl(var(--danger))",
+  },
+  "Presentado": {
+    label: "Presentado",
+    color: "hsl(var(--primary))",
+  },
+} satisfies ChartConfig;
+
 export function StatsCharts({ tendencia, estados }: Props) {
+  // Add fill field based on ChartConfig to feed to Recharts Pie
+  const chartDataEstados = estados.map((item) => ({
+    ...item,
+    fill: estadosConfig[item.estado as keyof typeof estadosConfig]?.color || "hsl(var(--muted))",
+  }));
+
   return (
     <div className="grid gap-4 lg:grid-cols-3">
       {/* Area chart — tendencia */}
-      <div className="lg:col-span-2 rounded-xl border border-border bg-surface p-5">
+      <div className="lg:col-span-2 rounded-xl border border-border bg-surface p-5 shadow-sm">
         <h3 className="mb-4 text-sm font-semibold text-text-primary">Tendencia de Expedientes</h3>
-        <ResponsiveContainer width="100%" height={220}>
+        
+        <ChartContainer config={tendenciaConfig} className="h-[250px] w-full">
           <AreaChart data={tendencia} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
             <defs>
-              <linearGradient id="gradCreados" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#1B4FD8" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#1B4FD8" stopOpacity={0} />
+              <linearGradient id="fillCreados" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--color-creados)" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="var(--color-creados)" stopOpacity={0} />
               </linearGradient>
-              <linearGradient id="gradResueltos" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#16A34A" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#16A34A" stopOpacity={0} />
+              <linearGradient id="fillResueltos" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--color-resueltos)" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="var(--color-resueltos)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
-            <XAxis dataKey="mes" tick={{ fontSize: 11 }} />
-            <YAxis tick={{ fontSize: 11 }} />
-            <Tooltip
-              contentStyle={{
-                borderRadius: "8px",
-                border: "1px solid rgba(0,0,0,0.1)",
-                fontSize: "12px",
-              }}
+            <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <XAxis
+              dataKey="mes"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tick={{ fill: "hsl(var(--muted-foreground))" }}
             />
-            <Area type="monotone" dataKey="creados" name="Creados" stroke="#1B4FD8" fill="url(#gradCreados)" strokeWidth={2} />
-            <Area type="monotone" dataKey="resueltos" name="Resueltos" stroke="#16A34A" fill="url(#gradResueltos)" strokeWidth={2} />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tick={{ fill: "hsl(var(--muted-foreground))" }}
+            />
+            <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
+            <Area
+              type="monotone"
+              dataKey="resueltos"
+              stackId="a"
+              fill="url(#fillResueltos)"
+              stroke="var(--color-resueltos)"
+              strokeWidth={2}
+            />
+            <Area
+              type="monotone"
+              dataKey="creados"
+              stackId="a"
+              fill="url(#fillCreados)"
+              stroke="var(--color-creados)"
+              strokeWidth={2}
+            />
           </AreaChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </div>
 
       {/* Donut chart — estados */}
-      <div className="rounded-xl border border-border bg-surface p-5">
+      <div className="rounded-xl border border-border bg-surface p-5 shadow-sm">
         <h3 className="mb-4 text-sm font-semibold text-text-primary">Por Estado</h3>
-        <ResponsiveContainer width="100%" height={220}>
+        <ChartContainer config={estadosConfig} className="mx-auto aspect-square h-[250px]">
           <PieChart>
+            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <Pie
-              data={estados}
+              data={chartDataEstados}
               dataKey="cantidad"
               nameKey="estado"
               cx="50%"
-              cy="45%"
-              innerRadius={55}
+              cy="50%"
+              innerRadius={60}
               outerRadius={80}
               paddingAngle={3}
-            >
-              {estados.map((entry, index) => (
-                <Cell key={index} fill={entry.color} />
-              ))}
-            </Pie>
-            <Legend iconSize={8} wrapperStyle={{ fontSize: "11px" }} />
-            <Tooltip
-              contentStyle={{
-                borderRadius: "8px",
-                border: "1px solid rgba(0,0,0,0.1)",
-                fontSize: "12px",
-              }}
+              stroke="hsl(var(--background))"
+              strokeWidth={2}
+            />
+            <ChartLegend
+              content={<ChartLegendContent />}
+              className="flex-wrap gap-2 text-[11px]"
             />
           </PieChart>
-        </ResponsiveContainer>
+        </ChartContainer>
       </div>
     </div>
   );

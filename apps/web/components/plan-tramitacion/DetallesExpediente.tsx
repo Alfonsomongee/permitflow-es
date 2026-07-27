@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Loader2, Pencil } from "lucide-react";
+import { Loader2, Pencil } from "lucide-react";
+import { toast } from "sonner";
 
 interface DetallesExpedienteProps {
   expedienteId: string;
@@ -21,16 +22,12 @@ export function DetallesExpediente({
     notas: notas ?? "",
   });
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [ok, setOk] = useState(false);
 
   const dirty = referencia !== guardado.referencia || notasTexto !== guardado.notas;
 
   const handleGuardar = async () => {
     if (!dirty || saving) return;
     setSaving(true);
-    setError(null);
-    setOk(false);
     try {
       const res = await fetch(`/api/expedientes/${expedienteId}`, {
         method: "PATCH",
@@ -43,10 +40,9 @@ export function DetallesExpediente({
       const data = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) throw new Error(data.error ?? `Error ${res.status}`);
       setGuardado({ referencia, notas: notasTexto });
-      setOk(true);
-      setTimeout(() => setOk(false), 2000);
+      toast.success("Cambios guardados correctamente.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo guardar.");
+      toast.error(err instanceof Error ? err.message : "No se pudo guardar.");
     } finally {
       setSaving(false);
     }
@@ -60,9 +56,10 @@ export function DetallesExpediente({
       </p>
 
       <label className="mb-3 block">
-        <span className="mb-1.5 block text-xs font-medium text-text-secondary">
-          Referencia de cliente
-        </span>
+        <div className="mb-1.5 flex justify-between text-xs font-medium text-text-secondary">
+          <span>Referencia de cliente</span>
+          <span className={referencia.length >= 120 ? "text-warning-dark" : ""}>{referencia.length}/120</span>
+        </div>
         <input
           value={referencia}
           onChange={(e) => setReferencia(e.target.value)}
@@ -73,9 +70,10 @@ export function DetallesExpediente({
       </label>
 
       <label className="block">
-        <span className="mb-1.5 block text-xs font-medium text-text-secondary">
-          Notas internas
-        </span>
+        <div className="mb-1.5 flex justify-between text-xs font-medium text-text-secondary">
+          <span>Notas internas</span>
+          <span className={notasTexto.length >= 4000 ? "text-warning-dark" : ""}>{notasTexto.length}/4000</span>
+        </div>
         <textarea
           value={notasTexto}
           onChange={(e) => setNotasTexto(e.target.value)}
@@ -86,16 +84,7 @@ export function DetallesExpediente({
         />
       </label>
 
-      {error && (
-        <p className="mt-3 rounded-lg bg-danger-light px-3 py-2 text-xs text-danger-dark">{error}</p>
-      )}
-
-      <div className="mt-4 flex items-center justify-end gap-3">
-        {ok && (
-          <span className="flex items-center gap-1 text-xs font-medium text-success-dark">
-            <Check size={13} aria-hidden /> Guardado
-          </span>
-        )}
+      <div className="mt-4 flex justify-end">
         <button
           onClick={handleGuardar}
           disabled={!dirty || saving}
