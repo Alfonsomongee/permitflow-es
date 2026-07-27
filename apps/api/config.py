@@ -8,6 +8,9 @@ class Settings(BaseSettings):
 
     # Seguridad interna: clave compartida con Next.js (cabecera X-Internal-Key)
     INTERNAL_API_KEY: Optional[str] = None
+    # Clave secreta para HMAC de tokens de estudio y hash del CUPS
+    # Generar con: python -c "import secrets; print(secrets.token_hex(32))"
+    SECRET_KEY: str = "dev-secret-key-change-in-production"
     
     # API Keys
     DEEPSEEK_API_KEY: Optional[str] = None
