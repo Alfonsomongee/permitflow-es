@@ -21,8 +21,8 @@ const incentivoFiscalSchema = z.object({
   descripcion: z.string(),
   ahorro_estimado: z.number().finite().nonnegative(),
   nivel_verificacion: z.enum([
-    "verificada",
-    "generica_pendiente_url",
+    "verified",
+    "pending_verification",
   ]),
 });
 

@@ -11,7 +11,6 @@ export type FichaTecnologia = {
   paraQuienEncaja: string[];
   cuandoNoEncaja: string[];
   factorDecisivo: string;
-  normativaPrincipal: string[];
 };
 
 export const TECNOLOGIAS: FichaTecnologia[] = [
@@ -36,12 +35,6 @@ export const TECNOLOGIAS: FichaTecnologia[] = [
     ],
     factorDecisivo:
       "Radiación solar disponible en la ubicación (kWh/m²/año) y coincidencia entre generación y consumo.",
-    normativaPrincipal: [
-      "RD 244/2019, de 5 de abril, de autoconsumo",
-      "Ley 24/2013, del Sector Eléctrico (art. 9 y 53)",
-      "RD 1183/2020, de acceso y conexión",
-      "CTE DB-HE5, contribución mínima de energía renovable",
-    ],
   },
   {
     id: "irve",
@@ -63,12 +56,6 @@ export const TECNOLOGIAS: FichaTecnologia[] = [
     ],
     factorDecisivo:
       "Potencia disponible en la acometida existente y necesidad (o no) de nuevo suministro eléctrico.",
-    normativaPrincipal: [
-      "RD 1053/2014, ITC-BT-52",
-      "RD-ley 29/2021, dotación mínima en edificios",
-      "RD 184/2022, PUES y acceso público",
-      "CTE DB-HE6, dotación de IRVE en obra nueva",
-    ],
   },
   {
     id: "climatizacion_aerotermia",
@@ -90,12 +77,6 @@ export const TECNOLOGIAS: FichaTecnologia[] = [
     ],
     factorDecisivo:
       "Zona climática CTE (severidad de invierno) y compatibilidad con el sistema de emisión existente.",
-    normativaPrincipal: [
-      "RITE (RD 1027/2007 modificado por RD 178/2021)",
-      "CTE DB-HE4, contribución mínima de energía renovable",
-      "Directiva 2009/28/CE (clasificación renovable)",
-      "RSIF (RD 552/2019) si usa refrigerante fluorado > 500 t CO₂eq",
-    ],
   },
   {
     id: "acs",
@@ -116,12 +97,6 @@ export const TECNOLOGIAS: FichaTecnologia[] = [
     ],
     factorDecisivo:
       "Existencia de acumulación de ACS y volumen del depósito (el riesgo de legionella y las obligaciones de mantenimiento aumentan con el volumen).",
-    normativaPrincipal: [
-      "RITE (RD 1027/2007 modificado por RD 178/2021)",
-      "RD 487/2022, prevención y control de legionelosis",
-      "CTE DB-HE4, contribución mínima renovable para ACS",
-      "CTE DB-HS4, suministro de agua",
-    ],
   },
   {
     id: "gas_baja_presion",
@@ -143,11 +118,5 @@ export const TECNOLOGIAS: FichaTecnologia[] = [
     ],
     factorDecisivo:
       "Tipo de gas (natural vs. GLP) y presión de suministro, que determinan la categoría del instalador y el certificado requerido.",
-    normativaPrincipal: [
-      "RD 919/2006, Reglamento de distribución y utilización de combustibles gaseosos (RDUCG)",
-      "Norma UNE 60670, instalaciones receptoras de gas",
-      "RD 984/2015, certificados IRG e inspecciones periódicas",
-      "ITC-ICG 07, instalaciones receptoras de GLP",
-    ],
   },
 ];

@@ -50,7 +50,7 @@ describe("estudioResponseSchema", () => {
         nombre: "IBI",
         descripcion: "50%",
         ahorro_estimado: 200,
-        nivel_verificacion: "verificada",
+        nivel_verificacion: "verified",
       }
     ],
     supuestos_utilizados: [

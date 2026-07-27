@@ -126,22 +126,7 @@ export function FichaTecnologia({ ficha }: Props) {
         </p>
       </section>
 
-      {/* Normativa principal */}
-      <section className="mb-8">
-        <h2 className="mb-3 text-sm font-medium text-text-primary">
-          Normativa principal de referencia
-        </h2>
-        <ul className="flex flex-col gap-1.5">
-          {ficha.normativaPrincipal.map((norma) => (
-            <li
-              key={norma}
-              className="text-xs text-text-secondary leading-relaxed"
-            >
-              — {norma}
-            </li>
-          ))}
-        </ul>
-      </section>
+
 
       {/* CTA */}
       <div className="rounded-xl border border-border bg-surface p-5">

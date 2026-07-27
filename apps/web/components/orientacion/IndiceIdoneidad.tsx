@@ -14,6 +14,11 @@ import {
 } from "lucide-react";
 import type { FichaTecnologia } from "@/content/tecnologias";
 import { BloqueFiscal } from "@/components/orientacion/BloqueFiscal";
+import { getApplicableLegalReferences } from "@/lib/legal/selectors";
+import { slugToIne } from "@/lib/legal/utils";
+import { LegalReferenceCard } from "@/components/legal/LegalReferenceCard";
+import { LocationContext } from "@/lib/legal/types";
+import { Scale } from "lucide-react";
 
 const MESES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
@@ -175,6 +180,14 @@ export function IndiceIdoneidad({ tecnologiaId, onResult }: Props) {
     acs: "Normativa ACS",
     gas_baja_presion: "Gas Baja Presión",
   };
+
+  // Referencias legales aplicables
+  const locationContext: LocationContext | undefined = result?.ubicacion ? {
+    state: 'ES',
+    autonomousCommunityId: slugToIne(result.ubicacion.comunidad),
+  } : undefined;
+
+  const applicableReferences = locationContext ? getApplicableLegalReferences(tecnologiaId, locationContext) : [];
 
   return (
     <div className="rounded-xl border border-border bg-surface overflow-hidden">
@@ -345,9 +358,7 @@ export function IndiceIdoneidad({ tecnologiaId, onResult }: Props) {
                   Municipio: <strong className="text-text-primary">{municipio}</strong> ({result.ubicacion.comunidad})
                 </p>
                 <div className="mt-3 space-y-2 text-xs text-text-secondary">
-                  <p>• Normativa aplicable: RD 1053/2014 (ITC-BT-52) + RD 184/2022 (acceso público).</p>
-                  <p>• El Plan MOVES III está cerrado desde 31/12/2025. No existe un sucesor directo para subvención de infraestructura de recarga.</p>
-                  <p>• El Programa Auto+ (RD 609/2026) cubre exclusivamente la compra del vehículo eléctrico, no la instalación del punto de recarga.</p>
+                  <p>• La infraestructura de recarga pública puede requerir coordinación con distribuidoras.</p>
                 </div>
               </div>
             )}
@@ -381,7 +392,6 @@ export function IndiceIdoneidad({ tecnologiaId, onResult }: Props) {
                   Municipio: <strong className="text-text-primary">{municipio}</strong> ({result.ubicacion.comunidad})
                 </p>
                 <div className="mt-3 space-y-2 text-xs text-text-secondary">
-                  <p>• Normativa: RD 919/2006 Reglamento Instalaciones de Gas + RD 984/2015.</p>
                   <p>• <strong className="text-text-primary">Revisión IRG-4 obligatoria cada 5 años.</strong> Es responsabilidad del titular de la instalación contratar la revisión con una empresa autorizada.</p>
                   <p>• Contexto de descarbonización: las calderas de gas de nueva instalación tendrán restricciones crecientes en edificios nuevos según la Directiva de Eficiencia Energética de Edificios (EPBD 2024).</p>
                 </div>
@@ -394,8 +404,23 @@ export function IndiceIdoneidad({ tecnologiaId, onResult }: Props) {
               tecnologiaId={tecnologiaId}
             />
 
+            {/* Referencias Legales - Catálogo */}
+            {applicableReferences.length > 0 && (
+              <div className="mt-6 space-y-3">
+                <h3 className="flex items-center gap-2 text-sm font-semibold text-text-primary border-t border-border pt-4">
+                  <Scale size={16} className="text-primary" />
+                  Normativa Aplicable
+                </h3>
+                <div className="grid gap-3">
+                  {applicableReferences.map(ref => (
+                    <LegalReferenceCard key={ref.id} reference={ref} />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Aviso legal */}
-            <div className="flex items-start gap-2 text-xs text-text-secondary">
+            <div className="flex items-start gap-2 text-xs text-text-secondary mt-4 border-t border-border pt-4">
               <Info size={14} className="mt-0.5 flex-shrink-0" />
               <p>{result.aviso}</p>
             </div>
