@@ -121,7 +121,7 @@ def test_irve_document_conditions():
     # Extraer condiciones de los documentos de MAD-IRVE-001
     docs = data['reglas'][0]['tramites'][1]['documentos_requeridos']
     cond_acta_xi = next(d['condicion_documento'] for d in docs if d['id'] == 'anexo_acta_xi')
-    cond_acta_xii = next(d['condicion_documento'] for d in docs if d['id'] == 'aclaraciones_acta_xii')
+    cond_acta_xii = next(d['condicion_documento'] for d in docs if d['id'] == 'acta_xii')
     
     # Instalacion origen no modificada -> Acta XI si
     assert jsonLogic(cond_acta_xi, {'instalacion_origen_modificada': False}) == True

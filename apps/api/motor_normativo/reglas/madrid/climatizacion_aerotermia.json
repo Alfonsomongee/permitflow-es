@@ -3,24 +3,31 @@
   "comunidad": "madrid",
   "version": "1.1.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "verificada",
+  "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
-  "aviso": "Corregidas fronteras (5 kW y 70 kW). Eliminado trámite OCA inventado. Añadidos formularios oficiales y tasas escalonadas (presupuesto no disponible, en notas). La Orden 688/2008 fue sustituida por las resoluciones reales de 2020 y 2025. Se ha eliminado la declaración responsable del titular en el trámite MTD que no aparecía en la lista oficial.",
+  "aviso": "Fronteras RITE corregidas y registro EICI modelado. Plazos e importes no se automatizan.",
   "huecos_verificacion": [
-    "Tasas escalonadas confirmadas pero dependientes de presupuesto (no mapeable dinámicamente con el input actual)"
+    "Confirmar el importe vigente de la tasa y la tarifa EICI en cada expediente."
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Orden 9343/2003, de 1 de octubre, de la Consejería de Economía e Innovación Tecnológica (registro, puesta en servicio e inspección de instalaciones térmicas no industriales)",
+    "RD 1027/2007 (RITE)",
+    "Orden 9343/2003, de 1 de octubre",
     "Decreto 38/2002, de 28 de febrero",
-    "Resolución de 15 de enero de 2020 (porcentajes de inspección)",
-    "Resolución de 5 de marzo de 2025 (modelos de formularios actualizados de la Orden 9343/2003)"
+    "Resolución de 5 de marzo de 2025"
+  ],
+  "validaciones": [
+    {
+      "id": "MAD-AERO-VALIDACION",
+      "campos_requeridos": [
+        "potencia_kw"
+      ],
+      "accion_si_faltan": "revision_manual"
+    }
   ],
   "reglas": [
     {
-      "id": "MAD-AT-INFO",
-      "descripcion": "Aerotermia < 5 kW: exenta de registro formal",
+      "id": "MAD-AERO-INFO",
+      "descripcion": "Aerotermia <5 kW",
       "condicion": {
         "and": [
           {
@@ -44,32 +51,26 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Diseño e instalación por instalador habilitado",
-          "organismo": "Instalador térmico",
-          "base_legal": "RITE RD 1027/2007",
-          "plazo_estimado_dias": 2,
+          "nombre": "Información: no requiere registro documental RITE por razón de potencia",
+          "organismo": "Comunidad de Madrid",
+          "base_legal": "RD 1027/2007 (RITE)",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del instalador",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-AT-INFO",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalación interno",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Las instalaciones < 5 kW no requieren registro formal de EICI según la normativa de Madrid, salvo que haya otros condicionantes."
+          "regla_id": "MAD-AERO-INFO",
+          "tipo_actuacion": "informativa",
+          "documentos_requeridos": [],
+          "notas": "No equivale a exención del cumplimiento técnico."
         }
       ]
     },
     {
-      "id": "MAD-AT-001",
-      "descripcion": "Instalación de aerotermia para climatización con 5 kW ≤ potencia < 70 kW (memoria técnica, sin proyecto)",
+      "id": "MAD-AERO-MTD",
+      "descripcion": "Aerotermia de 5 a <70 kW",
       "condicion": {
         "and": [
           {
@@ -101,67 +102,63 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de diseño (MTD) según RITE",
-          "organismo": "Instalador habilitado (categoría térmica)",
-          "base_legal": "RITE RD 1027/2007 art. 17",
-          "plazo_estimado_dias": 5,
+          "nombre": "Memoria Técnica de Diseño de instalación térmica",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RD 1027/2007 (RITE)",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-AT-001",
+          "regla_id": "MAD-AERO-MTD",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "mtd_aerotermia",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Documento firmado por instalador habilitado.",
+              "id": "mtd_termica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
               "obligatorio": true
-            },
-            {
-              "id": "certificado_eficiencia_energetica",
-              "label": "Certificado de eficiencia energética del edificio (si aplica)",
-              "descripcion": "Obligatorio para venta/alquiler, recomendado para obra nueva.",
-              "obligatorio": false
             }
           ],
           "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI)",
+          "nombre": "Registro de documentación de instalación térmica no industrial",
           "organismo": "Entidad de Inspección y Control Industrial (EICI)",
           "base_legal": "Orden 9343/2003; Decreto 38/2002",
-          "plazo_estimado_dias": 15,
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
-          "coste_estimado": "3,12 € (vivienda) o 6,24 € (no vivienda)",
-          "formulario_ref": "IT 3.1.5",
+          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
+          "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-AT-001",
+          "regla_id": "MAD-AERO-MTD",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "mtd_aerotermia",
-              "label": "Memoria Técnica de Diseño aerotermia",
+              "id": "mtd_termica",
+              "label": "Memoria Técnica de Diseño",
               "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de instalación",
-              "descripcion": "Modelo oficial IT 3.1.8",
+              "label": "Certificado de instalación térmica",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Plazos oficiales: Suministro provisional máx 30 días, pruebas máx 25 días, entrega documento final máx 5 días."
+          "notas": "Requiere tasa; consultar importe y tarifa vigentes."
         }
       ]
     },
     {
-      "id": "MAD-AT-002",
-      "descripcion": "Instalación de aerotermia para climatización con potencia ≥ 70 kW (requiere proyecto técnico)",
+      "id": "MAD-AERO-PROYECTO",
+      "descripcion": "Aerotermia >=70 kW",
       "condicion": {
         "and": [
           {
@@ -186,21 +183,22 @@
         {
           "orden": 1,
           "nombre": "Proyecto técnico de instalación térmica",
-          "organismo": "Técnico competente",
-          "base_legal": "RITE RD 1027/2007 art. 16",
-          "plazo_estimado_dias": 15,
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RD 1027/2007 (RITE)",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios profesionales",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-AT-002",
+          "regla_id": "MAD-AERO-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico",
+              "id": "proyecto_termico",
               "label": "Proyecto técnico",
-              "descripcion": "Visado o con declaración responsable.",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
@@ -208,47 +206,41 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro e Inspección Inicial ante Entidad de Inspección y Control Industrial (EICI)",
+          "nombre": "Registro de documentación de instalación térmica no industrial",
           "organismo": "Entidad de Inspección y Control Industrial (EICI)",
           "base_legal": "Orden 9343/2003; Decreto 38/2002",
-          "plazo_estimado_dias": 15,
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
-          "coste_estimado": "15,60 € (hasta 6000€), 31,22 € (6000-60000€) o 52,04 € (>60000€)",
-          "formulario_ref": "IT 3.1.9",
+          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
+          "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-AT-002",
+          "regla_id": "MAD-AERO-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "proyecto_visado",
-              "label": "Proyecto Técnico visado",
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de instalación",
-              "descripcion": "Modelo oficial IT 3.1.7",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_montaje",
-              "label": "Certificado de montaje",
-              "descripcion": "Modelo oficial IT 3.1.6",
-              "obligatorio": true
-            },
-            {
-              "id": "manual_uso_mantenimiento",
-              "label": "Manual de uso y mantenimiento",
+              "label": "Certificado de instalación térmica",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": false
             }
           ],
-          "notas": "La inspección inicial la practica la EICI dentro del propio registro. Plazos oficiales: Suministro provisional máx 30 días, pruebas máx 25 días, entrega documento final máx 5 días."
+          "notas": "La posible inspección se determina por el procedimiento aplicable; no se infiere universalmente por potencia."
         }
       ]
     }
-  ],
-  "validaciones": []
+  ]
 }

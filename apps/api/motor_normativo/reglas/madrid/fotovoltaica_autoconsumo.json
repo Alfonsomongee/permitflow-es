@@ -3,23 +3,25 @@
   "comunidad": "madrid",
   "version": "1.1.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "verificada",
+  "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
-  "aviso": "Reglas reestructuradas por tensión y potencia. Eliminados tramos 100-500 y >500. Trámites de puesta en servicio, autorización, registro de autoconsumo y producción separados. Corregidos operadores JSONLogic vacíos y requisitos de registro de oficio.",
+  "aviso": "Rutas separadas por tensión. La inscripción de oficio se marca como actuación administrativa, fuera del progreso. La documentación BT debe concretarse conforme a la Instrucción autonómica de 24/11/2025.",
   "huecos_verificacion": [
-    "La aplicación al Registro de Producción se obtiene mediante requiere_registro_produccion y exige determinación previa conforme al RD 413/2014.",
-    "La documentación concreta de puesta en servicio BT debe especializarse según la Instrucción autonómica vigente y la modalidad de autoconsumo."
+    "La aplicación del Registro de Producción se determina mediante requiere_registro_produccion conforme al RD 413/2014.",
+    "La documentación concreta de puesta en servicio BT depende de la modalidad y de la Instrucción autonómica vigente.",
+    "Los importes de tasas no se automatizan salvo que la ficha oficial declare expresamente ausencia de tasa."
   ],
   "fuentes": [
-    "Ley 24/2013 art. 53",
+    "Ley 24/2013, art. 53",
     "RD 244/2019",
-    "Instrucción sobre los procedimientos para la puesta en servicio de instalaciones de autoconsumo de energía eléctrica en la CM (24/11/2025)",
-    "Decreto 86/2025, de 29 de octubre, del Consejo de Gobierno (simplificación de procedimientos de autorización en instalaciones de energía eléctrica en ALTA TENSIÓN)",
-    "RD 413/2014"
+    "Instrucción de la Comunidad de Madrid de 24/11/2025 sobre puesta en servicio de autoconsumo",
+    "Decreto 86/2025",
+    "RD 413/2014",
+    "RD 842/2002, REBT"
   ],
   "validaciones": [
     {
-      "id": "MAD-FV-VALIDACION-REGISTRO",
+      "id": "MAD-FV-VALIDACION",
       "campos_requeridos": [
         "potencia_kw",
         "nivel_tension_consumidor",
@@ -32,7 +34,7 @@
   "reglas": [
     {
       "id": "MAD-FV-BT-PUESTA-SERVICIO",
-      "descripcion": "Puesta en servicio en Baja Tensión",
+      "descripcion": "Puesta en servicio en BT",
       "condicion": {
         "and": [
           {
@@ -57,38 +59,38 @@
         {
           "orden": 1,
           "nombre": "Puesta en servicio ante Entidad de Inspección y Control Industrial (EICI)",
-          "tipo_actuacion": "accion_usuario",
           "organismo": "Entidad de Inspección y Control Industrial (EICI)",
-          "base_legal": "Instrucción de 24/11/2025; RD 244/2019",
-          "plazo_estimado_dias": 15,
+          "base_legal": "Instrucción de 24/11/2025; RD 842/2002; RD 244/2019",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
-          "coste_estimado": "Sujeto a tasas vigentes de EICI",
+          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-FV-BT-PUESTA-SERVICIO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "documentacion_tecnica",
-              "label": "Documentación técnica (MTD o Proyecto)",
-              "descripcion": "Según requisitos de la Instrucción de 24/11/2025.",
+              "label": "MTD o proyecto, según proceda",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "cie",
-              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "label": "Certificado de Instalación Eléctrica",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "La documentación requerida depende de la Instrucción vigente de 24/11/2025."
+          "notas": "La documentación exacta depende de la modalidad y de la Instrucción vigente."
         }
       ]
     },
     {
       "id": "MAD-FV-AT-AUTORIZACION",
-      "descripcion": "Autorización administrativa en Alta Tensión",
+      "descripcion": "Autorización y puesta en servicio en AT",
       "condicion": {
         "and": [
           {
@@ -100,11 +102,11 @@
             ]
           },
           {
-            ">": [
+            "==": [
               {
-                "var": "tension_conexion_v"
+                "var": "nivel_tension_conexion"
               },
-              1000
+              "at"
             ]
           }
         ]
@@ -112,10 +114,9 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Tramitación de las autorizaciones aplicables a la instalación de alta tensión",
-          "tipo_actuacion": "accion_usuario",
+          "nombre": "Autorización y puesta en servicio de instalación eléctrica de alta tensión",
           "organismo": "Dirección General de Transición Energética y Economía Circular",
-          "base_legal": "Decreto 86/2025",
+          "base_legal": "Ley 24/2013; Decreto 86/2025",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
@@ -124,15 +125,16 @@
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-FV-AT-AUTORIZACION",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "proyecto_at",
               "label": "Proyecto técnico",
-              "descripcion": "Proyecto de ejecución y hojas de características.",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Procedimiento de autorización (previa, de construcción, de explotación) para instalaciones de AT regulado por el Decreto 86/2025. Las fases concretas dependen de las características del expediente."
+          "notas": "Las fases concretas dependen de las características del expediente."
         }
       ]
     },
@@ -187,8 +189,7 @@
         {
           "orden": 2,
           "nombre": "Inscripción de oficio en el Registro Administrativo de Autoconsumo",
-          "tipo_actuacion": "oficio_administracion",
-          "organismo": "Administración / Comunidad de Madrid",
+          "organismo": "Comunidad de Madrid",
           "base_legal": "RD 244/2019",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
@@ -198,14 +199,15 @@
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-FV-REGISTRO-OFICIO",
+          "tipo_actuacion": "oficio_administracion",
           "documentos_requeridos": [],
-          "notas": "La inscripción la realiza de oficio la Administración cuando el consumidor y la instalación generadora están conectados en baja tensión, la generación es de baja tensión y la potencia instalada es inferior a 100 kW."
+          "notas": "No requiere solicitud del titular cuando consumidor y generación están en BT y la potencia instalada es inferior a 100 kW."
         }
       ]
     },
     {
       "id": "MAD-FV-REGISTRO-SOLICITUD",
-      "descripcion": "Inscripción en el Registro Administrativo de Autoconsumo a solicitud del titular",
+      "descripcion": "Inscripción D50 a solicitud del titular",
       "condicion": {
         "and": [
           {
@@ -259,8 +261,7 @@
       "tramites": [
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo",
-          "tipo_actuacion": "accion_usuario",
+          "nombre": "Inscripción o modificación en el Registro Administrativo de Autoconsumo (D50)",
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "RD 244/2019",
           "plazo_estimado_dias": null,
@@ -268,25 +269,25 @@
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/comunicaciones-declaraciones/registro-autoconsumo-energia-electrica",
           "coste_estimado": "Sin tasa",
-          "formulario_ref": null,
+          "formulario_ref": "D50",
           "paralelo_con": null,
           "regla_id": "MAD-FV-REGISTRO-SOLICITUD",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "solicitud_d50",
-              "label": "Solicitud de inscripción (Trámite D50)",
+              "label": "Solicitud D50",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Aplica a instalaciones donde el consumidor, generación o conexión están en AT, o la potencia >= 100 kW. La inscripción debe ser solicitada por el titular o representante.",
-          "referencia_tramite": "D50"
+          "notas": "La ficha oficial indica que no requiere pago de tasa."
         }
       ]
     },
     {
       "id": "MAD-FV-REGISTRO-PRODUCCION",
-      "descripcion": "Inscripción en el Registro de Producción de Energía Eléctrica",
+      "descripcion": "Registro de Producción cuando proceda",
       "condicion": {
         "and": [
           {
@@ -310,27 +311,27 @@
       "tramites": [
         {
           "orden": 3,
-          "nombre": "Inscripción en Registro de Producción de Energía Eléctrica",
-          "tipo_actuacion": "accion_usuario",
+          "nombre": "Inscripción en el Registro de Producción de Energía Eléctrica",
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "RD 413/2014",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/reg-inst-produccion-energia-electrica",
-          "coste_estimado": "35,93 €",
+          "coste_estimado": "Consultar tasa vigente",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-FV-REGISTRO-PRODUCCION",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "solicitud_inscripcion_produccion",
+              "id": "solicitud_produccion",
               "label": "Solicitud de inscripción",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Solo aplica a instalaciones del ámbito del RD 413/2014 (ej. venta a red pura o ciertos autoconsumos con excedentes según la normativa estatal)."
+          "notas": "Solo aplica cuando requiere_registro_produccion es verdadero."
         }
       ]
     }

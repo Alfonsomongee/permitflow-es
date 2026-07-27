@@ -3,51 +3,34 @@
   "comunidad": "madrid",
   "version": "1.1.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "verificada",
+  "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
-  "aviso": "Reglas de proyecto IRVE actualizadas a la modificación del RD 1053/2014. Documentos del GTREBT ajustados como condicionales oficiales. Corregidos operadores JSONLogic vacíos.",
+  "aviso": "Proyecto o MTD conforme a ITC-BT-04/52. Puesta en servicio ante EICI. Vía pública requiere revisión municipal adicional.",
   "huecos_verificacion": [
-    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido en este JSON autonómico."
+    "La autorización municipal concreta para IRVE en vía pública depende del municipio y no se modela en este JSON autonómico.",
+    "Los importes de tasa y tarifa EICI dependen del expediente y deben consultarse en la ficha vigente."
   ],
   "fuentes": [
-    "Real Decreto 842/2002, REBT, ITC-BT-04, modificada por el Real Decreto 1053/2014",
-    "Real Decreto 1053/2014, por el que se aprueba la ITC-BT-52 y se modifica la ITC-BT-04",
-    "Decreto 38/2002, de 28 de febrero",
-    "Orden 9344/2003, de 1 de octubre, modificada por Orden 163/2024, de 22 de enero"
+    "RD 842/2002, REBT, ITC-BT-04",
+    "RD 1053/2014, ITC-BT-52",
+    "Decreto 38/2002",
+    "Orden 9344/2003, modificada por Orden 163/2024"
   ],
   "validaciones": [
     {
-      "id": "MAD-IRVE-VALIDACION-UBICACION",
-      "campo": "ubicacion_irve",
-      "valores_permitidos": [
-        "interior",
-        "garaje_comunitario",
-        "exterior",
-        "via_publica"
+      "id": "MAD-IRVE-VALIDACION",
+      "campos_requeridos": [
+        "ubicacion_irve",
+        "modo_recarga",
+        "potencia_kw"
       ],
-      "obligatorio": true
-    },
-    {
-      "campo": "modo_recarga",
-      "valores_permitidos": [
-        "1",
-        "2",
-        "3",
-        "4"
-      ],
-      "obligatorio": true
-    },
-    {
-      "campo": "potencia_kw",
-      "tipo": "number",
-      "minimo_exclusivo": 0,
-      "obligatorio": true
+      "accion_si_faltan": "revision_manual"
     }
   ],
   "reglas": [
     {
-      "id": "MAD-IRVE-001",
-      "descripcion": "IRVE que NO requiere proyecto técnico visado (MTD)",
+      "id": "MAD-IRVE-MTD",
+      "descripcion": "IRVE sin proyecto",
       "condicion": {
         "and": [
           {
@@ -59,97 +42,71 @@
             ]
           },
           {
-            "!=": [
-              {
-                "var": "modo_recarga"
-              },
-              "4"
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              50
-            ]
-          },
-          {
-            "or": [
-              {
-                "and": [
-                  {
-                    "in": [
-                      {
-                        "var": "ubicacion_irve"
-                      },
-                      [
-                        "interior",
-                        "garaje_comunitario"
+            "!": {
+              "or": [
+                {
+                  "==": [
+                    {
+                      "var": "modo_recarga"
+                    },
+                    "4"
+                  ]
+                },
+                {
+                  ">": [
+                    {
+                      "var": "potencia_kw"
+                    },
+                    50
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "ubicacion_irve"
+                        },
+                        [
+                          "exterior",
+                          "via_publica"
+                        ]
                       ]
-                    ]
-                  },
-                  {
-                    "<=": [
-                      {
-                        "var": "potencia_kw"
-                      },
-                      50
-                    ]
-                  }
-                ]
-              },
-              {
-                "and": [
-                  {
-                    "in": [
-                      {
-                        "var": "ubicacion_irve"
-                      },
-                      [
-                        "exterior",
-                        "via_publica"
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        10
                       ]
-                    ]
-                  },
-                  {
-                    "<=": [
-                      {
-                        "var": "potencia_kw"
-                      },
-                      10
-                    ]
-                  }
-                ]
-              }
-            ]
+                    }
+                  ]
+                }
+              ]
+            }
           }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
-          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52",
-          "plazo_estimado_dias": 2,
+          "nombre": "Memoria Técnica de Diseño IRVE",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT; ITC-BT-04; ITC-BT-52",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-IRVE-001",
+          "regla_id": "MAD-IRVE-MTD",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño IRVE",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable_instalador",
-              "label": "Declaración responsable del instalador",
+              "label": "Memoria Técnica de Diseño",
               "descripcion": "",
               "obligatorio": true
             }
@@ -158,35 +115,36 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI)",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) / DG de Transición Energética y Economía Circular",
+          "nombre": "Tramitación y puesta en servicio de instalación eléctrica BT",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI)",
           "base_legal": "Orden 9344/2003; Decreto 38/2002",
-          "plazo_estimado_dias": 10,
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
-          "coste_estimado": "6,24 € (no vivienda) o 3,12 € (vivienda)",
+          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-IRVE-001",
+          "regla_id": "MAD-IRVE-MTD",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño IRVE",
+              "label": "Memoria Técnica de Diseño",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalacion_electrica",
-              "label": "Certificado de instalación eléctrica (CIE)",
+              "id": "cie",
+              "label": "Certificado de Instalación Eléctrica",
               "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "anexo_acta_xi",
-              "label": "Anexo del Acta XI del GTREBT",
-              "descripcion": "Requerido cuando la instalación de origen no ha sufrido modificaciones (ej: garajes comunitarios).",
-              "obligatorio": true,
+              "label": "Anexo Acta XI cuando proceda",
+              "descripcion": "",
+              "obligatorio": false,
               "condicion_documento": {
                 "==": [
                   {
@@ -197,10 +155,10 @@
               }
             },
             {
-              "id": "aclaraciones_acta_xii",
-              "label": "Declaración inspección periódica (Aclaraciones Acta XII)",
-              "descripcion": "Obligatorio en garajes comunitarios.",
-              "obligatorio": true,
+              "id": "acta_xii",
+              "label": "Documentación Acta XII cuando proceda",
+              "descripcion": "",
+              "obligatorio": false,
               "condicion_documento": {
                 "and": [
                   {
@@ -223,13 +181,13 @@
               }
             }
           ],
-          "notas": ""
+          "notas": "Requiere pago de tasas y tarifa EICI."
         }
       ]
     },
     {
-      "id": "MAD-IRVE-002",
-      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
+      "id": "MAD-IRVE-PROYECTO",
+      "descripcion": "IRVE con proyecto",
       "condicion": {
         "and": [
           {
@@ -288,101 +246,106 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico, visado cuando proceda o acompañado de declaración responsable",
-          "organismo": "Ingeniero técnico competente",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52",
-          "plazo_estimado_dias": 10,
+          "nombre": "Proyecto técnico de instalación IRVE",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT; ITC-BT-04; ITC-BT-52",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios profesionales",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-IRVE-002",
+          "regla_id": "MAD-IRVE-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico IRVE",
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
-            }
-          ],
-          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal."
-        },
-        {
-          "orden": 2,
-          "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI) con proyecto",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) / DG de Transición Energética y Economía Circular",
-          "base_legal": "Orden 9344/2003; Decreto 38/2002",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
-          "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
-          "coste_estimado": "15,60 € (hasta 6000€), 31,22 € (6000-60000€) o 52,04 € (>60000€)",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "MAD-IRVE-002",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico IRVE",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion_electrica",
-              "label": "Certificado de instalación eléctrica (CIE)",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable_direccion_obra",
-              "label": "Declaración responsable de dirección de obra",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "anexo_acta_xi",
-              "label": "Anexo del Acta XI del GTREBT",
-              "descripcion": "Requerido cuando la instalación de origen no ha sufrido modificaciones (ej: garajes comunitarios).",
-              "obligatorio": true,
-              "condicion_documento": {
-                "==": [
-                  {
-                    "var": "instalacion_origen_modificada"
-                  },
-                  false
-                ]
-              }
-            },
-            {
-              "id": "aclaraciones_acta_xii",
-              "label": "Declaración inspección periódica (Aclaraciones Acta XII)",
-              "descripcion": "Obligatorio en garajes comunitarios.",
-              "obligatorio": true,
-              "condicion_documento": {
-                "and": [
-                  {
-                    "==": [
-                      {
-                        "var": "ubicacion_irve"
-                      },
-                      "garaje_comunitario"
-                    ]
-                  },
-                  {
-                    "==": [
-                      {
-                        "var": "garaje_sujeto_inspeccion_periodica"
-                      },
-                      true
-                    ]
-                  }
-                ]
-              }
             }
           ],
           "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Tramitación y puesta en servicio de instalación eléctrica BT",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI)",
+          "base_legal": "Orden 9344/2003; Decreto 38/2002",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
+          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-IRVE-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "cie",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Requiere pago de tasas y tarifa EICI."
+        }
+      ]
+    },
+    {
+      "id": "MAD-IRVE-VIA-PUBLICA",
+      "descripcion": "Advertencia municipal para vía pública",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "irve"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "ubicacion_irve"
+              },
+              "via_publica"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Revisión municipal de ocupación del dominio público y obras",
+          "organismo": "Ayuntamiento competente",
+          "base_legal": "Normativa municipal aplicable",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-IRVE-VIA-PUBLICA",
+          "tipo_actuacion": "revision_manual",
+          "documentos_requeridos": [],
+          "notas": "La puesta en servicio eléctrica no sustituye el título municipal para ocupar la vía pública."
         }
       ]
     }

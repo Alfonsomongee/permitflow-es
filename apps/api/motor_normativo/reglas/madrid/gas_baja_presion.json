@@ -3,35 +3,40 @@
   "comunidad": "madrid",
   "version": "1.1.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "verificada",
+  "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
-  "aviso": "Incorporadas reglas correctas de proyecto en función de la clase de instalación, presión y ampliaciones. Umbrales de potencia fijados a 70 kW (individual) y 2000 kW (común). Trámite correcto: comunicación electrónica ante DG. Corregidos operadores JSONLogic.",
-  "huecos_verificacion": [],
+  "aviso": "Reglas con y sin proyecto mutuamente excluyentes, usando potencia y presión resultantes. La comunicación de puesta en servicio se realiza mediante el trámite oficial de instalaciones receptoras de gas.",
+  "huecos_verificacion": [
+    "La ficha oficial no permite automatizar el importe exacto de la tasa sin datos económicos del expediente.",
+    "Una presión resultante superior a 5 bar debe revisarse también respecto del alcance semántico del vertical gas_baja_presion."
+  ],
   "fuentes": [
     "Ley 34/1998",
     "RD 1434/2002",
-    "RD 919/2006",
-    "RD 1085/1992 (GLP)"
+    "RD 919/2006 e ITC-ICG-07",
+    "RD 1085/1992"
   ],
   "validaciones": [
     {
-      "id": "MAD-GAS-VALIDACION-INPUT",
+      "id": "MAD-GAS-VALIDACION",
       "campos_requeridos": [
         "clase_instalacion_gas",
-        "potencia_kw",
-        "presion_operacion_bar",
+        "potencia_resultante_kw",
+        "presion_resultante_bar",
         "es_ampliacion"
       ],
       "accion_si_faltan": "revision_manual"
     },
     {
+      "id": "MAD-GAS-VALIDACION-CLASE",
       "campo": "clase_instalacion_gas",
       "valores_permitidos": [
         "individual",
         "comun",
         "conexion_servicio"
       ],
-      "obligatorio": true
+      "obligatorio": true,
+      "accion_si_invalido": "revision_manual"
     },
     {
       "id": "MAD-GAS-VALIDACION-AMPLIACION",
@@ -44,17 +49,15 @@
         ]
       },
       "campos_requeridos": [
-        "incremento_potencia_pct",
-        "potencia_resultante_kw",
-        "presion_resultante_bar"
+        "incremento_potencia_pct"
       ],
       "accion_si_faltan": "revision_manual"
     }
   ],
   "reglas": [
     {
-      "id": "MAD-GAS-001",
-      "descripcion": "Instalación receptora de gas sin proyecto (no supera umbrales reglamentarios)",
+      "id": "MAD-GAS-SIN-PROYECTO",
+      "descripcion": "Instalación receptora sin proyecto",
       "condicion": {
         "and": [
           {
@@ -130,66 +133,11 @@
                       ]
                     },
                     {
-                      "or": [
+                      ">": [
                         {
-                          ">": [
-                            {
-                              "var": "incremento_potencia_pct"
-                            },
-                            30
-                          ]
+                          "var": "incremento_potencia_pct"
                         },
-                        {
-                          ">": [
-                            {
-                              "var": "presion_resultante_bar"
-                            },
-                            5
-                          ]
-                        },
-                        {
-                          "and": [
-                            {
-                              "==": [
-                                {
-                                  "var": "clase_instalacion_gas"
-                                },
-                                "individual"
-                              ]
-                            },
-                            {
-                              ">": [
-                                {
-                                  "var": "potencia_resultante_kw"
-                                },
-                                70
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "and": [
-                            {
-                              "in": [
-                                {
-                                  "var": "clase_instalacion_gas"
-                                },
-                                [
-                                  "comun",
-                                  "conexion_servicio"
-                                ]
-                              ]
-                            },
-                            {
-                              ">": [
-                                {
-                                  "var": "potencia_resultante_kw"
-                                },
-                                2000
-                              ]
-                            }
-                          ]
-                        }
+                        30
                       ]
                     }
                   ]
@@ -202,21 +150,22 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Comunicación de puesta en servicio de instalaciones receptoras de gases combustibles",
+          "nombre": "Comunicación de puesta en servicio de instalación receptora de gas",
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "RD 919/2006",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-receptoras-gas-natural-glp",
-          "coste_estimado": "Sujeto a tasas vigentes",
+          "coste_estimado": "Sujeto a tasa vigente",
           "formulario_ref": "184F1",
           "paralelo_con": null,
-          "regla_id": "MAD-GAS-001",
+          "regla_id": "MAD-GAS-SIN-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de instalación emitido por empresa instaladora habilitada",
+              "label": "Certificado de instalación",
               "descripcion": "",
               "obligatorio": true
             },
@@ -225,21 +174,15 @@
               "label": "Certificado de pruebas previas y puesta en servicio",
               "descripcion": "",
               "obligatorio": true
-            },
-            {
-              "id": "justificante_tasas",
-              "label": "Justificante de pago de tasas",
-              "descripcion": "",
-              "obligatorio": true
             }
           ],
-          "notas": "Plazo de presentación: 15 días hábiles desde la puesta en servicio."
+          "notas": "Requiere pago de tasa; importe según expediente."
         }
       ]
     },
     {
-      "id": "MAD-GAS-002",
-      "descripcion": "Instalación receptora de gas con proyecto (supera umbrales reglamentarios)",
+      "id": "MAD-GAS-CON-PROYECTO",
+      "descripcion": "Instalación receptora con proyecto",
       "condicion": {
         "and": [
           {
@@ -314,66 +257,11 @@
                     ]
                   },
                   {
-                    "or": [
+                    ">": [
                       {
-                        ">": [
-                          {
-                            "var": "incremento_potencia_pct"
-                          },
-                          30
-                        ]
+                        "var": "incremento_potencia_pct"
                       },
-                      {
-                        ">": [
-                          {
-                            "var": "presion_resultante_bar"
-                          },
-                          5
-                        ]
-                      },
-                      {
-                        "and": [
-                          {
-                            "==": [
-                              {
-                                "var": "clase_instalacion_gas"
-                              },
-                              "individual"
-                            ]
-                          },
-                          {
-                            ">": [
-                              {
-                                "var": "potencia_resultante_kw"
-                              },
-                              70
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "and": [
-                          {
-                            "in": [
-                              {
-                                "var": "clase_instalacion_gas"
-                              },
-                              [
-                                "comun",
-                                "conexion_servicio"
-                              ]
-                            ]
-                          },
-                          {
-                            ">": [
-                              {
-                                "var": "potencia_resultante_kw"
-                              },
-                              2000
-                            ]
-                          }
-                        ]
-                      }
+                      30
                     ]
                   }
                 ]
@@ -385,27 +273,52 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Comunicación de puesta en servicio de instalaciones receptoras de gases combustibles (con proyecto)",
+          "nombre": "Proyecto técnico de instalación receptora de gas",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "RD 919/2006; ITC-ICG-07",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-GAS-CON-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Comunicación de puesta en servicio de instalación receptora de gas",
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "RD 919/2006",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-receptoras-gas-natural-glp",
-          "coste_estimado": "Sujeto a tasas vigentes",
+          "coste_estimado": "Sujeto a tasa vigente",
           "formulario_ref": "184F1",
           "paralelo_con": null,
-          "regla_id": "MAD-GAS-002",
+          "regla_id": "MAD-GAS-CON-PROYECTO",
+          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico",
+              "id": "proyecto_gas",
               "label": "Proyecto técnico",
-              "descripcion": "Solo cuando sea exigible.",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de instalación emitido por empresa instaladora habilitada",
+              "label": "Certificado de instalación",
               "descripcion": "",
               "obligatorio": true
             },
@@ -414,15 +327,9 @@
               "label": "Certificado de pruebas previas y puesta en servicio",
               "descripcion": "",
               "obligatorio": true
-            },
-            {
-              "id": "justificante_tasas",
-              "label": "Justificante de pago de tasas",
-              "descripcion": "",
-              "obligatorio": true
             }
           ],
-          "notas": "Plazo de presentación: 15 días hábiles desde la puesta en servicio."
+          "notas": "Requiere pago de tasa; importe según expediente."
         }
       ]
     }
