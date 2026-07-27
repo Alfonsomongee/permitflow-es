@@ -12,8 +12,8 @@ interface InformeInteractivoProps {
 }
 
 export function InformeInteractivo({ informe }: InformeInteractivoProps) {
-  const hasGenericaIncentive = informe.incentivos_fiscales.some(
-    (inc) => inc.nivel_verificacion === 'generica_pendiente_url'
+  const hasPendingIncentive = informe.incentivos_fiscales.some(
+    (inc) => inc.nivel_verificacion === 'pending_verification'
   );
 
   const chartData = informe.escenarios.map((escenario) => ({
@@ -31,12 +31,12 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
         <p className="text-muted-foreground mt-2">{informe.recomendacion_final}</p>
       </div>
 
-      {hasGenericaIncentive && (
+      {hasPendingIncentive && (
         <Alert variant="default" className="border-yellow-500/50 bg-yellow-500/10 text-yellow-900 dark:text-yellow-200">
           <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-          <AlertTitle>Aviso sobre los ahorros fiscales</AlertTitle>
+          <AlertTitle>Proyección orientativa, pendiente de depuración fiscal</AlertTitle>
           <AlertDescription>
-            Algunos de los incentivos fiscales mostrados aún no están verificados con una fuente oficial para tu caso específico. Te recomendamos consultar con un asesor.
+            Las proyecciones de ahorro a largo plazo contienen incentivos fiscales cuya aplicabilidad o importes actuales carecen de fuente legal confirmada. No deben considerarse como ahorro calculable ni definitivo sin consultar a su asesor.
           </AlertDescription>
         </Alert>
       )}
@@ -78,7 +78,7 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
             <ul className="space-y-4">
               {informe.incentivos_fiscales.map((inc, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  {inc.nivel_verificacion === 'generica_pendiente_url' ? (
+                  {inc.nivel_verificacion === 'pending_verification' ? (
                     <AlertTriangle className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
                   ) : (
                     <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />

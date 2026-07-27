@@ -23,9 +23,8 @@ class Incentivo(BaseModel):
     descripcion: str
     ahorro_estimado: float = Field(ge=0)
     nivel_verificacion: Literal[
-        "exacta_factura",
-        "estimada_datos",
-        "generica_pendiente_url",
+        "verified",
+        "pending_verification",
     ]
     fuente: Optional[str] = None
 
@@ -34,7 +33,10 @@ class EscenarioAhorro(BaseModel):
     nombre: str
     coste_inicial: float = Field(gt=0)
     ahorro_anual: float = Field(ge=0)
+    ahorro_5_anios: float = Field(ge=0)
+    ahorro_10_anios: float = Field(ge=0)
     tiempo_retorno_anios: float = Field(ge=0)
+    potencia_kwp: float = Field(gt=0)
     produccion_anual_estimada_kwh: Optional[float] = None
 
 
@@ -81,7 +83,8 @@ async def generar_informe_simulacion(
         f"  3. El campo 'tiempo_retorno_anios' = coste_inicial / ahorro_anual.\n"
         f"  4. Si los datos de consumo son estimados, refleja la incertidumbre en los supuestos.\n"
         f"  5. Si la region es conocida, incluye incentivos autonómicos reales. "
-        f"Si no tienes URL de convocatoria, usa nivel_verificacion='generica_pendiente_url'.\n\n"
+        f"Si no tienes URL de convocatoria, usa nivel_verificacion='pending_verification'.\n\n"
+        f"Calcula ahorro_5_anios y ahorro_10_anios considerando el ahorro anual.\n\n"
         f"Devuelve siempre JSON valido con la estructura exacta del schema."
     )
 

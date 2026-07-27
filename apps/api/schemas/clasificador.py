@@ -45,6 +45,27 @@ class ClasificadorInput(BaseModel):
     
     inversion_eur: Optional[float] = Field(None, description="Presupuesto de la instalación en euros")
 
+    # Gas specific fields
+    clase_instalacion_gas: Optional[Literal["individual", "comun", "acometida_interior"]] = Field(None, description="Clase de instalación de gas")
+    presion_operacion_bar: Optional[float] = Field(None, description="Presión de operación en bar")
+    es_ampliacion: Optional[bool] = Field(False, description="True si es una ampliación de instalación existente")
+    incremento_potencia_pct: Optional[float] = Field(0, description="Porcentaje de incremento de potencia respecto a la original")
+    potencia_resultante_kw: Optional[float] = Field(None, description="Potencia total resultante tras ampliación")
+    presion_resultante_bar: Optional[float] = Field(None, description="Presión resultante tras ampliación")
+    combustible_gas: Optional[Literal["gas_natural", "glp"]] = Field(None, description="Variante de gas combustible")
+
+    # IRVE specific fields
+    instalacion_origen_modificada: Optional[bool] = Field(None, description="True si la instalación de origen ha sido modificada")
+    garaje_sujeto_inspeccion_periodica: Optional[bool] = Field(None, description="True si el garaje está sujeto a inspección periódica")
+
+    # Autoconsumo specific fields
+    nivel_tension_consumidor: Optional[Literal["bt", "at"]] = Field(None, description="Nivel de tensión del consumidor")
+    nivel_tension_generacion: Optional[Literal["bt", "at"]] = Field(None, description="Nivel de tensión de generación")
+    nivel_tension_conexion: Optional[Literal["bt", "at"]] = Field(None, description="Nivel de tensión de conexión")
+    requiere_registro_produccion: Optional[bool] = Field(False, description="True si la instalación requiere inscripción en el Registro de Producción de Energía Eléctrica")
+
+    # ACS specific fields
+    incluida_ambito_rd_487_2022: Optional[bool] = Field(None, description="True si la instalación está incluida en el ámbito de aplicación del RD 487/2022 (Legionela)")
 
 # ─── Output ───────────────────────────────────────────────────────────────────
 

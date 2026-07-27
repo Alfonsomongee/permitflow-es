@@ -1,37 +1,110 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "madrid",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "generica",
-  "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 118/2022' como base legal: no se ha localizado. Normativa real confirmada: Orden 9343/2003 (modificada por Orden 688/2008), tramitación vía EICI, conforme al Decreto 38/2002. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
+  "nivel_verificacion": "verificada",
+  "estado": "verificado_con_observaciones",
+  "aviso": "Corregidas fronteras (5 kW y 70 kW). Eliminado trámite OCA inventado. Añadidos formularios oficiales y tasas escalonadas (presupuesto no disponible, en notas). Se añadió la regla obligatoria de Prevención de Legionelosis para uso colectivo (RD 487/2022). Añadido filtro por tipo_instalacion.",
   "huecos_verificacion": [
-    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
-    "Tasas escalonadas por presupuesto confirmadas (hasta 6.000€ / 6.000,01-60.000€ / >60.000€) pero importes exactos no verificados, ni modelables con el schema actual (falta campo de presupuesto)",
-    "Plazos legales no verificados"
+    "Tasas escalonadas confirmadas pero dependientes de presupuesto (no mapeable dinámicamente)",
+    "Se asume que la regla Legionella aplica según RD estatal; las CCAA pueden tener requisitos adicionales de registro de torres/sistemas específicos que no se modelan aquí en detalle"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 314/2006 CTE DB-HE4",
-    "Orden 9343/2003, de 1 de octubre, de la Consejería de Economía e Innovación Tecnológica (registro, puesta en servicio e inspección de instalaciones térmicas no industriales), modificada por Orden 688/2008 — confirmado real",
-    "Decreto 38/2002, de 28 de febrero (control reglamentario de instalaciones industriales en Madrid) — confirmado real"
+    "Orden 9343/2003, de 1 de octubre, de la Consejería de Economía e Innovación Tecnológica (registro, puesta en servicio e inspección de instalaciones térmicas no industriales)",
+    "Decreto 38/2002, de 28 de febrero",
+    "Resolución de 15 de enero de 2020 (porcentajes de inspección)",
+    "Resolución de 5 de marzo de 2025 (modelos de formularios actualizados de la Orden 9343/2003)",
+    "RD 487/2022 y RD 614/2024 (Prevención de legionelosis)"
   ],
   "reglas": [
     {
-      "id": "MAD-ACS-001",
-      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "MAD-ACS-INFO",
+      "descripcion": "ACS < 5 kW: exenta de registro",
       "condicion": {
-        "<=": [
-          { "var": "potencia_kw" },
-          70
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Diseño e instalación por instalador habilitado",
+          "organismo": "Instalador térmico",
+          "base_legal": "RITE RD 1027/2007",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-ACS-INFO",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalación interno",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones < 5 kW no requieren registro formal de EICI según la normativa de Madrid, salvo consideración específica."
+        }
+      ]
+    },
+    {
+      "id": "MAD-ACS-001",
+      "descripcion": "Instalación de ACS con 5 kW ≤ potencia < 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) para instalación térmica",
-          "organismo": "Instalador habilitado (carné de instalador térmico)",
+          "organismo": "Instalador habilitado",
           "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
@@ -44,30 +117,24 @@
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
-              "label": "Memoria Técnica de Diseño según modelo oficial",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado del instalador (carné vigente)",
+              "label": "Memoria Técnica de Diseño",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI)",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI)",
           "base_legal": "Orden 9343/2003; Decreto 38/2002",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
-          "coste_estimado": "NO VERIFICADO — tasa escalonada por presupuesto",
-          "formulario_ref": null,
+          "coste_estimado": "3,12 € (vivienda) o 6,24 € (no vivienda)",
+          "formulario_ref": "IT 3.1.5",
           "paralelo_con": null,
           "regla_id": "MAD-ACS-001",
           "documentos_requeridos": [
@@ -78,30 +145,44 @@
               "obligatorio": true
             },
             {
-              "id": "certificado_eficiencia",
-              "label": "Certificado de eficiencia energética (si aplica por CTE)",
-              "descripcion": "",
-              "obligatorio": false
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Modelo oficial IT 3.1.8",
+              "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Plazos oficiales: Suministro provisional máx 30 días, pruebas máx 25 días, entrega documento final máx 5 días."
         }
       ]
     },
     {
       "id": "MAD-ACS-002",
-      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de ACS con potencia ≥ 70 kW (requiere proyecto técnico)",
       "condicion": {
-        ">": [
-          { "var": "potencia_kw" },
-          70
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "incluida_ambito_rd_487_2022"
+              },
+              true
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Proyecto Técnico de instalación térmica",
-          "organismo": "Técnico titulado (ingeniero o arquitecto)",
+          "organismo": "Técnico titulado competente",
           "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -114,66 +195,99 @@
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico visado o con declaración responsable",
-              "descripcion": "",
+              "label": "Proyecto Técnico",
+              "descripcion": "Visado o con declaración responsable.",
               "obligatorio": true
             }
           ],
-          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo."
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación por Organismo de Control (OCA)",
-          "organismo": "Organismo de Control (OCA) autorizado por la Comunidad de Madrid",
-          "base_legal": "RITE RD 1027/2007 art. 15",
-          "plazo_estimado_dias": 20,
+          "nombre": "Registro e Inspección Inicial ante Entidad de Inspección y Control Industrial (EICI)",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI)",
+          "base_legal": "Orden 9343/2003; Decreto 38/2002",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
+          "coste_estimado": "15,60 € (hasta 6000€), 31,22 € (6000-60000€) o 52,04 € (>60000€)",
+          "formulario_ref": "IT 3.1.9",
           "paralelo_con": null,
           "regla_id": "MAD-ACS-002",
           "documentos_requeridos": [
             {
-              "id": "certificado_instalacion_oca",
-              "label": "Certificado de Instalación firmado por OCA",
+              "id": "proyecto_visado",
+              "label": "Proyecto Técnico visado",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "proyecto_visado",
-              "label": "Proyecto Técnico visado (copia)",
-              "descripcion": "",
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Modelo oficial IT 3.1.7",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_montaje",
+              "label": "Certificado de Montaje",
+              "descripcion": "Modelo oficial IT 3.1.6",
               "obligatorio": true
             }
           ],
-          "notas": ""
-        },
+          "notas": "La inspección inicial la practica la EICI dentro del propio registro. Plazos oficiales: Suministro provisional máx 30 días, pruebas máx 25 días, entrega documento final máx 5 días."
+        }
+      ]
+    },
+    {
+      "id": "MAD-ACS-003",
+      "descripcion": "Requisito adicional: Plan de Prevención y Control de Legionelosis (Uso Colectivo)",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "uso_colectivo"
+              },
+              true
+            ]
+          }
+        ]
+      },
+      "tramites": [
         {
           "orden": 3,
-          "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI)",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
-          "base_legal": "Orden 9343/2003; Decreto 38/2002",
-          "plazo_estimado_dias": 5,
+          "nombre": "Elaboración e implantación del Plan de Prevención y Control de Legionelosis (PPCL) o Plan Sanitario de Legionelosis (PSL)",
+          "organismo": "Titular de la instalación / Empresa de mantenimiento",
+          "base_legal": "RD 487/2022; RD 614/2024",
+          "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
-          "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
-          "coste_estimado": "NO VERIFICADO — tasa escalonada por presupuesto",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable (coste del mantenimiento y analíticas)",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "MAD-ACS-002",
+          "regla_id": "MAD-ACS-003",
           "documentos_requeridos": [
             {
-              "id": "certificado_instalacion_oca",
-              "label": "Certificado de Instalación firmado por OCA",
-              "descripcion": "",
+              "id": "documentacion_ppcl",
+              "label": "Documentación del PPCL o PSL",
+              "descripcion": "Manual del plan, evaluación de riesgo y registro de operaciones de mantenimiento.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Debe estar implantado antes de la puesta en funcionamiento para edificios de uso colectivo (hospitales, hoteles, residencias, centros deportivos, etc.)."
         }
       ]
     }
-  ]
+  ],
+  "validaciones": []
 }

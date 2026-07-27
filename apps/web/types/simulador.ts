@@ -13,7 +13,7 @@ export interface Incentivo {
   nombre: string;
   descripcion: string;
   ahorro_estimado: number;
-  nivel_verificacion: 'verificada' | 'generica_pendiente_url';
+  nivel_verificacion: "verified" | "pending_verification";
   fuente?: string;
 }
 

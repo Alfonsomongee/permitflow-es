@@ -1,268 +1,428 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "madrid",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "generica",
-  "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminaron 'Decreto 32/2003' y 'Orden 934/2003' como base legal: no se han localizado. Confirmado que Madrid aplica el RIGLO nacional (RD 919/2006) directamente, tramitado también vía EICI (mismo circuito que térmicas y BT, patrón consistente en Madrid), con umbral de 70 kW confirmado. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
-  "huecos_verificacion": [
-    "No se ha localizado normativa autonómica madrileña específica de gas; se aplica el RIGLO nacional directamente vía EICI",
-    "Tasas exactas no verificadas",
-    "'Registro Industrial de la Comunidad de Madrid (RICM)' del fichero original no se ha podido confirmar como nombre exacto — sustituido por referencia genérica a la sede electrónica de la Comunidad de Madrid"
-  ],
+  "nivel_verificacion": "verificada",
+  "estado": "verificado_con_observaciones",
+  "aviso": "Incorporadas reglas correctas de proyecto en función de la clase de instalación, presión y ampliaciones. Umbrales de potencia fijados a 70 kW (individual) y 2000 kW (común). Trámite correcto: comunicación electrónica ante DG. Corregidos operadores JSONLogic.",
+  "huecos_verificacion": [],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Ficha oficial 'Instalaciones receptoras gas natural GLP' - sede.comunidad.madrid, confirma tramitación vía EICI"
+    "Ley 34/1998",
+    "RD 1434/2002",
+    "RD 919/2006",
+    "RD 1085/1992 (GLP)"
+  ],
+  "validaciones": [
+    {
+      "id": "MAD-GAS-VALIDACION-INPUT",
+      "campos_requeridos": [
+        "clase_instalacion_gas",
+        "potencia_kw",
+        "presion_operacion_bar",
+        "es_ampliacion"
+      ],
+      "accion_si_faltan": "revision_manual"
+    },
+    {
+      "campo": "clase_instalacion_gas",
+      "valores_permitidos": [
+        "individual",
+        "comun",
+        "acometida_interior"
+      ],
+      "obligatorio": true
+    },
+    {
+      "id": "MAD-GAS-VALIDACION-AMPLIACION",
+      "condicion_aplicacion": {
+        "==": [
+          {
+            "var": "es_ampliacion"
+          },
+          true
+        ]
+      },
+      "campos_requeridos": [
+        "incremento_potencia_pct",
+        "potencia_resultante_kw",
+        "presion_resultante_bar"
+      ],
+      "accion_si_faltan": "revision_manual"
+    }
   ],
   "reglas": [
     {
-      "id": "MAD-GBP-001",
-      "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
+      "id": "MAD-GAS-001",
+      "descripcion": "Instalación receptora de gas sin proyecto (no supera umbrales reglamentarios)",
       "condicion": {
-        "==": [
-          { "var": "presion_bar" },
-          "5+"
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "gas_baja_presion"
+            ]
+          },
+          {
+            "!": {
+              "or": [
+                {
+                  ">": [
+                    {
+                      "var": "presion_resultante_bar"
+                    },
+                    5
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "clase_instalacion_gas"
+                        },
+                        "individual"
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_resultante_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "clase_instalacion_gas"
+                        },
+                        [
+                          "comun",
+                          "acometida_interior"
+                        ]
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_resultante_kw"
+                        },
+                        2000
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "es_ampliacion"
+                        },
+                        true
+                      ]
+                    },
+                    {
+                      "or": [
+                        {
+                          ">": [
+                            {
+                              "var": "incremento_potencia_pct"
+                            },
+                            30
+                          ]
+                        },
+                        {
+                          ">": [
+                            {
+                              "var": "presion_resultante_bar"
+                            },
+                            5
+                          ]
+                        },
+                        {
+                          "and": [
+                            {
+                              "==": [
+                                {
+                                  "var": "clase_instalacion_gas"
+                                },
+                                "individual"
+                              ]
+                            },
+                            {
+                              ">": [
+                                {
+                                  "var": "potencia_resultante_kw"
+                                },
+                                70
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "and": [
+                            {
+                              "in": [
+                                {
+                                  "var": "clase_instalacion_gas"
+                                },
+                                [
+                                  "comun",
+                                  "acometida_interior"
+                                ]
+                              ]
+                            },
+                            {
+                              ">": [
+                                {
+                                  "var": "potencia_resultante_kw"
+                                },
+                                2000
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico de instalación de gas",
-          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
-          "plazo_estimado_dias": 10,
+          "nombre": "Comunicación de puesta en servicio de instalaciones receptoras de gases combustibles",
+          "organismo": "Dirección General de Transición Energética y Economía Circular",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico",
-          "formulario_ref": null,
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-receptoras-gas-natural-glp",
+          "coste_estimado": "Sujeto a tasas vigentes",
+          "formulario_ref": "184F1",
           "paralelo_con": null,
-          "regla_id": "MAD-GBP-001",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de Instalación por Entidad de Inspección y Control Industrial (EICI)",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
-          "base_legal": "RIGLO RD 919/2006",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "MAD-GBP-001",
+          "regla_id": "MAD-GAS-001",
           "documentos_requeridos": [
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de Instalación firmado por EICI",
+              "label": "Certificado de instalación emitido por empresa instaladora habilitada",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "memoria_tecnica",
-              "label": "Memoria técnica de la instalación",
+              "id": "certificado_pruebas",
+              "label": "Certificado de pruebas previas y puesta en servicio",
               "descripcion": "",
               "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 3,
-          "nombre": "Inscripción en registro de instalaciones",
-          "organismo": "Dirección General de Industria, Energía y Minas de la Comunidad de Madrid",
-          "base_legal": "Ley 21/1992 de Industria",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
-          "plataforma_url": "https://sede.comunidad.madrid",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "MAD-GBP-001",
-          "documentos_requeridos": [
+            },
             {
-              "id": "certificado_instalacion_oc",
-              "label": "Certificado de instalación visado por EICI",
+              "id": "justificante_tasas",
+              "label": "Justificante de pago de tasas",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Plazo de presentación: 15 días hábiles desde la puesta en servicio."
         }
       ]
     },
     {
-      "id": "MAD-GBP-002",
-      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
+      "id": "MAD-GAS-002",
+      "descripcion": "Instalación receptora de gas con proyecto (supera umbrales reglamentarios)",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "gas_baja_presion"
+            ]
+          },
+          {
+            "or": [
+              {
+                ">": [
+                  {
+                    "var": "presion_resultante_bar"
+                  },
+                  5
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "clase_instalacion_gas"
+                      },
+                      "individual"
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_resultante_kw"
+                      },
+                      70
+                    ]
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "clase_instalacion_gas"
+                      },
+                      [
+                        "comun",
+                        "acometida_interior"
+                      ]
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_resultante_kw"
+                      },
+                      2000
+                    ]
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "es_ampliacion"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "or": [
+                      {
+                        ">": [
+                          {
+                            "var": "incremento_potencia_pct"
+                          },
+                          30
+                        ]
+                      },
+                      {
+                        ">": [
+                          {
+                            "var": "presion_resultante_bar"
+                          },
+                          5
+                        ]
+                      },
+                      {
+                        "and": [
+                          {
+                            "==": [
+                              {
+                                "var": "clase_instalacion_gas"
+                              },
+                              "individual"
+                            ]
+                          },
+                          {
+                            ">": [
+                              {
+                                "var": "potencia_resultante_kw"
+                              },
+                              70
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "and": [
+                          {
+                            "in": [
+                              {
+                                "var": "clase_instalacion_gas"
+                              },
+                              [
+                                "comun",
+                                "acometida_interior"
+                              ]
+                            ]
+                          },
+                          {
+                            ">": [
+                              {
+                                "var": "potencia_resultante_kw"
+                              },
+                              2000
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Certificado de Instalación por Entidad de Inspección y Control Industrial (EICI)",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
-          "base_legal": "RIGLO RD 919/2006",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "MAD-GBP-002",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_instalacion",
-              "label": "Certificado de Instalación firmado por EICI",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "memoria_tecnica",
-              "label": "Memoria técnica de la instalación",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "boletin_reconocimiento",
-              "label": "Boletín de reconocimiento de instalación",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en registro de instalaciones",
-          "organismo": "Dirección General de Industria, Energía y Minas de la Comunidad de Madrid",
-          "base_legal": "Ley 21/1992 de Industria",
-          "plazo_estimado_dias": 20,
+          "nombre": "Comunicación de puesta en servicio de instalaciones receptoras de gases combustibles (con proyecto)",
+          "organismo": "Dirección General de Transición Energética y Economía Circular",
+          "base_legal": "RD 919/2006",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
-          "plataforma_url": "https://sede.comunidad.madrid",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-receptoras-gas-natural-glp",
+          "coste_estimado": "Sujeto a tasas vigentes",
+          "formulario_ref": "184F1",
           "paralelo_con": null,
-          "regla_id": "MAD-GBP-002",
+          "regla_id": "MAD-GAS-002",
           "documentos_requeridos": [
             {
-              "id": "certificado_instalacion_oc",
-              "label": "Certificado de instalación visado por EICI",
-              "descripcion": "",
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "Solo cuando sea exigible.",
               "obligatorio": true
             },
-            {
-              "id": "boletin_reconocimiento",
-              "label": "Boletín de reconocimiento de instalación",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        }
-      ]
-    },
-    {
-      "id": "MAD-GBP-003",
-      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
-      "condicion": {
-        "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { ">": [ { "var": "potencia_kw" }, 70 ] }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto técnico de instalación de gas",
-          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "MAD-GBP-003",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de Instalación por Entidad de Inspección y Control Industrial (EICI)",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
-          "base_legal": "RIGLO RD 919/2006",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "MAD-GBP-003",
-          "documentos_requeridos": [
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de Instalación firmado por EICI",
+              "label": "Certificado de instalación emitido por empresa instaladora habilitada",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "boletin_reconocimiento",
-              "label": "Boletín de reconocimiento de instalación",
+              "id": "certificado_pruebas",
+              "label": "Certificado de pruebas previas y puesta en servicio",
               "descripcion": "",
               "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 3,
-          "nombre": "Inscripción en registro de instalaciones",
-          "organismo": "Dirección General de Industria, Energía y Minas de la Comunidad de Madrid",
-          "base_legal": "Ley 21/1992 de Industria",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
-          "plataforma_url": "https://sede.comunidad.madrid",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "MAD-GBP-003",
-          "documentos_requeridos": [
+            },
             {
-              "id": "certificado_instalacion_oc",
-              "label": "Certificado de instalación visado por EICI",
+              "id": "justificante_tasas",
+              "label": "Justificante de pago de tasas",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Plazo de presentación: 15 días hábiles desde la puesta en servicio."
         }
       ]
     }

@@ -1,44 +1,125 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "madrid",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "generica",
-  "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe; el campo real es 'ubicacion_irve'). Se eliminó 'Decreto 127/2019' como base legal: no se ha localizado con ese contenido; el decreto real de esa fecha (Decreto 17/2019) regula el procedimiento de inspecciones periódicas, no la instalación inicial. Sustituido por la base real confirmada: Decreto 38/2002 (control reglamentario industrial) + Orden 9344/2003 (tramitación, puesta en servicio e inspección BT), modificada por Orden 163/2024. Se confirmó que 'EICI' es terminología real de Madrid. Se sustituyó el umbral inventado de 10 kW por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014).",
+  "nivel_verificacion": "verificada",
+  "estado": "verificado_con_observaciones",
+  "aviso": "Reglas de proyecto IRVE actualizadas a la modificación del RD 1053/2014. Documentos del GTREBT ajustados como condicionales oficiales. Corregidos operadores JSONLogic vacíos.",
   "huecos_verificacion": [
-    "No se ha localizado normativa autonómica madrileña específica de IRVE; se aplica el régimen general de BT vía EICI",
-    "La Orden 163/2024 excluye de su ámbito, entre otras, las estaciones de recarga con más de 3.000 kW — no modelado por ser un caso extremo poco frecuente en este vertical",
-    "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
-    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados con detalle"
+    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido en este JSON autonómico."
   ],
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT",
-    "Decreto 38/2002, de 28 de febrero (control reglamentario de instalaciones industriales en Madrid) — confirmado real",
-    "Orden 9344/2003, de 1 de octubre (tramitación, puesta en servicio e inspección de instalaciones BT no industriales), modificada por Orden 163/2024 — confirmado real",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    "Real Decreto 842/2002, REBT, ITC-BT-04, modificada por el Real Decreto 1053/2014",
+    "Real Decreto 1053/2014, por el que se aprueba la ITC-BT-52 y se modifica la ITC-BT-04",
+    "Decreto 38/2002, de 28 de febrero",
+    "Orden 9344/2003, de 1 de octubre, modificada por Orden 163/2024, de 22 de enero"
+  ],
+  "validaciones": [
+    {
+      "id": "MAD-IRVE-VALIDACION-UBICACION",
+      "campo": "ubicacion_irve",
+      "valores_permitidos": [
+        "interior",
+        "garaje_comunitario",
+        "exterior",
+        "via_publica"
+      ],
+      "obligatorio": true
+    },
+    {
+      "campo": "modo_recarga",
+      "valores_permitidos": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "obligatorio": true
+    },
+    {
+      "campo": "potencia_kw",
+      "tipo": "number",
+      "minimo_exclusivo": 0,
+      "obligatorio": true
+    }
   ],
   "reglas": [
     {
       "id": "MAD-IRVE-001",
-      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado (MTD)",
       "condicion": {
         "and": [
-          { "!=": [ { "var": "modo_recarga" }, "4" ] },
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "irve"
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              50
+            ]
+          },
           {
             "or": [
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
                 ]
               },
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
                 ]
               }
             ]
@@ -78,28 +159,62 @@
         {
           "orden": 2,
           "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI)",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI) / DG de Transición Energética y Economía Circular",
           "base_legal": "Orden 9344/2003; Decreto 38/2002",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
-          "plataforma_url": "https://sede.comunidad.madrid/node/212672",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
+          "coste_estimado": "6,24 € (no vivienda) o 3,12 € (vivienda)",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-IRVE-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño IRVE",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
               "id": "certificado_instalacion_electrica",
               "label": "Certificado de instalación eléctrica (CIE)",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "anexo_acta_xi",
+              "label": "Anexo del Acta XI del GTREBT",
+              "descripcion": "Requerido cuando la instalación de origen no ha sufrido modificaciones (ej: garajes comunitarios).",
+              "obligatorio": true,
+              "condicion_documento": {
+                "==": [
+                  {
+                    "var": "instalacion_origen_modificada"
+                  },
+                  false
+                ]
+              }
+            },
+            {
+              "id": "aclaraciones_acta_xii",
+              "label": "Declaración inspección periódica (Aclaraciones Acta XII)",
+              "descripcion": "Obligatorio en garajes comunitarios.",
+              "obligatorio": true,
+              "condicion_documento": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      "garaje_comunitario"
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "garaje_sujeto_inspeccion_periodica"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
             }
           ],
           "notas": ""
@@ -110,18 +225,56 @@
       "id": "MAD-IRVE-002",
       "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
-        "or": [
-          { "==": [ { "var": "modo_recarga" }, "4" ] },
+        "and": [
           {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-              { ">": [ { "var": "potencia_kw" }, 50 ] }
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "irve"
             ]
           },
           {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-              { ">": [ { "var": "potencia_kw" }, 10 ] }
+            "or": [
+              {
+                "==": [
+                  {
+                    "var": "modo_recarga"
+                  },
+                  "4"
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  50
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -129,8 +282,8 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico IRVE",
-          "organismo": "Ingeniero técnico industrial o superior competente",
+          "nombre": "Proyecto técnico, visado cuando proceda o acompañado de declaración responsable",
+          "organismo": "Ingeniero técnico competente",
           "base_legal": "REBT RD 842/2002 ITC-BT-52",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -148,28 +301,22 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal."
         },
         {
           "orden": 2,
           "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI) con proyecto",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI) / DG de Transición Energética y Economía Circular",
           "base_legal": "Orden 9344/2003; Decreto 38/2002",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
-          "plataforma_url": "https://sede.comunidad.madrid/node/212672",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
+          "coste_estimado": "15,60 € (hasta 6000€), 31,22 € (6000-60000€) o 52,04 € (>60000€)",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-IRVE-002",
           "documentos_requeridos": [
-            {
-              "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico IRVE",
-              "descripcion": "",
-              "obligatorio": true
-            },
             {
               "id": "certificado_instalacion_electrica",
               "label": "Certificado de instalación eléctrica (CIE)",
@@ -181,6 +328,46 @@
               "label": "Declaración responsable de dirección de obra",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "anexo_acta_xi",
+              "label": "Anexo del Acta XI del GTREBT",
+              "descripcion": "Requerido cuando la instalación de origen no ha sufrido modificaciones (ej: garajes comunitarios).",
+              "obligatorio": true,
+              "condicion_documento": {
+                "==": [
+                  {
+                    "var": "instalacion_origen_modificada"
+                  },
+                  false
+                ]
+              }
+            },
+            {
+              "id": "aclaraciones_acta_xii",
+              "label": "Declaración inspección periódica (Aclaraciones Acta XII)",
+              "descripcion": "Obligatorio en garajes comunitarios.",
+              "obligatorio": true,
+              "condicion_documento": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      "garaje_comunitario"
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "garaje_sujeto_inspeccion_periodica"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
             }
           ],
           "notas": ""
