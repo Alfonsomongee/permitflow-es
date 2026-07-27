@@ -86,7 +86,7 @@ export function InformeInteractivo({ informe, presupuestoInicial }: InformeInter
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip 
-                    formatter={(value: number) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(value)}
+                    formatter={(value) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(Number(value) || 0)}
                     contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)' }}
                   />
                   <Legend />
