@@ -71,7 +71,7 @@ export function InformeInteractivo({ informe, presupuestoInicial }: InformeInter
                 min={1000}
                 max={20000}
                 step={500}
-                onValueChange={(vals) => setPresupuesto(vals[0])}
+                onValueChange={(vals) => setPresupuesto(Array.isArray(vals) ? vals[0] : (vals as any)[0] ?? vals)}
                 className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
               />
             </div>
