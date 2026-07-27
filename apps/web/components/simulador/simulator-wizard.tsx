@@ -13,7 +13,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { InformeInteractivo } from './informe-interactivo';
-import type { FacturaResponse, GenerarResponse, EstudioResponse } from '@/types/simulador';
+import { 
+  uploadInvoice, 
+  generateSimulation, 
+  pollSimulationStatus, 
+  getSimulationErrorMessage 
+} from '@/lib/api/simulador';
 
 const POLL_INTERVAL_MS = 3000;
 const POLL_TIMEOUT_MS = 90_000;
@@ -52,7 +57,6 @@ export function SimulatorWizard() {
     step, setStep,
     setInmuebleData, setPresupuesto, setFacturaFile, setInforme,
     informe, presupuesto: globalPresupuesto, reset,
-    tipoInmueble: storedTipoInmueble,
   } = useSimulatorStore();
 
   // Selectores reactivos (no getState())
@@ -142,21 +146,7 @@ export function SimulatorWizard() {
 
     try {
       // --- Paso 1: Subir factura y extraer datos ---
-      const formData = new FormData();
-      formData.append('file', facturaFile);
-
-      const facturaRes = await fetch('/api/simulador/factura', {
-        method: 'POST',
-        body: formData,
-        signal: controller.signal,
-      });
-
-      if (!facturaRes.ok) {
-        const err = await facturaRes.json().catch(() => ({}));
-        throw new Error(err.detail ?? `Error al procesar la factura (${facturaRes.status})`);
-      }
-
-      const factura: FacturaResponse = await facturaRes.json();
+      const factura = await uploadInvoice(facturaFile, controller.signal);
 
       if (factura.estado !== 'exitoso') {
         throw new Error(
@@ -169,26 +159,13 @@ export function SimulatorWizard() {
       // --- Paso 2: Generar informe ---
       setSimulacionEstado('generando_informe');
 
-      const generarRes = await fetch('/api/simulador/generar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          analisis_id: factura.id,
-          region: codigoPostal,
-          tipo_inmueble: storedTipoInmueble ?? 'vivienda_unifamiliar',
-          presupuesto: globalPresupuesto,
-        }),
-        signal: controller.signal,
-      });
-
-      if (!generarRes.ok) {
-        const err = await generarRes.json().catch(() => ({}));
-        throw new Error(err.detail ?? `Error al generar el informe (${generarRes.status})`);
-      }
-
-      const { estudio_id, token }: GenerarResponse = await generarRes.json();
+      const { estudio_id, token } = await generateSimulation({
+        facturaId: factura.id,
+        direccion: codigoPostal,
+        superficieDisponible: 0, // Mock for API compat if needed, adjust API as needed.
+        presupuesto: globalPresupuesto,
+        interesadoEnBaterias: false,
+      }, controller.signal);
 
       // --- Paso 3: Polling hasta completado, error o timeout ---
       const inicio = Date.now();
@@ -208,19 +185,7 @@ export function SimulatorWizard() {
           }, { once: true });
         });
 
-        const estudioRes = await fetch(`/api/simulador/estudio/${estudio_id}`, {
-          headers: {
-            'X-Estudio-Token': token,
-          },
-          signal: controller.signal,
-        });
-
-        if (!estudioRes.ok) {
-          const err = await estudioRes.json().catch(() => ({}));
-          throw new Error(err.detail ?? `Error al consultar el informe (${estudioRes.status})`);
-        }
-
-        const estudio: EstudioResponse = await estudioRes.json();
+        const estudio = await pollSimulationStatus(estudio_id, token, controller.signal);
 
         if (estudio.estado === 'completado' && estudio.resultado) {
           setInforme(estudio.resultado);
@@ -239,9 +204,12 @@ export function SimulatorWizard() {
       if (e instanceof DOMException && e.name === 'AbortError') {
         return; // Ignorar si el usuario canceló
       }
-      const msg = e instanceof Error ? e.message : 'Error desconocido. Inténtalo de nuevo.';
-      setSimulacionEstado('error');
-      setErrorMensaje(msg);
+      
+      const msg = getSimulationErrorMessage(e);
+      if (msg) {
+        setSimulacionEstado('error');
+        setErrorMensaje(msg);
+      }
     }
   };
 
@@ -455,7 +423,7 @@ export function SimulatorWizard() {
             <Button variant="ghost" onClick={reset} className="mb-4">
               <ArrowLeft className="mr-2 h-4 w-4" /> Volver a simular
             </Button>
-            <InformeInteractivo informe={informe} presupuestoInicial={globalPresupuesto} />
+            <InformeInteractivo informe={informe} />
           </motion.div>
         )}
       </AnimatePresence>

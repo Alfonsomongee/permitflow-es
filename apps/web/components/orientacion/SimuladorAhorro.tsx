@@ -4,6 +4,8 @@ import { useState } from "react";
 import { AlertCircle, Calculator, Info } from "lucide-react";
 import { BENCHMARKS_FV } from "@/content/benchmarks_fv";
 import type { IdoneidadResult } from "./IndiceIdoneidad";
+import { calculateSolarSimulation, type SolarSector } from "@/lib/calculations/solar";
+import { parsePositiveNumber } from "@/lib/parsing/numbers";
 
 type Props = {
   result: IdoneidadResult;
@@ -12,69 +14,27 @@ type Props = {
 export function SimuladorAhorro({ result }: Props) {
   const [superficie, setSuperficie] = useState<string>("");
   const [potencia, setPotencia] = useState<string>("");
-  const [sector, setSector] = useState<"residencial" | "industrial_cubierta">("residencial");
+  const [sector, setSector] = useState<SolarSector>("residencial");
 
   const produccionEspecifica =
-    result.idoneidad.fotovoltaica_autoconsumo.produccion_especifica_kwh_kwp_year;
+    result.idoneidad.fotovoltaica_autoconsumo?.produccion_especifica_kwh_kwp_year;
 
-  if (!produccionEspecifica) {
+  if (
+    produccionEspecifica == null ||
+    !Number.isFinite(produccionEspecifica) ||
+    produccionEspecifica <= 0
+  ) {
     return null;
   }
 
-  // 1. Parsing y validación cruzada
-  const supNum = parseFloat(superficie);
-  const potNum = parseFloat(potencia);
-  const m2PorKwpMin = BENCHMARKS_FV.m2_por_kwp.min;
+  const simulation = calculateSolarSimulation({
+    specificProductionKwhPerKwpYear: produccionEspecifica,
+    surfaceM2: parsePositiveNumber(superficie),
+    requestedPowerKwp: parsePositiveNumber(potencia),
+    sector,
+  });
 
-  let potenciaCalculada = potNum;
-  let showBannerSuperficie = false;
-
-  if (!Number.isNaN(supNum) && supNum > 0) {
-    const potMaxPorSuperficie = supNum / m2PorKwpMin;
-    if (!Number.isNaN(potNum) && potNum > potMaxPorSuperficie) {
-      potenciaCalculada = potMaxPorSuperficie;
-      showBannerSuperficie = true;
-    } else if (Number.isNaN(potNum)) {
-      // Si solo introduce superficie, calculamos una potencia media-baja (usando max m2) para ser conservadores
-      potenciaCalculada = supNum / BENCHMARKS_FV.m2_por_kwp.max;
-    }
-  }
-
-  // 2. Simulaciones (solo si hay potencia válida)
-  const isValid = !Number.isNaN(potenciaCalculada) && potenciaCalculada > 0;
-  
-  let produccionMin = 0;
-  let produccionMax = 0;
-  let ahorroMin = 0;
-  let ahorroMax = 0;
-  let inversionMin = 0;
-  let inversionMax = 0;
-  let amortizacionMin = 0;
-  let amortizacionMax = 0;
-
-  if (isValid) {
-    // Producción anual (kWh) = Potencia (kWp) * E_y (kWh/kWp)
-    produccionMin = potenciaCalculada * produccionEspecifica * 0.95; // 5% pérdidas adicionales conservadoras
-    produccionMax = potenciaCalculada * produccionEspecifica;
-
-    // Ahorro anual (€) = Producción * Ratio * Precio_kWh
-    const ratio = BENCHMARKS_FV.ratio_autoconsumo_sin_bateria;
-    const precioKwh = BENCHMARKS_FV.precio_kwh_defecto.valor;
-    
-    ahorroMin = produccionMin * ratio.min * precioKwh;
-    ahorroMax = produccionMax * ratio.max * precioKwh;
-
-    // Inversión (€) = Potencia * Coste_kWp
-    const costeKwp = BENCHMARKS_FV.coste_eur_por_kwp[sector];
-    inversionMin = potenciaCalculada * costeKwp.min;
-    inversionMax = potenciaCalculada * costeKwp.max;
-
-    // Amortización (años) = Inversión / Ahorro
-    // Mejor caso (amortización rápida): mínima inversión, máximo ahorro
-    amortizacionMin = inversionMin / ahorroMax;
-    // Peor caso (amortización lenta): máxima inversión, mínimo ahorro
-    amortizacionMax = inversionMax / ahorroMin;
-  }
+  const isValid = simulation !== null;
 
   return (
     <div className="mt-8 rounded-xl border border-border bg-surface overflow-hidden">
@@ -95,7 +55,7 @@ export function SimuladorAhorro({ result }: Props) {
             <label className="text-xs font-medium text-text-primary">Sector</label>
             <select
               value={sector}
-              onChange={(e) => setSector(e.target.value as "residencial" | "industrial_cubierta")}
+              onChange={(e) => setSector(e.target.value as SolarSector)}
               className="w-full rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             >
               <option value="residencial">Residencial</option>
@@ -130,42 +90,42 @@ export function SimuladorAhorro({ result }: Props) {
           </div>
         </div>
 
-        {showBannerSuperficie && (
+        {simulation?.adjustedBySurface && (
           <div className="mb-6 flex items-start gap-2.5 rounded-lg bg-warning/10 p-3 text-sm text-warning">
             <AlertCircle size={16} className="mt-0.5 flex-shrink-0" />
             <p>
               La potencia deseada <strong>no cabe</strong> en la superficie indicada 
               (mínimo {BENCHMARKS_FV.m2_por_kwp.min} m²/kWp). El cálculo se ha ajustado a la potencia máxima posible: 
-              <strong> {potenciaCalculada.toFixed(2)} kWp</strong>.
+              <strong> {simulation.effectivePowerKwp.toFixed(2)} kWp</strong>.
             </p>
           </div>
         )}
 
-        {isValid ? (
+        {isValid && simulation ? (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="rounded-lg border border-border bg-bg p-4">
                 <p className="text-xs text-text-secondary">Producción Anual</p>
                 <p className="mt-1 text-lg font-semibold text-text-primary">
-                  {Math.round(produccionMin).toLocaleString("es-ES")} - {Math.round(produccionMax).toLocaleString("es-ES")} <span className="text-sm font-normal text-text-secondary">kWh</span>
+                  {Math.round(simulation.annualProductionKwh.min).toLocaleString("es-ES")} - {Math.round(simulation.annualProductionKwh.max).toLocaleString("es-ES")} <span className="text-sm font-normal text-text-secondary">kWh</span>
                 </p>
               </div>
               <div className="rounded-lg border border-border bg-bg p-4">
                 <p className="text-xs text-text-secondary">Ahorro Estimado (1er año)</p>
                 <p className="mt-1 text-lg font-semibold text-success">
-                  {Math.round(ahorroMin).toLocaleString("es-ES")}€ - {Math.round(ahorroMax).toLocaleString("es-ES")}€
+                  {Math.round(simulation.annualSavingsEur.min).toLocaleString("es-ES")}€ - {Math.round(simulation.annualSavingsEur.max).toLocaleString("es-ES")}€
                 </p>
               </div>
               <div className="rounded-lg border border-border bg-bg p-4">
                 <p className="text-xs text-text-secondary">Inversión Llave en Mano</p>
                 <p className="mt-1 text-lg font-semibold text-text-primary">
-                  {Math.round(inversionMin).toLocaleString("es-ES")}€ - {Math.round(inversionMax).toLocaleString("es-ES")}€
+                  {Math.round(simulation.investmentEur.min).toLocaleString("es-ES")}€ - {Math.round(simulation.investmentEur.max).toLocaleString("es-ES")}€
                 </p>
               </div>
               <div className="rounded-lg border border-border bg-bg p-4">
                 <p className="text-xs text-text-secondary">Periodo de Amortización</p>
                 <p className="mt-1 text-lg font-semibold text-text-primary">
-                  {amortizacionMin.toFixed(1)} - {amortizacionMax.toFixed(1)} <span className="text-sm font-normal text-text-secondary">años</span>
+                  {simulation.paybackYears.min.toFixed(1)} - {simulation.paybackYears.max.toFixed(1)} <span className="text-sm font-normal text-text-secondary">años</span>
                 </p>
               </div>
             </div>

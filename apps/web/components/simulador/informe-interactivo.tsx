@@ -1,9 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Slider } from '@/components/ui/slider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Info, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
@@ -11,30 +9,20 @@ import type { InformeSimulacionIA } from '@/types/simulador';
 
 interface InformeInteractivoProps {
   informe: InformeSimulacionIA;
-  presupuestoInicial: number;
 }
 
-export function InformeInteractivo({ informe, presupuestoInicial }: InformeInteractivoProps) {
-  const [presupuesto, setPresupuesto] = useState(presupuestoInicial);
-
+export function InformeInteractivo({ informe }: InformeInteractivoProps) {
   const hasGenericaIncentive = informe.incentivos_fiscales.some(
     (inc) => inc.nivel_verificacion === 'generica_pendiente_url'
   );
 
-  // Calculate adjusted scenarios based on new budget
-  // Note: For simplicity, we scale the savings linearly with the budget,
-  // but a real simulation would be more complex.
-  const chartData = informe.escenarios.map((esc) => {
-    const scaleFactor = presupuesto / esc.coste_inicial;
-    const adjustedCost = presupuesto;
-    const adjustedSavings = esc.ahorro_anual * scaleFactor;
-    return {
-      name: esc.nombre,
-      Coste: adjustedCost,
-      'Ahorro a 5 años': adjustedSavings * 5,
-      'Ahorro a 10 años': adjustedSavings * 10,
-    };
-  });
+  const chartData = informe.escenarios.map((escenario) => ({
+    name: escenario.nombre,
+    "Coste inicial": escenario.coste_inicial,
+    "Ahorro anual": escenario.ahorro_anual,
+    "Ahorro a 5 años": escenario.ahorro_5_anios,
+    "Ahorro a 10 años": escenario.ahorro_10_anios,
+  }));
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -60,26 +48,7 @@ export function InformeInteractivo({ informe, presupuestoInicial }: InformeInter
             <CardDescription>Visualiza tu ahorro estimado a lo largo del tiempo</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="mb-8 space-y-4">
-              <div className="flex justify-between">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Ajustar Presupuesto: {presupuesto.toLocaleString('es-ES')} €
-                </label>
-              </div>
-              <Slider
-                value={[presupuesto]}
-                min={1000}
-                max={20000}
-                step={500}
-                onValueChange={(vals: number | readonly number[]) => {
-                  const val = typeof vals === "number" ? vals : vals[0];
-                  if (val !== undefined) setPresupuesto(val);
-                }}
-                className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
-              />
-            </div>
-            
-            <div className="h-[350px] w-full">
+            <div className="h-[350px] w-full mt-4">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
@@ -90,7 +59,8 @@ export function InformeInteractivo({ informe, presupuestoInicial }: InformeInter
                     contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)' }}
                   />
                   <Legend />
-                  <Bar dataKey="Coste" fill="hsl(var(--muted-foreground))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="Coste inicial" fill="hsl(var(--muted-foreground))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="Ahorro anual" fill="hsl(var(--success))" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="Ahorro a 5 años" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="Ahorro a 10 años" fill="hsl(var(--primary) / 0.6)" radius={[4, 4, 0, 0]} />
                 </BarChart>

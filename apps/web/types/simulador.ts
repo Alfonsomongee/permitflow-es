@@ -13,16 +13,17 @@ export interface Incentivo {
   nombre: string;
   descripcion: string;
   ahorro_estimado: number;
-  nivel_verificacion: 'exacta_factura' | 'estimada_datos' | 'generica_pendiente_url';
+  nivel_verificacion: 'verificada' | 'generica_pendiente_url';
   fuente?: string;
 }
 
 export interface EscenarioAhorro {
   nombre: string;
+  potencia_kwp: number;
   coste_inicial: number;
   ahorro_anual: number;
-  tiempo_retorno_anios: number;
-  produccion_anual_estimada_kwh?: number;
+  ahorro_5_anios: number;
+  ahorro_10_anios: number;
 }
 
 export interface InformeSimulacionIA {
