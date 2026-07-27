@@ -71,7 +71,10 @@ export function InformeInteractivo({ informe, presupuestoInicial }: InformeInter
                 min={1000}
                 max={20000}
                 step={500}
-                onValueChange={(vals: number[]) => setPresupuesto(vals[0])}
+                onValueChange={(vals: number | readonly number[]) => {
+                  const val = typeof vals === "number" ? vals : vals[0];
+                  if (val !== undefined) setPresupuesto(val);
+                }}
                 className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
               />
             </div>
