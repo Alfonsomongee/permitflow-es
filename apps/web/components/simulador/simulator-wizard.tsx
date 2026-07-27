@@ -18,7 +18,10 @@ const inmuebleSchema = z.object({
   tipoInmueble: z.enum(['vivienda_unifamiliar', 'comunidad_vecinos', 'empresa'], {
     message: 'Selecciona un tipo de inmueble',
   }),
-  codigoPostal: z.string().regex(/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/, 'Código postal inválido'),
+  codigoPostal: z.string({ message: 'El código postal es requerido' })
+    .trim()
+    .length(5, { message: 'El código postal debe tener exactamente 5 dígitos' })
+    .regex(/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/, { message: 'Código postal español inválido (ej: 28001)' }),
 });
 
 const presupuestoSchema = z.object({
