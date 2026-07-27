@@ -132,7 +132,7 @@ export function InformeInteractivo({ informe, presupuestoInicial }: InformeInter
             <CardDescription>Parámetros utilizados para el cálculo</CardDescription>
           </CardHeader>
           <CardContent>
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion className="w-full">
               {informe.supuestos_utilizados.map((sup, i) => (
                 <AccordionItem key={i} value={`item-${i}`}>
                   <AccordionTrigger className="text-sm">
