@@ -70,6 +70,10 @@ export async function POST(req: Request) {
         requiere_nuevo_suministro: formState.requiere_nuevo_suministro,
         combustible: formState.combustible || undefined,
         presion_bar: formState.presion_bar || undefined,
+        tension: formState.tension ?? undefined,
+        nivel_tension_consumidor: formState.nivel_tension_consumidor ?? undefined,
+        nivel_tension_generacion: formState.nivel_tension_generacion ?? undefined,
+        nivel_tension_conexion: formState.nivel_tension_conexion ?? undefined,
         solicita_ayuda: formState.solicita_ayuda,
       }),
     });

@@ -4,7 +4,7 @@
     "tipo_instalacion": "acs",
     "comunidad": "andalucia",
     "potencia_kw": 30,
-    "uso": "residencial",
+    "uso": "residencial", "tension": "BT",
     "municipio": "Sevilla",
     "inversion_eur": 5000
   },

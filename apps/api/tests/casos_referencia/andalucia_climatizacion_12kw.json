@@ -4,7 +4,7 @@
     "tipo_instalacion": "climatizacion_aerotermia",
     "comunidad": "andalucia",
     "potencia_kw": 12,
-    "uso": "residencial",
+    "uso": "residencial", "tension": "BT",
     "municipio": "Sevilla"
   },
   "num_tramites_esperado": 2,

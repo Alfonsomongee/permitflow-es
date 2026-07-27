@@ -13,6 +13,7 @@ export interface DocumentoRequerido {
 export interface Tramite {
   orden: number;
   nombre: string;
+  tipo_actuacion?: "accion_usuario" | "oficio_administracion" | "informativa" | "revision_manual";
   organismo: string;
   base_legal: string;
   plazo_estimado_dias: number | null;

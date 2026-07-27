@@ -114,10 +114,14 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
   const titulo = TIPO_LABEL[params.tipo_instalacion] ?? params.tipo_instalacion;
   const ccaa = COMUNIDAD_LABEL[params.comunidad] ?? params.comunidad;
 
+  const tramitesAccionables = plan.tramites.filter(t => t.tipo_actuacion === "accion_usuario" || t.tipo_actuacion === undefined);
+  const tramitesOficio = plan.tramites.filter(t => t.tipo_actuacion === "oficio_administracion");
+  const tramitesRevision = plan.tramites.filter(t => t.tipo_actuacion === "revision_manual");
+
   const tramitesCompletados = expediente ? completados : 0;
   const progreso =
-    expediente && plan.tramites.length > 0
-      ? Math.round((tramitesCompletados / plan.tramites.length) * 100)
+    expediente && tramitesAccionables.length > 0
+      ? Math.round((tramitesCompletados / tramitesAccionables.length) * 100)
       : 0;
   const fechaActualizacion = formatDate(expediente?.actualizadoEn);
 
@@ -169,7 +173,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
                 <StatChip
                   label="Progreso"
                   value={`${progreso}%`}
-                  sub={`${tramitesCompletados}/${plan.tramites.length} trámites`}
+                  sub={`${tramitesCompletados}/${tramitesAccionables.length} trámites`}
                   icon={CheckCircle2}
                   accent
                 />
@@ -205,7 +209,26 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
             )}
 
             <div className="space-y-3">
-              {plan.tramites.map((tramite, i) => (
+              {tramitesRevision.length > 0 && (
+                <div className="mb-4 space-y-3 rounded-xl border border-warning bg-warning-light/50 p-4">
+                  <h3 className="text-sm font-semibold text-warning-dark">Revisión requerida</h3>
+                  {tramitesRevision.map((tramite) => (
+                    <TramiteCard
+                      key={tramite.orden}
+                      tramite={tramite}
+                      defaultOpen={true}
+                      estadoInfo={undefined}
+                      comunidad={params.comunidad}
+                    />
+                  ))}
+                </div>
+              )}
+
+              <div className="mb-2 text-sm font-medium text-text-secondary">
+                {tramitesAccionables.length} {tramitesAccionables.length === 1 ? "trámite" : "trámites"} a realizar
+              </div>
+              
+              {tramitesAccionables.map((tramite, i) => (
                 <TramiteCard
                   key={tramite.orden}
                   tramite={tramite}
@@ -219,6 +242,25 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
                   comunidad={params.comunidad}
                 />
               ))}
+
+              {tramitesOficio.length > 0 && (
+                <div className="mt-8">
+                  <div className="mb-3 text-sm font-medium text-text-secondary">
+                    {tramitesOficio.length} actuación administrativa de oficio
+                  </div>
+                  <div className="space-y-3">
+                    {tramitesOficio.map((tramite) => (
+                      <TramiteCard
+                        key={tramite.orden}
+                        tramite={tramite}
+                        defaultOpen={false}
+                        estadoInfo={undefined}
+                        comunidad={params.comunidad}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

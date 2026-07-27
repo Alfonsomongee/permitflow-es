@@ -4,7 +4,7 @@
     "tipo_instalacion": "gas_baja_presion",
     "comunidad": "andalucia",
     "potencia_kw": 24,
-    "uso": "residencial",
+    "uso": "residencial", "tension": "BT",
     "municipio": "Sevilla",
     "combustible": "gas_natural",
     "presion_bar": "normal",

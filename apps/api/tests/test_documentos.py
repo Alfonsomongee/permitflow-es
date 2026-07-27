@@ -138,6 +138,7 @@ def test_motor_propaga_formulario_ref():
         potencia_kw=600,   # dispara AND-FV-004, cuyos trámites llevan formulario_ref
         uso="industrial",
         municipio="Sevilla",
+        tension="BT",
     ))
     assert any(t.formulario_ref for t in resultado.tramites), (
         "El motor sigue descartando formulario_ref de los JSON de reglas"

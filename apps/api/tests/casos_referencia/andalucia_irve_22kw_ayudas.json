@@ -4,7 +4,7 @@
     "tipo_instalacion": "irve",
     "comunidad": "andalucia",
     "potencia_kw": 22,
-    "uso": "residencial",
+    "uso": "residencial", "tension": "BT",
     "municipio": "Sevilla",
     "acceso_publico": false,
     "modo_recarga": "3",

@@ -6,6 +6,38 @@ import {
   TIPO_LABEL,
 } from "@/types/plan";
 
+const CAMPOS_VISIBLES_POR_TIPO: Record<string, string[]> = {
+  fotovoltaica_autoconsumo: [
+    "potencia_kw",
+    "tension",
+    "solicita_ayuda",
+  ],
+  irve: [
+    "potencia_kw",
+    "tension",
+    "numero_puntos",
+    "modo_recarga",
+    "ubicacion_irve",
+    "acceso_publico",
+    "solicita_ayuda",
+  ],
+  acs: [
+    "potencia_kw",
+    "uso",
+    "solicita_ayuda",
+  ],
+  climatizacion_aerotermia: [
+    "potencia_kw",
+    "uso",
+    "solicita_ayuda",
+  ],
+  gas_baja_presion: [
+    "potencia_kw",
+    "uso",
+    "solicita_ayuda",
+  ],
+};
+
 interface ResumenPanelProps {
   params: InstalacionParams;
   plan: PlanTramitacion;
@@ -36,6 +68,12 @@ function ParamRow({
 
 export function ResumenPanel({ params, plan }: ResumenPanelProps) {
   const organismos = new Set(plan.tramites.map((tramite) => tramite.organismo)).size;
+  const visibles = CAMPOS_VISIBLES_POR_TIPO[params.tipo_instalacion] || [];
+  const isVisible = (key: string) => visibles.includes(key);
+
+  const tramitesAccionables = plan.tramites.filter(
+    (t) => t.tipo_actuacion === "accion_usuario" || t.tipo_actuacion === undefined
+  );
 
   return (
     <aside className="flex flex-col gap-4">
@@ -47,14 +85,16 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
         <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-2">
           <ParamRow icon={Building2} label="Tipo" value={TIPO_LABEL[params.tipo_instalacion] ?? params.tipo_instalacion} />
           <ParamRow icon={MapPin} label="CC. AA." value={COMUNIDAD_LABEL[params.comunidad] ?? params.comunidad} />
-          <ParamRow icon={Gauge} label="Potencia" value={`${params.potencia_kw} kW`} />
-          {params.numero_puntos && <ParamRow label="Puntos de recarga" value={params.numero_puntos} />}
-          {params.modo_recarga && <ParamRow label="Modo de recarga" value={`Modo ${params.modo_recarga}`} />}
-          {params.ubicacion_irve && <ParamRow label="Ubicación" value={params.ubicacion_irve.replace(/_/g, " ")} />}
-          {params.acceso_publico !== undefined && (
+          {isVisible("potencia_kw") && <ParamRow icon={Gauge} label="Potencia" value={`${params.potencia_kw} kW`} />}
+          {isVisible("tension") && params.tension && <ParamRow label="Tensión" value={params.tension} />}
+          {isVisible("uso") && params.uso && <ParamRow label="Uso" value={params.uso} />}
+          {isVisible("numero_puntos") && params.numero_puntos && <ParamRow label="Puntos de recarga" value={params.numero_puntos} />}
+          {isVisible("modo_recarga") && params.modo_recarga && <ParamRow label="Modo de recarga" value={`Modo ${params.modo_recarga}`} />}
+          {isVisible("ubicacion_irve") && params.ubicacion_irve && <ParamRow label="Ubicación" value={params.ubicacion_irve.replace(/_/g, " ")} />}
+          {isVisible("acceso_publico") && params.acceso_publico !== undefined && (
             <ParamRow label="Acceso" value={params.acceso_publico ? "Público (TECI)" : "Privado (PUES)"} />
           )}
-          {params.solicita_ayuda && <ParamRow label="Solicita ayuda" value="Sí (MOVES/NextGen)" />}
+          {isVisible("solicita_ayuda") && params.solicita_ayuda && <ParamRow label="Solicita ayuda" value="Sí (MOVES/NextGen)" />}
         </div>
       </div>
 
@@ -65,7 +105,7 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
         </p>
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-xl bg-surface/70 p-3">
-            <p className="text-2xl font-bold text-text-primary">{plan.tramites.length}</p>
+            <p className="text-2xl font-bold text-text-primary">{tramitesAccionables.length}</p>
             <p className="text-[11px] text-text-secondary">trámites</p>
           </div>
           {plan.tiempo_total_estimado_dias !== null && (

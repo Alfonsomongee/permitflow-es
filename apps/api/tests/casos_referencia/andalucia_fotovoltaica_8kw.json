@@ -4,7 +4,7 @@
     "tipo_instalacion": "fotovoltaica_autoconsumo",
     "comunidad": "andalucia",
     "potencia_kw": 8,
-    "uso": "residencial",
+    "uso": "residencial", "tension": "BT",
     "municipio": "Sevilla"
   },
   "num_tramites_esperado": 4,

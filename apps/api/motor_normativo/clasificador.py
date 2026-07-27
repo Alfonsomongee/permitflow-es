@@ -45,6 +45,37 @@ class Clasificador:
     def __init__(self):
         self.reglas_dir = Path(__file__).parent / "reglas"
 
+    def _completar_si_falta(self, datos: dict, campo: str, valor: object) -> None:
+        if datos.get(campo) is None:
+            datos[campo] = valor
+
+    def _normalizar_fotovoltaica(self, datos: dict) -> None:
+        tension = str(datos.get("tension") or "").lower()
+        if tension == "bt":
+            self._completar_si_falta(datos, "nivel_tension_consumidor", "bt")
+            self._completar_si_falta(datos, "nivel_tension_generacion", "bt")
+            self._completar_si_falta(datos, "nivel_tension_conexion", "bt")
+            
+            niveles_informados = [
+                datos.get("nivel_tension_consumidor"),
+                datos.get("nivel_tension_generacion"),
+                datos.get("nivel_tension_conexion"),
+            ]
+            if any(nivel == "at" for nivel in niveles_informados):
+                datos["_conflicto_tension"] = True
+                
+        elif tension == "at":
+            self._completar_si_falta(datos, "nivel_tension_conexion", "at")
+        
+        if not tension and not all([datos.get("nivel_tension_consumidor"), datos.get("nivel_tension_generacion"), datos.get("nivel_tension_conexion")]):
+            datos["_falta_tension"] = True
+
+    def normalizar_parametros(self, datos: dict) -> dict:
+        normalizados = dict(datos)
+        if normalizados.get("tipo_instalacion") == "fotovoltaica_autoconsumo":
+            self._normalizar_fotovoltaica(normalizados)
+        return normalizados
+
     def clasificar(self, params: ClasificadorInput) -> ClasificadorOutput:
         file_path = (self.reglas_dir / params.comunidad / f"{params.tipo_instalacion}.json").resolve()
 
@@ -77,9 +108,49 @@ class Clasificador:
 
         eval_locals = params.model_dump()
         eval_locals["presion_bar"] = presion_bar_val
+        eval_locals = self.normalizar_parametros(eval_locals)
 
         tramites_output = []
         tiempo_total = 0
+        matched_any = False
+        reglas_con_error: list[str] = []
+        
+        # Check normalization conflicts for PV
+        if eval_locals.get("_conflicto_tension"):
+            return ClasificadorOutput(
+                tramites=[
+                    TramiteOutput(
+                        orden=1,
+                        nombre="Revisión técnica de tensiones eléctricas",
+                        organismo="Oficina técnica",
+                        base_legal="N/A",
+                        tipo_actuacion="revision_manual",
+                        notas="Conflicto detectado: Se indica tensión BT genérica pero existen niveles específicos AT.",
+                        documentos_requeridos=[]
+                    )
+                ],
+                tiempo_total_estimado_dias=0,
+                advertencias=["Conflicto en los datos de tensión eléctrica."],
+                nivel_verificacion="verificada"
+            )
+            
+        if eval_locals.get("_falta_tension"):
+            return ClasificadorOutput(
+                tramites=[
+                    TramiteOutput(
+                        orden=1,
+                        nombre="Evaluación de tensión de la instalación",
+                        organismo="Oficina técnica",
+                        base_legal="N/A",
+                        tipo_actuacion="revision_manual",
+                        notas="No se puede determinar la puesta en servicio ni el tipo de inscripción registral sin conocer el nivel de tensión.",
+                        documentos_requeridos=[]
+                    )
+                ],
+                tiempo_total_estimado_dias=0,
+                advertencias=["Falta el parámetro de tensión eléctrica."],
+                nivel_verificacion="verificada"
+            )
         matched_any = False
         reglas_con_error: list[str] = []
 
@@ -100,9 +171,19 @@ class Clasificador:
                                 f"desde {t.get('obsoleta_desde', 'fecha desconocida')}"
                             )
                             continue
+                            
+                        # Compatibilidad histórica para tipo_actuacion
+                        tipo_actuacion = t.get("tipo_actuacion")
+                        if tipo_actuacion is None:
+                            if regla.get("id") in ["MAD-FV-REGISTRO-OFICIO"]:
+                                tipo_actuacion = "oficio_administracion"
+                            else:
+                                tipo_actuacion = "accion_usuario"
+                                
                         tramite = TramiteOutput(
                             orden=t.get("orden"),
                             nombre=t.get("nombre"),
+                            tipo_actuacion=tipo_actuacion,
                             organismo=t.get("organismo"),
                             base_legal=t.get("base_legal"),
                             plazo_estimado_dias=t.get("plazo_estimado_dias"),

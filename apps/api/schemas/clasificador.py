@@ -9,6 +9,13 @@ TipoInstalacion = Literal[
     "gas_baja_presion",
 ]
 
+TipoActuacion = Literal[
+    "accion_usuario",
+    "oficio_administracion",
+    "informativa",
+    "revision_manual",
+]
+
 ComunidadAutonoma = Literal[
     "andalucia", "aragon", "asturias", "baleares", "canarias", "cantabria",
     "castilla_la_mancha", "castilla_leon", "cataluna", "comunidad_valenciana",
@@ -170,6 +177,10 @@ class DocumentoRequerido(BaseModel):
 class TramiteOutput(BaseModel):
     orden: int = Field(..., description="Orden del trámite")
     nombre: str = Field(..., description="Nombre del trámite")
+    tipo_actuacion: TipoActuacion = Field(
+        default="accion_usuario",
+        description="Naturaleza de la actuación dentro del plan.",
+    )
     organismo: str = Field(..., description="Organismo responsable")
     base_legal: str = Field(..., description="Base legal aplicable")
     plazo_estimado_dias: Optional[int] = Field(None, description="Plazo estimado en días")

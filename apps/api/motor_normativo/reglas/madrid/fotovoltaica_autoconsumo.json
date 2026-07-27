@@ -57,6 +57,7 @@
         {
           "orden": 1,
           "nombre": "Puesta en servicio ante Entidad de Inspección y Control Industrial (EICI)",
+          "tipo_actuacion": "accion_usuario",
           "organismo": "Entidad de Inspección y Control Industrial (EICI)",
           "base_legal": "Instrucción de 24/11/2025; RD 244/2019",
           "plazo_estimado_dias": 15,
@@ -112,6 +113,7 @@
         {
           "orden": 1,
           "nombre": "Tramitación de las autorizaciones aplicables a la instalación de alta tensión",
+          "tipo_actuacion": "accion_usuario",
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "Decreto 86/2025",
           "plazo_estimado_dias": null,
@@ -185,6 +187,7 @@
         {
           "orden": 2,
           "nombre": "Inscripción de oficio en el Registro Administrativo de Autoconsumo",
+          "tipo_actuacion": "oficio_administracion",
           "organismo": "Administración / Comunidad de Madrid",
           "base_legal": "RD 244/2019",
           "plazo_estimado_dias": null,
@@ -257,6 +260,7 @@
         {
           "orden": 2,
           "nombre": "Inscripción en el Registro Administrativo de Autoconsumo",
+          "tipo_actuacion": "accion_usuario",
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "RD 244/2019",
           "plazo_estimado_dias": null,
@@ -307,6 +311,7 @@
         {
           "orden": 3,
           "nombre": "Inscripción en Registro de Producción de Energía Eléctrica",
+          "tipo_actuacion": "accion_usuario",
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "RD 413/2014",
           "plazo_estimado_dias": null,
