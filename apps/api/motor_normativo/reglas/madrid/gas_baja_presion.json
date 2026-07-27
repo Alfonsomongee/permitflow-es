@@ -29,7 +29,7 @@
       "valores_permitidos": [
         "individual",
         "comun",
-        "acometida_interior"
+        "conexion_servicio"
       ],
       "obligatorio": true
     },
@@ -105,7 +105,7 @@
                         },
                         [
                           "comun",
-                          "acometida_interior"
+                          "conexion_servicio"
                         ]
                       ]
                     },
@@ -176,7 +176,7 @@
                                 },
                                 [
                                   "comun",
-                                  "acometida_interior"
+                                  "conexion_servicio"
                                 ]
                               ]
                             },
@@ -289,7 +289,7 @@
                       },
                       [
                         "comun",
-                        "acometida_interior"
+                        "conexion_servicio"
                       ]
                     ]
                   },
@@ -360,7 +360,7 @@
                               },
                               [
                                 "comun",
-                                "acometida_interior"
+                                "conexion_servicio"
                               ]
                             ]
                           },

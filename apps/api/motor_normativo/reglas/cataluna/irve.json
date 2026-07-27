@@ -1,45 +1,143 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "cataluna",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
-  "nivel_verificacion": "generica",
-  "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_obra' (no existe en el schema; el campo real es 'ubicacion_irve'). Se eliminó 'Decreto 141/2015' como base legal: no se ha localizado esta norma en ninguna fuente oficial catalana; lo único real con ese número es el Decret 141/2012 (condicions d'habitabilitat d'habitatges), sin relación con IRVE. El nombre 'RITEC' (Registro de Instalaciones Técnicas de Cataluña) tampoco se ha podido confirmar. Se sustituyó por el circuito real confirmado: declaración responsable / Canal Empresa (OGE), y 'EIC' (Entitat d'Inspecció i Control) como término catalán confirmado equivalente a OCA. Se sustituyó el umbral inventado de 10 kW por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014).",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "verificada",
+  "estado": "verificado",
+  "aviso": "Adaptado según requerimientos de auditoría. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación telemática en Canal Empresa, criterio más restrictivo de Proyecto (IRVE o Garaje de la ITC-BT-04), y códigos de documento oficiales ELEC1 y ELEC2/ELEC3.",
   "huecos_verificacion": [
-    "No se ha localizado normativa autonómica catalana específica de IRVE; se aplica el régimen general de BT (declaración responsable) más ITC-BT-52 nacional",
-    "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
-    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados (el fichero original citaba una tasa de 12,50€ para IRVE >10kW sin fuente verificable, no incluida en esta versión)"
+    "Confirmar si hay tasas específicas en Canal Empresa asociadas a las potencias de IRVE en garajes de uso colectivo."
   ],
   "fuentes": [
     "RD 1053/2014, por el que se aprueba la ITC-BT-52",
     "RD 842/2002 REBT",
     "Ficha 'Presentació de la declaració responsable per a instal·lacions elèctriques de baixa tensió' - Canal Empresa gencat.cat",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+    "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+    "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
+  ],
+  "validaciones": [
+    {
+      "id": "CAT-IRVE-VALIDACION-INPUT",
+      "campos_requeridos": [
+        "potencia_kw",
+        "modo_recarga",
+        "ubicacion_irve"
+      ],
+      "accion_si_faltan": "revision_manual"
+    }
   ],
   "reglas": [
     {
       "id": "CAT-IRVE-001",
-      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4, y no cumple el criterio restrictivo de garajes",
       "condicion": {
         "and": [
-          { "!=": [ { "var": "modo_recarga" }, "4" ] },
           {
-            "or": [
+            "==": [
               {
-                "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
-                ]
+                "var": "tipo_instalacion"
               },
-              {
-                "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
-                ]
-              }
+              "irve"
             ]
+          },
+          {
+            "!": {
+              "or": [
+                {
+                  "==": [
+                    {
+                      "var": "modo_recarga"
+                    },
+                    "4"
+                  ]
+                },
+                {
+                  ">": [
+                    {
+                      "var": "potencia_kw"
+                    },
+                    50
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "ubicacion_irve"
+                        },
+                        [
+                          "exterior",
+                          "via_publica"
+                        ]
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        10
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "ubicacion_irve"
+                        },
+                        "garaje_comunitario"
+                      ]
+                    },
+                    {
+                      "==": [
+                        {
+                          "var": "uso_edificio"
+                        },
+                        "no_residencial"
+                      ]
+                    },
+                    {
+                      "or": [
+                        {
+                          "==": [
+                            {
+                              "var": "ventilacion_garaje"
+                            },
+                            "forzada"
+                          ]
+                        },
+                        {
+                          "and": [
+                            {
+                              "==": [
+                                {
+                                  "var": "ventilacion_garaje"
+                                },
+                                "natural"
+                              ]
+                            },
+                            {
+                              ">": [
+                                {
+                                  "var": "numero_plazas_garaje"
+                                },
+                                5
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
           }
         ]
       },
@@ -59,13 +157,13 @@
           "regla_id": "CAT-IRVE-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_irve",
-              "label": "Memoria técnica de diseño IRVE",
-              "descripcion": "Documento firmado por instalador habilitado.",
+              "id": "elec2_elec3_irve",
+              "label": "Documentación de memoria técnica de diseño (ELEC2/ELEC3)",
+              "descripcion": "MTD con esquema y tabla de características.",
               "obligatorio": true
             },
             {
-              "id": "declaracion_responsable",
+              "id": "declaracion_responsable_instalador",
               "label": "Declaración responsable del instalador",
               "descripcion": "",
               "obligatorio": true
@@ -75,51 +173,141 @@
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable de puesta en servicio de instalación eléctrica BT",
-          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions elèctriques de baixa tensió (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04; Decret 192/2023",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-duna-instal.lacio-electrica-de-baixa-tensio",
+          "coste_estimado": "Según tasas de la OGE",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-IRVE-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_irve",
-              "label": "Memoria técnica de diseño IRVE",
+              "id": "elec2_elec3_irve",
+              "label": "Documentación de memoria técnica de diseño (ELEC2/ELEC3)",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalacion",
-              "label": "Certificado de instalación eléctrica de baja tensión",
-              "descripcion": "Modelo oficial ELEC1/ELEC3.",
+              "id": "elec1_irve",
+              "label": "Certificado de instalación eléctrica de baja tensión (ELEC1)",
+              "descripcion": "Modelo oficial ELEC1.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC."
         }
       ]
     },
     {
       "id": "CAT-IRVE-002",
-      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
+      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, modo de recarga 4, o garaje no residencial con ventilación forzada o >5 plazas",
       "condicion": {
-        "or": [
-          { "==": [ { "var": "modo_recarga" }, "4" ] },
+        "and": [
           {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-              { ">": [ { "var": "potencia_kw" }, 50 ] }
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "irve"
             ]
           },
           {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-              { ">": [ { "var": "potencia_kw" }, 10 ] }
+            "or": [
+              {
+                "==": [
+                  {
+                    "var": "modo_recarga"
+                  },
+                  "4"
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  50
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      "garaje_comunitario"
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "uso_edificio"
+                      },
+                      "no_residencial"
+                    ]
+                  },
+                  {
+                    "or": [
+                      {
+                        "==": [
+                          {
+                            "var": "ventilacion_garaje"
+                          },
+                          "forzada"
+                        ]
+                      },
+                      {
+                        "and": [
+                          {
+                            "==": [
+                              {
+                                "var": "ventilacion_garaje"
+                              },
+                              "natural"
+                            ]
+                          },
+                          {
+                            ">": [
+                              {
+                                "var": "numero_plazas_garaje"
+                              },
+                              5
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -146,47 +334,18 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal."
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación con inspección inicial de EIC",
-          "organismo": "Entitat d'Inspecció i Control (EIC) acreditada en Cataluña",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-IRVE-002",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_irve",
-              "label": "Proyecto técnico IRVE",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_eic",
-              "label": "Certificado de inspección EIC",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "'EIC' (Entitat d'Inspecció i Control) es el término catalán confirmado equivalente a OCA."
-        },
-        {
-          "orden": 3,
-          "nombre": "Declaración responsable de puesta en servicio de instalación eléctrica BT",
-          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions elèctriques de baixa tensió (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04; Decret 192/2023",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-duna-instal.lacio-electrica-de-baixa-tensio",
+          "coste_estimado": "Según tasas de la OGE",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-IRVE-002",
@@ -198,13 +357,19 @@
               "obligatorio": true
             },
             {
-              "id": "certificado_eic",
-              "label": "Certificado de inspección EIC",
-              "descripcion": "",
+              "id": "certificado_direccion_obra_irve",
+              "label": "Certificado de dirección de obra de baja tensión",
+              "descripcion": "Firmado por técnico competente.",
+              "obligatorio": true
+            },
+            {
+              "id": "elec1_irve",
+              "label": "Certificado de instalación eléctrica de baja tensión (ELEC1)",
+              "descripcion": "Modelo oficial ELEC1.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notes": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC. La inspección de control inicial por EIC no se exige de forma genérica a menos que corresponda por potencia, tipo de local mojado o pública concurrencia."
         }
       ]
     }

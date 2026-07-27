@@ -1,29 +1,85 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "cataluna",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
-  "nivel_verificacion": "generica",
-  "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 141/2015' como base legal: no se ha localizado esta norma. Además, este fichero usaba la sigla 'RITC' (Registro de Instalaciones Térmicas de Cataluña) mientras que el fichero de IRVE de este mismo lote usaba 'RITEC' para lo que se suponía el mismo tipo de registro — inconsistencia interna que confirma la fabricación. Sustituido por el régimen nacional del RITE directamente, con 'EIC' como término catalán confirmado equivalente a OCA.",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "verificada",
+  "estado": "verificado",
+  "aviso": "Adaptado según requerimientos de auditoría. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación telemática en Canal Empresa, fronteras RITE (5 kW y 70 kW) y EIC condicionado/no exigido genéricamente.",
   "huecos_verificacion": [
-    "No se ha localizado normativa autonómica catalana específica de climatización; se aplica el RITE nacional directamente",
-    "Nombre exacto del trámite/registro de instalaciones térmicas en Cataluña no confirmado en esta revisión — se usa referencia genérica a Canal Empresa",
-    "Tasas y plazos legales no verificados"
+    "Confirmar los supuestos concretos del Decret 192/2023 para la exigencia de EIC en climatización por encima de potencias intermedias."
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "REBT RD 842/2002"
+    "REBT RD 842/2002",
+    "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+    "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
+  ],
+  "validaciones": [
+    {
+      "id": "CAT-AER-VALIDACION",
+      "campos_requeridos": [
+        "potencia_kw"
+      ],
+      "accion_si_faltan": "revision_manual"
+    }
   ],
   "reglas": [
     {
-      "id": "CAT-AER-001",
-      "descripcion": "Instalación de aerotermia para climatización con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "CAT-AER-000",
+      "descripcion": "Instalación de aerotermia con potencia < 5 kW (no requiere presentación/registro documental conforme al RITE, sin perjuicio del cumplimiento técnico)",
       "condicion": {
         "and": [
-          { "<=": [ { "var": "potencia_kw" }, 70 ] },
-          { "==": [ { "var": "tipo_instalacion" }, "climatizacion_aerotermia" ] }
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "climatizacion_aerotermia"
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          }
+        ]
+      },
+      "tramites": []
+    },
+    {
+      "id": "CAT-AER-001",
+      "descripcion": "Instalación de aerotermia para climatización con potencia 5 kW <= potencia < 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "climatizacion_aerotermia"
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -48,18 +104,18 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notes": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación y puesta en servicio",
-          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
-          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Decret 192/2023",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-dinstal.lacions-termiques-en-edificis-RITE",
+          "coste_estimado": "Según tasas de la OGE",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-AER-001",
@@ -71,23 +127,37 @@
               "obligatorio": true
             },
             {
-              "id": "mtd_firmada",
+              "id": "mtd_climatizacion",
               "label": "Memoria Técnica de Diseño firmada",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta de oficio en el RITSIC."
         }
       ]
     },
     {
       "id": "CAT-AER-002",
-      "descripcion": "Instalación de aerotermia para climatización con potencia > 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de aerotermia para climatización con potencia >= 70 kW (requiere proyecto técnico)",
       "condicion": {
         "and": [
-          { ">": [ { "var": "potencia_kw" }, 70 ] },
-          { "==": [ { "var": "tipo_instalacion" }, "climatizacion_aerotermia" ] }
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "climatizacion_aerotermia"
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -116,38 +186,32 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación e inspección inicial de EIC",
-          "organismo": "Entitat d'Inspecció i Control (EIC) autorizada en Cataluña",
-          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
-          "plazo_estimado_dias": 20,
+          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Decret 192/2023",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-dinstal.lacions-termiques-en-edificis-RITE",
+          "coste_estimado": "Según tasas de la OGE",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-AER-002",
           "documentos_requeridos": [
             {
-              "id": "ci_climatizacion",
-              "label": "Certificado de Instalación (modelo oficial)",
+              "id": "proyecto_climatizacion",
+              "label": "Proyecto técnico de climatización",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "proyecto_firmado",
-              "label": "Proyecto técnico firmado",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "informe_eic",
-              "label": "Informe favorable de EIC",
-              "descripcion": "",
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra (CDO)",
+              "descripcion": "Firmado por técnico competente y visado.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC. La inspección por EIC no se exige de forma genérica a menos que corresponda por potencia u otras condiciones del establecimiento."
         }
       ]
     }

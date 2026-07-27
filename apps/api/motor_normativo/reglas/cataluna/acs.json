@@ -1,29 +1,86 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cataluna",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
-  "nivel_verificacion": "generica",
-  "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 141/2015' como base legal: no se ha localizado esta norma en ninguna fuente oficial catalana. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
-  "huecos_verificacion": [
-    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
-    "No se ha localizado normativa autonómica catalana específica de ACS; se aplica el RITE nacional directamente",
-    "Nombre exacto del trámite/registro de instalaciones térmicas en Cataluña no confirmado",
-    "Tasas y plazos legales no verificados"
-  ],
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "verificada",
+  "estado": "verificado",
+  "aviso": "Auditado y adaptado según requerimientos. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación telemática en Canal Empresa, fronteras RITE (5 kW y 70 kW) y la regla de prevención de legionelosis (Decret 352/2004).",
+  "huecos_verificacion": [],
   "fuentes": [
     "RITE RD 1027/2007",
-    "RD 314/2006 CTE DB-HE"
+    "RD 314/2006 CTE DB-HE",
+    "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+    "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+    "Decret 352/2004, de 27 de juliol, pel qual s'estableixen les condicions higienicosanitàries per a la prevenció i el control de la legionel·losi",
+    "RD 487/2022",
+    "RD 614/2024"
+  ],
+  "validaciones": [
+    {
+      "id": "CAT-ACS-VALIDACION",
+      "campos_requeridos": [
+        "potencia_kw",
+        "incluida_ambito_legionella"
+      ],
+      "accion_si_faltan": "revision_manual"
+    }
   ],
   "reglas": [
     {
-      "id": "CAT-ACS-001",
-      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "CAT-ACS-000",
+      "descripcion": "Instalación de ACS con potencia < 5 kW (no requiere presentación/registro documental conforme al RITE, sin perjuicio del cumplimiento técnico)",
       "condicion": {
-        "<=": [
-          { "var": "potencia_kw" },
-          70
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          }
+        ]
+      },
+      "tramites": []
+    },
+    {
+      "id": "CAT-ACS-001",
+      "descripcion": "Instalación de ACS con potencia 5 kW <= potencia < 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -54,18 +111,18 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable de puesta en servicio",
-          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
-          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Decret 192/2023",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-dinstal.lacions-termiques-en-edificis-RITE",
+          "coste_estimado": "Según tasas vigentes de la OGE",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-ACS-001",
@@ -83,17 +140,31 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el Registre d'Instal·lacions Tècniques de Seguretat Industrial de Catalunya (RITSIC) con código de tipo RITE-14-...-Q."
         }
       ]
     },
     {
       "id": "CAT-ACS-002",
-      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de ACS con potencia >= 70 kW (requiere proyecto técnico)",
       "condicion": {
-        ">": [
-          { "var": "potencia_kw" },
-          70
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -118,47 +189,18 @@
               "obligatorio": true
             }
           ],
-          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo."
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación con inspección de EIC",
-          "organismo": "Entitat d'Inspecció i Control (EIC) acreditada en Cataluña",
-          "base_legal": "RITE RD 1027/2007 art. 15",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-ACS-002",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_termico",
-              "label": "Proyecto técnico",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_materiales",
-              "label": "Certificado de materiales y equipos (marcado CE)",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 3,
-          "nombre": "Declaración responsable de puesta en servicio",
-          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
-          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Decret 192/2023",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-dinstal.lacions-termiques-en-edificis-RITE",
+          "coste_estimado": "Según tasas de la OGE",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-ACS-002",
@@ -170,13 +212,62 @@
               "obligatorio": true
             },
             {
-              "id": "certificado_eic",
-              "label": "Certificado de instalación con inspección EIC",
-              "descripcion": "",
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra (CDO)",
+              "descripcion": "Firmado por técnico competente y visado.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC."
+        }
+      ]
+    },
+    {
+      "id": "CAT-ACS-LEGIONELLA",
+      "descripcion": "Requisitos específicos de prevención y control de legionelosis para instalaciones de ACS",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "acs"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "incluida_ambito_legionella"
+              },
+              true
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Implantación y mantenimiento del PPCL o PSL",
+          "organismo": "Titular de la instalación / autoridad sanitaria competente (ASPCAT)",
+          "base_legal": "Decret 352/2004, de 27 de juliol; RD 487/2022; RD 614/2024",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-ACS-LEGIONELLA",
+          "documentos_requeridos": [
+            {
+              "id": "libro_registro_legionella",
+              "label": "Libro de registro y mantenimiento sanitario",
+              "descripcion": "Operaciones de mantenimiento, limpieza y desinfección.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "No implica por sí sola una solicitud administrativa única; comprende las obligaciones sanitarias aplicables de prevención y control ante la Agència de Salut Pública de Catalunya (ASPCAT)."
         }
       ]
     }

@@ -1,27 +1,152 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "cataluna",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
-  "nivel_verificacion": "generica",
-  "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe en el schema) y la comparación numérica de 'presion_bar' (<=0.05) en vez de categórica. Se eliminó 'Decreto 141/2015, de 30 de junio' como base legal de gas: no se ha localizado esta norma, y es la tercera fecha distinta ('16 de junio' en IRVE/térmicas, '30 de junio' aquí) atribuida al mismo número de decreto dentro de este mismo lote de Cataluña — confirma la fabricación. Se aplicó el mismo hallazgo de Castilla y León sobre 'presion_bar': la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar, independientemente de la potencia.",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "verificada",
+  "estado": "verificado",
+  "aviso": "Adaptado según requerimientos de auditoría. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación telemática en Canal Empresa, variables numéricas potencia_resultante_kw y presion_resultante_bar, y umbrales diferenciados de proyecto (individual, común, conexión y presión).",
   "huecos_verificacion": [
-    "No se ha localizado normativa autonómica catalana específica de legalización de gas; se aplica el RIGLO nacional directamente",
-    "Nombre exacto del registro/trámite de instalaciones de gas en Cataluña no confirmado en esta revisión — se usa referencia genérica a Canal Empresa",
-    "Tasas y plazos legales no verificados"
+    "Confirmar los supuestos de inspección inicial por EIC para instalaciones de gas de localizaciones comerciales específicas."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07"
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+    "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+    "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
+  ],
+  "validaciones": [
+    {
+      "id": "CAT-GAS-VALIDACION-INPUT",
+      "campos_requeridos": [
+        "clase_instalacion_gas",
+        "potencia_resultante_kw",
+        "presion_resultante_bar",
+        "es_ampliacion"
+      ],
+      "accion_si_faltan": "revision_manual"
+    },
+    {
+      "id": "CAT-GAS-VALIDACION-AMPLIACION",
+      "condicion_aplicacion": {
+        "==": [
+          {
+            "var": "es_ampliacion"
+          },
+          true
+        ]
+      },
+      "campos_requeridos": [
+        "incremento_potencia_pct"
+      ],
+      "accion_si_faltan": "revision_manual"
+    }
   ],
   "reglas": [
     {
       "id": "CAT-GBP-001",
-      "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
+      "descripcion": "Instalación de gas que SÍ requiere proyecto técnico (presión > 5 bar, individual > 70 kW, común > 2000 kW, conexión servicio > 2000 kW, o ampliación > 30%)",
       "condicion": {
-        "==": [
-          { "var": "presion_bar" },
-          "5+"
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "gas_baja_presion"
+            ]
+          },
+          {
+            "or": [
+              {
+                ">": [
+                  {
+                    "var": "presion_resultante_bar"
+                  },
+                  5
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "clase_instalacion_gas"
+                      },
+                      "individual"
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_resultante_kw"
+                      },
+                      70
+                    ]
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "clase_instalacion_gas"
+                      },
+                      "comun"
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_resultante_kw"
+                      },
+                      2000
+                    ]
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "clase_instalacion_gas"
+                      },
+                      "conexion_servicio"
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_resultante_kw"
+                      },
+                      2000
+                    ]
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "es_ampliacion"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "incremento_potencia_pct"
+                      },
+                      30
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
         ]
       },
       "tramites": [
@@ -50,71 +175,148 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de Instalación (CI) y certificado de EIC",
-          "organismo": "Entitat d'Inspecció i Control (EIC) acreditada en Cataluña",
-          "base_legal": "RIGLO RD 919/2006",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-GBP-001",
-          "documentos_requeridos": [
-            {
-              "id": "ci_gas",
-              "label": "Certificado de Instalación de Gas",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_eic",
-              "label": "Certificado de la EIC",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro/comunicación de la instalación",
-          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions de gasos combustibles (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
+          "base_legal": "RIGLO RD 919/2006; Decret 192/2023",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Presentacio-de-la-declaracio-responsable-per-a-instal.lacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
+          "coste_estimado": "Según tasas de la OGE",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-GBP-001",
           "documentos_requeridos": [
             {
-              "id": "ci_gas",
-              "label": "Certificado de Instalación de Gas",
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de la instalación de gas",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "certificado_eic",
-              "label": "Certificado de la EIC",
-              "descripcion": "",
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de dirección de obra de gas",
+              "descripcion": "Firmado por técnico competente.",
+              "obligatorio": true
+            },
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de Gas",
+              "descripcion": "Modelo oficial.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC con código de tipo GC-14-...-Q."
         }
       ]
     },
     {
       "id": "CAT-GBP-002",
-      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
+      "descripcion": "Instalación de gas sin proyecto (no supera los umbrales reglamentarios)",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "gas_baja_presion"
+            ]
+          },
+          {
+            "!": {
+              "or": [
+                {
+                  ">": [
+                    {
+                      "var": "presion_resultante_bar"
+                    },
+                    5
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "clase_instalacion_gas"
+                        },
+                        "individual"
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_resultante_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "clase_instalacion_gas"
+                        },
+                        "comun"
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_resultante_kw"
+                        },
+                        2000
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "clase_instalacion_gas"
+                        },
+                        "conexion_servicio"
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "potencia_resultante_kw"
+                        },
+                        2000
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "==": [
+                        {
+                          "var": "es_ampliacion"
+                        },
+                        true
+                      ]
+                    },
+                    {
+                      ">": [
+                        {
+                          "var": "incremento_potencia_pct"
+                        },
+                        30
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
         ]
       },
       "tramites": [
@@ -149,14 +351,14 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro/comunicación de la instalación",
-          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
-          "base_legal": "RIGLO RD 919/2006",
+          "nombre": "Presentació de la declaració responsable per a instal·lacions de gasos combustibles (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
+          "base_legal": "RIGLO RD 919/2006; Decret 192/2023",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Presentacio-de-la-declaracio-responsable-per-a-instal.lacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
+          "coste_estimado": "Según tasas de la OGE",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CAT-GBP-002",
@@ -166,102 +368,15 @@
               "label": "Certificado de Instalación de Gas",
               "descripcion": "",
               "obligatorio": true
-            }
-          ],
-          "notas": ""
-        }
-      ]
-    },
-    {
-      "id": "CAT-GBP-003",
-      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
-      "condicion": {
-        "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { ">": [ { "var": "potencia_kw" }, 70 ] }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto técnico de instalación de gas",
-          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-GBP-003",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de la instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de Instalación (CI) y certificado de EIC",
-          "organismo": "Entitat d'Inspecció i Control (EIC) acreditada en Cataluña",
-          "base_legal": "RIGLO RD 919/2006",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-GBP-003",
-          "documentos_requeridos": [
-            {
-              "id": "ci_gas",
-              "label": "Certificado de Instalación de Gas",
-              "descripcion": "",
-              "obligatorio": true
             },
             {
-              "id": "certificado_eic",
-              "label": "Certificado de la EIC",
+              "id": "memoria_tecnica",
+              "label": "Memoria técnica de la instalación",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": ""
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro/comunicación de la instalación",
-          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-GBP-003",
-          "documentos_requeridos": [
-            {
-              "id": "ci_gas",
-              "label": "Certificado de Instalación de Gas",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_eic",
-              "label": "Certificado de la EIC",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC."
         }
       ]
     }

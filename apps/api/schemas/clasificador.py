@@ -33,7 +33,7 @@ class ClasificadorInput(BaseModel):
     ubicacion_irve: Optional[str] = Field(None, description="interior | exterior | via_publica | garaje_comunitario")
     requiere_nuevo_suministro: Optional[bool] = Field(None, description="True si requiere nuevo suministro o aumento de potencia")
     modalidad: Optional[str] = Field(None, description="nueva | ampliacion | modificacion | legalizacion")
-    modalidad_autoconsumo: Optional[Literal["sin_excedentes", "con_excedentes"]] = Field(None, description="Modalidad específica para autoconsumo: sin_excedentes o con_excedentes")
+    modalidad_autoconsumo: Optional[Literal["sin_excedentes", "con_excedentes_sin_compensacion", "con_excedentes_con_compensacion"]] = Field(None, description="Modalidad específica para autoconsumo: sin_excedentes, con_excedentes_sin_compensacion o con_excedentes_con_compensacion")
     implantacion: Optional[str] = Field(None, description="cubierta | suelo | interior | exterior | via_publica | marquesina | fachada")
     solicita_ayuda: Optional[bool] = Field(False, description="True si solicita subvenciones")
     tension: Optional[Literal["BT", "AT"]] = Field(None, description="Nivel de tensión de conexión: BT o AT")
@@ -46,7 +46,7 @@ class ClasificadorInput(BaseModel):
     inversion_eur: Optional[float] = Field(None, description="Presupuesto de la instalación en euros")
 
     # Gas specific fields
-    clase_instalacion_gas: Optional[Literal["individual", "comun", "acometida_interior"]] = Field(None, description="Clase de instalación de gas")
+    clase_instalacion_gas: Optional[Literal["individual", "comun", "conexion_servicio"]] = Field(None, description="Clase de instalación de gas")
     presion_operacion_bar: Optional[float] = Field(None, description="Presión de operación en bar")
     es_ampliacion: Optional[bool] = Field(False, description="True si es una ampliación de instalación existente")
     incremento_potencia_pct: Optional[float] = Field(0, description="Porcentaje de incremento de potencia respecto a la original")
@@ -66,9 +66,19 @@ class ClasificadorInput(BaseModel):
 
     # ACS specific fields
     incluida_ambito_rd_487_2022: Optional[bool] = Field(None, description="True si la instalación está incluida en el ámbito de aplicación del RD 487/2022 (Legionela)")
+    incluida_ambito_legionella: Optional[bool] = Field(None, description="True si la instalación está incluida en el ámbito de prevención de Legionela (Decret 352/2004)")
+
+    # Cataluña specific fields
+    uso_edificio: Optional[Literal["residencial", "no_residencial"]] = Field(None, description="Uso del edificio para IRVE/garajes")
+    ventilacion_garaje: Optional[Literal["natural", "forzada"]] = Field(None, description="Tipo de ventilación del garaje para IRVE")
+    numero_plazas_garaje: Optional[int] = Field(None, description="Número de plazas del garaje para IRVE")
+    garaje_existente: Optional[bool] = Field(None, description="True si el garaje es existente (para ITC-BT-04)")
+    ubicacion_suelo: Optional[Literal["urbanizado", "no_urbanizable"]] = Field(None, description="Clasificación del suelo para fotovoltaica")
+    requiere_acceso_conexion: Optional[bool] = Field(None, description="True si la instalación requiere acceso y conexión a red de distribución")
 
     @model_validator(mode='after')
-    def validate_gas_fields(self):
+    def validate_inputs_by_ca(self):
+        # Madrid Gas Validation
         if self.comunidad == "madrid" and self.tipo_instalacion == "gas_baja_presion":
             if self.potencia_resultante_kw is None:
                 raise ValueError("potencia_resultante_kw is required for gas installations")
@@ -77,6 +87,40 @@ class ClasificadorInput(BaseModel):
             if self.es_ampliacion:
                 if self.incremento_potencia_pct is None or self.incremento_potencia_pct == 0:
                     raise ValueError("incremento_potencia_pct must be provided and greater than 0 when es_ampliacion is True")
+        
+        # Cataluña Validations
+        if self.comunidad == "cataluna":
+            if self.tipo_instalacion == "gas_baja_presion":
+                if self.potencia_resultante_kw is None:
+                    raise ValueError("potencia_resultante_kw is required for gas installations")
+                if self.presion_resultante_bar is None:
+                    raise ValueError("presion_resultante_bar is required for gas installations")
+                if self.es_ampliacion:
+                    if self.incremento_potencia_pct is None or self.incremento_potencia_pct == 0:
+                        raise ValueError("incremento_potencia_pct must be provided and greater than 0 when es_ampliacion is True")
+            
+            elif self.tipo_instalacion == "irve" and self.ubicacion_irve == "garaje_comunitario":
+                if self.uso_edificio is None:
+                    raise ValueError("uso_edificio is required for Cataluña IRVE in garajes")
+                if self.ventilacion_garaje is None:
+                    raise ValueError("ventilacion_garaje is required for Cataluña IRVE in garajes")
+                if self.numero_plazas_garaje is None:
+                    raise ValueError("numero_plazas_garaje is required for Cataluña IRVE in garajes")
+                if self.garaje_existente is None:
+                    raise ValueError("garaje_existente is required for Cataluña IRVE in garajes")
+            
+            elif self.tipo_instalacion == "fotovoltaica_autoconsumo":
+                if self.modalidad_autoconsumo is None:
+                    raise ValueError("modalidad_autoconsumo is required for Cataluña fotovoltaica")
+                if self.ubicacion_suelo is None:
+                    raise ValueError("ubicacion_suelo is required for Cataluña fotovoltaica")
+                if self.requiere_acceso_conexion is None:
+                    raise ValueError("requiere_acceso_conexion is required for Cataluña fotovoltaica")
+            
+            elif self.tipo_instalacion == "acs":
+                if self.incluida_ambito_legionella is None:
+                    raise ValueError("incluida_ambito_legionella is required for Cataluña ACS")
+                    
         return self
 
 # ─── Output ───────────────────────────────────────────────────────────────────

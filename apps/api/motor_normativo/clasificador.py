@@ -75,26 +75,8 @@ class Clasificador:
             except ValueError:
                 pass
 
-        eval_locals = {
-            "potencia_kw": params.potencia_kw,
-            "superficie_m2": params.superficie_m2,
-            "uso": params.uso,
-            "comunidad": params.comunidad,
-            "tipo_instalacion": params.tipo_instalacion,
-            "combustible": params.combustible,
-            "presion_bar": presion_bar_val,
-            "numero_puntos": params.numero_puntos,
-            "potencia_por_punto_kw": params.potencia_por_punto_kw,
-            "modo_recarga": params.modo_recarga,
-            "acceso_publico": params.acceso_publico,
-            "ubicacion_irve": params.ubicacion_irve,
-            "requiere_nuevo_suministro": params.requiere_nuevo_suministro,
-            "modalidad": params.modalidad,
-            "implantacion": params.implantacion,
-            "solicita_ayuda": params.solicita_ayuda,
-            "tension": params.tension,
-            "modalidad_autoconsumo": params.modalidad_autoconsumo,
-        }
+        eval_locals = params.model_dump()
+        eval_locals["presion_bar"] = presion_bar_val
 
         tramites_output = []
         tiempo_total = 0
