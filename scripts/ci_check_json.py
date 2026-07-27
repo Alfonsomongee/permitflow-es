@@ -53,6 +53,9 @@ def main():
     unknown_logic_operators = 0
     missing_regla_id_refs = 0
     generic_canal_empresa_urls = 0
+    html_in_url_fields = 0
+    trailing_backtick_in_urls = 0
+    legacy_notes_fields = 0
     
     print("=== CI JSON Integrity Check ===")
     
@@ -119,14 +122,33 @@ def main():
                             if is_target_ca:
                                 duplicate_document_ids += 1
                         doc_ids_seen.add(doc_id)
-                        
-                    if 'condicion_documento' in doc:
+                
+                # Comprobación de HTML en URL
+                if p_url and ("<a" in p_url or "</a>" in p_url or ">" in p_url.strip()):
+                    file_errors.append(f"HTML encontrado en plataforma_url de '{tramite.get('nombre')}'")
+                    if is_target_ca:
+                        html_in_url_fields += 1
+                
+                # Comprobación de backtick final en URL
+                if p_url and p_url.endswith("`"):
+                    file_errors.append(f"Backtick final en plataforma_url de '{tramite.get('nombre')}'")
+                    if is_target_ca:
+                        trailing_backtick_in_urls += 1
+                    
+                if 'condicion_documento' in doc:
                         d_errs, d_unks = check_logic_issues(doc['condicion_documento'], path=f"Rule {rule_id} -> doc {doc.get('id', 'unknown')}")
                         file_errors.extend(d_errs)
                         for unk in d_unks:
                             file_errors.append(unk)
                             if is_target_ca:
                                 unknown_logic_operators += 1
+        
+        # Comprobación de campo legacy 'notes' (debe ser 'notas')
+        raw_data = json.dumps(data)
+        if '"notes"' in raw_data:
+            file_errors.append("Campo legacy 'notes' encontrado; usar 'notas'")
+            if is_target_ca:
+                legacy_notes_fields += 1
         
         if not file_errors:
             print(f"[OK] {filename}")
@@ -151,8 +173,17 @@ def main():
     print(f"Unknown JSONLogic Operators: {unknown_logic_operators}")
     print(f"Missing regla_id references: {missing_regla_id_refs}")
     print(f"Generic Canal Empresa URLs: {generic_canal_empresa_urls}")
+    print(f"HTML in URL fields: {html_in_url_fields}")
+    print(f"Trailing backtick in URLs: {trailing_backtick_in_urls}")
+    print(f"Legacy 'notes' fields: {legacy_notes_fields}")
     
-    if parse_errors > 0 or empty_operators > 0 or invalid_not_operators > 0 or duplicate_rule_ids > 0 or duplicate_document_ids > 0 or unknown_logic_operators > 0 or missing_regla_id_refs > 0 or generic_canal_empresa_urls > 0:
+    if (
+        parse_errors > 0 or empty_operators > 0 or invalid_not_operators > 0
+        or duplicate_rule_ids > 0 or duplicate_document_ids > 0
+        or unknown_logic_operators > 0 or missing_regla_id_refs > 0
+        or generic_canal_empresa_urls > 0 or html_in_url_fields > 0
+        or trailing_backtick_in_urls > 0 or legacy_notes_fields > 0
+    ):
         sys.exit(1)
     sys.exit(0)
 

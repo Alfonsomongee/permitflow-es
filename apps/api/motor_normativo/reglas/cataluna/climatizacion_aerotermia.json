@@ -3,11 +3,11 @@
   "comunidad": "cataluna",
   "version": "1.1.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "verificada",
-  "estado": "verificado",
-  "aviso": "Marco de seguridad industrial catalán incorporado. Aerotermia: no se exige EIC universal, queda como hueco de verificación. Plazos y costes: null (no contrastados). Organismo: Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions.",
+  "nivel_verificacion": "verificada_parcialmente",
+  "estado": "verificado_con_observaciones",
+  "aviso": "Marco de seguridad industrial catalán incorporado. Plazos y tasas: null (no contrastados). Organismo: Departament d'Empresa i Treball. EIC: pendiente determinar supuestos sectoriales expresos según Decret 192/2023.",
   "huecos_verificacion": [
-    "EIC aerotermia: pendiente de verificar si la Generalitat requiere inspección EIC de forma universal o únicamente en supuestos específicos de la normativa autonómica"
+    "EIC aerotermia: pendiente de determinar los supuestos sectoriales expresos de inspección por organismo de control conforme al Decret 192/2023 y su ITA 9; no se infiere automáticamente por potencia ni por requerir proyecto."
   ],
   "fuentes": [
     "RITE RD 1027/2007",

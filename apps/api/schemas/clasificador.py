@@ -36,7 +36,7 @@ class ClasificadorInput(BaseModel):
     modalidad_autoconsumo: Optional[Literal["sin_excedentes", "con_excedentes_sin_compensacion", "con_excedentes_con_compensacion"]] = Field(None, description="Modalidad específica para autoconsumo: sin_excedentes, con_excedentes_sin_compensacion o con_excedentes_con_compensacion")
     implantacion: Optional[str] = Field(None, description="cubierta | suelo | interior | exterior | via_publica | marquesina | fachada")
     solicita_ayuda: Optional[bool] = Field(False, description="True si solicita subvenciones")
-    tension: Optional[Literal["BT", "AT"]] = Field(None, description="Nivel de tensión de conexión: BT o AT")
+    tension: Optional[Literal["BT", "AT"]] = Field(None, description="Nivel de tensión de conexión: BT o AT (compatibilidad externa; las reglas nuevas usan nivel_tension_conexion)")
     
     # ACS specific fields
     acumulacion: Optional[bool] = Field(None, description="True si tiene acumulación")
@@ -57,6 +57,13 @@ class ClasificadorInput(BaseModel):
     # IRVE specific fields
     instalacion_origen_modificada: Optional[bool] = Field(None, description="True si la instalación de origen ha sido modificada")
     garaje_sujeto_inspeccion_periodica: Optional[bool] = Field(None, description="True si el garaje está sujeto a inspección periódica")
+    numero_suministros_edificio: Optional[int] = Field(None, description="Número de suministros eléctricos del edificio (IRVE: determina inspección inicial OC en edificios residenciales ≥20 suministros)", ge=0)
+    requiere_inspeccion_inicial_oc: Optional[bool] = Field(None, description="Dato técnico derivado: True si la instalación requiere inspección inicial por organismo de control. No debe introducirse manualmente.")
+
+    # ACS centralizada
+    acs_centralizada: Optional[bool] = Field(None, description="True si la instalación ACS es de uso centralizado (instalación común de edificio)")
+    dispone_acumulacion: Optional[bool] = Field(None, description="True si la instalación ACS tiene depósito de acumulación")
+    dispone_circuito_retorno: Optional[bool] = Field(None, description="True si la instalación ACS tiene circuito de retorno")
 
     # Autoconsumo specific fields
     nivel_tension_consumidor: Optional[Literal["bt", "at"]] = Field(None, description="Nivel de tensión del consumidor")
@@ -116,11 +123,38 @@ class ClasificadorInput(BaseModel):
                     raise ValueError("revision_manual")
                 if self.requiere_acceso_conexion is None:
                     raise ValueError("revision_manual")
-            
+
             elif self.tipo_instalacion == "acs":
-                if self.incluida_ambito_legionella is None:
+                # La legionella solo es dato obligatorio cuando la instalación es
+                # centralizada o supera 70 kW (ámbito de mayor riesgo sanitario)
+                legionella_material = (
+                    (self.acs_centralizada is True)
+                    or (self.potencia_kw is not None and self.potencia_kw >= 70)
+                )
+                if legionella_material and self.incluida_ambito_legionella is None:
+                    raise ValueError("revision_manual")
+                # Inspección periódica: si centralizada y >70 kW, se necesitan datos de acumulación/retorno
+                if (
+                    self.acs_centralizada is True
+                    and self.potencia_kw is not None
+                    and self.potencia_kw > 70
+                    and self.dispone_acumulacion is None
+                    and self.dispone_circuito_retorno is None
+                ):
                     raise ValueError("revision_manual")
                     
+        # Sincronización tension ↔ nivel_tension_conexion
+        if self.nivel_tension_conexion is None and self.tension is not None:
+            self.nivel_tension_conexion = self.tension.lower()  # type: ignore[assignment]
+        if (
+            self.nivel_tension_conexion is not None
+            and self.tension is not None
+            and self.nivel_tension_conexion != self.tension.lower()
+        ):
+            raise ValueError(
+                "tension y nivel_tension_conexion contienen valores incompatibles"
+            )
+
         return self
 
 # ─── Output ───────────────────────────────────────────────────────────────────
@@ -164,7 +198,14 @@ class ClasificadorOutput(BaseModel):
     tramites: List[TramiteOutput] = Field(..., description="Lista ordenada de trámites")
     tiempo_total_estimado_dias: Optional[int] = Field(None, description="Suma de los plazos estimados")
     advertencias: List[str] = Field(default_factory=list, description="Advertencias generales")
-    nivel_verificacion: Literal["verificada", "generica"] = Field(
+    nivel_verificacion: Literal[
         "verificada",
-        description="'generica' si el JSON de normativa aún no tiene verificación autonómica específica",
+        "verificada_parcialmente",
+        "verificado_con_observaciones",
+        "en_revision",
+        "borrador_verificado_parcialmente",
+        "generica",
+    ] = Field(
+        "verificada",
+        description="'generica' si el JSON de normativa aún no tiene verificación autonómica específica; 'verificada_parcialmente' o 'en_revision' si hay huecos documentados",
     )

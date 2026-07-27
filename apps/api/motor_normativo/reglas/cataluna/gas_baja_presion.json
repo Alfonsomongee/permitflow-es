@@ -3,9 +3,9 @@
   "comunidad": "cataluna",
   "version": "1.1.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "verificada",
-  "estado": "verificado",
-  "aviso": "Gas: datos de entrada exclusivamente numéricos (potencia_resultante_kw, presion_resultante_bar). Se elimina uso de presion_bar como categoría string. Proyecto obligatorio si presión > 5 bar, potencia individual > 70 kW, común/conexion_servicio > 2000 kW, o ampliación > 30% / cruce de umbrales. EIC no se exige universalmente. No se afirman plazos ni costes no verificados.",
+  "nivel_verificacion": "verificada_parcialmente",
+  "estado": "verificado_con_observaciones",
+  "aviso": "Gas: datos de entrada exclusivamente numéricos (potencia_resultante_kw, presion_resultante_bar). Proyecto obligatorio si presión >5 bar, potencia individual >70 kW, común/conexion_servicio >2000 kW, o ampliación >30%. EIC: no se exige universalmente. Plazos y tasas: null.",
   "huecos_verificacion": [
     "EIC gas: pendiente confirmar si la Generalitat exige inspección EIC en algún supuesto específico no cubierto por el campo presion_resultante_bar > 5"
   ],
@@ -31,6 +31,14 @@
         "incremento_potencia_pct"
       ],
       "accion_si_faltan": "revision_manual"
+    },
+    {
+      "id": "CAT-GAS-VALIDACION-CLASE",
+      "campo": "clase_instalacion_gas",
+      "valores_permitidos": ["individual", "comun", "conexion_servicio"],
+      "obligatorio": true,
+      "accion_si_invalido": "revision_manual",
+      "notas": "Una clase de instalación de gas desconocida no debe alcanzar la lógica JSONLogic. El Literal de Pydantic (individual|comun|conexion_servicio) en el schema garantiza esto a nivel de API."
     }
   ],
   "reglas": [
@@ -76,7 +84,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Sollicitud-dautoritzacio-administrativa-dinformacio-preverificacio-dinspeccio-i-de-posada-en-servei-de-les-installacions",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
           "coste_estimado": null,
           "formulario_ref": null,
           "registro_salida": "RITSIC",
@@ -162,7 +170,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Sollicitud-dautoritzacio-administrativa-dinformacio-preverificacio-dinspeccio-i-de-posada-en-servei-de-les-installacions",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
           "coste_estimado": null,
           "formulario_ref": null,
           "registro_salida": "RITSIC",
@@ -251,7 +259,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Sollicitud-dautoritzacio-administrativa-dinformacio-preverificacio-dinspeccio-i-de-posada-en-servei-de-les-installacions",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
           "coste_estimado": null,
           "formulario_ref": null,
           "registro_salida": "RITSIC",
@@ -384,7 +392,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Sollicitud-dautoritzacio-administrativa-dinformacio-preverificacio-dinspeccio-i-de-posada-en-servei-de-les-installacions",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
           "coste_estimado": null,
           "formulario_ref": null,
           "registro_salida": "RITSIC",
@@ -510,7 +518,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Sollicitud-dautoritzacio-administrativa-dinformacio-preverificacio-dinspeccio-i-de-posada-en-servei-de-les-installacions",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
           "coste_estimado": null,
           "formulario_ref": null,
           "registro_salida": "RITSIC",

@@ -3,12 +3,13 @@
   "comunidad": "cataluna",
   "version": "1.1.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "verificada",
-  "estado": "verificado",
-  "aviso": "Fotovoltaica Cataluña: reglas aditivas (no excluyentes). El trámite 21526 solo aplica a con_excedentes_con_compensacion <= 100 kW. La exención de AAP/AAC 100-500 kW solo aplica a esas dos figuras (Decret Llei 22/2025). Acceso/conexión es revision_manual si requiere_acceso_conexion es null. No se afirman exenciones de tasa no verificadas. Organismos distinguidos: Empresa i Treball para seguridad industrial, Territori per a producció/acceso/explotación.",
+  "nivel_verificacion": "en_revision",
+  "estado": "borrador_verificado_parcialmente",
+  "aviso": "Fotovoltaica Cataluña: reglas aditivas (no excluyentes). El trámite 21526 solo aplica a con_excedentes_con_compensacion <= 100 kW. La exención de AAP/AAC 100-500 kW solo aplica a esas dos figuras (Decret Llei 22/2025). RAC y RIPRE son reglas independientes. No se afirman exenciones de tasa no verificadas ni plazos no documentados.",
   "huecos_verificacion": [
     "Exención de tasa Decret legislatiu 3/2008 para instalaciones <= 100 kW: no verificada, no se afirma en ningún trámite",
-    "RAC (Resolució d'Accés i Connexió): el organismo exacto y el procedimiento de la distribuidora debe confirmarse caso a caso"
+    "RAC (Resolució d'Accés i Connexió): el organismo exacto y el procedimiento de la distribuidora debe confirmarse caso a caso",
+    "requiere_acceso_conexion es un dato derivado (no de elección libre del usuario) conforme al RD 1183/2020 y condiciones de modalidad, tensión, suelo y potencia; si es null el clasificador produce revision_manual"
   ],
   "fuentes": [
     "RD 244/2019 autoconsumo",
@@ -245,8 +246,8 @@
       ]
     },
     {
-      "id": "CAT-FV-TRAMITE-21526",
-      "descripcion": "Instalaciones con compensación de excedentes de hasta 100 kW (con_excedentes_con_compensacion <= 100 kW): trámite específico de inscripción 21526 en el RIPRE.",
+      "id": "CAT-FV-COMPENSACION-21526",
+      "descripcion": "Instalaciones con compensación de excedentes de hasta 100 kW (con_excedentes_con_compensacion <= 100 kW): trámite específico de inscripción 21526.",
       "condicion": {
         "and": [
           {
@@ -276,7 +277,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Installacio-generadora-dautoconsum-amb-compensacio-dexcedents-de-fins-a-100-kW",
+          "plataforma_url": "https://canalempresa.gencat.cat/es/integraciodepartamentaltramit/tramit/PerTemes/Installacio-generadora-dautoconsum-amb-compensacio-dexcedents-de-fins-a-100-kW",
           "coste_estimado": null,
           "formulario_ref": "21526",
           "paralelo_con": null,
@@ -294,19 +295,31 @@
               "obligatorio": true
             }
           ],
-          "notas": "El trámite 21526 ('Instal·lació generadora d'autoconsum amb compensació d'excedents de fins a 100 kW') aplica exclusivamente a la modalidad con_excedentes_con_compensacion con potencia <= 100 kW."
+          "notas": "El tràmit 21526 ('Instal·lació generadora d'autoconsum amb compensació d'excedents de fins a 100 kW') aplica exclusivament a la modalitat con_excedentes_con_compensacion amb potència <= 100 kW. No es tracta d'una inscripció automàtica ni d'ofici."
         }
       ]
     },
     {
       "id": "CAT-FV-RIPRE-EXCEDENTES-SIN-COMP",
-      "descripcion": "Inscripción en RIPRE para instalaciones con excedentes sin compensación (RD 244/2019)",
+      "descripcion": "Inscripción en RIPRE para instalaciones con excedentes sin compensación (RD 244/2019). Solo se activa cuando requiere_registro_produccion == true.",
       "condicion": {
-        "==": [
+        "and": [
           {
-            "var": "modalidad_autoconsumo"
+            "==": [
+              {
+                "var": "modalidad_autoconsumo"
+              },
+              "con_excedentes_sin_compensacion"
+            ]
           },
-          "con_excedentes_sin_compensacion"
+          {
+            "==": [
+              {
+                "var": "requiere_registro_produccion"
+              },
+              true
+            ]
+          }
         ]
       },
       "tramites": [

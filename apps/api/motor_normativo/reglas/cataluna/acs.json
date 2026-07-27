@@ -3,9 +3,9 @@
   "comunidad": "cataluna",
   "version": "1.1.0",
   "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "verificada",
-  "estado": "verificado",
-  "aviso": "Auditado y adaptado según investigación consolidada. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación electrónica obligatoria con organismo competente de Empresa i Treball, y plazos/costes no contrastados removidos.",
+  "nivel_verificacion": "verificada_parcialmente",
+  "estado": "verificado_con_observaciones",
+  "aviso": "Auditado y adaptado según investigación consolidada. Marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación electrónica obligatoria. Plazos y tasas: null (no contrastados oficialmente). Inspección periódica ACS centralizada >70kW: verificación parcial pendiente ITA 9 completa.",
   "huecos_verificacion": [],
   "fuentes": [
     "RITE RD 1027/2007",
@@ -20,10 +20,22 @@
     {
       "id": "CAT-ACS-VALIDACION",
       "campos_requeridos": [
-        "potencia_kw",
-        "incluida_ambito_legionella"
+        "potencia_kw"
       ],
-      "accion_si_faltan": "revision_manual"
+      "accion_si_faltan": "revision_manual",
+      "notas": "incluida_ambito_legionella se exige solo cuando acs_centralizada=true o potencia_kw>=70 (lógica en el validador Python)."
+    },
+    {
+      "id": "CAT-ACS-VALIDACION-INSPECCION-CENTRALIZADA",
+      "condicion_aplicacion": {
+        "and": [
+          {"==": [{"var": "acs_centralizada"}, true]},
+          {">":  [{"var": "potencia_kw"}, 70]}
+        ]
+      },
+      "campos_requeridos": ["dispone_acumulacion", "dispone_circuito_retorno"],
+      "accion_si_faltan": "revision_manual",
+      "notas": "Para instalaciones ACS centralizadas >70 kW se requieren datos de acumulación y retorno para determinar si aplica inspección periódica."
     }
   ],
   "reglas": [
@@ -289,6 +301,47 @@
             }
           ],
           "notas": "Obligación sanitaria documental, operativa y de mantenimiento. No se ha identificado una solicitud administrativa única aplicable a toda instalación."
+        }
+      ]
+    },
+    {
+      "id": "CAT-ACS-INSPECCION-PERIODICA",
+      "descripcion": "ACS centralizada con potencia >70 kW y acumulación o circuito de retorno: inspección periódica cada 4 años (ITA 9, Decret 192/2023). Verificación parcial.",
+      "nivel_verificacion_regla": "parcial",
+      "condicion": {
+        "and": [
+          {"==": [{"var": "tipo_instalacion"}, "acs"]},
+          {">":  [{"var": "potencia_kw"}, 70]},
+          {"==": [{"var": "acs_centralizada"}, true]},
+          {"or": [
+            {"==": [{"var": "dispone_acumulacion"}, true]},
+            {"==": [{"var": "dispone_circuito_retorno"}, true]}
+          ]}
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Inspecció periòdica d'instal·lació tèrmica d'ACS centralitzada (>70 kW amb acumulació o retorn)",
+          "organismo": "Organisme de control acreditat (OCA) - àmbit RITE",
+          "base_legal": "RITE RD 1027/2007; Decret 192/2023 ITA 9 (verificación parcial)",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-ACS-INSPECCION-PERIODICA",
+          "documentos_requeridos": [
+            {
+              "id": "informe_inspeccion_periodica",
+              "label": "Informe de inspección periódica emitido por OCA",
+              "descripcion": "Periodicidad 4 años. Alcance pendiente de confirmación con ITA 9 oficial del Decret 192/2023.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "VERIFICACIÓN PARCIAL: La obligación de inspección periódica para ACS centralizada >70 kW con acumulación o retorno procede de material sectorial basado en ITA 9. No se ha localizado el texto literal de la ITA 9 del Decret 192/2023. No debe afirmarse como obligación cerrada sin confirmar."
         }
       ]
     }
