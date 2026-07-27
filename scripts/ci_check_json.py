@@ -2,19 +2,37 @@ import json
 import os
 import sys
 
-def check_empty_operators(node, path=""):
+STANDARD_OPERATORS = {
+    "==", "===", "!=", "!==", ">", ">=", "<", "<=", "!", "!!", 
+    "or", "and", "var", "in", "cat", "map", "reduce", "filter", 
+    "all", "none", "some", "merge", "substr", "+", "-", "*", "/", 
+    "%", "min", "max", "if", "missing", "missing_some"
+}
+
+def check_logic_issues(node, path=""):
     errors = []
+    unknown_ops = []
+    
     if isinstance(node, dict):
-        if "" in node:
-            errors.append(f"Empty operator '' found at {path}")
-        if "not" in node:
-            errors.append(f"Invalid operator 'not' found at {path}. Use '!' instead.")
         for k, v in node.items():
-            errors.extend(check_empty_operators(v, path + f"/{k}"))
+            if k == "":
+                errors.append(f"Empty operator '' found at {path}")
+            elif k == "not":
+                errors.append(f"Invalid operator 'not' found at {path}. Use '!' instead.")
+            elif k not in STANDARD_OPERATORS:
+                unknown_ops.append(f"Unknown JSONLogic operator '{k}' found at {path}")
+            
+            sub_err, sub_unk = check_logic_issues(v, path + f"/{k}")
+            errors.extend(sub_err)
+            unknown_ops.extend(sub_unk)
+            
     elif isinstance(node, list):
         for i, item in enumerate(node):
-            errors.extend(check_empty_operators(item, path + f"[{i}]"))
-    return errors
+            sub_err, sub_unk = check_logic_issues(item, path + f"[{i}]")
+            errors.extend(sub_err)
+            unknown_ops.extend(sub_unk)
+            
+    return errors, unknown_ops
 
 def main():
     rules_dir = os.path.join(os.path.dirname(__file__), '../apps/api/motor_normativo/reglas/madrid')
@@ -26,6 +44,8 @@ def main():
     invalid_not_operators = 0
     duplicate_rule_ids = 0
     duplicate_document_ids = 0
+    unknown_logic_operators = 0
+    missing_regla_id_refs = 0
     
     print("=== CI JSON Integrity Check ===")
     
@@ -41,6 +61,13 @@ def main():
             
         file_errors = []
         rule_ids_seen = set()
+        rule_ids_in_file = set()
+        
+        # Primero recolectamos todos los IDs de regla válidos en este archivo
+        for rule in data.get('reglas', []):
+            rule_id = rule.get('id')
+            if rule_id:
+                rule_ids_in_file.add(rule_id)
         
         for rule in data.get('reglas', []):
             rule_id = rule.get('id', 'unknown')
@@ -49,20 +76,36 @@ def main():
                 duplicate_rule_ids += 1
             rule_ids_seen.add(rule_id)
             
-            file_errors.extend(check_empty_operators(rule.get('condicion', {}), path=f"Rule {rule_id} -> condicion"))
+            # Validar operador vacío y operadores desconocidos en condición de regla
+            errs, unks = check_logic_issues(rule.get('condicion', {}), path=f"Rule {rule_id} -> condicion")
+            file_errors.extend(errs)
+            for unk in unks:
+                file_errors.append(unk)
+                unknown_logic_operators += 1
             
-            doc_ids_seen = set()
             for tramite in rule.get('tramites', []):
+                # Comprobación de regla_id faltante o incorrecta
+                t_regla_id = tramite.get('regla_id')
+                if t_regla_id and t_regla_id not in rule_ids_in_file:
+                    file_errors.append(f"Missing/Invalid regla_id reference '{t_regla_id}' in procedure '{tramite.get('nombre')}'")
+                    missing_regla_id_refs += 1
+                
+                # Comprobación de documentos duplicados dentro del MISMO trámite
+                doc_ids_seen = set()
                 for doc in tramite.get('documentos_requeridos', []):
                     doc_id = doc.get('id')
                     if doc_id:
                         if doc_id in doc_ids_seen:
-                            file_errors.append(f"Duplicate Document ID found within same rule: {doc_id} in rule {rule_id}")
+                            file_errors.append(f"Duplicate Document ID found within same procedure: {doc_id} in rule {rule_id}, procedure '{tramite.get('nombre')}'")
                             duplicate_document_ids += 1
                         doc_ids_seen.add(doc_id)
                         
                     if 'condicion_documento' in doc:
-                        file_errors.extend(check_empty_operators(doc['condicion_documento'], path=f"Rule {rule_id} -> doc {doc.get('id', 'unknown')}"))
+                        d_errs, d_unks = check_logic_issues(doc['condicion_documento'], path=f"Rule {rule_id} -> doc {doc.get('id', 'unknown')}")
+                        file_errors.extend(d_errs)
+                        for unk in d_unks:
+                            file_errors.append(unk)
+                            unknown_logic_operators += 1
         
         if not file_errors:
             print(f"[OK] {filename}")
@@ -81,9 +124,11 @@ def main():
     print(f"Empty Operators ('\\\"\\\"'): {empty_operators}")
     print(f"Invalid Operators ('not'): {invalid_not_operators}")
     print(f"Duplicate Rule IDs: {duplicate_rule_ids}")
-    print(f"Duplicate Document IDs: {duplicate_document_ids}")
+    print(f"Duplicate Document IDs within same procedure: {duplicate_document_ids}")
+    print(f"Unknown JSONLogic Operators: {unknown_logic_operators}")
+    print(f"Missing regla_id references: {missing_regla_id_refs}")
     
-    if parse_errors > 0 or empty_operators > 0 or invalid_not_operators > 0 or duplicate_rule_ids > 0 or duplicate_document_ids > 0:
+    if parse_errors > 0 or empty_operators > 0 or invalid_not_operators > 0 or duplicate_rule_ids > 0 or duplicate_document_ids > 0 or unknown_logic_operators > 0 or missing_regla_id_refs > 0:
         sys.exit(1)
     sys.exit(0)
 

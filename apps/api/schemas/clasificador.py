@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from typing import List, Literal, Optional
 
 TipoInstalacion = Literal[
@@ -66,6 +66,18 @@ class ClasificadorInput(BaseModel):
 
     # ACS specific fields
     incluida_ambito_rd_487_2022: Optional[bool] = Field(None, description="True si la instalación está incluida en el ámbito de aplicación del RD 487/2022 (Legionela)")
+
+    @model_validator(mode='after')
+    def validate_gas_fields(self):
+        if self.comunidad == "madrid" and self.tipo_instalacion == "gas_baja_presion":
+            if self.potencia_resultante_kw is None:
+                raise ValueError("potencia_resultante_kw is required for gas installations")
+            if self.presion_resultante_bar is None:
+                raise ValueError("presion_resultante_bar is required for gas installations")
+            if self.es_ampliacion:
+                if self.incremento_potencia_pct is None or self.incremento_potencia_pct == 0:
+                    raise ValueError("incremento_potencia_pct must be provided and greater than 0 when es_ampliacion is True")
+        return self
 
 # ─── Output ───────────────────────────────────────────────────────────────────
 

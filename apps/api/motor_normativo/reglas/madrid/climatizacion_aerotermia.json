@@ -143,6 +143,12 @@
           "regla_id": "MAD-AT-001",
           "documentos_requeridos": [
             {
+              "id": "mtd_aerotermia",
+              "label": "Memoria Técnica de Diseño aerotermia",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación",
               "descripcion": "Modelo oficial IT 3.1.8",

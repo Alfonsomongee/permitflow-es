@@ -196,3 +196,73 @@ def test_input_incompleto_no_se_clasifica():
     with pytest.raises(ValidationError):
         # Initializing the Pydantic schema should fail
         ClasificadorInput(**entrada_incompleta)
+
+def test_gas_sin_potencia_resultante_no_se_clasifica():
+    entrada = {
+        "tipo_instalacion": "gas_baja_presion",
+        "comunidad": "madrid",
+        "potencia_kw": 50.0,
+        "uso": "residential",
+        "clase_instalacion_gas": "individual",
+        "presion_resultante_bar": 0.1
+        # missing potencia_resultante_kw
+    }
+    with pytest.raises(ValidationError):
+        ClasificadorInput(**entrada)
+
+def test_gas_sin_presion_resultante_no_se_clasifica():
+    entrada = {
+        "tipo_instalacion": "gas_baja_presion",
+        "comunidad": "madrid",
+        "potencia_kw": 50.0,
+        "uso": "residential",
+        "clase_instalacion_gas": "individual",
+        "potencia_resultante_kw": 50.0
+        # missing presion_resultante_bar
+    }
+    with pytest.raises(ValidationError):
+        ClasificadorInput(**entrada)
+
+def test_gas_ampliacion_campos_condicionales():
+    base = {
+        "tipo_instalacion": "gas_baja_presion",
+        "comunidad": "madrid",
+        "potencia_kw": 50.0,
+        "uso": "residential",
+        "clase_instalacion_gas": "individual",
+        "es_ampliacion": True
+    }
+    # es_ampliacion = true, sin incremento_potencia_pct
+    with pytest.raises(ValidationError):
+        ClasificadorInput(**{**base, "potencia_resultante_kw": 60.0, "presion_resultante_bar": 0.1, "incremento_potencia_pct": 0})
+        
+    # es_ampliacion = true, sin potencia_resultante_kw
+    with pytest.raises(ValidationError):
+        ClasificadorInput(**{**base, "incremento_potencia_pct": 20.0, "presion_resultante_bar": 0.1, "potencia_resultante_kw": None})
+
+    # es_ampliacion = true, sin presion_resultante_bar
+    with pytest.raises(ValidationError):
+        ClasificadorInput(**{**base, "incremento_potencia_pct": 20.0, "potencia_resultante_kw": 60.0, "presion_resultante_bar": None})
+
+def test_document_id_duplicity_rules():
+    # Un ID documental puede aparecer en dos trámites distintos
+    rules_irve = load_madrid_rules('irve.json')
+    
+    # Buscamos si mtd_irve aparece en más de un trámite
+    mtd_appearances = 0
+    for rule in rules_irve.get('reglas', []):
+        for tramite in rule.get('tramites', []):
+            for doc in tramite.get('documentos_requeridos', []):
+                if doc.get('id') == 'mtd_irve':
+                    mtd_appearances += 1
+    # Debe aparecer legítimamente en trámites distintos (ej. redacción de MTD y presentación/registro EICI)
+    assert mtd_appearances >= 2
+    
+    # Comprobar que en ningún trámite individual se repite el mismo documento dos veces
+    for filename in ['gas_baja_presion.json', 'irve.json', 'fotovoltaica_autoconsumo.json', 'acs.json', 'climatizacion_aerotermia.json']:
+        data = load_madrid_rules(filename)
+        for rule in data.get('reglas', []):
+            for tramite in rule.get('tramites', []):
+                doc_ids = [d.get('id') for d in tramite.get('documentos_requeridos', []) if d.get('id')]
+                assert len(doc_ids) == len(set(doc_ids)), f"Duplicate doc ID in same procedure found in {filename}, rule {rule.get('id')}, procedure {tramite.get('nombre')}"
+

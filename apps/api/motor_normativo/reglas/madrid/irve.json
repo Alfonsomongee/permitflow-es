@@ -171,6 +171,12 @@
           "regla_id": "MAD-IRVE-001",
           "documentos_requeridos": [
             {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
               "id": "certificado_instalacion_electrica",
               "label": "Certificado de instalación eléctrica (CIE)",
               "descripcion": "",
@@ -317,6 +323,12 @@
           "paralelo_con": null,
           "regla_id": "MAD-IRVE-002",
           "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            },
             {
               "id": "certificado_instalacion_electrica",
               "label": "Certificado de instalación eléctrica (CIE)",
