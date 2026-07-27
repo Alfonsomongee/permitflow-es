@@ -1,29 +1,31 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "aragon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "estado": "verificado",
+  "aviso": "Reglas de presión y potencias base actualizadas para Aragón.",
+  "huecos_verificacion": [
+    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
+    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+  ],
   "fuentes": [
-    "RD 919/2006 RITE",
-    "RD 1027/2007 RITE",
-    "RD 238/2013 RITE",
-    "Decreto 108/2005, de 24 de mayo, del Gobierno de Aragón, por el que se regulan las instalaciones de gas en el ámbito de la Comunidad Autónoma de Aragón",
-    "Orden de 15 de diciembre de 2005, del Departamento de Industria, Comercio y Turismo, por la que se desarrolla el Decreto 108/2005",
-    "RD 842/2002 REBT (para instalaciones eléctricas auxiliares)",
-    "RD 919/2006 RIGLO (Reglamento de Instalaciones de Gas)"
+    "RD 919/2006, Reglamento tecnico de distribucion y utilizacion de combustibles gaseosos, ITC-ICG 01 a 11",
+    "Orden de 28 de febrero de 2003, del Departamento de Industria, Comercio y Turismo (Aragón)"
   ],
   "reglas": [
     {
-      "id": "AR-GAS-001",
-      "descripcion": "Instalación de gas de baja presión (≤0.05 bar) en vivienda unifamiliar o local comercial con potencia ≤70 kW",
+      "id": "ARA-GAS-001",
+      "descripcion": "Instalacion receptora de gas en presion estandar (MOP <= 5 bar), potencia <=70 kW: memoria tecnica",
       "condicion": {
         "and": [
           {
-            "<=": [
+            "==": [
               {
                 "var": "presion_bar"
               },
-              0.05
+              "normal"
             ]
           },
           {
@@ -33,25 +35,106 @@
               },
               70
             ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria tecnica de diseno (MTD) de gas",
+          "organismo": "Instalador habilitado en gas",
+          "base_legal": "RD 919/2006, ITC-ICG 07",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "mtd_gas",
+              "label": "MTD de gas",
+              "descripcion": "Segun ITC-ICG 07.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalacion de gas",
+          "organismo": "Instalador habilitado en gas",
+          "base_legal": "RD 919/2006, ITC-ICG 07",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "cert_gas",
+              "label": "Certificado de instalacion",
+              "descripcion": "Tras pruebas de estanqueidad.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Trámite Nº 33: Instalaciones receptoras de combustibles gaseosos: comunicación de puesta en servicio, modificación, ampliación y baja",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RD 919/2006; normativa autonomica de procedimiento (vigencia no comprobada)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "mtd_gas",
+              "label": "MTD",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_gas",
+              "label": "Certificado",
+              "descripcion": "Del paso 2.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
+        }
+      ]
+    },
+    {
+      "id": "ARA-GAS-002",
+      "descripcion": "Instalacion receptora de gas en presion estandar (MOP <= 5 bar), potencia >70 kW: proyecto tecnico",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "presion_bar"
+              },
+              "normal"
+            ]
           },
           {
-            "or": [
+            ">": [
               {
-                "==": [
-                  {
-                    "var": "tipo_edificio"
-                  },
-                  "unifamiliar"
-                ]
+                "var": "potencia_kw"
               },
-              {
-                "==": [
-                  {
-                    "var": "tipo_edificio"
-                  },
-                  "local_comercial"
-                ]
-              }
+              70
             ]
           }
         ]
@@ -59,86 +142,195 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de diseño (MTD) de gas",
-          "organismo": "Instalador habilitado en gas (categoría G1 o G2 según RIGLO)",
-          "base_legal": "RD 919/2006 RIGLO; Decreto 108/2005 Aragón",
-          "plazo_estimado_dias": 3,
+          "nombre": "Proyecto tecnico de instalacion de gas",
+          "organismo": "Tecnico titulado competente",
+          "base_legal": "RD 919/2006, ITC-ICG 07",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "mtd_gas",
-              "label": "Memoria técnica de diseño de gas",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación de la habilitación del instalador",
-              "formato": "PDF"
+              "id": "proyecto_gas",
+              "label": "Proyecto tecnico",
+              "descripcion": "Visado si procede.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de puesta en servicio (OCA/EICI)",
-          "organismo": "Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) habilitada en Aragón",
-          "base_legal": "Decreto 108/2005 Aragón; RD 919/2006 RIGLO",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "Registro Industrial de Aragón (RIA)",
-          "plataforma_url": "https://www.aragon.es/tramites/registro-industrial",
-          "coste_estimado": "Variable según OCA/EICI (aprox. 100-300 €)",
+          "nombre": "Certificados de instalacion y direccion de obra",
+          "organismo": "Instalador y director de obra",
+          "base_legal": "RD 919/2006, ITC-ICG 07",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "mtd_gas",
-              "label": "Memoria técnica de diseño de gas",
-              "descripcion": "Mismo documento que en paso anterior",
-              "formato": "PDF"
+              "id": "cert_gas",
+              "label": "Certificado de instalacion",
+              "descripcion": "Instalador.",
+              "obligatorio": true
             },
             {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Mismo documento que en paso anterior",
-              "formato": "PDF"
-            },
-            {
-              "id": "boletin_gas",
-              "label": "Boletín de instalación de gas (modelo oficial)",
-              "descripcion": "Documento oficial firmado por instalador y visado por OCA/EICI",
-              "formato": "PDF"
+              "id": "dir_obra_gas",
+              "label": "Certificado direccion obra",
+              "descripcion": "Director obra.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el Registro Industrial de Aragón",
-          "organismo": "Dirección General de Industria, Comercio y Turismo del Gobierno de Aragón",
-          "base_legal": "Decreto 108/2005 Aragón",
+          "nombre": "Trámite Nº 33: Instalaciones receptoras de combustibles gaseosos: comunicación de puesta en servicio, modificación, ampliación y baja",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RD 919/2006; normativa autonomica",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "Registro Industrial de Aragón (RIA)",
-          "plataforma_url": "https://www.aragon.es/tramites/registro-industrial",
-          "coste_estimado": "0 € (tasa administrativa no aplicable)",
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "boletin_gas",
-              "label": "Boletín de instalación de gas",
-              "descripcion": "Mismo documento que en paso anterior",
-              "formato": "PDF"
+              "id": "proyecto_gas",
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             },
             {
-              "id": "certificado_ocaeici",
-              "label": "Certificado de inspección favorable de OCA/EICI",
-              "descripcion": "Documento emitido por el organismo de control",
-              "formato": "PDF"
+              "id": "cert_gas",
+              "label": "Certificado",
+              "descripcion": "Del paso 2.",
+              "obligatorio": true
+            },
+            {
+              "id": "dir_obra_gas",
+              "label": "Certificado direccion obra",
+              "descripcion": "Del paso 2.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-GAS-003",
+      "descripcion": "Instalacion receptora de gas en alta presion (MOP > 5 bar): proyecto tecnico obligatorio sin importar potencia",
+      "condicion": {
+        "==": [
+          {
+            "var": "presion_bar"
+          },
+          "5+"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto tecnico de instalacion de gas",
+          "organismo": "Tecnico titulado competente",
+          "base_legal": "RD 919/2006, ITC-ICG 07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto tecnico",
+              "descripcion": "Visado si procede.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificados de instalacion y direccion de obra",
+          "organismo": "Instalador y director de obra",
+          "base_legal": "RD 919/2006, ITC-ICG 07",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "cert_gas",
+              "label": "Certificado de instalacion",
+              "descripcion": "Instalador.",
+              "obligatorio": true
+            },
+            {
+              "id": "dir_obra_gas",
+              "label": "Certificado direccion obra",
+              "descripcion": "Director obra.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Trámite Nº 33: Instalaciones receptoras de combustibles gaseosos: comunicación de puesta en servicio, modificación, ampliación y baja",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RD 919/2006; normativa autonomica",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_gas",
+              "label": "Certificado",
+              "descripcion": "Del paso 2.",
+              "obligatorio": true
+            },
+            {
+              "id": "dir_obra_gas",
+              "label": "Certificado direccion obra",
+              "descripcion": "Del paso 2.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
         }
       ]
     }
-  ]
+  ],
+  "validaciones": [],
+  "nivel_verificacion": "generica"
 }

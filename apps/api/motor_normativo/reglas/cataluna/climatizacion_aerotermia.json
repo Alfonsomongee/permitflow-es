@@ -1,158 +1,153 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "cataluna",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 141/2015' como base legal: no se ha localizado esta norma. Además, este fichero usaba la sigla 'RITC' (Registro de Instalaciones Térmicas de Cataluña) mientras que el fichero de IRVE de este mismo lote usaba 'RITEC' para lo que se suponía el mismo tipo de registro — inconsistencia interna que confirma la fabricación. Sustituido por el régimen nacional del RITE directamente, con 'EIC' como término catalán confirmado equivalente a OCA.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica catalana específica de climatización; se aplica el RITE nacional directamente",
+    "Nombre exacto del trámite/registro de instalaciones térmicas en Cataluña no confirmado en esta revisión — se usa referencia genérica a Canal Empresa",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "REBT RD 842/2002",
-    "Decreto 141/2015 de la Generalitat de Catalunya (Puesta en servicio de instalaciones térmicas)",
-    "Orden TEC/164/2020 (Registro de instalaciones térmicas en Cataluña)"
+    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+    "REBT RD 842/2002"
   ],
   "reglas": [
     {
       "id": "CAT-AER-001",
-      "descripcion": "Instalación de aerotermia para climatización (calefacción/refrigeración) en edificio existente o nueva construcción, potencia térmica ≤ 70 kW",
+      "descripcion": "Instalación de aerotermia para climatización con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "climatizacion_aerotermia"
-            ]
-          }
+          { "<=": [ { "var": "potencia_kw" }, 70 ] },
+          { "==": [ { "var": "tipo_instalacion" }, "climatizacion_aerotermia" ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria técnica de diseño (MTD) según RITE",
-          "organismo": "Instalador habilitado (categoría: instalador de climatización)",
-          "base_legal": "RITE RD 1027/2007 art. 10; Decreto 141/2015",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-AER-001",
           "documentos_requeridos": [
             {
               "id": "mtd_climatizacion",
               "label": "Memoria Técnica de Diseño (climatización)",
-              "formato": "PDF",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (CI) y puesta en servicio ante la Generalitat",
-          "organismo": "Dirección General de Energía (Departamento de Acción Climática, Alimentación y Agenda Rural)",
-          "base_legal": "Decreto 141/2015 art. 5; Orden TEC/164/2020",
+          "nombre": "Certificado de instalación y puesta en servicio",
+          "organismo": "Direcció General d'Energia, Mines i Seguretat Industrial",
+          "base_legal": "RITE RD 1027/2007 art. 23-24",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Registro de Instalaciones Térmicas de Cataluña (RITC)",
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa (OGE)",
           "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "0 € (tasa administrativa no aplica para esta potencia)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-AER-001",
           "documentos_requeridos": [
             {
               "id": "ci_climatizacion",
               "label": "Certificado de Instalación (modelo oficial)",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "mtd_firmada",
               "label": "Memoria Técnica de Diseño firmada",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "CAT-AER-002",
-      "descripcion": "Instalación de aerotermia para climatización con potencia térmica > 70 kW (requiere proyecto técnico y ECA)",
+      "descripcion": "Instalación de aerotermia para climatización con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "climatizacion_aerotermia"
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 70 ] },
+          { "==": [ { "var": "tipo_instalacion" }, "climatizacion_aerotermia" ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico de climatización (visado colegial opcional)",
+          "nombre": "Proyecto técnico de climatización",
           "organismo": "Técnico competente (ingeniero industrial o similar)",
-          "base_legal": "RITE RD 1027/2007 art. 11; Decreto 141/2015",
+          "base_legal": "RITE RD 1027/2007 art. 16",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-AER-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_climatizacion",
               "label": "Proyecto técnico de climatización",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (CI) y puesta en servicio con ECA",
-          "organismo": "Entidad Colaboradora de la Administración (ECA) autorizada en Cataluña",
-          "base_legal": "Decreto 141/2015 art. 6; Orden TEC/164/2020",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 60,
-          "plataforma": "Registro de Instalaciones Térmicas de Cataluña (RITC)",
-          "plataforma_url": "https://canalempresa.gencat.cat",
-          "coste_estimado": "Variable según ECA (aprox. 200-500 €)",
+          "nombre": "Certificado de instalación e inspección inicial de EIC",
+          "organismo": "Entitat d'Inspecció i Control (EIC) autorizada en Cataluña",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-AER-002",
           "documentos_requeridos": [
             {
               "id": "ci_climatizacion",
               "label": "Certificado de Instalación (modelo oficial)",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "proyecto_firmado",
               "label": "Proyecto técnico firmado",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "informe_eca",
-              "label": "Informe favorable de ECA",
-              "formato": "PDF",
+              "id": "informe_eic",
+              "label": "Informe favorable de EIC",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

@@ -1,0 +1,198 @@
+From 9f5f24abe71bb1f6784dcd7e1edc0663b3797a4a Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 26 Jul 2026 20:41:17 +0000
+Subject: [PATCH] =?UTF-8?q?fix:=20corregir=20errores=20de=20generaci=C3=B3?=
+ =?UTF-8?q?n=20de=20documentos=20y=20colapso=20de=20plan=20en=20CCAA=20no-?=
+ =?UTF-8?q?Andaluc=C3=ADa?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- documentos: ExpedienteDoc.municipio ya no es obligatorio (el campo se
+  eliminó del payload del frontend hace unos commits), lo que provocaba
+  un 422 de validación en los 4 tipos de documento y se mostraba como
+  "[object Object]" en el frontend. Se ajustan los generadores
+  (contextos, mtd, pdf, generador) para no depender de un municipio
+  siempre presente.
+- PlataformaBadge: el motor normativo usa nombres de plataforma en texto
+  libre por comunidad (fuera de Andalucía), no el enum cerrado
+  PUES/TECI/MITECO/distribuidora/ayuntamiento. Indexar el mapa de estilos
+  con un valor fuera de ese enum devolvía undefined y rompía el render
+  (excepción de cliente al clasificar en cualquier CCAA salvo Andalucía).
+  Se añade un estilo por defecto y se refleja en el tipo Plataforma que
+  es texto libre.
+- DocumentosPanel: si el backend devuelve un error no-string (p.ej. un
+  array de errores de validación), ya no se renderiza "[object Object]".
+---
+ apps/api/documentos/contextos.py                      |  3 ++-
+ apps/api/documentos/generador.py                      |  2 +-
+ apps/api/documentos/mtd.py                            |  7 +++++--
+ apps/api/documentos/pdf.py                            |  6 +++++-
+ apps/api/documentos/schemas.py                        |  4 +++-
+ .../components/plan-tramitacion/DocumentosPanel.tsx   |  6 ++++--
+ .../components/plan-tramitacion/PlataformaBadge.tsx   |  9 +++++++--
+ apps/web/types/plan.ts                                | 11 ++++-------
+ 8 files changed, 31 insertions(+), 17 deletions(-)
+
+diff --git a/apps/api/documentos/contextos.py b/apps/api/documentos/contextos.py
+index c7b1c33..ce9598b 100644
+--- a/apps/api/documentos/contextos.py
++++ b/apps/api/documentos/contextos.py
+@@ -38,7 +38,8 @@ def datos_instalacion(exp: ExpedienteDoc) -> list[tuple[str, str]]:
+     """Pares (etiqueta, valor) para las tablas de cabecera de todos los docs."""
+     filas: list[tuple[str, str]] = [
+         ("Tipo de instalación", etiqueta_tipo(exp.tipo_instalacion)),
+-        ("Ubicación", f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)})"),
++        ("Ubicación", f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)})" if exp.municipio
++         else etiqueta_comunidad(exp.comunidad)),
+         ("Potencia", f"{exp.potencia_kw:g} kW"),
+     ]
+     if exp.uso:
+diff --git a/apps/api/documentos/generador.py b/apps/api/documentos/generador.py
+index fa5780d..1415e1f 100644
+--- a/apps/api/documentos/generador.py
++++ b/apps/api/documentos/generador.py
+@@ -23,7 +23,7 @@ def _slug(texto: str, fallback: str = "expediente") -> str:
+ 
+ def _base_nombre(payload: GenerarDocumentoInput) -> str:
+     exp = payload.expediente
+-    ref = _slug(exp.referencia_cliente or exp.municipio)
++    ref = _slug(exp.referencia_cliente or exp.municipio or exp.comunidad)
+     # En modo presupuesto no hay expediente en BD (id vacío): omitimos el sufijo.
+     sufijo = f"_{exp.id[:8]}" if exp.id else ""
+     return f"PermitFlow_{ref}{sufijo}"
+diff --git a/apps/api/documentos/mtd.py b/apps/api/documentos/mtd.py
+index 4a8d160..ba3fdc7 100644
+--- a/apps/api/documentos/mtd.py
++++ b/apps/api/documentos/mtd.py
+@@ -14,6 +14,7 @@ from .contextos import (
+     VERTICALES_MTD,
+     bases_legales_unicas,
+     datos_instalacion,
++    etiqueta_comunidad,
+     etiqueta_tipo,
+ )
+ from .schemas import GenerarDocumentoInput
+@@ -79,7 +80,8 @@ def generar_mtd_docx(payload: GenerarDocumentoInput) -> bytes:
+     _tabla_pares(doc, [
+         ("Nombre / Razón social", POR_COMPLETAR),
+         ("NIF / CIF", POR_COMPLETAR),
+-        ("Dirección del emplazamiento", f"{POR_COMPLETAR} — {exp.municipio}"),
++        ("Dirección del emplazamiento",
++         f"{POR_COMPLETAR} — {exp.municipio}" if exp.municipio else POR_COMPLETAR),
+         ("Teléfono / Email de contacto", POR_COMPLETAR),
+     ])
+ 
+@@ -120,7 +122,8 @@ def generar_mtd_docx(payload: GenerarDocumentoInput) -> bytes:
+         "El técnico/instalador abajo firmante declara que los datos consignados son "
+         "ciertos y que la instalación descrita cumple la normativa de aplicación."
+     )
+-    doc.add_paragraph(f"\nEn {exp.municipio}, a {date.today().strftime('%d/%m/%Y')}")
++    lugar = exp.municipio or etiqueta_comunidad(exp.comunidad)
++    doc.add_paragraph(f"\nEn {lugar}, a {date.today().strftime('%d/%m/%Y')}")
+     doc.add_paragraph("\n\nFdo.: " + POR_COMPLETAR)
+ 
+     buf = io.BytesIO()
+diff --git a/apps/api/documentos/pdf.py b/apps/api/documentos/pdf.py
+index de92fe5..51621dd 100644
+--- a/apps/api/documentos/pdf.py
++++ b/apps/api/documentos/pdf.py
+@@ -133,7 +133,11 @@ def generar_presupuesto_pdf(payload: GenerarDocumentoInput) -> bytes:
+     pdf.set_text_color(*GRIS)
+     pdf.cell(
+         0, 6,
+-        _s(f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)}) - {exp.potencia_kw:g} kW"),
++        _s(
++            (f"{exp.municipio} ({etiqueta_comunidad(exp.comunidad)})" if exp.municipio
++             else etiqueta_comunidad(exp.comunidad))
++            + f" - {exp.potencia_kw:g} kW"
++        ),
+         new_x="LMARGIN", new_y="NEXT",
+     )
+     pdf.ln(3)
+diff --git a/apps/api/documentos/schemas.py b/apps/api/documentos/schemas.py
+index 03e135d..2486972 100644
+--- a/apps/api/documentos/schemas.py
++++ b/apps/api/documentos/schemas.py
+@@ -25,7 +25,9 @@ class ExpedienteDoc(BaseModel):
+     id: str = ""
+     tipo_instalacion: str
+     comunidad: str
+-    municipio: str
++    # Municipio se eliminó de la validación del clasificador (ver commit
++    # b6c153b); puede no llegar en el payload, así que ya no es obligatorio.
++    municipio: Optional[str] = None
+     potencia_kw: float
+     uso: Optional[str] = None
+     numero_puntos: Optional[int] = None
+diff --git a/apps/web/components/plan-tramitacion/DocumentosPanel.tsx b/apps/web/components/plan-tramitacion/DocumentosPanel.tsx
+index bdd0f4e..2877053 100644
+--- a/apps/web/components/plan-tramitacion/DocumentosPanel.tsx
++++ b/apps/web/components/plan-tramitacion/DocumentosPanel.tsx
+@@ -39,8 +39,10 @@ export function DocumentosPanel({ expedienteId, tipoInstalacion }: DocumentosPan
+         return;
+       }
+       if (!res.ok) {
+-        const data = (await res.json().catch(() => ({}))) as { error?: string };
+-        throw new Error(data.error ?? `Error ${res.status}`);
++        const data = (await res.json().catch(() => ({}))) as { error?: unknown };
++        const mensaje =
++          typeof data.error === "string" ? data.error : `Error ${res.status}`;
++        throw new Error(mensaje);
+       }
+ 
+       const disposition = res.headers.get("Content-Disposition") ?? "";
+diff --git a/apps/web/components/plan-tramitacion/PlataformaBadge.tsx b/apps/web/components/plan-tramitacion/PlataformaBadge.tsx
+index 53bbee7..fa25836 100644
+--- a/apps/web/components/plan-tramitacion/PlataformaBadge.tsx
++++ b/apps/web/components/plan-tramitacion/PlataformaBadge.tsx
+@@ -1,6 +1,9 @@
+ import { type Plataforma, PLATAFORMA_LABEL } from "@/types/plan";
+ 
+-const PLATAFORMA_STYLES: Record<NonNullable<Plataforma>, { bg: string; text: string; border: string }> = {
++// Estilo específico solo para las plataformas nacionales/comunes; el resto de
++// comunidades usan nombres en texto libre (ver types/plan.ts) y caen en el
++// estilo por defecto de abajo.
++const PLATAFORMA_STYLES: Record<string, { bg: string; text: string; border: string }> = {
+   PUES: { bg: "bg-blue-50", text: "text-blue-800", border: "border-blue-200" },
+   TECI: { bg: "bg-purple-50", text: "text-purple-800", border: "border-purple-200" },
+   MITECO: { bg: "bg-teal-50", text: "text-teal-800", border: "border-teal-200" },
+@@ -8,13 +11,15 @@ const PLATAFORMA_STYLES: Record<NonNullable<Plataforma>, { bg: string; text: str
+   ayuntamiento: { bg: "bg-amber-50", text: "text-amber-800", border: "border-amber-200" },
+ };
+ 
++const PLATAFORMA_STYLE_DEFAULT = { bg: "bg-neutral-100", text: "text-neutral-600", border: "border-neutral-200" };
++
+ interface PlataformaBadgeProps {
+   plataforma: Plataforma;
+ }
+ 
+ export function PlataformaBadge({ plataforma }: PlataformaBadgeProps) {
+   if (!plataforma) return null;
+-  const styles = PLATAFORMA_STYLES[plataforma];
++  const styles = PLATAFORMA_STYLES[plataforma] ?? PLATAFORMA_STYLE_DEFAULT;
+ 
+   return (
+     <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold ${styles.bg} ${styles.text} ${styles.border}`}>
+diff --git a/apps/web/types/plan.ts b/apps/web/types/plan.ts
+index 726db46..b9df285 100644
+--- a/apps/web/types/plan.ts
++++ b/apps/web/types/plan.ts
+@@ -1,10 +1,7 @@
+-export type Plataforma =
+-  | "PUES"
+-  | "TECI"
+-  | "MITECO"
+-  | "distribuidora"
+-  | "ayuntamiento"
+-  | null;
++// El motor normativo (fuera de Andalucía) usa nombres de plataforma en texto
++// libre por comunidad (ej. "SIRECYL", "Sede Electrónica del Gobierno de Aragón"),
++// así que el tipo no puede ser un enum cerrado.
++export type Plataforma = string | null;
+ 
+ export interface DocumentoRequerido {
+   id: string;
+-- 
+2.43.0
+

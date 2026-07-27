@@ -1,97 +1,100 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "castilla_la_mancha",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 53/2014' como Reglamento de Instalaciones Térmicas de Castilla-La Mancha: no se ha localizado esta norma, y el mismo número '53' se usaba también (con año distinto) en el fichero de ACS de este mismo lote para la misma materia general — señal de colisión de norma inventada. La ficha oficial de la JCCM para instalaciones térmicas (trámite 1002272) solo cita el RITE nacional. Se confirmó además un dato real no recogido en la versión anterior: instalaciones <5 kW con calentadores instantáneos, termos eléctricos o paneles solares prefabricados quedan exentas de presentar documentación.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica de Castilla-La Mancha específica de climatización; se aplica el RITE nacional directamente",
+    "No se ha modelado la exención de documentación para instalaciones <5 kW con equipos específicos (calentadores instantáneos, termos, paneles solares prefabricados) porque el schema no distingue tipo de equipo generador — queda como hueco funcional para una futura versión del motor",
+    "Tasas y plazos legales no verificados",
+    "El paso de 'Inspección EICI' del fichero original no se ha podido confirmar contra fuente oficial de Castilla-La Mancha — sustituido por OCA genérico con nota de verificación pendiente"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "RD 178/2021 de eficiencia energética",
-    "Decreto 53/2014 de Castilla-La Mancha, de 10 de julio, por el que se regulan las instalaciones térmicas en los edificios y se crea el Registro de Instalaciones Térmicas",
-    "Orden de 19/11/2014 de la Consejería de Fomento, por la que se desarrolla el Decreto 53/2014"
+    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+    "Ficha de trámite 1002272 'Instalación térmica en los edificios' - jccm.es"
   ],
   "reglas": [
     {
       "id": "CLM-AT-001",
-      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción (sin proyecto, con memoria técnica)",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Instalación Térmica (MTIT) - aerotermia",
-          "organismo": "Instalador habilitado en climatización (categoría según RITE)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 53/2014 art. 8",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-AT-001",
           "documentos_requeridos": [
             {
               "id": "mtit_aerotermia",
               "label": "Memoria Técnica de Instalación Térmica",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos de carga térmica, eficiencia, etc."
-            },
-            {
-              "id": "certificado_eficiencia_energetica",
-              "label": "Certificado de Eficiencia Energética (si aplica por obra)",
-              "descripcion": "Solo si la instalación se realiza en el marco de una reforma que requiera certificado energético."
-            }
-          ]
-        },
-        {
-          "orden": 2,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) ante el Órgano Competente de Industria de Castilla-La Mancha",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
-          "base_legal": "Decreto 53/2014 art. 10; Orden 19/11/2014",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa exenta)",
-          "documentos_requeridos": [
-            {
-              "id": "drps_instalacion_termica",
-              "label": "Declaración Responsable de Puesta en Servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador."
-            },
-            {
-              "id": "mtit_firmada",
-              "label": "Memoria Técnica firmada (copia)",
-              "descripcion": "Copia de la MTIT presentada en el paso anterior."
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador (carné profesional)",
-              "descripcion": "Acreditación de la habilitación del instalador."
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Instalaciones <5 kW con determinados equipos (calentadores instantáneos, termos eléctricos, paneles solares prefabricados) pueden estar exentas de presentar documentación según la ficha oficial de la JCCM — no modelado por falta de campo de tipo de equipo en el schema."
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de la instalación térmica",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramites/1002272",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-AT-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtit_firmada",
+              "label": "MTIT firmada por instalador",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "CLM-AT-002",
-      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal > 70 kW (requiere proyecto técnico y EICI)",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -99,93 +102,82 @@
           "orden": 1,
           "nombre": "Proyecto Técnico de Instalación Térmica (PTIT) - aerotermia",
           "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 53/2014 art. 7",
+          "base_legal": "RITE RD 1027/2007 art. 16",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según proyecto (honorarios técnicos)",
+          "coste_estimado": "Variable según honorarios técnicos",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-AT-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_termico",
               "label": "Proyecto Técnico de Instalación Térmica",
-              "descripcion": "Documento visado por colegio profesional (si procede) que incluye memoria, cálculos, planos, pliego de condiciones, etc."
+              "descripcion": "Visado por colegio profesional si procede.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de Autorización Administrativa Previa (AAP) ante el Órgano Competente de Industria",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
-          "base_legal": "Decreto 53/2014 art. 6; Ley 21/1992 de Industria",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 60,
-          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramitesygestiones/autorizacion-administrativa-previa-de-instalaciones-termicas",
-          "coste_estimado": "Tasa según tarifa (consultar)",
+          "nombre": "Inspección inicial y certificado de instalación",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Castilla-La Mancha",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-AT-002",
           "documentos_requeridos": [
             {
-              "id": "solicitud_aap",
-              "label": "Solicitud de Autorización Administrativa Previa",
-              "descripcion": "Formulario oficial."
-            },
-            {
               "id": "proyecto_tecnico_visado",
-              "label": "Proyecto Técnico visado (copia)",
-              "descripcion": "Proyecto visado por colegio profesional."
+              "label": "Proyecto Técnico visado",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador (carné profesional)",
-              "descripcion": "Acreditación de la habilitación del instalador."
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "El paso 'EICI' del fichero original no se ha podido confirmar contra fuente oficial de Castilla-La Mancha; se sustituye por OCA genérico hasta verificar."
         },
         {
           "orden": 3,
-          "nombre": "Inspección Inicial por EICI (Entidad de Inspección y Control Industrial) y emisión de Certificado de Inspección",
-          "organismo": "EICI autorizada en Castilla-La Mancha (lista oficial)",
-          "base_legal": "Decreto 53/2014 art. 11; RD 2200/1995",
+          "nombre": "Registro de la instalación térmica",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Variable según EICI (aprox. 300-600 €)",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_inspeccion_eici",
-              "label": "Certificado de Inspección (favorable)",
-              "descripcion": "Documento emitido por EICI tras verificar la instalación."
-            }
-          ]
-        },
-        {
-          "orden": 4,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) con certificado EICI favorable",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
-          "base_legal": "Decreto 53/2014 art. 10; Orden 19/11/2014",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa exenta)",
+          "plataforma_url": "https://www.jccm.es/tramites/1002272",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-AT-002",
           "documentos_requeridos": [
-            {
-              "id": "drps_instalacion_termica",
-              "label": "Declaración Responsable de Puesta en Servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador."
-            },
-            {
-              "id": "certificado_inspeccion_eici",
-              "label": "Certificado de Inspección favorable (copia)",
-              "descripcion": "Copia del certificado emitido por EICI."
-            },
             {
               "id": "proyecto_tecnico_visado",
-              "label": "Proyecto Técnico visado (copia)",
-              "descripcion": "Copia del proyecto visado."
+              "label": "Proyecto Técnico visado",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

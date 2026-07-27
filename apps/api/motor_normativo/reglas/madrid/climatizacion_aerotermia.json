@@ -1,119 +1,189 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "madrid",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 118/2022' como base legal: no se ha localizado. La normativa real confirmada es la Orden 9343/2003 (modificada por Orden 688/2008), de la Consejería de Economía e Innovación Tecnológica, que regula el registro, puesta en servicio e inspección de instalaciones térmicas no industriales en Madrid, conforme al Decreto 38/2002. Confirmado real 'EICI' como tramitador. Se confirmaron tasas escalonadas reales por presupuesto (hasta 6.000€ / 6.000,01-60.000€ / >60.000€).",
+  "huecos_verificacion": [
+    "Las tasas confirmadas están escalonadas por presupuesto de la instalación, no solo por potencia — el schema actual del motor no captura el presupuesto salvo el hueco ya conocido de 'inversion_eur' (no incluido en ClasificadorInput); no se han incorporado los tres tramos de tasa a este fichero por esa limitación",
+    "Tasas exactas de cada tramo de presupuesto no verificadas con importe concreto",
+    "Plazos legales no verificados"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "RD 178/2021 de eficiencia energética",
-    "Decreto 118/2022 de la Comunidad de Madrid (puesta en servicio instalaciones térmicas)",
-    "Orden 934/2023 de la Consejería de Medio Ambiente, Vivienda y Agricultura (procedimiento EICI)"
+    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+    "Orden 9343/2003, de 1 de octubre, de la Consejería de Economía e Innovación Tecnológica (registro, puesta en servicio e inspección de instalaciones térmicas no industriales), modificada por Orden 688/2008 — confirmado real",
+    "Decreto 38/2002, de 28 de febrero (control reglamentario de instalaciones industriales en Madrid) — confirmado real"
   ],
   "reglas": [
     {
       "id": "MAD-AT-001",
-      "descripcion": "Instalación de aerotermia para climatización (calefacción/refrigeración) con potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción",
+      "descripcion": "Instalación de aerotermia para climatización con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          },
-          {
-            "in": [
-              {
-                "var": "tipo_instalacion"
-              },
-              [
-                "climatizacion_aerotermia"
-              ]
-            ]
-          }
+          { "<=": [ { "var": "potencia_kw" }, 70 ] },
+          { "==": [ { "var": "tipo_instalacion" }, "climatizacion_aerotermia" ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de diseño (MTD) o proyecto técnico según RITE",
-          "organismo": "Instalador habilitado (categoría térmica) o técnico competente",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4",
+          "nombre": "Memoria técnica de diseño (MTD) según RITE",
+          "organismo": "Instalador habilitado (categoría térmica)",
+          "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-AT-001",
           "documentos_requeridos": [
             {
               "id": "mtd_aerotermia",
               "label": "Memoria Técnica de Diseño (MTD) para instalaciones térmicas",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos de carga térmica, equipos, rendimientos, y cumplimiento RITE"
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
             },
             {
               "id": "certificado_eficiencia_energetica",
               "label": "Certificado de eficiencia energética del edificio (si aplica)",
-              "descripcion": "Registro del certificado energético del edificio donde se ubica la instalación (obligatorio para venta/alquiler, recomendado para obra nueva)"
+              "descripcion": "Obligatorio para venta/alquiler, recomendado para obra nueva.",
+              "obligatorio": false
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de puesta en servicio (EICI) ante la Comunidad de Madrid",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Medio Ambiente, Vivienda y Agricultura)",
-          "base_legal": "Decreto 118/2022; Orden 934/2023",
+          "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI)",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
+          "base_legal": "Orden 9343/2003; Decreto 38/2002",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Registro Electrónico de Instalaciones (REI) - EICI",
-          "plataforma_url": "https://sede.comunidad.madrid/registro-eici",
-          "coste_estimado": "Tasa por tramitación: 50-100 € (según ordenanza fiscal)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
+          "coste_estimado": "NO VERIFICADO — tasa escalonada por presupuesto (hasta 6.000€ / 6.000,01-60.000€ / >60.000€), importe exacto no confirmado",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-AT-001",
           "documentos_requeridos": [
             {
               "id": "mtd_aerotermia",
               "label": "Memoria Técnica de Diseño (MTD) o proyecto",
-              "descripcion": "Mismo documento del paso 1, firmado digitalmente"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación (modelo oficial)",
-              "descripcion": "Documento firmado por instalador habilitado que acredita que la instalación se ha ejecutado según MTD/proyecto y cumple normativa"
-            },
-            {
-              "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra (si aplica proyecto)",
-              "descripcion": "Solo si se ha requerido proyecto técnico (potencia >70 kW o complejidad)"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable del titular",
-              "descripcion": "Documento firmado por el propietario o representante legal asumiendo la responsabilidad de la instalación"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
-        },
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "MAD-AT-002",
+      "descripcion": "Instalación de aerotermia para climatización con potencia > 70 kW (requiere proyecto técnico)",
+      "condicion": {
+        "and": [
+          { ">": [ { "var": "potencia_kw" }, 70 ] },
+          { "==": [ { "var": "tipo_instalacion" }, "climatizacion_aerotermia" ] }
+        ]
+      },
+      "tramites": [
         {
-          "orden": 3,
-          "nombre": "Inspección inicial por OCA (si procede) o verificación documental",
-          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Madrid",
-          "base_legal": "RITE RD 1027/2007 IT 3; Decreto 118/2022",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 20,
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico competente",
+          "base_legal": "RITE RD 1027/2007 art. 16",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "200-400 € (según OCA y complejidad)",
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-AT-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "Visado o con declaración responsable.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección inicial por Organismo de Control (OCA)",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Madrid",
+          "base_legal": "RITE RD 1027/2007 art. 15",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-AT-002",
           "documentos_requeridos": [
             {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación",
-              "descripcion": "Mismo documento del paso 2"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "manual_uso_mantenimiento",
               "label": "Manual de uso y mantenimiento",
-              "descripcion": "Documento entregado por instalador con instrucciones de operación y mantenimiento"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI)",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
+          "base_legal": "Orden 9343/2003; Decreto 38/2002",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
+          "coste_estimado": "NO VERIFICADO — tasa escalonada por presupuesto",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-AT-002",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
         }
       ]
     }

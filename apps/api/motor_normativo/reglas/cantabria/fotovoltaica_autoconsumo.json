@@ -1,38 +1,35 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cantabria",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Prefijo de id de regla cambiado de 'CAN' a 'CANT': el prefijo 'CAN' colisiona con Canarias, colisión ya advertida por el propio contexto del proyecto (sección 4, punto 6) y ya corregida en el lote de Canarias renombrándolo a 'ICAN'. No se han podido localizar ni el 'Decreto 19/2004, de 26 de febrero' ni la 'Orden de 10 de abril de 2006' citados como base legal; la normativa real de puesta en servicio de instalaciones eléctricas BT en Cantabria es la Orden de 17 de octubre de 2003 (modificada por Orden de 5 de mayo de 2004 y Orden INN/2/2015), sobre la base del Decreto 99/1996. Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre 'uso'. IMPORTANTE: la ficha oficial de Cantabria para instalaciones BT declara expresamente que 'en la actualidad no existen entidades colaboradoras de certificación acreditadas para actuar en este procedimiento' — el paso de 'Inspección EICI' del fichero original no tiene respaldo verificable actual y se ha marcado como NO VERIFICADO en vez de mantenerlo como trámite firme.",
+  "huecos_verificacion": [
+    "EICI: sin entidades acreditadas activas según fuente oficial consultada — verificar vigencia antes de exigir este trámite a un cliente real",
+    "No se ha confirmado si Cantabria ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Tasas y plazos legales de resolución no verificados con detalle",
+    "No se ha confirmado el nombre exacto de un 'Registro de autoconsumo' diferenciado en Cantabria, más allá del registro general de instalaciones eléctricas de BT (trámites 3446/180)",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 19/2004, de 26 de febrero, por el que se regulan las instalaciones eléctricas de baja tensión en Cantabria",
-    "Orden de 10 de abril de 2006, de la Consejería de Industria, Trabajo y Desarrollo Tecnológico, por la que se desarrolla el procedimiento de puesta en servicio de instalaciones eléctricas de baja tensión en Cantabria"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "REBT RD 842/2002 ITC-BT-40",
+    "Decreto 99/1996, de 26 de septiembre (traspaso de competencias en materia de industria a Cantabria)",
+    "Orden de 17 de octubre de 2003 (instrucciones de aplicación del REBT en Cantabria), modificada por Orden de 5 de mayo de 2004 y Orden INN/2/2015",
+    "Ficha de trámite 3446 'Legalización de instalaciones de Baja Tensión' y 180 'Inscripción en el Registro de instalaciones eléctricas de baja tensión no industriales' - sede.cantabria.es"
   ],
   "reglas": [
     {
-      "id": "CAN-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "id": "CANT-FV-001",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -45,166 +42,181 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": "MTD-BT (Anexo II)",
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y esquemas unifilares.",
-              "formato": "PDF"
+              "descripcion": "Documento firmado por instalador habilitado, modelo MTD-BT Anexo II.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el órgano competente de la Comunidad Autónoma de Cantabria",
-          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
-          "base_legal": "Orden de 10 de abril de 2006; Decreto 19/2004",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
-          "plataforma_url": "https://sede.cantabria.es",
-          "coste_estimado": "0 € (tasa no aplicable para autoconsumo ≤10 kW)",
+          "nombre": "Certificado de Instalación",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": "CI-BT (Anexo IV)",
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-001",
           "documentos_requeridos": [
             {
-              "id": "drps",
-              "label": "Declaración responsable de puesta en servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
-              "formato": "PDF"
-            },
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Modelo CI-BT Anexo IV.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Legalización e inscripción en el Registro de instalaciones eléctricas de baja tensión",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "Orden de 17 de octubre de 2003; Decreto 99/1996",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3446",
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-001",
+          "documentos_requeridos": [
             {
-              "id": "mtd_firmada",
-              "label": "Memoria Técnica de Diseño firmada",
-              "descripcion": "MTD visada por el instalador.",
-              "formato": "PDF"
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de instalación (modelo oficial)",
-              "descripcion": "Certificado firmado por el instalador según modelo de la comunidad.",
-              "formato": "PDF"
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "No confirmado si existe un 'Registro de autoconsumo' diferenciado; se usa el registro general de instalaciones BT."
         }
       ]
     },
     {
-      "id": "CAN-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (requiere proyecto técnico y EICI)",
+      "id": "CANT-FV-002",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Proyecto técnico de instalación fotovoltaica",
-          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto técnico",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto.",
-              "formato": "PDF"
+              "descripcion": "Firmado por técnico competente, visado por colegio profesional.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de autorización administrativa previa (si >100 kW) o comunicación previa",
+          "nombre": "Solicitud de autorización administrativa previa",
           "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
-          "base_legal": "RD 244/2019; Ley 24/2013",
+          "base_legal": "Ley 24/2013 art. 53; RD 244/2019",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 60,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
           "plataforma_url": "https://sede.cantabria.es",
-          "coste_estimado": "Tasa según potencia (consultar normativa)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-002",
           "documentos_requeridos": [
-            {
-              "id": "solicitud_autorizacion",
-              "label": "Solicitud de autorización administrativa",
-              "descripcion": "Formulario oficial de solicitud.",
-              "formato": "PDF"
-            },
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto técnico",
-              "descripcion": "Proyecto visado por colegio profesional.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "plazo_legal_dias no confirmado."
         },
         {
           "orden": 3,
-          "nombre": "Inspección inicial por Organismo de Control (EICI) y emisión de certificado de inspección",
-          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Cantabria",
-          "base_legal": "Decreto 19/2004; Orden de 10 de abril de 2006",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "nombre": "Certificado de Instalación",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según EICI (aprox. 200-500 €)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": "CI-BT (Anexo IV)",
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-002",
           "documentos_requeridos": [
             {
-              "id": "certificado_inspeccion_eici",
-              "label": "Certificado de inspección EICI",
-              "descripcion": "Documento emitido por EICI que acredita la conformidad de la instalación.",
-              "formato": "PDF"
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "El fichero original incluía aquí una 'Inspección EICI' que no está verificada: la propia ficha oficial de Cantabria declara que actualmente no existen entidades colaboradoras acreditadas para este procedimiento. No se incluye como trámite firme; verificar vigencia antes de exigirlo a un cliente real."
         },
         {
           "orden": 4,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) con certificado EICI",
+          "nombre": "Legalización e inscripción en el Registro de instalaciones eléctricas de baja tensión",
           "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
-          "base_legal": "Orden de 10 de abril de 2006; Decreto 19/2004",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
+          "base_legal": "Orden de 17 de octubre de 2003; Decreto 99/1996",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
-          "plataforma_url": "https://sede.cantabria.es",
-          "coste_estimado": "0 € (tasa no aplicable para autoconsumo ≤100 kW)",
+          "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3446",
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-002",
           "documentos_requeridos": [
             {
-              "id": "drps",
-              "label": "Declaración responsable de puesta en servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_inspeccion_eici",
-              "label": "Certificado de inspección EICI",
-              "descripcion": "Certificado de inspección favorable.",
-              "formato": "PDF"
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de instalación (modelo oficial)",
-              "descripcion": "Certificado firmado por el instalador según modelo de la comunidad.",
-              "formato": "PDF"
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

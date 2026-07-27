@@ -1,7 +1,7 @@
 """Schemas Pydantic para el endpoint de idoneidad geográfica."""
 
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Literal, Optional
 
 
 class IdoneidadInput(BaseModel):
@@ -29,12 +29,29 @@ class IdoneidadFotovoltaica(BaseModel):
     produccion_especifica_kwh_kwp_year: Optional[float] = None
     radiacion_anual_kwh_m2: Optional[float] = None
     banda: Optional[str] = None
+    # Campos mensuales — generica_pendiente_url hasta verificar con curl real
+    produccion_mensual_kwh: Optional[list[float]] = Field(
+        None, description="Producción media mensual (12 valores, kWh/mes) — campo E_m de PVGIS"
+    )
+    desviacion_estandar_mensual: Optional[list[float]] = Field(
+        None, description="Desviación estándar interanual mensual (12 valores) — campo SD_m de PVGIS"
+    )
 
 
 class IdoneidadClimatizacion(BaseModel):
     disponible: bool
     zona_climatica: Optional[str] = None
     banda: Optional[str] = None
+    descripcion_zona: Optional[str] = Field(
+        None, description="Texto interpretativo de la zona climática CTE para aerotermia"
+    )
+    temperatura_media_mensual: Optional[list[float]] = Field(
+        None, description="Temperatura media mensual °C (12 valores, T2m ERA5) — generica_pendiente_url"
+    )
+    # Topología del equipo para cálculo de factor de ponderación SCOP
+    topologia_equipo: Optional[Literal["centralizado", "split"]] = Field(
+        None, description="Tipo de equipo (centralizado o split) — afecta al FP de la Tabla 4.1 IDAE"
+    )
 
 
 class IdoneidadResult(BaseModel):

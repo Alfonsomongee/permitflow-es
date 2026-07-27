@@ -1,197 +1,189 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "baleares",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. No se han localizado en fuente oficial ni 'Decreto 36/2006, de 28 de abril' ni 'Orden de 10 de julio de 2007' de la CAIB (a diferencia de otros decretos de este mismo lote, no he confirmado que estén mal atribuidos, pero tampoco he podido verificarlos: se marcan NO VERIFICADO en vez de darlos por buenos, dado el patrón de fabricación normativa detectado en el resto de ficheros de esta comunidad). Se corrigió el bug de partición base sobre el campo 'uso' (patrón #3): la regla 1 exigía uso=='domestico' y la regla 2 exigía potencia>70 O uso!='domestico', dejando mal clasificada cualquier instalación doméstica pequeña sin el campo 'uso' informado.",
+  "huecos_verificacion": [
+    "No se ha podido verificar la existencia de 'Decreto 36/2006' ni de la 'Orden de 10 de julio de 2007' de la CAIB citados como base legal específica de Baleares — mantenidos como referencia pero marcados NO VERIFICADO",
+    "El 'Registro Industrial de Baleares (RIB)' y su URL no se han confirmado como nombre/trámite real; se sustituye por referencia genérica a la sede electrónica hasta verificar",
+    "Tasas y plazos legales no verificados",
+    "No se ha verificado si existe distinción por presión (categórica 'normal'/'5+' del schema) relevante en Baleares; este fichero ya no usa 'uso' como condición de disparo (ver aviso), solo potencia_kw",
+    "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso doméstico/terciario/industrial; si esa distinción es normativamente relevante en Baleares, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base"
+  ],
   "fuentes": [
-    "RD 919/2006 RIGLO",
-    "Decreto 36/2006 de 28 de abril, de la CAIB, por el que se regulan las instalaciones de gas en el ámbito de la Comunidad Autónoma de las Illes Balears",
-    "Orden de 10 de julio de 2007, de la Consejería de Comercio, Industria y Energía, por la que se desarrolla el Decreto 36/2006"
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
+    "Decreto 36/2006, de 28 de abril, CAIB — NO VERIFICADO",
+    "Orden de 10 de julio de 2007, CAIB — NO VERIFICADO"
   ],
   "reglas": [
     {
       "id": "BAL-GAS-001",
-      "descripcion": "Instalación de gas baja presión con potencia ≤ 70 kW en uso doméstico (memoria técnica)",
+      "descripcion": "Instalación de gas baja presión con potencia ≤ 70 kW",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "domestico"
-            ]
-          }
-        ]
+        "<=": [ { "var": "potencia_kw" }, 70 ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) de gas",
           "organismo": "Instalador habilitado (categoría gasista)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 36/2006 CAIB",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-GAS-001",
           "documentos_requeridos": [
             {
               "id": "mtd_gas",
               "label": "Memoria Técnica de Diseño de gas",
-              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación",
-              "formato": "PDF",
+              "descripcion": "Documento técnico firmado por instalador habilitado.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) de gas",
           "organismo": "Instalador habilitado (categoría gasista)",
-          "base_legal": "RIGLO RD 919/2006 art. 5; Decreto 36/2006 CAIB",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-GAS-001",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación de gas",
-              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución de la instalación",
-              "formato": "PDF",
+              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el órgano competente de la CAIB",
-          "organismo": "Dirección General de Industria y Energía del Govern de les Illes Balears",
-          "base_legal": "Decreto 36/2006 CAIB art. 8",
+          "nombre": "Registro/comunicación de la instalación ante el órgano competente de la CAIB",
+          "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
+          "base_legal": "NO VERIFICADO — se cita Decreto 36/2006 y Orden 10/07/2007, pendientes de confirmación",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Registro Industrial de Baleares (RIB)",
-          "plataforma_url": "https://www.caib.es/sites/industria/ca/registre_industrial/",
-          "coste_estimado": "0 € (tasa administrativa exenta para instalaciones ≤70 kW)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB",
+          "plataforma_url": "https://www.caib.es/seucaib",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-GAS-001",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación de gas",
-              "descripcion": "Mismo documento que en paso anterior",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "mtd_gas",
               "label": "Memoria Técnica de Diseño de gas",
-              "descripcion": "Mismo documento que en paso anterior",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "BAL-GAS-002",
-      "descripcion": "Instalación de gas baja presión con potencia > 70 kW o uso no doméstico (proyecto técnico)",
+      "descripcion": "Instalación de gas baja presión con potencia > 70 kW",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "domestico"
-            ]
-          }
-        ]
+        ">": [ { "var": "potencia_kw" }, 70 ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Proyecto Técnico de gas",
           "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 36/2006 CAIB",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico (0 € tasa administrativa)",
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-GAS-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_gas",
               "label": "Proyecto Técnico de gas",
-              "descripcion": "Documento técnico firmado por técnico competente que describe la instalación",
-              "formato": "PDF",
+              "descripcion": "Documento técnico firmado por técnico competente.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) de gas",
           "organismo": "Instalador habilitado (categoría gasista)",
-          "base_legal": "RIGLO RD 919/2006 art. 5; Decreto 36/2006 CAIB",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-GAS-002",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación de gas",
-              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución de la instalación",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el órgano competente de la CAIB",
-          "organismo": "Dirección General de Industria y Energía del Govern de les Illes Balears",
-          "base_legal": "Decreto 36/2006 CAIB art. 8",
+          "nombre": "Registro/comunicación de la instalación ante el órgano competente de la CAIB",
+          "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
+          "base_legal": "NO VERIFICADO",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Registro Industrial de Baleares (RIB)",
-          "plataforma_url": "https://www.caib.es/sites/industria/ca/registre_industrial/",
-          "coste_estimado": "0 € (tasa administrativa exenta para instalaciones ≤70 kW)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB",
+          "plataforma_url": "https://www.caib.es/seucaib",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-GAS-002",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación de gas",
-              "descripcion": "Mismo documento que en paso anterior",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "proyecto_gas",
               "label": "Proyecto Técnico de gas",
-              "descripcion": "Mismo documento que en paso anterior",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "La partición se basa únicamente en potencia_kw. El campo 'uso' (doméstico/terciario/industrial) puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no debe usarse como condición de disparo porque, al ser opcional, un valor ausente (None) puede dejar la instalación sin ningún trámite asignado (bug de partición ya corregido respecto al fichero original)."
         }
       ]
     }

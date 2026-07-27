@@ -1,118 +1,43 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "castilla_leon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe; el campo real es 'ubicacion_irve'). Se eliminó 'Decreto 127/2003' como base legal: aunque es una norma real de Castilla y León, regula autorizaciones de instalaciones de producción/transporte/distribución eléctrica (no BT), y además está derogada desde el 18/12/2022 (sustituida por el Decreto 46/2022). La plataforma 'SIRECYL' no se ha localizado; la real es BOEL. Se sustituyeron los umbrales inventados (50kW/obra nueva) por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014): interior >50kW, exterior >10kW, o modo de carga 4.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica de Castilla y León específica de IRVE; se aplica el régimen general de BT (BOEL) más ITC-BT-52 nacional",
+    "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
+    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
-    "Real Decreto 1053/2014, de 12 de diciembre, por el que se aprueba la ITC-BT-52 del REBT",
-    "Real Decreto 842/2002, de 2 de agosto, por el que se aprueba el REBT",
-    "Decreto 127/2003, de 30 de octubre, de la Junta de Castilla y León, por el que se regulan los procedimientos de puesta en servicio de las instalaciones eléctricas de baja tensión",
-    "Orden FYM/238/2014, de 27 de marzo, por la que se regulan determinados aspectos de la puesta en servicio de las instalaciones eléctricas de baja tensión en Castilla y León"
+    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+    "RD 842/2002 REBT, ITC-BT-04",
+    "Ley 6/2014 de Industria de Castilla y León",
+    "Aplicación BOEL (Boletines Eléctricos) - tramitacastillayleon.jcyl.es",
+    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
   ],
   "reglas": [
     {
       "id": "CYL-IRVE-001",
-      "descripcion": "Instalación de infraestructura de recarga de vehículos eléctricos (IRVE) en edificio existente, potencia ≤ 50 kW, sin obra civil relevante",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              50
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "tipo_edificio"
-              },
-              "existente"
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
-          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT o similar)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 127/2003",
-          "plazo_estimado_dias": 2,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño IRVE",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cumpliendo ITC-BT-52",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del instalador",
-              "descripcion": "Declaración de que la instalación cumple la normativa vigente",
-              "formato": "PDF"
-            }
-          ]
-        },
-        {
-          "orden": 2,
-          "nombre": "Registro en el órgano competente de la Comunidad Autónoma (Industria)",
-          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
-          "base_legal": "Decreto 127/2003; Orden FYM/238/2014",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "SIRECYL (Sistema de Registro de Instalaciones Eléctricas de Castilla y León)",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/es/servicios-tramites.html",
-          "coste_estimado": "0 € (tasa administrativa no aplica para IRVE de baja tensión)",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve_firmada",
-              "label": "MTD IRVE firmada",
-              "descripcion": "Copia de la MTD firmada por el instalador",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI)",
-              "descripcion": "Certificado firmado por instalador habilitado según modelo oficial",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable_propietario",
-              "label": "Declaración responsable del propietario",
-              "descripcion": "Declaración de que la instalación se ajusta al proyecto/memoria",
-              "formato": "PDF"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "CYL-IRVE-002",
-      "descripcion": "Instalación de IRVE en edificio de nueva construcción o con obra civil relevante, potencia > 50 kW",
-      "condicion": {
-        "and": [
+          { "!=": [ { "var": "modo_recarga" }, "4" ] },
           {
             "or": [
               {
-                "==": [
-                  {
-                    "var": "tipo_edificio"
-                  },
-                  "nueva_construccion"
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
                 ]
               },
               {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  50
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
                 ]
               }
             ]
@@ -122,59 +47,171 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-IRVE-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Documento firmado por instalador habilitado, cumpliendo ITC-BT-52.",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (BOEL)",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "Ley 6/2014 de Industria de Castilla y León",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "BOEL (Boletines Eléctricos)",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "Tasa código 308.1 — importe NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-IRVE-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "CYL-IRVE-002",
+      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
+      "condicion": {
+        "or": [
+          { "==": [ { "var": "modo_recarga" }, "4" ] },
+          {
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+              { ">": [ { "var": "potencia_kw" }, 50 ] }
+            ]
+          },
+          {
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+              { ">": [ { "var": "potencia_kw" }, 10 ] }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
           "nombre": "Proyecto técnico IRVE",
-          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 127/2003",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-IRVE-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_irve",
               "label": "Proyecto técnico IRVE",
-              "descripcion": "Proyecto firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto",
-              "formato": "PDF"
+              "descripcion": "Firmado por técnico competente, visado si procede.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
         },
         {
           "orden": 2,
-          "nombre": "Registro en el órgano competente de la Comunidad Autónoma (Industria)",
-          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
-          "base_legal": "Decreto 127/2003; Orden FYM/238/2014",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 60,
-          "plataforma": "SIRECYL (Sistema de Registro de Instalaciones Eléctricas de Castilla y León)",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/es/servicios-tramites.html",
-          "coste_estimado": "0 € (tasa administrativa no aplica para IRVE de baja tensión)",
+          "nombre": "Certificado de dirección de obra e inspección inicial (OCA, cuando proceda)",
+          "organismo": "Técnico director de obra / Organismo de Control Autorizado (OCA) en Castilla y León",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-IRVE-002",
           "documentos_requeridos": [
-            {
-              "id": "proyecto_tecnico_firmado",
-              "label": "Proyecto técnico firmado",
-              "descripcion": "Copia del proyecto firmado por técnico competente",
-              "formato": "PDF"
-            },
             {
               "id": "certificado_direccion_obra",
               "label": "Certificado de dirección de obra",
-              "descripcion": "Certificado firmado por el técnico director de obra",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación (CI)",
-              "descripcion": "Certificado firmado por instalador habilitado",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (BOEL)",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "Ley 6/2014 de Industria de Castilla y León",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "BOEL (Boletines Eléctricos)",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-IRVE-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
-              "id": "declaracion_responsable_propietario",
-              "label": "Declaración responsable del propietario",
-              "descripcion": "Declaración de que la instalación se ajusta al proyecto",
-              "formato": "PDF"
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

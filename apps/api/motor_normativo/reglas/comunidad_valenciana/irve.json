@@ -1,45 +1,44 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "comunidad_valenciana",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'obra_civil_relevante' (no existe en el schema). Se sustituyó el umbral inventado de 50 kW plano por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4. 'Decreto 88/2021' no se ha podido confirmar de forma independiente en esta revisión — se mantiene como referencia pendiente de verificar, no se ha eliminado por falta de evidencia en ningún sentido.",
+  "huecos_verificacion": [
+    "'Decreto 88/2021, de 2 de julio' no verificado de forma independiente — pendiente de confirmar en próxima revisión",
+    "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
+    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
+    "Tasas y plazos legales no verificados con detalle"
+  ],
   "fuentes": [
-    "RD 639/2016, de 9 de diciembre, por el que se establece un marco de medidas para la implantación de una infraestructura para la recarga de vehículos eléctricos",
-    "Decreto 88/2021, de 2 de julio, del Consell, por el que se regulan las condiciones para la puesta en servicio de las instalaciones de recarga de vehículos eléctricos en la Comunitat Valenciana",
-    "REBT RD 842/2002 ITC-BT-52",
-    "Ley 6/2014, de 25 de julio, de la Generalitat, de Prevención, Calidad y Control Ambiental de Actividades en la Comunitat Valenciana"
+    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+    "RD 842/2002 REBT",
+    "Decreto 88/2021, de 2 de julio (Comunitat Valenciana) — NO VERIFICADO de forma independiente en esta revisión",
+    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
   ],
   "reglas": [
     {
       "id": "CV-IRVE-001",
-      "descripcion": "Instalación de recarga de vehículos eléctricos de potencia ≤ 50 kW en edificio existente con uso residencial o terciario, sin obra civil relevante",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
+          { "!=": [ { "var": "modo_recarga" }, "4" ] },
           {
-            "<=": [
+            "or": [
               {
-                "var": "potencia_kw"
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                ]
               },
-              50
-            ]
-          },
-          {
-            "in": [
               {
-                "var": "uso"
-              },
-              [
-                "residencial",
-                "terciario"
-              ]
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "obra_civil_relevante"
-              },
-              false
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                ]
+              }
             ]
           }
         ]
@@ -48,85 +47,79 @@
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) para IRVE",
-          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT o IRVE)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 88/2021 art. 5",
+          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-IRVE-001",
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
               "label": "Memoria Técnica de Diseño para IRVE",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos, esquemas y cumplimiento normativo.",
-              "formato": "PDF",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             },
             {
               "id": "declaracion_responsable_obra",
               "label": "Declaración responsable de obra menor (si aplica)",
-              "descripcion": "En caso de obra civil asociada, presentar declaración responsable ante el ayuntamiento.",
-              "formato": "PDF",
+              "descripcion": "En caso de obra civil asociada, ante el ayuntamiento.",
               "obligatorio": false
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) ante la Conselleria de Economía Sostenible",
-          "organismo": "Conselleria de Economía Sostenible, Sectores Productivos, Comercio y Trabajo (Dirección General de Industria)",
-          "base_legal": "Decreto 88/2021 art. 6; Ley 6/2014",
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS)",
+          "organismo": "Conselleria competente en materia de industria (Dirección General de Industria)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Plataforma de Industria de la Generalitat Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=G144",
-          "coste_estimado": "0 € (tasa administrativa exenta para IRVE ≤ 50 kW)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede PROP electrónica (gva.es)",
+          "plataforma_url": "https://sede.gva.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-IRVE-001",
           "documentos_requeridos": [
             {
               "id": "drps_irve",
               "label": "Declaración Responsable de Puesta en Servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (modelo oficial)",
-              "descripcion": "Certificado firmado por instalador habilitado según ITC-BT-52.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "La misma del paso anterior.",
-              "formato": "PDF",
+              "label": "Certificado de Instalación",
+              "descripcion": "Según ITC-BT-52.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "CV-IRVE-002",
-      "descripcion": "Instalación de recarga de vehículos eléctricos de potencia > 50 kW o con obra civil relevante (necesita proyecto técnico y EICI)",
+      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "or": [
+          { "==": [ { "var": "modo_recarga" }, "4" ] },
           {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              50
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+              { ">": [ { "var": "potencia_kw" }, 50 ] }
             ]
           },
           {
-            "==": [
-              {
-                "var": "obra_civil_relevante"
-              },
-              true
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+              { ">": [ { "var": "potencia_kw" }, 10 ] }
             ]
           }
         ]
@@ -136,82 +129,82 @@
           "orden": 1,
           "nombre": "Proyecto Técnico de IRVE",
           "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 88/2021 art. 5",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios profesionales (aprox. 500-2000 €)",
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-IRVE-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_irve",
               "label": "Proyecto Técnico de IRVE",
-              "descripcion": "Documento técnico firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto.",
-              "formato": "PDF",
+              "descripcion": "Firmado por técnico competente.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
         },
         {
           "orden": 2,
-          "nombre": "Inspección Inicial por EICI (Entidad de Inspección y Control Industrial)",
-          "organismo": "EICI acreditada en la Comunitat Valenciana (ej. SGS, TÜV, Bureau Veritas, Applus, etc.)",
-          "base_legal": "Decreto 88/2021 art. 7; Ley 6/2014",
+          "nombre": "Inspección Inicial por Organismo de Control (OCA)",
+          "organismo": "OCA acreditada en la Comunitat Valenciana (Decreto 125/2012)",
+          "base_legal": "Decreto 125/2012 (régimen de organismos de control en seguridad industrial en la CV); REBT RD 842/2002",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Registro de EICI de la Generalitat Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=G144",
-          "coste_estimado": "Variable según EICI (aprox. 300-800 €)",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-IRVE-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_irve",
               "label": "Proyecto Técnico",
-              "descripcion": "El mismo del paso anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación",
-              "descripcion": "Firmado por instalador habilitado.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) con informe favorable de EICI",
-          "organismo": "Conselleria de Economía Sostenible, Sectores Productivos, Comercio y Trabajo (Dirección General de Industria)",
-          "base_legal": "Decreto 88/2021 art. 6; Ley 6/2014",
+          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) con informe favorable de OCA",
+          "organismo": "Conselleria competente en materia de industria (Dirección General de Industria)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Plataforma de Industria de la Generalitat Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=G144",
-          "coste_estimado": "0 € (tasa administrativa exenta para IRVE)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede PROP electrónica (gva.es)",
+          "plataforma_url": "https://sede.gva.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-IRVE-002",
           "documentos_requeridos": [
             {
-              "id": "drps_irve",
-              "label": "Declaración Responsable de Puesta en Servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "informe_eici",
-              "label": "Informe favorable de EICI",
-              "descripcion": "Certificado de inspección inicial favorable emitido por EICI.",
-              "formato": "PDF",
+              "id": "informe_oca",
+              "label": "Informe favorable de OCA",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación",
-              "descripcion": "Firmado por instalador habilitado.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

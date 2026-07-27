@@ -1,55 +1,32 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "canarias",
-  "version": "1.1.0",
-  "ultima_revision": "2025-04-07",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se sustituyó la comparación numérica de 'presion_bar' (<=0.05) por la comparación categórica correcta ('normal'/'5+'). Se eliminó la cita a 'Decreto 141/2009' como base legal de gas: ese decreto (confirmado real en el lote de fotovoltaica/IRVE de esta misma comunidad) regula instalaciones ELÉCTRICAS, no de gas — estaba mal atribuido. La ficha oficial de Canarias para gas ('Comunicación de instalación receptora de combustibles gaseosos', SICAC 3905) cita únicamente el RD 919/2006 (RIGLO) nacional, sin decreto autonómico propio localizado. Se corrigió el bug de partición base sobre 'uso' (si venía None, la instalación no obtenía ningún trámite). Prefijo de regla cambiado de 'CAN' a 'ICAN'.",
+  "huecos_verificacion": [
+    "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar — ver mismo hueco señalado en el lote de Asturias",
+    "No se ha localizado 'Orden de 15 de diciembre de 2010' que desarrollaría el Decreto 141/2009 para gas — descartada por estar el propio decreto mal atribuido a esta materia",
+    "Tasas y plazos legales no verificados",
+    "Sin cobertura para presion_bar='5+' ni usos no residenciales/comerciales — igual que en Asturias, solo se cubre el fragmento verificable"
+  ],
   "fuentes": [
-    "RD 919/2006 RIGLO",
-    "Decreto 141/2009 de 10 de noviembre, por el que se regulan las instalaciones de gas en Canarias",
-    "Orden de 15 de diciembre de 2010, por la que se desarrolla el Decreto 141/2009",
-    "Ley 11/1997 de 2 de diciembre, de regulación del sector de hidrocarburos",
-    "RD 1434/2002 de 27 de diciembre, por el que se regulan las actividades de transporte, distribución, comercialización, suministro y procedimientos de autorización de instalaciones de gas natural"
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
+    "Ficha de trámite SICAC 3905 'Comunicación de instalación receptora de combustibles gaseosos' - sede.gobiernodecanarias.org"
   ],
   "reglas": [
     {
-      "id": "CAN-GBP-001",
-      "descripcion": "Instalación de gas baja presión (≤0,05 bar) en vivienda unifamiliar o local comercial con potencia ≤70 kW",
+      "id": "ICAN-GBP-001",
+      "descripcion": "Instalación de gas en presión normal (uso residencial o comercial)",
       "condicion": {
         "and": [
-          {
-            "<=": [
-              {
-                "var": "presion_bar"
-              },
-              0.05
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
           {
             "or": [
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
-              },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "comercial"
-                ]
-              }
+              { "==": [ { "var": "uso" }, "residencial" ] },
+              { "==": [ { "var": "uso" }, "comercial" ] }
             ]
           }
         ]
@@ -59,96 +36,82 @@
           "orden": 1,
           "nombre": "Memoria técnica de diseño (MTD) de instalación de gas",
           "organismo": "Instalador habilitado (categoría IG-I o IG-II según RIGLO)",
-          "base_legal": "RD 919/2006 RIGLO art. 5; Decreto 141/2009 art. 8",
+          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-GBP-001",
           "documentos_requeridos": [
             {
               "id": "mtd_gas",
               "label": "Memoria técnica de diseño de gas",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, materiales, cálculos y planos.",
-              "formato": "PDF",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación de la categoría del instalador (IG-I o IG-II) vigente.",
-              "formato": "PDF",
+              "descripcion": "Acreditación de la categoría vigente.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de autorización de puesta en servicio (APS) ante el órgano competente",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
-          "base_legal": "Decreto 141/2009 art. 10; Orden 15/12/2010 art. 3",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobcan.es/sede/tramites/1234",
-          "coste_estimado": "Tasa según Ley de Tasas de Canarias (aprox. 50-100 €)",
+          "nombre": "Certificado de instalación (CI) de gas",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RD 919/2006 RIGLO",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-GBP-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_gas",
-              "label": "Memoria técnica de diseño de gas",
-              "descripcion": "Misma que en paso 1.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Mismo que en paso 1.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "descripcion": "Documento firmado por el titular de la instalación declarando que cumple con la normativa.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_empresa_distribuidora",
-              "label": "Certificado de la empresa distribuidora",
-              "descripcion": "Documento que acredita que la instalación cumple con las condiciones de conexión a la red de distribución.",
-              "formato": "PDF",
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Inspección inicial por Organismo de Control (OCA) si procede",
-          "organismo": "Organismo de Control Autorizado (OCA) acreditado en Canarias",
-          "base_legal": "RD 919/2006 RIGLO art. 7; Decreto 141/2009 art. 11",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Según tarifa OCA (aprox. 200-400 €)",
+          "nombre": "Comunicación de instalación receptora de combustibles gaseosos (SICAC 3905)",
+          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3905",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3905",
+          "paralelo_con": null,
+          "regla_id": "ICAN-GBP-001",
           "documentos_requeridos": [
             {
               "id": "mtd_gas",
               "label": "Memoria técnica de diseño de gas",
-              "descripcion": "Misma que en pasos anteriores.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Mismo que en pasos anteriores.",
-              "formato": "PDF",
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Plazo legal de 30 días desde puesta en servicio (mismo régimen ITC-ICG-07 3.6 confirmado en Asturias); no verificado específicamente para Canarias."
         }
       ]
     }

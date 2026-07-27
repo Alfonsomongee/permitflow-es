@@ -1,132 +1,128 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "galicia",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 62/2010' como base legal: no se ha localizado esta norma. Sustituida por la normativa real confirmada: Orden de 28 de abril de 2008 (DOG núm. 95), que regula la aplicación en Galicia del RIGLO (RD 919/2006). Trámite real confirmado: IN625A 'Registro de instalaciones receptoras de gases combustibles'. Se corrigió un hueco de cobertura: la regla 2 original exigía 'potencia>70 AND uso==industrial' simultáneamente, dejando sin trámite tanto instalaciones industriales ≤70kW como instalaciones no industriales >70kW. La partición ahora depende solo de 'potencia_kw'.",
+  "huecos_verificacion": [
+    "Tras corregir el hueco de cobertura, el fichero ya no diferencia trámites por uso doméstico/comercial/industrial; si esa distinción es normativamente relevante en Galicia, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base",
+    "No se ha aplicado aquí el hallazgo de Castilla y León sobre presion_bar='5+' porque este fichero no usa el campo presion_bar en absoluto (usa potencia_kw y uso) — revisar si debería incorporarse",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
-    "RD 919/2006 RIGLO",
-    "RD 1027/2007 RITE",
-    "Decreto 62/2010 de la Xunta de Galicia, por el que se regulan las instalaciones de gas en baja presión",
-    "Orden de 15 de junio de 2011 de la Consellería de Economía e Industria (Galicia)"
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+    "Orden de 28 de abril de 2008, por la que se regula la aplicación en la Comunidad Autónoma de Galicia del Reglamento técnico de distribución y utilización de combustibles gaseosos - DOG núm. 95, 19/05/2008",
+    "Trámite IN625A 'Registro de instalaciones receptoras de gases combustibles' - sede.xunta.gal"
   ],
   "reglas": [
     {
       "id": "GAL-GBP-001",
-      "descripcion": "Instalación de gas en baja presión para uso doméstico-comercial (potencia ≤ 70 kW)",
+      "descripcion": "Instalación de gas con potencia ≤ 70 kW",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "in": [
-              {
-                "var": "uso"
-              },
-              [
-                "domestico",
-                "comercial"
-              ]
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico o memoria técnica (según complejidad)",
+          "nombre": "Memoria técnica de instalación de gas",
           "organismo": "Instalador habilitado (categoría IG-I o IG-II)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 62/2010",
+          "base_legal": "RIGLO RD 919/2006; Orden de 28 de abril de 2008",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-GBP-001",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico_gas",
-              "label": "Proyecto técnico o memoria técnica"
+              "id": "mtd_gas",
+              "label": "Memoria técnica de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado"
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "El uso doméstico/comercial/industrial puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no se usa como condición de disparo (bug de cobertura ya corregido respecto al fichero original)."
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (CI) por OCA (Organismo de Control Autorizado)",
-          "organismo": "OCA acreditada en Galicia (ej: Applus, TÜV Rheinland, Bureau Veritas)",
-          "base_legal": "RIGLO RD 919/2006 art. 7; Decreto 62/2010",
+          "nombre": "Certificado de instalación (CI) por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA) acreditado en Galicia",
+          "base_legal": "RIGLO RD 919/2006 art. 7",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "SIEL (Sistema de Información de Instalaciones Energéticas de Galicia)",
-          "plataforma_url": "https://siel.xunta.gal",
-          "coste_estimado": "150-300 € (según OCA)",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-GBP-001",
           "documentos_requeridos": [
             {
               "id": "ci_oca",
-              "label": "Certificado de instalación emitido por OCA"
+              "label": "Certificado de instalación emitido por OCA",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
-              "id": "proyecto_tecnico_gas",
-              "label": "Proyecto técnico o memoria técnica"
+              "id": "mtd_gas",
+              "label": "Memoria técnica de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el órgano competente de la Xunta de Galicia",
-          "organismo": "Dirección General de Energía y Minas (Consellería de Economía e Industria)",
-          "base_legal": "Decreto 62/2010; Orden 15/06/2011",
+          "nombre": "Registro de instalación receptora de gases combustibles (IN625A)",
+          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "base_legal": "Orden de 28 de abril de 2008",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "SIEL (Sistema de Información de Instalaciones Energéticas de Galicia)",
-          "plataforma_url": "https://siel.xunta.gal",
-          "coste_estimado": "0 € (tasa administrativa no aplica)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "IN625A",
+          "paralelo_con": null,
+          "regla_id": "GAL-GBP-001",
           "documentos_requeridos": [
             {
               "id": "ci_oca",
-              "label": "Certificado de instalación emitido por OCA"
+              "label": "Certificado de instalación emitido por OCA",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
-              "id": "proyecto_tecnico_gas",
-              "label": "Proyecto técnico o memoria técnica"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado"
+              "id": "mtd_gas",
+              "label": "Memoria técnica de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "GAL-GBP-002",
-      "descripcion": "Instalación de gas en baja presión para uso industrial (potencia > 70 kW)",
+      "descripcion": "Instalación de gas con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -134,68 +130,88 @@
           "orden": 1,
           "nombre": "Proyecto técnico firmado por técnico competente",
           "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 62/2010",
+          "base_legal": "RIGLO RD 919/2006; Orden de 28 de abril de 2008",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-GBP-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_gas",
-              "label": "Proyecto técnico"
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado"
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) por OCA",
           "organismo": "OCA acreditada en Galicia",
-          "base_legal": "RIGLO RD 919/2006 art. 7; Decreto 62/2010",
+          "base_legal": "RIGLO RD 919/2006 art. 7",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "SIEL",
-          "plataforma_url": "https://siel.xunta.gal",
-          "coste_estimado": "300-600 € (según OCA)",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-GBP-002",
           "documentos_requeridos": [
             {
               "id": "ci_oca",
-              "label": "Certificado de instalación emitido por OCA"
+              "label": "Certificado de instalación emitido por OCA",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "proyecto_tecnico_gas",
-              "label": "Proyecto técnico"
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el órgano competente de la Xunta de Galicia",
-          "organismo": "Dirección General de Energía y Minas",
-          "base_legal": "Decreto 62/2010; Orden 15/06/2011",
+          "nombre": "Registro de instalación receptora de gases combustibles (IN625A)",
+          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "base_legal": "Orden de 28 de abril de 2008",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "SIEL",
-          "plataforma_url": "https://siel.xunta.gal",
-          "coste_estimado": "0 €",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "IN625A",
+          "paralelo_con": null,
+          "regla_id": "GAL-GBP-002",
           "documentos_requeridos": [
             {
               "id": "ci_oca",
-              "label": "Certificado de instalación emitido por OCA"
+              "label": "Certificado de instalación emitido por OCA",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "proyecto_tecnico_gas",
-              "label": "Proyecto técnico"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado"
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

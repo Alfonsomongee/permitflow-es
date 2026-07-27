@@ -1,0 +1,192 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "la_rioja",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Fichero generado desde cero (La Rioja no proporcionó fichero original de climatización). Se confirmó real una Resolución de la Dirección General de Trabajo, Industria y Comercio que establece normas complementarias para el desarrollo del RITE en La Rioja, con el umbral de 70 kW para inspección inicial, y una Resolución de 30 de julio de 2015 específica para sustitución de equipos ≤70 kW. Trámite real confirmado: 'CL y CLM' (Inscripción y puesta en servicio de instalaciones térmicas).",
+  "huecos_verificacion": [
+    "No se ha localizado la fecha exacta de la Resolución de desarrollo del RITE en La Rioja — se cita de forma genérica hasta confirmar",
+    "Tasas y plazos legales no verificados",
+    "No se ha confirmado si existe distinción de trámite entre 'CL' y 'CLM' (posiblemente climatización general vs. climatización con máquina, o distinción por tipo de generador) — no localizado en esta revisión"
+  ],
+  "fuentes": [
+    "RITE RD 1027/2007",
+    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+    "Resolución de la Dirección General de Trabajo, Industria y Comercio (normas complementarias de desarrollo del RITE en La Rioja) - larioja.org, boletín oficial de La Rioja",
+    "Resolución de 30 de julio de 2015, de la Dirección General de Innovación, Trabajo, Industria y Comercio (procedimiento de sustitución/reposición de generadores ≤70 kW) - La Rioja",
+    "Trámite 'CL y CLM. Inscripción y puesta en servicio de instalaciones térmicas' - larioja.org oficina electrónica"
+  ],
+  "reglas": [
+    {
+      "id": "RIO-CLIMA-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "<=": [
+          { "var": "potencia_kw" },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD) según RITE",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007 art. 17",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-CLIMA-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_climatizacion",
+              "label": "Memoria Técnica de Diseño de instalación térmica",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción y puesta en servicio de instalación térmica (trámite CL/CLM)",
+          "organismo": "Dirección General de Trabajo, Industria y Comercio del Gobierno de La Rioja",
+          "base_legal": "RITE RD 1027/2007 art. 24; Resolución de desarrollo del RITE en La Rioja",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "CL / CLM",
+          "paralelo_con": null,
+          "regla_id": "RIO-CLIMA-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_climatizacion",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "RIO-CLIMA-002",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico e inspección inicial)",
+      "condicion": {
+        ">": [
+          { "var": "potencia_kw" },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007 art. 16",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-CLIMA-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico visado por colegio profesional",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Inspección inicial (obligatoria por RITE para potencia >70 kW en La Rioja)",
+          "organismo": "Organismo de Control Autorizado (OCA) en La Rioja",
+          "base_legal": "RITE RD 1027/2007 art. 15; Resolución de desarrollo del RITE en La Rioja",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-CLIMA-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Confirmado en fuente oficial: con anterioridad a la puesta en servicio de instalaciones con potencia >70 kW debe realizarse inspección inicial; se exceptúan generadores de aire caliente y tubos radiantes a gas."
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción y puesta en servicio de instalación térmica (trámite CL/CLM)",
+          "organismo": "Dirección General de Trabajo, Industria y Comercio del Gobierno de La Rioja",
+          "base_legal": "RITE RD 1027/2007 art. 24; Resolución de desarrollo del RITE en La Rioja",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "CL / CLM",
+          "paralelo_con": null,
+          "regla_id": "RIO-CLIMA-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_inspeccion_oca",
+              "label": "Certificado de inspección inicial favorable",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    }
+  ]
+}

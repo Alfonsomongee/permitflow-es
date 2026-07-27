@@ -1,0 +1,163 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "extremadura",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Fichero generado desde cero (Extremadura no proporcionó fichero original de climatización). Confirmado real el trámite 'Registro de Instalaciones Térmicas en Edificios' de la Junta de Extremadura, con tramo específico 5-70 kW (memoria técnica) y >70 kW (proyecto visado). No se ha localizado decreto autonómico propio; se aplica el RITE nacional directamente vía el procedimiento general de instalación industrial (Decreto 49/2004, Grupo II).",
+  "huecos_verificacion": [
+    "Instalaciones <5 kW térmicos quedan exentas de presentar documentación según fuente consultada (ingenierosindustriales.com, corroborado por el patrón ya visto en Castilla-La Mancha y Comunitat Valenciana) — no modelado por falta de campo de tipo de equipo en el schema",
+    "No se ha confirmado el nombre ni número de trámite exacto en la sede electrónica de Extremadura para el registro de instalaciones térmicas",
+    "Tasas y plazos legales no verificados"
+  ],
+  "fuentes": [
+    "RITE RD 1027/2007",
+    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+    "Decreto 49/2004, de 20 de abril (procedimiento de instalación y puesta en funcionamiento de establecimientos industriales, Grupo II) - Extremadura",
+    "Orden de 12 de diciembre de 2005 (tramitación de expedientes de instalación industrial) - Extremadura",
+    "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios (calefacción a gas), potencia entre 5 y 70 kW' - industriaextremadura.juntaex.es"
+  ],
+  "reglas": [
+    {
+      "id": "EXT-AT-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "<=": [
+          { "var": "potencia_kw" },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Instalación Térmica",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007 art. 17",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-AT-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtit_aerotermia",
+              "label": "Memoria Técnica de Instalación Térmica",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Instalaciones <5 kW pueden quedar exentas de documentación — no modelado en esta regla."
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalación térmica en edificios",
+          "organismo": "Servicio de Ordenación Industrial, Energética y Minera (Badajoz/Cáceres)",
+          "base_legal": "RITE RD 1027/2007 art. 24; Decreto 49/2004",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma_url": "https://sede.gobex.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-AT-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtit_firmada",
+              "label": "Memoria Técnica firmada",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador (modelo oficial)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "EXT-AT-002",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
+      "condicion": {
+        ">": [
+          { "var": "potencia_kw" },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007 art. 16",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-AT-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico visado por colegio profesional",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalación térmica en edificios (alta potencia)",
+          "organismo": "Servicio de Ordenación Industrial, Energética y Minera (Badajoz/Cáceres)",
+          "base_legal": "RITE RD 1027/2007 art. 15, 24; Decreto 49/2004",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma_url": "https://sede.gobex.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-AT-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_visado",
+              "label": "Proyecto visado",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Confirmado real el registro específico 'alta potencia térmica' (>5.000 kW calor / >1.000 kW frío) como categoría distinta en la sede de Extremadura; para el tramo >70kW estándar de este proyecto aplica el registro general de instalaciones térmicas con proyecto."
+        }
+      ]
+    }
+  ]
+}

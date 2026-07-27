@@ -1,146 +1,179 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "aragon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "estado": "verificado",
+  "aviso": "Reglas de potencias base actualizadas, y añadida capa sanitaria de legionelosis autonómica.",
+  "huecos_verificacion": [
+    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
+    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+  ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "Decreto 108/2005 de 24 de mayo del Gobierno de Aragón, por el que se regulan las instalaciones de producción de agua caliente sanitaria con energía solar",
-    "Orden de 28 de julio de 2006, del Departamento de Industria, Comercio y Turismo, por la que se desarrolla el Decreto 108/2005"
+    "RITE RD 1027/2007, modificado por RD 178/2021",
+    "Decreto 136/2005, de 5 de julio, del Gobierno de Aragón, por el que se establecen medidas especiales para la prevención y control de la legionelosis",
+    "RD 487/2022 modificado por RD 614/2024 (legionelosis)"
   ],
   "reglas": [
     {
       "id": "ARA-ACS-001",
-      "descripcion": "Instalación solar térmica para ACS de potencia ≤ 70 kW (sin proyecto, con memoria técnica)",
+      "descripcion": "ACS <=70 kW: memoria tecnica",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          }
+            "var": "potencia_kw"
+          },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) para instalación solar térmica",
-          "organismo": "Instalador habilitado (carné de instalador térmico o similar)",
-          "base_legal": "RITE; Decreto 108/2005; Orden 28/07/2006",
+          "nombre": "Memoria Tecnica de Diseno (MTD) para instalacion de ACS",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "mtd_acs",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo."
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación de la habilitación del instalador según normativa autonómica."
+              "label": "MTD ACS",
+              "descripcion": "Segun RITE.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el órgano competente de la Comunidad Autónoma de Aragón",
-          "organismo": "Dirección General de Energía y Minas del Gobierno de Aragón",
-          "base_legal": "Decreto 108/2005; Orden 28/07/2006",
+          "nombre": "Comunicacion de puesta en servicio de instalacion termica en edificios",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Gobierno de Aragón - Registro Industrial",
-          "plataforma_url": "https://www.aragon.es/tramites/declaracion-responsable-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa exenta)",
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "drps_acs",
-              "label": "Declaración responsable de puesta en servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador."
-            },
-            {
               "id": "mtd_acs",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Copia de la MTD presentada."
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Copia del certificado."
+              "label": "MTD",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
         }
       ]
     },
     {
       "id": "ARA-ACS-002",
-      "descripcion": "Instalación solar térmica para ACS de potencia > 70 kW (con proyecto técnico)",
+      "descripcion": "ACS >70 kW: proyecto tecnico y certificado OCA",
       "condicion": {
-        "and": [
+        ">": [
           {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          }
+            "var": "potencia_kw"
+          },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico de instalación solar térmica",
-          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE; Decreto 108/2005; Orden 28/07/2006",
+          "nombre": "Proyecto tecnico de instalacion de ACS",
+          "organismo": "Tecnico titulado competente",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Según honorarios del técnico (0 € tasa administrativa)",
+          "coste_estimado": "Variable segun honorarios del tecnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "proyecto_acs",
-              "label": "Proyecto técnico",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto."
+              "label": "Proyecto tecnico",
+              "descripcion": "Memoria, planos, presupuesto.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (EICI) emitido por Organismo de Control (OCA) y presentación ante la Administración",
-          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Aragón",
-          "base_legal": "Decreto 108/2005; Orden 28/07/2006; RITE",
+          "nombre": "Certificado de instalacion por Organismo de Control Autorizado (OCA)",
+          "organismo": "OCA habilitada",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica del Gobierno de Aragón - Registro Industrial",
-          "plataforma_url": "https://www.aragon.es/tramites/certificado-instalacion-termica",
-          "coste_estimado": "Según tarifa OCA (aprox. 200-500 €)",
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO -- variable segun OCA",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "eici_acs",
-              "label": "Certificado de Instalación (EICI)",
-              "descripcion": "Emitido por OCA tras inspección favorable."
-            },
-            {
               "id": "proyecto_acs",
-              "label": "Proyecto técnico",
-              "descripcion": "Copia del proyecto visado."
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación del instalador."
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-ACS-003",
+      "descripcion": "ACS de uso colectivo: requiere Evaluación de Riesgo y Plan de Mantenimiento Higiénico-Sanitario (Decreto 136/2005)",
+      "condicion": {
+        "==": [
+          {
+            "var": "uso_colectivo"
+          },
+          true
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Evaluación de Riesgo (ER) y Plan de Mantenimiento Higiénico-Sanitario (PMHS)",
+          "organismo": "Titular de la instalación / Empresa de mantenimiento",
+          "base_legal": "Decreto 136/2005, de 5 de julio; RD 487/2022",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "er_pmhs_acs",
+              "label": "ER y PMHS",
+              "descripcion": "Documentación técnica sanitaria.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Exigido imperativamente para instalaciones de uso colectivo (hoteles, residencias, gimnasios, etc.) de forma previa a su puesta en marcha."
         }
       ]
     }
-  ]
+  ],
+  "validaciones": [],
+  "nivel_verificacion": "generica"
 }

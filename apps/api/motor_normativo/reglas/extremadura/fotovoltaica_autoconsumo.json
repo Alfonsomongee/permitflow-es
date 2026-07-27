@@ -1,37 +1,35 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "extremadura",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 47/2022' como base legal: no se ha localizado ninguna norma de Extremadura con ese número/fecha sobre instalaciones eléctricas; existe un RD 47/2022, de 18 de enero, nacional, pero regula protección de aguas frente a nitratos agrícolas, sin relación alguna. Se sustituyó por la normativa real confirmada: Orden de 31/07/2008 (tramitación telemática BT), Resolución de 24/03/2004 (instrucciones técnicas puesta en servicio BT), Decreto 179/2016 (Registro de instalaciones de producción de energía eléctrica de Extremadura) y Resolución de 22/07/2022, que regula explícitamente el procedimiento de autoconsumo para instalaciones BT ≤100 kW — esta última CONFIRMA de forma específica para Extremadura el umbral de 100 kW que en otras comunidades solo se había aplicado por inferencia del art. 53 Ley 24/2013. Se corrigió el bug de partición base sobre 'uso'. Se confirmó la plataforma real: tbtEX.",
+  "huecos_verificacion": [
+    "No se ha verificado si Extremadura ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Tasas y plazos legales de resolución no verificados con detalle",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 47/2022, de 11 de mayo, por el que se regulan los procedimientos de puesta en servicio de instalaciones eléctricas en Extremadura"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "REBT RD 842/2002 ITC-BT-40",
+    "Orden de 31 de julio de 2008 (tramitación telemática del registro de instalaciones eléctricas de baja tensión en Extremadura)",
+    "Resolución de 24 de marzo de 2004, de la Dirección General de Ordenación Industrial, Energía y Minas (instrucciones técnicas para la puesta en servicio de instalaciones eléctricas de baja tensión)",
+    "Decreto 179/2016, de 8 de noviembre (Registro de instalaciones de producción de energía eléctrica de Extremadura)",
+    "Resolución de 22 de julio de 2022, de la Dirección General de Energía y Minas (procedimientos de comunicación de inscripción al registro de autoconsumo, BT ≤100 kW) — confirma el umbral de 100 kW específicamente para Extremadura",
+    "Aplicación tbtEX (tramitación telemática de baja tensión de Extremadura) - industriaextremadura.juntaex.es"
   ],
   "reglas": [
     {
       "id": "EXT-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -44,81 +42,76 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "formato": "PDF"
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
             },
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable del instalador",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación (modelo normalizado)",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de puesta en servicio ante la Comunidad Autónoma (autoconsumo ≤10 kW)",
-          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
-          "base_legal": "Decreto 47/2022, art. 12; RD 244/2019 art. 9",
+          "nombre": "Comunicación de inscripción al registro administrativo de autoconsumo (tbtEX)",
+          "organismo": "Dirección General de Energía y Minas de la Junta de Extremadura",
+          "base_legal": "Resolución de 22 de julio de 2022; Decreto 179/2016",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plazo_legal_dias": null,
+          "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
           "plataforma_url": "https://sede.gobex.es",
-          "coste_estimado": "0 € (tasa 0 para autoconsumo ≤10 kW)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del instalador",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "contrato_acceso",
-              "label": "Contrato de acceso y conexión (si excedentes)",
-              "formato": "PDF"
+              "label": "Contrato de acceso y conexión (si hay excedentes)",
+              "descripcion": "",
+              "obligatorio": false
             }
-          ]
+          ],
+          "notas": "Umbral de 100 kW confirmado específicamente por el propio título del procedimiento de Extremadura (Resolución 22/07/2022)."
         }
       ]
     },
     {
       "id": "EXT-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -131,85 +124,89 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Según honorarios del técnico (variable)",
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto técnico firmado",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_direccion_obra",
               "label": "Certificado de dirección de obra",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial por Organismo de Control (OCA/EICI)",
-          "organismo": "Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) habilitada en Extremadura",
-          "base_legal": "Decreto 47/2022, art. 15; RD 842/2002 ITC-BT-05",
+          "nombre": "Inspección inicial por Organismo de Control (OCA)",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Extremadura",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Según tarifa del OCA (aprox. 200-500 €)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto técnico",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Solicitud de puesta en servicio ante la Comunidad Autónoma (con OCA favorable)",
-          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
-          "base_legal": "Decreto 47/2022, art. 16",
+          "nombre": "Autorización de explotación / acta de puesta en servicio e inscripción en registro (tbtEX)",
+          "organismo": "Dirección General de Energía y Minas de la Junta de Extremadura",
+          "base_legal": "Resolución de 20 de junio de 2022 (autorización de explotación, acta de puesta en servicio); Decreto 179/2016",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plazo_legal_dias": null,
+          "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
           "plataforma_url": "https://sede.gobex.es",
-          "coste_estimado": "Tasa administrativa (consultar tarifas vigentes)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto técnico",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "informe_oca",
-              "label": "Informe favorable del OCA/EICI",
-              "formato": "PDF"
-            },
-            {
-              "id": "contrato_acceso",
-              "label": "Contrato de acceso y conexión",
-              "formato": "PDF"
+              "label": "Informe favorable del OCA",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "El mismo procedimiento de autorización de explotación de Extremadura cubre tanto sector eléctrico como gas canalizado (Resolución 20/06/2022) — confirmado real."
         }
       ]
     }

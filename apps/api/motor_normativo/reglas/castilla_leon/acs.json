@@ -1,26 +1,30 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "castilla_leon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 117/2009' como base legal: no se ha localizado esta norma, y el mismo número '117' se usaba también (con año distinto) en el fichero de climatización de este mismo lote para la misma materia — patrón de colisión. La ficha oficial de la JCyL para instalaciones térmicas cita Ley 6/2014 de Industria + RITE nacional + Orden EYE/912/2012 (aplicación 'RITE', IAPA1468). HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
+  "huecos_verificacion": [
+    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
+    "No se ha localizado normativa autonómica de Castilla y León específica de ACS; se aplica el RITE nacional directamente",
+    "No se ha confirmado si Castilla y León exige OCA específicamente para ACS >70 kW más allá de lo que exige el RITE nacional",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "Decreto 117/2009 de 28 de mayo (Castilla y León) por el que se regula el procedimiento de puesta en servicio de instalaciones térmicas en los edificios"
+    "Ley 6/2014 de Industria de Castilla y León",
+    "Orden EYE/912/2012, de 17 de octubre (aplicación informática 'RITE', procedimiento IAPA1468) - jcyl.es"
   ],
   "reglas": [
     {
       "id": "CYL-ACS-001",
-      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción (memoria técnica, sin proyecto)",
+      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -28,78 +32,69 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
           "organismo": "Instalador habilitado (categoría térmica)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 117/2009 art. 5",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-ACS-001",
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
               "label": "Memoria Técnica de Diseño (MTD) de instalación térmica",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento del RITE.",
-              "formato": "PDF",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador",
-              "descripcion": "Acreditación de la habilitación del instalador (carné profesional).",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable de puesta en servicio (DRPS) ante el órgano competente de la Comunidad Autónoma",
+          "nombre": "Inscripción en el Registro de instalaciones térmicas (aplicación 'RITE')",
           "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
-          "base_legal": "Decreto 117/2009 art. 6",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden EYE/912/2012",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 10,
-          "plataforma": "Sede Electrónica de la Junta de Castilla y León",
+          "plazo_legal_dias": null,
+          "plataforma": "Aplicación 'RITE' (Sede Electrónica de la Junta de Castilla y León)",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
-          "coste_estimado": "0 € (tasa 0 para DRPS)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "IAPA1468",
+          "paralelo_con": null,
+          "regla_id": "CYL-ACS-001",
           "documentos_requeridos": [
-            {
-              "id": "drps_termica",
-              "label": "Declaración Responsable de puesta en servicio",
-              "descripcion": "Formulario normalizado de DRPS para instalaciones térmicas, firmado por el titular y el instalador.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
             {
               "id": "mtd_termica",
               "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Misma MTD del paso anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador",
-              "descripcion": "Mismo certificado del paso anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "CYL-ACS-002",
-      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico y certificado de OCA)",
+      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -107,82 +102,82 @@
           "orden": 1,
           "nombre": "Proyecto Técnico de instalación térmica",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 117/2009 art. 5",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-ACS-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_termico",
               "label": "Proyecto Técnico de instalación térmica",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, cálculos, planos y cumplimiento del RITE.",
-              "formato": "PDF",
+              "descripcion": "Firmado por técnico competente.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo."
         },
         {
           "orden": 2,
           "nombre": "Certificado de Organismo de Control (OCA) de la instalación",
           "organismo": "Organismo de Control Autorizado (OCA) en Castilla y León",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 117/2009 art. 7",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según OCA (aprox. 300-600 €)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-ACS-002",
           "documentos_requeridos": [
             {
               "id": "certificado_oca_termica",
               "label": "Certificado de OCA de instalación térmica",
-              "descripcion": "Certificado emitido por OCA que acredita que la instalación cumple con el RITE y normativa aplicable.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "proyecto_termico",
               "label": "Proyecto Técnico",
-              "descripcion": "Mismo proyecto del paso anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Declaración Responsable de puesta en servicio (DRPS) ante el órgano competente de la Comunidad Autónoma",
+          "nombre": "Inscripción en el Registro de instalaciones térmicas (aplicación 'RITE')",
           "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
-          "base_legal": "Decreto 117/2009 art. 6",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 10,
-          "plataforma": "Sede Electrónica de la Junta de Castilla y León",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden EYE/912/2012",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Aplicación 'RITE' (Sede Electrónica de la Junta de Castilla y León)",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
-          "coste_estimado": "0 € (tasa 0 para DRPS)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "IAPA1468",
+          "paralelo_con": null,
+          "regla_id": "CYL-ACS-002",
           "documentos_requeridos": [
             {
-              "id": "drps_termica",
-              "label": "Declaración Responsable de puesta en servicio",
-              "descripcion": "Formulario normalizado de DRPS para instalaciones térmicas, firmado por el titular y el instalador.",
-              "formato": "PDF",
+              "id": "proyecto_termico",
+              "label": "Proyecto Técnico",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_oca_termica",
               "label": "Certificado de OCA",
-              "descripcion": "Mismo certificado del paso anterior.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "proyecto_termico",
-              "label": "Proyecto Técnico",
-              "descripcion": "Mismo proyecto del paso anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

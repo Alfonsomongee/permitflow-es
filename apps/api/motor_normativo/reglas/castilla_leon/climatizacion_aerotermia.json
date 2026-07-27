@@ -1,205 +1,184 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "castilla_leon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 117/2003' como Reglamento de Instalaciones Térmicas: no se ha localizado esta norma, y el mismo número '117' se usaba también (con año distinto) en el fichero de ACS de este mismo lote para la misma materia — patrón de colisión. La ficha oficial de la JCyL para instalaciones térmicas cita Ley 6/2014 de Industria + RITE nacional + Orden EYE/912/2012, que aprueba la aplicación informática real llamada 'RITE' (código de procedimiento IAPA1468) — no un decreto propio de puesta en servicio.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica de Castilla y León específica de climatización; se aplica el RITE nacional directamente vía la aplicación 'RITE' (IAPA1468)",
+    "Tasas y plazos legales no verificados con detalle",
+    "El paso de OCA del fichero original no se ha podido confirmar como obligatorio específicamente en Castilla y León más allá de lo que exige el RITE nacional para inspección inicial (art. 15 RITE, instalaciones que requieren proyecto)"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "RD 178/2021 de eficiencia energética",
-    "Decreto 117/2003 de 16 de octubre, por el que se regula el procedimiento para la puesta en servicio de instalaciones térmicas en edificios en Castilla y León",
-    "Orden FYM/775/2015, de 25 de septiembre, por la que se modifica el Decreto 117/2003",
-    "Ley 13/2010 de 20 de diciembre, de Industria de Castilla y León"
+    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+    "RD 314/2006 Código Técnico de la Edificación",
+    "Ley 6/2014 de Industria de Castilla y León",
+    "Orden EYE/912/2012, de 17 de octubre (aplicación informática 'RITE', procedimiento IAPA1468) - jcyl.es"
   ],
   "reglas": [
     {
       "id": "CYL-AT-001",
-      "descripcion": "Instalación térmica de aerotermia con potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción (sin proyecto, con memoria técnica)",
+      "descripcion": "Instalación térmica de aerotermia con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) según RITE",
-          "organismo": "Instalador habilitado (carné de instalador térmico categoría básica o superior)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 117/2003 art. 5",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-AT-001",
           "documentos_requeridos": [
             {
               "id": "mtd_aerotermia",
-              "label": "Memoria Técnica de Diseño (MTD) de instalación térmica",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos de carga térmica, rendimiento, y cumplimiento del RITE.",
-              "formato": "PDF",
+              "label": "Memoria Técnica de Diseño de instalación térmica",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Copia del carné profesional del instalador térmico en vigor.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "descripcion": "Documento firmado por el titular de la instalación declarando que cumple con la normativa.",
-              "formato": "PDF",
+              "descripcion": "Carné profesional en vigor.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Puesta en servicio ante el Órgano Competente de Industria de Castilla y León",
-          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León (provincia correspondiente)",
-          "base_legal": "Decreto 117/2003 art. 6; Ley 13/2010 art. 22",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "SIRECYL (Sistema de Registro de Instalaciones de Castilla y León)",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284402486060/Tramite",
-          "coste_estimado": "Tasa por puesta en servicio: 50-100 € según ordenanza provincial",
+          "nombre": "Inscripción en el Registro de instalaciones térmicas (aplicación 'RITE')",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden EYE/912/2012",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Aplicación 'RITE' (Sede Electrónica de la Junta de Castilla y León)",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "IAPA1468",
+          "paralelo_con": null,
+          "regla_id": "CYL-AT-001",
           "documentos_requeridos": [
             {
               "id": "mtd_aerotermia",
-              "label": "Memoria Técnica de Diseño (MTD)",
-              "descripcion": "Misma MTD presentada en el paso 1.",
-              "formato": "PDF",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Mismo certificado del paso 1.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "descripcion": "Misma declaración del paso 1.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_eficiencia_energetica",
-              "label": "Certificado de eficiencia energética (si aplica)",
-              "descripcion": "Para instalaciones en edificios existentes, certificado energético del edificio o justificación de mejora.",
-              "formato": "PDF",
-              "obligatorio": false
             }
-          ]
+          ],
+          "notas": "Procedimiento de carácter voluntario y alternativo a la presentación documental general (confirmado en fuente oficial); inscripción inmediata desde la presentación."
         }
       ]
     },
     {
       "id": "CYL-AT-002",
-      "descripcion": "Instalación térmica de aerotermia con potencia térmica nominal > 70 kW (requiere proyecto técnico y OCA)",
+      "descripcion": "Instalación térmica de aerotermia con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico de instalación térmica (firmado por técnico competente)",
+          "nombre": "Proyecto Técnico de instalación térmica",
           "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero térmico, etc.)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 117/2003 art. 5",
+          "base_legal": "RITE RD 1027/2007 art. 16",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Honorarios del técnico (variable)",
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-AT-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto técnico de instalación térmica",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, cálculos, planos, pliego de condiciones y presupuesto.",
-              "formato": "PDF",
+              "descripcion": "Firmado por técnico competente.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial por Organismo de Control Acreditado (OCA)",
-          "organismo": "OCA autorizada en Castilla y León (ej: TÜV Rheinland, Bureau Veritas, Applus, etc.)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.5; Decreto 117/2003 art. 7",
+          "nombre": "Inspección inicial y certificado de instalación",
+          "organismo": "Organismo de Control Autorizado (OCA) en Castilla y León",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Según tarifa OCA (aprox. 300-600 €)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-AT-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto técnico",
-              "descripcion": "Mismo proyecto del paso 1.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Copia del carné profesional del instalador térmico.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Puesta en servicio ante el Órgano Competente de Industria de Castilla y León",
-          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León (provincia correspondiente)",
-          "base_legal": "Decreto 117/2003 art. 6; Ley 13/2010 art. 22",
+          "nombre": "Inscripción en el Registro de instalaciones térmicas (aplicación 'RITE')",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden EYE/912/2012",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "SIRECYL (Sistema de Registro de Instalaciones de Castilla y León)",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284402486060/Tramite",
-          "coste_estimado": "Tasa por puesta en servicio: 50-100 € según ordenanza provincial",
+          "plazo_legal_dias": null,
+          "plataforma": "Aplicación 'RITE' (Sede Electrónica de la Junta de Castilla y León)",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "IAPA1468",
+          "paralelo_con": null,
+          "regla_id": "CYL-AT-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto técnico",
-              "descripcion": "Mismo proyecto del paso 1.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_oca",
               "label": "Certificado de inspección OCA favorable",
-              "descripcion": "Informe de inspección inicial emitido por OCA.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "descripcion": "Documento firmado por el titular.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

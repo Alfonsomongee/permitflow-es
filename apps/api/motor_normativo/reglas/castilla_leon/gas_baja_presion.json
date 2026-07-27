@@ -1,127 +1,259 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "castilla_leon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminaron dos bugs: la variable fantasma 'tipo_edificio' (no existe en el schema) y la comparación numérica de 'presion_bar' (<=0.05) en vez de categórica. Se eliminó 'Decreto 54/2003' como base legal: no se ha localizado esta norma; la ficha oficial de la JCyL para gas cita solo Ley 6/2014 de Industria + RD 919/2006 (RIGLO) + Orden EEI/1036/2021. HALLAZGO IMPORTANTE que se aplica aquí por primera vez y se recomienda extender retroactivamente a Asturias/Canarias/Cantabria/Castilla-La Mancha: la ITC-ICG-07 confirma que las instalaciones alimentadas desde redes que operan a presión >5 bar requieren SIEMPRE proyecto, independientemente de la potencia — esto es lo que representa el valor 'presion_bar=5+' del schema. Se ha reestructurado la partición en consecuencia: presion_bar='5+' → siempre proyecto; presion_bar='normal' → depende del umbral de potencia de 70 kW (confirmado también aquí, igual que en el resto de comunidades).",
+  "huecos_verificacion": [
+    "Se recomienda revisar y corregir los ficheros de gas ya entregados de Asturias, Canarias, Cantabria y Castilla-La Mancha aplicando este mismo hallazgo sobre presion_bar='5+' → proyecto siempre",
+    "No se ha localizado normativa autonómica de Castilla y León específica de legalización de gas más allá de la ley general de industria",
+    "Tasas y plazos legales no verificados con detalle",
+    "Umbral de 2.000 kW para instalaciones comunes (ITC-ICG-07) no modelado por falta de campo que distinga instalación individual/común en el schema"
+  ],
   "fuentes": [
-    "RD 919/2006 RIGLO",
-    "RD 842/2002 REBT",
-    "Decreto 54/2003 de 12 de junio (Castilla y León) por el que se regulan los procedimientos de puesta en servicio de instalaciones de gas",
-    "Orden FYM/775/2014 de 22 de septiembre (Castilla y León) sobre tramitación de instalaciones de gas"
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+    "Ley 6/2014 de Industria de Castilla y León",
+    "Orden EEI/1036/2021, de 6 de septiembre (regularización administrativa de instalaciones de seguridad industrial)",
+    "Ficha de trámite 'Registro de una instalación receptora de combustibles gaseosos' - jccm.es/tramites/1002260 (confirma umbrales de la ITC-ICG-07 aplicables con carácter general)"
   ],
   "reglas": [
     {
       "id": "CYL-GBP-001",
-      "descripcion": "Instalación de gas de baja presión (≤ 0.05 bar) en vivienda unifamiliar con potencia ≤ 10 kW",
+      "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico, independientemente de la potencia",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "presion_bar"
-              },
-              0.05
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "tipo_edificio"
-              },
-              "unifamiliar"
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          }
+        "==": [
+          { "var": "presion_bar" },
+          "5+"
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de instalación de gas (MTG) firmada por instalador habilitado",
-          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
-          "base_legal": "RD 919/2006 art. 5; Decreto 54/2003 art. 3",
+          "nombre": "Proyecto técnico de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07 (instalaciones suministradas desde redes >5 bar requieren proyecto)",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de instalación de gas",
+              "descripcion": "Documento técnico completo firmado por técnico competente.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) de gas",
+          "organismo": "Instalador de gas habilitado",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Castilla y León",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Inscripción inmediata a partir de la solicitud (confirmado en ficha oficial)."
+        }
+      ]
+    },
+    {
+      "id": "CYL-GBP-002",
+      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: memoria técnica, sin proyecto",
+      "condicion": {
+        "and": [
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria técnica de instalación de gas (MTG)",
+          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-GBP-002",
           "documentos_requeridos": [
             {
               "id": "mtg",
               "label": "Memoria Técnica de Gas",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de puesta en servicio ante el órgano competente de la Comunidad Autónoma",
+          "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
           "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
-          "base_legal": "Decreto 54/2003 art. 4; Orden FYM/775/2014",
+          "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
-          "coste_estimado": "Tasa según tarifa vigente (aprox. 30-50 €)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-GBP-002",
           "documentos_requeridos": [
-            {
-              "id": "solicitud_puesta_servicio",
-              "label": "Solicitud de puesta en servicio (modelo oficial)",
-              "formato": "PDF",
-              "obligatorio": true
-            },
             {
               "id": "mtg_firmada",
               "label": "Memoria Técnica de Gas firmada",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion",
-              "label": "Certificado de instalación (modelo oficial)",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "boletin_gas",
-              "label": "Boletín de instalación de gas (modelo oficial)",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "CYL-GBP-003",
+      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
+      "condicion": {
+        "and": [
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { ">": [ { "var": "potencia_kw" }, 70 ] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07 (instalaciones individuales >70 kW requieren proyecto)",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-GBP-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) de gas",
+          "organismo": "Instalador de gas habilitado",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-GBP-003",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Inspección inicial por OCA (Organismo de Control Autorizado) si procede",
-          "organismo": "OCA autorizada en Castilla y León (ej. TÜV Rheinland, Bureau Veritas, etc.)",
-          "base_legal": "RD 919/2006 art. 7; Decreto 54/2003 art. 5",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Según tarifa OCA (aprox. 100-200 €)",
+          "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Castilla y León",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-GBP-003",
           "documentos_requeridos": [
             {
-              "id": "informe_oca",
-              "label": "Informe de inspección OCA favorable",
-              "formato": "PDF",
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

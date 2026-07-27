@@ -1,37 +1,82 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "aragon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "estado": "verificado",
+  "aviso": "Umbrales verificados contra normativa nacional, acatados sin alteración en Aragón.",
+  "huecos_verificacion": [
+    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
+    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+  ],
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52",
-    "RD 639/2016",
-    "Decreto 131/2003 del Gobierno de Aragón (Reglamento de Verificaciones Eléctricas y Trámites)",
-    "Orden de 26 de noviembre de 2003 del Departamento de Industria, Comercio y Desarrollo (Aragón)"
+    "RD 1053/2014, de 12 de diciembre (ITC-BT-52 y modificacion de ITC-BT-04), BOE-A-2014-13681 -- umbrales verificados contra texto consolidado en esta investigacion",
+    "RD 842/2002 (REBT)",
+    "Orden EIE/1731/2017, de 5 de octubre -- citada en ficha oficial de aragon.es como normativa aplicable a la comunicacion de BT; texto articulado no verificado"
   ],
   "reglas": [
     {
       "id": "ARA-IRVE-001",
-      "descripcion": "Punto de recarga de vehículo eléctrico en edificio de viviendas unifamiliar o en plaza de garaje comunitaria con potencia ≤ 10 kW",
+      "descripcion": "IRVE con memoria tecnica: modo de recarga distinto de 4, en interior con potencia <=50kW o en exterior con potencia <=10kW",
       "condicion": {
         "and": [
           {
-            "<=": [
+            "!=": [
               {
-                "var": "potencia_kw"
+                "var": "modo_recarga"
               },
-              10
+              "4"
             ]
           },
           {
-            "in": [
+            "or": [
               {
-                "var": "ubicacion"
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
+                ]
               },
-              [
-                "unifamiliar",
-                "garaje_comunitario"
-              ]
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -39,248 +84,138 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) para IRVE",
-          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 131/2003",
+          "nombre": "Memoria Tecnica de Diseno (MTD) para IRVE",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002; ITC-BT-52",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño para IRVE",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo."
+              "label": "Memoria Tecnica de Diseno para IRVE",
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Certificado de Instalación Eléctrica (CIE) para IRVE",
+          "nombre": "Certificado de Instalacion Electrica (CIE) para IRVE",
           "organismo": "Instalador electricista habilitado",
-          "base_legal": "REBT RD 842/2002; Decreto 131/2003",
+          "base_legal": "REBT RD 842/2002",
           "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica para IRVE",
-              "descripcion": "Documento firmado por instalador que acredita que la instalación cumple con el REBT."
+              "label": "Certificado de Instalacion Electrica",
+              "descripcion": "Boletin electrico.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el Órgano Competente de la Comunidad Autónoma de Aragón",
-          "organismo": "Dirección General de Industria, Comercio y Consumo del Gobierno de Aragón",
-          "base_legal": "Decreto 131/2003; Orden 26/11/2003",
+          "nombre": "Trámite Nº 26: Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio, modificación y baja",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RD 842/2002; Orden EIE/1731/2017",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "SIRIA (Sistema de Información y Registro Industrial de Aragón)",
-          "plataforma_url": "https://siria.aragon.es",
-          "coste_estimado": "0 € (tasa administrativa no aplicable para IRVE ≤10 kW)",
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO -- sin epigrafe de la Tasa 14 confirmado para este supuesto",
+          "formulario_ref": "Modelo C0004 (certificado de instalacion electrica, segun ficha oficial de BT)",
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño para IRVE"
+              "label": "MTD",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             },
             {
               "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica para IRVE"
+              "label": "CIE",
+              "descripcion": "Del paso 2.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa."
         }
       ]
     },
     {
       "id": "ARA-IRVE-002",
-      "descripcion": "Punto de recarga de vehículo eléctrico en edificio de viviendas unifamiliar o en plaza de garaje comunitaria con potencia > 10 kW",
+      "descripcion": "IRVE con proyecto tecnico: modo de recarga 4 (sin limite de potencia), o interior >50kW, o exterior >10kW",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "in": [
-              {
-                "var": "ubicacion"
-              },
-              [
-                "unifamiliar",
-                "garaje_comunitario"
-              ]
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto Técnico para IRVE",
-          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 131/2003",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_irve",
-              "label": "Proyecto Técnico para IRVE",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, cálculos y presupuesto."
-            }
-          ]
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de Instalación Eléctrica (CIE) para IRVE",
-          "organismo": "Instalador electricista habilitado",
-          "base_legal": "REBT RD 842/2002; Decreto 131/2003",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica para IRVE"
-            }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro de la instalación en el Órgano Competente de la Comunidad Autónoma de Aragón",
-          "organismo": "Dirección General de Industria, Comercio y Consumo del Gobierno de Aragón",
-          "base_legal": "Decreto 131/2003; Orden 26/11/2003",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "SIRIA (Sistema de Información y Registro Industrial de Aragón)",
-          "plataforma_url": "https://siria.aragon.es",
-          "coste_estimado": "Tasa administrativa según tarifa vigente (consultar SIRIA)",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_irve",
-              "label": "Proyecto Técnico para IRVE"
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica para IRVE"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ARA-IRVE-003",
-      "descripcion": "Punto de recarga de vehículo eléctrico en edificio de viviendas en propiedad horizontal (comunidad de propietarios) con potencia ≤ 10 kW",
-      "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
+        "or": [
           {
             "==": [
               {
-                "var": "ubicacion"
+                "var": "modo_recarga"
               },
-              "propiedad_horizontal"
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) para IRVE",
-          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 131/2003",
-          "plazo_estimado_dias": 2,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño para IRVE"
-            }
-          ]
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de Instalación Eléctrica (CIE) para IRVE",
-          "organismo": "Instalador electricista habilitado",
-          "base_legal": "REBT RD 842/2002; Decreto 131/2003",
-          "plazo_estimado_dias": 1,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "documentos_requeridos": [
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica para IRVE"
-            }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro de la instalación en el Órgano Competente de la Comunidad Autónoma de Aragón",
-          "organismo": "Dirección General de Industria, Comercio y Consumo del Gobierno de Aragón",
-          "base_legal": "Decreto 131/2003; Orden 26/11/2003",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "SIRIA (Sistema de Información y Registro Industrial de Aragón)",
-          "plataforma_url": "https://siria.aragon.es",
-          "coste_estimado": "0 € (tasa administrativa no aplicable para IRVE ≤10 kW)",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_irve",
-              "label": "Memoria Técnica de Diseño para IRVE"
-            },
-            {
-              "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica para IRVE"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ARA-IRVE-004",
-      "descripcion": "Punto de recarga de vehículo eléctrico en edificio de viviendas en propiedad horizontal (comunidad de propietarios) con potencia > 10 kW",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
+              "4"
             ]
           },
           {
-            "==": [
+            "and": [
               {
-                "var": "ubicacion"
+                "in": [
+                  {
+                    "var": "ubicacion_irve"
+                  },
+                  [
+                    "interior",
+                    "garaje_comunitario"
+                  ]
+                ]
               },
-              "propiedad_horizontal"
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  50
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              {
+                "in": [
+                  {
+                    "var": "ubicacion_irve"
+                  },
+                  [
+                    "exterior",
+                    "via_publica"
+                  ]
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              }
             ]
           }
         ]
@@ -288,60 +223,113 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico para IRVE",
-          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 131/2003",
+          "nombre": "Proyecto Tecnico para IRVE",
+          "organismo": "Tecnico titulado competente",
+          "base_legal": "REBT RD 842/2002; ITC-BT-52",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico",
+          "coste_estimado": "Variable segun honorarios del tecnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "proyecto_irve",
-              "label": "Proyecto Técnico para IRVE"
+              "label": "Proyecto Tecnico",
+              "descripcion": "Memoria, planos, calculos, presupuesto.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Certificado de Instalación Eléctrica (CIE) para IRVE",
+          "nombre": "Certificado de Instalacion Electrica (CIE) para IRVE",
           "organismo": "Instalador electricista habilitado",
-          "base_legal": "REBT RD 842/2002; Decreto 131/2003",
+          "base_legal": "REBT RD 842/2002",
           "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica para IRVE"
+              "label": "CIE",
+              "descripcion": "Boletin electrico.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el Órgano Competente de la Comunidad Autónoma de Aragón",
-          "organismo": "Dirección General de Industria, Comercio y Consumo del Gobierno de Aragón",
-          "base_legal": "Decreto 131/2003; Orden 26/11/2003",
+          "nombre": "Trámite Nº 26: Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio, modificación y baja",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RD 842/2002; Orden EIE/1731/2017",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 20,
-          "plataforma": "SIRIA (Sistema de Información y Registro Industrial de Aragón)",
-          "plataforma_url": "https://siria.aragon.es",
-          "coste_estimado": "Tasa administrativa según tarifa vigente (consultar SIRIA)",
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "Modelo C0004",
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "proyecto_irve",
-              "label": "Proyecto Técnico para IRVE"
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             },
             {
               "id": "cie_irve",
-              "label": "Certificado de Instalación Eléctrica para IRVE"
+              "label": "CIE",
+              "descripcion": "Del paso 2.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
         }
       ]
     }
-  ]
+  ],
+  "validaciones": [
+    {
+      "id": "ARA-IRVE-VAL-001",
+      "severidad": "aviso",
+      "campos_requeridos": [
+        "ubicacion_irve",
+        "modo_recarga"
+      ],
+      "condicion": {
+        "or": [
+          {
+            "==": [
+              {
+                "var": "ubicacion_irve"
+              },
+              null
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "modo_recarga"
+              },
+              null
+            ]
+          }
+        ]
+      },
+      "mensaje": "Sin ubicacion_irve o modo_recarga no se puede determinar el umbral MTD/proyecto con certeza. Verifique estos datos.",
+      "fuente": "ITC-BT-04 (RD 1053/2014)"
+    }
+  ],
+  "nivel_verificacion": "generica"
 }

@@ -1,39 +1,34 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "galicia",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 62/2024' como base legal: no se ha localizado esta norma. Se sustituyó por la normativa real confirmada: Resolución de 22 de julio de 2014 (tramitación electrónica) y Resolución de 18 de febrero de 2020 (DOG núm. 43, 04/03/2020), que regula explícitamente el procedimiento de comunicación de autoconsumo BT para 'potencia instalada menor a 100 kW' (códigos IN407B/IN407C) — confirma el umbral de 100 kW específicamente para Galicia. Se sustituyó el umbral inventado de 10 kW en consecuencia. Se eliminó la variable fantasma 'uso_edificio' (no existe en el schema; aparecía anidada de forma no estándar dentro de un documento). Se corrigió el bug de partición base sobre 'uso'. 'RITSG' e 'INEGA' como registro de instalaciones no se han podido confirmar con ese nombre exacto — sustituidos por los códigos de trámite reales IN407B/IN408A y el Registro de Autoconsumo del Ministerio (al que Galicia comunica según la propia Resolución 18/02/2020).",
+  "huecos_verificacion": [
+    "Una fuente secundaria (no oficial) menciona que en Galicia se permite memoria técnica en vez de proyecto hasta 10 kW específicamente, umbral distinto del general de 100 kW para exención de autorización — no confirmado con fuente primaria; se mantiene el umbral general de 100 kW hasta verificar esta posible particularidad",
+    "No se ha verificado si Galicia ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Tasas y plazos legales no verificados con detalle",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 62/2024, de 2 de mayo, por el que se regulan las instalaciones de baja tensión y se establece el procedimiento de puesta en servicio en Galicia",
-    "Orden de 12 de junio de 2024 por la que se desarrolla el Decreto 62/2024",
-    "Ley 7/2021 Cambio Climático art. 16"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "REBT RD 842/2002 ITC-BT-40",
+    "Resolución de 22 de julio de 2014, de la Dirección General de Energía y Minas (tramitación electrónica de procedimientos) - Galicia",
+    "Resolución de 18 de febrero de 2020, de la Dirección General de Energía y Minas (procedimiento de comunicación de instalaciones de autoconsumo BT <100kW, códigos IN407B/IN407C) - DOG núm. 43, 04/03/2020",
+    "Trámites reales de la sede electrónica de la Xunta de Galicia: IN614A/IN614C (registro BT), IN407B/IN407C (autoconsumo <100kW), IN408A (autoconsumo con autorización), IN429A (pública concurrencia con OCA)"
   ],
   "reglas": [
     {
       "id": "GAL-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), comunicación IN407B",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -41,113 +36,69 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
           "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 62/2024 art. 12",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y esquemas unifilares.",
-              "formato": "PDF"
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación (CI)",
-              "descripcion": "Certificado firmado por el instalador que acredita que la instalación se ajusta a la MTD y al REBT.",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Documento firmado por el titular declarando que cumple con la normativa.",
-              "formato": "PDF"
+              "descripcion": "Acredita que la instalación se ajusta a la MTD y al REBT.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Registro de la instalación en la Comunidad Autónoma (RITSG)",
-          "organismo": "Instituto Energético de Galicia (INEGA)",
-          "base_legal": "Decreto 62/2024 art. 15; Orden 12/06/2024",
+          "nombre": "Comunicación de instalación de autoconsumo BT <100 kW (IN407B) e inscripción en el Registro de Autoconsumo",
+          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "base_legal": "Resolución de 18 de febrero de 2020",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "Registro de Instalaciones Térmicas y de Baja Tensión de Galicia (RITSG)",
-          "plataforma_url": "https://www.inega.gal/rits",
-          "coste_estimado": "0 € (tasa única anual)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "IN407B",
+          "paralelo_con": null,
+          "regla_id": "GAL-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Mismo documento que en el trámite anterior.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación (CI)",
-              "descripcion": "Mismo documento que en el trámite anterior.",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Mismo documento que en el trámite anterior.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_occa",
-              "label": "Certificado de OCA (Organismo de Control Autorizado)",
-              "descripcion": "Para instalaciones >10 kW o en edificios de uso público, certificado de inspección inicial favorable.",
-              "formato": "PDF",
-              "condicion": {
-                "or": [
-                  {
-                    ">": [
-                      {
-                        "var": "potencia_kw"
-                      },
-                      10
-                    ]
-                  },
-                  {
-                    "==": [
-                      {
-                        "var": "uso_edificio"
-                      },
-                      "publico"
-                    ]
-                  }
-                ]
-              }
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "La distribuidora responde en 5 días hábiles (IN407C); si no contesta, se entiende sin objeciones y se comunica al Registro Administrativo de Autoconsumo del Ministerio en el mes en curso."
         }
       ]
     },
     {
       "id": "GAL-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o en edificios de uso público (proyecto técnico y OCA)",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso_edificio"
-              },
-              "publico"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -155,82 +106,82 @@
           "orden": 1,
           "nombre": "Proyecto Técnico (PT) fotovoltaico",
           "organismo": "Ingeniero técnico industrial o superior competente",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 62/2024 art. 13",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "1.500 - 3.000 € (honorarios profesionales)",
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, cálculos, planos, pliego de condiciones y presupuesto.",
-              "formato": "PDF"
+              "descripcion": "Firmado por técnico competente.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial por OCA (Organismo de Control Autorizado)",
-          "organismo": "OCA acreditada en Galicia (ej: TÜV Rheinland, Applus, Bureau Veritas)",
-          "base_legal": "Decreto 62/2024 art. 14; Orden 12/06/2024",
+          "nombre": "Inspección inicial por Organismo de Control (OCA)",
+          "organismo": "OCA acreditada en Galicia",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "300 - 600 € (según potencia)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Mismo documento que en el trámite anterior.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación (CI)",
-              "descripcion": "Firmado por instalador habilitado.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en la Comunidad Autónoma (RITSG)",
-          "organismo": "Instituto Energético de Galicia (INEGA)",
-          "base_legal": "Decreto 62/2024 art. 15; Orden 12/06/2024",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "Registro de Instalaciones Térmicas y de Baja Tensión de Galicia (RITSG)",
-          "plataforma_url": "https://www.inega.gal/rits",
-          "coste_estimado": "0 € (tasa única anual)",
+          "nombre": "Autorización administrativa e inscripción en registro (IN408A)",
+          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "base_legal": "Ley 24/2013 art. 53; RD 244/2019",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "IN408A",
+          "paralelo_con": null,
+          "regla_id": "GAL-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Mismo documento que en el trámite anterior.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación (CI)",
-              "descripcion": "Mismo documento que en el trámite anterior.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_occa",
-              "label": "Certificado de OCA (Organismo de Control Autorizado)",
-              "descripcion": "Certificado de inspección inicial favorable.",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Documento firmado por el titular declarando que cumple con la normativa.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "plazo_legal_dias no confirmado."
         }
       ]
     }

@@ -1,0 +1,281 @@
+{
+  "tipo_instalacion": "gas_baja_presion",
+  "comunidad": "la_rioja",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Fichero generado desde cero (La Rioja no proporcionó fichero original de gas). No se ha localizado decreto autonómico específico de gas; se aplica el RIGLO nacional directamente. Se confirmó real el trámite 'GN-GL. Inscripción de puesta en servicio de Instalaciones receptoras de combustibles gaseosos (GL/GN)' en la oficina electrónica de La Rioja. Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica riojana específica de gas más allá del trámite GN-GL",
+    "Tasas y plazos legales no verificados",
+    "No se ha confirmado si La Rioja distingue trámite entre GL (GLP) y GN (gas natural) más allá del propio nombre del código"
+  ],
+  "fuentes": [
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+    "Trámite 'GN-GL. Inscripción de puesta en servicio de Instalaciones receptoras de combustibles gaseosos (GL/GN)' - larioja.org oficina electrónica"
+  ],
+  "reglas": [
+    {
+      "id": "RIO-GAS-001",
+      "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
+      "condicion": {
+        "==": [
+          { "var": "presion_bar" },
+          "5+"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de la instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación (CI) de gas",
+          "organismo": "Instalador de gas habilitado",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-001",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción de puesta en servicio de instalación receptora de gas (trámite GN-GL)",
+          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "GN-GL",
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "RIO-GAS-002",
+      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
+      "condicion": {
+        "and": [
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria técnica de instalación de gas",
+          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-002",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_gas",
+              "label": "Memoria Técnica de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación (CI) de gas",
+          "organismo": "Instalador de gas habilitado",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-002",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción de puesta en servicio de instalación receptora de gas (trámite GN-GL)",
+          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "GN-GL",
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-002",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_gas",
+              "label": "Memoria Técnica de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "RIO-GAS-003",
+      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
+      "condicion": {
+        "and": [
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { ">": [ { "var": "potencia_kw" }, 70 ] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de la instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación (CI) de gas",
+          "organismo": "Instalador de gas habilitado",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción de puesta en servicio de instalación receptora de gas (trámite GN-GL)",
+          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "GN-GL",
+          "paralelo_con": null,
+          "regla_id": "RIO-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    }
+  ]
+}

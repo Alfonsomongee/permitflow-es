@@ -1,0 +1,203 @@
+{
+  "tipo_instalacion": "irve",
+  "comunidad": "cantabria",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Fichero generado desde cero (Cantabria no proporcionó fichero original de IRVE). No se ha localizado ningún decreto autonómico específico de Cantabria para IRVE: la tramitación real (confirmada por el Grupo de Trabajo de Infraestructuras de Recarga del Vehículo Eléctrico, IDAE) usa el mismo circuito general de registro de instalaciones eléctricas de baja tensión (trámite 3158/3446/180) que fotovoltaica, más el régimen técnico nacional ITC-BT-52. Se aplican los umbrales nacionales ya verificados en comunidades anteriores (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4, exigen proyecto técnico.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica cántabra específica de IRVE",
+    "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente para Cantabria",
+    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
+    "Igual que en fotovoltaica, la disponibilidad real de OCA/EICI en Cantabria para inspección inicial de instalaciones que requieren proyecto no está confirmada — la ficha oficial consultada para BT general indica que actualmente no hay entidades colaboradoras acreditadas para el procedimiento equivalente",
+    "Tasas y plazos legales no verificados"
+  ],
+  "fuentes": [
+    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+    "RD 842/2002 REBT",
+    "Orden de 17 de octubre de 2003 (Cantabria), modificada por Orden de 5 de mayo de 2004 y Orden INN/2/2015",
+    "Ficha de trámite 3158/3446/180 (registro/legalización de instalaciones BT) - sede.cantabria.es",
+    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+    "Grupo de Trabajo de Infraestructuras de Recarga del Vehículo Eléctrico (GTIRVE) - IDAE, confirma que Cantabria tramita IRVE por el circuito general de registro de instalaciones BT"
+  ],
+  "reglas": [
+    {
+      "id": "CANT-IRVE-001",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
+      "condicion": {
+        "and": [
+          { "!=": [ { "var": "modo_recarga" }, "4" ] },
+          {
+            "or": [
+              {
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                ]
+              },
+              {
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD) para IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": "MTD-BT (Anexo II)",
+          "paralelo_con": null,
+          "regla_id": "CANT-IRVE-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Legalización e inscripción en el Registro de instalaciones eléctricas de baja tensión",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "Orden de 17 de octubre de 2003",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3446",
+          "paralelo_con": null,
+          "regla_id": "CANT-IRVE-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Modelo CI-BT Anexo IV.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "CANT-IRVE-002",
+      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
+      "condicion": {
+        "or": [
+          { "==": [ { "var": "modo_recarga" }, "4" ] },
+          {
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+              { ">": [ { "var": "potencia_kw" }, 50 ] }
+            ]
+          },
+          {
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+              { ">": [ { "var": "potencia_kw" }, 10 ] }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico IRVE",
+          "organismo": "Ingeniero técnico industrial o superior competente",
+          "base_legal": "ITC-BT-52 (RD 1053/2014); REBT RD 842/2002",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-IRVE-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "Firmado por técnico competente, visado por colegio profesional.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (inspección inicial por OCA cuando proceda)",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Cantabria",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "CI-BT (Anexo IV)",
+          "paralelo_con": null,
+          "regla_id": "CANT-IRVE-002",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Disponibilidad real de OCA en Cantabria para este trámite no confirmada — ver aviso."
+        },
+        {
+          "orden": 3,
+          "nombre": "Legalización e inscripción en el Registro de instalaciones eléctricas de baja tensión",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "Orden de 17 de octubre de 2003",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3446",
+          "paralelo_con": null,
+          "regla_id": "CANT-IRVE-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    }
+  ]
+}

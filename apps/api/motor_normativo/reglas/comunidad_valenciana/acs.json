@@ -1,86 +1,87 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "comunidad_valenciana",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 162/1990' como base legal: es un decreto real de la Comunitat Valenciana, pero regula la Evaluación de Impacto Ambiental — sin relación con instalaciones térmicas. Sustituido por el RITE nacional aplicado directamente, con los trámites reales confirmados G19316 (5-70kW) y G450 (>70kW). HALLAZGO POSITIVO para el hueco de Legionella: se confirmó que existe un Decreto 173/2000 real y específico de la Comunitat Valenciana sobre condiciones higiénico-sanitarias para prevención de legionelosis en equipos de transferencia de masa de agua — complementario al RD 487/2022 nacional, aunque tampoco se ha implementado como regla en este fichero (mismo hueco crítico recurrente).",
+  "huecos_verificacion": [
+    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024 nacional, y Decreto 173/2000 específico de la Comunitat Valenciana — ambos confirmados como normas reales aplicables, ninguno implementado como regla)",
+    "Instalaciones <5 kW pueden quedar fuera del ámbito de comunicación según el propio RITE — no modelado",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "Decreto 162/1990 de la Generalitat Valenciana (Reglamento de Instalaciones Térmicas)",
-    "Orden de 16 de julio de 1998 de la Conselleria de Industria (puesta en servicio de instalaciones térmicas)"
+    "Decreto 173/2000, de 5 de diciembre, del Gobierno Valenciano (condiciones higiénico-sanitarias para prevención de legionelosis) — confirmado real",
+    "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y G450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es"
   ],
   "reglas": [
     {
       "id": "CV-ACS-001",
-      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW (instalación térmica de baja potencia)",
+      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (comunicación, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) para instalaciones térmicas",
-          "organismo": "Instalador habilitado (categoría térmica)",
-          "base_legal": "RITE IT 1.3.4; Decreto 162/1990",
+          "nombre": "Memoria Técnica de Diseño (MTD) para instalación térmica",
+          "organismo": "Instalador habilitado (categoría térmica), inscrito en el RII",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-ACS-001",
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación"
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (RD 487/2022 + Decreto 173/2000 CV) — no incluido todavía como trámite en este fichero."
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) ante la Conselleria de Industria",
-          "organismo": "Conselleria de Innovación, Industria, Comercio y Turismo (Dirección General de Industria)",
-          "base_legal": "Orden 16/07/1998; Decreto 162/1990",
+          "nombre": "Comunicación de instalación térmica (5-70 kW)",
+          "organismo": "Conselleria competente en materia de industria",
+          "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Registro de Instalaciones Térmicas de la Comunidad Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=12345",
-          "coste_estimado": "0 € (tasa exenta)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede PROP electrónica (gva.es)",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=G19316",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "G19316",
+          "paralelo_con": null,
+          "regla_id": "CV-ACS-001",
           "documentos_requeridos": [
-            {
-              "id": "drps_termica",
-              "label": "Declaración Responsable de Puesta en Servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular e instalador"
-            },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación",
-              "descripcion": "Documento que acredita que la instalación se ajusta al RITE y normativa autonómica"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "CV-ACS-002",
-      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (instalación térmica de media/alta potencia)",
+      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -88,83 +89,70 @@
           "orden": 1,
           "nombre": "Proyecto Técnico de instalación térmica",
           "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RITE IT 1.3.4; Decreto 162/1990",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según proyecto",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-ACS-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_termico",
               "label": "Proyecto Técnico",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Revisar hueco de Legionella (RD 487/2022 + Decreto 173/2000 CV) si el edificio es de uso colectivo."
         },
         {
           "orden": 2,
-          "nombre": "Certificado de Dirección de Obra y Certificado Final de Obra",
-          "organismo": "Técnico titulado competente",
-          "base_legal": "RITE IT 1.3.4; Decreto 162/1990",
-          "plazo_estimado_dias": 5,
+          "nombre": "Inspección inicial por OCA",
+          "organismo": "OCA acreditada en la Comunitat Valenciana (Decreto 125/2012)",
+          "base_legal": "RITE RD 1027/2007 art. 15; Decreto 125/2012",
+          "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del técnico",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-ACS-002",
           "documentos_requeridos": [
             {
-              "id": "cert_direccion_obra",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "Documento que acredita la supervisión de la ejecución"
-            },
-            {
-              "id": "cert_final_obra",
-              "label": "Certificado Final de Obra",
-              "descripcion": "Documento que acredita que la instalación se ha ejecutado según proyecto"
+              "id": "cert_inspeccion_oca",
+              "label": "Certificado de Inspección de OCA",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Inspección inicial por OCA (Organismo de Control Autorizado)",
-          "organismo": "OCA habilitada en la Comunidad Valenciana (ej: TÜV Rheinland, Applus, etc.)",
-          "base_legal": "RITE IT 1.3.4; Decreto 162/1990",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 20,
-          "plataforma": "Registro de Instalaciones Térmicas de la Comunidad Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=12345",
-          "coste_estimado": "300-600 € (según OCA)",
-          "documentos_requeridos": [
-            {
-              "id": "cert_inspeccion_oca",
-              "label": "Certificado de Inspección de OCA",
-              "descripcion": "Informe favorable emitido por OCA tras verificar la instalación"
-            }
-          ]
-        },
-        {
-          "orden": 4,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) ante la Conselleria de Industria",
-          "organismo": "Conselleria de Innovación, Industria, Comercio y Turismo (Dirección General de Industria)",
-          "base_legal": "Orden 16/07/1998; Decreto 162/1990",
+          "nombre": "Comunicación de instalación térmica (>70 kW)",
+          "organismo": "Conselleria competente en materia de industria",
+          "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Registro de Instalaciones Térmicas de la Comunidad Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=12345",
-          "coste_estimado": "0 € (tasa exenta)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede PROP electrónica (gva.es)",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=G450",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "G450",
+          "paralelo_con": null,
+          "regla_id": "CV-ACS-002",
           "documentos_requeridos": [
-            {
-              "id": "drps_termica",
-              "label": "Declaración Responsable de Puesta en Servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular e instalador"
-            },
             {
               "id": "cert_inspeccion_oca",
               "label": "Certificado de Inspección de OCA",
-              "descripcion": "Informe favorable de OCA"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

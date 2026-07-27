@@ -1,56 +1,26 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "asturias",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "estricta",
+  "estado": "verificado",
+  "aviso": "Umbral de MOP > 5 bar y potencia > 70kW verificado para exigencia de proyecto. Trámite consolidado a DECO0011T01.",
+  "huecos_verificacion": [],
   "fuentes": [
-    "RD 919/2006 RIGLO",
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
     "RD 984/2015 modificación RIGLO",
-    "Decreto 37/2001 de 26 de abril, por el que se aprueba el Reglamento de Instalaciones de Gas en el Principado de Asturias",
-    "Orden de 15 de diciembre de 2003 (Consejería de Industria, Comercio y Turismo) sobre puesta en servicio de instalaciones de gas en Asturias"
+    "Ficha de procedimiento DECO0011T01 'Comunicación de instalaciones receptoras de gases combustibles (ICG 07)' - sede de Asturias",
+    "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos del Principado de Asturias"
   ],
   "reglas": [
     {
       "id": "AST-GAS-001",
-      "descripcion": "Instalación de gas baja presión (≤ 0,05 bar) en vivienda unifamiliar o local comercial con potencia ≤ 70 kW",
+      "descripcion": "Instalación receptora de gas en presión normal (MOP <= 5 bar) y P <= 70 kW",
       "condicion": {
         "and": [
-          {
-            "<=": [
-              {
-                "var": "presion_bar"
-              },
-              0.05
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "or": [
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
-              },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "comercial"
-                ]
-              }
-            ]
-          }
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
         ]
       },
       "tramites": [
@@ -58,90 +28,286 @@
           "orden": 1,
           "nombre": "Memoria técnica de diseño (MTD) de gas",
           "organismo": "Instalador habilitado (categoría IG-I o IG-II según RIGLO)",
-          "base_legal": "RIGLO RD 919/2006 art. 5; Decreto 37/2001 art. 10",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-001",
           "documentos_requeridos": [
             {
               "id": "mtd_gas",
               "label": "Memoria Técnica de Diseño de gas",
-              "formato": "pdf",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador (carné profesional)",
-              "formato": "pdf",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) acreditado en Asturias (ej: TÜV Rheinland, Applus+, Bureau Veritas)",
-          "base_legal": "RIGLO RD 919/2006 art. 6; Decreto 37/2001 art. 12; Orden 15/12/2003",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Principado de Asturias - Registro Industrial",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa de verificación OCA: 80-150 € (según potencia)",
+          "nombre": "Certificado de instalación (CI)",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-001",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación (modelo oficial Asturias)",
-              "formato": "pdf",
-              "obligatorio": true
-            },
-            {
-              "id": "boletin_oca",
-              "label": "Boletín de verificación OCA",
-              "formato": "pdf",
-              "obligatorio": true
-            },
-            {
-              "id": "mtd_firmada",
-              "label": "Memoria Técnica de Diseño firmada por instalador",
-              "formato": "pdf",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el órgano competente",
-          "organismo": "Consejería de Industria, Empleo y Promoción Económica del Principado de Asturias (Dirección General de Energía, Minería y Reactivación)",
-          "base_legal": "Decreto 37/2001 art. 13; Orden 15/12/2003",
+          "nombre": "Comunicación de instalación receptora de gases combustibles (DECO0011T01)",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "base_legal": "ITC-ICG-07",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica del Principado de Asturias - Registro de Instalaciones de Gas",
+          "plataforma": "Sede Electrónica del Principado de Asturias",
           "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa administrativa: 30-60 €",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "formulario_ref": "DECO0011T01",
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-001",
           "documentos_requeridos": [
             {
-              "id": "solicitud_registro",
-              "label": "Solicitud de registro (formulario oficial)",
-              "formato": "pdf",
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "ci_original",
-              "label": "Certificado de Instalación original sellado por OCA",
-              "formato": "pdf",
+              "id": "mtd_gas",
+              "label": "Memoria Técnica de Diseño de gas",
+              "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "justificante_pago",
-              "label": "Justificante de pago de tasas",
-              "formato": "pdf",
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Plazo legal de 30 días desde puesta en servicio para presentar la comunicación."
+        }
+      ]
+    },
+    {
+      "id": "AST-GAS-002",
+      "descripcion": "Instalación receptora de gas en presión normal (MOP <= 5 bar) y P > 70 kW",
+      "condicion": {
+        "and": [
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { ">": [ { "var": "potencia_kw" }, 70 ] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de gas",
+          "organismo": "Ingeniero competente",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según honorarios",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Visado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) y Dirección de Obra",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-002",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "direccion_obra",
+              "label": "Certificado de Dirección de Obra",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación de instalación receptora de gases combustibles (DECO0011T01)",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "base_legal": "ITC-ICG-07",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma_url": "https://sede.asturias.es",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "formulario_ref": "DECO0011T01",
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-002",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico de gas",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "AST-GAS-003",
+      "descripcion": "Instalación receptora de gas en presión MOP > 5 bar",
+      "condicion": {
+        "==": [ { "var": "presion_bar" }, "5+" ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de gas",
+          "organismo": "Ingeniero competente",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según honorarios",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "Visado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Proyecto obligatorio independientemente de la potencia."
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) y Dirección de Obra",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "direccion_obra",
+              "label": "Certificado de Dirección de Obra",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación de instalación receptora de gases combustibles (DECO0011T01)",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "base_legal": "ITC-ICG-07",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma_url": "https://sede.asturias.es",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "formulario_ref": "DECO0011T01",
+          "paralelo_con": null,
+          "regla_id": "AST-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico de gas",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
         }
       ]
     }
-  ]
+  ],
+  "validaciones": []
 }

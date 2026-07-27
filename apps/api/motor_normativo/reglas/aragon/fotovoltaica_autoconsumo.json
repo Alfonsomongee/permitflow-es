@@ -1,111 +1,113 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "aragon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "estado": "borrador_no_verificado",
+  "aviso": "BORRADOR NO VERIFICADO. El fichero original entregado contenía variables inexistentes en ClasificadorInput (ver huecos_verificacion), una plataforma de tramitación no localizada (SIRIA) y una base legal de procedimiento probablemente superada. Reconstruido para que cargue en el motor sin errores mecánicos; el contenido normativo autonómico especifico sigue pendiente de verificación primaria completa contra la Orden EIE/1731/2017 y sus equivalentes por vertical.",
+  "huecos_verificacion": [
+    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
+    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+  ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
+    "RD 244/2019 autoconsumo electrico",
+    "RD 1183/2020 acceso y conexion",
+    "Ley 24/2013 Sector Electrico, art. 53",
     "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 131/2005, de 7 de junio, del Gobierno de Aragón, por el que se regulan las instalaciones eléctricas de baja tensión y se establecen los procedimientos de puesta en servicio",
-    "Orden de 26 de junio de 2006, del Departamento de Industria, Comercio y Turismo, por la que se desarrolla el Decreto 131/2005",
-    "Ley 7/2021 Cambio Climático art. 16"
+    "Orden EIE/1731/2017 -- citada en ficha oficial de aragon.es para BT; no verificada especificamente para autoconsumo",
+    "Ley 7/2021 Cambio Climatico art. 16 -- no verificado el contenido especifico citado"
   ],
   "reglas": [
     {
       "id": "ARA-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo <=10 kW: memoria tecnica de diseno, sin proyecto",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
-          "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 131/2005 art. 10",
+          "nombre": "Memoria Tecnica de Diseno (MTD) fotovoltaica",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "mtd_fotovoltaica",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo.",
-              "formato": "PDF"
+              "id": "mtd_fv",
+              "label": "MTD",
+              "descripcion": "Instalador habilitado.",
+              "obligatorio": true
             },
             {
-              "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI)",
-              "descripcion": "Documento firmado por el instalador que acredita la ejecución de la instalación según MTD.",
-              "formato": "PDF"
+              "id": "ci_fv",
+              "label": "Certificado de Instalacion",
+              "descripcion": "Instalador.",
+              "obligatorio": true
             },
             {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Documento firmado por el titular manifestando que cumple los requisitos.",
-              "formato": "PDF"
+              "id": "dr_fv",
+              "label": "Declaracion Responsable",
+              "descripcion": "Titular.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Registro de la instalación en el órgano autonómico competente",
-          "organismo": "Dirección General de Energía y Minas del Gobierno de Aragón",
-          "base_legal": "Decreto 131/2005 art. 11; Orden 26/06/2006",
+          "nombre": "Trámite Nº 26: Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio, modificación y baja",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RD 842/2002; Orden EIE/1731/2017",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Gobierno de Aragón",
-          "plataforma_url": "https://www.aragon.es/tramites/registro-instalaciones-electricas-baja-tension",
-          "coste_estimado": "0 € (tasa exenta para autoconsumo ≤10 kW)",
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "0 EUR -- exencion estatal de autoconsumo <=100 kW (Ley 24/2013 art. 53); epigrafe autonomico especifico NO VERIFICADO",
+          "formulario_ref": "Modelo C0004",
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "mtd_fotovoltaica",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Mismo documento que en paso anterior.",
-              "formato": "PDF"
+              "id": "mtd_fv",
+              "label": "MTD",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             },
             {
-              "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI)",
-              "descripcion": "Mismo documento que en paso anterior.",
-              "formato": "PDF"
+              "id": "ci_fv",
+              "label": "CI",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             },
             {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Mismo documento que en paso anterior.",
-              "formato": "PDF"
+              "id": "dr_fv",
+              "label": "DR",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa."
         }
       ]
     },
     {
       "id": "ARA-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
+      "descripcion": "Autoconsumo >10 kW y <=500 kW: proyecto tecnico y certificado OCA",
       "condicion": {
-        "or": [
+        "and": [
           {
             ">": [
               {
@@ -115,11 +117,11 @@
             ]
           },
           {
-            "!=": [
+            "<=": [
               {
-                "var": "uso"
+                "var": "potencia_kw"
               },
-              "residencial"
+              500
             ]
           }
         ]
@@ -127,80 +129,148 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico (PT) fotovoltaico",
-          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 131/2005 art. 10",
+          "nombre": "Proyecto Tecnico fotovoltaico",
+          "organismo": "Tecnico titulado competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico (aprox. 500-2000 €)",
+          "coste_estimado": "Variable segun honorarios del tecnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, cálculos, pliego de condiciones y presupuesto.",
-              "formato": "PDF"
+              "id": "proyecto_fv",
+              "label": "Proyecto Tecnico",
+              "descripcion": "Memoria, planos, calculos.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Certificado de la OCA (Organismo de Control Autorizado) - EICI",
-          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Aragón (ej. Applus+, TÜV Rheinland, Bureau Veritas, etc.)",
-          "base_legal": "Decreto 131/2005 art. 12; Orden 26/06/2006; RD 2200/1995",
+          "nombre": "Certificado de la OCA (EICI)",
+          "organismo": "Organismo de Control Autorizado habilitado en Aragon",
+          "base_legal": "RD 2200/1995",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según OCA (aprox. 300-800 €)",
+          "coste_estimado": "NO VERIFICADO -- variable segun OCA",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico",
-              "descripcion": "Mismo documento que en paso anterior.",
-              "formato": "PDF"
+              "id": "proyecto_fv",
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             },
             {
-              "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI)",
-              "descripcion": "Firmado por instalador habilitado.",
-              "formato": "PDF"
+              "id": "ci_fv2",
+              "label": "Certificado de Instalacion",
+              "descripcion": "Instalador.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el órgano autonómico competente",
-          "organismo": "Dirección General de Energía y Minas del Gobierno de Aragón",
-          "base_legal": "Decreto 131/2005 art. 11; Orden 26/06/2006",
+          "nombre": "Trámite Nº 26: Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio, modificación y baja",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RD 842/2002; Orden EIE/1731/2017",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Gobierno de Aragón",
-          "plataforma_url": "https://www.aragon.es/tramites/registro-instalaciones-electricas-baja-tension",
-          "coste_estimado": "0 € (tasa exenta para autoconsumo ≤100 kW)",
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "0 EUR -- exencion estatal de autoconsumo <=100 kW (Ley 24/2013 art. 53); epigrafe autonomico especifico NO VERIFICADO",
+          "formulario_ref": "Modelo C0004",
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico",
-              "descripcion": "Mismo documento que en paso anterior.",
-              "formato": "PDF"
+              "id": "proyecto_fv",
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             },
             {
-              "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI)",
-              "descripcion": "Mismo documento que en paso anterior.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_oca",
-              "label": "Certificado de OCA (EICI)",
-              "descripcion": "Documento emitido por el OCA que verifica la conformidad de la instalación.",
-              "formato": "PDF"
+              "id": "ci_fv2",
+              "label": "CI",
+              "descripcion": "Del paso 2.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
+        }
+      ]
+    },
+    {
+      "id": "ARA-FV-003",
+      "descripcion": "Autoconsumo >500 kW: regimen de autorizacion administrativa (elevación de umbral a 500 kW según Ley 1/2024 de Aragón)",
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          500
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Tecnico fotovoltaico",
+          "organismo": "Tecnico titulado competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable segun honorarios del tecnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_fv2",
+              "label": "Proyecto Tecnico",
+              "descripcion": "Memoria, planos, calculos.",
+              "obligatorio": true
+            }
+          ],
+          "notas": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Autorizacion administrativa (RAIPEE, seccion segunda) y Registro Administrativo de Autoconsumo de Energía Eléctrica (RADNE)",
+          "organismo": "Ministerio competente en energia (RAIPEE) / Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "Ley 24/2013 art. 53; RD 1955/2000",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_fv2",
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Instalaciones de produccion no superiores a 100 kW asociadas a autoconsumo con excedentes estan exentas de inscripcion en el RAIPEE (confirmado en fuente oficial aragon.es); por tanto esta regla, activa solo para >100kW, si requiere esa inscripcion. Plazo y silencio (90 dias, desestimatorio) tomados de la aplicacion supletoria estatal (RD 1955/2000), no confirmados especificamente para Aragon."
         }
       ]
     }
-  ]
+  ],
+  "validaciones": [],
+  "nivel_verificacion": "generica"
 }

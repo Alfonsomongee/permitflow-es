@@ -1,27 +1,32 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "comunidad_valenciana",
-  "version": "2.0.0",
-  "ultima_revision": "2026-07-24",
+  "version": "2.0.1",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 2.0.0 anterior, que ya estaba en un nivel notablemente mejor que el resto de comunidades de este proyecto: el Decreto 88/2005 (y sus modificaciones por Decreto-ley 14/2020 y Ley 6/2024) están CONFIRMADOS como reales. Se corrigieron dos problemas: (1) 'nivel_verificacion: verificada' estaba contradicho por las propias notas del fichero, que reconocían incertidumbre ('verificar artículo exacto contra el DOGV', 'importe NO verificado') — bajado a 'generica' según la regla del propio proyecto; (2) los id de regla 'CV-FV-3' y 'CV-FV-4' estaban duplicados tres veces cada uno (partición correcta por inversion_eur, pero rompía regla_id como clave única) — renombrados a CV-FV-3A/3B/3C y CV-FV-4A/4B/4C.",
+  "huecos_verificacion": [
+    "CORRECCIÓN TARDÍA IMPORTANTE: el campo 'inversion_eur', usado en las reglas CV-FV-003A/B/C y CV-FV-004A/B/C para calcular el recargo de tasa, NO está en la lista de campos del ClasificadorInput (sección 3 del contexto del proyecto). Es una variable fantasma que ya traía el fichero original de partida y que se dejó pasar en la primera revisión de este lote — detectada solo al validar formalmente contra la lista de campos completa. Las 6 reglas que la usan seguirán sin disparar hasta que se añada 'inversion_eur' al schema real del backend o se sustituya por un campo existente. Se recomienda tratar esto como bloqueante antes de dar el fichero por utilizable.",
+    "Confirmar el artículo exacto de la Ley 6/2024 que extiende la exención de autorización previa hasta 500 kW (el propio fichero original ya señalaba esto como pendiente)",
+    "Confirmar la existencia y contenido de 'Resolución 24/02/2026 IVACE (DOGV nº 10315)' — no verificada de forma independiente en esta revisión",
+    "Importes de tasa dependientes de inversión no verificados contra la Ley 20/2017 de tasas"
+  ],
   "fuentes": [
     "Ley 24/2013 art. 53",
     "RD 244/2019",
-    "Decreto 88/2005 (mod. Decreto-ley 14/2020 y Ley 6/2024)",
-    "Ley 6/2024 de simplificación administrativa",
-    "Ley 20/2017 de tasas, Título XX art. 20.1-4",
-    "Resolución 24/02/2026 IVACE (DOGV nº 10315)"
+    "Decreto 88/2005, de 29 de abril, del Consell (procedimientos de autorización de instalaciones de producción, transporte y distribución de energía eléctrica en la Comunitat Valenciana) — CONFIRMADO real",
+    "Decreto-ley 14/2020, de 7 de agosto — CONFIRMADO real, modifica el Decreto 88/2005",
+    "Ley 6/2024, de 5 de diciembre, de simplificación administrativa — CONFIRMADO real",
+    "Ley 20/2017 de tasas, Título XX",
+    "Resolución 24/02/2026 IVACE (DOGV nº 10315) — NO VERIFICADO de forma independiente"
   ],
   "reglas": [
     {
-      "id": "CV-FV-1",
+      "id": "CV-FV-001",
       "descripcion": "Autoconsumo BT hasta 10 kW: comunicación por instalador habilitado y registro de oficio",
       "condicion": {
-        "<=": [
-          {
-            "var": "potencia_kw"
-          },
-          10
-        ]
+        "<=": [ { "var": "potencia_kw" }, 10 ]
       },
       "tramites": [
         {
@@ -33,102 +38,65 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es)",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=18168",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "18168",
+          "paralelo_con": null,
+          "regla_id": "CV-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "MTD <=10 kW",
+              "descripcion": "MTD ≤10 kW.",
               "obligatorio": true
             }
           ],
-          "notas": "Inscripción de oficio en Registro de autoconsumo CV; autoconsumo sin excedentes exento de autorización con independencia de potencia",
-          "paralelo_con": null
+          "notas": "Inscripción de oficio en el Registro de autoconsumo de la CV; autoconsumo sin excedentes exento de autorización con independencia de la potencia."
         }
       ]
     },
     {
-      "id": "CV-FV-2",
-      "descripcion": "Autoconsumo BT >10 y <=100 kW: comunicación por instalador habilitado",
+      "id": "CV-FV-002",
+      "descripcion": "Autoconsumo BT >10 y ≤100 kW: comunicación por instalador habilitado",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 10 ] },
+          { "<=": [ { "var": "potencia_kw" }, 100 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Comunicación de puesta en servicio e inscripción registro",
+          "nombre": "Comunicación de puesta en servicio e inscripción en registro",
           "organismo": "Servicio Territorial competente en materia de energía",
           "base_legal": "RD 244/2019; Decreto 88/2005",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es)",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "20714",
+          "paralelo_con": null,
+          "regla_id": "CV-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto",
-              "label": "Proyecto y CDO",
-              "descripcion": "Proyecto >10 kW",
+              "label": "Proyecto y Certificado de Dirección de Obra (CDO)",
+              "descripcion": "Para instalaciones >10 kW.",
               "obligatorio": true
             }
           ],
-          "notas": "Con excedentes <=100 kW: inscripción de oficio en Registro de producción",
-          "paralelo_con": null
+          "notas": "Con excedentes ≤100 kW: inscripción de oficio en el Registro de producción."
         }
       ]
     },
     {
-      "id": "CV-FV-3",
-      "descripcion": "Autoconsumo con excedentes >100 y <=500 kW: exenta de autorización previa y de construcción (Ley 6/2024) (presupuesto <= 6600)",
+      "id": "CV-FV-003A",
+      "descripcion": "Autoconsumo con excedentes >100 y ≤500 kW, presupuesto ≤6.600€: exenta de autorización previa y de construcción (Ley 6/2024)",
       "condicion": {
         "and": [
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  100
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  500
-                ]
-              }
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "inversion_eur"
-              },
-              6600
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "potencia_kw" }, 500 ] },
+          { "<=": [ { "var": "inversion_eur" }, 6600 ] }
         ]
       },
       "tramites": [
@@ -141,54 +109,30 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "109.54 EUR",
+          "coste_estimado": "109,54 € (NO VERIFICADO importe exacto)",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-FV-003A",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto y CDO",
-              "descripcion": "Proyecto de ejecución",
+              "descripcion": "Proyecto de ejecución.",
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCIÓN respecto a la entrega preliminar: la Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW, igual que Andalucía, Madrid y Cataluña. Verificar artículo exacto contra el DOGV antes de producción",
-          "paralelo_con": null
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción."
         }
       ]
     },
     {
-      "id": "CV-FV-3",
-      "descripcion": "Autoconsumo con excedentes >100 y <=500 kW: exenta de autorización previa y de construcción (Ley 6/2024) (presupuesto <= 6600) (Sin inversión informada)",
+      "id": "CV-FV-003B",
+      "descripcion": "Autoconsumo con excedentes >100 y ≤500 kW, sin inversión informada: exenta de autorización previa y de construcción (Ley 6/2024)",
       "condicion": {
         "and": [
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  100
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  500
-                ]
-              }
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "inversion_eur"
-              },
-              null
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "potencia_kw" }, 500 ] },
+          { "==": [ { "var": "inversion_eur" }, null ] }
         ]
       },
       "tramites": [
@@ -201,54 +145,30 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-FV-003B",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto y CDO",
-              "descripcion": "Proyecto de ejecución",
+              "descripcion": "Proyecto de ejecución.",
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCIÓN respecto a la entrega preliminar: la Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW, igual que Andalucía, Madrid y Cataluña. Verificar artículo exacto contra el DOGV antes de producción\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción."
         }
       ]
     },
     {
-      "id": "CV-FV-3",
-      "descripcion": "Autoconsumo con excedentes >100 y <=500 kW: exenta de autorización previa y de construcción (Ley 6/2024) (presupuesto > 6600)",
+      "id": "CV-FV-003C",
+      "descripcion": "Autoconsumo con excedentes >100 y ≤500 kW, presupuesto >6.600€: exenta de autorización previa y de construcción (Ley 6/2024)",
       "condicion": {
         "and": [
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  100
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  500
-                ]
-              }
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "inversion_eur"
-              },
-              6600
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "potencia_kw" }, 500 ] },
+          { ">": [ { "var": "inversion_eur" }, 6600 ] }
         ]
       },
       "tramites": [
@@ -261,42 +181,29 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "121.56 EUR (base + recargo)",
+          "coste_estimado": "121,56 € (base + recargo, NO VERIFICADO importe exacto)",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-FV-003C",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto y CDO",
-              "descripcion": "Proyecto de ejecución",
+              "descripcion": "Proyecto de ejecución.",
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCIÓN respecto a la entrega preliminar: la Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW, igual que Andalucía, Madrid y Cataluña. Verificar artículo exacto contra el DOGV antes de producción",
-          "paralelo_con": null
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción."
         }
       ]
     },
     {
-      "id": "CV-FV-4",
-      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa completa (presupuesto <= 6600)",
+      "id": "CV-FV-004A",
+      "descripcion": "Autoconsumo con excedentes >500 kW, presupuesto ≤6.600€: autorización administrativa completa",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              500
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "inversion_eur"
-              },
-              6600
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 500 ] },
+          { "<=": [ { "var": "inversion_eur" }, 6600 ] }
         ]
       },
       "tramites": [
@@ -309,42 +216,29 @@
           "plazo_legal_dias": 180,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "109.54 EUR",
+          "coste_estimado": "109,54 € (NO VERIFICADO importe exacto)",
           "formulario_ref": "15300",
+          "paralelo_con": null,
+          "regla_id": "CV-FV-004A",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto",
-              "descripcion": "Proyecto técnico y tasa abonada",
+              "descripcion": "Proyecto técnico y tasa abonada.",
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; SILENCIO NEGATIVO (art. 6.3), igual que Andalucía",
-          "paralelo_con": null
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005)."
         }
       ]
     },
     {
-      "id": "CV-FV-4",
-      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa completa (presupuesto <= 6600) (Sin inversión informada)",
+      "id": "CV-FV-004B",
+      "descripcion": "Autoconsumo con excedentes >500 kW, sin inversión informada: autorización administrativa completa",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              500
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "inversion_eur"
-              },
-              null
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 500 ] },
+          { "==": [ { "var": "inversion_eur" }, null ] }
         ]
       },
       "tramites": [
@@ -357,42 +251,29 @@
           "plazo_legal_dias": 180,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
           "formulario_ref": "15300",
+          "paralelo_con": null,
+          "regla_id": "CV-FV-004B",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto",
-              "descripcion": "Proyecto técnico y tasa abonada",
+              "descripcion": "Proyecto técnico y tasa abonada.",
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; SILENCIO NEGATIVO (art. 6.3), igual que Andalucía\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005)."
         }
       ]
     },
     {
-      "id": "CV-FV-4",
-      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa completa (presupuesto > 6600)",
+      "id": "CV-FV-004C",
+      "descripcion": "Autoconsumo con excedentes >500 kW, presupuesto >6.600€: autorización administrativa completa",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              500
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "inversion_eur"
-              },
-              6600
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 500 ] },
+          { ">": [ { "var": "inversion_eur" }, 6600 ] }
         ]
       },
       "tramites": [
@@ -405,22 +286,22 @@
           "plazo_legal_dias": 180,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "121.56 EUR (base + recargo)",
+          "coste_estimado": "121,56 € (base + recargo, NO VERIFICADO importe exacto)",
           "formulario_ref": "15300",
+          "paralelo_con": null,
+          "regla_id": "CV-FV-004C",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto",
-              "descripcion": "Proyecto técnico y tasa abonada",
+              "descripcion": "Proyecto técnico y tasa abonada.",
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; SILENCIO NEGATIVO (art. 6.3), igual que Andalucía",
-          "paralelo_con": null
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005)."
         }
       ]
     }
   ],
-  "validaciones": [],
-  "nivel_verificacion": "verificada"
+  "validaciones": []
 }

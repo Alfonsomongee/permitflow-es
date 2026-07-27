@@ -1,42 +1,34 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "canarias",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. El prefijo de id de regla se cambió de 'CAN' a 'ICAN' porque el propio contexto del proyecto advierte de una colisión conocida: 'CAN' se usa también para Cantabria, lo que rompería regla_id como clave de agrupación de estadísticas. Se confirmó que el Decreto 141/2009 SÍ es real (regula la ejecución y puesta en servicio de instalaciones eléctricas en Canarias, con Anexo III específico para MTD fotovoltaica <10kW), pero se sustituyó el umbral inventado de 10 kW para el régimen de autorización por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013) — la existencia de una plantilla MTD <10kW no implica que ese sea el umbral de autorización. Se corrigió el bug de partición base sobre 'uso'. Ley 7/2021, Decreto-ley 2/2018, Decreto-ley 3/2024 y la Resolución de 13/10/2023 citadas en el original no se han podido verificar en esta revisión — se han retirado de las fuentes hasta confirmarlas.",
+  "huecos_verificacion": [
+    "No se ha confirmado si Canarias exige un trámite adicional específico para instalaciones ≤10 kW basado en el Anexo III del Decreto 141/2009 (plantilla MTD simplificada), distinto del trámite general de puesta en servicio BT (SICAC 3158)",
+    "No se ha confirmado el nombre exacto ni la existencia de un 'Registro de autoconsumo' específico y diferenciado en Canarias, más allá de la inscripción general en el registro de instalaciones eléctricas de baja tensión (art. 15-16 Decreto 141/2009)",
+    "No se ha verificado si Canarias ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Tasas y plazos legales de resolución no verificados",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 141/2009, de 10 de noviembre, por el que se aprueba el Reglamento de la Actividad de Distribución de Energía Eléctrica en Canarias",
-    "Orden de 5 de marzo de 2013, por la que se regulan los procedimientos de puesta en servicio de instalaciones eléctricas de baja tensión en Canarias",
-    "Ley 7/2021 Cambio Climático art. 16",
-    "Decreto-ley 2/2018, de 26 de junio (Canarias), disposición adicional única",
-    "Decreto-ley 3/2024, de 6 de febrero (Canarias)",
-    "Resolución de 13 de octubre de 2023, Secretaría General de Energía de Canarias"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "REBT RD 842/2002 ITC-BT-40",
+    "Decreto 141/2009, de 10 de noviembre, por el que se aprueba el Reglamento por el que se regulan los procedimientos administrativos relativos a la ejecución y puesta en servicio de las instalaciones eléctricas en Canarias (confirmado, incluye Anexo III: MTD de Instalaciones Fotovoltaicas <10 kW)",
+    "Ficha de trámite SICAC 3158 'Comunicación previa a la puesta en servicio de instalaciones eléctricas de baja tensión' - sede.gobiernodecanarias.org"
   ],
   "reglas": [
     {
-      "id": "CAN-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "id": "ICAN-FV-001",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -44,93 +36,92 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
           "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Anexo III Decreto 141/2009 (plantilla MTD <10kW cuando aplique)",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_instalacion",
-              "label": "Certificado de Instalación",
-              "descripcion": "Certificado firmado por instalador según ITC-BT-05",
-              "formato": "PDF"
+              "descripcion": "Documento firmado por instalador habilitado; para potencia <10 kW usar la plantilla del Anexo III del Decreto 141/2009.",
+              "obligatorio": true
             },
             {
               "id": "declaracion_responsable",
               "label": "Declaración Responsable",
-              "descripcion": "Declaración del titular de la instalación",
-              "formato": "PDF"
+              "descripcion": "Del titular de la instalación.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Registro de autoconsumo (Canarias)",
-          "organismo": "Dirección General de Energía del Gobierno de Canarias",
-          "base_legal": "RD 244/2019 art. 11; Orden de 5 de marzo de 2013",
+          "nombre": "Certificado de Instalación",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "Firmado por instalador según ITC-BT-05.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación previa a la puesta en servicio e inscripción en el registro de instalaciones eléctricas de baja tensión (SICAC 3158)",
+          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "base_legal": "Decreto 141/2009 art. 15-16; RD 244/2019",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobcan.es/sede/",
-          "coste_estimado": "0 €",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3158",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3158",
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Misma que la del trámite anterior",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación",
-              "descripcion": "Mismo que el del trámite anterior",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable",
-              "descripcion": "Misma que la del trámite anterior",
-              "formato": "PDF"
-            },
-            {
-              "id": "contrato_acceso",
-              "label": "Contrato de acceso y conexión",
-              "descripcion": "Documento firmado con la distribuidora",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "No confirmado si existe un 'Registro de autoconsumo' de Canarias diferenciado del registro general de instalaciones de BT."
         }
       ]
     },
     {
-      "id": "CAN-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
+      "id": "ICAN-FV-002",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -144,82 +135,76 @@
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Documento firmado por técnico competente",
-              "formato": "PDF"
+              "descripcion": "Firmado por técnico competente.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de Inspección Inicial (OCA/EICI)",
+          "nombre": "Certificado de Inspección Inicial (OCA)",
           "organismo": "Organismo de Control Autorizado (OCA) en Canarias",
-          "base_legal": "Orden de 5 de marzo de 2013; RD 842/2002 ITC-BT-05",
+          "base_legal": "Decreto 141/2009 art. 12-14; RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobcan.es/sede/",
-          "coste_estimado": "Variable según OCA (aprox. 200-500 €)",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Mismo que el del trámite anterior",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación",
-              "descripcion": "Firmado por instalador",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable",
-              "descripcion": "Del titular",
-              "formato": "PDF"
+              "descripcion": "Firmado por instalador.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Registro de autoconsumo (Canarias)",
-          "organismo": "Dirección General de Energía del Gobierno de Canarias",
-          "base_legal": "RD 244/2019 art. 11; Orden de 5 de marzo de 2013",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
+          "nombre": "Autorización de instalaciones que precisan autorización administrativa (SICAC, según Decreto 141/2009 art. 12-14)",
+          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "base_legal": "Decreto 141/2009 art. 12-14; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobcan.es/sede/",
-          "coste_estimado": "0 €",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Mismo que el del trámite anterior",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación",
-              "descripcion": "Mismo que el del trámite anterior",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_inspeccion",
-              "label": "Certificado de Inspección Inicial (OCA)",
-              "descripcion": "Emitido por OCA",
-              "formato": "PDF"
-            },
-            {
-              "id": "contrato_acceso",
-              "label": "Contrato de acceso y conexión",
-              "descripcion": "Documento firmado con la distribuidora",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "plazo_legal_dias no confirmado."
         }
       ]
     }

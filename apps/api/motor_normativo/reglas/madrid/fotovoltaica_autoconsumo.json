@@ -1,79 +1,72 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "madrid",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-24",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior, que ya citaba correctamente el Decreto 86/2025 (CONFIRMADO real: regula explícitamente autoconsumo e infraestructura de IRVE que requieran autorización del art. 53 Ley 24/2013). Se corrigieron los id de regla duplicados 'MAD-FV-3' y 'MAD-FV-4' (tres veces cada uno) renombrándolos a sufijos A/B/C. Se confirmó el umbral de 100 kW específicamente para Madrid: la tramitación vía EICI aplica a 'instalaciones generadoras en baja tensión... de potencia instalada no superior a 100 kW' (fuente oficial). IMPORTANTE: el campo 'inversion_eur' usado en las reglas de recargo de tasa NO está en el schema del ClasificadorInput — mismo hueco ya detectado en el fichero de Comunidad Valenciana; estas reglas no dispararán hasta resolverlo.",
+  "huecos_verificacion": [
+    "CORRECCIÓN BLOQUEANTE: el campo 'inversion_eur' no está en la lista de campos del ClasificadorInput (sección 3 del contexto del proyecto). Las reglas MAD-FV-003A/B/C y MAD-FV-004A/B/C no dispararán hasta que se añada al schema real o se sustituya por un campo existente — mismo hueco detectado en Comunidad Valenciana",
+    "El 'incremento por bloque adicional de presupuesto (>5000 EUR)' señalado como NO VERIFICADO en el fichero original sigue sin confirmar",
+    "No se ha verificado si Madrid ha elevado el umbral de exención de autorización de 100 kW a 500 kW más allá de lo ya recogido en el propio Decreto 86/2025 (facultad potestativa del RD-ley 18/2022) — pendiente de leer el articulado completo del decreto",
+    "Tasas exactas (51,32€ / 100€ estimado) no verificadas contra el Decreto Legislativo 1/2002 (TR Tasas CM) citado en fuentes"
+  ],
   "fuentes": [
     "Ley 24/2013 art. 53",
     "RD 244/2019",
-    "Decreto 86/2025 (BOCM nº 260, 31/10/2025)",
-    "Decreto Legislativo 1/2002 (TR Tasas CM), Cap. IX",
-    "Instrucción CM puesta en servicio autoconsumo"
+    "Decreto 86/2025, de 29 de octubre, del Consejo de Gobierno (simplificación de procedimientos de autorización, comunicación, verificación e inspección en instalaciones de energía eléctrica en Madrid, incluye autoconsumo e infraestructura IRVE) — CONFIRMADO real",
+    "Decreto Legislativo 1/2002 (TR Tasas Comunidad de Madrid), Cap. IX",
+    "Decreto 38/2002, de 28 de febrero (control reglamentario de instalaciones industriales en Madrid) — confirmado real",
+    "Orden 9344/2003, de 1 de octubre (tramitación, puesta en servicio e inspección de instalaciones BT no industriales), modificada por Orden 163/2024 — confirmado real",
+    "Ficha oficial 'Autorización instalaciones eléctricas' - sede.comunidad.madrid, confirma umbral de 100 kW para tramitación vía EICI"
   ],
   "reglas": [
     {
-      "id": "MAD-FV-1",
+      "id": "MAD-FV-001",
       "descripcion": "Autoconsumo BT hasta 10 kW: MTD, tramitación EICI y registro de oficio",
       "condicion": {
-        "<=": [
-          {
-            "var": "potencia_kw"
-          },
-          10
-        ]
+        "<=": [ { "var": "potencia_kw" }, 10 ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Puesta en servicio y comunicación de datos",
           "organismo": "Entidad de Inspección y Control Industrial (EICI)",
-          "base_legal": "RD 244/2019; Decreto 86/2025",
+          "base_legal": "RD 244/2019; Orden 9344/2003",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "sede.comunidad.madrid",
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/277497",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "MTD para potencia <10 kW",
+              "descripcion": "MTD para potencia ≤10 kW.",
               "obligatorio": true
             },
             {
               "id": "cie",
               "label": "Certificado de instalación eléctrica",
-              "descripcion": "CIE de baja tensión",
+              "descripcion": "CIE de baja tensión.",
               "obligatorio": true
             }
           ],
-          "notas": "Inscripción de oficio en Registro de Autoconsumo por ser <100 kW BT",
-          "paralelo_con": null
+          "notas": "Inscripción de oficio en el registro de autoconsumo por ser <100 kW BT."
         }
       ]
     },
     {
-      "id": "MAD-FV-2",
-      "descripcion": "Autoconsumo BT >10 y <=100 kW: proyecto + CDO, tramitación EICI",
+      "id": "MAD-FV-002",
+      "descripcion": "Autoconsumo BT >10 y ≤100 kW: proyecto + CDO, tramitación EICI",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 10 ] },
+          { "<=": [ { "var": "potencia_kw" }, 100 ] }
         ]
       },
       "tramites": [
@@ -81,369 +74,258 @@
           "orden": 1,
           "nombre": "Puesta en servicio",
           "organismo": "Entidad de Inspección y Control Industrial (EICI)",
-          "base_legal": "RD 244/2019; Decreto 86/2025",
+          "base_legal": "RD 244/2019; Orden 9344/2003",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
-          "plataforma": "sede.comunidad.madrid",
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/212646",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto y CDO",
-              "descripcion": "Proyecto y certificado de dirección de obra (>10 kW)",
+              "descripcion": "Proyecto y certificado de dirección de obra para >10 kW.",
               "obligatorio": true
             }
           ],
-          "notas": "",
-          "paralelo_con": null
+          "notas": ""
         }
       ]
     },
     {
-      "id": "MAD-FV-3",
-      "descripcion": "Autoconsumo >100 y <=500 kW: autorización de explotación en DG competente (presupuesto <= 5k)",
+      "id": "MAD-FV-003A",
+      "descripcion": "Autoconsumo >100 y ≤500 kW, presupuesto ≤5.000€: autorización de explotación",
       "condicion": {
         "and": [
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  100
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  500
-                ]
-              }
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "inversion_eur"
-              },
-              5000
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "potencia_kw" }, 500 ] },
+          { "<=": [ { "var": "inversion_eur" }, 5000 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización de explotación e inscripción registro producción",
-          "organismo": "Dirección General competente en materia de Energía",
+          "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "Decreto 86/2025",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "tramita.comunidad.madrid",
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/220206",
-          "coste_estimado": "51.32 EUR",
+          "coste_estimado": "51,32 € (NO VERIFICADO importe exacto)",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-FV-003A",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto y CDO",
-              "descripcion": "Proyecto de ejecución",
+              "descripcion": "Proyecto de ejecución.",
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de autorización administrativa previa por estar <=500 kW. Incremento por bloque adicional de presupuesto (>5000 EUR) NO verificado, no incluir en cálculo hasta confirmar",
-          "paralelo_con": null
+          "notas": "Exenta de autorización administrativa previa por estar ≤500 kW (Decreto 86/2025). Incremento por bloque adicional de presupuesto (>5.000€) NO verificado, no incluido en el cálculo hasta confirmar."
         }
       ]
     },
     {
-      "id": "MAD-FV-3",
-      "descripcion": "Autoconsumo >100 y <=500 kW: autorización de explotación en DG competente (presupuesto <= 5k) (Sin inversión informada)",
+      "id": "MAD-FV-003B",
+      "descripcion": "Autoconsumo >100 y ≤500 kW, sin inversión informada: autorización de explotación",
       "condicion": {
         "and": [
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  100
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  500
-                ]
-              }
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "inversion_eur"
-              },
-              null
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "potencia_kw" }, 500 ] },
+          { "==": [ { "var": "inversion_eur" }, null ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización de explotación e inscripción registro producción",
-          "organismo": "Dirección General competente en materia de Energía",
+          "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "Decreto 86/2025",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "tramita.comunidad.madrid",
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/220206",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-FV-003B",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto y CDO",
-              "descripcion": "Proyecto de ejecución",
+              "descripcion": "Proyecto de ejecución.",
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de autorización administrativa previa por estar <=500 kW. Incremento por bloque adicional de presupuesto (>5000 EUR) NO verificado, no incluir en cálculo hasta confirmar\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "notas": "Exenta de autorización administrativa previa por estar ≤500 kW (Decreto 86/2025)."
         }
       ]
     },
     {
-      "id": "MAD-FV-3",
-      "descripcion": "Autoconsumo >100 y <=500 kW: autorización de explotación en DG competente (presupuesto > 5k)",
+      "id": "MAD-FV-003C",
+      "descripcion": "Autoconsumo >100 y ≤500 kW, presupuesto >5.000€: autorización de explotación",
       "condicion": {
         "and": [
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  100
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  500
-                ]
-              }
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "inversion_eur"
-              },
-              5000
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "potencia_kw" }, 500 ] },
+          { ">": [ { "var": "inversion_eur" }, 5000 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización de explotación e inscripción registro producción",
-          "organismo": "Dirección General competente en materia de Energía",
+          "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "Decreto 86/2025",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "tramita.comunidad.madrid",
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/220206",
-          "coste_estimado": "100.00 EUR (estimado > 5k)",
+          "coste_estimado": "100,00 € estimado (NO VERIFICADO)",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-FV-003C",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto y CDO",
-              "descripcion": "Proyecto de ejecución",
+              "descripcion": "Proyecto de ejecución.",
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de autorización administrativa previa por estar <=500 kW. Incremento por bloque adicional de presupuesto (>5000 EUR) NO verificado, no incluir en cálculo hasta confirmar",
-          "paralelo_con": null
+          "notas": "Exenta de autorización administrativa previa por estar ≤500 kW (Decreto 86/2025). Incremento por bloque adicional de presupuesto NO verificado."
         }
       ]
     },
     {
-      "id": "MAD-FV-4",
-      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa previa y de construcción (presupuesto <= 5k)",
+      "id": "MAD-FV-004A",
+      "descripcion": "Autoconsumo con excedentes >500 kW, presupuesto ≤5.000€: autorización administrativa previa y de construcción",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              500
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "inversion_eur"
-              },
-              5000
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 500 ] },
+          { "<=": [ { "var": "inversion_eur" }, 5000 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización administrativa previa y de construcción (expediente unificado)",
-          "organismo": "Dirección General competente en materia de Energía",
+          "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "Decreto 86/2025; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
-          "plataforma": "tramita.comunidad.madrid",
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/212646",
-          "coste_estimado": "51.32 EUR",
+          "coste_estimado": "51,32 € (NO VERIFICADO importe exacto)",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-FV-004A",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto en formato publicable",
-              "descripcion": "Proyecto y hojas de características",
+              "descripcion": "Proyecto y hojas de características.",
               "obligatorio": true
             },
             {
               "id": "tasa",
               "label": "Justificante de pago de tasas",
-              "descripcion": "Abono de la tasa",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Plazo máximo de resolución 3 meses; SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Incremento por bloque adicional de presupuesto NO verificado",
-          "paralelo_con": null
+          "notas": "Plazo máximo de resolución 3 meses; silencio negativo (art. 53 Ley 24/2013). Incremento por bloque adicional de presupuesto NO verificado."
         }
       ]
     },
     {
-      "id": "MAD-FV-4",
-      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa previa y de construcción (presupuesto <= 5k) (Sin inversión informada)",
+      "id": "MAD-FV-004B",
+      "descripcion": "Autoconsumo con excedentes >500 kW, sin inversión informada: autorización administrativa previa y de construcción",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              500
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "inversion_eur"
-              },
-              null
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 500 ] },
+          { "==": [ { "var": "inversion_eur" }, null ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización administrativa previa y de construcción (expediente unificado)",
-          "organismo": "Dirección General competente en materia de Energía",
+          "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "Decreto 86/2025; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
-          "plataforma": "tramita.comunidad.madrid",
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/212646",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-FV-004B",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto en formato publicable",
-              "descripcion": "Proyecto y hojas de características",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "tasa",
               "label": "Justificante de pago de tasas",
-              "descripcion": "Abono de la tasa",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Plazo máximo de resolución 3 meses; SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Incremento por bloque adicional de presupuesto NO verificado\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "notas": "Plazo máximo de resolución 3 meses; silencio negativo (art. 53 Ley 24/2013)."
         }
       ]
     },
     {
-      "id": "MAD-FV-4",
-      "descripcion": "Autoconsumo con excedentes >500 kW: autorización administrativa previa y de construcción (presupuesto > 5k)",
+      "id": "MAD-FV-004C",
+      "descripcion": "Autoconsumo con excedentes >500 kW, presupuesto >5.000€: autorización administrativa previa y de construcción",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              500
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "inversion_eur"
-              },
-              5000
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 500 ] },
+          { ">": [ { "var": "inversion_eur" }, 5000 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización administrativa previa y de construcción (expediente unificado)",
-          "organismo": "Dirección General competente en materia de Energía",
+          "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "Decreto 86/2025; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
-          "plataforma": "tramita.comunidad.madrid",
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/node/212646",
-          "coste_estimado": "100.00 EUR (estimado > 5k)",
+          "coste_estimado": "100,00 € estimado (NO VERIFICADO)",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-FV-004C",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto en formato publicable",
-              "descripcion": "Proyecto y hojas de características",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "tasa",
               "label": "Justificante de pago de tasas",
-              "descripcion": "Abono de la tasa",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Plazo máximo de resolución 3 meses; SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Incremento por bloque adicional de presupuesto NO verificado",
-          "paralelo_con": null
+          "notas": "Plazo máximo de resolución 3 meses; silencio negativo (art. 53 Ley 24/2013). Incremento por bloque adicional de presupuesto NO verificado."
         }
       ]
     }
   ],
-  "validaciones": [],
-  "nivel_verificacion": "generica"
+  "validaciones": []
 }

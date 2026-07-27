@@ -1,0 +1,120 @@
+{
+  "tipo_instalacion": "gas_baja_presion",
+  "comunidad": "cantabria",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Fichero generado desde cero (Cantabria no proporcionó fichero original de gas). Se confirmó la existencia real del trámite 'Legalización de instalaciones receptoras de combustibles gaseosos' (sede.cantabria.es, trámite 3482), cuya base legal es exclusivamente el RD 919/2006 (RIGLO) nacional más la Orden IND/23/2009 (documentación de instalación de industrias en Cantabria) y el RD 709/2015 (equipos a presión) — no se ha localizado un decreto autonómico cántabro específico de gas. El umbral de 70 kW para exigencia de proyecto en instalaciones individuales está confirmado directamente en el apartado 3.2 de la ITC-ICG-07 (RD 919/2006).",
+  "huecos_verificacion": [
+    "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar frente a la clasificación de presión de la ITC-ICG-07 (que distingue por presión de operación en bar, con umbral relevante en 5 bar según UNE 60670)",
+    "Tasas y plazos legales no verificados con detalle (más allá del plazo de 30 días desde puesta en servicio para la comunicación, confirmado en ITC-ICG-07 3.6)",
+    "Sin cobertura para presion_bar='5+' ni usos no residenciales/comerciales — igual que en Asturias y Canarias, solo se cubre el fragmento verificable"
+  ],
+  "fuentes": [
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07 apartado 3.2 (umbral de 70 kW individual) y 3.6 (plazo de comunicación)",
+    "Orden IND/23/2009, de 23 de septiembre (documentación de instalación, ampliación y traslado de industrias en Cantabria)",
+    "RD 709/2015 (requisitos esenciales de seguridad para equipos a presión)",
+    "Ficha de trámite 3482 'Legalización de instalaciones receptoras de combustibles gaseosos' - sede.cantabria.es"
+  ],
+  "reglas": [
+    {
+      "id": "CANT-GBP-001",
+      "descripcion": "Instalación de gas en presión normal (uso residencial o comercial)",
+      "condicion": {
+        "and": [
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          {
+            "or": [
+              { "==": [ { "var": "uso" }, "residencial" ] },
+              { "==": [ { "var": "uso" }, "comercial" ] }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria técnica de diseño (MTD) de instalación de gas",
+          "organismo": "Instalador habilitado (categoría IG-I o IG-II según RIGLO)",
+          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_gas",
+              "label": "Memoria técnica de diseño de gas",
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) de gas",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RD 919/2006 RIGLO",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Legalización de instalación receptora de combustibles gaseosos",
+          "organismo": "Dirección General de Industria, Comercio y Consumo del Gobierno de Cantabria",
+          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07; Orden IND/23/2009",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-receptoras-de-combustibles-gaseosos/3482",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3482",
+          "paralelo_con": null,
+          "regla_id": "CANT-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_gas",
+              "label": "Memoria técnica de diseño de gas",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Plazo legal de 30 días desde puesta en servicio para instalaciones que requieren proyecto (ITC-ICG-07 apartado 3.6), aplicable solo cuando la instalación individual supera los 70 kW (apartado 3.2 ITC-ICG-07). Para instalaciones sin proyecto, no es precisa comunicación según la propia ITC-ICG-07."
+        }
+      ]
+    }
+  ]
+}

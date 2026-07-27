@@ -1,113 +1,100 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "baleares",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 20/2007 de 23 de marzo' como base de la puesta en servicio de instalaciones térmicas: el Decreto 20/2007 real de Illes Balears modifica las condiciones de habitabilidad de viviendas (Decreto 145/1997), no regula climatización. Se sustituyó el umbral inventado de 12 kW por el umbral general del RITE (70 kW, art. 15-17), ya verificado en el lote de Asturias con la misma fuente nacional. Se corrigió el bug de partición base sobre el campo 'uso' (valor no estandar 'residencial_unifamiliar').",
+  "huecos_verificacion": [
+    "No se ha localizado una norma autonómica balear específica que module el umbral MTD/proyecto del RITE; se aplica el umbral general nacional de 70 kW",
+    "El 'Certificado de Eficiencia Energética (CEE) del edificio' del fichero original (RD 235/2013) no es un trámite de legalización de la instalación térmica sino de certificación energética de edificios; se ha retirado de esta regla por no ser parte del circuito de puesta en servicio salvo que se verifique lo contrario",
+    "Tasas y plazos legales no verificados",
+    "No se ha confirmado si Baleares exige una Entidad Colaboradora de la Administración (ECA) para la puesta en servicio de climatización, o si es un trámite directo ante la Dirección General"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "REBT RD 842/2002",
-    "Decreto 20/2007 de 23 de marzo, de la Comunidad Autónoma de las Illes Balears, por el que se establece el procedimiento de puesta en servicio de las instalaciones térmicas en los edificios",
-    "Ley 10/2019 de 22 de febrero, de cambio climático y transición energética de las Illes Balears"
+    "RD 238/2013 modificación RITE",
+    "REBT RD 842/2002 (si aplica)"
   ],
   "reglas": [
     {
       "id": "BAL-CLIMA-001",
-      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 12 kW en vivienda unifamiliar (memoria técnica, sin proyecto)",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              12
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial_unifamiliar"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) de climatización",
-          "organismo": "Instalador habilitado (categoría especialista en instalaciones térmicas)",
-          "base_legal": "RITE RD 1027/2007; Decreto 20/2007 de las Illes Balears",
+          "organismo": "Instalador habilitado (categoría térmica)",
+          "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-CLIMA-001",
           "documentos_requeridos": [
             {
               "id": "mtd_climatizacion",
               "label": "Memoria Técnica de Diseño de climatización",
-              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación y cumple con RITE y normativa autonómica."
+              "descripcion": "Documento técnico firmado por instalador habilitado.",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador",
-              "descripcion": "Acreditación de la habilitación del instalador según RITE."
+              "descripcion": "Acreditación de la habilitación según RITE.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el órgano competente de la Comunidad Autónoma de las Illes Balears",
-          "organismo": "Dirección General de Energía y Cambio Climático (Govern de les Illes Balears)",
-          "base_legal": "Decreto 20/2007 de 23 de marzo; Ley 10/2019",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Plataforma de Gestión de Instalaciones Térmicas (PGIT) de las Illes Balears",
-          "plataforma_url": "https://www.caib.es/sites/energia/ca/instalacions_termiques/",
-          "coste_estimado": "0 € (tasa administrativa no aplicable)",
+          "nombre": "Certificado de instalación y comunicación de puesta en servicio",
+          "organismo": "Dirección General competente en energía del Govern de les Illes Balears",
+          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB",
+          "plataforma_url": "https://www.caib.es/seucaib",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-CLIMA-001",
           "documentos_requeridos": [
             {
               "id": "mtd_climatizacion",
               "label": "Memoria Técnica de Diseño de climatización",
-              "descripcion": "Mismo documento que en el trámite anterior."
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "descripcion": "Mismo documento que en el trámite anterior."
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable del titular/instalador",
-              "descripcion": "Formulario oficial de declaración responsable según modelo de la comunidad autónoma."
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "BAL-CLIMA-002",
-      "descripcion": "Instalación de climatización con aerotermia de potencia > 12 kW o en edificio plurifamiliar/terciario (proyecto técnico y ECA)",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              12
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial_unifamiliar"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -115,75 +102,53 @@
           "orden": 1,
           "nombre": "Proyecto técnico de climatización",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007; Decreto 20/2007 de las Illes Balears",
+          "base_legal": "RITE RD 1027/2007 art. 16",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-CLIMA-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_climatizacion",
               "label": "Proyecto técnico de climatización",
-              "descripcion": "Documento técnico firmado por técnico titulado que incluye memoria, cálculos, planos y cumple con RITE y normativa autonómica."
+              "descripcion": "Firmado por técnico titulado, visado por colegio profesional.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de Eficiencia Energética (CEE) del edificio",
-          "organismo": "Técnico certificador habilitado",
-          "base_legal": "RD 235/2013; Ley 10/2019 de las Illes Balears",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios profesionales",
-          "documentos_requeridos": [
-            {
-              "id": "cee",
-              "label": "Certificado de Eficiencia Energética",
-              "descripcion": "Documento que califica la eficiencia energética del edificio tras la instalación."
-            }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Solicitud de puesta en servicio con ECA (Entidad Colaboradora de la Administración) y registro en la Comunidad Autónoma",
-          "organismo": "Dirección General de Energía y Cambio Climático (Govern de les Illes Balears) a través de ECA",
-          "base_legal": "Decreto 20/2007 de 23 de marzo; Ley 10/2019",
+          "nombre": "Inspección inicial y certificado de instalación",
+          "organismo": "Dirección General competente en energía del Govern de les Illes Balears",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Plataforma de Gestión de Instalaciones Térmicas (PGIT) de las Illes Balears",
-          "plataforma_url": "https://www.caib.es/sites/energia/ca/instalacions_termiques/",
-          "coste_estimado": "Variable según ECA (aprox. 200-500 €)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB",
+          "plataforma_url": "https://www.caib.es/seucaib",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-CLIMA-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_climatizacion",
               "label": "Proyecto técnico de climatización",
-              "descripcion": "Mismo documento que en el trámite 1."
-            },
-            {
-              "id": "cee",
-              "label": "Certificado de Eficiencia Energética",
-              "descripcion": "Mismo documento que en el trámite 2."
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador",
-              "descripcion": "Acreditación de la habilitación del instalador según RITE."
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular/instalador",
-              "descripcion": "Formulario oficial de declaración responsable según modelo de la comunidad autónoma."
-            },
-            {
-              "id": "informe_eca",
-              "label": "Informe favorable de ECA",
-              "descripcion": "Documento emitido por la Entidad Colaboradora de la Administración (ECA) tras verificar la instalación."
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Sujeto a inspección inicial por requerir proyecto (art. 15 RITE). No confirmado si Baleares exige ECA para este trámite."
         }
       ]
     }

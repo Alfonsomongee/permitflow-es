@@ -1,34 +1,43 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "baleares",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe en el schema) y se sustituyó por 'ubicacion_irve' y 'modo_recarga'. Se eliminó 'Decreto 36/2018 de 27 de julio' como base legal: el Decreto 36/2018 real de Illes Balears regula el currículo de enseñanzas profesionales de música, sin relación con IRVE. Al no localizar ninguna norma autonómica específica de Baleares para IRVE, se aplicó el régimen nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014) en lugar del umbral inventado de 8 kW.",
+  "huecos_verificacion": [
+    "No se ha localizado una norma autonómica balear específica para IRVE; se asume régimen nacional (ITC-BT-52) más el mismo circuito de registro que fotovoltaica (procedimiento 001/034), pero no está confirmado con fuente primaria específica para IRVE",
+    "El tratamiento de 'garaje_comunitario' respecto al umbral 50/10 kW se ha asimilado a 'interior' — no verificado específicamente",
+    "Instalaciones en vía pública probablemente requieren permiso municipal de ocupación de vía pública, no incluido",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52",
-    "Decreto 36/2018 de 27 de julio (Illes Balears) por el que se regulan las instalaciones de infraestructura de recarga de vehículos eléctricos",
-    "Ley 10/2019 de 22 de febrero de cambio climático y transición energética de Illes Balears",
-    "Decreto-ley 1/2020 de 13 de marzo de medidas urgentes en materia de energía"
+    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+    "RD 842/2002 REBT",
+    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
   ],
   "reglas": [
     {
       "id": "BAL-IRVE-001",
-      "descripcion": "Instalación de recarga de VE en edificio existente con potencia ≤ 8 kW (comunidad de propietarios o vivienda unifamiliar) - Comunicación previa",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
+          { "!=": [ { "var": "modo_recarga" }, "4" ] },
           {
-            "<=": [
+            "or": [
               {
-                "var": "potencia_kw"
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                ]
               },
-              8
-            ]
-          },
-          {
-            "==": [
               {
-                "var": "tipo_edificio"
-              },
-              "existente"
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                ]
+              }
             ]
           }
         ]
@@ -36,50 +45,74 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Comunicación previa de instalación IRVE",
-          "organismo": "Dirección General de Energía y Cambio Climático (Govern de les Illes Balears)",
-          "base_legal": "Decreto 36/2018 art. 8; Ley 10/2019",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 10,
-          "plataforma": "Registro Integrado de Instalaciones (RII)",
-          "plataforma_url": "https://www.caib.es/sites/energia/ca/registre_integrat_dinstalacions/",
-          "coste_estimado": "0 € (tasa 0)",
+          "nombre": "Memoria técnica de la instalación IRVE",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002; ITC-BT-52 (RD 1053/2014)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-IRVE-001",
           "documentos_requeridos": [
             {
               "id": "memoria_tecnica_irve",
-              "label": "Memoria técnica de la instalación IRVE"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado del instalador habilitado"
+              "label": "Memoria técnica de la instalación IRVE",
+              "descripcion": "Documento técnico firmado por instalador habilitado.",
+              "obligatorio": true
             },
             {
               "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular"
+              "label": "Declaración responsable del titular",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de la instalación (procedimiento 001 baja tensión)",
+          "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB",
+          "plataforma_url": "https://www.caib.es/seucaib",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "001",
+          "paralelo_con": null,
+          "regla_id": "BAL-IRVE-001",
+          "documentos_requeridos": [
+            {
+              "id": "memoria_tecnica_irve",
+              "label": "Memoria técnica de la instalación IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "BAL-IRVE-002",
-      "descripcion": "Instalación de recarga de VE en edificio existente con potencia > 8 kW o nueva construcción - Proyecto técnico y EICI",
+      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "or": [
+          { "==": [ { "var": "modo_recarga" }, "4" ] },
           {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              8
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+              { ">": [ { "var": "potencia_kw" }, 50 ] }
             ]
           },
           {
-            "==": [
-              {
-                "var": "tipo_edificio"
-              },
-              "nueva_construccion"
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+              { ">": [ { "var": "potencia_kw" }, 10 ] }
             ]
           }
         ]
@@ -89,39 +122,82 @@
           "orden": 1,
           "nombre": "Proyecto técnico IRVE",
           "organismo": "Técnico titulado competente",
-          "base_legal": "Decreto 36/2018 art. 7; REBT ITC-BT-52",
+          "base_legal": "ITC-BT-52 (RD 1053/2014); REBT RD 842/2002",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Según honorarios del técnico",
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-IRVE-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_irve",
-              "label": "Proyecto técnico firmado"
+              "label": "Proyecto técnico firmado",
+              "descripcion": "Visado por colegio profesional.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (EICI) por OCA",
+          "nombre": "Certificado de instalación (inspección inicial por OCA cuando proceda)",
           "organismo": "Organismo de Control Autorizado (OCA) habilitado en Illes Balears",
-          "base_legal": "Decreto 36/2018 art. 9; RD 1053/2014",
+          "base_legal": "REBT RD 842/2002; RD 1053/2014",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "Registro Integrado de Instalaciones (RII)",
-          "plataforma_url": "https://www.caib.es/sites/energia/ca/registre_integrat_dinstalacions/",
-          "coste_estimado": "200-400 € (según OCA)",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-IRVE-002",
           "documentos_requeridos": [
             {
               "id": "certificado_oc_irve",
-              "label": "Certificado de Organismo de Control (EICI)"
+              "label": "Certificado de Organismo de Control",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "boletin_instalacion",
-              "label": "Boletín de instalación eléctrica (REBT)"
+              "label": "Boletín de instalación eléctrica (REBT)",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación (procedimiento 001 baja tensión)",
+          "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB",
+          "plataforma_url": "https://www.caib.es/seucaib",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "001",
+          "paralelo_con": null,
+          "regla_id": "BAL-IRVE-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico firmado",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oc_irve",
+              "label": "Certificado de Organismo de Control",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
         }
       ]
     }

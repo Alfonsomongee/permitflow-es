@@ -27,7 +27,7 @@ from schemas.orientacion import (
     UbicacionOutput,
 )
 from servicios.geocoding_client import resolver_ubicacion
-from servicios.pvgis_client import consultar_pvgis
+from servicios.pvgis_client import consultar_pvgis_mensual, consultar_pvgis_tmy
 
 logger = logging.getLogger(__name__)
 
@@ -120,6 +120,16 @@ def _banda_climatizacion(zona: str) -> str:
     return "ahorro muy bajo en calefacción (clima cálido)"
 
 
+# Textos interpretativos por severidad de invierno (letra de zona CTE)
+_DESCRIPCION_ZONA_CTE: dict[str, str] = {
+    "A": "Clima muy cálido. Máximo rendimiento en refrigeración. Demanda de calefacción baja. COP estacional excelente (≈87% COP nominal para equipos centralizados).",
+    "B": "Clima mediterráneo/atlántico moderado. Bomba de calor muy eficiente todo el año (≈80% COP nominal). Compatible con radiadores de baja temperatura.",
+    "C": "Clima templado. Bomba de calor eficiente todo el año (≈80% COP nominal). Compatible con radiadores de baja temperatura.",
+    "D": "Clima continental con inviernos fríos. Rendimiento bueno (≈75% COP nominal). Diseño crítico: suelo radiante o fan-coils recomendados.",
+    "E": "Inviernos severos. La eficiencia se reduce significativamente (≈75% COP nominal). Imprescindible sistema de emisión a baja temperatura. Considerar apoyo eléctrico de respaldo.",
+}
+
+
 def _cache_key(lat: float, lon: float, angle: int = 30, aspect: int = 0) -> str:
     """Genera clave de caché redondeando lat/lon a 2 decimales (~1 km)."""
     return f"pvgis:{lat:.2f}:{lon:.2f}:{angle}:{aspect}"
@@ -189,7 +199,8 @@ async def calcular_idoneidad(
 
     Combina:
     - Google Geocoding → coordenadas + CCAA
-    - PVGIS → producción fotovoltaica específica
+    - PVGIS /PVcalc → producción fotovoltaica específica + producción mensual + SD_m
+    - PVGIS /tmy → temperatura media mensual (T2m, ERA5) para aerotermia
     - CTE Anejo B → zona climática
     """
     # Rate limit (usa org_id del header de Clerk, o "anonymous" en desarrollo)
@@ -212,11 +223,10 @@ async def calcular_idoneidad(
     # 2. Zona climática CTE
     zona_cte = buscar_zona_climatica(payload.provincia)
 
-    # 3. PVGIS (con caché Postgres + TTL)
+    # 3. PVGIS PVcalc con campos mensuales (con caché Postgres + TTL)
     key = _cache_key(lat, lon)
     ttl_cutoff = datetime.now(timezone.utc) - timedelta(days=CACHE_TTL_DAYS)
 
-    # Buscar en caché (solo si no está caducada)
     cached = await db.execute(
         select(IdoneidadCache).where(
             IdoneidadCache.clave == key,
@@ -228,10 +238,9 @@ async def calcular_idoneidad(
     if cache_hit is not None:
         pvgis_data = cache_hit.payload
     else:
-        pvgis_data_raw = await consultar_pvgis(lat, lon)
+        pvgis_data_raw = await consultar_pvgis_mensual(lat, lon)
         if pvgis_data_raw is not None:
             pvgis_data = pvgis_data_raw
-            # Upsert en caché (actualiza si existía pero estaba caducada)
             entry = IdoneidadCache(
                 clave=key,
                 payload=pvgis_data,
@@ -241,11 +250,33 @@ async def calcular_idoneidad(
         else:
             pvgis_data = None
 
+    # 4. PVGIS TMY → temperatura mensual para aerotermia (caché propia)
+    tmy_key = f"tmy:{lat:.2f}:{lon:.2f}"
+    cached_tmy = await db.execute(
+        select(IdoneidadCache).where(
+            IdoneidadCache.clave == tmy_key,
+            IdoneidadCache.calculado_en > ttl_cutoff,
+        )
+    )
+    cache_tmy_hit = cached_tmy.scalar_one_or_none()
+
+    if cache_tmy_hit is not None:
+        temp_mensual = cache_tmy_hit.payload.get("temperatura_media_mensual")
+    else:
+        temp_mensual = await consultar_pvgis_tmy(lat, lon)
+        if temp_mensual is not None:
+            entry_tmy = IdoneidadCache(
+                clave=tmy_key,
+                payload={"temperatura_media_mensual": temp_mensual},
+                calculado_en=datetime.now(timezone.utc),
+            )
+            await db.merge(entry_tmy)
+
     # Registrar consulta para rate limiting
     await _register_rate_limit(db, org_id, key)
     await db.commit()
 
-    # 4. Construir respuesta
+    # 5. Construir respuesta
     # Fotovoltaica
     if pvgis_data is not None:
         produccion = pvgis_data.get("produccion_especifica_kwh_kwp_year")
@@ -255,15 +286,24 @@ async def calcular_idoneidad(
             produccion_especifica_kwh_kwp_year=produccion,
             radiacion_anual_kwh_m2=radiacion,
             banda=_banda_fotovoltaica(produccion) if produccion else None,
+            produccion_mensual_kwh=pvgis_data.get("produccion_mensual_kwh"),
+            desviacion_estandar_mensual=pvgis_data.get("desviacion_estandar_mensual"),
         )
     else:
         fv = IdoneidadFotovoltaica(disponible=False)
 
     # Climatización
+    descripcion_zona = None
+    if zona_cte:
+        letra = zona_cte[0].upper()
+        descripcion_zona = _DESCRIPCION_ZONA_CTE.get(letra)
+
     clim = IdoneidadClimatizacion(
         disponible=zona_cte is not None,
         zona_climatica=zona_cte,
         banda=_banda_climatizacion(zona_cte) if zona_cte else None,
+        descripcion_zona=descripcion_zona,
+        temperatura_media_mensual=temp_mensual,
     )
 
     ubicacion_out = UbicacionOutput(

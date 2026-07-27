@@ -1,38 +1,34 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "castilla_leon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. El 'Decreto 127/2003' SÍ existe, pero regula autorizaciones administrativas de instalaciones de producción/transporte/distribución de energía eléctrica, no la puesta en servicio de baja tensión que necesita este vertical — y además fue derogado el 18/12/2022 por el Decreto 46/2022. Doblemente incorrecto citarlo aquí. La plataforma 'SIRECYL' no se ha localizado en ninguna fuente oficial; la plataforma real de Castilla y León para BT es BOEL (Boletines Eléctricos), con tasa código 308.1 'Inscripción y control de instalaciones eléctricas'. Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre 'uso'.",
+  "huecos_verificacion": [
+    "No se ha confirmado si Castilla y León ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Tasas y plazos legales de resolución no verificados con detalle más allá del código de tasa 308.1 confirmado",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "Para instalaciones >100 kW no se ha confirmado si aplica el Decreto 46/2022 (autorización) además del registro BOEL"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 127/2003, de 30 de octubre, por el que se regulan los procedimientos de puesta en servicio de las instalaciones industriales en Castilla y León",
-    "Orden FYM/238/2014, de 27 de marzo, por la que se regulan las instalaciones eléctricas de baja tensión en Castilla y León"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "Ley 6/2014, de 12 de septiembre, de Industria de Castilla y León",
+    "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
+    "Decreto 46/2022, de 24 de noviembre (Castilla y León) — procedimientos de autorizaciones administrativas de instalaciones eléctricas, sustituye al derogado Decreto 127/2003",
+    "Aplicación BOEL (Boletines Eléctricos) - tramitacastillayleon.jcyl.es"
   ],
   "reglas": [
     {
       "id": "CYL-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -45,157 +41,141 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo.",
-              "formato": "PDF",
-              "obligatorio": true
-            }
-          ]
-        },
-        {
-          "orden": 2,
-          "nombre": "Declaración Responsable de puesta en servicio (autoconsumo ≤10 kW residencial)",
-          "organismo": "Órgano competente de industria de la Junta de Castilla y León (Dirección General de Energía y Minas o Servicio Territorial correspondiente)",
-          "base_legal": "Decreto 127/2003, art. 5; Orden FYM/238/2014",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "SIRECYL (Sistema de Registro de Instalaciones Eléctricas de Castilla y León)",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284400038490/Tramite",
-          "coste_estimado": "0 €",
-          "documentos_requeridos": [
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable",
-              "descripcion": "Formulario oficial firmado por el titular y el instalador, indicando cumplimiento normativo.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "mtd_fotovoltaica",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Misma MTD del paso anterior.",
-              "formato": "PDF",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI) según ITC-BT-05",
-              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución de la instalación.",
-              "formato": "PDF",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "Según ITC-BT-05.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (BOEL)",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "Ley 6/2014 de Industria de Castilla y León; REBT RD 842/2002 ITC-BT-04",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "BOEL (Boletines Eléctricos)",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "Tasa código 308.1 'Inscripción y control de instalaciones eléctricas' — importe NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Inscripción inmediata a partir de la presentación de la documentación de puesta en servicio (confirmado en ficha oficial)."
         }
       ]
     },
     {
       "id": "CYL-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y ECA)",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Proyecto Técnico (PT) fotovoltaico",
-          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico (no tasa administrativa)",
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto y estudio básico de seguridad.",
-              "formato": "PDF",
+              "descripcion": "Firmado por técnico competente.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de puesta en servicio con ECA (Entidad Colaboradora de la Administración)",
-          "organismo": "ECA autorizada en Castilla y León (ej: OCA Instalaciones, S.L., Bureau Veritas, etc.)",
-          "base_legal": "Decreto 127/2003, art. 6; Orden FYM/238/2014",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "SIRECYL (Sistema de Registro de Instalaciones Eléctricas de Castilla y León)",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284400038490/Tramite",
-          "coste_estimado": "Variable según ECA (aprox. 200-500 €)",
+          "nombre": "Inspección inicial por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA) en Castilla y León",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 (inspección inicial >100 kW)",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-FV-002",
           "documentos_requeridos": [
             {
-              "id": "solicitud_eca",
-              "label": "Solicitud de inspección inicial",
-              "descripcion": "Formulario de la ECA solicitando la inspección de la instalación.",
-              "formato": "PDF",
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "",
               "obligatorio": true
-            },
+            }
+          ],
+          "notas": "Umbral de 100 kW para inspección inicial confirmado en la ITC-BT-04, aplicable en el resto de Castilla y León igual que en Castilla-La Mancha."
+        },
+        {
+          "orden": 3,
+          "nombre": "Autorización administrativa (Decreto 46/2022) e inscripción en BOEL",
+          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "base_legal": "Decreto 46/2022; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "BOEL / Sede Electrónica de la Junta de Castilla y León",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-FV-002",
+          "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Mismo proyecto del paso anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI) según ITC-BT-05",
-              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución.",
-              "formato": "PDF",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro en SIRECYL y obtención de CIE (Código de Identificación de la Instalación Eléctrica)",
-          "organismo": "Dirección General de Energía y Minas de la Junta de Castilla y León",
-          "base_legal": "Decreto 127/2003, art. 7; Orden FYM/238/2014",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "SIRECYL",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/Tramite/1284400038490/Tramite",
-          "coste_estimado": "0 €",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_eca",
-              "label": "Certificado de inspección favorable de la ECA",
-              "descripcion": "Documento emitido por la ECA tras la inspección positiva.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable de puesta en servicio",
-              "descripcion": "Formulario oficial firmado por el titular y el instalador.",
-              "formato": "PDF",
-              "obligatorio": true
-            }
-          ]
+          ],
+          "notas": "plazo_legal_dias no confirmado."
         }
       ]
     }

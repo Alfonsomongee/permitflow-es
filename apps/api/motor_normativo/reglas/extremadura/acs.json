@@ -1,0 +1,156 @@
+{
+  "tipo_instalacion": "acs",
+  "comunidad": "extremadura",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Fichero generado desde cero (Extremadura no proporcionó fichero original de ACS). Mismo régimen que climatización: registro real confirmado con tramo 5-70 kW (memoria técnica) y >70 kW (proyecto), sin decreto autonómico propio, aplicando el RITE nacional vía el procedimiento general de instalación industrial (Decreto 49/2004). HUECO CRÍTICO recurrente: no se ha incluido regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — mismo hueco detectado en todas las comunidades auditadas hasta ahora.",
+  "huecos_verificacion": [
+    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
+    "Instalaciones <5 kW térmicos pueden quedar exentas de documentación — no modelado",
+    "No se ha confirmado el nombre ni número de trámite exacto en la sede electrónica de Extremadura",
+    "Tasas y plazos legales no verificados"
+  ],
+  "fuentes": [
+    "RITE RD 1027/2007",
+    "Decreto 49/2004, de 20 de abril (procedimiento de instalación y puesta en funcionamiento de establecimientos industriales, Grupo II) - Extremadura",
+    "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios' - industriaextremadura.juntaex.es"
+  ],
+  "reglas": [
+    {
+      "id": "EXT-ACS-001",
+      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "<=": [
+          { "var": "potencia_kw" },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
+          "organismo": "Instalador habilitado en instalaciones térmicas",
+          "base_legal": "RITE RD 1027/2007",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-ACS-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_acs",
+              "label": "Memoria Técnica de Diseño de instalación térmica",
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalación térmica en edificios",
+          "organismo": "Servicio de Ordenación Industrial, Energética y Minera (Badajoz/Cáceres)",
+          "base_legal": "RITE RD 1027/2007 art. 24; Decreto 49/2004",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma_url": "https://sede.gobex.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-ACS-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_acs",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "EXT-ACS-002",
+      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
+      "condicion": {
+        ">": [
+          { "var": "potencia_kw" },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-ACS-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico de instalación térmica",
+              "descripcion": "Firmado por técnico competente.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo."
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalación térmica en edificios (alta potencia)",
+          "organismo": "Servicio de Ordenación Industrial, Energética y Minera (Badajoz/Cáceres)",
+          "base_legal": "RITE RD 1027/2007 art. 15, 24; Decreto 49/2004",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma_url": "https://sede.gobex.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-ACS-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    }
+  ]
+}

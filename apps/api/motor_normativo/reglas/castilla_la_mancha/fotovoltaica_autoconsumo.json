@@ -1,38 +1,34 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "castilla_la_mancha",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 80/2017' como base legal de la puesta en servicio BT: la ficha oficial de la JCCM para instalaciones eléctricas de baja tensión (trámite 1002270) solo cita Ley 21/1992 de Industria y RD 842/2002 REBT, sin decreto autonómico. Se confirmó la plataforma real específica de Castilla-La Mancha para diligenciado de certificados BT: eDice-bt. Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre 'uso'.",
+  "huecos_verificacion": [
+    "No se ha localizado un decreto autonómico de Castilla-La Mancha específico de autoconsumo/BT distinto de la normativa nacional",
+    "No se ha confirmado si Castilla-La Mancha ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Tasas y plazos legales de resolución no verificados con detalle",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 80/2017 de 5 de septiembre, por el que se regula la puesta en servicio de instalaciones eléctricas de baja tensión en Castilla-La Mancha",
-    "Orden de 26 de marzo de 2018 de la Consejería de Economía, Empresas y Empleo, por la que se desarrolla el Decreto 80/2017"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "Ley 21/1992 de Industria",
+    "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
+    "Ficha de trámite 1002270 'Instalaciones eléctricas de baja tensión' y 020048 'Registro de una instalación eléctrica de baja tensión' - jccm.es",
+    "Plataforma eDice-bt (diligenciado de certificados BT) - edice.castillalamancha.es"
   ],
   "reglas": [
     {
       "id": "CLM-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -40,56 +36,69 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
           "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 80/2017 art. 5",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo.",
-              "formato": "PDF"
+              "descripcion": "Documento firmado por instalador habilitado que describe la instalación.",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación",
-              "descripcion": "Certificado firmado por el instalador indicando que la instalación se ha ejecutado según MTD y normativa.",
-              "formato": "PDF"
+              "descripcion": "Certificado firmado por el instalador según ITC-BT-04.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Diligenciado del certificado y registro de la instalación (eDice-bt)",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "eDice-bt (Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha)",
+          "plataforma_url": "https://edice.castillalamancha.es/eDice-bt/",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "020048",
+          "paralelo_con": null,
+          "regla_id": "CLM-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) ante el órgano competente",
-              "descripcion": "DR presentada telemáticamente en la plataforma de la Junta de Comunidades de Castilla-La Mancha (SIA o similar).",
-              "formato": "PDF"
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Para instalaciones sin proyecto, el diligenciado se realiza directamente en eDice-bt; con proyecto, en un portal externo (confirmado en la propia herramienta oficial)."
         }
       ]
     },
     {
       "id": "CLM-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico y OCA)",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -97,58 +106,76 @@
           "orden": 1,
           "nombre": "Proyecto Técnico (PT) fotovoltaico",
           "organismo": "Ingeniero técnico industrial o superior competente",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9; Decreto 80/2017 art. 6",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios profesionales (no tasa administrativa)",
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones y presupuesto.",
-              "formato": "PDF"
+              "descripcion": "Firmado por técnico competente, visado si procede.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Certificado de Inspección Inicial (CII) por OCA",
           "organismo": "Organismo de Control Autorizado (OCA) habilitado en Castilla-La Mancha",
-          "base_legal": "Decreto 80/2017 art. 7; Orden 26/03/2018",
+          "base_legal": "REBT RD 842/2002 ITC-BT-04 (inspección inicial >100 kW)",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "150-300 € según OCA y potencia",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-FV-002",
           "documentos_requeridos": [
             {
               "id": "cii_oca",
               "label": "Certificado de Inspección Inicial (CII)",
-              "descripcion": "Documento emitido por OCA tras inspección favorable de la instalación.",
-              "formato": "PDF"
+              "descripcion": "Emitido por OCA tras inspección favorable.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "El umbral de 100 kW para exigencia de inspección inicial en instalaciones industriales está confirmado directamente en la ficha oficial de la JCCM (ITC-BT-04)."
         },
         {
           "orden": 3,
-          "nombre": "Declaración Responsable (DR) con CII",
-          "organismo": "Dirección General de Energía (Consejería de Desarrollo Sostenible)",
-          "base_legal": "Decreto 80/2017 art. 8; Orden 26/03/2018",
-          "plazo_estimado_dias": 1,
+          "nombre": "Diligenciado del certificado y registro de la instalación (portal con proyecto)",
+          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "SIA (Sistema de Información Administrativa) de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramitesygestiones/declaracion-responsable-para-la-puesta-en-servicio-de-instalaciones-electricas-de-baja-tension",
-          "coste_estimado": "0 €",
+          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma_url": "https://www.jccm.es/tramites/1002270",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "020048",
+          "paralelo_con": null,
+          "regla_id": "CLM-FV-002",
           "documentos_requeridos": [
             {
-              "id": "dr_cii",
-              "label": "Declaración Responsable (DR) con CII adjunto",
-              "descripcion": "DR telemática que incluye el CII emitido por OCA.",
-              "formato": "PDF"
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "cii_oca",
+              "label": "Certificado de Inspección Inicial (CII)",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

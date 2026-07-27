@@ -1,107 +1,100 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "canarias",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 141/2012, de 27 de diciembre' como Reglamento de Instalaciones Térmicas de Canarias: no se ha localizado esta norma; la ficha oficial de Canarias para instalaciones térmicas (SICAC 3409) cita solo normativa nacional. HUECO CRÍTICO: igual que en los lotes anteriores, este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo. Prefijo de regla cambiado de 'CAN' a 'ICAN'.",
+  "huecos_verificacion": [
+    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
+    "No se ha localizado normativa autonómica canaria específica de ACS; se aplica el RITE nacional directamente",
+    "No se ha verificado si Canarias exige una ECA (Entidad Colaboradora) específicamente para ACS >70 kW, o si es un trámite directo ante Industria",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "Decreto 141/2012, de 27 de diciembre, por el que se regulan las instalaciones térmicas en los edificios en la Comunidad Autónoma de Canarias",
-    "Orden de 15 de marzo de 2013, por la que se desarrolla el Decreto 141/2012",
-    "RD 314/2006 Código Técnico de la Edificación DB HE4"
+    "RD 314/2006 Código Técnico de la Edificación DB HE4",
+    "Ficha de trámite SICAC 3409 'Puesta en funcionamiento de instalaciones térmicas en edificios' - sede.gobiernodecanarias.org"
   ],
   "reglas": [
     {
-      "id": "CAN-ACS-001",
-      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción (memoria técnica, sin proyecto)",
+      "id": "ICAN-ACS-001",
+      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
-          "organismo": "Instalador habilitado en instalaciones térmicas (categoría básica o superior)",
-          "base_legal": "RITE RD 1027/2007 IT 1.2.4; Decreto 141/2012 art. 8",
+          "organismo": "Instalador habilitado en instalaciones térmicas",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-ACS-001",
           "documentos_requeridos": [
             {
               "id": "mtd_acs",
               "label": "Memoria Técnica de Diseño de instalación térmica",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos de demanda, equipos y cumplimiento normativo.",
-              "formato": "PDF",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación de la habilitación del instalador según RITE.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante la Dirección General de Industria y Energía del Gobierno de Canarias",
+          "nombre": "Comunicación de puesta en funcionamiento de instalaciones térmicas (SICAC 3409)",
           "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
-          "base_legal": "Decreto 141/2012 art. 10; Orden 15/03/2013",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobcan.es/sede/tramites/declaracion-responsable-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa administrativa exenta)",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3409",
+          "paralelo_con": null,
+          "regla_id": "ICAN-ACS-001",
           "documentos_requeridos": [
-            {
-              "id": "drps_acs",
-              "label": "Declaración responsable de puesta en servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
             {
               "id": "mtd_acs",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Misma MTD del trámite anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Mismo certificado del trámite anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
-      "id": "CAN-ACS-002",
-      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico y ECA)",
+      "id": "ICAN-ACS-002",
+      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -109,89 +102,53 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación térmica",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007 IT 1.2.4; Decreto 141/2012 art. 7",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-ACS-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_acs",
               "label": "Proyecto técnico de instalación térmica",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, cálculos, planos, pliego de condiciones y presupuesto.",
-              "formato": "PDF",
+              "descripcion": "Firmado por técnico competente, visado por colegio profesional.",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo."
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (ECA) emitido por Organismo de Control Autorizado (OCA)",
-          "organismo": "Organismo de Control Autorizado (OCA) acreditado en Canarias",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 141/2012 art. 11",
+          "nombre": "Comunicación de puesta en funcionamiento de instalaciones térmicas (SICAC 3409)",
+          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 20,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Variable según OCA (aprox. 300-600 €)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3409",
+          "paralelo_con": null,
+          "regla_id": "ICAN-ACS-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_acs",
               "label": "Proyecto técnico",
-              "descripcion": "Mismo proyecto del trámite anterior.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación del instalador.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "acta_pruebas",
-              "label": "Acta de pruebas y puesta en marcha",
-              "descripcion": "Documento firmado por instalador que acredita el correcto funcionamiento.",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro de la instalación ante la Dirección General de Industria y Energía del Gobierno de Canarias",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
-          "base_legal": "Decreto 141/2012 art. 12; Orden 15/03/2013",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobcan.es/sede/tramites/registro-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa administrativa exenta)",
-          "documentos_requeridos": [
-            {
-              "id": "solicitud_registro",
-              "label": "Solicitud de registro de instalación térmica",
-              "descripcion": "Formulario oficial cumplimentado.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "proyecto_acs",
-              "label": "Proyecto técnico",
-              "descripcion": "Mismo proyecto.",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "eca_acs",
-              "label": "Certificado de Instalación (ECA) emitido por OCA",
-              "descripcion": "Certificado original firmado por OCA.",
-              "formato": "PDF",
-              "obligatorio": true
-            }
-          ]
+          ],
+          "notas": "No confirmado si Canarias exige ECA específica para este trámite; el fichero original lo daba por hecho sin fuente verificable."
         }
       ]
     }

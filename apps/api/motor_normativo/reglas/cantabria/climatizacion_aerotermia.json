@@ -1,0 +1,161 @@
+{
+  "tipo_instalacion": "climatizacion_aerotermia",
+  "comunidad": "cantabria",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Fichero generado desde cero (Cantabria no proporcionó fichero original de climatización). No se ha localizado ningún decreto autonómico cántabro que desarrolle el RITE para climatización; se aplica el RITE nacional directamente, con el umbral general de 70 kW (MTD/proyecto) ya verificado de forma consistente en el resto de comunidades de este proyecto.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica cántabra específica de climatización",
+    "No se ha confirmado el nombre ni número de trámite exacto de la sede electrónica de Cantabria para la comunicación de puesta en servicio de instalaciones térmicas (por analogía con lo confirmado en Canarias/Asturias, existe un trámite equivalente, pero no se ha localizado su ficha específica para Cantabria en esta revisión)",
+    "Tasas y plazos legales no verificados"
+  ],
+  "fuentes": [
+    "RITE RD 1027/2007",
+    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+    "RD 314/2006 Código Técnico de la Edificación"
+  ],
+  "reglas": [
+    {
+      "id": "CANT-CLI-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "<=": [
+          { "var": "potencia_kw" },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Instalación Térmica (MTIT)",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007 art. 17",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-CLI-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtit_climatizacion",
+              "label": "Memoria Técnica de Instalación Térmica",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Comunicación/certificado de puesta en servicio de instalación térmica",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-CLI-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtit_firmada",
+              "label": "MTIT firmada por instalador",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Nombre exacto del trámite en la sede de Cantabria no localizado en esta revisión — verificar antes de publicar al cliente."
+        }
+      ]
+    },
+    {
+      "id": "CANT-CLI-002",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
+      "condicion": {
+        ">": [
+          { "var": "potencia_kw" },
+          70
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto Técnico de Instalación Térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007 art. 16",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-CLI-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico visado por colegio profesional",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Comunicación/certificado de puesta en servicio de instalación térmica",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-CLI-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_visado",
+              "label": "Proyecto visado",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    }
+  ]
+}

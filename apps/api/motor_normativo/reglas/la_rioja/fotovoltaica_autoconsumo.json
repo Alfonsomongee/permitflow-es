@@ -1,38 +1,34 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "la_rioja",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminaron 'Decreto 48/2003' y 'Orden 5/2017' como base legal: no se han localizado en fuente oficial de La Rioja. La propia página de trámites del Gobierno de La Rioja no cita ningún decreto autonómico específico para autoconsumo, aplicando el RD 244/2019 directamente, con el procedimiento real 'modelo AUTee' (autorización administrativa y de construcción / autorización de explotación / registro y puesta en servicio). Se confirmó un plazo de 6 meses para la autorización administrativa, coherente con el umbral nacional de 100 kW (art. 53 Ley 24/2013) que sustituye al umbral inventado de 10 kW del fichero original. Se corrigió el bug de partición base sobre 'uso'.",
+  "huecos_verificacion": [
+    "No se ha verificado si La Rioja ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Tasas y plazos legales de resolución no verificados con detalle más allá del plazo de 6 meses confirmado para autorización administrativa",
+    "No se ha confirmado el nombre exacto ni la existencia de un registro de autoconsumo diferenciado; La Rioja tramita a través del Servicio de Industria (Registro Integrado Industrial / Registro de instalaciones de producción) según fuente oficial",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 48/2003, de 31 de octubre, por el que se regulan los procedimientos de puesta en servicio de las instalaciones industriales en La Rioja",
-    "Orden 5/2017, de 20 de febrero, de la Consejería de Administración Pública y Hacienda, por la que se desarrolla el Decreto 48/2003"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "REBT RD 842/2002 ITC-BT-40",
+    "RD 2135/1980 (liberalización industrial), citado en la ficha oficial de La Rioja para instalaciones BT",
+    "Resolución 128/2025, de 6 de febrero (regularización de instalaciones BT) - larioja.org",
+    "Ficha oficial 'Autoconsumo de energía eléctrica. Registro administrativo de instalaciones de generación de autoconsumo' (modelo AUTee) - larioja.org oficina electrónica"
   ],
   "reglas": [
     {
       "id": "RIO-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -45,122 +41,64 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación y cumple con ITC-BT-40",
-              "formato": "PDF",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación (CI)",
-              "descripcion": "Certificado firmado por instalador que acredita que la instalación se ajusta al proyecto/MTD y al REBT",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Documento firmado por el titular declarando que cumple con los requisitos",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Registro de autoconsumo (comunicación a la comunidad autónoma)",
-          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de La Rioja",
-          "base_legal": "RD 244/2019 art. 11; Decreto 48/2003",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Gobierno de La Rioja",
+          "nombre": "Registro de instalación y comunicación de puesta en servicio (modelo AUTee)",
+          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
+          "base_legal": "RD 244/2019 art. 19; REBT RD 842/2002",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
           "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
-          "coste_estimado": "0 € (tasa 0 para autoconsumo ≤10 kW)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "AUTee",
+          "paralelo_con": null,
+          "regla_id": "RIO-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Mismo documento que el paso anterior",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación (CI)",
-              "descripcion": "Mismo documento que el paso anterior",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Mismo documento que el paso anterior",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "contrato_acceso",
-              "label": "Contrato de acceso y conexión firmado con la distribuidora",
-              "descripcion": "Documento que acredita el punto de conexión y condiciones técnicas",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Puesta en servicio (comunicación a la comunidad autónoma)",
-          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de La Rioja",
-          "base_legal": "Decreto 48/2003; Orden 5/2017",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 10,
-          "plataforma": "Sede Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
-          "coste_estimado": "0 € (tasa 0 para autoconsumo ≤10 kW)",
-          "documentos_requeridos": [
-            {
-              "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI)",
-              "descripcion": "Mismo documento que el paso anterior",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Mismo documento que el paso anterior",
-              "formato": "PDF",
-              "obligatorio": true
-            }
-          ]
+          ],
+          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial)."
         }
       ]
     },
     {
       "id": "RIO-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o uso no residencial (proyecto técnico, OCA)",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -173,97 +111,77 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico (0 € tasa administrativa)",
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, planos, pliego de condiciones, presupuesto",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Registro de autoconsumo (comunicación a la comunidad autónoma)",
-          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de La Rioja",
-          "base_legal": "RD 244/2019 art. 11; Decreto 48/2003",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
-          "coste_estimado": "0 € (tasa 0 para autoconsumo)",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico",
-              "descripcion": "Mismo documento que el paso anterior",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "contrato_acceso",
-              "label": "Contrato de acceso y conexión firmado con la distribuidora",
-              "descripcion": "Documento que acredita el punto de conexión y condiciones técnicas",
-              "formato": "PDF",
-              "obligatorio": true
-            }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Inspección inicial por OCA (Organismo de Control Autorizado)",
-          "organismo": "OCA autorizada en La Rioja (ej. TÜV Rheinland, Applus, Bureau Veritas, etc.)",
-          "base_legal": "Decreto 48/2003; Orden 5/2017; RD 2200/1995",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "nombre": "Inspección inicial por OCA",
+          "organismo": "Organismo de Control Autorizado (OCA) en La Rioja",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según OCA (aprox. 200-500 €)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Mismo documento que el paso anterior",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación (CI)",
-              "descripcion": "Firmado por instalador habilitado",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
-          "orden": 4,
-          "nombre": "Puesta en servicio (comunicación a la comunidad autónoma con certificado OCA)",
-          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de La Rioja",
-          "base_legal": "Decreto 48/2003; Orden 5/2017",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 10,
-          "plataforma": "Sede Electrónica del Gobierno de La Rioja",
+          "orden": 3,
+          "nombre": "Autorización administrativa y de construcción, autorización de explotación, registro (modelo AUTee)",
+          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
+          "base_legal": "Ley 24/2013 art. 53; RD 244/2019",
+          "plazo_estimado_dias": 180,
+          "plazo_legal_dias": 180,
+          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
           "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
-          "coste_estimado": "0 € (tasa 0 para autoconsumo)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "AUTee",
+          "paralelo_con": null,
+          "regla_id": "RIO-FV-002",
           "documentos_requeridos": [
             {
-              "id": "certificado_oca",
-              "label": "Certificado de inspección OCA favorable",
-              "descripcion": "Documento emitido por OCA que acredita que la instalación cumple la normativa",
-              "formato": "PDF",
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "declaracion_responsable",
-              "label": "Declaración Responsable (DR) del titular",
-              "descripcion": "Documento firmado por el titular declarando que cumple con los requisitos",
-              "formato": "PDF",
+              "id": "certificado_instalacion",
+              "label": "Certificado de Instalación (CI)",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Plazo de 6 meses para la autorización administrativa confirmado en ficha oficial de La Rioja; puede suspenderse si se requieren informes preceptivos de otros organismos."
         }
       ]
     }

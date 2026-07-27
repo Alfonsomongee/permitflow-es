@@ -1,115 +1,100 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "comunidad_valenciana",
-  "version": "1.1.0",
-  "ultima_revision": "2025-04-07",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 162/1990' como base legal: verificado que ese decreto real regula la Evaluación de Impacto Ambiental de la Comunitat Valenciana, sin relación con instalaciones térmicas. Se sustituyó por el RITE nacional aplicado directamente, con los trámites reales confirmados: G19316 (5-70 kW) y G450/G94685 (>70 kW), gestionados vía el Registro Integrado Industrial (RII). Se eliminó también la referencia a 'Ley 3/2020 disposición adicional sobre ECA' por no poder confirmarse.",
+  "huecos_verificacion": [
+    "Instalaciones <5 kW térmicos pueden quedar fuera del ámbito de comunicación según el propio RITE — no modelado por falta de campo de tipo de equipo en el schema (mismo hueco detectado en Castilla-La Mancha)",
+    "El régimen de control (OCA/EIC/ECA) exacto para instalaciones >70 kW en la CV se basa en el Decreto 125/2012 (organismos de control), confirmado real, pero no se ha verificado el detalle procedimental exacto",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "RD 178/2021 de eficiencia energética",
-    "Decreto 162/1990 de 15 de octubre (Comunitat Valenciana) sobre puesta en servicio de instalaciones térmicas",
-    "Orden de 20 de junio de 1991 (Comunitat Valenciana) de desarrollo del Decreto 162/1990",
-    "Ley 3/2020 de 30 de diciembre de la Generalitat Valenciana de medidas fiscales, de gestión administrativa y financiera y de organización (disposición adicional sobre ECA)"
+    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+    "Decreto 125/2012, de 27 de julio (organismos de control en materia de seguridad industrial en la Comunitat Valenciana) — confirmado real",
+    "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y G450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es"
   ],
   "reglas": [
     {
       "id": "CV-CL-001",
-      "descripcion": "Instalación térmica con aerotermia de potencia ≤ 70 kW en edificio existente o nueva construcción (memoria técnica, sin proyecto)",
+      "descripcion": "Instalación térmica con aerotermia de potencia ≤ 70 kW (comunicación, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
-          "organismo": "Instalador habilitado en climatización (categoría según RITE)",
-          "base_legal": "RITE RD 1027/2007 art. 12; Decreto 162/1990 art. 3",
+          "organismo": "Instalador habilitado en climatización, inscrito en el Registro Integrado Industrial (RII)",
+          "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-CL-001",
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
               "label": "Memoria Técnica de Diseño (MTD) de instalación térmica",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador (carné profesional)",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Puesta en servicio (comunicación a la Administración)",
-          "organismo": "Dirección General de Industria y Energía (Conselleria de Economía Sostenible, Sectores Productivos, Comercio y Trabajo)",
-          "base_legal": "Decreto 162/1990 art. 4; Orden 20/06/1991",
+          "nombre": "Comunicación de instalación térmica (5-70 kW)",
+          "organismo": "Conselleria competente en materia de industria",
+          "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Registro de Instalaciones Térmicas de la Comunitat Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=G144",
-          "coste_estimado": "0 € (tasa administrativa exenta para instalaciones ≤70 kW)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede PROP electrónica (gva.es)",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=G19316",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "G19316",
+          "paralelo_con": null,
+          "regla_id": "CV-CL-001",
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
               "label": "Memoria Técnica de Diseño (MTD) sellada por instalador",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_eficiencia_energetica",
-              "label": "Certificado de eficiencia energética (si procede)",
-              "formato": "PDF",
-              "obligatorio": false
             }
-          ]
+          ],
+          "notas": "Instalaciones <5 kW pueden quedar fuera del ámbito de comunicación según el propio RITE — no modelado en esta regla."
         }
       ]
     },
     {
       "id": "CV-CL-002",
-      "descripcion": "Instalación térmica con aerotermia de potencia > 70 kW (requiere proyecto técnico y ECA)",
+      "descripcion": "Instalación térmica con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -117,94 +102,88 @@
           "orden": 1,
           "nombre": "Proyecto Técnico de instalación térmica",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007 art. 11; Decreto 162/1990 art. 3",
+          "base_legal": "RITE RD 1027/2007 art. 16",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-CL-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico visado por colegio profesional",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial por ECA (Entidad Colaboradora de la Administración)",
-          "organismo": "ECA autorizada por la Conselleria de Economía Sostenible",
-          "base_legal": "Decreto 162/1990 art. 5; Ley 3/2020 disposición adicional",
+          "nombre": "Inspección inicial por Organismo de Control (OCA)",
+          "organismo": "OCA acreditada en la Comunitat Valenciana (Decreto 125/2012)",
+          "base_legal": "RITE RD 1027/2007 art. 15; Decreto 125/2012",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Registro de Instalaciones Térmicas de la Comunitat Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=G144",
-          "coste_estimado": "Variable según ECA (aprox. 200-400 €)",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CV-CL-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico visado",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_eca",
-              "label": "Certificado de inspección de ECA",
-              "formato": "PDF",
+              "id": "certificado_oca",
+              "label": "Certificado de inspección de OCA",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Puesta en servicio (autorización administrativa)",
-          "organismo": "Dirección General de Industria y Energía (Conselleria de Economía Sostenible, Sectores Productivos, Comercio y Trabajo)",
-          "base_legal": "Decreto 162/1990 art. 4; Orden 20/06/1991",
+          "nombre": "Comunicación de instalación térmica (>70 kW)",
+          "organismo": "Conselleria competente en materia de industria",
+          "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 30,
-          "plataforma": "Registro de Instalaciones Térmicas de la Comunitat Valenciana",
-          "plataforma_url": "https://www.gva.es/es/inicio/procedimientos?id_proc=G144",
-          "coste_estimado": "Tasa administrativa (aprox. 50-100 €)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede PROP electrónica (gva.es)",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=G450",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "G450",
+          "paralelo_con": null,
+          "regla_id": "CV-CL-002",
           "documentos_requeridos": [
             {
-              "id": "certificado_eca",
-              "label": "Certificado de inspección de ECA favorable",
-              "formato": "PDF",
+              "id": "certificado_oca",
+              "label": "Certificado de inspección de OCA favorable",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico visado",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

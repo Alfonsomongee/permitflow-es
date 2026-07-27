@@ -1,157 +1,214 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "asturias",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "1.0.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "estricta",
+  "estado": "verificado",
+  "aviso": "Decreto 11/2015 aplicado. Trámite RECE0050T01 consolidado. Regla transversal de Legionelosis (PPCL/PSL) añadida para usos no residenciales individuales.",
+  "huecos_verificacion": [],
   "fuentes": [
     "RITE RD 1027/2007",
-    "Decreto 37/2001, de 19 de abril, por el que se aprueba el Reglamento de Instalaciones Térmicas en los Edificios de la Comunidad Autónoma del Principado de Asturias",
-    "Orden de 15 de diciembre de 2003 por la que se desarrolla el Decreto 37/2001",
-    "RD 842/2002 REBT"
+    "RD 238/2013 modificación RITE",
+    "Decreto 11/2015, de 4 de marzo, del Principado de Asturias (aspectos RITE)",
+    "RD 487/2022 y RD 614/2024 (prevención de legionelosis)",
+    "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos del Principado de Asturias"
   ],
   "reglas": [
     {
       "id": "AST-ACS-001",
-      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción",
+      "descripcion": "Instalación de ACS con potencia <= 70 kW",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) o Proyecto Técnico según RITE",
-          "organismo": "Instalador habilitado (categoría: instalador de instalaciones térmicas)",
-          "base_legal": "RITE RD 1027/2007; Decreto 37/2001",
+          "nombre": "Memoria Técnica (Anexo III) según RITE",
+          "organismo": "Instalador habilitado (categoría instalaciones térmicas)",
+          "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-ACS-001",
           "documentos_requeridos": [
             {
               "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño (MTD) según RITE",
-              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación y cumple con RITE y normativa autonómica."
+              "label": "Memoria Técnica (Anexo III) según RITE",
+              "descripcion": "Documento técnico firmado por instalador habilitado.",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación de la habilitación del instalador según Decreto 37/2001."
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) ante el Órgano Competente de Industria del Principado de Asturias",
-          "organismo": "Consejería de Industria, Empleo y Promoción Económica del Principado de Asturias (Dirección General de Energía, Minería y Reactivación)",
-          "base_legal": "Decreto 37/2001; Orden 15/12/2003",
+          "nombre": "Registro de la instalación térmica (RECE0050T01)",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Decreto 11/2015",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
           "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "0 € (tasa administrativa no aplica para DRPS)",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "formulario_ref": "RECE0050T01",
+          "paralelo_con": null,
+          "regla_id": "AST-ACS-001",
           "documentos_requeridos": [
             {
-              "id": "drps_acs",
-              "label": "Declaración Responsable de Puesta en Servicio (DRPS)",
-              "descripcion": "Formulario oficial de DRPS cumplimentado y firmado por el titular y el instalador."
-            },
-            {
               "id": "mtd_rite",
-              "label": "Memoria Técnica de Diseño (MTD) o Proyecto Técnico",
-              "descripcion": "Documento técnico visado por colegio profesional si procede, o firmado por instalador habilitado."
+              "label": "Memoria Técnica (Anexo III) firmada",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de instalación firmado por instalador habilitado",
-              "descripcion": "Certificado que acredita que la instalación se ha ejecutado según MTD y normativa vigente."
+              "label": "Certificado de instalación",
+              "descripcion": "Acredita que la instalación se ejecutó según MTD.",
+              "obligatorio": true
             },
             {
-              "id": "certificado_materiales",
-              "label": "Certificado de materiales y equipos",
-              "descripcion": "Documentación de los equipos instalados (marcado CE, fichas técnicas)."
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "Basado en el PEM.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "AST-ACS-002",
-      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW",
+      "descripcion": "Instalación de ACS con potencia > 70 kW",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico redactado por técnico competente (ingeniero o arquitecto)",
-          "organismo": "Técnico competente (ingeniero industrial, ingeniero térmico, arquitecto técnico, etc.)",
-          "base_legal": "RITE RD 1027/2007; Decreto 37/2001",
+          "nombre": "Proyecto Técnico de ACS",
+          "organismo": "Técnico competente (ingeniero industrial, arquitecto técnico, etc.)",
+          "base_legal": "RITE RD 1027/2007 art. 16",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-ACS-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tec_acs",
               "label": "Proyecto Técnico de instalación de ACS",
-              "descripcion": "Proyecto firmado por técnico competente visado por colegio profesional."
+              "descripcion": "Firmado por técnico competente, visado por colegio profesional.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS) ante el Órgano Competente de Industria del Principado de Asturias",
-          "organismo": "Consejería de Industria, Empleo y Promoción Económica del Principado de Asturias (Dirección General de Energía, Minería y Reactivación)",
-          "base_legal": "Decreto 37/2001; Orden 15/12/2003",
+          "nombre": "Registro de la instalación térmica e Inspección Inicial (RECE0050T01)",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24; Decreto 11/2015",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
           "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "0 € (tasa administrativa no aplica para DRPS)",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "formulario_ref": "RECE0050T01",
+          "paralelo_con": null,
+          "regla_id": "AST-ACS-002",
           "documentos_requeridos": [
             {
-              "id": "drps_acs",
-              "label": "Declaración Responsable de Puesta en Servicio (DRPS)",
-              "descripcion": "Formulario oficial de DRPS cumplimentado y firmado por el titular y el instalador."
-            },
-            {
               "id": "proyecto_tec_acs",
-              "label": "Proyecto Técnico visado",
-              "descripcion": "Proyecto técnico visado por colegio profesional."
+              "label": "Proyecto Técnico de ACS",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_direccion_obra",
               "label": "Certificado de dirección de obra",
-              "descripcion": "Certificado del técnico director de obra indicando que la instalación se ajusta al proyecto."
+              "descripcion": "Del técnico director de obra.",
+              "obligatorio": true
             },
             {
-              "id": "certificado_materiales",
-              "label": "Certificado de materiales y equipos",
-              "descripcion": "Documentación de los equipos instalados (marcado CE, fichas técnicas)."
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_oca",
+              "label": "Certificado de inspección inicial con calificación aceptable (OCA)",
+              "descripcion": "Requerido por superar los 70 kW.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "Basado en el PEM.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "AST-ACS-003",
+      "descripcion": "Prevención y Control de Legionelosis en instalaciones de uso colectivo/terciario",
+      "condicion": {
+        "or": [
+          { "==": [ { "var": "uso" }, "comercial" ] },
+          { "==": [ { "var": "uso" }, "terciario" ] },
+          { "==": [ { "var": "uso" }, "residencial_colectivo" ] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 99,
+          "nombre": "Plan de Prevención y Control de Legionella (PPCL) o Plan Sanitario frente a Legionella (PSL)",
+          "organismo": "Titular de la instalación",
+          "base_legal": "RD 487/2022 y RD 614/2024",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-ACS-003",
+          "documentos_requeridos": [
+            {
+              "id": "documento_ppcl_psl",
+              "label": "Documento PPCL o PSL",
+              "descripcion": "Debe mantenerse actualizado e in situ. No requiere registro telemático inicial obligatorio, pero es exigible en inspecciones de Salud Pública.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La normativa estatal exige la elaboración de este plan para instalaciones con sistemas de ACS de uso no residencial individual."
         }
       ]
     }
-  ]
+  ],
+  "validaciones": []
 }

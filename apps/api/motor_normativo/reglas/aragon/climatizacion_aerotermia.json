@@ -1,26 +1,52 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "aragon",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "estado": "verificado",
+  "aviso": "Reglas de potencia base verificadas y exención <5kW introducida.",
+  "huecos_verificacion": [
+    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
+    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+  ],
   "fuentes": [
-    "RITE RD 1027/2007",
+    "RITE RD 1027/2007, modificado por RD 178/2021",
     "REBT RD 842/2002",
-    "Decreto 108/1992, de 26 de mayo, de la Diputación General de Aragón, sobre puesta en servicio de instalaciones térmicas en los edificios",
-    "Orden de 9 de abril de 1998, del Departamento de Industria, Comercio y Desarrollo, por la que se desarrolla el Decreto 108/1992",
-    "Ley 21/1992 de Industria",
-    "RD 2200/1995 Reglamento de la Infraestructura para la Calidad y Seguridad Industrial"
+    "Decreto 108/1992 de Aragon -- VIGENCIA NO COMPROBADA, ver huecos_verificacion",
+    "RD 2200/1995 (Reglamento de la Infraestructura para la Calidad y Seguridad Industrial)"
   ],
   "reglas": [
     {
-      "id": "ARA-CLIMA-001",
-      "descripcion": "Instalación térmica de aerotermia con potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción (sin proyecto, solo memoria técnica)",
+      "id": "ARA-CLIM-000",
+      "descripcion": "Instalacion termica < 5 kW: exenta de registro autonómico",
+      "condicion": {
+        "<": [
+          {
+            "var": "potencia_kw"
+          },
+          5
+        ]
+      },
+      "tramites": []
+    },
+    {
+      "id": "ARA-CLIM-001",
+      "descripcion": "Instalacion termica >= 5 kW y <=70 kW: memoria tecnica",
       "condicion": {
         "and": [
           {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
             "<=": [
               {
-                "var": "potencia_termica_kw"
+                "var": "potencia_kw"
               },
               70
             ]
@@ -30,154 +56,136 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
-          "organismo": "Instalador habilitado en climatización (categoría según RITE)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 108/1992 art. 3",
+          "nombre": "Memoria Tecnica de Diseno (MTD) de instalacion termica",
+          "organismo": "Instalador habilitado en climatizacion",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
-              "label": "Memoria Técnica de Diseño (MTD) de instalación térmica",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos, equipos y cumplimiento del RITE.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación de la habilitación del instalador según RITE.",
-              "formato": "PDF"
+              "label": "MTD instalacion termica",
+              "descripcion": "Segun RITE.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el Órgano Territorial de Industria",
-          "organismo": "Órgano Territorial de Industria del Gobierno de Aragón (Servicio Provincial de Industria, Comercio y Desarrollo)",
-          "base_legal": "Decreto 108/1992 art. 4; Orden 9 abril 1998",
+          "nombre": "Comunicacion de puesta en servicio de instalacion termica en edificios",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RITE RD 1027/2007; normativa autonomica de procedimiento (vigencia no comprobada)",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Gobierno de Aragón - Registro Industrial",
-          "plataforma_url": "https://www.aragon.es/tramites/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa 0)",
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "drps_termica",
-              "label": "Declaración responsable de puesta en servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
-              "formato": "PDF"
-            },
-            {
               "id": "mtd_termica",
-              "label": "Memoria Técnica de Diseño (MTD) de instalación térmica",
-              "descripcion": "Misma MTD del paso anterior.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Mismo certificado del paso anterior.",
-              "formato": "PDF"
+              "label": "MTD",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
         }
       ]
     },
     {
-      "id": "ARA-CLIMA-002",
-      "descripcion": "Instalación térmica de aerotermia con potencia térmica nominal > 70 kW (requiere proyecto técnico y OCA)",
+      "id": "ARA-CLIM-002",
+      "descripcion": "Instalacion termica >70 kW: proyecto tecnico y certificado OCA",
       "condicion": {
-        "and": [
+        ">": [
           {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+            "var": "potencia_kw"
+          },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico de instalación térmica",
-          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 108/1992 art. 3",
+          "nombre": "Proyecto tecnico de instalacion termica",
+          "organismo": "Tecnico titulado competente",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios del técnico",
+          "coste_estimado": "Variable segun honorarios del tecnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "proyecto_termico",
-              "label": "Proyecto técnico de instalación térmica",
-              "descripcion": "Documento firmado por técnico competente que incluye memoria, cálculos, planos, pliego de condiciones y presupuesto.",
-              "formato": "PDF"
+              "label": "Proyecto tecnico",
+              "descripcion": "Memoria, calculos, planos.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación por OCA (Organismo de Control Autorizado)",
-          "organismo": "OCA habilitada en Aragón (ej: TÜV Rheinland, Applus, Bureau Veritas, etc.)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 108/1992 art. 5; RD 2200/1995",
+          "nombre": "Certificado de instalacion por Organismo de Control Autorizado (OCA)",
+          "organismo": "OCA habilitada",
+          "base_legal": "RITE RD 1027/2007; RD 2200/1995",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 20,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según OCA (aprox. 200-500 €)",
+          "coste_estimado": "NO VERIFICADO -- variable segun OCA",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "proyecto_termico",
-              "label": "Proyecto técnico de instalación térmica",
-              "descripcion": "Mismo proyecto del paso anterior.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación de la habilitación del instalador.",
-              "formato": "PDF"
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": null
         },
         {
           "orden": 3,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante el Órgano Territorial de Industria",
-          "organismo": "Órgano Territorial de Industria del Gobierno de Aragón (Servicio Provincial de Industria, Comercio y Desarrollo)",
-          "base_legal": "Decreto 108/1992 art. 4; Orden 9 abril 1998",
+          "nombre": "Comunicacion de puesta en servicio de instalacion termica en edificios",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RITE RD 1027/2007; normativa autonomica de procedimiento (vigencia no comprobada)",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica del Gobierno de Aragón - Registro Industrial",
-          "plataforma_url": "https://www.aragon.es/tramites/declaracion-responsable-de-puesta-en-servicio-de-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa 0)",
+          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
           "documentos_requeridos": [
             {
-              "id": "drps_termica",
-              "label": "Declaración responsable de puesta en servicio",
-              "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_oca",
-              "label": "Certificado de OCA",
-              "descripcion": "Certificado emitido por el OCA tras la inspección favorable.",
-              "formato": "PDF"
-            },
-            {
               "id": "proyecto_termico",
-              "label": "Proyecto técnico de instalación térmica",
-              "descripcion": "Mismo proyecto del paso anterior.",
-              "formato": "PDF"
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
         }
       ]
     }
-  ]
+  ],
+  "validaciones": [],
+  "nivel_verificacion": "generica"
 }

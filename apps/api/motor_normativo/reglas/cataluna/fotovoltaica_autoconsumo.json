@@ -1,122 +1,104 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cataluna",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-24",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Ajustado a partir de la versión 1.1.0 anterior, que ya estaba en un nivel de verificación notablemente mejor que el resto de comunidades auditadas en este proyecto (citaba correctamente el Decret llei 24/2021, real y confirmado, que introduce la declaración responsable para autoconsumo sin compensación de excedentes, y el Registre d'Autoconsum de Catalunya (RAC), también confirmado como real). Se mantiene la estructura de 4 tramos de potencia, que no presenta huecos ni solapes. Dos citas quedan marcadas como pendientes de verificar: 'Decreto-ley 16/2019' (las fuentes oficiales consultadas dan resultados contradictorios entre un 'Decret llei 16/2009, de 26 de novembre' y un 'Decret llei 16/2019' para la norma que el 24/2021 modifica) y 'Decreto-ley 22/2025 (BOE-A-2026-562)' (no confirmado de forma independiente).",
+  "huecos_verificacion": [
+    "Confirmar si el decreto-ley que el 24/2021 modifica es el 16/2009 o el 16/2019 — las fuentes oficiales consultadas en esta revisión son contradictorias entre sí en este punto",
+    "Confirmar la existencia y contenido exacto de 'Decreto-ley 22/2025' citado para el tramo 100-500 kW",
+    "Importes de tasa (Decreto Legislativo 3/2008) no verificados, tal y como ya señalaba el propio fichero original",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "Ley 24/2013 art. 53",
     "RD 244/2019",
-    "Decreto-ley 24/2021 (BOE-A-2021-21113)",
-    "Decreto-ley 16/2019",
-    "Decreto-ley 22/2025 (BOE-A-2026-562)",
-    "Decreto Legislativo 3/2008 (TR Tasas Generalitat)"
+    "Decret llei 24/2021, de 26 d'octubre, d'acceleració del desplegament de les energies renovables distribuïdes i participades (confirmado, DOGC núm. 8530/8531)",
+    "Decreto-ley 16/2019 o 16/2009 (NO VERIFICADO cuál es el correcto, ver huecos_verificacion)",
+    "Decreto-ley 22/2025 (NO VERIFICADO de forma independiente)",
+    "Decreto Legislativo 3/2008 (TR Tasas Generalitat)",
+    "Registre d'Autoconsum de Catalunya (RAC) — confirmado real en el texto del Decret llei 24/2021"
   ],
   "reglas": [
     {
-      "id": "CAT-FV-1",
+      "id": "CAT-FV-001",
       "descripcion": "Autoconsumo hasta 10 kW: declaración responsable BT y registro RAC",
       "condicion": {
         "<=": [
-          {
-            "var": "potencia_kw"
-          },
+          { "var": "potencia_kw" },
           10
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Declaración responsable BT e inscripción RAC",
+          "nombre": "Declaración responsable BT e inscripción en el RAC",
           "organismo": "Direcció General d'Energia",
-          "base_legal": "Decreto-ley 24/2021 art. 4; RD 244/2019",
+          "base_legal": "Decret llei 24/2021; RD 244/2019",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa",
           "plataforma_url": "https://canalempresa.gencat.cat/ca/integrals/detall/Installacio-electrica-de-baixa-tensio-00003",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "MTD <10 kW",
+              "descripcion": "MTD para instalaciones ≤10 kW.",
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de tasa por ser <=100 kW",
-          "paralelo_con": null
+          "notas": "Exenta de tasa por ser ≤100 kW."
         }
       ]
     },
     {
-      "id": "CAT-FV-2",
-      "descripcion": "Autoconsumo >10 y <=100 kW: autorización de explotación y RAC, exenta de tasa",
+      "id": "CAT-FV-002",
+      "descripcion": "Autoconsumo >10 y ≤100 kW: autorización de explotación y RAC, exenta de tasa",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 10 ] },
+          { "<=": [ { "var": "potencia_kw" }, 100 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Autorización de explotación e inscripción RAC",
+          "nombre": "Autorización de explotación e inscripción en el RAC",
           "organismo": "Direcció General d'Energia",
-          "base_legal": "Decreto-ley 24/2021; RD 244/2019",
+          "base_legal": "Decret llei 24/2021; RD 244/2019",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa / OGE",
           "plataforma_url": "https://web.gencat.cat/es/tramits/tramits-temes/21526-installacio-generadora-autoconsum-compensacio",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "21526",
+          "paralelo_con": null,
+          "regla_id": "CAT-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto",
-              "label": "Proyecto y CDO",
-              "descripcion": "Proyecto >10 kW",
+              "label": "Proyecto y Certificado de Dirección de Obra (CDO)",
+              "descripcion": "Para instalaciones >10 kW.",
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de tasa por ser <=100 kW",
-          "paralelo_con": null
+          "notas": "Exenta de tasa por ser ≤100 kW."
         }
       ]
     },
     {
-      "id": "CAT-FV-3",
-      "descripcion": "Autoconsumo >100 y <=500 kW: exenta de autorización administrativa previa (DL 22/2025)",
+      "id": "CAT-FV-003",
+      "descripcion": "Autoconsumo >100 y ≤500 kW: exenta de autorización administrativa previa",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              500
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "potencia_kw" }, 500 ] }
         ]
       },
       "tramites": [
@@ -124,63 +106,58 @@
           "orden": 1,
           "nombre": "Autorización de explotación definitiva e inscripción RIPRE/RAC",
           "organismo": "Direcció General d'Energia",
-          "base_legal": "Decreto-ley 22/2025; Decreto-ley 12/2025",
+          "base_legal": "Decreto-ley 22/2025 (NO VERIFICADO de forma independiente)",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa / OGE",
           "plataforma_url": "https://canalempresa.gencat.cat/ca/integrals/detall/Autoritzacio-dinstallacions-de-produccio-denergia-electrica-00001",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-FV-003",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto de ejecución",
-              "descripcion": "Proyecto firmado por técnico competente",
+              "descripcion": "Firmado por técnico competente.",
               "obligatorio": true
             }
           ],
-          "notas": "Exenta de autorización administrativa previa y de construcción por Decreto-ley 22/2025 (rango 100-500 kW). Importe de tasa NO verificado (discrepancia de numeración en DLeg 3/2008), coste_estimado null hasta confirmar",
-          "paralelo_con": null
+          "notas": "El fichero original citaba exención de autorización administrativa previa y de construcción para este tramo por un 'Decreto-ley 22/2025' que no se ha podido confirmar de forma independiente en esta revisión. Se mantiene marcado como pendiente."
         }
       ]
     },
     {
-      "id": "CAT-FV-4",
+      "id": "CAT-FV-004",
       "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción",
       "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          500
-        ]
+        ">": [ { "var": "potencia_kw" }, 500 ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización administrativa previa y de construcción",
           "organismo": "Direcció General d'Energia",
-          "base_legal": "Decreto-ley 16/2019; Ley 24/2013 art. 53",
+          "base_legal": "Ley 24/2013 art. 53",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa / OGE",
           "plataforma_url": "https://canalempresa.gencat.cat/ca/integrals/detall/Autoritzacio-dinstallacions-de-produccio-denergia-electrica-00001",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "21912",
+          "paralelo_con": null,
+          "regla_id": "CAT-FV-004",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto",
-              "descripcion": "Proyecto y estudios ambientales si procede",
+              "descripcion": "Proyecto y estudios ambientales si procede.",
               "obligatorio": true
             }
           ],
-          "notas": "SILENCIO NEGATIVO (art. 53 Ley 24/2013), igual que Andalucía. Procedimiento integrado por fases sin plazo único simple en la norma. Importe de tasa NO verificado",
-          "paralelo_con": null
+          "notas": "Silencio administrativo negativo (art. 53 Ley 24/2013). Procedimiento integrado por fases sin plazo único simple en la norma. Importe de tasa NO verificado."
         }
       ]
     }
-  ],
-  "validaciones": [],
-  "nivel_verificacion": "generica"
+  ]
 }

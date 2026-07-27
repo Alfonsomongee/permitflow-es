@@ -1,100 +1,102 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "canarias",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 141/2016, de 10 de octubre' como Reglamento de Instalaciones Térmicas de Canarias: no se ha localizado ninguna norma autonómica canaria que desarrolle el RITE. La ficha oficial de Canarias para 'Puesta en funcionamiento de instalaciones térmicas en edificios' (SICAC 3409) cita únicamente normativa nacional (RITE y sus modificaciones, CTE), sin decreto autonómico. Prefijo de regla cambiado de 'CAN' a 'ICAN'.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica canaria específica de climatización; se aplica el RITE nacional directamente",
+    "Tasas y plazos legales no verificados",
+    "No se ha confirmado si Canarias exige informe adicional distinto de la comunicación de puesta en funcionamiento (SICAC 3409)"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "REBT RD 842/2002",
-    "Decreto 141/2016, de 10 de octubre, por el que se aprueba el Reglamento de Instalaciones Térmicas en los Edificios de la Comunidad Autónoma de Canarias",
-    "Orden de 11 de marzo de 2020, por la que se regulan los procedimientos de puesta en servicio de instalaciones térmicas en Canarias"
+    "RD 1826/2009 (modificación RITE)",
+    "RD 238/2013 (modificación RITE)",
+    "RD 178/2021 (modificación RITE)",
+    "RD 314/2006 Código Técnico de la Edificación",
+    "Ficha de trámite SICAC 3409 'Puesta en funcionamiento de instalaciones térmicas en edificios' - sede.gobiernodecanarias.org"
   ],
   "reglas": [
     {
-      "id": "CAN-CLI-001",
-      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal ≤ 70 kW en edificio existente o nueva construcción, sin proyecto (memoria técnica)",
+      "id": "ICAN-CLI-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Instalación Térmica (MTIT)",
-          "organismo": "Instalador habilitado en climatización (categoría I o II según RITE)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 141/2016 art. 12",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-CLI-001",
           "documentos_requeridos": [
             {
               "id": "mtit_climatizacion",
-              "label": "Memoria Técnica de Instalación Térmica"
+              "label": "Memoria Técnica de Instalación Térmica",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular"
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Registro de la instalación térmica en el órgano competente de la Comunidad Autónoma de Canarias",
-          "organismo": "Dirección General de Energía (Gobierno de Canarias)",
-          "base_legal": "Decreto 141/2016 art. 15; Orden 11/03/2020",
+          "nombre": "Comunicación de puesta en funcionamiento de instalaciones térmicas (SICAC 3409)",
+          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobcan.es/sede/tramites/registro-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa no aplicable)",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3409",
+          "paralelo_con": null,
+          "regla_id": "ICAN-CLI-001",
           "documentos_requeridos": [
             {
               "id": "mtit_firmada",
-              "label": "MTIT firmada por instalador"
+              "label": "MTIT firmada por instalador",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular"
-            },
-            {
-              "id": "justificante_pago",
-              "label": "Justificante de pago de tasas (si procede)"
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
-      "id": "CAN-CLI-002",
-      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal > 70 kW (requiere proyecto técnico)",
+      "id": "ICAN-CLI-002",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -102,51 +104,59 @@
           "orden": 1,
           "nombre": "Proyecto Técnico de Instalación Térmica",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007 IT 1.3.4; Decreto 141/2016 art. 11",
+          "base_legal": "RITE RD 1027/2007 art. 16",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-CLI-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico visado por colegio profesional"
+              "label": "Proyecto Técnico visado por colegio profesional",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra"
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Registro de la instalación térmica en el órgano competente de la Comunidad Autónoma de Canarias",
-          "organismo": "Dirección General de Energía (Gobierno de Canarias)",
-          "base_legal": "Decreto 141/2016 art. 15; Orden 11/03/2020",
+          "nombre": "Comunicación de puesta en funcionamiento de instalaciones térmicas (SICAC 3409)",
+          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobcan.es/sede/tramites/registro-instalaciones-termicas",
-          "coste_estimado": "0 € (tasa no aplicable)",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3409",
+          "paralelo_con": null,
+          "regla_id": "ICAN-CLI-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado",
-              "label": "Proyecto visado"
+              "label": "Proyecto visado",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular"
-            },
-            {
-              "id": "justificante_pago",
-              "label": "Justificante de pago de tasas (si procede)"
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

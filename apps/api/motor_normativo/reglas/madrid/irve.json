@@ -1,36 +1,46 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "madrid",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe; el campo real es 'ubicacion_irve'). Se eliminó 'Decreto 127/2019' como base legal: no se ha localizado con ese contenido; el decreto real de esa fecha (Decreto 17/2019) regula el procedimiento de inspecciones periódicas, no la instalación inicial. Sustituido por la base real confirmada: Decreto 38/2002 (control reglamentario industrial) + Orden 9344/2003 (tramitación, puesta en servicio e inspección BT), modificada por Orden 163/2024. Se confirmó que 'EICI' es terminología real de Madrid. Se sustituyó el umbral inventado de 10 kW por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014).",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica madrileña específica de IRVE; se aplica el régimen general de BT vía EICI",
+    "La Orden 163/2024 excluye de su ámbito, entre otras, las estaciones de recarga con más de 3.000 kW — no modelado por ser un caso extremo poco frecuente en este vertical",
+    "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
+    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
+    "Tasas y plazos legales no verificados con detalle"
+  ],
   "fuentes": [
-    "RD 1053/2014 ITC-BT-52",
-    "RD 639/2016",
-    "RD 266/2021",
-    "Ley 24/2013 Sector Eléctrico",
-    "Decreto 127/2019 de la Comunidad de Madrid (reglamento de puesta en servicio de instalaciones eléctricas de baja tensión)",
-    "Orden 934/2022 de la Consejería de Economía, Hacienda y Empleo (procedimiento de puesta en servicio de IRVE en Madrid)"
+    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+    "RD 842/2002 REBT",
+    "Decreto 38/2002, de 28 de febrero (control reglamentario de instalaciones industriales en Madrid) — confirmado real",
+    "Orden 9344/2003, de 1 de octubre (tramitación, puesta en servicio e inspección de instalaciones BT no industriales), modificada por Orden 163/2024 — confirmado real",
+    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
   ],
   "reglas": [
     {
       "id": "MAD-IRVE-001",
-      "descripcion": "Instalación de recarga de vehículo eléctrico en edificio existente con potencia ≤ 10 kW (sin ampliación de potencia)",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
+          { "!=": [ { "var": "modo_recarga" }, "4" ] },
           {
-            "<=": [
+            "or": [
               {
-                "var": "potencia_kw"
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                ]
               },
-              10
-            ]
-          },
-          {
-            "==": [
               {
-                "var": "tipo_edificio"
-              },
-              "existente"
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                ]
+              }
             ]
           }
         ]
@@ -40,79 +50,78 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
           "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 127/2019",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-IRVE-001",
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
               "label": "Memoria Técnica de Diseño IRVE",
-              "formato": "pdf",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "declaracion_responsable_instalador",
               "label": "Declaración responsable del instalador",
-              "formato": "pdf",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Registro en el órgano competente de la Comunidad de Madrid (EICI)",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Economía, Hacienda y Empleo)",
-          "base_legal": "Orden 934/2022; Decreto 127/2019",
+          "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI)",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
+          "base_legal": "Orden 9344/2003; Decreto 38/2002",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "EICI (Expediente Industrial de la Comunidad de Madrid)",
-          "plataforma_url": "https://eici.madrid.org",
-          "coste_estimado": "0 € (tasa administrativa exenta para IRVE ≤ 10 kW)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/node/212672",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-IRVE-001",
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
               "label": "Memoria Técnica de Diseño IRVE",
-              "formato": "pdf",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable_instalador",
-              "label": "Declaración responsable del instalador",
-              "formato": "pdf",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion_electrica",
-              "label": "Certificado de instalación eléctrica (CIE) firmado por instalador",
-              "formato": "pdf",
+              "label": "Certificado de instalación eléctrica (CIE)",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "MAD-IRVE-002",
-      "descripcion": "Instalación de recarga de vehículo eléctrico en edificio existente con potencia > 10 kW o nueva construcción",
+      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "or": [
+          { "==": [ { "var": "modo_recarga" }, "4" ] },
           {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+              { ">": [ { "var": "potencia_kw" }, 50 ] }
             ]
           },
           {
-            "==": [
-              {
-                "var": "tipo_edificio"
-              },
-              "nueva_construccion"
+            "and": [
+              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+              { ">": [ { "var": "potencia_kw" }, 10 ] }
             ]
           }
         ]
@@ -122,51 +131,59 @@
           "orden": 1,
           "nombre": "Proyecto técnico IRVE",
           "organismo": "Ingeniero técnico industrial o superior competente",
-          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 127/2019",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-IRVE-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_irve",
               "label": "Proyecto técnico IRVE",
-              "formato": "pdf",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
         },
         {
           "orden": 2,
-          "nombre": "Registro en el órgano competente de la Comunidad de Madrid (EICI) con proyecto",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Economía, Hacienda y Empleo)",
-          "base_legal": "Orden 934/2022; Decreto 127/2019",
+          "nombre": "Registro ante Entidad de Inspección y Control Industrial (EICI) con proyecto",
+          "organismo": "Entidad de Inspección y Control Industrial (EICI) autorizada en Madrid",
+          "base_legal": "Orden 9344/2003; Decreto 38/2002",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "EICI (Expediente Industrial de la Comunidad de Madrid)",
-          "plataforma_url": "https://eici.madrid.org",
-          "coste_estimado": "Tasa administrativa según tarifa (aprox. 50-100 €)",
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma_url": "https://sede.comunidad.madrid/node/212672",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MAD-IRVE-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_irve",
               "label": "Proyecto técnico IRVE",
-              "formato": "pdf",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion_electrica",
-              "label": "Certificado de instalación eléctrica (CIE) firmado por instalador",
-              "formato": "pdf",
+              "label": "Certificado de instalación eléctrica (CIE)",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "declaracion_responsable_direccion_obra",
               "label": "Declaración responsable de dirección de obra",
-              "formato": "pdf",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

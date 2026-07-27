@@ -1,28 +1,29 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "galicia",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Este fichero, a diferencia del resto del lote, ya usaba correctamente 'potencia_kw' (sin variable fantasma). Se eliminó 'Decreto 42/2019' como base legal: es un decreto real de Galicia, pero regula la estructura orgánica de la Consellería de Medio Ambiente, Territorio y Vivienda — sin relación con instalaciones térmicas. También se eliminó 'Orden de 12 de junio de 2020' por no poder confirmarse. Sustituido por el RITE nacional aplicado directamente. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
+  "huecos_verificacion": [
+    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
+    "No se ha localizado normativa autonómica gallega específica de ACS; se aplica el RITE nacional directamente",
+    "Nombre exacto del trámite/registro de instalaciones térmicas en la sede de Galicia no confirmado",
+    "Tasas y plazos legales no verificados"
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "Decreto 42/2019 de la Xunta de Galicia (regulación puesta en servicio de instalaciones térmicas)",
-    "Orden de 12 de junio de 2020 (procedimiento telemático)",
     "RD 178/2021 (modificación RITE)"
   ],
   "reglas": [
     {
       "id": "GAL-ACS-001",
-      "descripcion": "Instalación de ACS con potencia térmica nominal ≤ 70 kW (sin proyecto, memoria técnica)",
+      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -30,132 +31,158 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) según RITE",
           "organismo": "Instalador habilitado (carné de instalador térmico)",
-          "base_legal": "RITE IT 1.2.4; Decreto 42/2019 art. 5",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-ACS-001",
           "documentos_requeridos": [
             {
               "id": "mtd_acs",
-              "label": "Memoria Técnica de Diseño"
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador"
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS)",
-          "organismo": "Órgano competente de la Xunta de Galicia (Dirección General de Energía)",
-          "base_legal": "Decreto 42/2019 art. 7; Orden 12/06/2020",
+          "nombre": "Comunicación de puesta en servicio de instalación térmica",
+          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
           "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "0 € (tasa administrativa exenta)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-ACS-001",
           "documentos_requeridos": [
             {
               "id": "mtd_acs",
-              "label": "Memoria Técnica de Diseño"
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador"
-            },
-            {
-              "id": "certificado_materiales",
-              "label": "Certificado de materiales y equipos"
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "GAL-ACS-002",
-      "descripcion": "Instalación de ACS con potencia térmica nominal > 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico (PT) según RITE",
+          "nombre": "Proyecto Técnico según RITE",
           "organismo": "Técnico titulado competente (ingeniero)",
-          "base_legal": "RITE IT 1.2.4; Decreto 42/2019 art. 5",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-ACS-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico"
+              "label": "Proyecto Técnico",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra"
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo."
         },
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) por OCA",
           "organismo": "Organismo de Control Autorizado (OCA) acreditado en Galicia",
-          "base_legal": "Decreto 42/2019 art. 6; RD 2200/1995",
+          "base_legal": "RITE RD 1027/2007 art. 15",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según OCA (aprox. 200-500 €)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-ACS-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico"
+              "label": "Proyecto Técnico",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra"
-            },
-            {
-              "id": "certificado_materiales",
-              "label": "Certificado de materiales y equipos"
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Declaración Responsable de Puesta en Servicio (DRPS)",
-          "organismo": "Órgano competente de la Xunta de Galicia (Dirección General de Energía)",
-          "base_legal": "Decreto 42/2019 art. 7; Orden 12/06/2020",
+          "nombre": "Comunicación de puesta en servicio de instalación térmica",
+          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
           "plataforma_url": "https://sede.xunta.gal",
-          "coste_estimado": "0 € (tasa administrativa exenta)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-ACS-002",
           "documentos_requeridos": [
             {
               "id": "certificado_oca",
-              "label": "Certificado de Instalación emitido por OCA"
+              "label": "Certificado de Instalación emitido por OCA",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico"
+              "label": "Proyecto Técnico",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

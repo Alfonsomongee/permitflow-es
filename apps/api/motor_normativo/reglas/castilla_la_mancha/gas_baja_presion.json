@@ -1,39 +1,30 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "castilla_la_mancha",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-26",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 34/2011' como base legal: no se ha localizado esta norma. Sí existe un decreto real de Castilla-La Mancha en esta materia — el Decreto 13/2010, de 23 de marzo — pero regula exclusivamente las tarifas que las empresas distribuidoras de gas pueden facturar a los usuarios (altas, enganches, inspecciones periódicas), no la legalización de instalaciones. La ficha oficial de la JCCM para instalaciones de gas (trámite 1002259) cita únicamente el RD 919/2006 (RIGLO) nacional. Se corrigió el bug de cobertura: si 'uso' llegaba None, ni la regla 1 (residencial/comercial) ni la regla 2 (colectivo) disparaban; la partición ahora depende solo de 'potencia_kw'.",
+  "huecos_verificacion": [
+    "No se ha localizado normativa autonómica de Castilla-La Mancha específica de legalización de instalaciones de gas (el Decreto 13/2010 real solo regula tarifas)",
+    "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar",
+    "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso residencial/comercial/colectivo; si esa distinción es normativamente relevante, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw",
+    "Tasas y plazos legales no verificados con detalle"
+  ],
   "fuentes": [
-    "RD 919/2006 RIGLO",
-    "RD 842/2002 REBT",
-    "Decreto 34/2011, de 26 de abril, por el que se regulan las instalaciones de gas en Castilla-La Mancha",
-    "Orden de 15 de junio de 2011, de la Consejería de Ordenación del Territorio y Vivienda, por la que se desarrolla el Decreto 34/2011"
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
+    "Decreto 13/2010, de 23 de marzo (Castilla-La Mancha) — regula tarifas de empresas distribuidoras de gas, NO la legalización de instalaciones; se cita solo como referencia de contexto",
+    "Ficha de trámite 1002259 'Instalación receptora de gas' - jccm.es"
   ],
   "reglas": [
     {
       "id": "CLM-GBP-001",
-      "descripcion": "Instalación de gas baja presión con potencia ≤ 70 kW en vivienda unifamiliar o local comercial sin proyecto",
+      "descripcion": "Instalación de gas con potencia ≤ 70 kW, sin proyecto",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "in": [
-              {
-                "var": "uso"
-              },
-              [
-                "residencial",
-                "comercial"
-              ]
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -41,165 +32,134 @@
           "orden": 1,
           "nombre": "Memoria técnica de diseño (MTD) de gas",
           "organismo": "Instalador habilitado (categoría básica o superior)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 34/2011 art. 8",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-GBP-001",
           "documentos_requeridos": [
             {
               "id": "mtd_gas",
               "label": "Memoria Técnica de Diseño de gas",
-              "descripcion": "Documento técnico firmado por instalador habilitado que describe la instalación",
-              "formato": "PDF"
+              "descripcion": "Documento técnico firmado por instalador habilitado.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) de gas",
           "organismo": "Instalador habilitado",
-          "base_legal": "RIGLO RD 919/2006 art. 5; Decreto 34/2011 art. 9",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-GBP-001",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación de gas",
-              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro de la instalación en el órgano competente de Castilla-La Mancha",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
-          "base_legal": "Decreto 34/2011 art. 10; Orden 15/06/2011",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramitesygestiones/registro-de-instalaciones-de-gas",
-          "coste_estimado": "0 € (tasa administrativa no aplica)",
-          "documentos_requeridos": [
-            {
-              "id": "solicitud_registro_gas",
-              "label": "Solicitud de registro de instalación de gas",
-              "descripcion": "Formulario oficial cumplimentado",
-              "formato": "PDF"
-            },
-            {
-              "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
-              "descripcion": "Copia del CI firmado",
-              "formato": "PDF"
-            },
-            {
-              "id": "mtd_gas",
-              "label": "Memoria Técnica de Diseño de gas",
-              "descripcion": "Copia de la MTD",
-              "formato": "PDF"
-            }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "CLM-GBP-002",
-      "descripcion": "Instalación de gas baja presión con potencia > 70 kW o en edificio de uso colectivo (requiere proyecto técnico)",
+      "descripcion": "Instalación de gas con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "colectivo"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Proyecto técnico de gas",
-          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero técnico industrial, etc.)",
-          "base_legal": "RIGLO RD 919/2006 art. 4; Decreto 34/2011 art. 7",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-GBP-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_gas",
               "label": "Proyecto técnico de instalación de gas",
-              "descripcion": "Documento técnico completo firmado por técnico competente",
-              "formato": "PDF"
+              "descripcion": "Documento técnico completo firmado por técnico competente.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) de gas",
           "organismo": "Instalador habilitado",
-          "base_legal": "RIGLO RD 919/2006 art. 5; Decreto 34/2011 art. 9",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-GBP-002",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación de gas",
-              "descripcion": "Documento firmado por instalador que acredita la correcta ejecución",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación en el órgano competente de Castilla-La Mancha",
+          "nombre": "Comunicación de instalación receptora de gas ante el órgano competente",
           "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
-          "base_legal": "Decreto 34/2011 art. 10; Orden 15/06/2011",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramitesygestiones/registro-de-instalaciones-de-gas",
-          "coste_estimado": "0 € (tasa administrativa no aplica)",
+          "plataforma_url": "https://www.jccm.es/tramites/1002259",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-GBP-002",
           "documentos_requeridos": [
             {
-              "id": "solicitud_registro_gas",
-              "label": "Solicitud de registro de instalación de gas",
-              "descripcion": "Formulario oficial cumplimentado",
-              "formato": "PDF"
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación de gas",
-              "descripcion": "Copia del CI firmado",
-              "formato": "PDF"
-            },
-            {
-              "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas",
-              "descripcion": "Copia del proyecto visado",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Plazo de 30 días desde puesta en servicio (régimen general ITC-ICG-07 3.6, consistente con lo confirmado en Asturias); no verificado el plazo exacto específico de Castilla-La Mancha."
         }
       ]
     }
