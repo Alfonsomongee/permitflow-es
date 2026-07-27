@@ -44,7 +44,7 @@ export function InformeInteractivo({ informe, presupuestoInicial }: InformeInter
       </div>
 
       {hasGenericaIncentive && (
-        <Alert variant="warning" className="border-yellow-500/50 bg-yellow-500/10 text-yellow-900 dark:text-yellow-200">
+        <Alert variant="default" className="border-yellow-500/50 bg-yellow-500/10 text-yellow-900 dark:text-yellow-200">
           <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
           <AlertTitle>Aviso sobre los ahorros fiscales</AlertTitle>
           <AlertDescription>
