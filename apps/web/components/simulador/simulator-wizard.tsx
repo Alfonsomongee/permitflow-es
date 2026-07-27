@@ -16,7 +16,7 @@ import { InformeInteractivo } from './informe-interactivo';
 
 const inmuebleSchema = z.object({
   tipoInmueble: z.enum(['vivienda_unifamiliar', 'comunidad_vecinos', 'empresa'], {
-    required_error: 'Selecciona un tipo de inmueble',
+    message: 'Selecciona un tipo de inmueble',
   }),
   codigoPostal: z.string().regex(/^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/, 'Código postal inválido'),
 });
