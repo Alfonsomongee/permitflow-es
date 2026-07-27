@@ -47,14 +47,29 @@ async def _barrer_estudios_expirados():
             logger.error(f"Error en barrido de estudios expirados: {e}")
 
 
+async def _barrido_periodico():
+    """Barre estudios expirados cada 5 minutos mientras el proceso vive.
+    
+    Limitaciones conocidas (documentadas en ADR-005):
+    - In-process: un deploy a mitad de ejecución pierde la tarea.
+    - Múltiples réplicas: el UPDATE es idempotente, sin problema de doble ejecución.
+    - Deuda técnica: migrar a ARQ + job externo cuando se active el segundo worker.
+    """
+    while True:
+        await _barrer_estudios_expirados()
+        await asyncio.sleep(300)  # 5 minutos
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Lifespan de la aplicación."""
-    # Al arrancar: marcar como error los estudios que quedaron en pendiente
-    # tras un restart o deploy anterior.
-    await _barrer_estudios_expirados()
+    tarea = asyncio.create_task(_barrido_periodico())
     yield
-    # Al apagar: nada que limpiar por ahora.
+    tarea.cancel()
+    try:
+        await tarea
+    except asyncio.CancelledError:
+        pass
 
 
 app = FastAPI(
@@ -75,10 +90,20 @@ async def global_exception_handler(request, exc):
     )
 
 # ProxyHeadersMiddleware: hace que request.client.host sea la IP real del cliente.
-# Requiere --proxy-headers en uvicorn (activo por defecto en Railway y Vercel).
-# AVISO: sin esta configuración, el rate limit agrupa a todos los usuarios
-# bajo la IP del balanceador. Verificar la IP logueada en las primeras peticiones.
-app.add_middleware(ProxyHeadersMiddleware, trusted_hosts="*")
+#
+# AVISO DE SEGURIDAD: trusted_hosts="*" permite que cualquier cliente falsifique
+# X-Forwarded-For y evada el rate limit. Configurar TRUSTED_PROXIES en el entorno.
+#
+# Railway: añadir la IP del balanceador interno. Si no hay rango estable documentado,
+# dejar TRUSTED_PROXIES vacío: el rate limit operará sobre la IP del balanceador
+# (todos los usuarios comparten cuota) pero NO será falsificable.
+#
+# Vercel: ver https://vercel.com/docs/edge-network/headers#x-forwarded-for
+_trusted = os.getenv("TRUSTED_PROXIES", "").strip()
+app.add_middleware(
+    ProxyHeadersMiddleware,
+    trusted_hosts=_trusted if _trusted else "127.0.0.1",
+)
 
 ALLOWED_ORIGINS = [
     origin.strip()

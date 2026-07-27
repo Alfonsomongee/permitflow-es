@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UploadCloud, FileWarning, ArrowRight, ArrowLeft, Loader2, Download } from 'lucide-react';
+import { UploadCloud, FileWarning, ArrowRight, ArrowLeft, Loader2, Download, AlertCircle } from 'lucide-react';
 import { useSimulatorStore } from '@/store/use-simulator-store';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,6 +13,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { InformeInteractivo } from './informe-interactivo';
+import type { FacturaResponse, GenerarResponse, EstudioResponse } from '@/types/simulador';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
+const POLL_INTERVAL_MS = 3000;
+const POLL_TIMEOUT_MS = 90_000;
+
+// Tipos de inmueble no residenciales: redirigir a contacto
+const TIPO_NO_RESIDENCIAL = new Set(['empresa', 'comunidad_vecinos']);
 
 const inmuebleSchema = z.object({
   tipoInmueble: z.enum(['vivienda_unifamiliar', 'comunidad_vecinos', 'empresa'], {
@@ -27,13 +35,35 @@ const inmuebleSchema = z.object({
 const presupuestoSchema = z.object({
   presupuesto: z.number({
     message: 'El presupuesto debe ser un número válido',
-  }).min(1000, 'El presupuesto mínimo es 1000€').max(100000, 'El presupuesto máximo es 100000€'),
+  }).min(1000, 'El presupuesto mínimo es 1.000€').max(30000, 'El presupuesto máximo es 30.000€'),
 });
 
+// Estados posibles de la simulación
+type SimulacionEstado =
+  | 'idle'
+  | 'subiendo_factura'
+  | 'generando_informe'
+  | 'completado'
+  | 'error'
+  | 'timeout';
+
 export function SimulatorWizard() {
-  const { step, setStep, setInmuebleData, setPresupuesto, setFacturaFile, setInforme, informe, presupuesto: globalPresupuesto, reset } = useSimulatorStore();
-  const [isSimulating, setIsSimulating] = useState(false);
+  const {
+    step, setStep,
+    setInmuebleData, setPresupuesto, setFacturaFile, setInforme,
+    informe, presupuesto: globalPresupuesto, reset,
+    tipoInmueble: storedTipoInmueble,
+  } = useSimulatorStore();
+
+  // Selectores reactivos (no getState())
+  const facturaFile = useSimulatorStore(s => s.facturaFile);
+  const codigoPostal = useSimulatorStore(s => s.codigoPostal);
+
+  const [simulacionEstado, setSimulacionEstado] = useState<SimulacionEstado>('idle');
+  const [errorMensaje, setErrorMensaje] = useState<string | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
+
+  const isSimulating = simulacionEstado === 'subiendo_factura' || simulacionEstado === 'generando_informe';
 
   const inmuebleForm = useForm<z.infer<typeof inmuebleSchema>>({
     resolver: zodResolver(inmuebleSchema),
@@ -46,6 +76,11 @@ export function SimulatorWizard() {
   });
 
   const onInmuebleSubmit = (data: z.infer<typeof inmuebleSchema>) => {
+    // Tipos no residenciales: capturar lead, no simular
+    if (TIPO_NO_RESIDENCIAL.has(data.tipoInmueble)) {
+      window.location.href = '/contacto?tipo=' + data.tipoInmueble;
+      return;
+    }
     setInmuebleData(data.tipoInmueble, data.codigoPostal);
     setStep('presupuesto');
   };
@@ -59,6 +94,7 @@ export function SimulatorWizard() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Imágenes: aviso educativo con enlaces a áreas de cliente (rama de producto, no error)
     if (file.type === 'image/jpeg' || file.type === 'image/png') {
       setFileError('error_image');
       setFacturaFile(null);
@@ -78,40 +114,107 @@ export function SimulatorWizard() {
   };
 
   const simulate = async () => {
-    setIsSimulating(true);
-    // Simulating API call to AI
-    setTimeout(() => {
-      setInforme({
-        supuestos_utilizados: [
-          { parametro: "Horas de sol anuales", valor_asumido: 2800, razon: "Basado en el código postal (estimación regional)" },
-          { parametro: "Consumo medio", valor_asumido: "450 kWh/mes", razon: "Extrapolado de la factura aportada" }
-        ],
-        incentivos_fiscales: [
-          {
-            nombre: "Deducción IRPF (Hasta 40%)",
-            descripcion: "Deducción autonómica por mejora de eficiencia energética.",
-            ahorro_estimado: 1500,
-            nivel_verificacion: "generica_pendiente_url"
-          },
-          {
-            nombre: "Bonificación IBI",
-            descripcion: "Bonificación del 50% durante 3 años (Depende del Ayuntamiento).",
-            ahorro_estimado: 600,
-            nivel_verificacion: "estimada_datos"
-          }
-        ],
-        escenarios: [
-          { nombre: "Instalación Básica", coste_inicial: 5000, ahorro_anual: 800, tiempo_retorno_anios: 6.2 },
-          { nombre: "Instalación con Batería", coste_inicial: 8000, ahorro_anual: 1200, tiempo_retorno_anios: 6.6 }
-        ],
-        recomendacion_final: "Tu vivienda tiene un excelente potencial solar. Te recomendamos una instalación básica para maximizar el ROI a corto plazo."
+    if (!facturaFile) return;
+
+    setSimulacionEstado('subiendo_factura');
+    setErrorMensaje(null);
+
+    try {
+      // --- Paso 1: Subir factura y extraer datos ---
+      const formData = new FormData();
+      formData.append('file', facturaFile);
+
+      const facturaRes = await fetch(`${API_URL}/simulador/factura`, {
+        method: 'POST',
+        headers: { 'X-Internal-Key': process.env.NEXT_PUBLIC_INTERNAL_KEY ?? '' },
+        body: formData,
       });
-      setIsSimulating(false);
-      setStep('resultados');
-    }, 2500);
+
+      if (!facturaRes.ok) {
+        const err = await facturaRes.json().catch(() => ({}));
+        throw new Error(err.detail ?? `Error al procesar la factura (${facturaRes.status})`);
+      }
+
+      const factura: FacturaResponse = await facturaRes.json();
+
+      if (factura.estado !== 'exitoso') {
+        throw new Error(
+          factura.error
+            ? `No pudimos leer la factura: ${factura.error}`
+            : 'No pudimos extraer los datos de tu factura. Por favor, comprueba que es un PDF descargado desde el área de cliente de tu distribuidora.'
+        );
+      }
+
+      // --- Paso 2: Generar informe ---
+      setSimulacionEstado('generando_informe');
+
+      const generarRes = await fetch(`${API_URL}/simulador/generar`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Internal-Key': process.env.NEXT_PUBLIC_INTERNAL_KEY ?? '',
+        },
+        body: JSON.stringify({
+          analisis_id: factura.id,
+          region: codigoPostal,
+          tipo_inmueble: storedTipoInmueble ?? 'vivienda_unifamiliar',
+        }),
+      });
+
+      if (!generarRes.ok) {
+        const err = await generarRes.json().catch(() => ({}));
+        throw new Error(err.detail ?? `Error al generar el informe (${generarRes.status})`);
+      }
+
+      const { estudio_id, token }: GenerarResponse = await generarRes.json();
+
+      // --- Paso 3: Polling hasta completado, error o timeout ---
+      const inicio = Date.now();
+
+      while (true) {
+        if (Date.now() - inicio > POLL_TIMEOUT_MS) {
+          setSimulacionEstado('timeout');
+          setErrorMensaje('La generación del informe está tardando más de lo esperado. Inténtalo de nuevo en unos minutos.');
+          return;
+        }
+
+        await new Promise(r => setTimeout(r, POLL_INTERVAL_MS));
+
+        const estudioRes = await fetch(`${API_URL}/simulador/estudio/${estudio_id}`, {
+          headers: {
+            'X-Internal-Key': process.env.NEXT_PUBLIC_INTERNAL_KEY ?? '',
+            'X-Estudio-Token': token,
+          },
+        });
+
+        if (!estudioRes.ok) {
+          const err = await estudioRes.json().catch(() => ({}));
+          throw new Error(err.detail ?? `Error al consultar el informe (${estudioRes.status})`);
+        }
+
+        const estudio: EstudioResponse = await estudioRes.json();
+
+        if (estudio.estado === 'completado' && estudio.resultado) {
+          setInforme(estudio.resultado);
+          setSimulacionEstado('completado');
+          setStep('resultados');
+          return;
+        }
+
+        if (estudio.estado === 'error') {
+          throw new Error('El informe no pudo generarse. Por favor, inténtalo de nuevo.');
+        }
+
+        // estado === 'pendiente': continuar polling
+      }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Error desconocido. Inténtalo de nuevo.';
+      setSimulacionEstado('error');
+      setErrorMensaje(msg);
+    }
   };
 
-  const progressValue = step === 'inmueble' ? 33 : step === 'presupuesto' ? 66 : step === 'factura' ? 100 : 100;
+  const progressValue = step === 'inmueble' ? 33 : step === 'presupuesto' ? 66 : 100;
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -150,6 +253,13 @@ export function SimulatorWizard() {
                     {inmuebleForm.formState.errors.tipoInmueble && (
                       <p className="text-sm text-destructive">{inmuebleForm.formState.errors.tipoInmueble.message}</p>
                     )}
+                    {/* Aviso de captura de lead para tipos no residenciales */}
+                    {['empresa', 'comunidad_vecinos'].includes(inmuebleForm.watch('tipoInmueble')) && (
+                      <p className="text-sm text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 p-3 rounded-md">
+                        Para este tipo de instalación, nuestro equipo te preparará un análisis personalizado.
+                        Al hacer clic en &laquo;Siguiente&raquo; te redirigiremos al formulario de contacto.
+                      </p>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="codigoPostal">Código Postal</Label>
@@ -184,6 +294,7 @@ export function SimulatorWizard() {
                     {presupuestoForm.formState.errors.presupuesto && (
                       <p className="text-sm text-destructive">{presupuestoForm.formState.errors.presupuesto.message}</p>
                     )}
+                    <p className="text-xs text-muted-foreground">Entre 1.000€ y 30.000€ para instalaciones residenciales.</p>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
@@ -207,6 +318,13 @@ export function SimulatorWizard() {
                 <CardDescription>Necesitamos tu factura para calcular con precisión tu ahorro mensual.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
+                {/* Aviso RGPD */}
+                <p className="text-xs text-muted-foreground bg-muted/50 rounded-md p-3">
+                  Al subir tu factura, extraemos automáticamente el consumo y la potencia. Si la extracción automática no funciona,
+                  el texto se procesará con un servicio de IA externo. No almacenamos el texto completo de tu factura ni el identificador de tu suministro.
+                  {' '}<a href="/privacidad" className="underline">Política de privacidad</a>.
+                </p>
+
                 <div className="grid w-full max-w-sm items-center gap-1.5 mx-auto">
                   <Label htmlFor="factura" className="sr-only">Factura</Label>
                   <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-10 text-center hover:bg-muted/50 transition-colors cursor-pointer relative">
@@ -247,22 +365,47 @@ export function SimulatorWizard() {
                     </div>
                   </div>
                 )}
-                
+
                 {fileError && fileError !== 'error_image' && (
                   <p className="text-sm text-destructive text-center">{fileError}</p>
                 )}
 
-                {!fileError && useSimulatorStore.getState().facturaFile && (
+                {!fileError && facturaFile && (
                   <p className="text-sm text-green-600 dark:text-green-400 text-center font-medium">
-                    Archivo seleccionado: {useSimulatorStore.getState().facturaFile?.name}
+                    Archivo seleccionado: {facturaFile.name}
                   </p>
+                )}
+
+                {/* Estado de la simulación */}
+                {simulacionEstado === 'subiendo_factura' && (
+                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Leyendo tu factura...
+                  </div>
+                )}
+
+                {simulacionEstado === 'generando_informe' && (
+                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Generando tu informe personalizado (puede tardar hasta 1 min)...
+                  </div>
+                )}
+
+                {(simulacionEstado === 'error' || simulacionEstado === 'timeout') && errorMensaje && (
+                  <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-destructive flex items-start gap-3">
+                    <AlertCircle className="h-5 w-5 mt-0.5 shrink-0" />
+                    <p className="text-sm">{errorMensaje}</p>
+                  </div>
                 )}
               </CardContent>
               <CardFooter className="flex justify-between">
                 <Button variant="outline" onClick={() => setStep('presupuesto')} disabled={isSimulating}>
                   <ArrowLeft className="mr-2 h-4 w-4" /> Atrás
                 </Button>
-                <Button onClick={simulate} disabled={isSimulating || (!useSimulatorStore.getState().facturaFile && !fileError)}>
+                <Button
+                  onClick={simulate}
+                  disabled={isSimulating || !facturaFile}
+                >
                   {isSimulating ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analizando...

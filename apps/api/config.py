@@ -8,9 +8,11 @@ class Settings(BaseSettings):
 
     # Seguridad interna: clave compartida con Next.js (cabecera X-Internal-Key)
     INTERNAL_API_KEY: Optional[str] = None
-    # Clave secreta para HMAC de tokens de estudio y hash del CUPS
-    # Generar con: python -c "import secrets; print(secrets.token_hex(32))"
-    SECRET_KEY: str = "dev-secret-key-change-in-production"
+    # Clave secreta para HMAC de tokens de estudio y hash del CUPS.
+    # SIN valor por defecto: la app falla al arrancar si no está en el entorno.
+    # Generar: python -c "import secrets; print(secrets.token_hex(32))"
+    # Añadir a Railway/Vercel como variable de entorno SECRET_KEY.
+    SECRET_KEY: str
     
     # API Keys
     DEEPSEEK_API_KEY: Optional[str] = None
