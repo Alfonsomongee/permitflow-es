@@ -1,23 +1,24 @@
 {
   "tipo_instalacion": "acs",
-  "comunidad": "pais_vasco",
+  "comunidad": "navarra",
   "version": "0.9.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminaron 'Decreto 47/2009' y 'Decreto 213/2012' como base legal: ninguno se ha localizado con ese objeto — el Decreto 213/2012 real regula contaminación acústica de la CAPV, sin relación con energías renovables ni instalaciones térmicas. Sustituidos por el Decreto 81/2020 (confirmado real) más el RITE nacional directo. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
+  "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de ACS). Mismo régimen que climatización: sin norma foral propia localizada, se aplica el RITE nacional directamente. HUECO CRÍTICO recurrente: no se ha incluido regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — mismo hueco detectado en todas las comunidades auditadas hasta ahora.",
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
-    "Tasas y plazos legales no verificados con detalle",
-    "No se ha confirmado si el País Vasco exige OCA específicamente para ACS >70 kW más allá de lo que exige el RITE nacional"
+    "No se ha localizado normativa foral navarra específica de ACS",
+    "Nombre exacto del trámite de registro de instalaciones térmicas en Navarra no confirmado",
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real"
+    "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente"
   ],
   "reglas": [
     {
-      "id": "PV-ACS-001",
+      "id": "NAV-ACS-001",
       "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<=": [
@@ -28,22 +29,22 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de diseño (MTD) para instalaciones térmicas",
-          "organismo": "Instalador habilitado (categoría térmica)",
+          "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
+          "organismo": "Instalador habilitado en instalaciones térmicas",
           "base_legal": "RITE RD 1027/2007",
-          "plazo_estimado_dias": 2,
+          "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-ACS-001",
+          "regla_id": "NAV-ACS-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_termica",
-              "label": "Memoria técnica de diseño",
-              "descripcion": "",
+              "id": "mtd_acs",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "Documento firmado por instalador habilitado.",
               "obligatorio": true
             },
             {
@@ -57,27 +58,27 @@
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable previa a la puesta en servicio (instalación sin proyecto)",
-          "organismo": "Dirección de Energía, Minas y Administración Industrial del Gobierno Vasco",
-          "base_legal": "RITE RD 1027/2007; Decreto 81/2020",
+          "nombre": "Registro/comunicación de puesta en servicio de instalación térmica",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
-          "plataforma": "Euskadi.eus - Sede Electrónica",
-          "plataforma_url": "https://www.euskadi.eus/procedimiento/it/web01-tramite/es/",
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/sede",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-ACS-001",
+          "regla_id": "NAV-ACS-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_termica",
-              "label": "Memoria técnica de diseño firmada",
+              "id": "mtd_acs",
+              "label": "Memoria Técnica de Diseño",
               "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado de instalador",
+              "label": "Certificado de instalador habilitado",
               "descripcion": "",
               "obligatorio": true
             }
@@ -87,7 +88,7 @@
       ]
     },
     {
-      "id": "PV-ACS-002",
+      "id": "NAV-ACS-002",
       "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
@@ -99,21 +100,21 @@
         {
           "orden": 1,
           "nombre": "Proyecto técnico de instalación térmica",
-          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
           "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según proyecto",
+          "coste_estimado": "Variable según honorarios del técnico",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-ACS-002",
+          "regla_id": "NAV-ACS-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico",
-              "label": "Proyecto técnico visado",
-              "descripcion": "",
+              "id": "proyecto_acs",
+              "label": "Proyecto técnico de instalación térmica",
+              "descripcion": "Firmado por técnico competente.",
               "obligatorio": true
             }
           ],
@@ -122,19 +123,19 @@
         {
           "orden": 2,
           "nombre": "Inspección inicial por Organismo de Control (OCA)",
-          "organismo": "OCA acreditada en País Vasco",
+          "organismo": "OCA autorizado en Navarra",
           "base_legal": "RITE RD 1027/2007 art. 15",
-          "plazo_estimado_dias": 10,
+          "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-ACS-002",
+          "regla_id": "NAV-ACS-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico",
+              "id": "proyecto_acs",
               "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
@@ -150,26 +151,32 @@
         },
         {
           "orden": 3,
-          "nombre": "Declaración responsable previa a la puesta en servicio (instalación con proyecto)",
-          "organismo": "Dirección de Energía, Minas y Administración Industrial del Gobierno Vasco",
-          "base_legal": "RITE RD 1027/2007; Decreto 81/2020",
-          "plazo_estimado_dias": 5,
+          "nombre": "Registro/comunicación de puesta en servicio de instalación térmica",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "RITE RD 1027/2007 art. 24",
+          "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Euskadi.eus - Sede Electrónica",
-          "plataforma_url": "https://www.euskadi.eus/procedimiento/it/web01-tramite/es/",
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/sede",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-ACS-002",
+          "regla_id": "NAV-ACS-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_tecnico",
+              "id": "proyecto_acs",
               "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_oca",
+              "label": "Certificado de inspección OCA favorable",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "No confirmado si el País Vasco exige OCA específica para este trámite."
+          "notas": ""
         }
       ]
     }

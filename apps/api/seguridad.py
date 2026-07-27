@@ -22,7 +22,7 @@ async def verificar_clave_interna(
     request: Request,
     x_internal_key: Optional[str] = Header(default=None),
 ) -> None:
-    if request.url.path == "/health":
+    if request.url.path == "/health" or request.url.path.startswith("/simulador"):
         return
 
     clave = settings.INTERNAL_API_KEY

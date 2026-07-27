@@ -1,306 +1,196 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "pais_vasco",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-24",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. El Decreto 48/2020, de 31 de marzo, está CONFIRMADO real (regula autorización de instalaciones de producción/transporte/distribución eléctrica, incluido autoconsumo). Se confirmó además el umbral de 100 kW específicamente para el País Vasco en fuente independiente. Se corrigieron los id de regla duplicados 'PV-FV-3' (tres veces) renombrándolos a sufijos A/B/C. Se bajó 'nivel_verificacion' de 'verificada' a 'generica': las propias notas del fichero original reconocían importes 'estimados' y dependientes de la inversión, lo que contradice el requisito de verificación total del proyecto. IMPORTANTE: el campo 'inversion_eur' usado en las reglas de recargo de tasa NO está en el schema del ClasificadorInput — mismo hueco detectado en Comunidad Valenciana y Madrid.",
+  "huecos_verificacion": [
+    "CORRECCIÓN BLOQUEANTE: el campo 'inversion_eur' no está en la lista de campos del ClasificadorInput. Las reglas PV-FV-003A/B/C no dispararán hasta resolverlo — mismo hueco detectado en Comunidad Valenciana y Madrid",
+    "Importes de tasa (128,10€ / 204,96€ / 787,77€) no verificados con detalle contra el Decreto Legislativo 1/2025 citado",
+    "No se ha verificado si el País Vasco ha elevado el umbral de exención de autorización de 100 kW a 500 kW — el fichero original afirma que NO existe tal extensión, pero no he podido confirmar esa negación de forma independiente en esta revisión"
+  ],
   "fuentes": [
     "Ley 24/2013 art. 53",
     "RD 244/2019",
-    "Decreto 48/2020 (BOPV nº 78, 24/04/2020)",
-    "Ley 5/2023 y Ley 1/2024 (simplificación urbanística, no afecta umbral de autorización)",
-    "Decreto Legislativo 1/2025 actualizado por Ley 7/2025 Presupuestos 2026, Título VI Cap. I art. 129-132",
-    "Resolución 8/05/2025 EVE (Programa autoconsumo)"
+    "Decreto 48/2020, de 31 de marzo, del Gobierno Vasco (procedimientos de autorización administrativa de instalaciones de producción, transporte y distribución de energía eléctrica) — CONFIRMADO real",
+    "Decreto Legislativo 1/2025, actualizado por Ley 7/2025 de Presupuestos, Título VI Cap. I art. 129-132 — no verificado en esta revisión",
+    "Ficha de trámite [GE] 'Tramitación de instalaciones de generación de energía eléctrica, incluido autoconsumo' - euskadi.eus"
   ],
   "reglas": [
     {
-      "id": "PV-FV-1",
-      "descripcion": "Autoconsumo hasta 10 kW / sin excedentes cualquier potencia: exento de autorización",
+      "id": "PV-FV-001",
+      "descripcion": "Autoconsumo sin excedentes (cualquier potencia) o con excedentes ≤10 kW: exento de autorización",
       "condicion": {
-        "<=": [
-          {
-            "var": "potencia_kw"
-          },
-          10
-        ]
+        "<=": [ { "var": "potencia_kw" }, 10 ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Tramitación de generación (puesta en servicio) e inscripción",
-          "organismo": "Delegación Territorial de Administración Industrial",
-          "base_legal": "Decreto 48/2020 art. 2; RD 244/2019",
+          "organismo": "Delegación Territorial de Administración Industrial del Gobierno Vasco",
+          "base_legal": "Decreto 48/2020; RD 244/2019",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GE",
+          "paralelo_con": null,
+          "regla_id": "PV-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "MTD <10 kW",
+              "descripcion": "MTD para potencia ≤10 kW.",
               "obligatorio": true
             }
           ],
-          "notas": "Autoconsumo sin excedentes excluido de autorización con independencia de potencia",
-          "paralelo_con": null
+          "notas": "Autoconsumo sin excedentes excluido de autorización con independencia de la potencia."
         }
       ]
     },
     {
-      "id": "PV-FV-2",
-      "descripcion": "Autoconsumo con excedentes >10 y <=100 kW: puesta en servicio en Delegación Territorial",
+      "id": "PV-FV-002",
+      "descripcion": "Autoconsumo con excedentes >10 y ≤100 kW: puesta en servicio en Delegación Territorial",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 10 ] },
+          { "<=": [ { "var": "potencia_kw" }, 100 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Tramitación de generación e inscripción registro",
-          "organismo": "Delegación Territorial de Administración Industrial",
+          "organismo": "Delegación Territorial de Administración Industrial del Gobierno Vasco",
           "base_legal": "Decreto 48/2020; RD 244/2019",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
-          "coste_estimado": null,
+          "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GE",
+          "paralelo_con": null,
+          "regla_id": "PV-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto o MTD y CDO",
-              "descripcion": "Proyecto >10 kW",
+              "descripcion": "Proyecto para instalaciones >10 kW.",
               "obligatorio": true
             }
           ],
-          "notas": "",
-          "paralelo_con": null
+          "notas": "Umbral de 100 kW confirmado específicamente para el País Vasco en fuente independiente."
         }
       ]
     },
     {
-      "id": "PV-FV-3",
-      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa (presupuesto <= 600k)",
+      "id": "PV-FV-003A",
+      "descripcion": "Autoconsumo con excedentes >100 kW, presupuesto ≤600.000€: autorización administrativa completa",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "inversion_eur"
-              },
-              600000
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "inversion_eur" }, 600000 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización administrativa previa (grupo primero)",
-          "organismo": "Dirección competente en materia de energía",
+          "organismo": "Dirección competente en materia de energía del Gobierno Vasco",
           "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
-          "coste_estimado": "128.10 EUR",
+          "coste_estimado": "128,10 € (NO VERIFICADO importe exacto)",
           "formulario_ref": "GE",
+          "paralelo_con": null,
+          "regla_id": "PV-FV-003A",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto técnico",
-              "descripcion": "Proyecto y datos técnicos de generación",
+              "descripcion": "Proyecto y datos técnicos de generación.",
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)",
-          "paralelo_con": null
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53)."
         }
       ]
     },
     {
-      "id": "PV-FV-3",
-      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa (presupuesto <= 600k) (Sin inversión informada)",
+      "id": "PV-FV-003B",
+      "descripcion": "Autoconsumo con excedentes >100 kW, sin inversión informada: autorización administrativa completa",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "inversion_eur"
-              },
-              null
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "==": [ { "var": "inversion_eur" }, null ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización administrativa previa (grupo primero)",
-          "organismo": "Dirección competente en materia de energía",
+          "organismo": "Dirección competente en materia de energía del Gobierno Vasco",
           "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
           "formulario_ref": "GE",
+          "paralelo_con": null,
+          "regla_id": "PV-FV-003B",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto técnico",
-              "descripcion": "Proyecto y datos técnicos de generación",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53)."
         }
       ]
     },
     {
-      "id": "PV-FV-3",
-      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa (presupuesto 600k-1.5M)",
+      "id": "PV-FV-003C",
+      "descripcion": "Autoconsumo con excedentes >100 kW, presupuesto >600.000€: autorización administrativa completa",
       "condicion": {
         "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            "and": [
-              {
-                ">": [
-                  {
-                    "var": "inversion_eur"
-                  },
-                  600000
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "inversion_eur"
-                  },
-                  1500000
-                ]
-              }
-            ]
-          }
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { ">": [ { "var": "inversion_eur" }, 600000 ] }
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Autorización administrativa previa (grupo primero)",
-          "organismo": "Dirección competente en materia de energía",
+          "organismo": "Dirección competente en materia de energía del Gobierno Vasco",
           "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
-          "coste_estimado": "204.96 EUR (estimado)",
+          "coste_estimado": "204,96 € a 787,77 € según tramo (NO VERIFICADO importe exacto)",
           "formulario_ref": "GE",
+          "paralelo_con": null,
+          "regla_id": "PV-FV-003C",
           "documentos_requeridos": [
             {
               "id": "proyecto",
               "label": "Proyecto técnico",
-              "descripcion": "Proyecto y datos técnicos de generación",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)",
-          "paralelo_con": null
-        }
-      ]
-    },
-    {
-      "id": "PV-FV-3",
-      "descripcion": "Autoconsumo con excedentes en AT / grupo primero >100 kW: autorización administrativa completa (presupuesto > 1.5M)",
-      "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "inversion_eur"
-              },
-              1500000
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Autorización administrativa previa (grupo primero)",
-          "organismo": "Dirección competente en materia de energía",
-          "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
-          "plazo_estimado_dias": 180,
-          "plazo_legal_dias": 180,
-          "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
-          "coste_estimado": "787.77 EUR",
-          "formulario_ref": "GE",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto",
-              "label": "Proyecto técnico",
-              "descripcion": "Proyecto y datos técnicos de generación",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Plazo 6 meses; SILENCIO NEGATIVO/desestimatorio (remisión Ley 24/2013), igual que Andalucía. NO existe extensión propia del umbral a 500 kW (confirmado ausente, DLeg 1/2025 Título VI Cap. I art. 129-132, tarifa base resuelta)",
-          "paralelo_con": null
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53). El fichero original distinguía tramos 600k-1.5M€ y >1.5M€ con tasas de 204,96€ y 787,77€ respectivamente — no verificados con detalle, fusionados aquí en una sola regla hasta confirmar."
         }
       ]
     }
   ],
-  "validaciones": [],
-  "nivel_verificacion": "verificada"
+  "validaciones": []
 }

@@ -1,56 +1,116 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "murcia",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminó 'Decreto 56/1996' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia, usado por la sede electrónica de la CARM como base del 'Registro de instalaciones de gases combustibles') más el RIGLO nacional. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
+  "huecos_verificacion": [
+    "Tasas exactas no verificadas",
+    "'Orden de 26 de marzo de 1998' del fichero original tampoco se ha podido confirmar — no incluida en las fuentes corregidas"
+  ],
   "fuentes": [
-    "RD 919/2006 RIGLO",
-    "RD 1027/2007 RITE",
-    "Decreto 56/1996 de la Región de Murcia sobre instalaciones de gas",
-    "Orden de 26 de marzo de 1998 de la Consejería de Industria y Trabajo (Murcia) por la que se regulan las instalaciones de gas"
+    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+    "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real, base legal del 'Registro de instalaciones de gases combustibles' de la sede de la CARM",
+    "Ley 21/1992 de Industria"
   ],
   "reglas": [
     {
-      "id": "MUR-GBP-001",
-      "descripcion": "Instalación de gas de baja presión (≤0.05 bar) en vivienda unifamiliar o local comercial con potencia ≤70 kW",
+      "id": "MUR-GAS-001",
+      "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
+      "condicion": {
+        "==": [
+          { "var": "presion_bar" },
+          "5+"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-GAS-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de la instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) y puesta en servicio",
+          "organismo": "Organismo de Control (OCA) autorizado en Murcia",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-GAS-001",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de instalación de gas firmado por OCA",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "boletin_gas",
+              "label": "Boletín de instalación de gas (modelo oficial)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de instalación de gases combustibles",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "base_legal": "Decreto 20/2003; Ley 21/1992"
+          ,
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la CARM",
+          "plataforma_url": "https://sede.carm.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-GAS-001",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "MUR-GAS-002",
+      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
       "condicion": {
         "and": [
-          {
-            "<=": [
-              {
-                "var": "presion_bar"
-              },
-              0.05
-            ]
-          },
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
-          },
-          {
-            "or": [
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
-              },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "comercial"
-                ]
-              }
-            ]
-          }
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
         ]
       },
       "tramites": [
@@ -58,57 +118,146 @@
           "orden": 1,
           "nombre": "Memoria técnica de diseño (MTD) de gas",
           "organismo": "Instalador habilitado (categoría IG-I o IG-II)",
-          "base_legal": "RD 919/2006 RIGLO art. 5; Decreto 56/1996",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-GAS-002",
           "documentos_requeridos": [
             {
               "id": "mtd_gas",
               "label": "Memoria técnica de diseño de gas",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador habilitado",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) y puesta en servicio",
           "organismo": "Organismo de Control (OCA) autorizado en Murcia",
-          "base_legal": "RD 919/2006 RIGLO art. 6; Orden 26/03/1998",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
-          "plataforma": "Sede electrónica de la Consejería de Empresa, Empleo, Universidades y Portavocía",
-          "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa de OCA: 80-150 €",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-GAS-002",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
               "label": "Certificado de instalación de gas firmado por OCA",
-              "formato": "PDF",
-              "obligatorio": true
-            },
-            {
-              "id": "mtd_firmada",
-              "label": "Memoria técnica firmada por instalador",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "boletin_gas",
               "label": "Boletín de instalación de gas (modelo oficial)",
-              "formato": "PDF",
+              "descripcion": "",
               "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
+        }
+      ]
+    },
+    {
+      "id": "MUR-GAS-003",
+      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
+      "condicion": {
+        "and": [
+          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { ">": [ { "var": "potencia_kw" }, 70 ] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación de gas",
+          "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico de la instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) y puesta en servicio",
+          "organismo": "Organismo de Control (OCA) autorizado en Murcia",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de instalación de gas firmado por OCA",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "boletin_gas",
+              "label": "Boletín de instalación de gas (modelo oficial)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de instalación de gases combustibles",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "base_legal": "Decreto 20/2003; Ley 21/1992",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la CARM",
+          "plataforma_url": "https://sede.carm.es",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
         }
       ]
     }

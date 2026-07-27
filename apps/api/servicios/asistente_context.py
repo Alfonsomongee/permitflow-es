@@ -3,6 +3,7 @@ from typing import Optional, Dict, Any, List
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.expediente import Expediente
 import os
+from servicios.conocimiento_tecnico import obtener_guia_tecnica
 
 REGLAS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "motor_normativo", "reglas")
 
@@ -28,28 +29,26 @@ def construir_contexto(
     sections = []
 
     # --- Capa 1: Contexto general ---
-    sections.append("""Eres el asistente normativo de PermitFlow ES, una plataforma SaaS B2B que digitaliza y 
+    guia_tecnica = obtener_guia_tecnica()
+    sections.append(f"""Eres el asistente normativo y técnico de PermitFlow ES, una plataforma SaaS B2B que digitaliza y 
 automatiza la tramitación burocrática del sector energético en España.
 
 Tu función es ayudar a instaladoras, gestorías y técnicos a entender qué trámites necesitan 
-realizar para legalizar instalaciones técnicas en las diferentes Comunidades Autónomas.
+realizar para legalizar instalaciones técnicas, así como asesorarles como ingeniero experto en la materia.
 
-Los 5 verticales disponibles en Andalucía (cobertura completa) son:
-- Fotovoltaica de autoconsumo (RD 244/2019, PUES, RAC en MITECO)
-- Recarga de vehículos eléctricos IRVE (REBT ITC-BT-52, PUES/TECI, MOVES III)
-- Climatización y aerotermia (RITE, RSIF, F-Gas UE 2024/573)
-- Agua caliente sanitaria ACS (RITE, RD 487/2022 Legionella)
-- Gas baja presión (RIGLO RD 919/2006, IRG, UNE 60670)
-
-Para el resto de Comunidades Autónomas, la cobertura actual depende de la disponibilidad de datos verificados.
+Los 5 verticales que gestionamos son: Fotovoltaica de autoconsumo, Recarga de vehículos eléctricos (IRVE), Climatización y aerotermia, Agua caliente sanitaria (ACS), y Gas baja presión. 
+Tenemos cobertura en las 17 Comunidades Autónomas, pero el nivel de precisión de los datos varía. El sistema te indicará en cada caso si los datos de la comunidad solicitada son genéricos, estrictos o no están verificados.
 
 Reglas de comportamiento crítico ("Grounding estricto"):
 - Responde SIEMPRE en español.
-- Toda afirmación normativa (trámite, plazo, tasa, organismo, plataforma, norma) debe proceder de los datos proporcionados a continuación en este contexto.
-- NUNCA inventes normativa, plazos, plataformas ni importes que no aparezcan en el contexto proporcionado.
-- Si el dato exacto no está en el contexto, DEBES decir: "No tengo ese dato verificado en mi base para esta comunidad/tecnología. Puedo ayudarte con lo que sí está detallado."
-- Si se indica que la información del vertical es "genérica" o "no verificada", comunícalo explícitamente al usuario.
-- Si el usuario pregunta algo fuera del ámbito de tramitaciones técnicas en España, indícale amablemente que tu especialidad son los trámites de instalaciones.""")
+- Toda afirmación NORMATIVA (trámite, plazo, tasa, organismo, plataforma, norma) debe proceder de los datos proporcionados en los JSON que se te inyecten. NUNCA inventes normativa, plazos, plataformas ni importes.
+- Para el ASESORAMIENTO TÉCNICO (por qué elegir una tecnología, eficiencia, casos ideales), utiliza el conocimiento general que tienes a continuación.
+- Si un dato legal exacto no está en el contexto, DEBES decir: "No tengo ese dato legal verificado en mi base para esta comunidad/tecnología."
+- Sé transparente sobre la fiabilidad de tus datos basándote en el nivel de verificación indicado.
+- Si el usuario pregunta algo fuera del ámbito de tramitaciones o instalaciones energéticas, indícale amablemente tu especialidad.
+
+---
+{guia_tecnica}""")
 
     # Determinar comunidad y tipo
     comunidad = None
@@ -134,9 +133,11 @@ pronombres que hagan referencia al contexto, usa SIEMPRE la información anterio
                 if len(normativa_str) > 12000:
                     normativa_str = normativa_str[:12000] + "...[normativa truncada por longitud]"
 
-                aviso_nivel = ""
+                aviso_nivel = f"\nATENCIÓN: Los datos normativos de esta comunidad y tecnología tienen nivel de verificación: '{nivel}'."
                 if nivel != "verificada":
-                    aviso_nivel = f"\nATENCIÓN: Los datos normativos tienen nivel '{nivel}'. Informa al usuario que la información puede no estar verificada exhaustivamente y recomienda consultar con un técnico."
+                    aviso_nivel += " Informa al usuario transparentemente sobre este nivel, indicando que la información podría requerir contraste con el organismo oficial correspondiente."
+                else:
+                    aviso_nivel += " Puedes afirmar con seguridad la validez de estos datos."
 
                 sections.append(f"""NORMATIVA JSON DEL VERTICAL (motor de reglas interno):
 Usa esta información para responder preguntas sobre base legal, condiciones de aplicación y detalles de los trámites.

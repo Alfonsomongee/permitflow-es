@@ -1,23 +1,23 @@
 {
   "tipo_instalacion": "gas_baja_presion",
-  "comunidad": "pais_vasco",
+  "comunidad": "navarra",
   "version": "0.9.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'potencia_total_kw' (no existe; el campo real es 'potencia_kw'). Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminó 'Decreto 213/2012' como base legal: es un decreto real del País Vasco, pero su objeto es la contaminación acústica de la CAPV — no tiene ninguna relación con instalaciones de gas. Sustituido por el RIGLO nacional (RD 919/2006) directo, más el Decreto 229/2012 (simplificación del procedimiento para la puesta en servicio de instalaciones industriales), confirmado real como norma general de puesta en servicio industrial en el País Vasco. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
+  "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de gas). No se ha localizado norma foral específica de gas; se aplica el RIGLO nacional (RD 919/2006) directamente. Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
   "huecos_verificacion": [
-    "No se ha localizado normativa autonómica vasca específica de gas más allá del marco general de simplificación industrial (Decreto 229/2012)",
-    "Tasas y plazos legales no verificados con detalle"
+    "No se ha localizado normativa foral navarra específica de gas",
+    "Nombre exacto del trámite de registro de instalaciones de gas en Navarra no confirmado",
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Decreto 229/2012, de 30 de octubre (Gobierno Vasco) — confirmado real, simplificación del procedimiento de puesta en servicio de instalaciones industriales",
-    "Ley 21/1992 de Industria"
+    "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente"
   ],
   "reglas": [
     {
-      "id": "PV-GAS-001",
+      "id": "NAV-GAS-001",
       "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
       "condicion": {
         "==": [
@@ -38,11 +38,11 @@
           "coste_estimado": "Variable según honorarios del técnico",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-GAS-001",
+          "regla_id": "NAV-GAS-001",
           "documentos_requeridos": [
             {
               "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas",
+              "label": "Proyecto técnico de la instalación de gas",
               "descripcion": "",
               "obligatorio": true
             }
@@ -51,27 +51,50 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (CI) y puesta en servicio con ECA",
-          "organismo": "Entidad Colaboradora de la Administración (ECA) autorizada en País Vasco",
-          "base_legal": "RIGLO RD 919/2006; Decreto 229/2012",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Euskadi.eus - Ventanilla de Industria",
-          "plataforma_url": "https://www.euskadi.eus/industria-energia-minas/",
+          "nombre": "Certificado de Instalación (CI) de gas",
+          "organismo": "Instalador de gas habilitado",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-GAS-001",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro/comunicación de instalación receptora de gas",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/sede",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-GAS-001",
+          "regla_id": "NAV-GAS-001",
           "documentos_requeridos": [
             {
-              "id": "ci_gas_eca",
-              "label": "Certificado de instalación emitido por ECA",
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "boletin_gas",
-              "label": "Boletín de instalación de gas (modelo oficial)",
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
               "descripcion": "",
               "obligatorio": true
             }
@@ -81,7 +104,7 @@
       ]
     },
     {
-      "id": "PV-GAS-002",
+      "id": "NAV-GAS-002",
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
       "condicion": {
         "and": [
@@ -92,9 +115,9 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de instalación de gas (MTI-Gas)",
+          "nombre": "Memoria técnica de instalación de gas",
           "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -102,11 +125,11 @@
           "coste_estimado": "Incluido en honorarios del instalador",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-GAS-002",
+          "regla_id": "NAV-GAS-002",
           "documentos_requeridos": [
             {
-              "id": "mti_gas",
-              "label": "Memoria técnica de instalación de gas",
+              "id": "mtd_gas",
+              "label": "Memoria Técnica de instalación de gas",
               "descripcion": "",
               "obligatorio": true
             },
@@ -121,27 +144,21 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (CI) y puesta en servicio",
-          "organismo": "Órgano competente del País Vasco o entidad colaboradora (ECA)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 229/2012",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "Euskadi.eus - Ventanilla de Industria",
-          "plataforma_url": "https://www.euskadi.eus/industria-energia-minas/",
-          "coste_estimado": "NO VERIFICADO",
+          "nombre": "Certificado de Instalación (CI) de gas",
+          "organismo": "Instalador de gas habilitado",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-GAS-002",
+          "regla_id": "NAV-GAS-002",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "boletin_gas",
-              "label": "Boletín de instalación de gas (modelo oficial)",
+              "label": "Certificado de Instalación de gas",
               "descripcion": "",
               "obligatorio": true
             }
@@ -151,7 +168,7 @@
       ]
     },
     {
-      "id": "PV-GAS-003",
+      "id": "NAV-GAS-003",
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
       "condicion": {
         "and": [
@@ -172,11 +189,11 @@
           "coste_estimado": "Variable según honorarios del técnico",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-GAS-003",
+          "regla_id": "NAV-GAS-003",
           "documentos_requeridos": [
             {
               "id": "proyecto_gas",
-              "label": "Proyecto técnico de instalación de gas",
+              "label": "Proyecto técnico de la instalación de gas",
               "descripcion": "",
               "obligatorio": true
             }
@@ -185,27 +202,50 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (CI) y puesta en servicio con ECA",
-          "organismo": "Entidad Colaboradora de la Administración (ECA) autorizada en País Vasco",
-          "base_legal": "RIGLO RD 919/2006; Decreto 229/2012",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Euskadi.eus - Ventanilla de Industria",
-          "plataforma_url": "https://www.euskadi.eus/industria-energia-minas/",
+          "nombre": "Certificado de Instalación (CI) de gas",
+          "organismo": "Instalador de gas habilitado",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro/comunicación de instalación receptora de gas",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/sede",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-GAS-003",
+          "regla_id": "NAV-GAS-003",
           "documentos_requeridos": [
             {
-              "id": "ci_gas_eca",
-              "label": "Certificado de instalación emitido por ECA",
+              "id": "proyecto_gas",
+              "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "boletin_gas",
-              "label": "Boletín de instalación de gas (modelo oficial)",
+              "id": "ci_gas",
+              "label": "Certificado de Instalación de gas",
               "descripcion": "",
               "obligatorio": true
             }

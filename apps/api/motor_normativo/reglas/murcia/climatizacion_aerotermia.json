@@ -1,96 +1,97 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "murcia",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 56/2008' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia, usado por la propia sede electrónica de la CARM como base del 'Registro de instalaciones térmicas en los edificios') más el RITE nacional.",
+  "huecos_verificacion": [
+    "Tasas exactas no verificadas",
+    "Plazos legales no verificados"
+  ],
   "fuentes": [
-    "RD 1027/2007 RITE",
-    "RD 842/2002 REBT",
-    "Decreto 56/2008 de 25 de abril, por el que se regulan las instalaciones térmicas en la Región de Murcia",
-    "Orden de 10 de julio de 2009 de la Consejería de Universidades, Empresa e Investigación, por la que se regula el procedimiento de puesta en servicio de instalaciones térmicas en la Región de Murcia"
+    "RITE RD 1027/2007",
+    "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real, base legal del 'Registro de instalaciones térmicas en los edificios' de la sede de la CARM"
   ],
   "reglas": [
     {
       "id": "MUR-CL-001",
-      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal ≤ 70 kW en edificios existentes o nuevos, con proyecto o memoria técnica según RITE",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica (MT) o Proyecto de instalación térmica",
-          "organismo": "Instalador habilitado en climatización (categoría según RITE)",
-          "base_legal": "RITE RD 1027/2007; Decreto 56/2008; Orden 10/07/2009",
+          "nombre": "Memoria Técnica (MT) de instalación térmica",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-CL-001",
           "documentos_requeridos": [
             {
               "id": "memoria_tecnica_climatizacion",
-              "label": "Memoria técnica de la instalación térmica"
+              "label": "Memoria técnica de la instalación térmica",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador habilitado"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular"
+              "label": "Certificado del instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Puesta en servicio (comunicación a la Comunidad Autónoma)",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (Consejería de Empresa, Empleo, Universidades y Portavocía)",
-          "base_legal": "Orden 10/07/2009; Decreto 56/2008",
+          "nombre": "Registro de instalación térmica en edificios",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "0 € (tasa 0 para instalaciones ≤70 kW)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-CL-001",
           "documentos_requeridos": [
             {
               "id": "certificado_final_obra",
-              "label": "Certificado final de obra o instalación"
-            },
-            {
-              "id": "certificado_eficiencia_energetica",
-              "label": "Certificado de eficiencia energética (si aplica)"
+              "label": "Certificado final de obra o instalación",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "boletin_instalacion_termica",
-              "label": "Boletín de instalación térmica (modelo oficial)"
+              "label": "Boletín de instalación térmica (modelo oficial)",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "MUR-CL-002",
-      "descripcion": "Instalación de climatización con aerotermia de potencia térmica nominal > 70 kW",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
-          {
-            ">": [
-              {
-                "var": "potencia_termica_kw"
-              },
-              70
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          70
         ]
       },
       "tramites": [
@@ -98,47 +99,59 @@
           "orden": 1,
           "nombre": "Proyecto técnico visado por colegio profesional",
           "organismo": "Colegio profesional correspondiente (ingeniero industrial, etc.)",
-          "base_legal": "RITE RD 1027/2007; Decreto 56/2008",
+          "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "Variable según colegio",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-CL-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
-              "label": "Proyecto técnico de la instalación"
+              "label": "Proyecto técnico de la instalación",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "visado_colegial",
-              "label": "Visado del colegio profesional"
+              "label": "Visado del colegio profesional",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Puesta en servicio con inspección inicial (OCA/EICI)",
+          "nombre": "Puesta en servicio con inspección inicial (OCA)",
           "organismo": "Organismo de Control Autorizado (OCA) acreditado en la Región de Murcia",
-          "base_legal": "Orden 10/07/2009; Decreto 56/2008",
+          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 15",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "300-600 € (según OCA)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-CL-002",
           "documentos_requeridos": [
             {
               "id": "certificado_inspeccion_oca",
-              "label": "Certificado de inspección inicial del OCA"
-            },
-            {
-              "id": "certificado_final_obra",
-              "label": "Certificado final de obra"
+              "label": "Certificado de inspección inicial del OCA",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "boletin_instalacion_termica",
-              "label": "Boletín de instalación térmica"
+              "label": "Boletín de instalación térmica",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

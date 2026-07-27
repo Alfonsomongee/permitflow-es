@@ -1,38 +1,33 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "murcia",
-  "version": "1.1.0",
-  "ultima_revision": "2025-04-07",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto n.º 56/2021' como base legal: no se ha localizado. La normativa real confirmada, y única para los 5 verticales de Murcia, es el Decreto 20/2003, de 21 de marzo, 'sobre criterios de actuación en materia de seguridad industrial y procedimientos para la puesta en servicio de instalaciones en el ámbito territorial de la Región de Murcia' — usado consistentemente por la sede electrónica de la CARM en instalaciones eléctricas, térmicas, de gas y de establecimientos industriales. Se confirmaron trámites reales: Procedimiento 0019 (registro BT/autoconsumo) y PRETOR (Registro de Instalaciones de Producción de Energía Eléctrica) para autoconsumo con excedentes sin compensación, tasa T610 (subcódigos H00001 sin proyecto / H00002 con proyecto). Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre 'uso'.",
+  "huecos_verificacion": [
+    "No se ha verificado si Murcia ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Tasas exactas de los subcódigos H00001/H00002 del código T610 no verificadas con importe concreto",
+    "No se ha confirmado en qué casos aplica el procedimiento 0019 frente a PRETOR con precisión — la fuente oficial distingue por modalidad de autoconsumo (con/sin excedentes, con/sin compensación), eje que no tiene campo propio en el schema",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto n.º 56/2021, de 28 de mayo, por el que se regulan las instalaciones de producción de energía eléctrica de baja tensión en la Región de Murcia",
-    "Orden de 15 de diciembre de 2021, de la Consejería de Empresa, Empleo, Universidades y Portavocía, por la que se desarrolla el Decreto n.º 56/2021"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "REBT RD 842/2002 ITC-BT-40",
+    "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real, base legal única para instalaciones industriales/eléctricas/térmicas/gas en Murcia",
+    "Procedimiento 0019 'Registro de instalaciones eléctricas de baja tensión' y PRETOR (Registro de Instalaciones de Producción de Energía Eléctrica) - sede.carm.es / mui.carm.es"
   ],
   "reglas": [
     {
       "id": "MUR-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -45,222 +40,147 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación, cálculos y cumplimiento normativo.",
-              "formato": "PDF"
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de Autorización Administrativa y de Ejecución (AAyE) ante la Comunidad Autónoma",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (Consejería de Empresa, Empleo, Universidades y Portavocía)",
-          "base_legal": "Decreto n.º 56/2021, art. 10; Orden 15/12/2021",
+          "nombre": "Registro de instalación BT/autoconsumo (procedimiento 0019) y, en su caso, inscripción en PRETOR",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "base_legal": "Decreto 20/2003; RD 244/2019",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica de la Comunidad Autónoma de la Región de Murcia",
-          "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa por tramitación: 50-100 € (según potencia)",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_fotovoltaica",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Misma MTD presentada en paso 1.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "descripcion": "Documento que acredita la habilitación del instalador.",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "descripcion": "Declaración de que la instalación cumple con la normativa.",
-              "formato": "PDF"
-            }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Inspección Inicial por OCA (Organismo de Control Autorizado) y Certificado de Instalación Eléctrica (CIE)",
-          "organismo": "OCA autorizada en la Región de Murcia (ej. Bureau Veritas, Applus+, TÜV Rheinland, etc.)",
-          "base_legal": "Decreto n.º 56/2021, art. 12; REBT ITC-BT-05",
-          "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "200-400 € (según potencia y OCA)",
+          "plataforma": "Sede Electrónica de la CARM",
+          "plataforma_url": "https://sede.carm.es",
+          "coste_estimado": "NO VERIFICADO — tasa T610, subcódigo H00001 (sin proyecto)",
+          "formulario_ref": "0019",
+          "paralelo_con": null,
+          "regla_id": "MUR-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "MTD aprobada.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
             {
               "id": "certificado_instalador",
               "label": "Certificado del instalador",
-              "descripcion": "Original firmado.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
-        },
-        {
-          "orden": 4,
-          "nombre": "Registro de la Instalación en el Registro de Instalaciones de Producción de Energía Eléctrica de la Región de Murcia",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera",
-          "base_legal": "Decreto n.º 56/2021, art. 14",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica de la Comunidad Autónoma de la Región de Murcia",
-          "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa de registro: 30 €",
-          "documentos_requeridos": [
-            {
-              "id": "cie",
-              "label": "Certificado de Instalación Eléctrica (CIE)",
-              "descripcion": "Emitido por OCA tras inspección favorable.",
-              "formato": "PDF"
-            },
-            {
-              "id": "boletin_instalacion",
-              "label": "Boletín de instalación eléctrica",
-              "descripcion": "Documento oficial firmado por instalador.",
-              "formato": "PDF"
-            }
-          ]
+          ],
+          "notas": "La inscripción en PRETO solo es obligatoria para instalaciones con excedentes no acogidas a compensación; no modelado por falta de campo en el schema."
         }
       ]
     },
     {
       "id": "MUR-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso no residencial (proyecto técnico)",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto Técnico (PT) fotovoltaico firmado por ingeniero competente",
+          "nombre": "Proyecto Técnico (PT) fotovoltaico",
           "organismo": "Ingeniero industrial o de minas (o ingeniero técnico con competencias)",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "1.000-3.000 € (según complejidad)",
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Documento completo con memoria, planos, pliego de condiciones, presupuesto.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de Autorización Administrativa y de Ejecución (AAyE) ante la Comunidad Autónoma",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera",
-          "base_legal": "Decreto n.º 56/2021, art. 10; Orden 15/12/2021",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica de la Comunidad Autónoma de la Región de Murcia",
-          "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa por tramitación: 100-200 € (según potencia)",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico",
-              "descripcion": "Proyecto firmado.",
-              "formato": "PDF"
-            },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "descripcion": "Acredita habilitación.",
-              "formato": "PDF"
-            },
-            {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del titular",
-              "descripcion": "Cumplimiento normativo.",
-              "formato": "PDF"
-            }
-          ]
-        },
-        {
-          "orden": 3,
-          "nombre": "Inspección Inicial por OCA y Certificado de Instalación Eléctrica (CIE)",
+          "nombre": "Inspección inicial por Organismo de Control (OCA)",
           "organismo": "OCA autorizada en la Región de Murcia",
-          "base_legal": "Decreto n.º 56/2021, art. 12; REBT ITC-BT-05",
+          "base_legal": "REBT ITC-BT-05",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "300-600 € (según potencia y OCA)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Proyecto aprobado.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             },
-            {
-              "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "descripcion": "Original.",
-              "formato": "PDF"
-            }
-          ]
-        },
-        {
-          "orden": 4,
-          "nombre": "Registro de la Instalación en el Registro de Instalaciones de Producción de Energía Eléctrica de la Región de Murcia",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera",
-          "base_legal": "Decreto n.º 56/2021, art. 14",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
-          "plataforma": "Sede Electrónica de la Comunidad Autónoma de la Región de Murcia",
-          "plataforma_url": "https://sede.carm.es",
-          "coste_estimado": "Tasa de registro: 30 €",
-          "documentos_requeridos": [
             {
               "id": "cie",
               "label": "Certificado de Instalación Eléctrica (CIE)",
-              "descripcion": "Emitido por OCA.",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de instalación (procedimiento 0019) e inscripción en PRETOR",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "base_legal": "Decreto 20/2003; Ley 24/2013 art. 53",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la CARM",
+          "plataforma_url": "https://sede.carm.es",
+          "coste_estimado": "NO VERIFICADO — tasa T610, subcódigo H00002 (con proyecto)",
+          "formulario_ref": "0019",
+          "paralelo_con": null,
+          "regla_id": "MUR-FV-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
-              "id": "boletin_instalacion",
-              "label": "Boletín de instalación eléctrica",
-              "descripcion": "Firmado por instalador.",
-              "formato": "PDF"
+              "id": "cie",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

@@ -1,38 +1,35 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "navarra",
-  "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "version": "0.9.0",
+  "ultima_revision": "2026-07-27",
+  "nivel_verificacion": "generica",
+  "estado": "borrador_no_verificado",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminaron 'Decreto Foral 47/2021' y 'Orden Foral 123/2022' como base legal: no se han localizado. Sustituidos por el Decreto-ley Foral 1/2022, CONFIRMADO real, que además contiene una cita textual que confirma explícitamente el umbral de 100 kW para Navarra: instalaciones de autoconsumo de potencia ≤100 kW conectadas a red ≤1 kV no precisan autorización administrativa previa ni de construcción — es la confirmación más directa de este umbral obtenida en todo el proyecto. Y por la Orden Foral 64/2022, también confirmada real (especialidades de autorización de renovables para autoconsumo). Se sustituyó el umbral inventado de 10 kW por el de 100 kW en consecuencia. Se corrigió el bug de partición base sobre 'uso'. IMPORTANTE: la 'Orden Foral 181/2003' que aparece en algunas páginas de trámite de Navarra como base del registro BT está DEROGADA por la Orden Foral 60/2015 (hecho ya verificado en sesiones anteriores de este proyecto) — no se cita como vigente en este fichero.",
+  "huecos_verificacion": [
+    "No se ha verificado si el Decreto-ley Foral 1/2022 ha sido posteriormente modificado o derogado — confirmar vigencia antes de producción",
+    "Tasas y plazos legales de resolución no verificados con detalle",
+    "No se ha confirmado el nombre exacto del registro de autoconsumo específico de Navarra más allá del trámite genérico 'Tramitación y registro administrativo de instalaciones de autoconsumo de energía eléctrica' confirmado en navarra.es",
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto Foral 47/2021, de 30 de junio, por el que se regulan las instalaciones de producción de energía eléctrica a partir de fuentes renovables en Navarra",
-    "Orden Foral 123/2022, de 15 de marzo, del Consejero de Desarrollo Económico y Empresarial, por la que se establecen los procedimientos de puesta en servicio de instalaciones eléctricas de baja tensión"
+    "Ley 24/2013 Sector Eléctrico, art. 53",
+    "REBT RD 842/2002 ITC-BT-40",
+    "Decreto-ley Foral 1/2022 (Navarra) — CONFIRMADO real, art. sobre especialidades de autorización de instalaciones de autoconsumo renovable, confirma umbral de 100 kW",
+    "Orden Foral 64/2022, de 21 de octubre (Navarra) — confirmada real, especialidades de autorización de autoconsumo y comunidades energéticas",
+    "Orden Foral 60/2015, de 20 de marzo (BON n.º 54) — deroga la Orden Foral 181/2003 y otras normas de BT; referencia vigente en sustitución",
+    "Ficha oficial 'Tramitación y registro administrativo de instalaciones de autoconsumo de energía eléctrica' - navarra.es"
   ],
   "reglas": [
     {
       "id": "NAV-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW conectada a red ≤1 kV: régimen exento de autorización administrativa previa y de construcción, Memoria Técnica de Diseño",
       "condicion": {
-        "and": [
-          {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        "<=": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -45,89 +42,75 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-001",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
               "label": "Memoria Técnica de Diseño",
-              "descripcion": "Documento firmado por instalador habilitado que describe la instalación",
-              "formato": "PDF"
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Confirmado textualmente: instalaciones ≤100 kW conectadas a red ≤1 kV no precisan autorización administrativa previa ni de construcción (Decreto-ley Foral 1/2022)."
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de Autorización Administrativa Previa (AAP) y de Construcción (AAC) - si aplica",
-          "organismo": "Dirección General de Industria, Energía y Proyectos Estratégicos del Gobierno de Navarra",
-          "base_legal": "Decreto Foral 47/2021; Ley 24/2013",
-          "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica del Gobierno de Navarra",
-          "plataforma_url": "https://www.navarra.es/sede",
-          "coste_estimado": "0 € (tasa no aplicable para autoconsumo ≤10 kW)",
-          "documentos_requeridos": [
-            {
-              "id": "solicitud_aap_aac",
-              "label": "Solicitud de Autorización Administrativa Previa y de Construcción",
-              "descripcion": "Formulario normalizado disponible en sede electrónica",
-              "formato": "PDF"
-            },
-            {
-              "id": "mtd_fotovoltaica",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "Misma MTD del paso anterior",
-              "formato": "PDF"
-            }
-          ]
-        },
-        {
-          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) en Navarra (ej. TÜV Rheinland, Applus+, etc.)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05; Orden Foral 123/2022",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "Sede Electrónica del Gobierno de Navarra",
-          "plataforma_url": "https://www.navarra.es/sede",
-          "coste_estimado": "150-300 € (según OCA)",
+          "organismo": "Organismo de Control Autorizado (OCA) en Navarra",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-001",
           "documentos_requeridos": [
             {
               "id": "cie",
               "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "Emitido por OCA tras inspección favorable",
-              "formato": "PDF"
-            },
-            {
-              "id": "boletin_instalador",
-              "label": "Boletín de instalador",
-              "descripcion": "Documento firmado por instalador habilitado",
-              "formato": "PDF"
+              "descripcion": "Emitido por OCA tras inspección favorable.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación de autoconsumo",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "Orden Foral 64/2022; RD 244/2019",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/es/tramites/on/-/line/Tramitacion-y-registro-administrativo-de-instalaciones-de-autoconsumo-de-energia-electrica",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "cie",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
         }
       ]
     },
     {
       "id": "NAV-FV-002",
-      "descripcion": "Autoconsumo con excedentes >10 kW o cualquier potencia en uso industrial/terciario (proyecto técnico)",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
-        "or": [
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
-          },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+        ">": [
+          { "var": "potencia_kw" },
+          100
         ]
       },
       "tramites": [
@@ -140,65 +123,94 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "1.000-3.000 € (según complejidad)",
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Documento firmado por técnico competente visado por colegio profesional",
-              "formato": "PDF"
+              "descripcion": "Firmado por técnico competente, visado por colegio profesional.",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         },
         {
           "orden": 2,
           "nombre": "Solicitud de Autorización Administrativa Previa (AAP) y de Construcción (AAC)",
           "organismo": "Dirección General de Industria, Energía y Proyectos Estratégicos del Gobierno de Navarra",
-          "base_legal": "Decreto Foral 47/2021; Ley 24/2013",
+          "base_legal": "Decreto-ley Foral 1/2022; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",
           "plataforma_url": "https://www.navarra.es/sede",
-          "coste_estimado": "0 € (tasa no aplicable para autoconsumo)",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-002",
           "documentos_requeridos": [
-            {
-              "id": "solicitud_aap_aac",
-              "label": "Solicitud de Autorización Administrativa Previa y de Construcción",
-              "descripcion": "Formulario normalizado",
-              "formato": "PDF"
-            },
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Mismo proyecto del paso anterior",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": "Para instalaciones ≤5 ha aplica el procedimiento simplificado del Decreto-ley Foral 1/2022, con especialidades en materia ambiental (Ley Foral 17/2020)."
         },
         {
           "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) y puesta en servicio",
           "organismo": "Organismo de Control Autorizado (OCA) en Navarra",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05; Orden Foral 123/2022",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "Sede Electrónica del Gobierno de Navarra",
-          "plataforma_url": "https://www.navarra.es/sede",
-          "coste_estimado": "200-500 € (según OCA y potencia)",
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-002",
           "documentos_requeridos": [
             {
               "id": "cie",
               "label": "Certificado de Instalación Eléctrica",
-              "descripcion": "Emitido por OCA tras inspección favorable",
-              "formato": "PDF"
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 4,
+          "nombre": "Registro de la instalación de autoconsumo",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "Orden Foral 64/2022; RD 244/2019",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/es/tramites/on/-/line/Tramitacion-y-registro-administrativo-de-instalaciones-de-autoconsumo-de-energia-electrica",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto Técnico",
+              "descripcion": "",
+              "obligatorio": true
             },
             {
-              "id": "boletin_instalador",
-              "label": "Boletín de instalador",
-              "descripcion": "Documento firmado por instalador habilitado",
-              "formato": "PDF"
+              "id": "cie",
+              "label": "Certificado de Instalación Eléctrica",
+              "descripcion": "",
+              "obligatorio": true
             }
-          ]
+          ],
+          "notas": ""
         }
       ]
     }

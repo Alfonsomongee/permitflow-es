@@ -1,24 +1,24 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
-  "comunidad": "pais_vasco",
+  "comunidad": "navarra",
   "version": "0.9.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe; se usa 'potencia_kw' como único eje de partición, ya presente correctamente en el fichero original). Se eliminó 'Decreto 47/2009' como base legal: no se ha localizado. La ficha oficial de Euskadi.eus para instalaciones térmicas cita como normativa reguladora el Decreto 81/2020, de 30 de junio, de seguridad industrial, aplicando el RITE nacional directamente, con el umbral de 70 kW confirmado textualmente ('Instalación que no requiere proyecto (P≤70kW)'). Se sustituyó el umbral inventado de 12 kW por el de 70 kW en consecuencia.",
+  "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de climatización). No se ha localizado decreto o norma foral específica para climatización; se aplica el RITE nacional directamente, con el umbral general de 70 kW ya verificado de forma consistente en el resto de comunidades de este proyecto. El órgano competente confirmado real es el Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra.",
   "huecos_verificacion": [
-    "Tasas y plazos legales no verificados con detalle",
-    "No se ha confirmado si el País Vasco exige ECA específicamente para instalaciones >70 kW más allá de lo que exige el RITE nacional para inspección inicial"
+    "No se ha localizado normativa foral navarra específica de climatización",
+    "Nombre exacto del trámite de registro de instalaciones térmicas en Navarra no confirmado en esta revisión",
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real",
-    "Ficha oficial 'Instalaciones térmicas' - euskadi.eus, confirma umbral de 70 kW y base legal directa en RD 1027/2007"
+    "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente en instalaciones industriales/energéticas"
   ],
   "reglas": [
     {
-      "id": "PV-AER-001",
+      "id": "NAV-CLI-001",
       "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<=": [
@@ -29,7 +29,7 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) de climatización",
+          "nombre": "Memoria Técnica de Diseño (MTD) según RITE",
           "organismo": "Instalador habilitado en climatización",
           "base_legal": "RITE RD 1027/2007 art. 17",
           "plazo_estimado_dias": 3,
@@ -39,17 +39,17 @@
           "coste_estimado": "Incluido en honorarios del instalador",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-AER-001",
+          "regla_id": "NAV-CLI-001",
           "documentos_requeridos": [
             {
               "id": "mtd_climatizacion",
-              "label": "Memoria Técnica de Diseño de climatización",
+              "label": "Memoria Técnica de Diseño de instalación térmica",
               "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador",
+              "label": "Certificado de instalador habilitado",
               "descripcion": "",
               "obligatorio": true
             }
@@ -58,37 +58,37 @@
         },
         {
           "orden": 2,
-          "nombre": "Declaración Responsable previa a la puesta en servicio (instalación sin proyecto)",
-          "organismo": "Órgano Territorial de Industria del Gobierno Vasco",
-          "base_legal": "RITE RD 1027/2007; Decreto 81/2020",
-          "plazo_estimado_dias": 5,
+          "nombre": "Registro/comunicación de puesta en servicio de instalación térmica",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "RITE RD 1027/2007 art. 24",
+          "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Euskadi.eus - Sede Electrónica",
-          "plataforma_url": "https://www.euskadi.eus/procedimiento/it/web01-tramite/es/",
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/sede",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-AER-001",
+          "regla_id": "NAV-CLI-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_firmada",
-              "label": "Memoria Técnica de Diseño firmada",
+              "id": "mtd_climatizacion",
+              "label": "Memoria Técnica de Diseño",
               "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador",
+              "label": "Certificado de instalador",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Confirmado real: la declaración responsable se presenta 'de acuerdo con el Real Decreto 1027/2007' directamente, sin decreto autonómico propio de puesta en servicio."
+          "notas": "Nombre exacto del trámite en Navarra no localizado en esta revisión."
         }
       ]
     },
     {
-      "id": "PV-AER-002",
+      "id": "NAV-CLI-002",
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
@@ -99,8 +99,8 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico de climatización",
-          "organismo": "Técnico titulado competente (ingeniero industrial, ingeniero térmico, etc.)",
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
           "base_legal": "RITE RD 1027/2007 art. 16",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -109,11 +109,17 @@
           "coste_estimado": "Variable según honorarios profesionales",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-AER-002",
+          "regla_id": "NAV-CLI-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_climatizacion",
-              "label": "Proyecto técnico de climatización",
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico visado por colegio profesional",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
               "descripcion": "",
               "obligatorio": true
             }
@@ -123,7 +129,7 @@
         {
           "orden": 2,
           "nombre": "Inspección inicial por Organismo de Control (OCA)",
-          "organismo": "Organismo de Control Autorizado (OCA) en País Vasco",
+          "organismo": "OCA autorizado en Navarra",
           "base_legal": "RITE RD 1027/2007 art. 15",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
@@ -132,11 +138,17 @@
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-AER-002",
+          "regla_id": "NAV-CLI-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_ejecutado",
-              "label": "Proyecto técnico ejecutado (as built)",
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador",
               "descripcion": "",
               "obligatorio": true
             }
@@ -145,23 +157,29 @@
         },
         {
           "orden": 3,
-          "nombre": "Declaración Responsable previa a la puesta en servicio (instalación con proyecto)",
-          "organismo": "Órgano Territorial de Industria del Gobierno Vasco",
-          "base_legal": "RITE RD 1027/2007; Decreto 81/2020",
-          "plazo_estimado_dias": 5,
+          "nombre": "Registro/comunicación de puesta en servicio de instalación térmica",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "RITE RD 1027/2007 art. 24",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Euskadi.eus - Sede Electrónica",
-          "plataforma_url": "https://www.euskadi.eus/procedimiento/it/web01-tramite/es/",
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/sede",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-AER-002",
+          "regla_id": "NAV-CLI-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_visado",
-              "label": "Proyecto técnico visado (si procede)",
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
               "descripcion": "",
-              "obligatorio": false
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_oca",
+              "label": "Certificado de inspección OCA favorable",
+              "descripcion": "",
+              "obligatorio": true
             }
           ],
           "notas": ""

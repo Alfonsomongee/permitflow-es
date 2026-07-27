@@ -1,26 +1,26 @@
 {
   "tipo_instalacion": "irve",
-  "comunidad": "pais_vasco",
+  "comunidad": "navarra",
   "version": "0.9.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_emplazamiento' (no existe; el campo real es 'ubicacion_irve'). Se eliminó 'Decreto 47/2020' como base legal: no se ha localizado. Sustituido por el Decreto 48/2020 (mismo decreto confirmado real en el lote de FV de esta comunidad, que regula la autorización de instalaciones eléctricas en general) más ITC-BT-52 nacional. Se sustituyó el umbral inventado de 50 kW plano por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4 (coincide parcialmente con el umbral original de 50 kW para el caso interior).",
+  "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de IRVE). No se ha localizado normativa foral específica de IRVE; se aplica el régimen general de baja tensión confirmado en el lote de FV de esta comunidad (Orden Foral 60/2015, que sustituye a la derogada Orden Foral 181/2003) más ITC-BT-52 nacional. Se aplican los umbrales nacionales ya verificados en comunidades anteriores (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4, exigen proyecto técnico.",
   "huecos_verificacion": [
-    "No se ha localizado normativa autonómica vasca específica de IRVE; se aplica el Decreto 48/2020 general de instalaciones eléctricas más ITC-BT-52 nacional",
+    "No se ha localizado normativa foral navarra específica de IRVE",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados con detalle"
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     "RD 1053/2014, por el que se aprueba la ITC-BT-52",
     "RD 842/2002 REBT",
-    "Decreto 48/2020, de 31 de marzo (Gobierno Vasco) — confirmado real",
+    "Orden Foral 60/2015, de 20 de marzo (BON n.º 54) — vigente, sustituye a la derogada Orden Foral 181/2003 sobre instalaciones de baja tensión",
     "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
   ],
   "reglas": [
     {
-      "id": "PV-IRVE-001",
+      "id": "NAV-IRVE-001",
       "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
@@ -46,7 +46,7 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Diseño (MTD) IRVE",
+          "nombre": "Memoria Técnica de Diseño (MTD) para IRVE",
           "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
           "base_legal": "REBT RD 842/2002 ITC-BT-52",
           "plazo_estimado_dias": 2,
@@ -56,7 +56,7 @@
           "coste_estimado": "Incluido en honorarios del instalador",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-IRVE-001",
+          "regla_id": "NAV-IRVE-001",
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
@@ -65,7 +65,7 @@
               "obligatorio": true
             },
             {
-              "id": "declaracion_responsable_instalador",
+              "id": "declaracion_responsable",
               "label": "Declaración responsable del instalador",
               "descripcion": "",
               "obligatorio": true
@@ -75,17 +75,17 @@
         },
         {
           "orden": 2,
-          "nombre": "Tramitación de puesta en servicio (procedimiento GE)",
-          "organismo": "Delegación Territorial de Administración Industrial del Gobierno Vasco",
-          "base_legal": "Decreto 48/2020",
+          "nombre": "Registro de la instalación eléctrica de baja tensión",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "Orden Foral 60/2015",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/es/tramites/on/-/line/Registro-de-instalaciones-electricas-de-baja-tension",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "GE",
+          "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-IRVE-001",
+          "regla_id": "NAV-IRVE-001",
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
@@ -105,7 +105,7 @@
       ]
     },
     {
-      "id": "PV-IRVE-002",
+      "id": "NAV-IRVE-002",
       "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "or": [
@@ -127,8 +127,8 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico IRVE",
-          "organismo": "Ingeniero técnico industrial o superior competente",
+          "nombre": "Proyecto técnico de instalación IRVE",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
           "base_legal": "REBT RD 842/2002 ITC-BT-52",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -137,10 +137,10 @@
           "coste_estimado": "Variable según honorarios profesionales",
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-IRVE-002",
+          "regla_id": "NAV-IRVE-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_irve",
+              "id": "proyecto_tecnico_irve",
               "label": "Proyecto técnico IRVE",
               "descripcion": "Firmado por técnico competente.",
               "obligatorio": true
@@ -150,27 +150,44 @@
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de autorización administrativa previa (si procede) y puesta en servicio (procedimiento GE)",
-          "organismo": "Dirección competente en materia de energía del Gobierno Vasco",
-          "base_legal": "Decreto 48/2020",
-          "plazo_estimado_dias": 30,
+          "nombre": "Inspección inicial por Organismo de Control (OCA)",
+          "organismo": "OCA acreditada en Navarra",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "plataforma": null,
+          "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "GE",
+          "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "PV-IRVE-002",
+          "regla_id": "NAV-IRVE-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_irve",
-              "label": "Proyecto técnico IRVE",
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
               "descripcion": "",
               "obligatorio": true
-            },
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación eléctrica de baja tensión",
+          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "base_legal": "Orden Foral 60/2015",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/es/tramites/on/-/line/Registro-de-instalaciones-electricas-de-baja-tension",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-IRVE-002",
+          "documentos_requeridos": [
             {
-              "id": "certificado_direccion_obra",
-              "label": "Certificado de dirección de obra",
+              "id": "proyecto_tecnico_irve",
+              "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
             },

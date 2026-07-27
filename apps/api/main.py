@@ -9,6 +9,7 @@ from routers.documentos import router as documentos_router
 from routers.validador import router as validador_router
 from routers.orientacion import router as orientacion_router
 from routers.asistente import router as asistente_router
+from routers.simulador import router as simulador_router
 from fastapi.responses import JSONResponse
 import traceback
 import logging
@@ -54,3 +55,4 @@ app.include_router(documentos_router)
 app.include_router(validador_router)
 app.include_router(orientacion_router)
 app.include_router(asistente_router)
+app.include_router(simulador_router)
