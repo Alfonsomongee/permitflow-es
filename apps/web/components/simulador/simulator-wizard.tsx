@@ -23,8 +23,7 @@ const inmuebleSchema = z.object({
 
 const presupuestoSchema = z.object({
   presupuesto: z.number({
-    required_error: 'El presupuesto es requerido',
-    invalid_type_error: 'Debe ser un número',
+    message: 'El presupuesto debe ser un número válido',
   }).min(1000, 'El presupuesto mínimo es 1000€').max(100000, 'El presupuesto máximo es 100000€'),
 });
 
