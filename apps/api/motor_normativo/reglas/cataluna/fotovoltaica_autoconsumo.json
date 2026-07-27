@@ -1,47 +1,206 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cataluna",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "verificada",
   "estado": "verificado",
-  "aviso": "Adaptado según requerimientos de auditoría. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación telemática en Canal Empresa, exención de autorización previa/construcción hasta 500 kW (DL 22/2025), distinción de suelo urbanizable/no urbanizable, y separación nítida de fases: acceso a red, obras, puesta en servicio eléctrica BT/AT, y registro RAC/RIPRE.",
+  "aviso": "Fotovoltaica Cataluña: reglas aditivas (no excluyentes). El trámite 21526 solo aplica a con_excedentes_con_compensacion <= 100 kW. La exención de AAP/AAC 100-500 kW solo aplica a esas dos figuras (Decret Llei 22/2025). Acceso/conexión es revision_manual si requiere_acceso_conexion es null. No se afirman exenciones de tasa no verificadas. Organismos distinguidos: Empresa i Treball para seguridad industrial, Territori per a producció/acceso/explotación.",
   "huecos_verificacion": [
-    "Confirmar si hay tasas específicas en Canal Empresa asociadas a la presentación del RAC estándar para autoconsumos industriales de gran tamaño."
+    "Exención de tasa Decret legislatiu 3/2008 para instalaciones <= 100 kW: no verificada, no se afirma en ningún trámite",
+    "RAC (Resolució d'Accés i Connexió): el organismo exacto y el procedimiento de la distribuidora debe confirmarse caso a caso"
   ],
   "fuentes": [
-    "RD 244/2019 (Reglamento de Autoconsumo estatal)",
-    "Decret Llei 16/2019, de 26 de novembre, de mesures urgents per a l'emergència climàtica i l'impuls de les energies renovables a Catalunya",
-    "Decret Llei 24/2021, de 26 d'octubre (modificación de implantación renovable)",
-    "Decret Llei 22/2025 (Exención AAP/AAC hasta 500 kW)",
+    "RD 244/2019 autoconsumo",
+    "Ley 24/2013 del sector eléctrico",
+    "RD 1955/2000 acceso y conexión a redes",
+    "Decret Llei 22/2025, de 8 de juliol, de simplificació de procediments d'energies renovables",
     "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
     "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
   ],
   "validaciones": [
     {
-      "id": "CAT-FV-VALIDACION-INPUT",
+      "id": "CAT-FV-VALIDACION",
       "campos_requeridos": [
         "potencia_kw",
         "modalidad_autoconsumo",
         "ubicacion_suelo",
-        "requiere_acceso_conexion",
-        "tension"
+        "requiere_acceso_conexion"
       ],
       "accion_si_faltan": "revision_manual"
     }
   ],
   "reglas": [
     {
-      "id": "CAT-FV-ACCESO",
-      "descripcion": "Acceso y conexión a la red de distribución (requerido si el parámetro requiere_acceso_conexion es True)",
+      "id": "CAT-FV-BT-ALTA-RITSIC",
+      "descripcion": "Toda instalación fotovoltaica de autoconsumo: declaración responsable de instalación BT y alta en RITSIC (trámite de seguridad industrial, siempre aplicable)",
+      "condicion": {
+        "==": [
+          {
+            "var": "tipo_instalacion"
+          },
+          "fotovoltaica_autoconsumo"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Declaració responsable per a instal·lació de generació fotovoltaica (BT) - alta RITSIC",
+          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "base_legal": "RD 1053/2014 REBT; Llei 9/2014; Decret 192/2023",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Sollicitud-dautoritzacio-administrativa-dinformacio-preverificacio-dinspeccio-i-de-posada-en-servei-de-les-installacions",
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio",
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion_bt",
+              "label": "Certificado de instalación BT (ELEC1)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "mtd_bt",
+              "label": "Memoria técnica de diseño BT (ELEC2/ELEC3) o proyecto si potencia requiere",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite de seguridad industrial obligatorio para toda instalación fotovoltaica. Presentación electrónica obligatoria."
+        }
+      ]
+    },
+    {
+      "id": "CAT-FV-AAP-AAC-GRAN-INSTALACION",
+      "descripcion": "Instalaciones > 500 kW: requieren Autorización Administrativa Previa (AAP) y Autorización Administrativa de Construcción (AAC)",
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          500
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sol·licitud d'Autorització Administrativa Prèvia (AAP) per a instal·lació de generació fotovoltaica",
+          "organismo": "Departament de Territori, Habitatge i Transició Ecològica",
+          "base_legal": "Ley 24/2013; RD 1955/2000",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Installacio-deenergia-electrica-autoritzacio-administrativa",
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_instalacion_generacion",
+              "label": "Proyecto de instalación de generación",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "estudio_impacto_ambiental",
+              "label": "Estudio de impacto ambiental (si aplica según la superficie y potencia)",
+              "descripcion": "",
+              "obligatorio": false
+            }
+          ],
+          "notas": "AAP obligatoria para instalaciones > 500 kW. La exención del Decret Llei 22/2025 solo aplica a 100-500 kW."
+        },
+        {
+          "orden": 2,
+          "nombre": "Sol·licitud d'Autorització Administrativa de Construcció (AAC) per a instal·lació de generació fotovoltaica",
+          "organismo": "Departament de Territori, Habitatge i Transició Ecològica",
+          "base_legal": "Ley 24/2013; RD 1955/2000",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Installacio-deenergia-electrica-autoritzacio-administrativa",
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_instalacion_generacion",
+              "label": "Proyecto de instalación de generación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "AAC necesaria tras AAP aprobada."
+        }
+      ]
+    },
+    {
+      "id": "CAT-FV-DECLARACION-PRODUCCION-100-500",
+      "descripcion": "Instalaciones 100 kW < potencia <= 500 kW: exentas de AAP y AAC por Decret Llei 22/2025. Solo requieren declaración responsable de instalación de producción ante Territori.",
       "condicion": {
         "and": [
           {
-            "==": [
+            ">": [
               {
-                "var": "tipo_instalacion"
+                "var": "potencia_kw"
               },
-              "fotovoltaica_autoconsumo"
+              100
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Declaració responsable d'instal·lació de generació (100-500 kW, exempció AAP/AAC)",
+          "organismo": "Departament de Territori, Habitatge i Transició Ecològica",
+          "base_legal": "Ley 24/2013; Decret Llei 22/2025",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Installacio-deenergia-electrica-autoritzacio-administrativa",
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_instalacion_generacion",
+              "label": "Proyecto de instalación de generación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "El Decret Llei 22/2025 exime de AAP y AAC a instalaciones entre 100 kW y 500 kW. Solo aplica a Autorización Administrativa Previa (AAP) y Autorización Administrativa de Construcción (AAC), no a otros trámites."
+        }
+      ]
+    },
+    {
+      "id": "CAT-FV-ACCESO-CONEXION",
+      "descripcion": "Instalaciones que requieren acceso y conexión a la red (con_excedentes_sin_compensacion o con_excedentes_con_compensacion): solicitud de RAC ante distribuidora.",
+      "condicion": {
+        "and": [
+          {
+            "in": [
+              {
+                "var": "modalidad_autoconsumo"
+              },
+              [
+                "con_excedentes_sin_compensacion",
+                "con_excedentes_con_compensacion"
+              ]
             ]
           },
           {
@@ -57,419 +216,39 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Solicitud de acceso y conexión a la red de distribución",
-          "organismo": "Compañía distribuidora de la zona (ej. e-distribución)",
-          "base_legal": "RD 244/2019; RD 1183/2020",
-          "plazo_estimado_dias": 30,
+          "nombre": "Sol·licitud de Resolució d'Accés i Connexió (RAC) a la xarxa de distribució",
+          "organismo": "Distribuidora de zona (Endesa / UFD / SUMA Distribución / etc.)",
+          "base_legal": "RD 1955/2000; Ley 24/2013; RD 244/2019",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Costes de estudios de acceso y conexión regulados",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "CAT-FV-ACCESO",
           "documentos_requeridos": [
             {
-              "id": "proyecto_memoria_conexion",
-              "label": "Memoria técnica o proyecto de la instalación",
+              "id": "solicitud_rac",
+              "label": "Solicitud de RAC (acceso y conexión)",
               "descripcion": "",
               "obligatorio": true
             },
             {
-              "id": "solicitud_punto_conexion",
-              "label": "Formulario de solicitud de punto de conexión",
+              "id": "proyecto_instalacion_generacion",
+              "label": "Proyecto o MTD de la instalación de generación",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Trámite preceptivo antes de iniciar las obras si la instalación no está exenta de acceso y conexión."
+          "notas": "Si requiere_acceso_conexion es desconocido (null), este trámite no se clasifica automáticamente. El proceso de RAC varía según la distribuidora de la zona."
         }
       ]
     },
     {
-      "id": "CAT-FV-AUTORIZACIONES",
-      "descripcion": "Autorización administrativa previa (AAP) y de construcción (AAC) para plantas fotovoltaicas > 500 kW (exentas plantas <= 500 kW por DL 22/2025)",
+      "id": "CAT-FV-TRAMITE-21526",
+      "descripcion": "Instalaciones con compensación de excedentes de hasta 100 kW (con_excedentes_con_compensacion <= 100 kW): trámite específico de inscripción 21526 en el RIPRE.",
       "condicion": {
         "and": [
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "fotovoltaica_autoconsumo"
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              500
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Autorització administrativa prèvia i de construcció d'instal·lacions de producció d'energia elèctrica",
-          "organismo": "Direcció General d'Energia / Serveis Territorials d'Indústria",
-          "base_legal": "Llei 24/2013 del Sector Eléctrico; Decret Llei 16/2019; Decret Llei 22/2025",
-          "plazo_estimado_dias": 90,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Autoritzacio-administrativa-previa-i-de-construccio-dinstal.lacions-de-produccio-denergia-electrica",
-          "coste_estimado": "Tasas variables según el presupuesto de la instalación",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-FV-AUTORIZACIONES",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_administrativo_produccion",
-              "label": "Proyecto técnico administrativo",
-              "descripcion": "Firmado por técnico competente y visado.",
-              "obligatorio": true
-            },
-            {
-              "id": "aval_garantia_red",
-              "label": "Justificante de constitución de garantía económica (avales)",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Las instalaciones de potencia <= 500 kW están exentas de AAP y AAC en virtud del Decret Llei 22/2025."
-        }
-      ]
-    },
-    {
-      "id": "CAT-FV-OBRA-COMUNICACION",
-      "descripcion": "Comunicación previa de obras para instalaciones sobre cubierta o en suelo urbanizado de cualquier potencia, o en suelo no urbanizable si <= 100 kW",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "fotovoltaica_autoconsumo"
-            ]
-          },
-          {
-            "or": [
-              {
-                "==": [
-                  {
-                    "var": "ubicacion_suelo"
-                  },
-                  "urbanizado"
-                ]
-              },
-              {
-                "and": [
-                  {
-                    "==": [
-                      {
-                        "var": "ubicacion_suelo"
-                  },
-                  "no_urbanizable"
-                ]
-              },
-              {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  100
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Comunicación previa de obras al Ayuntamiento",
-          "organismo": "Ayuntamiento correspondiente del municipio (ej. Barcelona)",
-          "base_legal": "Decret Llei 16/2019 art. 9 bis",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Impuesto ICIO (2%-4% de la obra civil) y tasas municipales",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-FV-OBRA-COMUNICACION",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_memoria_obra",
-              "label": "Proyecto técnico o memoria justificativa de la obra",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "declaracion_responsable_seguridad",
-              "label": "Declaración responsable de seguridad estructural",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Sujeto a exenciones o bonificaciones de tasas de obras e IBI según normativa local del Ayuntamiento."
-        }
-      ]
-    },
-    {
-      "id": "CAT-FV-OBRA-LICENCIA",
-      "descripcion": "Licencia urbanística obligatoria en suelo no urbanizable para instalaciones > 100 kW",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "fotovoltaica_autoconsumo"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "ubicacion_suelo"
-              },
-              "no_urbanizable"
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              100
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Solicitud de Licencia Urbanística Municipal",
-          "organismo": "Ayuntamiento correspondiente del municipio / Comisión Territorial de Urbanismo",
-          "base_legal": "Decret Llei 16/2019; Decret Llei 24/2021",
-          "plazo_estimado_dias": 60,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Tasas de licencia urbanística y aval de restauración del terreno",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-FV-OBRA-LICENCIA",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_tecnico_obra_licencia",
-              "label": "Proyecto técnico completo visado",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "estudio_impacto_ambiental",
-              "label": "Estudio de integración paisajística y ambiental",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "Requiere informe favorable de la Comisión Territorial de Urbanismo correspondiente."
-        }
-      ]
-    },
-    {
-      "id": "CAT-FV-PUESTA-SERVICIO-BT",
-      "descripcion": "Puesta en servicio de la instalación eléctrica en Baja Tensión (BT)",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "fotovoltaica_autoconsumo"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "BT"
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Certificado de Instalación Eléctrica en Baja Tensión (ELEC1) por instalador",
-          "organismo": "Instalador electricista habilitado en baja tensión",
-          "base_legal": "REBT RD 842/2002; Decret 192/2023",
-          "plazo_estimado_dias": 2,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-FV-PUESTA-SERVICIO-BT",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_o_mtd_electricidad",
-              "label": "Proyecto técnico o Memoria Técnica de Diseño (ELEC2/ELEC3)",
-              "descripcion": "Requerirá proyecto si potencia generación > 10 kW.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalador_electricista",
-              "label": "Copia de habilitación de la empresa instaladora",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Presentació de la declaració responsable per a instal·lacions elèctriques de baixa tensió (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04; Decret 192/2023",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-duna-instal.lacio-electrica-de-baixa-tensio",
-          "coste_estimado": "Tasas de la OGE",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-FV-PUESTA-SERVICIO-BT",
-          "documentos_requeridos": [
-            {
-              "id": "elec1_fv",
-              "label": "Certificado de instalación eléctrica de baja tensión (ELEC1)",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "proyecto_o_mtd_electricidad",
-              "label": "Proyecto técnico o Memoria Técnica de Diseño",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La presentación telemática produce la inscripción oficial de la instalación eléctrica en el RITSIC."
-        }
-      ]
-    },
-    {
-      "id": "CAT-FV-PUESTA-SERVICIO-AT",
-      "descripcion": "Puesta en servicio de la instalación eléctrica en Alta Tensión (AT)",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "fotovoltaica_autoconsumo"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "tension"
-              },
-              "AT"
-            ]
-          }
-        ]
-      },
-      "tramites": [
-        {
-          "orden": 1,
-          "nombre": "Proyecto técnico y dirección de obra de Alta Tensión",
-          "organismo": "Técnico titulado competente (ingeniero industrial)",
-          "base_legal": "RAT RD 337/2014; Decret 192/2023",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios de ingeniería",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-FV-PUESTA-SERVICIO-AT",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_at_visado",
-              "label": "Proyecto de Alta Tensión",
-              "descripcion": "Firmado por técnico competente y visado.",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_direccion_obra_at",
-              "label": "Certificado de dirección de obra (CDO AT)",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Presentació de la declaració responsable per a instal·lacions elèctriques d'alta tensió (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
-          "base_legal": "RAT RD 337/2014; Decret 192/2023",
-          "plazo_estimado_dias": 5,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-duna-instal.lacio-electrica-dalta-tensio",
-          "coste_estimado": "Tasas de la OGE",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-FV-PUESTA-SERVICIO-AT",
-          "documentos_requeridos": [
-            {
-              "id": "proyecto_at_visado",
-              "label": "Proyecto de Alta Tensión",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_direccion_obra_at",
-              "label": "Certificado de dirección de obra (CDO AT)",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_inspeccion_at",
-              "label": "Certificado de inspección inicial por EIC",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La presentación telemática produce la inscripción oficial de la instalación de alta tensión en el RITSIC."
-        }
-      ]
-    },
-    {
-      "id": "CAT-FV-REGISTRO-RAC-21526",
-      "descripcion": "Registro simplificado RAC de oficio para autoconsumo con excedentes y compensación de potencia <= 100 kW",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "fotovoltaica_autoconsumo"
-            ]
-          },
           {
             "==": [
               {
@@ -491,88 +270,109 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripción de oficio en el Registro de Autoconsumo de Cataluña (RAC)",
-          "organismo": "Direcció General d'Energia",
-          "base_legal": "RD 244/2019 art. 14; Trámite 21526 Generalitat de Catalunya",
-          "plazo_estimado_dias": 0,
+          "nombre": "Instal·lació generadora d'autoconsum amb compensació d'excedents de fins a 100 kW (tràmit 21526)",
+          "organismo": "Departament de Territori, Habitatge i Transició Ecològica",
+          "base_legal": "RD 244/2019; Ley 24/2013",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "Sin coste (de oficio)",
-          "formulario_ref": null,
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Installacio-generadora-dautoconsum-amb-compensacio-dexcedents-de-fins-a-100-kW",
+          "coste_estimado": null,
+          "formulario_ref": "21526",
           "paralelo_con": null,
-          "regla_id": "CAT-FV-REGISTRO-RAC-21526",
-          "documentos_requeridos": [],
-          "notas": "Trámite totalmente automático. No requiere ninguna acción por parte del usuario. Al registrarse la puesta en servicio de BT/AT (RITSIC), Industria notifica de oficio a la distribuidora para la activación del contrato de compensación de excedentes."
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_21526",
+              "label": "Solicitud del trámite 21526 en Canal Empresa",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_acceso",
+              "label": "Contrato de acceso firmado con la distribuidora",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "El trámite 21526 ('Instal·lació generadora d'autoconsum amb compensació d'excedents de fins a 100 kW') aplica exclusivamente a la modalidad con_excedentes_con_compensacion con potencia <= 100 kW."
         }
       ]
     },
     {
-      "id": "CAT-FV-REGISTRO-RAC-ESTANDAR",
-      "descripcion": "Inscripción voluntaria/obligatoria en el RAC (Registro de Autoconsumo de Cataluña) y RIPRE para modalidades no simplificadas (>100 kW o sin compensación)",
+      "id": "CAT-FV-RIPRE-EXCEDENTES-SIN-COMP",
+      "descripcion": "Inscripción en RIPRE para instalaciones con excedentes sin compensación (RD 244/2019)",
       "condicion": {
-        "and": [
+        "==": [
           {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "fotovoltaica_autoconsumo"
-            ]
+            "var": "modalidad_autoconsumo"
           },
-          {
-            "!": {
-              "and": [
-                {
-                  "==": [
-                    {
-                      "var": "modalidad_autoconsumo"
-                    },
-                    "con_excedentes_con_compensacion"
-                  ]
-                },
-                {
-                  "<=": [
-                    {
-                      "var": "potencia_kw"
-                    },
-                    100
-                  ]
-                }
-              ]
-            }
-          }
+          "con_excedentes_sin_compensacion"
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Inscripció en el Registre d'Autoconsum de Catalunya (RAC)",
-          "organismo": "Direcció General d'Energia (Secció de Registres)",
-          "base_legal": "RD 244/2019; Decret Llei 16/2019",
-          "plazo_estimado_dias": 15,
+          "nombre": "Inscripció al RIPRE (Registre d'instal·lacions de producció d'energia elèctrica) - excedents sense compensació",
+          "organismo": "Departament de Territori, Habitatge i Transició Ecològica",
+          "base_legal": "RD 244/2019; Ley 24/2013",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Inscripcio-en-el-Registre-dAutoconsum-de-Catalunya-RAC",
-          "coste_estimado": "Sin tasa asociada en Canal Empresa",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Installacio-deenergia-electrica-autoritzacio-administrativa",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "CAT-FV-REGISTRO-RAC-ESTANDAR",
           "documentos_requeridos": [
             {
-              "id": "comprobante_ritsic_inscrito",
-              "label": "Justificante de inscripción de puesta en servicio eléctrica (RITSIC)",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "certificado_instalacion_electrica",
-              "label": "Certificado de Instalación Eléctrica oficial",
+              "id": "solicitud_ripre",
+              "label": "Solicitud de inscripción en el RIPRE",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Trámite proactivo obligatorio para el titular para legalizar la modalidad de autoconsumo."
+          "notas": "Inscripción en el registro de instalaciones de producción para instalaciones con excedentes sin acogerse a compensación."
+        }
+      ]
+    },
+    {
+      "id": "CAT-FV-PUESTA-SERVICIO",
+      "descripcion": "Toda instalación fotovoltaica: autorización de explotación / puesta en servicio ante el organismo energético",
+      "condicion": {
+        "==": [
+          {
+            "var": "tipo_instalacion"
+          },
+          "fotovoltaica_autoconsumo"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sol·licitud d'autorització d'explotació i posada en servei de la instal·lació fotovoltaica",
+          "organismo": "Departament de Territori, Habitatge i Transició Ecològica",
+          "base_legal": "Ley 24/2013; RD 1955/2000; Decret 192/2023",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Installacio-deenergia-electrica-autoritzacio-administrativa",
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "acta_puesta_en_marcha",
+              "label": "Acta de puesta en marcha / certificado de fin de obra",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_bt",
+              "label": "Certificado de instalación BT (ELEC1)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite de puesta en servicio y autorización de explotación, necesario para la legalización final de la instalación."
         }
       ]
     }

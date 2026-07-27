@@ -115,6 +115,8 @@ class Clasificador:
                             plataforma_url=t.get("plataforma_url"),
                             coste_estimado=t.get("coste_estimado"),
                             formulario_ref=t.get("formulario_ref"),
+                            registro_salida=t.get("registro_salida"),
+                            medio_presentacion=t.get("medio_presentacion"),
                             regla_id=regla.get("id"),
                         )
                         tramites_output.append(tramite)

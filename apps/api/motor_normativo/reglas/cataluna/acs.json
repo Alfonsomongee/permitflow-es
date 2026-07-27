@@ -1,11 +1,11 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cataluna",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "verificada",
   "estado": "verificado",
-  "aviso": "Auditado y adaptado según requerimientos. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación telemática en Canal Empresa, fronteras RITE (5 kW y 70 kW) y la regla de prevención de legionelosis (Decret 352/2004).",
+  "aviso": "Auditado y adaptado según investigación consolidada. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación electrónica obligatoria con organismo competente de Empresa i Treball, y plazos/costes no contrastados removidos.",
   "huecos_verificacion": [],
   "fuentes": [
     "RITE RD 1027/2007",
@@ -28,8 +28,8 @@
   ],
   "reglas": [
     {
-      "id": "CAT-ACS-000",
-      "descripcion": "Instalación de ACS con potencia < 5 kW (no requiere presentación/registro documental conforme al RITE, sin perjuicio del cumplimiento técnico)",
+      "id": "CAT-ACS-INFO",
+      "descripcion": "Instalación de ACS con potencia < 5 kW",
       "condicion": {
         "and": [
           {
@@ -50,10 +50,27 @@
           }
         ]
       },
-      "tramites": []
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "No requiere presentación de documentación para el alta RITE por razón de potencia, sin perjuicio del cumplimiento técnico y de otras obligaciones aplicables.",
+          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "base_legal": "RITE RD 1027/2007; Decret 192/2023",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CAT-ACS-INFO",
+          "documentos_requeridos": [],
+          "notas": "Instalación de muy pequeña potencia exenta de registro formal de alta, pero obligada al cumplimiento de los requisitos técnicos del RITE."
+        }
+      ]
     },
     {
-      "id": "CAT-ACS-001",
+      "id": "CAT-ACS-MTD",
       "descripcion": "Instalación de ACS con potencia 5 kW <= potencia < 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
@@ -88,15 +105,15 @@
           "orden": 1,
           "nombre": "Memoria técnica de diseño (MTD) para instalación térmica",
           "organismo": "Instalador habilitado (carné de instalador térmico)",
-          "base_legal": "RITE RD 1027/2007",
-          "plazo_estimado_dias": 2,
+          "base_legal": "RITE RD 1027/2007; Decret 192/2023",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "CAT-ACS-001",
+          "regla_id": "CAT-ACS-MTD",
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
@@ -116,16 +133,18 @@
         {
           "orden": 2,
           "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
-          "base_legal": "RITE RD 1027/2007 art. 23-24; Decret 192/2023",
-          "plazo_estimado_dias": 5,
+          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Llei 9/2014; Decret 192/2023",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-dinstal.lacions-termiques-en-edificis-RITE",
-          "coste_estimado": "Según tasas vigentes de la OGE",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Presentacio-de-la-declaracio-responsable-per-a-installacions-termiques-en-edificis",
+          "coste_estimado": null,
           "formulario_ref": null,
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio",
           "paralelo_con": null,
-          "regla_id": "CAT-ACS-001",
+          "regla_id": "CAT-ACS-MTD",
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
@@ -140,12 +159,12 @@
               "obligatorio": true
             }
           ],
-          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el Registre d'Instal·lacions Tècniques de Seguretat Industrial de Catalunya (RITSIC) con código de tipo RITE-14-...-Q."
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el Registre d'Instal·lacions Tècniques de Seguretat Industrial de Catalunya (RITSIC)."
         }
       ]
     },
     {
-      "id": "CAT-ACS-002",
+      "id": "CAT-ACS-PROYECTO",
       "descripcion": "Instalación de ACS con potencia >= 70 kW (requiere proyecto técnico)",
       "condicion": {
         "and": [
@@ -172,15 +191,15 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación térmica",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007",
-          "plazo_estimado_dias": 15,
+          "base_legal": "RITE RD 1027/2007; Decret 192/2023",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios profesionales",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "CAT-ACS-002",
+          "regla_id": "CAT-ACS-PROYECTO",
           "documentos_requeridos": [
             {
               "id": "proyecto_termico",
@@ -194,16 +213,18 @@
         {
           "orden": 2,
           "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
-          "base_legal": "RITE RD 1027/2007 art. 23-24; Decret 192/2023",
-          "plazo_estimado_dias": 5,
+          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Llei 9/2014; Decret 192/2023",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-dinstal.lacions-termiques-en-edificis-RITE",
-          "coste_estimado": "Según tasas de la OGE",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Presentacio-de-la-declaracio-responsable-per-a-installacions-termiques-en-edificis",
+          "coste_estimado": null,
           "formulario_ref": null,
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio",
           "paralelo_con": null,
-          "regla_id": "CAT-ACS-002",
+          "regla_id": "CAT-ACS-PROYECTO",
           "documentos_requeridos": [
             {
               "id": "proyecto_termico",
@@ -248,9 +269,9 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Implantación y mantenimiento del PPCL o PSL",
-          "organismo": "Titular de la instalación / autoridad sanitaria competente (ASPCAT)",
-          "base_legal": "Decret 352/2004, de 27 de juliol; RD 487/2022; RD 614/2024",
+          "nombre": "Implantación y mantenimiento del Plan de Prevención y Control de Legionelosis (PPCL) o Plan Sanitario frente a Legionella (PSL)",
+          "organismo": "Titular de la instalación / autoridad sanitaria competente - ASPCAT",
+          "base_legal": "Decret 352/2004; RD 487/2022; RD 614/2024",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -267,7 +288,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "No implica por sí sola una solicitud administrativa única; comprende las obligaciones sanitarias aplicables de prevención y control ante la Agència de Salut Pública de Catalunya (ASPCAT)."
+          "notas": "Obligación sanitaria documental, operativa y de mantenimiento. No se ha identificado una solicitud administrativa única aplicable a toda instalación."
         }
       ]
     }

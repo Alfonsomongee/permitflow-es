@@ -92,34 +92,34 @@ class ClasificadorInput(BaseModel):
         if self.comunidad == "cataluna":
             if self.tipo_instalacion == "gas_baja_presion":
                 if self.potencia_resultante_kw is None:
-                    raise ValueError("potencia_resultante_kw is required for gas installations")
+                    raise ValueError("revision_manual")
                 if self.presion_resultante_bar is None:
-                    raise ValueError("presion_resultante_bar is required for gas installations")
+                    raise ValueError("revision_manual")
                 if self.es_ampliacion:
                     if self.incremento_potencia_pct is None or self.incremento_potencia_pct == 0:
-                        raise ValueError("incremento_potencia_pct must be provided and greater than 0 when es_ampliacion is True")
+                        raise ValueError("revision_manual")
             
             elif self.tipo_instalacion == "irve" and self.ubicacion_irve == "garaje_comunitario":
                 if self.uso_edificio is None:
-                    raise ValueError("uso_edificio is required for Cataluña IRVE in garajes")
+                    raise ValueError("revision_manual")
                 if self.ventilacion_garaje is None:
-                    raise ValueError("ventilacion_garaje is required for Cataluña IRVE in garajes")
+                    raise ValueError("revision_manual")
                 if self.numero_plazas_garaje is None:
-                    raise ValueError("numero_plazas_garaje is required for Cataluña IRVE in garajes")
+                    raise ValueError("revision_manual")
                 if self.garaje_existente is None:
-                    raise ValueError("garaje_existente is required for Cataluña IRVE in garajes")
+                    raise ValueError("revision_manual")
             
             elif self.tipo_instalacion == "fotovoltaica_autoconsumo":
                 if self.modalidad_autoconsumo is None:
-                    raise ValueError("modalidad_autoconsumo is required for Cataluña fotovoltaica")
+                    raise ValueError("revision_manual")
                 if self.ubicacion_suelo is None:
-                    raise ValueError("ubicacion_suelo is required for Cataluña fotovoltaica")
+                    raise ValueError("revision_manual")
                 if self.requiere_acceso_conexion is None:
-                    raise ValueError("requiere_acceso_conexion is required for Cataluña fotovoltaica")
+                    raise ValueError("revision_manual")
             
             elif self.tipo_instalacion == "acs":
                 if self.incluida_ambito_legionella is None:
-                    raise ValueError("incluida_ambito_legionella is required for Cataluña ACS")
+                    raise ValueError("revision_manual")
                     
         return self
 
@@ -150,6 +150,8 @@ class TramiteOutput(BaseModel):
     plataforma_url: Optional[str] = Field(None, description="URL directa a la plataforma de tramitación")
     coste_estimado: Optional[str] = Field(None, description="Estimación de tasas o coste administrativo")
     formulario_ref: Optional[str] = Field(None, description="Código o referencia del formulario/procedimiento oficial")
+    registro_salida: Optional[str] = Field(None, description="Registro de salida de la instalación, ej. RITSIC")
+    medio_presentacion: Optional[str] = Field(None, description="Medio de presentación, ej. electronico_obligatorio")
     paralelo_con: Optional[int] = Field(
         None, description="Orden (ya renumerado) del trámite con el que puede ejecutarse en paralelo"
     )

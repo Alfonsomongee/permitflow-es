@@ -1,24 +1,23 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "cataluna",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "verificada",
   "estado": "verificado",
-  "aviso": "Adaptado según requerimientos de auditoría. Incorporado el marco de seguridad industrial catalán (Llei 9/2014, Decret 192/2023), RITSIC, tramitación telemática en Canal Empresa, fronteras RITE (5 kW y 70 kW) y EIC condicionado/no exigido genéricamente.",
+  "aviso": "Marco de seguridad industrial catalán incorporado. Aerotermia: no se exige EIC universal, queda como hueco de verificación. Plazos y costes: null (no contrastados). Organismo: Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions.",
   "huecos_verificacion": [
-    "Confirmar los supuestos concretos del Decret 192/2023 para la exigencia de EIC en climatización por encima de potencias intermedias."
+    "EIC aerotermia: pendiente de verificar si la Generalitat requiere inspección EIC de forma universal o únicamente en supuestos específicos de la normativa autonómica"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "REBT RD 842/2002",
+    "RD 314/2006 CTE DB-HE",
     "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
     "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
   ],
   "validaciones": [
     {
-      "id": "CAT-AER-VALIDACION",
+      "id": "CAT-AERO-VALIDACION",
       "campos_requeridos": [
         "potencia_kw"
       ],
@@ -27,8 +26,8 @@
   ],
   "reglas": [
     {
-      "id": "CAT-AER-000",
-      "descripcion": "Instalación de aerotermia con potencia < 5 kW (no requiere presentación/registro documental conforme al RITE, sin perjuicio del cumplimiento técnico)",
+      "id": "CAT-AERO-INFO",
+      "descripcion": "Instalación de aerotermia con potencia < 5 kW",
       "condicion": {
         "and": [
           {
@@ -45,39 +44,6 @@
                 "var": "potencia_kw"
               },
               5
-            ]
-          }
-        ]
-      },
-      "tramites": []
-    },
-    {
-      "id": "CAT-AER-001",
-      "descripcion": "Instalación de aerotermia para climatización con potencia 5 kW <= potencia < 70 kW (memoria técnica, sin proyecto)",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "climatizacion_aerotermia"
-            ]
-          },
-          {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
-          },
-          {
-            "<": [
-              {
-                "var": "potencia_kw"
-              },
-              70
             ]
           }
         ]
@@ -85,61 +51,24 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de diseño (MTD) según RITE",
-          "organismo": "Instalador habilitado en climatización",
-          "base_legal": "RITE RD 1027/2007 art. 17",
-          "plazo_estimado_dias": 2,
+          "nombre": "No requiere presentación de documentación para el alta RITE por razón de potencia, sin perjuicio del cumplimiento técnico y de otras obligaciones aplicables.",
+          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "base_legal": "RITE RD 1027/2007; Decret 192/2023",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "CAT-AER-001",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_climatizacion",
-              "label": "Memoria Técnica de Diseño (climatización)",
-              "descripcion": "Documento firmado por instalador habilitado.",
-              "obligatorio": true
-            }
-          ],
-          "notes": ""
-        },
-        {
-          "orden": 2,
-          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
-          "base_legal": "RITE RD 1027/2007 art. 23-24; Decret 192/2023",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-dinstal.lacions-termiques-en-edificis-RITE",
-          "coste_estimado": "Según tasas de la OGE",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CAT-AER-001",
-          "documentos_requeridos": [
-            {
-              "id": "ci_climatizacion",
-              "label": "Certificado de Instalación (modelo oficial)",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "mtd_climatizacion",
-              "label": "Memoria Técnica de Diseño firmada",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La presentación telemática es electrónica obligatoria y produce el alta de oficio en el RITSIC."
+          "documentos_requeridos": [],
+          "notas": "Instalación de muy pequeña potencia exenta de registro formal de alta, pero obligada al cumplimiento de los requisitos técnicos del RITE."
         }
       ]
     },
     {
-      "id": "CAT-AER-002",
-      "descripcion": "Instalación de aerotermia para climatización con potencia >= 70 kW (requiere proyecto técnico)",
+      "id": "CAT-AERO-MTD",
+      "descripcion": "Instalación de aerotermia con potencia 5 kW <= potencia < 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
           {
@@ -155,6 +84,14 @@
               {
                 "var": "potencia_kw"
               },
+              5
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
               70
             ]
           }
@@ -163,21 +100,26 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Proyecto técnico de climatización",
-          "organismo": "Técnico competente (ingeniero industrial o similar)",
-          "base_legal": "RITE RD 1027/2007 art. 16",
-          "plazo_estimado_dias": 15,
+          "nombre": "Memoria técnica de diseño (MTD) para instalación térmica",
+          "organismo": "Instalador habilitado (carné de instalador térmico)",
+          "base_legal": "RITE RD 1027/2007; Decret 192/2023",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Variable según honorarios profesionales",
+          "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
-          "regla_id": "CAT-AER-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_climatizacion",
-              "label": "Proyecto técnico de climatización",
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño (MTD) firmada por instalador",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Copia del carné de instalador térmico",
               "descripcion": "",
               "obligatorio": true
             }
@@ -187,20 +129,99 @@
         {
           "orden": 2,
           "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d'Empresa i Treball (Seguretat Industrial)",
-          "base_legal": "RITE RD 1027/2007 art. 23-24; Decret 192/2023",
-          "plazo_estimado_dias": 15,
+          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Llei 9/2014; Decret 192/2023",
+          "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/tramits/tramits-temes/Declaracio-responsable-per-a-la-posada-en-servei-dinstal.lacions-termiques-en-edificis-RITE",
-          "coste_estimado": "Según tasas de la OGE",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Presentacio-de-la-declaracio-responsable-per-a-installacions-termiques-en-edificis",
+          "coste_estimado": null,
           "formulario_ref": null,
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio",
           "paralelo_con": null,
-          "regla_id": "CAT-AER-002",
           "documentos_requeridos": [
             {
-              "id": "proyecto_climatizacion",
-              "label": "Proyecto técnico de climatización",
+              "id": "mtd_termica",
+              "label": "Memoria técnica de diseño (MTD)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalador",
+              "label": "Copia del carné de instalador térmico",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC."
+        }
+      ]
+    },
+    {
+      "id": "CAT-AERO-PROYECTO",
+      "descripcion": "Instalación de aerotermia con potencia >= 70 kW (requiere proyecto técnico)",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "tipo_instalacion"
+              },
+              "climatizacion_aerotermia"
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación térmica",
+          "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
+          "base_legal": "RITE RD 1027/2007; Decret 192/2023",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Presentació de la declaració responsable per a instal·lacions tèrmiques en edificis (posada en servei, modificacions i baixa)",
+          "organismo": "Departament d'Empresa i Treball - Servei de Seguretat d'Instal·lacions",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Llei 9/2014; Decret 192/2023",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Canal Empresa (OGE)",
+          "plataforma_url": "https://web.gencat.cat/ca/tramits/tramits-temes/Presentacio-de-la-declaracio-responsable-per-a-installacions-termiques-en-edificis",
+          "coste_estimado": null,
+          "formulario_ref": null,
+          "registro_salida": "RITSIC",
+          "medio_presentacion": "electronico_obligatorio",
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_termico",
+              "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
             },
@@ -211,7 +232,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC. La inspección por EIC no se exige de forma genérica a menos que corresponda por potencia u otras condiciones del establecimiento."
+          "notas": "La presentación telemática es electrónica obligatoria y produce el alta en el RITSIC."
         }
       ]
     }
