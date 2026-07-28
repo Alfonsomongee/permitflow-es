@@ -62,7 +62,7 @@ function ProgressBar({
     <div className="flex items-center gap-2">
       <div className="h-1.5 w-20 overflow-hidden rounded-full bg-border">
         <div
-          className="h-full rounded-full bg-primary transition-all"
+          className="h-full rounded-full bg-gradient-primary transition-all duration-300 ease-smooth"
           style={{ width: `${pct}%` }}
           aria-label={`${completados} de ${total} tramites completados`}
         />
@@ -220,7 +220,7 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
   const hasFilters = filtro !== "todos" || query.trim() !== "";
 
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
+    <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-card">
       <div className="flex flex-col gap-3 border-b border-border px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <p className="text-sm font-medium text-text-primary">
@@ -255,9 +255,9 @@ export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
               <button
                 key={option.value}
                 onClick={() => setFiltro(option.value)}
-                className={`whitespace-nowrap rounded-full px-3 py-1 text-xs transition-colors ${
+                className={`whitespace-nowrap rounded-full px-3 py-1 text-xs transition-all duration-150 ease-smooth ${
                   filtro === option.value
-                    ? "bg-primary font-medium text-white shadow-sm"
+                    ? "bg-gradient-primary font-medium text-white shadow-xs"
                     : "text-text-secondary hover:bg-bg"
                 }`}
               >

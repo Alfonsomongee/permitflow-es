@@ -46,9 +46,9 @@ function KpiCard({
   }[accent];
 
   return (
-    <div className="rounded-xl border border-border bg-surface p-5 shadow-sm transition-shadow hover:shadow-md">
+    <div className="card-interactive rounded-xl border border-border bg-gradient-surface p-5 shadow-card">
       <div className="mb-3 flex items-center justify-between">
-        <span className="text-xs font-medium uppercase tracking-wider text-text-secondary">
+        <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
           {label}
         </span>
         {icon && (
@@ -57,7 +57,7 @@ function KpiCard({
           </span>
         )}
       </div>
-      <p className={`tabular-nums text-3xl font-bold tracking-tight ${accentColor}`}>
+      <p className={`tabular-nums text-3xl font-semibold tracking-tight ${accentColor}`}>
         {animatedValue.toLocaleString("es-ES")}
         {suffix && <span className="ml-1 text-lg font-normal text-text-secondary">{suffix}</span>}
       </p>

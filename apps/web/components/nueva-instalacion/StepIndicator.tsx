@@ -43,8 +43,8 @@ export function StepIndicator({ steps, currentStep, formState }: StepIndicatorPr
                 className={`
                   relative z-10 flex h-7 w-7 flex-shrink-0 items-center justify-center
                   rounded-full text-xs font-medium transition-colors duration-300
-                  ${isDone ? "bg-primary text-white" : ""}
-                  ${isActive ? "bg-primary ring-4 ring-primary/20 text-white" : ""}
+                  ${isDone ? "bg-gradient-primary text-white shadow-xs" : ""}
+                  ${isActive ? "bg-gradient-primary shadow-card ring-4 ring-primary/20 text-white" : ""}
                   ${isPending ? "border-2 border-border bg-surface text-text-secondary" : ""}
                 `}
                 aria-current={isActive ? "step" : undefined}
