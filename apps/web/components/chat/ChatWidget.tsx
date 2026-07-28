@@ -19,6 +19,7 @@ import {
 import { useDeepSeekChat } from "./useDeepSeekChat";
 import type { PlanTramitacion, InstalacionParams } from "@/types/plan";
 import { buildSystemPrompt } from "./buildSystemPrompt";
+import { DecryptedText } from "@/components/ui/decrypted-text";
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -63,13 +64,22 @@ function MessageBubble({
             : "rounded-tl-sm bg-surface border border-border text-text-primary"
         }`}
       >
-        {/* Renderizado simple con saltos de línea */}
-        {content.split("\n").map((line, i) => (
-          <span key={i}>
-            {line}
-            {i < content.split("\n").length - 1 && <br />}
-          </span>
-        ))}
+        {isUser ? (
+          /* Mensajes del usuario: texto plano */
+          content.split("\n").map((line, i) => (
+            <span key={i}>
+              {line}
+              {i < content.split("\n").length - 1 && <br />}
+            </span>
+          ))
+        ) : (
+          /* Respuestas del asistente: efecto de descifrado */
+          <DecryptedText
+            text={content}
+            duration={Math.min(800 + content.length * 4, 2400)}
+            animate
+          />
+        )}
       </div>
     </div>
   );

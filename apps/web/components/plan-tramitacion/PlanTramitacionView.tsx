@@ -22,6 +22,7 @@ import { useEstadisticasPlazo } from "./useEstadisticasPlazo";
 import { claveTramite } from "@/lib/tramiteClave";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShieldCheck, FileText } from "lucide-react";
+import { AnimatedList } from "@/components/ui/animated-list";
 
 type ExpedienteEstado = "borrador" | "pendiente" | "en_revision" | "aprobado" | "rechazado";
 
@@ -228,20 +229,22 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
                 {tramitesAccionables.length} {tramitesAccionables.length === 1 ? "trámite" : "trámites"} a realizar
               </div>
               
-              {tramitesAccionables.map((tramite, i) => (
-                <TramiteCard
-                  key={tramite.orden}
-                  tramite={tramite}
-                  defaultOpen={i < 2}
-                  estadoInfo={estados[String(tramite.orden)]}
-                  pending={pendingOrden === tramite.orden}
-                  onEstadoChange={
-                    expediente ? (estado) => setEstadoTramite(tramite.orden, estado) : undefined
-                  }
-                  estadistica={estadisticasPlazo[claveTramite(tramite)]}
-                  comunidad={params.comunidad}
-                />
-              ))}
+              <AnimatedList className="space-y-3">
+                {tramitesAccionables.map((tramite, i) => (
+                  <TramiteCard
+                    key={tramite.orden}
+                    tramite={tramite}
+                    defaultOpen={i < 2}
+                    estadoInfo={estados[String(tramite.orden)]}
+                    pending={pendingOrden === tramite.orden}
+                    onEstadoChange={
+                      expediente ? (estado) => setEstadoTramite(tramite.orden, estado) : undefined
+                    }
+                    estadistica={estadisticasPlazo[claveTramite(tramite)]}
+                    comunidad={params.comunidad}
+                  />
+                ))}
+              </AnimatedList>
 
               {tramitesOficio.length > 0 && (
                 <div className="mt-8">

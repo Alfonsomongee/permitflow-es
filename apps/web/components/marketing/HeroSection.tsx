@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { ArrowRight, Zap, FileText, CheckCircle2, Clock } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { SplitText } from "@/components/ui/split-text";
+import { CountUp } from "@/components/ui/count-up";
 
 const STATS = [
-  { num: "5",     label: "verticales completos en Andalucía" },
-  { num: "17",    label: "comunidades autónomas con fotovoltaica" },
-  { num: "< 2 s", label: "para generar el plan de tramitación" },
+  { value: 5,  prefix: "",    suffix: "",   label: "verticales completos en Andalucía" },
+  { value: 17, prefix: "",    suffix: "",   label: "comunidades autónomas con fotovoltaica" },
+  { value: 2,  prefix: "< ",  suffix: " s", label: "para generar el plan de tramitación" },
 ];
 
 export function HeroSection() {
@@ -30,8 +32,18 @@ export function HeroSection() {
 
             <FadeIn delay={0.2}>
               <h1 className="mb-5 text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.1] tracking-tight text-text-primary">
-                El trámite correcto,{" "}
-                <span className="text-primary">a la primera</span>
+                <SplitText
+                  text="El trámite correcto,"
+                  delay={0.3}
+                  stagger={0.07}
+                />
+                {" "}
+                <SplitText
+                  text="a la primera"
+                  delay={0.55}
+                  stagger={0.08}
+                  className="text-primary"
+                />
               </h1>
             </FadeIn>
 
@@ -111,9 +123,11 @@ export function HeroSection() {
       {/* Stats bar */}
       <div className="relative border-t border-border bg-surface/50 backdrop-blur-sm">
         <div className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          {STATS.map(({ num, label }, idx) => (
-            <FadeIn key={label} delay={0.6 + (idx * 0.1)} className="px-8 py-6">
-              <p className="text-3xl font-medium tracking-tight text-text-primary">{num}</p>
+          {STATS.map(({ value, prefix, suffix, label }, idx) => (
+            <FadeIn key={label} delay={0.6 + idx * 0.1} className="px-8 py-6">
+              <p className="text-3xl font-medium tracking-tight text-text-primary">
+                <CountUp to={value} prefix={prefix} suffix={suffix} duration={1600} />
+              </p>
               <p className="mt-1 text-sm text-text-secondary">{label}</p>
             </FadeIn>
           ))}
