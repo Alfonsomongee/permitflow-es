@@ -101,10 +101,14 @@ export function NuevaInstalacionForm() {
         .json()
         .catch(() => ({ error: "Respuesta inesperada del servidor." }))) as {
         expedienteId?: string;
-        error?: string;
+        error?: unknown;
       };
       if (!res.ok || !resData.expedienteId) {
-        throw new Error(resData.error ?? "No se pudo generar el plan de tramitación.");
+        const errorMessage =
+          typeof resData.error === "string" && resData.error.trim().length > 0
+            ? resData.error
+            : "No se pudo generar el plan de tramitación.";
+        throw new Error(errorMessage);
       }
 
       router.push(`/expedientes/${resData.expedienteId}`);

@@ -4,7 +4,8 @@ import logging
 from datetime import datetime, timezone, timedelta
 from contextlib import asynccontextmanager
 
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from config import settings
@@ -79,6 +80,56 @@ app = FastAPI(
     dependencies=[Depends(verificar_clave_interna)],
     lifespan=lifespan,
 )
+
+# Etiquetas legibles para los campos que más habitualmente disparan errores de
+# validación al faltar (campos condicionales de Madrid/Cataluña añadidos en la
+# auditoría de julio 2026). Si un campo no está en el mapa, se usa su nombre tal cual.
+_CAMPOS_LEGIBLES = {
+    "potencia_resultante_kw": "Potencia resultante (kW)",
+    "presion_resultante_bar": "Presión resultante (bar)",
+    "incremento_potencia_pct": "Incremento de potencia (%)",
+    "uso_edificio": "Uso del edificio",
+    "ventilacion_garaje": "Ventilación del garaje",
+    "numero_plazas_garaje": "Número de plazas del garaje",
+    "garaje_existente": "Garaje existente",
+    "modalidad_autoconsumo": "Modalidad de autoconsumo",
+    "ubicacion_suelo": "Ubicación del suelo",
+    "requiere_acceso_conexion": "Acceso y conexión a red",
+    "incluida_ambito_legionella": "Ámbito de prevención de Legionela",
+    "acs_centralizada": "ACS centralizada",
+    "dispone_acumulacion": "Depósito de acumulación",
+    "dispone_circuito_retorno": "Circuito de retorno",
+}
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    """
+    Convierte los errores de validación de Pydantic (que FastAPI devuelve por
+    defecto como una lista de objetos en 'detail') en un único mensaje de texto
+    legible, para que el frontend pueda mostrarlo directamente sin recibir un
+    objeto/array (causa del bug "[object Object]" en el formulario web).
+    """
+    mensajes = []
+    for err in exc.errors():
+        loc = [str(p) for p in err.get("loc", []) if p not in ("body",)]
+        campo = loc[-1] if loc else None
+        etiqueta = _CAMPOS_LEGIBLES.get(campo, campo)
+        msg = err.get("msg", "Dato inválido")
+        # Pydantic v2 antepone "Value error, " a los ValueError de los @model_validator
+        if msg.startswith("Value error, "):
+            msg = msg[len("Value error, "):]
+        if msg.strip().lower() == "revision_manual":
+            msg = "este caso requiere revisión manual: faltan datos específicos para tu comunidad autónoma"
+        mensajes.append(f"{etiqueta}: {msg}" if etiqueta else msg)
+
+    mensaje_final = "; ".join(dict.fromkeys(mensajes)) or "Los datos enviados no son válidos."
+    logger.warning(f"Error de validación en {request.url.path}: {mensaje_final}")
+    return JSONResponse(
+        status_code=422,
+        content={"detail": mensaje_final},
+    )
+
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):

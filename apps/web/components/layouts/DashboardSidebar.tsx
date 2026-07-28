@@ -43,29 +43,29 @@ export function DashboardSidebar() {
       )}
 
       {/* Sidebar */}
-      <aside 
+      <aside
         className={`
-          fixed inset-y-0 left-0 z-50 flex w-[240px] flex-col border-r border-border bg-surface transition-transform duration-300 ease-in-out
+          fixed inset-y-0 left-0 z-50 flex w-[240px] flex-col border-r border-border bg-surface transition-transform duration-300 ease-smooth
           md:static md:translate-x-0
-          ${isOpen ? "translate-x-0 shadow-lg" : "-translate-x-full"}
+          ${isOpen ? "translate-x-0 shadow-dropdown" : "-translate-x-full"}
         `}
       >
         {/* Logo and Mobile Close */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
-          <Link 
-            href="/expedientes" 
-            className="flex items-center gap-2.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          <Link
+            href="/expedientes"
+            className="group flex items-center gap-2.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-primary"
             onClick={() => close()}
           >
-            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-primary">
+            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-gradient-primary shadow-xs transition-transform duration-200 ease-smooth group-hover:scale-105">
               <Zap size={14} className="text-white" aria-hidden />
             </div>
             <span className="text-sm font-medium text-text-primary tracking-tight">
               PermitFlow <span className="text-primary font-semibold">ES</span>
             </span>
           </Link>
-          
-          <button 
+
+          <button
             className="rounded-md p-1.5 text-text-secondary hover:bg-bg hover:text-text-primary md:hidden outline-none focus-visible:ring-2 focus-visible:ring-primary"
             onClick={close}
             aria-label="Cerrar menú"
@@ -75,8 +75,8 @@ export function DashboardSidebar() {
         </div>
 
         {/* Navegación principal */}
-        <nav className="flex-1 overflow-y-auto px-4 py-4" aria-label="Navegación principal">
-          <ul className="flex flex-col gap-1">
+        <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Navegación principal">
+          <ul className="flex flex-col gap-0.5">
             {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
               const isActive = pathname === href || pathname.startsWith(`${href}/`);
               return (
@@ -85,7 +85,7 @@ export function DashboardSidebar() {
                     href={href}
                     onClick={() => close()}
                     className={`
-                      flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary
+                      relative flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-all duration-150 ease-smooth outline-none focus-visible:ring-2 focus-visible:ring-primary
                       ${isActive
                         ? "bg-primary-light text-primary font-medium"
                         : "text-text-secondary hover:bg-bg hover:text-text-primary"
@@ -93,7 +93,13 @@ export function DashboardSidebar() {
                     `}
                     aria-current={isActive ? "page" : undefined}
                   >
-                    <Icon size={16} aria-hidden />
+                    {isActive && (
+                      <span
+                        aria-hidden
+                        className="absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-primary"
+                      />
+                    )}
+                    <Icon size={16} aria-hidden className={isActive ? "text-primary" : "text-text-secondary/80"} />
                     {label}
                   </Link>
                 </li>
@@ -103,7 +109,7 @@ export function DashboardSidebar() {
         </nav>
 
         {/* Ajustes al fondo */}
-        <div className="mt-auto border-t border-border px-4 py-4 space-y-2">
+        <div className="mt-auto border-t border-border px-3 py-4 space-y-2">
           <Link
             href="/ajustes"
             onClick={() => close()}

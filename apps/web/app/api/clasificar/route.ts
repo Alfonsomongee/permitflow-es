@@ -7,6 +7,45 @@ import type { PlanTramitacion } from "@/types/plan";
 const API_URL =
   process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
+/**
+ * Convierte el campo `detail` de un error de FastAPI en un string legible,
+ * sin importar la forma en la que venga (string ya formateado, lista de errores
+ * de validación de Pydantic, u objeto suelto). Defensa en profundidad para que
+ * el frontend nunca reciba algo que se renderice como "[object Object]".
+ */
+function stringifyErrorDetail(detail: unknown): string | null {
+  if (detail == null) return null;
+  if (typeof detail === "string") return detail;
+
+  if (Array.isArray(detail)) {
+    const mensajes = detail
+      .map((item) => {
+        if (typeof item === "string") return item;
+        if (item && typeof item === "object" && "msg" in item) {
+          const loc = Array.isArray((item as { loc?: unknown[] }).loc)
+            ? (item as { loc: unknown[] }).loc.filter((p) => p !== "body").join(".")
+            : "";
+          const msg = String((item as { msg: unknown }).msg ?? "").replace(/^Value error,\s*/, "");
+          return loc ? `${loc}: ${msg}` : msg;
+        }
+        return null;
+      })
+      .filter((m): m is string => Boolean(m));
+    return mensajes.length > 0 ? mensajes.join("; ") : JSON.stringify(detail);
+  }
+
+  if (typeof detail === "object") {
+    if ("msg" in detail) return String((detail as { msg: unknown }).msg);
+    try {
+      return JSON.stringify(detail);
+    } catch {
+      return "Error desconocido del motor normativo.";
+    }
+  }
+
+  return String(detail);
+}
+
 function validateFormState(formState: FormState): string | null {
   if (!formState?.tipo_instalacion || !formState?.comunidad) {
     return "Faltan campos obligatorios para clasificar.";
@@ -113,7 +152,7 @@ export async function POST(req: Request) {
   if (!motorRes.ok) {
     const detail = await motorRes.json().catch(() => ({}));
     return NextResponse.json(
-      { error: detail?.detail ?? "Error en el motor normativo." },
+      { error: stringifyErrorDetail(detail?.detail) ?? "Error en el motor normativo." },
       { status: motorRes.status }
     );
   }
