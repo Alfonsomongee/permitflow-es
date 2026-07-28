@@ -1,30 +1,70 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "canarias",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "version": "0.10.0",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 141/2012, de 27 de diciembre' como Reglamento de Instalaciones Térmicas de Canarias: no se ha localizado esta norma; la ficha oficial de Canarias para instalaciones térmicas (SICAC 3409) cita solo normativa nacional. HUECO CRÍTICO: igual que en los lotes anteriores, este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo. Prefijo de regla cambiado de 'CAN' a 'ICAN'.",
+  "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se añade el umbral inferior de 5 kW, igual que en climatización: la ficha SICAC 3409 solo exige Memoria Técnica entre 5 y 70 kW; (2) se añade la regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024), ausente hasta ahora pese a estar autodeclarada como hueco crítico; (3) se añade el contrato de mantenimiento con empresa mantenedora habilitada, exigido para potencia >70 kW; (4) se añade el certificado de dirección de obra, exigido por la ficha para potencia >70 kW; (5) se corrige el organismo tramitador a Servicio de Eficiencia Energética y Nuevas Energías; (6) se corrige el aviso anterior, que afirmaba erróneamente que la ficha 3409 solo cita normativa nacional: cita también el Decreto 154/2001 y el Decreto 54/2021; (7) se cierra la duda sobre la ECA: la ficha 3409 no exige ninguna entidad colaboradora para ACS >70 kW — es comunicación directa con proyecto y certificado de dirección de obra, sin resolución administrativa.",
   "huecos_verificacion": [
-    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
-    "No se ha localizado normativa autonómica canaria específica de ACS; se aplica el RITE nacional directamente",
-    "No se ha verificado si Canarias exige una ECA (Entidad Colaboradora) específicamente para ACS >70 kW, o si es un trámite directo ante Industria",
-    "Tasas y plazos legales no verificados"
+    "RESUELTO: Decreto 154/2001 y Decreto 54/2021 SÍ son normativa autonómica citada por la ficha 3409 (el aviso anterior lo negaba erróneamente)",
+    "RESUELTO: umbral inferior de 5 kW confirmado en la ficha 3409",
+    "RESUELTO: no existe ECA (Entidad Colaboradora) para ACS >70 kW en Canarias; es comunicación directa con proyecto y certificado de dirección de obra, sin resolución administrativa expresa",
+    "Tasas: Modelo 700, concepto 200, epígrafe 4; importe exacto no verificado",
+    "La regla de Legionella añadida se activa con el campo 'incluida_ambito_rd_487_2022'; si este dato no se recoge en el formulario de entrada, la regla no disparará aunque la instalación esté en el ámbito de aplicación — revisar que el flujo de captura de datos de ACS colectiva/terciaria solicite este campo"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
+    "RITE RD 1027/2007 (art. 15: umbral de proyecto >70 kW)",
     "RD 314/2006 Código Técnico de la Edificación DB HE4",
+    "RD 487/2022, de 21 de junio, por el que se establecen los requisitos sanitarios para la prevención y el control de la legionelosis",
+    "RD 614/2024 (modificación de desarrollo del RD 487/2022)",
+    "Decreto 154/2001, de 23 de julio, sobre el procedimiento para la puesta en funcionamiento de industrias e instalaciones industriales (normativa autonómica citada en la ficha 3409)",
+    "Decreto 54/2021, de 27 de mayo, Reglamento Orgánico de la Consejería de Transición Ecológica (normativa autonómica citada en la ficha 3409)",
     "Ficha de trámite SICAC 3409 'Puesta en funcionamiento de instalaciones térmicas en edificios' - sede.gobiernodecanarias.org"
   ],
   "reglas": [
     {
-      "id": "ICAN-ACS-001",
-      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "ICAN-ACS-000",
+      "descripcion": "Instalación de ACS de potencia < 5 kW: sin documentación técnica ni comunicación exigida por la ficha 3409",
       "condicion": {
-        "<=": [
+        "<": [
           { "var": "potencia_kw" },
-          70
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Certificado del instalador (sin memoria técnica ni comunicación SICAC)",
+          "organismo": "Instalador habilitado en instalaciones térmicas",
+          "base_legal": "RITE RD 1027/2007; ficha SICAC 3409 (documentación exigible solo ≥5 kW)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-ACS-000",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "Para equipos domésticos pequeños por debajo del umbral de 5 kW, la ficha oficial no exige Memoria Técnica ni comunicación de puesta en funcionamiento.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido por auditoría (ALTO): mismo hueco del umbral inferior de 5 kW que en climatización."
+        }
+      ]
+    },
+    {
+      "id": "ICAN-ACS-001",
+      "descripcion": "Instalación de ACS con potencia entre 5 kW y 70 kW, ambos inclusive (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          { ">=": [ { "var": "potencia_kw" }, 5 ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
         ]
       },
       "tramites": [
@@ -55,18 +95,18 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
+          "notas": "Si el edificio es de uso colectivo/terciario, ver la regla ICAN-ACS-LEGIONELLA."
         },
         {
           "orden": 2,
           "nombre": "Comunicación de puesta en funcionamiento de instalaciones térmicas (SICAC 3409)",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
-          "base_legal": "RITE RD 1027/2007",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Eficiencia Energética y Nuevas Energías",
+          "base_legal": "RITE RD 1027/2007; Decreto 154/2001",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
           "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa Modelo 700, concepto 200, epígrafe 4. Importe exacto no verificado.",
           "formulario_ref": "3409",
           "paralelo_con": null,
           "regla_id": "ICAN-ACS-001",
@@ -90,7 +130,7 @@
     },
     {
       "id": "ICAN-ACS-002",
-      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico y contrato de mantenimiento; sin ECA, comunicación directa)",
       "condicion": {
         ">": [
           { "var": "potencia_kw" },
@@ -117,20 +157,32 @@
               "label": "Proyecto técnico de instalación térmica",
               "descripcion": "Firmado por técnico competente, visado por colegio profesional.",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Exigido por la ficha oficial 3409 para potencia >70 kW.",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento",
+              "label": "Contrato de mantenimiento con empresa mantenedora habilitada",
+              "descripcion": "Exigido por la ficha oficial 3409 para potencia total instalada >70 kW.",
+              "obligatorio": true
             }
           ],
-          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo."
+          "notas": "Ver la regla ICAN-ACS-LEGIONELLA si el edificio es de uso colectivo."
         },
         {
           "orden": 2,
           "nombre": "Comunicación de puesta en funcionamiento de instalaciones térmicas (SICAC 3409)",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
-          "base_legal": "RITE RD 1027/2007",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Eficiencia Energética y Nuevas Energías",
+          "base_legal": "RITE RD 1027/2007; Decreto 154/2001",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
           "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa Modelo 700, concepto 200, epígrafe 4. Importe exacto no verificado.",
           "formulario_ref": "3409",
           "paralelo_con": null,
           "regla_id": "ICAN-ACS-002",
@@ -146,9 +198,56 @@
               "label": "Certificado de instalador habilitado",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
             }
           ],
-          "notas": "No confirmado si Canarias exige ECA específica para este trámite; el fichero original lo daba por hecho sin fuente verificable."
+          "notas": "Confirmado por auditoría: no se exige ECA (Entidad Colaboradora); es comunicación directa con proyecto y certificado de dirección de obra, sin que sea necesaria la emisión de una resolución administrativa."
+        }
+      ]
+    },
+    {
+      "id": "ICAN-ACS-LEGIONELLA",
+      "descripcion": "ACS de uso colectivo/terciario incluida en el ámbito del RD 487/2022: Programa/Plan de Prevención y Control de la Legionelosis (PPCL/PSL)",
+      "condicion": {
+        "==": [
+          { "var": "incluida_ambito_rd_487_2022" },
+          true
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Programa de Gestión del Riesgo / Plan Sanitario frente a Legionella (PPCL/PSL)",
+          "organismo": "Titular de la instalación, con empresa de mantenimiento habilitada",
+          "base_legal": "RD 487/2022, de 21 de junio; RD 614/2024",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según empresa de mantenimiento",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-ACS-LEGIONELLA",
+          "documentos_requeridos": [
+            {
+              "id": "ppcl_psl",
+              "label": "Programa de Gestión del Riesgo / Plan Sanitario frente a Legionella (PPCL/PSL)",
+              "descripcion": "Obligatorio para instalaciones de ACS de uso colectivo o terciario incluidas en el ámbito de aplicación del RD 487/2022.",
+              "obligatorio": true
+            },
+            {
+              "id": "registro_mantenimiento_legionella",
+              "label": "Registro de mantenimiento y control (limpieza, desinfección, análisis)",
+              "descripcion": "Documentación periódica de mantenimiento preventivo frente a Legionella.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido por auditoría (ALTO): hueco crítico autodeclarado en la versión anterior — no existía ninguna regla de Legionella pese a estar señalado como pendiente."
         }
       ]
     }

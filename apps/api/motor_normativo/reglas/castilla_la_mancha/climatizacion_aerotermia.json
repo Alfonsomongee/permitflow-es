@@ -2,20 +2,21 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "castilla_la_mancha",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 53/2014' como Reglamento de Instalaciones Térmicas de Castilla-La Mancha: no se ha localizado esta norma, y el mismo número '53' se usaba también (con año distinto) en el fichero de ACS de este mismo lote para la misma materia general — señal de colisión de norma inventada. La ficha oficial de la JCCM para instalaciones térmicas (trámite 1002272) solo cita el RITE nacional. Se confirmó además un dato real no recogido en la versión anterior: instalaciones <5 kW con calentadores instantáneos, termos eléctricos o paneles solares prefabricados quedan exentas de presentar documentación.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de climatización; se aplica el RITE nacional directamente",
-    "No se ha modelado la exención de documentación para instalaciones <5 kW con equipos específicos (calentadores instantáneos, termos, paneles solares prefabricados) porque el schema no distingue tipo de equipo generador — queda como hueco funcional para una futura versión del motor",
+    "No se ha modelado la exención de documentación (< 5 kW cualquier equipo; calentadores instantáneos/acumuladores/termos eléctricos ≤70 kW; solares de elemento único prefabricado sin límite expreso) porque el schema no distingue tipo de equipo generador — queda como hueco funcional para una futura versión del motor",
     "Tasas y plazos legales no verificados",
-    "El paso de 'Inspección EICI' del fichero original no se ha podido confirmar contra fuente oficial de Castilla-La Mancha — sustituido por OCA genérico con nota de verificación pendiente"
+    "El paso de 'Inspección EICI' del fichero original no se ha podido confirmar contra fuente oficial de Castilla-La Mancha — sustituido por OCA genérico con nota de verificación pendiente",
+    "RESUELTO 2026-07-28 (auditoría independiente): la nota de exención documental describía el alcance de forma incompleta/imprecisa (solo mencionaba <5kW). Corregido: la exención real de la ficha 1002272 distingue tres supuestos (ver nota del trámite CLM-AT-001 orden 1)."
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Ficha de trámite 1002272 'Instalación térmica en los edificios' - jccm.es"
+    "Ficha de trámite 1002272 'Registro de una instalación térmica' - jccm.es"
   ],
   "reglas": [
     {
@@ -55,7 +56,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones <5 kW con determinados equipos (calentadores instantáneos, termos eléctricos, paneles solares prefabricados) pueden estar exentas de presentar documentación según la ficha oficial de la JCCM — no modelado por falta de campo de tipo de equipo en el schema."
+          "notas": "Exención de documentación según la ficha oficial 1002272 (CORREGIDO 2026-07-28, alcance previo incompleto): (a) cualquier instalación <5 kW, sea cual sea el equipo; (b) calentadores instantáneos, acumuladores y termos eléctricos hasta 70 kW; (c) sistemas solares de elemento único prefabricado, sin límite de potencia expreso. No modelado por falta de campo de tipo de equipo en el schema."
         },
         {
           "orden": 2,

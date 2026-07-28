@@ -2,7 +2,7 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "navarra",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminaron 'Decreto Foral 47/2021' y 'Orden Foral 123/2022' como base legal: no se han localizado. Sustituidos por el Decreto-ley Foral 1/2022, CONFIRMADO real, que además contiene una cita textual que confirma explícitamente el umbral de 100 kW para Navarra: instalaciones de autoconsumo de potencia ≤100 kW conectadas a red ≤1 kV no precisan autorización administrativa previa ni de construcción — es la confirmación más directa de este umbral obtenida en todo el proyecto. Y por la Orden Foral 64/2022, también confirmada real (especialidades de autorización de renovables para autoconsumo). Se sustituyó el umbral inventado de 10 kW por el de 100 kW en consecuencia. Se corrigió el bug de partición base sobre 'uso'. IMPORTANTE: la 'Orden Foral 181/2003' que aparece en algunas páginas de trámite de Navarra como base del registro BT está DEROGADA por la Orden Foral 60/2015 (hecho ya verificado en sesiones anteriores de este proyecto) — no se cita como vigente en este fichero.",
@@ -10,7 +10,9 @@
     "No se ha verificado si el Decreto-ley Foral 1/2022 ha sido posteriormente modificado o derogado — confirmar vigencia antes de producción",
     "Tasas y plazos legales de resolución no verificados con detalle",
     "No se ha confirmado el nombre exacto del registro de autoconsumo específico de Navarra más allá del trámite genérico 'Tramitación y registro administrativo de instalaciones de autoconsumo de energía eléctrica' confirmado en navarra.es",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "RESUELTO 2026-07-28 (auditoría normativa): la fecha de la Orden Foral 60/2015 estaba mal transcrita como 'de 20 de marzo' (esa es la fecha de publicación en BON n.º 54); la fecha correcta de la norma es 'de 5 de marzo de 2015'. Corregido en 'fuentes'.",
+    "plataforma_url 'https://www.navarra.es/sede' (AAP/AAC de FV >100 kW) sigue siendo genérica: no se localizó la ficha específica de trámite en navarra.es dentro del presupuesto de la auditoría — PENDIENTE"
   ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
@@ -19,7 +21,7 @@
     "REBT RD 842/2002 ITC-BT-40",
     "Decreto-ley Foral 1/2022 (Navarra) — CONFIRMADO real, art. sobre especialidades de autorización de instalaciones de autoconsumo renovable, confirma umbral de 100 kW",
     "Orden Foral 64/2022, de 21 de octubre (Navarra) — confirmada real, especialidades de autorización de autoconsumo y comunidades energéticas",
-    "Orden Foral 60/2015, de 20 de marzo (BON n.º 54) — deroga la Orden Foral 181/2003 y otras normas de BT; referencia vigente en sustitución",
+    "Orden Foral 60/2015, de 5 de marzo de 2015 (BON n.º 54, de 20 de marzo de 2015) — deroga la Orden Foral 181/2003 y otras normas de BT; referencia vigente en sustitución",
     "Ficha oficial 'Tramitación y registro administrativo de instalaciones de autoconsumo de energía eléctrica' - navarra.es"
   ],
   "reglas": [

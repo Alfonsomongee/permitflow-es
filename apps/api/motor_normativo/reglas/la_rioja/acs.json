@@ -2,7 +2,7 @@
   "tipo_instalacion": "acs",
   "comunidad": "la_rioja",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Fichero generado desde cero (La Rioja no proporcionó fichero original de ACS). Mismo régimen que climatización: Resolución real de desarrollo del RITE en La Rioja, umbral de 70 kW, trámite CL/CLM. Se confirmó además una norma específica real para ACS con gas: Orden de 22 de febrero de 2001 (evacuación de productos de combustión, mantenimiento e inspección de aparatos de gas en calefacción/ACS individuales). HUECO CRÍTICO recurrente: no se ha incluido regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — mismo hueco detectado en todas las comunidades auditadas hasta ahora.",
@@ -10,7 +10,9 @@
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
     "No se ha localizado la fecha exacta de la Resolución de desarrollo del RITE en La Rioja",
     "Tasas y plazos legales no verificados",
-    "La Orden de 22/02/2001 aplica específicamente a aparatos de gas en ACS/calefacción individual; no se ha verificado su aplicabilidad a ACS con otras fuentes de energía"
+    "La Orden de 22/02/2001 aplica específicamente a aparatos de gas en ACS/calefacción individual; no se ha verificado su aplicabilidad a ACS con otras fuentes de energía",
+    "Corregido 2026-07-28: el campo 'organismo' de los trámites CL/CLM usaba la denominación histórica 'Dirección General de Trabajo, Industria y Comercio', desactualizada. Se ha sustituido por 'Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja', denominación vigente confirmada en las fichas oficiales de los trámites IBT (n=24196) y AUTee (n=24593) de la sede electrónica de La Rioja. No se ha localizado ficha oficial propia del trámite CL/CLM que confirme el organismo exacto para ese trámite específico; queda como hueco pendiente si se detecta discrepancia.",
+    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
@@ -61,7 +63,7 @@
         {
           "orden": 2,
           "nombre": "Inscripción y puesta en servicio de instalación térmica (trámite CL/CLM)",
-          "organismo": "Dirección General de Trabajo, Industria y Comercio del Gobierno de La Rioja",
+          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
           "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -154,7 +156,7 @@
         {
           "orden": 3,
           "nombre": "Inscripción y puesta en servicio de instalación térmica (trámite CL/CLM)",
-          "organismo": "Dirección General de Trabajo, Industria y Comercio del Gobierno de La Rioja",
+          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
           "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,

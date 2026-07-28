@@ -1,14 +1,15 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "cataluna",
-  "version": "1.2.0",
-  "ultima_revision": "2026-07-27",
+  "version": "1.3.0",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "aviso": "Proyecto o MTD según ITC-BT-04/52 y criterio más restrictivo del aparcamiento. La puesta en servicio se tramita mediante declaración responsable BT y RITSIC.",
   "huecos_verificacion": [
     "Confirmar directamente en la ITA 12 oficial los supuestos catalanes adicionales de inspección inicial por organismo de control.",
-    "La implantación en vía pública de Barcelona requiere título municipal específico y revisión manual."
+    "La implantación en vía pública de Barcelona requiere título municipal específico y revisión manual.",
+    "RESUELTO 2026-07-28: la exención de proyecto en garaje_comunitario ahora exige además garaje_existente=true y uso_edificio=residencial (RD 1053/2014, ITC-BT-04 3.1: la exención del párrafo final solo cubre los grupos g) y h) EXISTENTES en edificios de vivienda). Antes solo se comprobaba uso_edificio, dejando sin proyecto garajes nuevos en edificios residenciales que sí lo requieren."
   ],
   "fuentes": [
     "RD 842/2002 REBT, ITC-BT-04",
@@ -112,14 +113,6 @@
                       ]
                     },
                     {
-                      "==": [
-                        {
-                          "var": "uso_edificio"
-                        },
-                        "no_residencial"
-                      ]
-                    },
-                    {
                       "or": [
                         {
                           "==": [
@@ -150,6 +143,28 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "!": {
+                        "and": [
+                          {
+                            "==": [
+                              {
+                                "var": "uso_edificio"
+                              },
+                              "residencial"
+                            ]
+                          },
+                          {
+                            "==": [
+                              {
+                                "var": "garaje_existente"
+                              },
+                              true
+                            ]
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
@@ -282,14 +297,6 @@
                     ]
                   },
                   {
-                    "==": [
-                      {
-                        "var": "uso_edificio"
-                      },
-                      "no_residencial"
-                    ]
-                  },
-                  {
                     "or": [
                       {
                         "==": [
@@ -320,6 +327,28 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "!": {
+                      "and": [
+                        {
+                          "==": [
+                            {
+                              "var": "uso_edificio"
+                            },
+                            "residencial"
+                          ]
+                        },
+                        {
+                          "==": [
+                            {
+                              "var": "garaje_existente"
+                            },
+                            true
+                          ]
+                        }
+                      ]
+                    }
                   }
                 ]
               }

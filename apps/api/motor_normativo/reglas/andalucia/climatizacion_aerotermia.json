@@ -2,13 +2,13 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "andalucia",
   "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "ultima_revision": "2026-07-28",
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 178/2021 de eficiencia energética",
-    "Decreto 59/2005 de 22 de febrero (Andalucía) por el que se regulan las instalaciones térmicas en los edificios",
-    "Orden de 5 de marzo de 2013 (Andalucía) por la que se desarrolla el Decreto 59/2005",
-    "Ley 7/2021 de Cambio Climático (Andalucía)"
+    "RITE RD 1027/2007 (modificado por RD 238/2013 y RD 178/2021)",
+    "RD 178/2021, de modificación del RITE (no es una norma autónoma 'de eficiencia energética')",
+    "Decreto 59/2005, de 1 de marzo (Andalucía), por el que se regula el procedimiento para la instalación, ampliación, traslado y puesta en funcionamiento de los establecimientos industriales -- norma horizontal de procedimiento; NO regula instalaciones térmicas en edificios (corregido tras auditoría 2026-07-27: cita anterior con fecha y objeto falsos, '22 de febrero... instalaciones térmicas', no existe tal norma)",
+    "Orden de 5 de marzo de 2013 (Andalucía), de desarrollo del Decreto 59/2005: regula la comunicación de puesta en funcionamiento de instalaciones térmicas de edificios (climatización, calefacción y ACS) mediante el tramitador PUES",
+    "Ley 7/2021, de 20 de mayo, de cambio climático y transición energética -- norma ESTATAL (BOE-A-2021-8447); NO es una ley autonómica de Andalucía (corregido: el fichero la calificaba erróneamente como '(Andalucía)')"
   ],
   "reglas": [
     {
@@ -31,7 +31,7 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) de instalación térmica",
           "organismo": "Instalador habilitado (categoría térmica o climatización)",
-          "base_legal": "RITE RD 1027/2007; Decreto 59/2005 art. 8",
+          "base_legal": "RITE RD 1027/2007; Orden de 5 de marzo de 2013 (Andalucía)",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -52,22 +52,23 @@
               "formato": "PDF",
               "obligatorio": true
             }
-          ]
+          ],
+          "paralelo_con": null
         },
         {
           "orden": 2,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante la Junta de Andalucía",
+          "nombre": "Comunicación de puesta en funcionamiento (PUES)",
           "organismo": "Junta de Andalucía - Consejería de Industria, Energía y Minas (Ventanilla Electrónica PUES)",
-          "base_legal": "Decreto 59/2005 art. 10; Orden 5 marzo 2013",
+          "base_legal": "Orden de 5 de marzo de 2013 (Andalucía), Anexo I",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": 10,
-          "plataforma": "PUES (Punto Único de Entrada de Servicios)",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/pues.html",
+          "plataforma": "PUES (tramitador de la Consejería de Industria, Energía y Minas)",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "0 € (tasa administrativa exenta)",
           "documentos_requeridos": [
             {
               "id": "drps_termica",
-              "label": "Declaración responsable de puesta en servicio",
+              "label": "Comunicación de puesta en funcionamiento",
               "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador, adjuntando MTD y certificado de instalador.",
               "formato": "PDF",
               "obligatorio": true
@@ -86,7 +87,8 @@
               "formato": "PDF",
               "obligatorio": true
             }
-          ]
+          ],
+          "paralelo_con": null
         }
       ]
     },
@@ -110,7 +112,7 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación térmica",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007 art. 11; Decreto 59/2005 art. 7",
+          "base_legal": "RITE RD 1027/2007 art. 11; Orden de 5 de marzo de 2013 (Andalucía)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -124,13 +126,14 @@
               "formato": "PDF",
               "obligatorio": true
             }
-          ]
+          ],
+          "paralelo_con": null
         },
         {
           "orden": 2,
           "nombre": "Certificado de instalación por OCA (Organismo de Control Autorizado)",
           "organismo": "OCA acreditada en Andalucía (ej: TÜV Rheinland, Applus, Bureau Veritas)",
-          "base_legal": "RITE RD 1027/2007 art. 12; Decreto 59/2005 art. 9",
+          "base_legal": "RITE RD 1027/2007 art. 12; Orden de 5 de marzo de 2013 (Andalucía)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
           "plataforma": null,
@@ -151,22 +154,23 @@
               "formato": "PDF",
               "obligatorio": true
             }
-          ]
+          ],
+          "paralelo_con": null
         },
         {
           "orden": 3,
-          "nombre": "Declaración responsable de puesta en servicio (DRPS) ante la Junta de Andalucía",
+          "nombre": "Comunicación de puesta en funcionamiento (PUES)",
           "organismo": "Junta de Andalucía - Consejería de Industria, Energía y Minas (Ventanilla Electrónica PUES)",
-          "base_legal": "Decreto 59/2005 art. 10; Orden 5 marzo 2013",
+          "base_legal": "Orden de 5 de marzo de 2013 (Andalucía), Anexo I",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": 10,
-          "plataforma": "PUES (Punto Único de Entrada de Servicios)",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/pues.html",
+          "plataforma": "PUES (tramitador de la Consejería de Industria, Energía y Minas)",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "0 € (tasa administrativa exenta)",
           "documentos_requeridos": [
             {
               "id": "drps_termica",
-              "label": "Declaración responsable de puesta en servicio",
+              "label": "Comunicación de puesta en funcionamiento",
               "descripcion": "Formulario oficial cumplimentado y firmado por el titular y el instalador, adjuntando proyecto y certificado OCA.",
               "formato": "PDF",
               "obligatorio": true
@@ -185,9 +189,20 @@
               "formato": "PDF",
               "obligatorio": true
             }
-          ]
+          ],
+          "paralelo_con": null
         }
       ]
     }
+  ],
+  "nivel_verificacion": "generica",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28 (CRÍTICO): se citaba 'Decreto 59/2005, de 22 de febrero, por el que se regulan las instalaciones térmicas en los edificios' -- norma inexistente. El Decreto 59/2005 real es de 1 de marzo y regula el procedimiento de establecimientos industriales (norma horizontal), no instalaciones térmicas. base_legal de AND-CLIMA-001/002 reasignada a RITE RD 1027/2007 y Orden de 5 de marzo de 2013 (Andalucía).",
+    "RESUELTO 2026-07-28 (ALTO): trámite renombrado de 'Declaración responsable de puesta en servicio (DRPS)' a 'Comunicación de puesta en funcionamiento (PUES)', denominación oficial de la Orden de 5 de marzo de 2013, Anexo I.",
+    "RESUELTO 2026-07-28: plataforma_url rota (.../servicios/pues.html) sustituida por la Oficina Virtual real del tramitador PUES.",
+    "RESUELTO 2026-07-28: 'Ley 7/2021 de Cambio Climático (Andalucía)' recalificada -- es ley ESTATAL, no autonómica.",
+    "PENDIENTE (no verificado en esta pasada): no filtra por uso ni tiene cota inferior de potencia; posible solape con AND-ACS-001/002 sin regla de precedencia declarada.",
+    "PENDIENTE: ausencia de bloque validaciones[] (gases fluorados RD 552/2019, contrato de mantenimiento RITE IT3 >70kW, inspecciones periódicas IT4) -- no incorporado en esta pasada, requiere diseño de nuevas validaciones.",
+    "PENDIENTE: plazo_legal_dias=10 para la comunicación PUES sin fuente citada."
   ]
 }

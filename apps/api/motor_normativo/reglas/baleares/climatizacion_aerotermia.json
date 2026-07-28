@@ -2,27 +2,30 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "baleares",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 20/2007 de 23 de marzo' como base de la puesta en servicio de instalaciones térmicas: el Decreto 20/2007 real de Illes Balears modifica las condiciones de habitabilidad de viviendas (Decreto 145/1997), no regula climatización. Se sustituyó el umbral inventado de 12 kW por el umbral general del RITE (70 kW, art. 15-17), ya verificado en el lote de Asturias con la misma fuente nacional. Se corrigió el bug de partición base sobre el campo 'uso' (valor no estandar 'residencial_unifamiliar').",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 20/2007 de 23 de marzo' como base de la puesta en servicio de instalaciones térmicas: el Decreto 20/2007 real de Illes Balears modifica las condiciones de habitabilidad de viviendas (Decreto 145/1997), no regula climatización. Se sustituyó el umbral inventado de 12 kW por el umbral general del RITE (70 kW, art. 15-17), ya verificado en el lote de Asturias con la misma fuente nacional. Se corrigió el bug de partición base sobre el campo 'uso' (valor no estandar 'residencial_unifamiliar'). REVISIÓN 2026-07-28 (auditoría normativa): identificado el trámite real como UDIT-021 'Instalaciones térmicas en los edificios', gestionado por la UDIT (Unitat d'Informació i Tràmit) al amparo del Decreto 25/2003; corregido el umbral de frontera del RITE a '>= 70 kW' (antes '>70 kW', que dejaba una instalación de exactamente 70 kW en el itinerario equivocado); actualizada la plataforma_url a la ficha directa del trámite.",
   "huecos_verificacion": [
     "No se ha localizado una norma autonómica balear específica que module el umbral MTD/proyecto del RITE; se aplica el umbral general nacional de 70 kW",
     "El 'Certificado de Eficiencia Energética (CEE) del edificio' del fichero original (RD 235/2013) no es un trámite de legalización de la instalación térmica sino de certificación energética de edificios; se ha retirado de esta regla por no ser parte del circuito de puesta en servicio salvo que se verifique lo contrario",
-    "Tasas y plazos legales no verificados",
-    "No se ha confirmado si Baleares exige una Entidad Colaboradora de la Administración (ECA) para la puesta en servicio de climatización, o si es un trámite directo ante la Dirección General"
+    "Tasas exactas del trámite UDIT-021 no verificadas con detalle (confirmado que la ficha oficial permite pagar tasa telemáticamente, pero no se ha consignado el importe)",
+    "No se ha confirmado si Baleares exige una Entidad Colaboradora de la Administración (ECA) para la puesta en servicio de climatización, o si es un trámite directo ante la UDIT",
+    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007) y el requisito de instalador con certificación de gases fluorados (Reglamento (UE) 517/2014, trámite balear UDIT-049) para equipos de aerotermia"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 238/2013 modificación RITE",
-    "REBT RD 842/2002 (si aplica)"
+    "REBT RD 842/2002 (si aplica)",
+    "Decreto 25/2003, de 28 de marzo, por el que se crea la Unidad de Información y Trámite (UDIT) - Illes Balears",
+    "Ficha de trámite UDIT-021 'Instalaciones térmicas en los edificios' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/225272)"
   ],
   "reglas": [
     {
       "id": "BAL-CLIMA-001",
-      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "descripcion": "Instalación de climatización con aerotermia de potencia < 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "<=": [
+        "<": [
           { "var": "potencia_kw" },
           70
         ]
@@ -59,15 +62,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación y comunicación de puesta en servicio",
-          "organismo": "Dirección General competente en energía del Govern de les Illes Balears",
-          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "nombre": "Instalaciones térmicas en los edificios (UDIT-021)",
+          "organismo": "UDIT (Unitat d'Informació i Tràmit) / Direcció General d'Indústria - Govern de les Illes Balears",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-021",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/225272",
+          "coste_estimado": "NO VERIFICADO (la ficha oficial permite pagar la tasa correspondiente de forma telemática; importe no consignado)",
+          "formulario_ref": "UDIT-021",
           "paralelo_con": null,
           "regla_id": "BAL-CLIMA-001",
           "documentos_requeridos": [
@@ -90,9 +93,9 @@
     },
     {
       "id": "BAL-CLIMA-002",
-      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de climatización con aerotermia de potencia >= 70 kW (requiere proyecto técnico)",
       "condicion": {
-        ">": [
+        ">=": [
           { "var": "potencia_kw" },
           70
         ]
@@ -123,15 +126,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial y certificado de instalación",
-          "organismo": "Dirección General competente en energía del Govern de les Illes Balears",
-          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
+          "nombre": "Inspección inicial y certificado de instalación — Instalaciones térmicas en los edificios (UDIT-021)",
+          "organismo": "UDIT (Unitat d'Informació i Tràmit) / Direcció General d'Indústria - Govern de les Illes Balears",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-021",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/225272",
+          "coste_estimado": "NO VERIFICADO (la ficha oficial permite pagar la tasa correspondiente de forma telemática; importe no consignado)",
+          "formulario_ref": "UDIT-021",
           "paralelo_con": null,
           "regla_id": "BAL-CLIMA-002",
           "documentos_requeridos": [

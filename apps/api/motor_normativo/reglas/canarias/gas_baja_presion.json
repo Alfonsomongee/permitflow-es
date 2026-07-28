@@ -1,16 +1,19 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "canarias",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "version": "0.10.0",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se sustituyó la comparación numérica de 'presion_bar' (<=0.05) por la comparación categórica correcta ('normal'/'5+'). Se eliminó la cita a 'Decreto 141/2009' como base legal de gas: ese decreto (confirmado real en el lote de fotovoltaica/IRVE de esta misma comunidad) regula instalaciones ELÉCTRICAS, no de gas — estaba mal atribuido. La ficha oficial de Canarias para gas ('Comunicación de instalación receptora de combustibles gaseosos', SICAC 3905) cita únicamente el RD 919/2006 (RIGLO) nacional, sin decreto autonómico propio localizado. Se corrigió el bug de partición base sobre 'uso' (si venía None, la instalación no obtenía ningún trámite). Prefijo de regla cambiado de 'CAN' a 'ICAN'.",
+  "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se añade la inspección previa por Organismo de Control, que la ficha oficial 3905 declara expresamente como requisito previo del trámite, ausente en la versión anterior; (2) se corrige el organismo tramitador a Servicio de Transporte y Generación en Régimen Ordinario; (3) se añaden el certificado de dirección de obra y el certificado de cumplimiento de chimeneas, exigidos por la ficha y ausentes en la versión anterior; (4) se documenta la distinción entre proyecto técnico y memoria técnica, y entre gas envasado y canalizado, que la ficha modela y el JSON anterior no distinguía (no se ha creado una bifurcación de reglas por falta de un campo de entrada específico para envasado/canalizado; queda registrado como hueco).",
   "huecos_verificacion": [
-    "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar — ver mismo hueco señalado en el lote de Asturias",
-    "No se ha localizado 'Orden de 15 de diciembre de 2010' que desarrollaría el Decreto 141/2009 para gas — descartada por estar el propio decreto mal atribuido a esta materia",
-    "Tasas y plazos legales no verificados",
-    "Sin cobertura para presion_bar='5+' ni usos no residenciales/comerciales — igual que en Asturias, solo se cubre el fragmento verificable"
+    "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar",
+    "No se ha localizado 'Orden de 15 de diciembre de 2010' que desarrollaría el Decreto 141/2009 para gas — descartada por estar el propio decreto mal atribuido a esta materia (el Decreto 141/2009 regula instalaciones eléctricas, no de gas)",
+    "Tasas: Modelo 700, concepto 118, tasa 22 'Inscripción en registros oficiales'; importe exacto no verificado",
+    "Sin cobertura para presion_bar='5+' ni usos no residenciales/comerciales — solo se cubre el fragmento verificable de la ficha 3905 (uso residencial/comercial, presión normal)",
+    "plazo_legal_dias=30 no confirmado específicamente para Canarias (la ficha 3905 indica 'Plazo de presentación: Todo el año' y 'No cabe recurso', sin confirmar un plazo de 30 días); se mantiene marcado como no verificado",
+    "No se distingue en reglas separadas el supuesto de gas envasado frente a canalizado (objeto real de la ficha 3905: 'instalaciones receptoras de gas envasado y canalizado'), por no existir un campo de entrada específico en el schema para esa distinción",
+    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
@@ -22,11 +25,32 @@
       "descripcion": "Instalación de gas en presión normal (uso residencial o comercial)",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
           {
             "or": [
-              { "==": [ { "var": "uso" }, "residencial" ] },
-              { "==": [ { "var": "uso" }, "comercial" ] }
+              {
+                "==": [
+                  {
+                    "var": "uso"
+                  },
+                  "residencial"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "uso"
+                  },
+                  "comercial"
+                ]
+              }
             ]
           }
         ]
@@ -34,22 +58,22 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria técnica de diseño (MTD) de instalación de gas",
-          "organismo": "Instalador habilitado (categoría IG-I o IG-II según RIGLO)",
+          "nombre": "Memoria técnica o proyecto técnico de instalación de gas, según proceda",
+          "organismo": "Instalador habilitado (categoría IG-I o IG-II según RIGLO) o técnico competente si procede proyecto",
           "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
+          "coste_estimado": "Incluido en honorarios del instalador/técnico",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "ICAN-GBP-001",
           "documentos_requeridos": [
             {
               "id": "mtd_gas",
-              "label": "Memoria técnica de diseño de gas",
-              "descripcion": "Documento firmado por instalador habilitado.",
+              "label": "Memoria técnica de diseño de gas (o proyecto técnico si la instalación lo requiere)",
+              "descripcion": "Documento firmado por instalador habilitado; la ficha 3905 distingue proyecto técnico frente a memoria técnica según la clase de instalación.",
               "obligatorio": true
             },
             {
@@ -63,6 +87,29 @@
         },
         {
           "orden": 2,
+          "nombre": "Inspección previa por Organismo de Control",
+          "organismo": "Organismo de Control Autorizado (OCA) en Canarias",
+          "base_legal": "RD 919/2006 RIGLO; ficha SICAC 3905 (requisito previo)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_inspeccion_oc",
+              "label": "Certificado de inspección por Organismo de Control",
+              "descripcion": "La ficha oficial 3905 declara expresamente la inspección por Organismo de Control como requisito previo del trámite de comunicación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido por auditoría (ALTO): la versión anterior pasaba directamente de certificado de instalador a comunicación, sin esta inspección previa declarada como requisito por la propia ficha."
+        },
+        {
+          "orden": 3,
           "nombre": "Certificado de instalación (CI) de gas",
           "organismo": "Instalador habilitado",
           "base_legal": "RD 919/2006 RIGLO",
@@ -80,20 +127,32 @@
               "label": "Certificado de Instalación",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Exigido por la ficha 3905 cuando la instalación requiere proyecto técnico.",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_chimeneas",
+              "label": "Certificado de cumplimiento de chimeneas",
+              "descripcion": "Exigido por la ficha 3905 para instalaciones con evacuación de productos de la combustión.",
+              "obligatorio": true
             }
           ],
           "notas": ""
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Comunicación de instalación receptora de combustibles gaseosos (SICAC 3905)",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Transporte y Generación en Régimen Ordinario",
           "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
           "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3905",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa Modelo 700, concepto 118, tasa 22 'Inscripción en registros oficiales'. Importe exacto no verificado.",
           "formulario_ref": "3905",
           "paralelo_con": null,
           "regla_id": "ICAN-GBP-001",
@@ -105,13 +164,19 @@
               "obligatorio": true
             },
             {
+              "id": "certificado_inspeccion_oc",
+              "label": "Certificado de inspección por Organismo de Control",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
               "id": "ci_gas",
               "label": "Certificado de Instalación",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "Plazo legal de 30 días desde puesta en servicio (mismo régimen ITC-ICG-07 3.6 confirmado en Asturias); no verificado específicamente para Canarias."
+          "notas": "Plazo legal de 30 días no confirmado específicamente para Canarias; la ficha 3905 indica 'Plazo de presentación: Todo el año' y 'No cabe recurso', sin confirmar un plazo de 30 días. El objeto real de la ficha cubre gas envasado y canalizado, con requisitos que pueden diferir según el RIGLO; esta regla no distingue ambos supuestos por falta de un campo de entrada específico."
         }
       ]
     }

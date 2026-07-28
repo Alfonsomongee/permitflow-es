@@ -1,31 +1,37 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "aragon",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
-  "estado": "verificado",
-  "aviso": "Reglas de presión y potencias base actualizadas para Aragón.",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-28",
+  "estado": "verificado_parcialmente",
+  "aviso": "Reglas de presión y potencias base actualizadas para Aragón. Auditoría 2026-07-28 (CRÍTICO corregido): se retiró la cita a la 'Orden de 28 de febrero de 2003, del Departamento de Industria, Comercio y Turismo', que está DEROGADA desde 2007 y además atribuida a un departamento con nombre erróneo (en 2003 era 'Industria, Comercio y Desarrollo', no 'Turismo'). Sustituida por la Orden de 30 de marzo de 2007, del Departamento de Industria, Comercio y Turismo (nombre correcto en esa fecha), que regula hoy el mismo procedimiento. Rellenada plataforma_url del trámite Nº 33 y añadido el trámite de alta de suministro ante distribuidora. 'estado' se mantiene en verificado_parcialmente por los huecos restantes.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
     "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón.",
+    "Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo): localizada en BOA como sucesora de la Orden de 28/02/2003, pero no se ha leído su texto íntegro ni comprobado si ha sido modificada por norma posterior.",
+    "formulario_ref del trámite Nº 33 (los tres casos): queda en null. No se ha localizado el código/referencia exacta del certificado de instalación de gas en la ficha de 'Formularios, impresos y tablas' de combustibles gaseosos de aragon.es dentro de esta corrección.",
+    "Nombre de la vertical 'gas_baja_presion': ARA-GAS-003 cubre expresamente MOP > 5 bar (alta presión), lo que es inconsistente con el nombre del fichero/tipo_instalacion. No se ha renombrado 'tipo_instalacion' porque es un valor fijo del Literal en schemas/clasificador.py (TipoInstalacion) y cambiarlo rompería la clasificación; queda documentado como incoherencia de nomenclatura pendiente de decisión de producto.",
+    "Trámite de alta de suministro / puesta en gas ante la distribuidora: añadido como paso final de cada regla (orden 4) por ser mecánicamente análogo al resto de trámites de la vertical; el organismo/plataforma exactos (Nedgia u otro operador según zona) no se han verificado en fuente primaria.",
+    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
     "RD 919/2006, Reglamento tecnico de distribucion y utilizacion de combustibles gaseosos, ITC-ICG 01 a 11",
-    "Orden de 28 de febrero de 2003, del Departamento de Industria, Comercio y Turismo (Aragón)"
+    "Orden de 30 de marzo de 2007, del Departamento de Industria, Comercio y Turismo (Aragón) -- sustituye a la Orden de 28/02/2003 (derogada), regula la acreditación de condiciones de seguridad industrial de instalaciones receptoras de combustibles gaseosos",
+    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
   ],
   "reglas": [
     {
       "id": "ARA-GAS-001",
-      "descripcion": "Instalacion receptora de gas en presion estandar (MOP <= 5 bar), potencia <=70 kW: memoria tecnica",
+      "descripcion": "Instalacion receptora de gas en presion estandar (MOP <= 5 bar, equivalente al literal 'normal' del campo presion_bar del schema), potencia <=70 kW: memoria tecnica",
       "condicion": {
         "and": [
           {
-            "==": [
+            "<=": [
               {
                 "var": "presion_bar"
               },
-              "normal"
+              5
             ]
           },
           {
@@ -89,11 +95,11 @@
           "orden": 3,
           "nombre": "Trámite Nº 33: Instalaciones receptoras de combustibles gaseosos: comunicación de puesta en servicio, modificación, ampliación y baja",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RD 919/2006; normativa autonomica de procedimiento (vigencia no comprobada)",
+          "base_legal": "RD 919/2006; Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo, Aragón)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-receptoras-combustibles-gaseosos-comunicacion-puesta-servicio-baja",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -112,7 +118,30 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
+          "notas": "CORRECCION 2026-07-28 (CRÍTICO): base_legal actualizada. La Orden de 28/02/2003 citada previamente está derogada desde 2007 y venía con el departamento mal atribuido; sustituida por la Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo). plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 33; denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
+        },
+        {
+          "orden": 4,
+          "nombre": "Alta de suministro / puesta en gas ante la distribuidora",
+          "organismo": "Empresa distribuidora de gas (p. ej. Nedgia u operador correspondiente en la zona)",
+          "base_legal": "RD 919/2006; contrato de suministro con la distribuidora (NO VERIFICADO en fuente primaria autonómica)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "cert_gas",
+              "label": "Certificado de instalacion",
+              "descripcion": "Del paso 2, exigido por la distribuidora para el alta.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "AÑADIDO 2026-07-28: faltaba este trámite, imprescindible tras la comunicación de puesta en servicio para que el suministro quede operativo. Organismo y plataforma exactos no verificados en fuente primaria; ver huecos_verificacion."
         }
       ]
     },
@@ -122,11 +151,11 @@
       "condicion": {
         "and": [
           {
-            "==": [
+            "<=": [
               {
                 "var": "presion_bar"
               },
-              "normal"
+              5
             ]
           },
           {
@@ -196,11 +225,11 @@
           "orden": 3,
           "nombre": "Trámite Nº 33: Instalaciones receptoras de combustibles gaseosos: comunicación de puesta en servicio, modificación, ampliación y baja",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RD 919/2006; normativa autonomica",
+          "base_legal": "RD 919/2006; Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo, Aragón)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-receptoras-combustibles-gaseosos-comunicacion-puesta-servicio-baja",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -225,7 +254,30 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": "CORRECCION 2026-07-28 (CRÍTICO): base_legal actualizada (Orden de 28/02/2003 derogada, sustituida por Orden de 30/03/2007). plataforma_url rellenada con la ficha oficial confirmada del Trámite Nº 33."
+        },
+        {
+          "orden": 4,
+          "nombre": "Alta de suministro / puesta en gas ante la distribuidora",
+          "organismo": "Empresa distribuidora de gas (p. ej. Nedgia u operador correspondiente en la zona)",
+          "base_legal": "RD 919/2006; contrato de suministro con la distribuidora (NO VERIFICADO en fuente primaria autonómica)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "cert_gas",
+              "label": "Certificado de instalacion",
+              "descripcion": "Del paso 2, exigido por la distribuidora para el alta.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "AÑADIDO 2026-07-28: faltaba este trámite, imprescindible tras la comunicación de puesta en servicio para que el suministro quede operativo. Organismo y plataforma exactos no verificados en fuente primaria; ver huecos_verificacion."
         }
       ]
     },
@@ -233,11 +285,11 @@
       "id": "ARA-GAS-003",
       "descripcion": "Instalacion receptora de gas en alta presion (MOP > 5 bar): proyecto tecnico obligatorio sin importar potencia",
       "condicion": {
-        "==": [
+        ">": [
           {
             "var": "presion_bar"
           },
-          "5+"
+          5
         ]
       },
       "tramites": [

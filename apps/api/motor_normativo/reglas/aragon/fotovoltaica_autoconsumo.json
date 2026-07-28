@@ -1,14 +1,18 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "aragon",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-28",
   "estado": "borrador_no_verificado",
-  "aviso": "BORRADOR NO VERIFICADO. El fichero original entregado contenía variables inexistentes en ClasificadorInput (ver huecos_verificacion), una plataforma de tramitación no localizada (SIRIA) y una base legal de procedimiento probablemente superada. Reconstruido para que cargue en el motor sin errores mecánicos; el contenido normativo autonómico especifico sigue pendiente de verificación primaria completa contra la Orden EIE/1731/2017 y sus equivalentes por vertical.",
+  "aviso": "BORRADOR NO VERIFICADO. Auditoría 2026-07-28: se retiró la cita a 'Ley 1/2024 de Aragón' (norma no localizada) y se rellenaron las plataforma_url confirmadas del trámite Nº 26. Persisten huecos: el umbral de 500 kW de ARA-FV-003 no tiene respaldo normativo autonómico confirmado, y falta el trámite de acceso y conexión/CAU ante distribuidora.",
   "huecos_verificacion": [
-    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
-    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original. Auditoría 2026-07-28: confirmada la existencia de la Orden y su modificación por Orden EIE/1132/2018 y Orden ICD/302/2020, no reflejadas aquí por falta de verificación de su alcance exacto sobre este trámite.",
+    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO. Auditoría 2026-07-28: confirmado el marco (Decreto Legislativo 1/2004, mod. Ley 7/2021) y el trámite de autoliquidación, pero el importe/epígrafe exacto sigue NO VERIFICABLE (páginas dinámicas del tramitador sin contenido estático accesible).",
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón. Se mantiene sin verificar si tramitan supuestos distintos o son canales alternativos para el mismo trámite.",
+    "Umbral de 500 kW en ARA-FV-003: se retiró la cita a 'Ley 1/2024 de Aragón' por ser una norma no localizada. No se ha podido confirmar en fuente primaria (BOA) el precepto exacto que fija ese umbral de 500 kW para el régimen de autorización administrativa en Aragón; las normas candidatas (Ley 1/2021 de simplificación administrativa, Ley 5/2024 de comunidades energéticas y autoconsumo industrial) no han sido cotejadas artículo por artículo. Cifra mantenida por continuidad operativa, pendiente de verificación primaria.",
+    "Falta el trámite de acceso y conexión a red / obtención del CAU ante la distribuidora (RD 1183/2020, citado en 'fuentes' sin trámite asociado). No se ha añadido como trámite mecánico porque su exigibilidad depende de la modalidad de autoconsumo (con/sin excedentes): requiere campo de formulario 'modalidad_autoconsumo' con lógica condicional dedicada (no incluida en esta corrección quirúrgica para no alterar la condición de las reglas existentes sin verificación previa del supuesto exacto).",
+    "ARA-FV-002, trámite 'Certificado de la OCA (EICI)': el REBT no exige certificado OCA con carácter general en BT (10-500 kW); solo procede en los supuestos tasados de la ITC-BT-05. Requiere campo de formulario 'tension' (existe en el schema y en el formulario web) para distinguir BT de AT y condicionar el paso OCA; no implementado en esta corrección para no inventar lógica de clasificación no verificada.",
+    "Tramo 100-500 kW: el umbral de exención de inscripción RAIPEE (100 kW) y el umbral de autorización administrativa (500 kW) son magnitudes distintas; el fichero no cubre explícitamente si las instalaciones entre 100 y 500 kW requieren inscripción RAIPEE pese a no requerir autorización administrativa. Pendiente de verificación primaria."
   ],
   "fuentes": [
     "RD 244/2019 autoconsumo electrico",
@@ -16,7 +20,8 @@
     "Ley 24/2013 Sector Electrico, art. 53",
     "RD 842/2002 REBT ITC-BT-40",
     "Orden EIE/1731/2017 -- citada en ficha oficial de aragon.es para BT; no verificada especificamente para autoconsumo",
-    "Ley 7/2021 Cambio Climatico art. 16 -- no verificado el contenido especifico citado"
+    "Ley 7/2021 Cambio Climatico art. 16 -- no verificado el contenido especifico citado",
+    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
   ],
   "reglas": [
     {
@@ -73,8 +78,8 @@
           "base_legal": "RD 842/2002; Orden EIE/1731/2017",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
           "coste_estimado": "0 EUR -- exencion estatal de autoconsumo <=100 kW (Ley 24/2013 art. 53); epigrafe autonomico especifico NO VERIFICADO",
           "formulario_ref": "Modelo C0004",
           "paralelo_con": null,
@@ -99,7 +104,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 26; denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa."
         }
       ]
     },
@@ -186,8 +191,8 @@
           "base_legal": "RD 842/2002; Orden EIE/1731/2017",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
           "coste_estimado": "0 EUR -- exencion estatal de autoconsumo <=100 kW (Ley 24/2013 art. 53); epigrafe autonomico especifico NO VERIFICADO",
           "formulario_ref": "Modelo C0004",
           "paralelo_con": null,
@@ -206,13 +211,13 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 26). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
         }
       ]
     },
     {
       "id": "ARA-FV-003",
-      "descripcion": "Autoconsumo >500 kW: regimen de autorizacion administrativa (elevación de umbral a 500 kW según Ley 1/2024 de Aragón)",
+      "descripcion": "Autoconsumo >500 kW: regimen de autorizacion administrativa. Umbral mantenido por continuidad operativa; la cita previa a 'Ley 1/2024 de Aragón' se retiró por no localizarse esa norma en BOA (auditoría 2026-07-28). Candidatas no cotejadas artículo por artículo: Ley 1/2021 de simplificación administrativa y Ley 5/2024 de comunidades energéticas y autoconsumo industrial. Ver huecos_verificacion.",
       "condicion": {
         ">": [
           {
@@ -252,8 +257,8 @@
           "base_legal": "Ley 24/2013 art. 53; RD 1955/2000",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -266,7 +271,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones de produccion no superiores a 100 kW asociadas a autoconsumo con excedentes estan exentas de inscripcion en el RAIPEE (confirmado en fuente oficial aragon.es); por tanto esta regla, activa solo para >100kW, si requiere esa inscripcion. Plazo y silencio (90 dias, desestimatorio) tomados de la aplicacion supletoria estatal (RD 1955/2000), no confirmados especificamente para Aragon."
+          "notas": "CORRECCION 2026-07-28: nota reconciliada. Las instalaciones de produccion no superiores a 100 kW asociadas a autoconsumo con excedentes estan exentas de inscripcion en el RAIPEE (confirmado en fuente oficial aragon.es); ese umbral de exencion (100 kW) es DISTINTO del umbral de autorizacion administrativa (500 kW) que activa esta regla ARA-FV-003. El tramo 100-500 kW no queda cubierto por ninguna regla de este fichero en materia de inscripcion RAIPEE (ver huecos_verificacion). Plazo y silencio (90 dias, desestimatorio) tomados de la aplicacion supletoria estatal (RD 1955/2000), no confirmados especificamente para Aragon. plataforma_url rellenada con la ficha oficial del Trámite Nº 26 por continuidad con el resto del fichero; pendiente confirmar si el procedimiento de autorización administrativa (RAIPEE) usa un canal de tramitación distinto al de la mera comunicación de BT."
         }
       ]
     }

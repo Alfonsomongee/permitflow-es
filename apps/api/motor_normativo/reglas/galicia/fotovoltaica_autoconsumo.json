@@ -2,15 +2,17 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "galicia",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 62/2024' como base legal: no se ha localizado esta norma. Se sustituyó por la normativa real confirmada: Resolución de 22 de julio de 2014 (tramitación electrónica) y Resolución de 18 de febrero de 2020 (DOG núm. 43, 04/03/2020), que regula explícitamente el procedimiento de comunicación de autoconsumo BT para 'potencia instalada menor a 100 kW' (códigos IN407B/IN407C) — confirma el umbral de 100 kW específicamente para Galicia. Se sustituyó el umbral inventado de 10 kW en consecuencia. Se eliminó la variable fantasma 'uso_edificio' (no existe en el schema; aparecía anidada de forma no estándar dentro de un documento). Se corrigió el bug de partición base sobre 'uso'. 'RITSG' e 'INEGA' como registro de instalaciones no se han podido confirmar con ese nombre exacto — sustituidos por los códigos de trámite reales IN407B/IN408A y el Registro de Autoconsumo del Ministerio (al que Galicia comunica según la propia Resolución 18/02/2020).",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 62/2024' como base legal: no se ha localizado esta norma. Se sustituyó por la normativa real confirmada: Resolución de 22 de julio de 2014 (tramitación electrónica) y Resolución de 18 de febrero de 2020 (DOG núm. 43, 04/03/2020), que regula explícitamente el procedimiento de comunicación de autoconsumo BT para 'potencia instalada menor a 100 kW' (códigos IN407B/IN407C) — confirma el umbral de 100 kW específicamente para Galicia. Se sustituyó el umbral inventado de 10 kW en consecuencia. Se eliminó la variable fantasma 'uso_edificio' (no existe en el schema; aparecía anidada de forma no estándar dentro de un documento). Se corrigió el bug de partición base sobre 'uso'. 'RITSG' e 'INEGA' como registro de instalaciones no se han podido confirmar con ese nombre exacto — sustituidos por los códigos de trámite reales IN407B/IN408A y el Registro de Autoconsumo del Ministerio (al que Galicia comunica según la propia Resolución 18/02/2020). Auditoría 2026-07-28: sustituidas las plataforma_url genéricas (https://sede.xunta.gal) de IN407B e IN408A por los enlaces profundos confirmados a la ficha de cada trámite.",
   "huecos_verificacion": [
     "Una fuente secundaria (no oficial) menciona que en Galicia se permite memoria técnica en vez de proyecto hasta 10 kW específicamente, umbral distinto del general de 100 kW para exención de autorización — no confirmado con fuente primaria; se mantiene el umbral general de 100 kW hasta verificar esta posible particularidad",
     "No se ha verificado si Galicia ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
     "Tasas y plazos legales no verificados con detalle",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "RESUELTO 2026-07-28: plataforma_url de IN407B e IN408A sustituidas por los enlaces profundos confirmados (https://sede.xunta.gal/detalle-procedemento?codtram=IN407B y ...?langId=es_ES&codtram=IN408A)",
+    "NO VERIFICABLE: el código IN429A citado en 'fuentes' (pública concurrencia con OCA) no se ha podido confirmar como ficha real en sede.xunta.gal; único resultado real para '429A' es SI429A (Programa Emega, ayudas al emprendimiento femenino, sin relación con instalaciones eléctricas). No se toca hasta confirmación adicional."
   ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
@@ -69,7 +71,7 @@
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?codtram=IN407B",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "IN407B",
           "paralelo_con": null,
@@ -162,7 +164,7 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN408A",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "IN408A",
           "paralelo_con": null,

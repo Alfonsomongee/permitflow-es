@@ -2,20 +2,22 @@
   "tipo_instalacion": "irve",
   "comunidad": "baleares",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe en el schema) y se sustituyó por 'ubicacion_irve' y 'modo_recarga'. Se eliminó 'Decreto 36/2018 de 27 de julio' como base legal: el Decreto 36/2018 real de Illes Balears regula el currículo de enseñanzas profesionales de música, sin relación con IRVE. Al no localizar ninguna norma autonómica específica de Baleares para IRVE, se aplicó el régimen nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014) en lugar del umbral inventado de 8 kW.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe en el schema) y se sustituyó por 'ubicacion_irve' y 'modo_recarga'. Se eliminó 'Decreto 36/2018 de 27 de julio' como base legal: el Decreto 36/2018 real de Illes Balears regula el currículo de enseñanzas profesionales de música, sin relación con IRVE. Al no localizar ninguna norma autonómica específica de Baleares para IRVE, se aplicó el régimen nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014) en lugar del umbral inventado de 8 kW. REVISIÓN 2026-07-28 (auditoría normativa): CORREGIDO EL FALLO CRÍTICO: ambas reglas enlazaban al trámite genérico de baja tensión (UDIT-001, procedimiento '001'), pero la CAIB tiene un trámite específico de recarga de vehículo eléctrico (UDIT-045 'Instalaciones en baja tensión. Recarga de vehículos eléctricos en zonas de acceso privado'); sustituido formulario_ref y plataforma_url por UDIT-045. Corregido el hallazgo ALTO de BAL-IRVE-002: el certificado de instalación (boletín) lo emite la empresa instaladora, no la OCA; se ha separado en dos trámites, uno del instalador (obligatorio) y otro de inspección inicial OCA (condicionada, solo cuando proceda según ITC-BT-05).",
   "huecos_verificacion": [
-    "No se ha localizado una norma autonómica balear específica para IRVE; se asume régimen nacional (ITC-BT-52) más el mismo circuito de registro que fotovoltaica (procedimiento 001/034), pero no está confirmado con fuente primaria específica para IRVE",
+    "RESUELTO 2026-07-28: identificado el trámite balear específico de IRVE en zonas de acceso privado (UDIT-045); se mantiene sin confirmar el trámite aplicable para IRVE de acceso público",
     "El tratamiento de 'garaje_comunitario' respecto al umbral 50/10 kW se ha asimilado a 'interior' — no verificado específicamente",
-    "Instalaciones en vía pública probablemente requieren permiso municipal de ocupación de vía pública, no incluido",
-    "Tasas y plazos legales no verificados"
+    "Instalaciones en vía pública probablemente requieren permiso municipal de ocupación de vía pública, no incluido (hueco declarado; el propio disparador de las reglas incluye 'via_publica' sin trámite municipal asociado)",
+    "Tasas exactas del trámite UDIT-045 no verificadas con detalle",
+    "PENDIENTE (no aplicado en esta revisión, severidad ALTO/MEDIO no mecánica): no se ha ramificado por el campo 'acceso_publico' del schema (eje real que usa la CAIB, 'zonas de acceso privado' vs. resto), que sigue sin usarse; las reglas continúan ramificando por 'ubicacion_irve'/potencia para decidir proyecto vs. memoria"
   ],
   "fuentes": [
     "RD 1053/2014, por el que se aprueba la ITC-BT-52",
     "RD 842/2002 REBT",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+    "Ficha de trámite UDIT-045 'Instalaciones en baja tensión. Recarga de vehículos eléctricos en zonas de acceso privado' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/2293744)"
   ],
   "reglas": [
     {
@@ -74,15 +76,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de la instalación (procedimiento 001 baja tensión)",
+          "nombre": "Instalaciones en baja tensión. Recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045)",
           "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
-          "base_legal": "REBT RD 842/2002",
+          "base_legal": "REBT RD 842/2002; ITC-BT-52 (RD 1053/2014)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-045",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/2293744",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "001",
+          "formulario_ref": "UDIT-045",
           "paralelo_con": null,
           "regla_id": "BAL-IRVE-001",
           "documentos_requeridos": [
@@ -93,7 +95,7 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Corregido 2026-07-28: se sustituyó el trámite genérico de baja tensión (UDIT-001) por el trámite específico de recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045). Para IRVE de acceso público, verificar si aplica un trámite distinto (no confirmado)."
         }
       ]
     },
@@ -143,9 +145,32 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (inspección inicial por OCA cuando proceda)",
-          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Illes Balears",
+          "nombre": "Certificado de instalación / Boletín de instalación eléctrica (REBT)",
+          "organismo": "Empresa instaladora eléctrica habilitada",
           "base_legal": "REBT RD 842/2002; RD 1053/2014",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-IRVE-002",
+          "documentos_requeridos": [
+            {
+              "id": "boletin_instalacion",
+              "label": "Boletín de instalación eléctrica (REBT)",
+              "descripcion": "Emitido por la empresa instaladora, no por el Organismo de Control.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Corregido 2026-07-28: el certificado de instalación (boletín) lo emite la empresa instaladora, no la OCA. Se ha separado de la inspección inicial OCA (ver siguiente trámite), que solo procede en los supuestos de la ITC-BT-05."
+        },
+        {
+          "orden": 3,
+          "nombre": "Inspección inicial por Organismo de Control Autorizado (OCA), cuando proceda",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Illes Balears",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05; RD 1053/2014",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -159,28 +184,22 @@
               "id": "certificado_oc_irve",
               "label": "Certificado de Organismo de Control",
               "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "boletin_instalacion",
-              "label": "Boletín de instalación eléctrica (REBT)",
-              "descripcion": "",
-              "obligatorio": true
+              "obligatorio": false
             }
           ],
-          "notas": ""
+          "notas": "La inspección inicial por OCA solo es obligatoria en los supuestos previstos en la ITC-BT-05 (no en todos los casos con proyecto técnico); no se marca como documento obligatorio de forma incondicional."
         },
         {
-          "orden": 3,
-          "nombre": "Registro de la instalación (procedimiento 001 baja tensión)",
+          "orden": 4,
+          "nombre": "Instalaciones en baja tensión. Recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045)",
           "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
-          "base_legal": "REBT RD 842/2002",
+          "base_legal": "REBT RD 842/2002; ITC-BT-52 (RD 1053/2014)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-045",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/2293744",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "001",
+          "formulario_ref": "UDIT-045",
           "paralelo_con": null,
           "regla_id": "BAL-IRVE-002",
           "documentos_requeridos": [
@@ -191,10 +210,16 @@
               "obligatorio": true
             },
             {
-              "id": "certificado_oc_irve",
-              "label": "Certificado de Organismo de Control",
+              "id": "boletin_instalacion",
+              "label": "Boletín de instalación eléctrica (REBT)",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_oc_irve",
+              "label": "Certificado de Organismo de Control",
+              "descripcion": "Solo si la instalación está sujeta a inspección inicial OCA (ITC-BT-05).",
+              "obligatorio": false
             }
           ],
           "notas": ""

@@ -2,16 +2,16 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "andalucia",
   "version": "1.1.0",
-  "ultima_revision": "2025-03-01",
+  "ultima_revision": "2026-07-28",
   "fuentes": [
-    "RD 919/2006 RIGLO",
-    "Decreto 59/2005 de 1 de marzo (Andalucía) sobre instalaciones de gas",
-    "Orden de 5 de marzo de 2013 (Andalucía) por la que se regulan los procedimientos de puesta en servicio de instalaciones de gas"
+    "RD 919/2006 (Reglamento técnico de distribución y utilización de combustibles gaseosos, denominado RIGLO/RICG)",
+    "Decreto 59/2005, de 1 de marzo (Andalucía), por el que se regula el procedimiento para la instalación, ampliación, traslado y puesta en funcionamiento de los establecimientos industriales (norma horizontal de procedimiento industrial; NO es una norma sectorial de instalaciones de gas) -- corregido tras auditoria 2026-07-27",
+    "Orden de 5 de marzo de 2013 (Andalucía), de desarrollo del Decreto 59/2005: crea el tramitador PUES y regula la comunicacion de puesta en funcionamiento de instalaciones de gas entre otros 10 tipos"
   ],
   "reglas": [
     {
       "id": "AND-GAS-001",
-      "descripcion": "Instalación de gas baja presión ≤ 70 kW en uso doméstico (sin proyecto, con memoria técnica)",
+      "descripcion": "Instalación de gas baja presión ≤ 70 kW en uso residencial (sin proyecto, con memoria técnica)",
       "condicion": {
         "and": [
           {
@@ -27,7 +27,7 @@
               {
                 "var": "uso"
               },
-              "domestico"
+              "residencial"
             ]
           }
         ]
@@ -54,18 +54,19 @@
               "label": "Certificado de instalador habilitado",
               "descripcion": "Acreditación de la categoría del instalador (IG-I o IG-II) según RIGLO."
             }
-          ]
+          ],
+          "paralelo_con": null
         },
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) en Andalucía",
-          "base_legal": "Orden 5 marzo 2013 (Andalucía); RIGLO art. 7",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía) -- comunicación PUES; NO requiere visado de OCA salvo instalación >70 kW con proyecto",
+          "base_legal": "Orden de 5 de marzo de 2013 (Andalucía), Anexo I (instalaciones de gas); RD 919/2006",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "Registro Integrado Industrial de Andalucía (RIIA)",
-          "plataforma_url": "https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/riia/",
-          "coste_estimado": "Tasa de verificación OCA: 50-100 €",
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
+          "coste_estimado": "Tasa Modelo 046 (comunicación PUES): sin tasa específica de OCA verificada -- corregido tras auditoria (organismo anterior improcedente)",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
@@ -77,13 +78,14 @@
               "label": "MTI firmada por instalador",
               "descripcion": "Memoria Técnica de Instalación presentada previamente."
             }
-          ]
+          ],
+          "paralelo_con": null
         }
       ]
     },
     {
       "id": "AND-GAS-002",
-      "descripcion": "Instalación de gas baja presión > 70 kW o en uso no doméstico (con proyecto técnico)",
+      "descripcion": "Instalación de gas baja presión > 70 kW o en uso no residencial (con proyecto técnico)",
       "condicion": {
         "or": [
           {
@@ -99,7 +101,7 @@
               {
                 "var": "uso"
               },
-              "domestico"
+              "residencial"
             ]
           }
         ]
@@ -121,18 +123,19 @@
               "label": "Proyecto Técnico de gas",
               "descripcion": "Documento firmado por técnico competente con memoria, planos, pliego de condiciones y presupuesto."
             }
-          ]
+          ],
+          "paralelo_con": null
         },
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) en Andalucía",
-          "base_legal": "Orden 5 marzo 2013 (Andalucía); RIGLO art. 7",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía) -- comunicación PUES; NO requiere visado de OCA salvo instalación >70 kW con proyecto",
+          "base_legal": "Orden de 5 de marzo de 2013 (Andalucía), Anexo I (instalaciones de gas); RD 919/2006",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 20,
-          "plataforma": "Registro Integrado Industrial de Andalucía (RIIA)",
-          "plataforma_url": "https://www.juntadeandalucia.es/economiaconocimientoempresasyuniversidad/riia/",
-          "coste_estimado": "Tasa de verificación OCA: 100-200 €",
+          "plataforma": "PUES",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
+          "coste_estimado": "Tasa Modelo 046 (registro PUES) + visado de proyecto si aplica: 100-200 € (estimado, sin tasa de OCA)",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
@@ -144,9 +147,18 @@
               "label": "Proyecto visado por colegio profesional (si aplica)",
               "descripcion": "Visado del proyecto por el colegio profesional correspondiente."
             }
-          ]
+          ],
+          "paralelo_con": null
         }
       ]
     }
+  ],
+  "nivel_verificacion": "generica",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28: enum uso 'domestico' -> 'residencial' en AND-GAS-001/002 (incompatible con el resto del motor; CRÍTICO).",
+    "RESUELTO 2026-07-28: Decreto 59/2005 mal titulado como 'sobre instalaciones de gas' -> corregido a su objeto real (procedimiento de establecimientos industriales), BOJA 2005/118/3.",
+    "RESUELTO 2026-07-28: puesta en servicio de gas doméstico atribuida a OCA/RIIA (enlace roto) -> corregido a Delegación Territorial / tramitador PUES (Oficina Virtual).",
+    "PENDIENTE (no verificado en esta pasada): importes exactos de tasa Modelo 046 para instalaciones de gas; base legal Ley 10/2021 art. 44.",
+    "PENDIENTE: distinguir gas natural canalizado (con distribuidora, ej. Nedgia Andalucía) de GLP y su trámite de alta de suministro (hueco B7 de la auditoría, no verificado con fuente)."
   ]
 }

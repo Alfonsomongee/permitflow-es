@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cataluna",
-  "version": "1.2.0",
-  "ultima_revision": "2026-07-27",
+  "version": "1.3.0",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "en_revision",
   "estado": "borrador_verificado_parcialmente",
   "aviso": "Reglas aditivas por fase. Se distinguen seguridad industrial BT, acceso y conexión, trámite 21526, RIPRE y autorizaciones de producción. La ruta AT y la autorización de explotación se derivan a revisión manual salvo condición técnica verificada.",
@@ -10,7 +10,9 @@
     "Confirmar tasas vigentes por procedimiento.",
     "Confirmar documentalmente el alcance exacto del trámite 21526 y sus documentos obligatorios.",
     "Confirmar la ruta autonómica concreta de puesta en servicio para instalaciones conectadas en AT.",
-    "requiere_acceso_conexion y requiere_registro_produccion son datos técnicos derivados; si faltan cuando son materiales, procede revisión manual."
+    "requiere_acceso_conexion y requiere_registro_produccion son datos técnicos derivados; si faltan cuando son materiales, procede revisión manual.",
+    "RESUELTO 2026-07-28: CAT-FV-COMPENSACION-21526 ahora usa el ámbito verificado del trámite 21526 (>15 y <=100 kW en cualquier suelo, o <=15 kW en suelo no urbanizable, según ubicacion_suelo) en lugar del tramo genérico 10-100 kW, y el enlace se fijó a la ficha canónica /ca/.",
+    "Pendiente (no verificable con las herramientas disponibles): si el Decret llei 22/2025 modifica también el régimen de los tramos <=10 kW y 10-100 kW (CAT-FV-BT-RITSIC), más allá de los tramos 100-500 y >500 kW ya citados."
   ],
   "fuentes": [
     "RD 244/2019",
@@ -226,11 +228,47 @@
             ]
           },
           {
-            "<=": [
+            "or": [
               {
-                "var": "potencia_kw"
+                "and": [
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      15
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      100
+                    ]
+                  }
+                ]
               },
-              100
+              {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "ubicacion_suelo"
+                      },
+                      "no_urbanizable"
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      15
+                    ]
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -244,7 +282,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/es/integraciodepartamentaltramit/tramit/PerTemes/Installacio-generadora-dautoconsum-amb-compensacio-dexcedents-de-fins-a-100-kW",
+          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/21526-installacio-generadora-autoconsum-compensacio",
           "coste_estimado": null,
           "formulario_ref": null,
           "paralelo_con": null,
@@ -258,7 +296,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "No se presume automático ni de oficio; la documentación exacta debe confirmarse en la ficha vigente."
+          "notas": "Ámbito verificado: >15 y <=100 kW en cualquier tipo de suelo, o <=15 kW en suelo no urbanizable. No se presume automático ni de oficio; la documentación exacta debe confirmarse en la ficha vigente."
         }
       ]
     },

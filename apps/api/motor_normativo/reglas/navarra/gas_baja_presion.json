@@ -2,27 +2,33 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "navarra",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de gas). No se ha localizado norma foral específica de gas; se aplica el RIGLO nacional (RD 919/2006) directamente. Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
+  "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de gas). Se aplica el RIGLO nacional (RD 919/2006) directamente, complementado con la normativa foral de procedimiento y de umbral de inspección confirmada por auditoría (Orden Foral 60/2015 y Orden Foral 64/2022). Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
   "huecos_verificacion": [
-    "No se ha localizado normativa foral navarra específica de gas",
+    "Auditoría 2026-07-28: se confirmó y añadió como base_legal foral la Orden Foral 60/2015, de 5 de marzo (BON n.º 54, de 20 de marzo de 2015), que regula el procedimiento de tramitación/registro y deroga la Orden Foral 425/2009 (desarrollo RIGLO en Navarra), y la Orden Foral 64/2022, de 21 de octubre (Disp. Adicional Única), que confirma el umbral de 70 kW e inspección inicial OCA en instalaciones térmicas",
     "Nombre exacto del trámite de registro de instalaciones de gas en Navarra no confirmado",
-    "Tasas y plazos legales no verificados"
+    "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó ficha específica de trámite de registro de instalación de gas en el catálogo de navarra.es dentro del presupuesto de la auditoría",
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente"
+    "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente",
+    "Orden Foral 60/2015, de 5 de marzo (BON n.º 54, de 20 de marzo de 2015) — Gobierno de Navarra, procedimiento de tramitación administrativa; deroga la Orden Foral 425/2009 (desarrollo RIGLO en Navarra)",
+    "Orden Foral 64/2022, de 21 de octubre (BON n.º 226, de 15 de noviembre de 2022) — Disposición Adicional Única: umbral de 70 kW e inspección inicial obligatoria por Organismo de Control (OCA) en instalaciones térmicas"
   ],
   "reglas": [
     {
       "id": "NAV-GAS-001",
       "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
       "condicion": {
-        "==": [
-          { "var": "presion_bar" },
-          "5+"
+        ">": [
+          {
+            "var": "presion_bar"
+          },
+          5
         ]
       },
       "tramites": [
@@ -76,7 +82,7 @@
           "orden": 3,
           "nombre": "Registro/comunicación de instalación receptora de gas",
           "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07; Orden Foral 60/2015, de 5 de marzo (Navarra), procedimiento de tramitación y registro",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",
@@ -108,8 +114,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -172,8 +192,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { ">": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -181,7 +215,7 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación de gas",
           "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07; Orden Foral 64/2022, de 21 de octubre (Navarra), Disp. Adicional Única — umbral >70 kW e inspección inicial OCA",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -227,7 +261,7 @@
           "orden": 3,
           "nombre": "Registro/comunicación de instalación receptora de gas",
           "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07; Orden Foral 60/2015, de 5 de marzo (Navarra), procedimiento de tramitación y registro; Orden Foral 64/2022, de 21 de octubre (Navarra), Disp. Adicional Única — umbral >70 kW e inspección inicial OCA",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",

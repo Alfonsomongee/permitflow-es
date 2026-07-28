@@ -2,15 +2,16 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "castilla_la_mancha",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 80/2017' como base legal de la puesta en servicio BT: la ficha oficial de la JCCM para instalaciones eléctricas de baja tensión (trámite 1002270) solo cita Ley 21/1992 de Industria y RD 842/2002 REBT, sin decreto autonómico. Se confirmó la plataforma real específica de Castilla-La Mancha para diligenciado de certificados BT: eDice-bt. Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre 'uso'.",
   "huecos_verificacion": [
     "No se ha localizado un decreto autonómico de Castilla-La Mancha específico de autoconsumo/BT distinto de la normativa nacional",
-    "No se ha confirmado si Castilla-La Mancha ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
+    "Umbral 100 kW vs 500 kW (RD-ley 18/2022): confirmado por fuente agregada (no JCCM de primer nivel) que Castilla-La Mancha NO ha ejercido la potestad de elevarlo a 500 kW; se mantienen los 100 kW. Tratar como indicio fuerte, no como confirmación oficial plena — NO VERIFICADO en fuente primaria JCCM.",
     "Tasas y plazos legales de resolución no verificados con detalle",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "RESUELTO 2026-07-28 (auditoría independiente): el organismo citado en CLM-FV-001 orden 2 y CLM-FV-002 orden 3 era 'Dirección General de Industria, Energía y Minas', que no existe en el organigrama vigente de la Consejería de Desarrollo Sostenible. Corregido a 'Dirección General de Transición Energética', la misma DG citada correctamente en climatización/ACS y competente sobre la Instrucción 1/2020 de autoconsumo."
   ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
@@ -18,8 +19,9 @@
     "Ley 24/2013 Sector Eléctrico, art. 53",
     "Ley 21/1992 de Industria",
     "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
-    "Ficha de trámite 1002270 'Instalaciones eléctricas de baja tensión' y 020048 'Registro de una instalación eléctrica de baja tensión' - jccm.es",
-    "Plataforma eDice-bt (diligenciado de certificados BT) - edice.castillalamancha.es"
+    "Ficha de trámite 1002270 'Registro de una instalación eléctrica de baja tensión' y 020048 (mismo trámite) - jccm.es",
+    "Plataforma eDice-bt (diligenciado de certificados BT) - edice.castillalamancha.es",
+    "Instrucción 1/2020 sobre tramitación de instalaciones de autoconsumo (Dirección General de Transición Energética), disponible en https://edice.castillalamancha.es/eDice-bt/autoconsumo.pdf"
   ],
   "reglas": [
     {
@@ -64,7 +66,7 @@
         {
           "orden": 2,
           "nombre": "Diligenciado del certificado y registro de la instalación (eDice-bt)",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
           "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
@@ -151,7 +153,7 @@
         {
           "orden": 3,
           "nombre": "Diligenciado del certificado y registro de la instalación (portal con proyecto)",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
           "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,

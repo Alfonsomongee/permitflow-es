@@ -2,19 +2,25 @@
   "tipo_instalacion": "acs",
   "comunidad": "comunidad_valenciana",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 162/1990' como base legal: es un decreto real de la Comunitat Valenciana, pero regula la Evaluación de Impacto Ambiental — sin relación con instalaciones térmicas. Sustituido por el RITE nacional aplicado directamente, con los trámites reales confirmados G19316 (5-70kW) y G450 (>70kW). HALLAZGO POSITIVO para el hueco de Legionella: se confirmó que existe un Decreto 173/2000 real y específico de la Comunitat Valenciana sobre condiciones higiénico-sanitarias para prevención de legionelosis en equipos de transferencia de masa de agua — complementario al RD 487/2022 nacional, aunque tampoco se ha implementado como regla en este fichero (mismo hueco crítico recurrente).",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 162/1990' como base legal: es un decreto real de la Comunitat Valenciana, pero regula la Evaluación de Impacto Ambiental — sin relación con instalaciones térmicas. Sustituido por el RITE nacional aplicado directamente, con los trámites reales confirmados G19316 (5-70kW) y G450 (>70kW). HALLAZGO POSITIVO para el hueco de Legionella: se confirmó que existe un Decreto 173/2000 real y específico de la Comunitat Valenciana sobre condiciones higiénico-sanitarias para prevención de legionelosis en equipos de transferencia de masa de agua — complementario al RD 487/2022 nacional, aunque tampoco se ha implementado como regla en este fichero (mismo hueco crítico recurrente). Revisión 2026-07-28 (auditoría normativa CV): corregido el organismo (trámite iniciado por el instalador habilitado, presentado ante el Servicio Territorial de Industria, Energía y Minas); corregido el enlace roto id_proc=G450 por id_proc=450; la inspección inicial por Organismo de Control (OCA/OCH) se marca ahora como condicional, no obligatoria de forma incondicional. Añadidas a 'fuentes' el Decreto 141/2012, la Orden 14/2022 y el Decreto 201/2002 (brotes de legionelosis), citados por la ficha oficial o confirmados como normativa autonómica aplicable.",
   "huecos_verificacion": [
-    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024 nacional, y Decreto 173/2000 específico de la Comunitat Valenciana — ambos confirmados como normas reales aplicables, ninguno implementado como regla)",
+    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024 nacional, y Decreto 173/2000 y Decreto 201/2002 específicos de la Comunitat Valenciana — todos confirmados como normas reales aplicables, ninguno implementado como regla)",
     "Instalaciones <5 kW pueden quedar fuera del ámbito de comunicación según el propio RITE — no modelado",
+    "PENDIENTE: la exclusión legal de calentadores instantáneos, calentadores acumuladores y termos eléctricos ≤70 kW (documentación técnica ante la Administración no exigible) no está modelada por falta de un campo 'tipo de equipo generador' en el schema; genera trámites falsos para el caso doméstico más común.",
+    "RESUELTO PARCIALMENTE 2026-07-28: la inspección inicial por OCA/OCH ya no se exige de forma incondicional. PENDIENTE: el régimen procedimental exacto (en qué supuestos es preceptiva) deriva del Decreto 125/2012, confirmado real, pero no se ha verificado el detalle exacto.",
+    "PENDIENTE: no modelada la bifurcación entre el procedimiento 450 (una única empresa instaladora, usado en esta regla) y el 22742 (varias empresas coordinadas por técnico proyectista), por falta de un campo en el schema.",
     "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "Decreto 173/2000, de 5 de diciembre, del Gobierno Valenciano (condiciones higiénico-sanitarias para prevención de legionelosis) — confirmado real",
-    "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y G450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es"
+    "Decreto 201/2002, de 10 de diciembre (brotes comunitarios de legionelosis, Comunitat Valenciana) — confirmado real",
+    "Decreto 141/2012, de 28 de septiembre (simplificación de la puesta en funcionamiento de instalaciones industriales) — confirmado real",
+    "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — confirmado real",
+    "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y 450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es"
   ],
   "reglas": [
     {
@@ -53,7 +59,7 @@
         {
           "orden": 2,
           "nombre": "Comunicación de instalación térmica (5-70 kW)",
-          "organismo": "Conselleria competente en materia de industria",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (trámite iniciado por el instalador habilitado)",
           "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
@@ -110,8 +116,8 @@
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial por OCA",
-          "organismo": "OCA acreditada en la Comunitat Valenciana (Decreto 125/2012)",
+          "nombre": "Inspección inicial por OCA/OCH, cuando sea preceptiva",
+          "organismo": "OCA/OCH acreditado en la Comunitat Valenciana (Decreto 125/2012)",
           "base_legal": "RITE RD 1027/2007 art. 15; Decreto 125/2012",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -124,35 +130,35 @@
           "documentos_requeridos": [
             {
               "id": "cert_inspeccion_oca",
-              "label": "Certificado de Inspección de OCA",
-              "descripcion": "",
-              "obligatorio": true
+              "label": "Certificado de Inspección de OCA/OCH",
+              "descripcion": "Exigible únicamente cuando la inspección inicial sea preceptiva (Decreto 125/2012).",
+              "obligatorio": false
             }
           ],
-          "notas": ""
+          "notas": "Corregido tras auditoría 2026-07-28: antes se exigía de forma incondicional para toda instalación >70 kW; la ficha oficial la condiciona ('cuando sea preceptivo')."
         },
         {
           "orden": 3,
           "nombre": "Comunicación de instalación térmica (>70 kW)",
-          "organismo": "Conselleria competente en materia de industria",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (trámite iniciado por el instalador habilitado)",
           "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es)",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=G450",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=450",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "G450",
+          "formulario_ref": "450",
           "paralelo_con": null,
           "regla_id": "CV-ACS-002",
           "documentos_requeridos": [
             {
               "id": "cert_inspeccion_oca",
-              "label": "Certificado de Inspección de OCA",
+              "label": "Certificado de Inspección de OCA/OCH (si preceptivo)",
               "descripcion": "",
-              "obligatorio": true
+              "obligatorio": false
             }
           ],
-          "notas": ""
+          "notas": "Enlace corregido a id_proc=450 (id_proc=G450 devolvía página vacía). Aplica exclusivamente al supuesto de una única empresa instaladora; si intervienen varias empresas coordinadas por técnico, el procedimiento real es id_proc=22742, no modelado por falta de campo en el schema."
         }
       ]
     }

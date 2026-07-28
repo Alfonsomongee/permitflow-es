@@ -2,7 +2,7 @@
   "tipo_instalacion": "acs",
   "comunidad": "andalucia",
   "version": "1.3.0",
-  "ultima_revision": "2026-07-24",
+  "ultima_revision": "2026-07-28",
   "fuentes": [
     "RITE RD 1027/2007 (modificado RD 238/2013)",
     "RD 487/2022 Prevención de la Legionelosis",
@@ -372,7 +372,7 @@
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/industria/instalaciones/paginas/instalaciones-liberalizadas.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "66.43 EUR",
           "documentos_requeridos": [
             {
@@ -388,7 +388,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
           "paralelo_con": null
         }
       ]
@@ -458,7 +458,7 @@
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/industria/instalaciones/paginas/instalaciones-liberalizadas.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
@@ -474,7 +474,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.\nPENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
           "paralelo_con": null
         }
       ]
@@ -556,7 +556,7 @@
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/industria/instalaciones/paginas/instalaciones-liberalizadas.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "200.00 EUR (estimado tramo medio)",
           "documentos_requeridos": [
             {
@@ -572,7 +572,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
           "paralelo_con": null
         }
       ]
@@ -642,7 +642,7 @@
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/industria/instalaciones/paginas/instalaciones-liberalizadas.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "424.48 EUR",
           "documentos_requeridos": [
             {
@@ -658,7 +658,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
           "paralelo_con": null
         }
       ]
@@ -749,7 +749,7 @@
           "base_legal": "RD 487/2022 art. 10; Decreto Andalucía de instalaciones de riesgo sanitario",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
-          "plataforma": "ayuntamiento",
+          "plataforma": "Junta de Andalucía -- Delegación Territorial de Salud y Consumo (incoherencia corregida: plataforma decía 'ayuntamiento' pero organismo y URL apuntan a la Junta)",
           "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/10527.html",
           "coste_estimado": "Sin coste (comunicación informativa)",
           "documentos_requeridos": [
@@ -810,5 +810,14 @@
       "validado_por": null
     }
   ],
-  "nivel_verificacion": "verificada"
+  "nivel_verificacion": "verificada",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28: plataforma_url de AND-ACS-002 (inspección OCA) apuntaba a una página informativa genérica (L7) -- sustituida por la Oficina Virtual real del tramitador PUES.",
+    "RESUELTO 2026-07-28: incoherencia de AND-ACS-003 trámite 2 (plataforma='ayuntamiento' vs organismo/URL de la Junta) -- corregida la etiqueta de plataforma.",
+    "PENDIENTE (no verificado, NO se ha tocado la lógica): AND-ACS-002 dispara para toda instalación no residencial sin cota inferior de potencia (falso positivo en terciario de baja potencia). El RITE liga proyecto/inspección a >70 kW, no al uso, pero no se ha localizado fuente primaria que fije un umbral alternativo para uso no residencial -- se deja documentado en notas del trámite en vez de alterar la condición sin verificar.",
+    "PENDIENTE: 'Decreto Andalucía de instalaciones de riesgo sanitario' (base legal de AND-ACS-003 trámite 2) citado sin número ni fecha, no identificable -- no se ha tocado.",
+    "PENDIENTE: AND-ACS-003 mantiene el criterio de potencia/uso como 'red de seguridad transitoria' hasta que el wizard capture uso_colectivo/acumulacion/recirculacion en producción (Bloque 9B); los campos ya existen en la condición OR pero no se ha retirado el criterio antiguo, tal como el propio fichero documenta.",
+    "PENDIENTE: Ley 10/2021 art. 44 (base de tasas 21,94/45,77/66,43/424,48 €) no verificada.",
+    "PENDIENTE: plazo_legal_dias=30 para registro PUES en ACS (otros ficheros usan 45 o 10 días) sin fuente citada -- no unificado en esta pasada."
+  ]
 }

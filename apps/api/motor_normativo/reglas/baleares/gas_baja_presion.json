@@ -2,21 +2,22 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "baleares",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. No se han localizado en fuente oficial ni 'Decreto 36/2006, de 28 de abril' ni 'Orden de 10 de julio de 2007' de la CAIB (a diferencia de otros decretos de este mismo lote, no he confirmado que estén mal atribuidos, pero tampoco he podido verificarlos: se marcan NO VERIFICADO en vez de darlos por buenos, dado el patrón de fabricación normativa detectado en el resto de ficheros de esta comunidad). Se corrigió el bug de partición base sobre el campo 'uso' (patrón #3): la regla 1 exigía uso=='domestico' y la regla 2 exigía potencia>70 O uso!='domestico', dejando mal clasificada cualquier instalación doméstica pequeña sin el campo 'uso' informado.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. No se han localizado en fuente oficial ni 'Decreto 36/2006, de 28 de abril' ni 'Orden de 10 de julio de 2007' de la CAIB (a diferencia de otros decretos de este mismo lote, no he confirmado que estén mal atribuidos, pero tampoco he podido verificarlos: se marcan NO VERIFICADO en vez de darlos por buenos, dado el patrón de fabricación normativa detectado en el resto de ficheros de esta comunidad). Se corrigió el bug de partición base sobre el campo 'uso' (patrón #3): la regla 1 exigía uso=='domestico' y la regla 2 exigía potencia>70 O uso!='domestico', dejando mal clasificada cualquier instalación doméstica pequeña sin el campo 'uso' informado. REVISIÓN 2026-07-28 (auditoría normativa): confirmado que 'Decreto 36/2006' y 'Orden de 10 de julio de 2007' NO existen en fuente oficial (probable confusión con el Decreto 36/2003, que además regula instalaciones eléctricas, no gas); ambas citas se han retirado y sustituido por el Decreto 25/2003 (UDIT), norma balear real que ampara los trámites de gas. Identificado el trámite real como UDIT-013 'Instalaciones receptoras de gas'. CORREGIDO EL FALLO CRÍTICO: BAL-GAS-001 (caso más frecuente, instalación doméstica sin proyecto) dirigía el registro/comunicación a la CAIB; la ficha oficial de UDIT establece que las instalaciones SIN proyecto técnico se tramitan directamente con la empresa suministradora, no ante la Administración. Corregido el organismo del paso 3 de BAL-GAS-001 a la empresa suministradora.",
   "huecos_verificacion": [
-    "No se ha podido verificar la existencia de 'Decreto 36/2006' ni de la 'Orden de 10 de julio de 2007' de la CAIB citados como base legal específica de Baleares — mantenidos como referencia pero marcados NO VERIFICADO",
-    "El 'Registro Industrial de Baleares (RIB)' y su URL no se han confirmado como nombre/trámite real; se sustituye por referencia genérica a la sede electrónica hasta verificar",
-    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28: 'Decreto 36/2006' y 'Orden de 10 de julio de 2007' de la CAIB NO se han podido localizar en fuente oficial; se retiran como base legal y se sustituyen por el Decreto 25/2003 (UDIT)",
+    "El 'Registro Industrial de Baleares (RIB)' y su URL no se han confirmado como nombre/trámite real; se sustituye por la ficha oficial de UDIT-013",
+    "Tasas exactas del trámite UDIT-013 no verificadas con detalle (confirmado que existen tasas UDIT publicadas con importe, pero no se ha consignado el importe específico de este trámite)",
     "No se ha verificado si existe distinción por presión (categórica 'normal'/'5+' del schema) relevante en Baleares; este fichero ya no usa 'uso' como condición de disparo (ver aviso), solo potencia_kw",
-    "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso doméstico/terciario/industrial; si esa distinción es normativamente relevante en Baleares, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base"
+    "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso doméstico/terciario/industrial; si esa distinción es normativamente relevante en Baleares, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base",
+    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta el trámite específico de GLP en depósito fijo (UDIT-027, distinto de UDIT-013) y los trámites de puesta en servicio/prueba de estanquidad por la suministradora e inspección periódica; el schema ofrece 'combustible' y 'presion_bar' sin usar todavía para esta ramificación"
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
-    "Decreto 36/2006, de 28 de abril, CAIB — NO VERIFICADO",
-    "Orden de 10 de julio de 2007, CAIB — NO VERIFICADO"
+    "Decreto 25/2003, de 28 de marzo, por el que se crea la Unidad de Información y Trámite (UDIT) - Illes Balears",
+    "Ficha de trámite UDIT-013 'Instalaciones receptoras de gas' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/315206)"
   ],
   "reglas": [
     {
@@ -74,13 +75,13 @@
         },
         {
           "orden": 3,
-          "nombre": "Registro/comunicación de la instalación ante el órgano competente de la CAIB",
-          "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
-          "base_legal": "NO VERIFICADO — se cita Decreto 36/2006 y Orden 10/07/2007, pendientes de confirmación",
-          "plazo_estimado_dias": 15,
+          "nombre": "Presentación del certificado de instalación a la empresa suministradora y puesta en servicio",
+          "organismo": "Empresa suministradora de gas",
+          "base_legal": "RD 919/2006 RIGLO; ficha de trámite UDIT-013 (instalaciones sin proyecto técnico)",
+          "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
+          "plataforma": null,
+          "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -99,7 +100,7 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Corregido 2026-07-28: la ficha oficial del trámite de instalaciones receptoras de gas (UDIT-013) establece que las instalaciones que NO requieren proyecto técnico (como esta, ≤70 kW) se tramitan directamente con la empresa suministradora, y no ante la Dirección General de Industria de la CAIB (que solo interviene cuando hay proyecto técnico, ver BAL-GAS-002)."
         }
       ]
     },
@@ -158,15 +159,15 @@
         },
         {
           "orden": 3,
-          "nombre": "Registro/comunicación de la instalación ante el órgano competente de la CAIB",
-          "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
-          "base_legal": "NO VERIFICADO",
+          "nombre": "Instalaciones receptoras de gas (UDIT-013)",
+          "organismo": "Dirección General de Industria - UDIT (Unitat d'Informació i Tràmit), Govern de les Illes Balears",
+          "base_legal": "RD 919/2006 RIGLO; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-013",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/315206",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "UDIT-013",
           "paralelo_con": null,
           "regla_id": "BAL-GAS-002",
           "documentos_requeridos": [

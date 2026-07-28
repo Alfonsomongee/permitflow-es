@@ -11,7 +11,7 @@
     "inversion_eur": 5000
   },
   "num_tramites_esperado": 2,
-  "tiempo_total_esperado_dias": 30,
-  "validado_por": "Auto - 2026-07-08",
-  "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
+  "tiempo_total_esperado_dias": 12,
+  "validado_por": "Auto - 2026-07-28",
+  "notas_validacion": "Actualizado tras auditoría 2026-07-28: el trámite de puesta en servicio se reatribuyó de una OCA/RIIA inexistente (enlace roto) a la Delegación Territorial / tramitador PUES, con plazos estimados más precisos (2+10 días en vez de la estimación genérica anterior)."
 }

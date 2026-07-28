@@ -2,20 +2,24 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "comunidad_valenciana",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 162/1990' como base legal: verificado que ese decreto real regula la Evaluación de Impacto Ambiental de la Comunitat Valenciana, sin relación con instalaciones térmicas. Se sustituyó por el RITE nacional aplicado directamente, con los trámites reales confirmados: G19316 (5-70 kW) y G450/G94685 (>70 kW), gestionados vía el Registro Integrado Industrial (RII). Se eliminó también la referencia a 'Ley 3/2020 disposición adicional sobre ECA' por no poder confirmarse.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 162/1990' como base legal: verificado que ese decreto real regula la Evaluación de Impacto Ambiental de la Comunitat Valenciana, sin relación con instalaciones térmicas. Se sustituyó por el RITE nacional aplicado directamente, con los trámites reales confirmados: G19316 (5-70 kW) y G450/G94685 (>70 kW), gestionados vía el Registro Integrado Industrial (RII). Se eliminó también la referencia a 'Ley 3/2020 disposición adicional sobre ECA' por no poder confirmarse. Revisión 2026-07-28 (auditoría normativa CV): corregido el organismo (el trámite lo inicia en todos los casos el instalador habilitado, se presenta ante el Servicio Territorial de Industria, Energía y Minas); corregido el enlace roto id_proc=G450 por id_proc=450; la inspección inicial por Organismo de Control (OCA/OCH) se marca ahora como condicional ('cuando sea preceptivo'), no obligatoria de forma incondicional, según sede.gva.es id_proc=450. Añadidas a 'fuentes' el Decreto 141/2012 y la Orden 14/2022, citados por la propia ficha oficial como normativa reguladora de la tramitación industrial en la CV.",
   "huecos_verificacion": [
     "Instalaciones <5 kW térmicos pueden quedar fuera del ámbito de comunicación según el propio RITE — no modelado por falta de campo de tipo de equipo en el schema (mismo hueco detectado en Castilla-La Mancha)",
-    "El régimen de control (OCA/EIC/ECA) exacto para instalaciones >70 kW en la CV se basa en el Decreto 125/2012 (organismos de control), confirmado real, pero no se ha verificado el detalle procedimental exacto",
+    "RESUELTO PARCIALMENTE 2026-07-28: la inspección inicial por OCA/OCH ya no se exige de forma incondicional (antes 'obligatorio': true sin condición); se marca como condicional. PENDIENTE: el régimen procedimental exacto (en qué supuestos es preceptiva) deriva del Decreto 125/2012, confirmado real, pero no se ha verificado el detalle exacto.",
+    "PENDIENTE: no modelada la bifurcación entre el procedimiento 450 (una única empresa instaladora, usado en esta regla) y el 22742 (varias empresas coordinadas por técnico proyectista), por falta de un campo 'número de empresas instaladoras' en el schema.",
+    "PENDIENTE: no modelada la alternativa DECRESTE (declaración responsable de técnicos competentes) al visado colegial del Proyecto Técnico, ni el formulario normalizado MEMISTER para la Memoria Técnica.",
     "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
     "Decreto 125/2012, de 27 de julio (organismos de control en materia de seguridad industrial en la Comunitat Valenciana) — confirmado real",
-    "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y G450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es"
+    "Decreto 141/2012, de 28 de septiembre (simplificación de la puesta en funcionamiento de instalaciones industriales) — confirmado real",
+    "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — confirmado real",
+    "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y 450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es"
   ],
   "reglas": [
     {
@@ -60,7 +64,7 @@
         {
           "orden": 2,
           "nombre": "Comunicación de instalación térmica (5-70 kW)",
-          "organismo": "Conselleria competente en materia de industria",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (trámite iniciado por el instalador habilitado)",
           "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
@@ -129,8 +133,8 @@
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial por Organismo de Control (OCA)",
-          "organismo": "OCA acreditada en la Comunitat Valenciana (Decreto 125/2012)",
+          "nombre": "Inspección inicial por Organismo de Control (OCA/OCH), cuando sea preceptiva",
+          "organismo": "OCA/OCH acreditado en la Comunitat Valenciana (Decreto 125/2012)",
           "base_legal": "RITE RD 1027/2007 art. 15; Decreto 125/2012",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
@@ -149,32 +153,32 @@
             },
             {
               "id": "certificado_oca",
-              "label": "Certificado de inspección de OCA",
-              "descripcion": "",
-              "obligatorio": true
+              "label": "Certificado de inspección de OCA/OCH",
+              "descripcion": "Exigible únicamente cuando la inspección inicial sea preceptiva (Decreto 125/2012); la documentación general de puesta en servicio de id_proc=450 son los formularios web, el proyecto firmado por técnico competente y, si carece de visado, la declaración DECRESTE.",
+              "obligatorio": false
             }
           ],
-          "notas": ""
+          "notas": "Corregido tras auditoría 2026-07-28: antes se exigía de forma incondicional para toda instalación >70 kW; la ficha oficial la condiciona ('cuando sea preceptivo')."
         },
         {
           "orden": 3,
           "nombre": "Comunicación de instalación térmica (>70 kW)",
-          "organismo": "Conselleria competente en materia de industria",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (trámite iniciado por el instalador habilitado)",
           "base_legal": "RITE RD 1027/2007 art. 24",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es)",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=G450",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=450",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "G450",
+          "formulario_ref": "450",
           "paralelo_con": null,
           "regla_id": "CV-CL-002",
           "documentos_requeridos": [
             {
               "id": "certificado_oca",
-              "label": "Certificado de inspección de OCA favorable",
+              "label": "Certificado de inspección de OCA/OCH favorable (si preceptivo)",
               "descripcion": "",
-              "obligatorio": true
+              "obligatorio": false
             },
             {
               "id": "proyecto_tecnico",
@@ -183,7 +187,7 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Enlace corregido a id_proc=450 (id_proc=G450 devolvía página vacía). Aplica exclusivamente al supuesto de una única empresa instaladora; si intervienen varias empresas coordinadas por técnico, el procedimiento real es id_proc=22742, no modelado por falta de campo en el schema."
         }
       ]
     }

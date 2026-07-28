@@ -2,12 +2,13 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "madrid",
   "version": "1.1.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
-  "aviso": "Fronteras RITE corregidas y registro EICI modelado. Plazos e importes no se automatizan.",
+  "aviso": "Fronteras RITE corregidas y registro EICI modelado. Plazos no se automatizan.",
   "huecos_verificacion": [
-    "Confirmar el importe vigente de la tasa y la tarifa EICI en cada expediente."
+    "Confirmar el importe vigente de la tasa y la tarifa EICI en cada expediente.",
+    "RESUELTO (2026-07-28): importes de tasa de registro incorporados (memoria técnica 3,12 €/6,24 €; proyecto 15,60 €/31,22 €/52,04 €) según tarifario vigente publicado en sede.comunidad.madrid, sección 'Pago de tasas' del trámite de instalaciones térmicas no industriales."
   ],
   "fuentes": [
     "RD 1027/2007 (RITE)",
@@ -133,7 +134,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
-          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
+          "coste_estimado": "Tasa de registro: 3,12 € (memoria técnica en vivienda) / 6,24 € (memoria técnica en uso no residencial), según tarifario vigente de la Comunidad de Madrid",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-AERO-MTD",
@@ -213,7 +214,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
-          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
+          "coste_estimado": "Tasa de registro por tramos de presupuesto: 15,60 € (hasta 6.000 €); 31,22 € (de 6.000,01 a 60.000 €); 52,04 € (más de 60.000 €), según tarifario vigente de la Comunidad de Madrid",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-AERO-PROYECTO",

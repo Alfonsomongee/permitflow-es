@@ -2,7 +2,7 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "castilla_la_mancha",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 34/2011' como base legal: no se ha localizado esta norma. Sí existe un decreto real de Castilla-La Mancha en esta materia — el Decreto 13/2010, de 23 de marzo — pero regula exclusivamente las tarifas que las empresas distribuidoras de gas pueden facturar a los usuarios (altas, enganches, inspecciones periódicas), no la legalización de instalaciones. La ficha oficial de la JCCM para instalaciones de gas (trámite 1002259) cita únicamente el RD 919/2006 (RIGLO) nacional. Se corrigió el bug de cobertura: si 'uso' llegaba None, ni la regla 1 (residencial/comercial) ni la regla 2 (colectivo) disparaban; la partición ahora depende solo de 'potencia_kw'.",
@@ -10,12 +10,13 @@
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de legalización de instalaciones de gas (el Decreto 13/2010 real solo regula tarifas)",
     "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar",
     "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso residencial/comercial/colectivo; si esa distinción es normativamente relevante, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw",
-    "Tasas y plazos legales no verificados con detalle"
+    "Tasas y plazos legales no verificados con detalle",
+    "RESUELTO 2026-07-28 (auditoría independiente): CLM-GBP-002 orden 3 enlazaba al trámite 1002259 ('Registro de una estación de servicio para vehículos a gas', ICG-05), un procedimiento distinto al de legalización de instalaciones receptoras de gas. Corregido a 1002260 ('Registro de una instalación receptora de combustibles gaseosos', ICG-07), coherente con la base_legal ya citada en esa misma regla."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
     "Decreto 13/2010, de 23 de marzo (Castilla-La Mancha) — regula tarifas de empresas distribuidoras de gas, NO la legalización de instalaciones; se cita solo como referencia de contexto",
-    "Ficha de trámite 1002259 'Instalación receptora de gas' - jccm.es"
+    "Ficha de trámite 1002260 'Registro de una instalación receptora de combustibles gaseosos' - jccm.es"
   ],
   "reglas": [
     {
@@ -140,7 +141,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramites/1002259",
+          "plataforma_url": "https://www.jccm.es/tramites/1002260",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -159,7 +160,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo de 30 días desde puesta en servicio (régimen general ITC-ICG-07 3.6, consistente con lo confirmado en Asturias); no verificado el plazo exacto específico de Castilla-La Mancha."
+          "notas": "Plazo de 30 días desde puesta en servicio (régimen general ITC-ICG-07 3.6, consistente con lo confirmado en Asturias); no verificado el plazo exacto específico de Castilla-La Mancha. CORREGIDO 2026-07-28: plataforma_url apuntaba al trámite 1002259 ('Registro de una estación de servicio para vehículos a gas', objeto distinto); se sustituye por 1002260 ('Registro de una instalación receptora de combustibles gaseosos'), el trámite real de legalización."
         }
       ]
     }

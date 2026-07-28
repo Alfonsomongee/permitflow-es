@@ -7,8 +7,8 @@
     "uso": "residencial", "tension": "BT",
     "municipio": "Sevilla"
   },
-  "num_tramites_esperado": 4,
-  "tiempo_total_esperado_dias": 40,
-  "validado_por": "Auto - 2026-07-08",
-  "notas_validacion": "Autogenerado a partir de los tests unitarios anteriores."
+  "num_tramites_esperado": 5,
+  "tiempo_total_esperado_dias": 55,
+  "validado_por": "Auto - 2026-07-28",
+  "notas_validacion": "Actualizado tras auditoría 2026-07-28: se añadió el trámite CRÍTICO que faltaba (Solicitud del CAU a la distribuidora, orden 1, +15 días), ausente en la versión anterior pese a ser obligatorio y previo al resto del itinerario (RD 1183/2020)."
 }

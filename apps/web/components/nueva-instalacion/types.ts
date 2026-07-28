@@ -24,6 +24,21 @@ export const FORM_INITIAL: FormState = {
   nivel_tension_generacion: "",
   nivel_tension_conexion: "",
   modalidad_autoconsumo: "",
+  ubicacion_suelo: "",
+  requiere_acceso_conexion: undefined,
+  inversion_eur: "",
+  potencia_resultante_kw: "",
+  presion_resultante_bar: "",
+  es_ampliacion: false,
+  incremento_potencia_pct: "",
+  uso_edificio: "",
+  ventilacion_garaje: "",
+  numero_plazas_garaje: "",
+  garaje_existente: undefined,
+  acs_centralizada: undefined,
+  incluida_ambito_legionella: undefined,
+  dispone_acumulacion: undefined,
+  dispone_circuito_retorno: undefined,
 };
 
 export type StepId = 1 | 2 | 3;

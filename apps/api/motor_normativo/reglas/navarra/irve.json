@@ -2,7 +2,7 @@
   "tipo_instalacion": "irve",
   "comunidad": "navarra",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de IRVE). No se ha localizado normativa foral específica de IRVE; se aplica el régimen general de baja tensión confirmado en el lote de FV de esta comunidad (Orden Foral 60/2015, que sustituye a la derogada Orden Foral 181/2003) más ITC-BT-52 nacional. Se aplican los umbrales nacionales ya verificados en comunidades anteriores (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4, exigen proyecto técnico.",
@@ -10,12 +10,14 @@
     "No se ha localizado normativa foral navarra específica de IRVE",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28 (auditoría normativa): la fecha de la Orden Foral 60/2015 estaba mal transcrita como 'de 20 de marzo' (esa es la fecha de publicación en BON n.º 54); la fecha correcta de la norma es 'de 5 de marzo de 2015'. Corregido en 'fuentes'.",
+    "VERIFICADO 2026-07-28: el valor 'via_publica' de 'ubicacion_irve' usado en las condiciones de NAV-IRVE-001/002 SÍ es válido — está en el Literal real de schemas/clasificador.py (línea 40) y ya fue añadido a VALORES_VALIDOS en motor_normativo/validar_reglas.py; no es código muerto. No se ha modificado la condición."
   ],
   "fuentes": [
     "RD 1053/2014, por el que se aprueba la ITC-BT-52",
     "RD 842/2002 REBT",
-    "Orden Foral 60/2015, de 20 de marzo (BON n.º 54) — vigente, sustituye a la derogada Orden Foral 181/2003 sobre instalaciones de baja tensión",
+    "Orden Foral 60/2015, de 5 de marzo de 2015 (BON n.º 54, de 20 de marzo de 2015) — vigente, sustituye a la derogada Orden Foral 181/2003 sobre instalaciones de baja tensión",
     "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
   ],
   "reglas": [

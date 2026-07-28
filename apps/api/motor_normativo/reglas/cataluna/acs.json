@@ -1,13 +1,14 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cataluna",
-  "version": "1.2.0",
-  "ultima_revision": "2026-07-27",
+  "version": "1.2.1",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "aviso": "Reglas RITE y sanitarias revisadas. Los plazos y tasas no se automatizan. La inspección periódica de ACS centralizada se mantiene con verificación parcial hasta confirmar literalmente la ITA 9 completa.",
   "huecos_verificacion": [
-    "Confirmar directamente en el texto oficial completo de la ITA 9 el alcance y periodicidad de la inspección de ACS centralizada >70 kW con acumulación o retorno."
+    "Confirmar directamente en el texto oficial completo de la ITA 9 el alcance y periodicidad de la inspección de ACS centralizada >70 kW con acumulación o retorno.",
+    "Revisión 2026-07-28: confirmado que CAT-ACS-LEGIONELLA ya existe, usa incluida_ambito_legionella y cita Decret 352/2004 + RD 487/2022 + RD 614/2024 como base legal; no se detectaron cambios adicionales necesarios."
   ],
   "fuentes": [
     "RITE RD 1027/2007",

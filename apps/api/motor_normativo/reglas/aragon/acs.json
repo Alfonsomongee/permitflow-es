@@ -1,30 +1,59 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "aragon",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
-  "estado": "verificado",
-  "aviso": "Reglas de potencias base actualizadas, y añadida capa sanitaria de legionelosis autonómica.",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-28",
+  "estado": "verificado_parcialmente",
+  "aviso": "Reglas de potencias base actualizadas, y añadida capa sanitaria de legionelosis autonómica. Auditoría 2026-07-28: corregido el umbral de proyecto RITE (>70 -> >=70 kW), añadido el trámite de comunicación de puesta en servicio para >=70 kW (faltaba), añadida la exención <5 kW (homogeneizada con climatización), matizada la vigencia del Decreto 136/2005 y rellenada plataforma_url. Persisten huecos (ver huecos_verificacion); 'estado' se mantiene en verificado_parcialmente.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
     "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón.",
+    "Decreto 136/2005: existe y su número/fecha/objeto son correctos (BOA 20/07/2005), pero desarrolla el RD 865/2003, derogado por el RD 487/2022 (en vigor 02/01/2023). Su vigencia efectiva en lo que remita al RD 865/2003 es dudosa; no se ha localizado norma autonómica de adaptación al RD 487/2022. Se mantiene la cita marcada como 'vigente solo en lo no opuesto al RD 487/2022'.",
+    "Normativa autonómica de procedimiento para la comunicación de puesta en servicio de instalación térmica en ACS: no se ha localizado la norma de procedimiento autonómica específica (mismo hueco que en climatizacion_aerotermia.json); 'base_legal' queda solo con el RITE estatal.",
+    "plataforma_url del trámite de comunicación de puesta en servicio: rellenada con la página general de RITE/ACS de aragon.es (número de trámite específico no localizado)."
   ],
   "fuentes": [
     "RITE RD 1027/2007, modificado por RD 178/2021",
-    "Decreto 136/2005, de 5 de julio, del Gobierno de Aragón, por el que se establecen medidas especiales para la prevención y control de la legionelosis",
-    "RD 487/2022 modificado por RD 614/2024 (legionelosis)"
+    "Decreto 136/2005, de 5 de julio, del Gobierno de Aragón, por el que se establecen medidas especiales para la prevención y control de la legionelosis -- vigente solo en lo no opuesto al RD 487/2022 (ver huecos_verificacion)",
+    "RD 487/2022 modificado por RD 614/2024 (legionelosis)",
+    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
   ],
   "reglas": [
     {
-      "id": "ARA-ACS-001",
-      "descripcion": "ACS <=70 kW: memoria tecnica",
+      "id": "ARA-ACS-000",
+      "descripcion": "Instalacion de ACS < 5 kW: exenta de registro autonómico (añadido 2026-07-28 para homogeneizar con climatizacion_aerotermia.json ARA-CLIM-000, mismo régimen RITE)",
       "condicion": {
-        "<=": [
+        "<": [
           {
             "var": "potencia_kw"
           },
-          70
+          5
+        ]
+      },
+      "tramites": []
+    },
+    {
+      "id": "ARA-ACS-001",
+      "descripcion": "ACS >=5 kW y <70 kW: memoria tecnica (corregido 2026-07-28: excluido el tramo <5kW, que pasa a ARA-ACS-000; el caso exacto de 70 kW pasa a ARA-ACS-002 segun RITE IT 1)",
+      "condicion": {
+        "and": [
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -58,8 +87,8 @@
           "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/instalaciones-y-equipos-industriales/rite/acs",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -72,15 +101,15 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la página oficial de RITE/ACS de aragon.es (número de trámite específico no localizado). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
         }
       ]
     },
     {
       "id": "ARA-ACS-002",
-      "descripcion": "ACS >70 kW: proyecto tecnico y certificado OCA",
+      "descripcion": "ACS >=70 kW: proyecto tecnico, certificado OCA y comunicacion de puesta en servicio (corregido 2026-07-28: umbral RITE es >=70 kW; añadido el tramite de comunicacion de puesta en servicio que faltaba, presente en ARA-ACS-001 y en climatizacion_aerotermia.json ARA-CLIM-002 para el mismo umbral)",
       "condicion": {
-        ">": [
+        ">=": [
           {
             "var": "potencia_kw"
           },
@@ -133,6 +162,29 @@
             }
           ],
           "notas": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicacion de puesta en servicio de instalacion termica en edificios",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
+          "base_legal": "RITE RD 1027/2007",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": 15,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/instalaciones-y-equipos-industriales/rite/acs",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_acs",
+              "label": "Proyecto",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "AÑADIDO 2026-07-28: faltaba este trámite para el tramo >=70 kW; ARA-ACS-001 (<70 kW) sí lo tenía, dejando el itinerario incompleto para mayor potencia. Se replica el mismo trámite y misma plataforma/URL usados en ARA-ACS-001 y en ARA-CLIM-002 (climatizacion_aerotermia.json) para el equivalente >=70 kW."
         }
       ]
     },
@@ -152,7 +204,7 @@
           "orden": 1,
           "nombre": "Evaluación de Riesgo (ER) y Plan de Mantenimiento Higiénico-Sanitario (PMHS)",
           "organismo": "Titular de la instalación / Empresa de mantenimiento",
-          "base_legal": "Decreto 136/2005, de 5 de julio; RD 487/2022",
+          "base_legal": "RD 487/2022 (modificado por RD 614/2024); Decreto 136/2005, de 5 de julio, del Gobierno de Aragón -- vigente solo en lo no opuesto al RD 487/2022 (desarrollaba el RD 865/2003, derogado)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,

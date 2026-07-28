@@ -1,14 +1,17 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "pais_vasco",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'potencia_total_kw' (no existe; el campo real es 'potencia_kw'). Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminó 'Decreto 213/2012' como base legal: es un decreto real del País Vasco, pero su objeto es la contaminación acústica de la CAPV — no tiene ninguna relación con instalaciones de gas. Sustituido por el RIGLO nacional (RD 919/2006) directo, más el Decreto 229/2012 (simplificación del procedimiento para la puesta en servicio de instalaciones industriales), confirmado real como norma general de puesta en servicio industrial en el País Vasco. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'potencia_total_kw' (no existe; el campo real es 'potencia_kw'). Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminó 'Decreto 213/2012' como base legal: es un decreto real del País Vasco, pero su objeto es la contaminación acústica de la CAPV — no tiene ninguna relación con instalaciones de gas. Sustituido por el RIGLO nacional (RD 919/2006) directo, más el Decreto 229/2012 (simplificación del procedimiento para la puesta en servicio de instalaciones industriales), confirmado real como norma general de puesta en servicio industrial en el País Vasco. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar. Revisión 2026-07-28: 'plataforma_url' (https://www.euskadi.eus/industria-energia-minas/) devolvía página vacía/rota; corregida a la ficha específica 'Instalación receptora de gas'. Se añadió el trámite de acometida/alta de suministro con la distribuidora de gas.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica vasca específica de gas más allá del marco general de simplificación industrial (Decreto 229/2012)",
-    "Tasas y plazos legales no verificados con detalle"
+    "Tasas y plazos legales no verificados con detalle",
+    "RESUELTO 2026-07-28: 'plataforma_url' corregida de https://www.euskadi.eus/industria-energia-minas/ (rota, sin contenido) a https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/ (ficha específica de instalación receptora de gas).",
+    "RESUELTO 2026-07-28: se añadió el trámite de acometida/alta de suministro con la distribuidora de gas (Nedgia Naturgy u otra según zona), hueco no declarado detectado en la auditoría.",
+    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
@@ -20,9 +23,11 @@
       "id": "PV-GAS-001",
       "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
       "condicion": {
-        "==": [
-          { "var": "presion_bar" },
-          "5+"
+        ">": [
+          {
+            "var": "presion_bar"
+          },
+          5
         ]
       },
       "tramites": [
@@ -57,7 +62,7 @@
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
           "plataforma": "Euskadi.eus - Ventanilla de Industria",
-          "plataforma_url": "https://www.euskadi.eus/industria-energia-minas/",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -77,6 +82,29 @@
             }
           ],
           "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Acometida y alta de suministro con la distribuidora de gas",
+          "organismo": "Empresa distribuidora de gas (Nedgia Naturgy u otra según zona)",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": "Distribuidora (Nedgia Naturgy u otra)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": "PV-GAS-001",
+          "regla_id": "PV-GAS-001",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_acometida_gas",
+              "label": "Solicitud de acometida y alta de punto de suministro",
+              "descripcion": "Trámite ante la distribuidora de gas, en paralelo al Certificado de Instalación. Hueco no declarado detectado en auditoría 2026-07-28.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido en revisión 2026-07-28."
         }
       ]
     },
@@ -85,8 +113,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -127,7 +169,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 20,
           "plataforma": "Euskadi.eus - Ventanilla de Industria",
-          "plataforma_url": "https://www.euskadi.eus/industria-energia-minas/",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -147,6 +189,29 @@
             }
           ],
           "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Acometida y alta de suministro con la distribuidora de gas",
+          "organismo": "Empresa distribuidora de gas (Nedgia Naturgy u otra según zona)",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": "Distribuidora (Nedgia Naturgy u otra)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": "PV-GAS-002",
+          "regla_id": "PV-GAS-002",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_acometida_gas",
+              "label": "Solicitud de acometida y alta de punto de suministro",
+              "descripcion": "Trámite ante la distribuidora de gas, en paralelo al Certificado de Instalación. Hueco no declarado detectado en auditoría 2026-07-28.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido en revisión 2026-07-28."
         }
       ]
     },
@@ -155,8 +220,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { ">": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -191,7 +270,7 @@
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
           "plataforma": "Euskadi.eus - Ventanilla de Industria",
-          "plataforma_url": "https://www.euskadi.eus/industria-energia-minas/",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -211,6 +290,29 @@
             }
           ],
           "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Acometida y alta de suministro con la distribuidora de gas",
+          "organismo": "Empresa distribuidora de gas (Nedgia Naturgy u otra según zona)",
+          "base_legal": "RIGLO RD 919/2006",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": "Distribuidora (Nedgia Naturgy u otra)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": "PV-GAS-003",
+          "regla_id": "PV-GAS-003",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_acometida_gas",
+              "label": "Solicitud de acometida y alta de punto de suministro",
+              "descripcion": "Trámite ante la distribuidora de gas, en paralelo al Certificado de Instalación. Hueco no declarado detectado en auditoría 2026-07-28.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido en revisión 2026-07-28."
         }
       ]
     }

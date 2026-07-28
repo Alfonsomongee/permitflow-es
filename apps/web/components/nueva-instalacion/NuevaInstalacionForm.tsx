@@ -60,7 +60,17 @@ export function NuevaInstalacionForm() {
         "combustible",
         "presion_bar",
         "tension",
-        "modalidad_autoconsumo"
+        "modalidad_autoconsumo",
+        "ubicacion_suelo",
+        "requiere_acceso_conexion",
+        "potencia_resultante_kw",
+        "presion_resultante_bar",
+        "incremento_potencia_pct",
+        "uso_edificio",
+        "ventilacion_garaje",
+        "numero_plazas_garaje",
+        "garaje_existente",
+        "incluida_ambito_legionella",
       ];
     }
 

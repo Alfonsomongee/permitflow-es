@@ -1,22 +1,25 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "pais_vasco",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-27",
+  "version": "0.9.2",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. El Decreto 48/2020, de 31 de marzo, está CONFIRMADO real (regula autorización de instalaciones de producción/transporte/distribución eléctrica, incluido autoconsumo). Se confirmó además el umbral de 100 kW específicamente para el País Vasco en fuente independiente. Se corrigieron los id de regla duplicados 'PV-FV-3' (tres veces) renombrándolos a sufijos A/B/C. Se bajó 'nivel_verificacion' de 'verificada' a 'generica': las propias notas del fichero original reconocían importes 'estimados' y dependientes de la inversión, lo que contradice el requisito de verificación total del proyecto. IMPORTANTE: el campo 'inversion_eur' usado en las reglas de recargo de tasa NO está en el schema del ClasificadorInput — mismo hueco detectado en Comunidad Valenciana y Madrid.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. El Decreto 48/2020, de 31 de marzo, está CONFIRMADO real (regula autorización de instalaciones de producción/transporte/distribución eléctrica, incluido autoconsumo). Se corrigieron los id de regla duplicados 'PV-FV-3' (tres veces) renombrándolos a sufijos A/B/C. Se bajó 'nivel_verificacion' de 'verificada' a 'generica': las propias notas del fichero original reconocían importes 'estimados' y dependientes de la inversión, lo que contradice el requisito de verificación total del proyecto. Revisión 2026-07-28: el campo 'inversion_eur' ya se captura en el formulario web y forma parte del ClasificadorInput (auditoría normativa País Vasco), por lo que las reglas PV-FV-003A/B/C dejan de ser huérfanas. Se corrigió 'plataforma_url' (apuntaba a una página genérica de 'Servicios') y se añadió el trámite de acceso y conexión (CAU) con la distribuidora en las reglas con excedentes.",
   "huecos_verificacion": [
-    "CORRECCIÓN BLOQUEANTE: el campo 'inversion_eur' no está en la lista de campos del ClasificadorInput. Las reglas PV-FV-003A/B/C no dispararán hasta resolverlo — mismo hueco detectado en Comunidad Valenciana y Madrid",
-    "Importes de tasa (128,10€ / 204,96€ / 787,77€) no verificados con detalle contra el Decreto Legislativo 1/2025 citado",
-    "No se ha verificado si el País Vasco ha elevado el umbral de exención de autorización de 100 kW a 500 kW — el fichero original afirma que NO existe tal extensión, pero no he podido confirmar esa negación de forma independiente en esta revisión"
+    "RESUELTO 2026-07-28: el campo 'inversion_eur' ya está incluido en ClasificadorInput y se captura en el formulario web de fotovoltaica; las reglas PV-FV-003A/B/C disparan correctamente.",
+    "RESUELTO 2026-07-28: 'plataforma_url' corregida de la página genérica 'servicios/0043312' a la ficha específica del trámite [GE] (https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/).",
+    "RESUELTO 2026-07-28: se añadió el trámite de acceso y conexión (CAU) con la empresa distribuidora en las reglas con excedentes (PV-FV-002, 003A/B/C), hueco no declarado detectado en la auditoría.",
+    "Importes de tasa (128,10€ / 204,96€ / 787,77€) no verificados con detalle contra el Decreto Legislativo 1/2025 citado — NO VERIFICABLE en esta revisión (requiere lectura del art. 132 completo).",
+    "El umbral de 100 kW de exención de autorización es el umbral GENERAL ESTATAL (RD 1955/2000 / Ley 24/2013 art. 53.2), aplicable en toda España, no una particularidad exclusiva del País Vasco — ver nota corregida en PV-FV-002.",
+    "No se ha verificado si el País Vasco ha elevado el umbral de exención de autorización de 100 kW a 500 kW — NO VERIFICABLE en esta revisión."
   ],
   "fuentes": [
     "Ley 24/2013 art. 53",
     "RD 244/2019",
     "Decreto 48/2020, de 31 de marzo, del Gobierno Vasco (procedimientos de autorización administrativa de instalaciones de producción, transporte y distribución de energía eléctrica) — CONFIRMADO real",
     "Decreto Legislativo 1/2025, actualizado por Ley 7/2025 de Presupuestos, Título VI Cap. I art. 129-132 — no verificado en esta revisión",
-    "Ficha de trámite [GE] 'Tramitación de instalaciones de generación de energía eléctrica, incluido autoconsumo' - euskadi.eus"
+    "Ficha de trámite [GE] 'Tramitación de instalaciones de generación de energía eléctrica, incluido autoconsumo' - euskadi.eus - https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/"
   ],
   "reglas": [
     {
@@ -34,7 +37,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GE",
           "paralelo_con": null,
@@ -69,7 +72,7 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GE",
           "paralelo_con": null,
@@ -82,7 +85,30 @@
               "obligatorio": true
             }
           ],
-          "notas": "Umbral de 100 kW confirmado específicamente para el País Vasco en fuente independiente."
+          "notas": "Umbral de 100 kW: umbral general estatal (RD 1955/2000 / Ley 24/2013 art. 53.2) aplicable en toda España, también en el País Vasco. No es una particularidad autonómica diferenciada."
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de acceso y conexión (CAU) a la distribuidora",
+          "organismo": "Empresa distribuidora eléctrica (i-DE Iberdrola u otra según zona)",
+          "base_legal": "RD 244/2019; Ley 24/2013 art. 33",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "Distribuidora (i-DE Iberdrola u otra)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": "PV-FV-002",
+          "regla_id": "PV-FV-002",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de contrato de acceso y uso de las redes (CAU)",
+              "descripcion": "Trámite ante la distribuidora, en paralelo a la tramitación administrativa GE. Hueco no declarado detectado en auditoría 2026-07-28.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28."
         }
       ]
     },
@@ -104,7 +130,7 @@
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
           "coste_estimado": "128,10 € (NO VERIFICADO importe exacto)",
           "formulario_ref": "GE",
           "paralelo_con": null,
@@ -118,6 +144,29 @@
             }
           ],
           "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53)."
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de acceso y conexión (CAU) a la distribuidora",
+          "organismo": "Empresa distribuidora eléctrica (i-DE Iberdrola u otra según zona)",
+          "base_legal": "RD 244/2019; Ley 24/2013 art. 33",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "Distribuidora (i-DE Iberdrola u otra)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": "PV-FV-003A",
+          "regla_id": "PV-FV-003A",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de contrato de acceso y uso de las redes (CAU)",
+              "descripcion": "Trámite ante la distribuidora, en paralelo a la autorización administrativa. Hueco no declarado detectado en auditoría 2026-07-28.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28."
         }
       ]
     },
@@ -139,7 +188,7 @@
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
           "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
           "formulario_ref": "GE",
           "paralelo_con": null,
@@ -153,6 +202,29 @@
             }
           ],
           "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53)."
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de acceso y conexión (CAU) a la distribuidora",
+          "organismo": "Empresa distribuidora eléctrica (i-DE Iberdrola u otra según zona)",
+          "base_legal": "RD 244/2019; Ley 24/2013 art. 33",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "Distribuidora (i-DE Iberdrola u otra)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": "PV-FV-003B",
+          "regla_id": "PV-FV-003B",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de contrato de acceso y uso de las redes (CAU)",
+              "descripcion": "Trámite ante la distribuidora, en paralelo a la autorización administrativa. Hueco no declarado detectado en auditoría 2026-07-28.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28."
         }
       ]
     },
@@ -174,7 +246,7 @@
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/servicios/0043312",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
           "coste_estimado": "204,96 € a 787,77 € según tramo (NO VERIFICADO importe exacto)",
           "formulario_ref": "GE",
           "paralelo_con": null,
@@ -188,6 +260,29 @@
             }
           ],
           "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53). El fichero original distinguía tramos 600k-1.5M€ y >1.5M€ con tasas de 204,96€ y 787,77€ respectivamente — no verificados con detalle, fusionados aquí en una sola regla hasta confirmar."
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de acceso y conexión (CAU) a la distribuidora",
+          "organismo": "Empresa distribuidora eléctrica (i-DE Iberdrola u otra según zona)",
+          "base_legal": "RD 244/2019; Ley 24/2013 art. 33",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "Distribuidora (i-DE Iberdrola u otra)",
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": "PV-FV-003C",
+          "regla_id": "PV-FV-003C",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de contrato de acceso y uso de las redes (CAU)",
+              "descripcion": "Trámite ante la distribuidora, en paralelo a la autorización administrativa. Hueco no declarado detectado en auditoría 2026-07-28.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28."
         }
       ]
     }

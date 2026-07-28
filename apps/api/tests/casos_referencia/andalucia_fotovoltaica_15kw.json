@@ -8,8 +8,8 @@
     "municipio": "Sevilla",
     "inversion_eur": 5000
   },
-  "num_tramites_esperado": 4,
-  "tiempo_total_esperado_dias": 46,
-  "validado_por": "Auto - 2026-07-08",
-  "notas_validacion": "Actualizado tras la división de la regla AND-FV-001 en AND-FV-001 y AND-FV-001B (proyecto técnico para 10-15kW)."
+  "num_tramites_esperado": 5,
+  "tiempo_total_esperado_dias": 61,
+  "validado_por": "Auto - 2026-07-28",
+  "notas_validacion": "Actualizado tras auditoría 2026-07-28: se añadió el trámite CRÍTICO que faltaba (Solicitud del CAU a la distribuidora, orden 1, +15 días), ausente en la versión anterior pese a ser obligatorio y previo al resto del itinerario (RD 1183/2020)."
 }

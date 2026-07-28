@@ -2,19 +2,20 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "andalucia",
   "version": "1.3.0",
-  "ultima_revision": "2026-07-24",
+  "ultima_revision": "2026-07-28",
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
     "Ley 24/2013 Sector Eléctrico",
     "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 59/2005 Junta de Andalucía",
+    "Decreto 59/2005, de 1 de marzo (Andalucía) -- procedimiento de establecimientos industriales",
     "Orden 5 marzo 2013 Junta de Andalucía",
-    "Ley 7/2021 Cambio Climático art. 16",
+    "Autoconsumo -- Junta de Andalucía (Consejería de Industria, Energía y Minas): https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/energia/autoconsumo.html -- fuente primaria verificada 2026-07-27 para CAU, RADNE, RAIPEE, autorización de explotación y fase de activación/contrato",
     "Decreto-ley 2/2018, de 26 de junio (Andalucía), disposición adicional única — verificado gap 5.3 (Fase 0 investigación)",
-    "Decreto-ley 3/2024, de 6 de febrero (Andalucía)",
+    "Resolución de 28 de septiembre de 2023, Secretaría General de Energía (BOJA 2023/193/69) -- aprueba la ficha técnica descriptiva de BT del aplicativo PUES vigente; sustituye a la cita anterior 'Decreto-ley 3/2024, de 6 de febrero', no localizada con fuente admisible tras auditoría 2026-07-27",
     "Resolucion de 13 de octubre de 2023, Secretaria General de Energia -- VEAJA/9588 confirmado (Fase 1, bloque 2.2)",
-    "RD 477/2021 y cierre de convocatoria -- verificado (Fase 1, bloque 2.4)"
+    "RD 477/2021 y cierre de convocatoria -- verificado (Fase 1, bloque 2.4)",
+    "Manual de tramitación de autoconsumo, Secretaría General de Energía, noviembre 2025: https://www.juntadeandalucia.es/sites/default/files/inline-files/2025/11/MANUAL_tramitacion_autoconsumo_noviembre_2025.pdf"
   ],
   "reglas": [
     {
@@ -43,6 +44,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
           "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
@@ -75,7 +97,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE)",
           "organismo": "Instalador electricista autorizado",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -96,14 +118,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Autoconsumo",
           "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
           "base_legal": "RD 244/2019 art. 11; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "Tasa Modelo 046: ~30–80 € según potencia instalada (epígrafe generación BT)",
           "documentos_requeridos": [
             {
@@ -141,7 +163,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
+          "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -164,7 +186,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación.",
+          "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -215,6 +237,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "ITC-FV-03 (BOJA núm. 98, 18/05/2007); REBT RD 842/2002; RD 244/2019",
@@ -235,7 +278,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -256,14 +299,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
           "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
           "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "62.25 EUR",
           "documentos_requeridos": [
             {
@@ -289,7 +332,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
+          "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
           "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
@@ -312,7 +355,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -363,6 +406,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "ITC-FV-03 (BOJA núm. 98, 18/05/2007); REBT RD 842/2002; RD 244/2019",
@@ -383,7 +447,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -404,14 +468,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
           "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
           "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
@@ -437,7 +501,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
+          "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
           "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
@@ -460,7 +524,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -523,6 +587,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "ITC-FV-03 (BOJA núm. 98, 18/05/2007); REBT RD 842/2002; RD 244/2019",
@@ -543,7 +628,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -564,14 +649,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
           "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
           "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "100.00 EUR (estimado tramo medio)",
           "documentos_requeridos": [
             {
@@ -597,7 +682,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
+          "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
           "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
@@ -620,7 +705,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -671,6 +756,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "ITC-FV-03 (BOJA núm. 98, 18/05/2007); REBT RD 842/2002; RD 244/2019",
@@ -691,7 +797,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -712,14 +818,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
           "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
           "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "159.18 EUR",
           "documentos_requeridos": [
             {
@@ -745,7 +851,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
+          "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
           "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
@@ -768,7 +874,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -823,6 +929,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
@@ -839,11 +966,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES adaptado el 04-03-2024 tras el Decreto-ley 3/2024, de 6 de febrero). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69) -- corregido tras auditoría 2026-07-27: la referencia anterior al 'Decreto-ley 3/2024, de 6 de febrero' no se ha localizado con fuente admisible). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -864,14 +991,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
           "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
           "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "62.25 EUR",
           "documentos_requeridos": [
             {
@@ -903,21 +1030,21 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
-          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "orden": 5,
+          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
           "coste_estimado": "62.25 EUR",
           "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
             {
               "id": "formulario_rac",
-              "label": "Formulario de inscripción RAC (sede MITECO)",
-              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO. Requiere certificado digital o Cl@ve. La distribuidora puede realizar este trámite en nombre del titular.",
+              "label": "Formulario de inscripción RADNE (sede MITECO)",
+              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
               "obligatorio": true
             },
             {
@@ -927,11 +1054,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "El RAC es obligatorio para instalaciones con excedentes. Para autoconsumo sin excedentes es voluntario pero recomendable. La distribuidora lo realiza automáticamente en muchos casos.",
+          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
-          "orden": 5,
+          "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -948,7 +1075,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -1003,6 +1130,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
@@ -1019,11 +1167,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES adaptado el 04-03-2024 tras el Decreto-ley 3/2024, de 6 de febrero). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69) -- corregido tras auditoría 2026-07-27: la referencia anterior al 'Decreto-ley 3/2024, de 6 de febrero' no se ha localizado con fuente admisible). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -1044,14 +1192,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
           "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
           "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
@@ -1083,21 +1231,21 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
-          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "orden": 5,
+          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
           "coste_estimado": "Depende de la inversión exacta",
           "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
             {
               "id": "formulario_rac",
-              "label": "Formulario de inscripción RAC (sede MITECO)",
-              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO. Requiere certificado digital o Cl@ve. La distribuidora puede realizar este trámite en nombre del titular.",
+              "label": "Formulario de inscripción RADNE (sede MITECO)",
+              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
               "obligatorio": true
             },
             {
@@ -1107,11 +1255,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "El RAC es obligatorio para instalaciones con excedentes. Para autoconsumo sin excedentes es voluntario pero recomendable. La distribuidora lo realiza automáticamente en muchos casos.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
-          "orden": 5,
+          "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -1128,7 +1276,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -1195,6 +1343,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
@@ -1211,11 +1380,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES adaptado el 04-03-2024 tras el Decreto-ley 3/2024, de 6 de febrero). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69) -- corregido tras auditoría 2026-07-27: la referencia anterior al 'Decreto-ley 3/2024, de 6 de febrero' no se ha localizado con fuente admisible). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -1236,14 +1405,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
           "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
           "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "100.00 EUR (estimado tramo medio)",
           "documentos_requeridos": [
             {
@@ -1275,21 +1444,21 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
-          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "orden": 5,
+          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
           "coste_estimado": "100.00 EUR (estimado tramo medio)",
           "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
             {
               "id": "formulario_rac",
-              "label": "Formulario de inscripción RAC (sede MITECO)",
-              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO. Requiere certificado digital o Cl@ve. La distribuidora puede realizar este trámite en nombre del titular.",
+              "label": "Formulario de inscripción RADNE (sede MITECO)",
+              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
               "obligatorio": true
             },
             {
@@ -1299,11 +1468,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "El RAC es obligatorio para instalaciones con excedentes. Para autoconsumo sin excedentes es voluntario pero recomendable. La distribuidora lo realiza automáticamente en muchos casos.",
+          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
-          "orden": 5,
+          "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -1320,7 +1489,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -1375,6 +1544,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
@@ -1391,11 +1581,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES adaptado el 04-03-2024 tras el Decreto-ley 3/2024, de 6 de febrero). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69) -- corregido tras auditoría 2026-07-27: la referencia anterior al 'Decreto-ley 3/2024, de 6 de febrero' no se ha localizado con fuente admisible). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -1416,14 +1606,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
           "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
           "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "159.18 EUR",
           "documentos_requeridos": [
             {
@@ -1455,21 +1645,21 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
-          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "orden": 5,
+          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
           "coste_estimado": "159.18 EUR",
           "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
             {
               "id": "formulario_rac",
-              "label": "Formulario de inscripción RAC (sede MITECO)",
-              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO. Requiere certificado digital o Cl@ve. La distribuidora puede realizar este trámite en nombre del titular.",
+              "label": "Formulario de inscripción RADNE (sede MITECO)",
+              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
               "obligatorio": true
             },
             {
@@ -1479,11 +1669,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "El RAC es obligatorio para instalaciones con excedentes. Para autoconsumo sin excedentes es voluntario pero recomendable. La distribuidora lo realiza automáticamente en muchos casos.",
+          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
-          "orden": 5,
+          "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -1500,7 +1690,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -1531,6 +1721,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
@@ -1551,7 +1762,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Autorización administrativa previa y de construcción",
           "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
@@ -1579,7 +1790,35 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
+          "nombre": "Autorización administrativa de explotación",
+          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
+          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
+          "coste_estimado": "320.65 EUR",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_fin_obra_fv_grande",
+              "label": "Certificado de fin de obra / acta de puesta en marcha",
+              "descripcion": "Documento técnico que acredita la ejecución de la instalación conforme al proyecto autorizado, requisito previo a la autorización de explotación.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_generadora_explotacion",
+              "label": "CIE de la instalación generadora",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora ejecutada.",
+              "obligatorio": true
+            }
+          ],
+          "formulario_ref": "9588",
+          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 5,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -1600,14 +1839,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
-          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "orden": 6,
+          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
           "coste_estimado": "320.65 EUR",
           "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
@@ -1618,11 +1857,11 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
-          "orden": 5,
+          "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -1639,7 +1878,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -1670,6 +1909,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
@@ -1690,7 +1950,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Autorización administrativa previa y de construcción",
           "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
@@ -1718,7 +1978,35 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
+          "nombre": "Autorización administrativa de explotación",
+          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
+          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
+          "coste_estimado": "Depende de la inversión exacta",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_fin_obra_fv_grande",
+              "label": "Certificado de fin de obra / acta de puesta en marcha",
+              "descripcion": "Documento técnico que acredita la ejecución de la instalación conforme al proyecto autorizado, requisito previo a la autorización de explotación.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_generadora_explotacion",
+              "label": "CIE de la instalación generadora",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora ejecutada.",
+              "obligatorio": true
+            }
+          ],
+          "formulario_ref": "9588",
+          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 5,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -1739,14 +2027,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
-          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "orden": 6,
+          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
           "coste_estimado": "Depende de la inversión exacta",
           "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
@@ -1757,11 +2045,11 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
-          "orden": 5,
+          "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -1778,7 +2066,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -1821,6 +2109,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
@@ -1841,7 +2150,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Autorización administrativa previa y de construcción",
           "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
@@ -1869,7 +2178,35 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
+          "nombre": "Autorización administrativa de explotación",
+          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
+          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
+          "coste_estimado": "500.00 EUR (estimado tramo medio)",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_fin_obra_fv_grande",
+              "label": "Certificado de fin de obra / acta de puesta en marcha",
+              "descripcion": "Documento técnico que acredita la ejecución de la instalación conforme al proyecto autorizado, requisito previo a la autorización de explotación.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_generadora_explotacion",
+              "label": "CIE de la instalación generadora",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora ejecutada.",
+              "obligatorio": true
+            }
+          ],
+          "formulario_ref": "9588",
+          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 5,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -1890,14 +2227,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
-          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "orden": 6,
+          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
           "coste_estimado": "500.00 EUR (estimado tramo medio)",
           "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
@@ -1908,11 +2245,11 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
-          "orden": 5,
+          "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -1929,7 +2266,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -1960,6 +2297,27 @@
       "tramites": [
         {
           "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 2,
           "nombre": "Proyecto técnico de instalación generadora",
           "organismo": "Ingeniero técnico industrial o ingeniero industrial colegiado",
           "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019",
@@ -1980,7 +2338,7 @@
           "paralelo_con": null
         },
         {
-          "orden": 2,
+          "orden": 3,
           "nombre": "Autorización administrativa previa y de construcción",
           "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
@@ -2008,7 +2366,35 @@
           "paralelo_con": null
         },
         {
-          "orden": 3,
+          "orden": 4,
+          "nombre": "Autorización administrativa de explotación",
+          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
+          "plazo_estimado_dias": 90,
+          "plazo_legal_dias": 90,
+          "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
+          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
+          "coste_estimado": "1061.21 EUR",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_fin_obra_fv_grande",
+              "label": "Certificado de fin de obra / acta de puesta en marcha",
+              "descripcion": "Documento técnico que acredita la ejecución de la instalación conforme al proyecto autorizado, requisito previo a la autorización de explotación.",
+              "obligatorio": true
+            },
+            {
+              "id": "cie_generadora_explotacion",
+              "label": "CIE de la instalación generadora",
+              "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora ejecutada.",
+              "obligatorio": true
+            }
+          ],
+          "formulario_ref": "9588",
+          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 5,
           "nombre": "Certificado de Instalación Eléctrica (CIE) de generadora",
           "organismo": "Técnico competente (el mismo que firma el proyecto)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -2029,14 +2415,14 @@
           "paralelo_con": null
         },
         {
-          "orden": 4,
-          "nombre": "Inscripción en el Registro Administrativo de Autoconsumo (RAC)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) — Sede electrónica",
-          "base_legal": "RD 244/2019 art. 25; Resolución 6 mayo 2020 MITECO",
+          "orden": 6,
+          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/menuitem.rac",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
           "coste_estimado": "1061.21 EUR",
           "formulario_ref": "MITECO-RAC-001",
           "documentos_requeridos": [
@@ -2047,11 +2433,11 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
-          "orden": 5,
+          "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
           "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
@@ -2068,7 +2454,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null
         }
       ]
@@ -2086,7 +2472,28 @@
       },
       "tramites": [
         {
-          "orden": 30,
+          "orden": 1,
+          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
+          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU a la distribuidora",
+              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "paralelo_con": null
+        },
+        {
+          "orden": 31,
           "nombre": "PRTR / Next Generation autoconsumo (CERRADO — sin nuevas solicitudes en Andalucia)",
           "organismo": "Agencia Andaluza de la Energía (AAE) — Convocatoria Next Generation EU",
           "base_legal": "RD 477/2021 PRTR; Resolución convocatoria Junta de Andalucía",
@@ -2097,6 +2504,41 @@
           "coste_estimado": "No aplica: convocatoria cerrada",
           "documentos_requeridos": [],
           "notas": "La convocatoria andaluza del RD 477/2021 (programas de incentivo 4, 5 y 6, autoconsumo residencial) cerro el plazo de nuevas solicitudes el 31/12/2023; el programa estatal en su conjunto cerro el 31/07/2024. Gestor: Agencia Andaluza de la Energia (fondos agotados / lista de espera). Existe un programa autonomico propio, INCEA (Incentivos Integrados de Competitividad y Energia en Andalucia), dirigido a EMPRESAS (no residencial, importe minimo 10.000 EUR, cobertura 35-65%) -- su base legal no esta verificada con fuente primaria: NO ofrecer como alternativa confirmada hasta verificarlo.",
+          "paralelo_con": null
+        }
+      ]
+    },
+    {
+      "id": "AND-FV-005",
+      "descripcion": "Autoconsumo con excedentes NO acogido a compensación: inscripción en el RAIPEE ante la Delegación Territorial (hueco confirmado en auditoría 2026-07-27)",
+      "condicion": {
+        "==": [
+          {
+            "var": "modalidad_autoconsumo"
+          },
+          "con_excedentes_sin_compensacion"
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Inscripción en el RAIPEE (Registro administrativo de instalaciones de producción de energía eléctrica)",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "base_legal": "Página oficial de Autoconsumo -- Junta de Andalucía; procedimiento 12083",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "sede electrónica",
+          "plataforma_url": "https://www.juntadeandalucia.es/organismos/industriaenergiayminas/servicios/procedimientos/detalle/12083.html",
+          "coste_estimado": "Pendiente de verificar tasa aplicable",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_raipee",
+              "label": "Solicitud de inscripción en el RAIPEE",
+              "descripcion": "Necesaria para autoconsumo con excedentes NO acogido a compensación cuando la instalación supera 100 kW o no encaja en el traspaso automático desde el RADNE. Trámite ausente en versiones anteriores del motor.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido tras auditoría 2026-07-27 (hueco ALTO confirmado con fuente oficial). Se dispara junto con el resto de trámites de legalización de la potencia correspondiente (AND-FV-001/001B/002/004); no los sustituye.",
           "paralelo_con": null
         }
       ]
@@ -2140,5 +2582,18 @@
       "validado_por": null
     }
   ],
-  "nivel_verificacion": "generica"
+  "nivel_verificacion": "generica",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28 (CRÍTICO): faltaba el trámite de solicitud del CAU a la distribuidora y la secuencia estaba invertida (comunicación a la distribuidora en último lugar). Añadido como orden 1 en todas las reglas FV, renumerando el resto.",
+    "RESUELTO 2026-07-28 (ALTO): trámite 'RAC' renombrado a RADNE, URL corregida (apuntaba a la portada genérica de la sede del MITECO) y aclarada la inscripción de oficio en BT <100 kW.",
+    "RESUELTO 2026-07-28 (ALTO): añadida 'Autorización administrativa de explotación' como trámite independiente en AND-FV-004 (>500 kW), ausente en versiones anteriores.",
+    "RESUELTO 2026-07-28 (ALTO): añadida nueva regla AND-FV-005 para el RAIPEE (autoconsumo con excedentes no acogido a compensación), condicionada al campo modalidad_autoconsumo ya soportado por el esquema del clasificador.",
+    "RESUELTO 2026-07-28 (ALTO, documental): incorporada nota sobre la fase de activación/contrato con la comercializadora (A1/D1 01/D1 02/M1) en el trámite final de comunicación a la distribuidora; no se modela como trámite propio por falta de un actor/plataforma estable que modelar.",
+    "RESUELTO 2026-07-28 (MEDIO): plataforma_url genérica del tramitador PUES (.../detalle/6513.html) sustituida por la Oficina Virtual real.",
+    "RESUELTO 2026-07-28 (MEDIO): cita del 'Decreto-ley 3/2024, de 6 de febrero' (no localizado con fuente admisible) sustituida por la Resolución de 28 de septiembre de 2023, que sí está verificada como norma vigente de la ficha técnica PUES de BT.",
+    "PENDIENTE (no verificado, no se ha tocado la condición): AND-FV-002 dispara para cualquier instalación no residencial sin cota inferior de potencia (posible falso positivo en comercios de muy baja potencia). No se ha localizado fuente que fije un umbral alternativo -- se deja para una fase posterior con verificación web dedicada.",
+    "PENDIENTE: excepciones del párrafo segundo del apartado 2 de la disposición adicional única del Decreto-ley 2/2018 (instalaciones ≤500 kW excluidas de la vía PUES) -- existen pero no se ha identificado cuáles son; no incorporadas.",
+    "PENDIENTE: Ley 7/2021 art. 16 citada en fuentes FV -- pertenece al bloque de movilidad/transporte, no de autoconsumo; cita improcedente detectada pero no eliminada en esta pasada (bajo impacto, no listada como CRÍTICO/ALTO).",
+    "PENDIENTE: acuerdo de reparto en autoconsumo colectivo (RD 244/2019 art. 3 y anexo I) no incorporado (hueco B8, criterio profesional sin fuente verificada en esta auditoría)."
+  ]
 }

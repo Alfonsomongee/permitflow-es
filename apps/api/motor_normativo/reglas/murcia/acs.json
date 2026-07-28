@@ -2,13 +2,15 @@
   "tipo_instalacion": "acs",
   "comunidad": "murcia",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Este fichero, a diferencia del resto del lote, ya usaba correctamente 'potencia_kw' (sin variable fantasma) — mismo patrón visto en Galicia. Se eliminó 'Decreto 56/2016' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia) más el RITE nacional. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Este fichero, a diferencia del resto del lote, ya usaba correctamente 'potencia_kw' (sin variable fantasma) — mismo patrón visto en Galicia. Se eliminó 'Decreto 56/2016' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia) más el RITE nacional. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — normativa citada confirmada correcta y vigente, sigue pendiente de implementar. Revisión 2026-07-28: se sustituyó el enlace genérico https://sede.carm.es por la ficha específica del código 61 (IDCONTENIDO=61), se añadió formulario_ref '61' y se incorporó un tramo explícito para potencia <5 kW.",
   "huecos_verificacion": [
-    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
-    "Tasas y plazos legales no verificados"
+    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024) — NO TOCADO, pendiente de implementación funcional",
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28: enlace genérico https://sede.carm.es sustituido por ficha del código 61 (https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240) y añadido formulario_ref '61'",
+    "RESUELTO PARCIALMENTE 2026-07-28: añadida regla MUR-ACS-000 para potencia <5 kW; el régimen exacto aplicable a ese tramo NO VERIFICADO — misma incertidumbre documentada en climatizacion_aerotermia.json"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
@@ -16,12 +18,82 @@
   ],
   "reglas": [
     {
-      "id": "MUR-ACS-001",
-      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "MUR-ACS-000",
+      "descripcion": "Instalación de ACS con potencia < 5 kW: régimen aplicable NO VERIFICADO. La ficha oficial CARM del código 61 diferencia documentalmente los tramos '5-70 kW' y '>70 kW' sin detallar el tratamiento por debajo de 5 kW; se mantiene el mismo trámite que el tramo 5-70 kW hasta confirmar si aplica una exención o simplificación específica",
       "condicion": {
-        "<=": [
+        "<": [
           { "var": "potencia_kw" },
-          70
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica (MT) según RITE",
+          "organismo": "Instalador habilitado (carné de instalador térmico)",
+          "base_legal": "RITE RD 1027/2007",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-ACS-000",
+          "documentos_requeridos": [
+            {
+              "id": "memoria_tecnica_rite",
+              "label": "Memoria técnica de la instalación térmica",
+              "descripcion": "Documento firmado por instalador habilitado.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación (modelo oficial)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "NO VERIFICADO si por debajo de 5 kW existe un régimen distinto (exención de registro o trámite simplificado). Si el edificio es de uso colectivo/terciario, revisar además el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
+        },
+        {
+          "orden": 2,
+          "nombre": "Comunicación de puesta en servicio",
+          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 24",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la CARM",
+          "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "61",
+          "paralelo_con": null,
+          "regla_id": "MUR-ACS-000",
+          "documentos_requeridos": [
+            {
+              "id": "memoria_tecnica_rite",
+              "label": "Memoria técnica",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "NO VERIFICADO si el registro es exigible por debajo de 5 kW."
+        }
+      ]
+    },
+    {
+      "id": "MUR-ACS-001",
+      "descripcion": "Instalación de ACS con potencia entre 5 y 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          { ">=": [ { "var": "potencia_kw" }, 5 ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
         ]
       },
       "tramites": [
@@ -62,9 +134,9 @@
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
-          "plataforma_url": "https://sede.carm.es",
+          "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "61",
           "paralelo_con": null,
           "regla_id": "MUR-ACS-001",
           "documentos_requeridos": [
@@ -155,9 +227,9 @@
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
-          "plataforma_url": "https://sede.carm.es",
+          "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "61",
           "paralelo_con": null,
           "regla_id": "MUR-ACS-002",
           "documentos_requeridos": [

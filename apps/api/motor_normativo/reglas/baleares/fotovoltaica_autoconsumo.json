@@ -2,35 +2,37 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "baleares",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 36/2018 de 21 de septiembre' como base de la puesta en servicio: el Decreto 36/2018 real de Illes Balears regula el currículo de enseñanzas profesionales de música, no tiene nada que ver con instalaciones eléctricas. La cita de la Ley 13/2012 también tenía la fecha equivocada (el fichero decía '20 de diciembre de 2012'; la fecha real es 20 de noviembre de 2012). Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre el campo opcional 'uso'. Se confirmó que el 'Registro de autoconsumo de las Illes Balears' SÍ existe (a diferencia de la referencia inventada en el lote de Asturias); se sustituyó el nombre inventado 'RIBAT' por el nombre real del registro y por los procedimientos reales identificados (034 y 001).",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 36/2018 de 21 de septiembre' como base de la puesta en servicio: el Decreto 36/2018 real de Illes Balears regula el currículo de enseñanzas profesionales de música, no tiene nada que ver con instalaciones eléctricas. La cita de la Ley 13/2012 también tenía la fecha equivocada (el fichero decía '20 de diciembre de 2012'; la fecha real es 20 de noviembre de 2012). Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre el campo opcional 'uso'. Se confirmó que el 'Registro de autoconsumo de las Illes Balears' SÍ existe (a diferencia de la referencia inventada en el lote de Asturias); se sustituyó el nombre inventado 'RIBAT' por el nombre real del registro y por los procedimientos reales identificados (034 y 001). REVISIÓN 2026-07-28 (auditoría normativa): confirmado que Balears eleva el umbral de exención de autorización administrativa a 500 kW (ventanilla oficial de pequeña potencia ≤500 kW); partición corregida de 100 a 500 kW. Itinerario ampliado con los pasos oficiales que faltaban (acceso y conexión a distribuidora, comunicación urbanística municipal, contrato de acceso técnico, modificación de contratos y registro administrativo de producción), siguiendo el mapa de 11 pasos de la ventanilla de la CAIB.",
   "huecos_verificacion": [
     "No se han verificado los artículos concretos de la Ley 13/2012 que regulan el procedimiento de puesta en servicio de autoconsumo; se cita de forma genérica",
-    "No se ha confirmado si Baleares ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad del RD-ley 18/2022, de aplicación potestativa por CCAA)",
-    "Tasas y plazos legales de resolución de los procedimientos 034 y 001 no verificados con detalle",
-    "Nombre exacto y vigencia actual de la Dirección General competente: se ha detectado un cambio de denominación (antes 'Energía y Cambio Climático', ahora 'Economía Circular, Transición Energética y Cambio Climático'); no se ha confirmado si es la denominación vigente a fecha de esta revisión",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema — no diferenciable en las reglas"
+    "RESUELTO 2026-07-28: confirmado que Baleares aplica el umbral de 500 kW (ventanilla de tramitación de instalaciones de autoconsumo de pequeña potencia ≤500 kW; trámite separado para >500 kW); partición actualizada de 100 a 500 kW",
+    "Tasas exactas de los procedimientos 034 y 001 no verificadas con detalle; sí se ha confirmado que las instalaciones de autoconsumo con renovables de hasta 15 kW están exentas de tasa (por encima de 15 kW se devenga tasa, importe pendiente de verificar en la ley de tasas de la CAIB)",
+    "Nombre exacto y vigencia actual de la Dirección General competente: verificado que existe contradicción entre fuentes oficiales de caib.es ('Dirección General de Energía y Cambio Climático' vs 'Dirección General de Economía Circular, Transición Energética y Cambio Climático'); no resoluble sin consultar el organigrama vigente del Govern, por lo que se usa una redacción neutra mientras tanto",
+    "RESUELTO 2026-07-28: la distinción sin_excedentes/con_excedentes SÍ tiene campo propio en el schema (modalidad_autoconsumo); se usa para condicionar los pasos de acceso y conexión y de modificación de contratos, que solo aplican en determinados casos de autoconsumo con excedentes",
+    "No se ha verificado municipio a municipio (67 ayuntamientos) el trámite urbanístico de comunicación previa/licencia de obras; se incluye como trámite genérico sin detalle local"
   ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
     "Ley 24/2013 Sector Eléctrico, art. 53",
     "REBT RD 842/2002 ITC-BT-40",
-    "Ley 13/2012, de 20 de noviembre, de medidas urgentes en materia de industria y energía de las Illes Balears (BOE-A-2013-355)",
-    "Ficha de trámite 034 'Registro de instalaciones de producción de energía eléctrica de pequeña potencia conectadas a red' - caib.es",
-    "Ficha de trámite 001 (baja tensión general) - caib.es",
+    "RD-ley 18/2022 (facultad de elevación del umbral a 500 kW)",
+    "Ley 13/2012, de 20 de noviembre, de medidas urgentes para la activación económica en materia de industria y energía, nuevas tecnologías, residuos, aguas, otras actividades y medidas tributarias (BOE-A-2013-355)",
+    "Ficha de trámite 034 'Registro de instalaciones de producción de energía eléctrica de pequeña potencia conectadas a red' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/1447066)",
+    "Ventanilla de tramitación de instalaciones de autoconsumo de pequeña potencia (≤500 kW) - caib.es (https://www.caib.es/sites/instalacionspetitapotencia/)",
     "'Registro de autoconsumo de las Illes Balears' - Dirección General de Economía Circular, Transición Energética y Cambio Climático"
   ],
   "reglas": [
     {
       "id": "BAL-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
+      "descripcion": "Autoconsumo de potencia igual o inferior a 500 kW: régimen exento de autorización administrativa (ventanilla de pequeña potencia de la CAIB), Memoria Técnica de Diseño",
       "condicion": {
         "<=": [
           { "var": "potencia_kw" },
-          100
+          500
         ]
       },
       "tramites": [
@@ -65,6 +67,29 @@
         },
         {
           "orden": 2,
+          "nombre": "Solicitud de permisos de acceso y conexión a la empresa distribuidora (solo en determinados casos)",
+          "organismo": "Empresa distribuidora (e-distribución en Illes Balears)",
+          "base_legal": "RD 1183/2020 acceso y conexión",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Paso 2 de la ventanilla oficial de pequeña potencia de la CAIB. Solo aplica en determinados casos (típicamente autoconsumo con excedentes, modalidad_autoconsumo distinta de 'sin_excedentes'); en autoconsumo sin excedentes puede no ser necesario."
+        },
+        {
+          "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE)",
           "organismo": "Instalador electricista habilitado",
           "base_legal": "REBT RD 842/2002",
@@ -87,15 +112,38 @@
           "notas": ""
         },
         {
-          "orden": 3,
+          "orden": 4,
+          "nombre": "Comunicación previa / licencia urbanística municipal",
+          "organismo": "Ayuntamiento del municipio de la instalación",
+          "base_legal": "Normativa urbanística municipal (variable por municipio)",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria Técnica de Diseño",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "No verificado municipio a municipio (67 ayuntamientos de Illes Balears); puede incluir afección de normativa insular o de patrimonio en cascos históricos."
+        },
+        {
+          "orden": 5,
           "nombre": "Registro de producción de pequeña potencia (procedimiento 034) e inscripción en el Registro de autoconsumo de las Illes Balears",
-          "organismo": "Dirección General de Economía Circular, Transición Energética y Cambio Climático (Govern de les Illes Balears)",
+          "organismo": "Dirección General competente en energía (Conselleria d'Empresa, Ocupació i Energia) del Govern de les Illes Balears",
           "base_legal": "RD 244/2019; Ley 13/2012",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite 034",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
+          "coste_estimado": "Exenta de tasa hasta 15 kW; por encima de 15 kW se devenga tasa (importe pendiente de verificar)",
           "formulario_ref": "034",
           "paralelo_con": null,
           "regla_id": "BAL-FV-001",
@@ -114,16 +162,71 @@
             }
           ],
           "notas": "La inscripción en el Registro de autoconsumo de las Illes Balears la realiza de oficio la Dirección General una vez completada la documentación del procedimiento 034 (confirmado en guía oficial de tramitación de autoconsumo de pequeña potencia)."
+        },
+        {
+          "orden": 6,
+          "nombre": "Contrato de acceso técnico para la instalación de producción",
+          "organismo": "Empresa distribuidora",
+          "base_legal": "RD 1183/2020 acceso y conexión",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion_electrica",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Paso 8 de la ventanilla oficial de pequeña potencia de la CAIB. Aplica en autoconsumo con excedentes (modalidad_autoconsumo distinta de 'sin_excedentes')."
+        },
+        {
+          "orden": 7,
+          "nombre": "Modificación del contrato de acceso y del contrato de suministro",
+          "organismo": "Empresa distribuidora / comercializadora",
+          "base_legal": "RD 244/2019; RD 1183/2020",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-001",
+          "documentos_requeridos": [],
+          "notas": "Paso 9 de la ventanilla oficial de pequeña potencia de la CAIB. Aplica en autoconsumo con excedentes (modalidad_autoconsumo distinta de 'sin_excedentes')."
+        },
+        {
+          "orden": 8,
+          "nombre": "Inscripción en el Registro administrativo de instalaciones de producción de energía eléctrica",
+          "organismo": "Dirección General competente en energía (Conselleria d'Empresa, Ocupació i Energia) del Govern de les Illes Balears",
+          "base_legal": "RD 244/2019 art. 19",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite 034",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "034",
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-001",
+          "documentos_requeridos": [],
+          "notas": "Paso 11 (último) de la ventanilla oficial de pequeña potencia de la CAIB."
         }
       ]
     },
     {
       "id": "BAL-FV-002",
-      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
+      "descripcion": "Autoconsumo de potencia superior a 500 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
         ">": [
           { "var": "potencia_kw" },
-          100
+          500
         ]
       },
       "tramites": [
@@ -181,13 +284,45 @@
         },
         {
           "orden": 3,
-          "nombre": "Autorización administrativa (art. 53 Ley 24/2013) y registro de producción (procedimiento 034/001 según proceda) + inscripción en Registro de autoconsumo",
-          "organismo": "Dirección General de Economía Circular, Transición Energética y Cambio Climático (Govern de les Illes Balears)",
-          "base_legal": "Ley 24/2013 art. 53; RD 244/2019",
+          "nombre": "Solicitud de permisos de acceso y conexión a la empresa distribuidora",
+          "organismo": "Empresa distribuidora (e-distribución en Illes Balears)",
+          "base_legal": "RD 1183/2020 acceso y conexión",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-002",
+          "documentos_requeridos": [],
+          "notas": "Paso 2 de la ventanilla oficial de la CAIB, exigible con carácter general por encima de 500 kW."
+        },
+        {
+          "orden": 4,
+          "nombre": "Comunicación previa / licencia urbanística municipal",
+          "organismo": "Ayuntamiento del municipio de la instalación",
+          "base_legal": "Normativa urbanística municipal (variable por municipio)",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-002",
+          "documentos_requeridos": [],
+          "notas": "No verificado municipio a municipio (67 ayuntamientos de Illes Balears)."
+        },
+        {
+          "orden": 5,
+          "nombre": "Autorización administrativa (potencia superior a 500 kW) y registro de producción (procedimiento 034/001 según proceda) + inscripción en Registro de autoconsumo",
+          "organismo": "Dirección General competente en energía (Conselleria d'Empresa, Ocupació i Energia) del Govern de les Illes Balears",
+          "base_legal": "RD 244/2019; RD-ley 18/2022 (umbral 500 kW)",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite 034",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "034",
           "paralelo_con": null,
@@ -206,7 +341,55 @@
               "obligatorio": true
             }
           ],
-          "notas": "plazo_legal_dias no confirmado."
+          "notas": "plazo_legal_dias no confirmado. Para instalaciones de producción de potencia superior a 500 kW la CAIB gestiona un trámite de autorización específico (\"Autorización de instalaciones de producción de energía eléctrica de potencia superior a 500 kW\"), distinto de la ventanilla de pequeña potencia."
+        },
+        {
+          "orden": 6,
+          "nombre": "Contrato de acceso técnico para la instalación de producción",
+          "organismo": "Empresa distribuidora",
+          "base_legal": "RD 1183/2020 acceso y conexión",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-002",
+          "documentos_requeridos": [],
+          "notas": "Paso 8 de la ventanilla oficial de la CAIB."
+        },
+        {
+          "orden": 7,
+          "nombre": "Modificación del contrato de acceso y del contrato de suministro",
+          "organismo": "Empresa distribuidora / comercializadora",
+          "base_legal": "RD 244/2019; RD 1183/2020",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-002",
+          "documentos_requeridos": [],
+          "notas": "Paso 9 de la ventanilla oficial de la CAIB."
+        },
+        {
+          "orden": 8,
+          "nombre": "Inscripción en el Registro administrativo de instalaciones de producción de energía eléctrica",
+          "organismo": "Dirección General competente en energía (Conselleria d'Empresa, Ocupació i Energia) del Govern de les Illes Balears",
+          "base_legal": "RD 244/2019 art. 19",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite 034",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "034",
+          "paralelo_con": null,
+          "regla_id": "BAL-FV-002",
+          "documentos_requeridos": [],
+          "notas": "Paso 11 (último) de la ventanilla oficial de la CAIB."
         }
       ]
     }

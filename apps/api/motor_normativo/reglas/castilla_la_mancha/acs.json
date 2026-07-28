@@ -2,20 +2,21 @@
   "tipo_instalacion": "acs",
   "comunidad": "castilla_la_mancha",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 53/2003' como base legal: no se ha localizado esta norma, y el número '53' coincide sospechosamente (con año distinto) con el 'Decreto 53/2014' del fichero de climatización de este mismo lote, para la misma materia general — patrón de colisión. La ficha oficial de la JCCM para instalaciones térmicas (trámite 1002272) solo cita el RITE nacional. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de ACS; se aplica el RITE nacional directamente",
-    "No se ha modelado la exención de documentación para instalaciones <5 kW con calentadores instantáneos/termos eléctricos por falta de campo de tipo de equipo en el schema",
+    "No se ha modelado la exención de documentación (< 5 kW cualquier equipo; calentadores instantáneos/acumuladores/termos eléctricos ≤70 kW; solares de elemento único prefabricado sin límite expreso) por falta de campo de tipo de equipo en el schema",
     "No se ha confirmado si Castilla-La Mancha exige OCA específicamente para ACS >70 kW",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28 (auditoría independiente): la nota de exención documental describía el alcance de forma incompleta/imprecisa (solo mencionaba <5kW). Corregido: la exención real de la ficha 1002272 distingue tres supuestos (ver nota del trámite CLM-ACS-001 orden 1)."
   ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "Ficha de trámite 1002272 'Instalación térmica en los edificios' - jccm.es"
+    "Ficha de trámite 1002272 'Registro de una instalación térmica' - jccm.es"
   ],
   "reglas": [
     {
@@ -49,7 +50,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero. Instalaciones <5 kW con calentadores instantáneos/termos eléctricos pueden estar exentas de documentación (no modelado)."
+          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero. Exención de documentación según la ficha oficial 1002272 (CORREGIDO 2026-07-28, alcance previo incompleto): (a) cualquier instalación <5 kW, sea cual sea el equipo; (b) calentadores instantáneos, acumuladores y termos eléctricos hasta 70 kW; (c) sistemas solares de elemento único prefabricado, sin límite de potencia expreso. No modelado por falta de campo de tipo de equipo en el schema."
         },
         {
           "orden": 2,

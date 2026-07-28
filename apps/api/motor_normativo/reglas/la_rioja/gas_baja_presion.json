@@ -2,14 +2,15 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "la_rioja",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Fichero generado desde cero (La Rioja no proporcionó fichero original de gas). No se ha localizado decreto autonómico específico de gas; se aplica el RIGLO nacional directamente. Se confirmó real el trámite 'GN-GL. Inscripción de puesta en servicio de Instalaciones receptoras de combustibles gaseosos (GL/GN)' en la oficina electrónica de La Rioja. Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica riojana específica de gas más allá del trámite GN-GL",
     "Tasas y plazos legales no verificados",
-    "No se ha confirmado si La Rioja distingue trámite entre GL (GLP) y GN (gas natural) más allá del propio nombre del código"
+    "No se ha confirmado si La Rioja distingue trámite entre GL (GLP) y GN (gas natural) más allá del propio nombre del código",
+    "Corregido 2026-07-28: las condiciones de RIO-GAS-001/002/003 comparaban 'presion_bar' contra las cadenas literales \"5+\"/\"normal\", pero motor_normativo/clasificador.py normaliza ese campo a float (\"5+\"->6.0, \"normal\"->0.0) antes de evaluar json-logic, por lo que las tres reglas eran inalcanzables en producción. Se cambiaron a comparaciones numéricas (`presion_bar` > 5 / <= 5) equivalentes al umbral normativo real."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
@@ -20,9 +21,9 @@
       "id": "RIO-GAS-001",
       "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
       "condicion": {
-        "==": [
+        ">": [
           { "var": "presion_bar" },
-          "5+"
+          5
         ]
       },
       "tramites": [
@@ -108,7 +109,7 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { "<=": [ { "var": "presion_bar" }, 5 ] },
           { "<=": [ { "var": "potencia_kw" }, 70 ] }
         ]
       },
@@ -195,7 +196,7 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
+          { "<=": [ { "var": "presion_bar" }, 5 ] },
           { ">": [ { "var": "potencia_kw" }, 70 ] }
         ]
       },

@@ -2,19 +2,22 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "navarra",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de climatización). No se ha localizado decreto o norma foral específica para climatización; se aplica el RITE nacional directamente, con el umbral general de 70 kW ya verificado de forma consistente en el resto de comunidades de este proyecto. El órgano competente confirmado real es el Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra.",
+  "aviso": "CORREGIDO 2026-07-28 (auditoría normativa): la afirmación anterior de que 'no se ha localizado normativa foral navarra específica' era inexacta. La Orden Foral 60/2015 deroga expresamente (Disp. Derogatoria, punto 16) la Orden Foral 424/2009, de desarrollo foral del RITE en Navarra, y regula el procedimiento general de tramitación/registro de instalaciones térmicas. Además, la Orden Foral 64/2022 (Disposición Adicional Única) exige literalmente inspección inicial por Organismo de Control (OCA) para instalaciones con potencia térmica nominal >70 kW, lo que confirma como base foral directa el umbral de 70 kW ya aplicado en este fichero (antes solo se citaba el RITE nacional). El órgano competente confirmado real es el Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra.",
   "huecos_verificacion": [
-    "No se ha localizado normativa foral navarra específica de climatización",
     "Nombre exacto del trámite de registro de instalaciones térmicas en Navarra no confirmado en esta revisión",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó la ficha específica de trámite de registro térmico en navarra.es dentro del presupuesto de la auditoría — PENDIENTE",
+    "RESUELTO 2026-07-28 (auditoría normativa): se añaden como base_legal foral la Orden Foral 60/2015 (procedimiento de tramitación/registro; deroga la OF 424/2009 de desarrollo del RITE en Navarra) y la Orden Foral 64/2022, Disp. Ad. Única (umbral 70 kW e inspección inicial OCA). Se retira la afirmación 'no se ha localizado normativa foral'."
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente en instalaciones industriales/energéticas"
+    "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente en instalaciones industriales/energéticas",
+    "Orden Foral 60/2015, de 5 de marzo de 2015 (BON n.º 54, de 20 de marzo de 2015) — Disp. Derogatoria punto 16: deroga la Orden Foral 424/2009 de desarrollo foral del RITE; regula el procedimiento general de tramitación/registro de instalaciones térmicas en Navarra",
+    "Orden Foral 64/2022, de 21 de octubre — Disposición Adicional Única: exige inspección inicial por Organismo de Control (OCA) antes de la puesta en servicio de instalaciones con potencia térmica nominal en generación de calor o frío >70 kW"
   ],
   "reglas": [
     {
@@ -60,7 +63,7 @@
           "orden": 2,
           "nombre": "Registro/comunicación de puesta en servicio de instalación térmica",
           "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
-          "base_legal": "RITE RD 1027/2007 art. 24",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden Foral 60/2015 (procedimiento foral de tramitación/registro)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",
@@ -130,7 +133,7 @@
           "orden": 2,
           "nombre": "Inspección inicial por Organismo de Control (OCA)",
           "organismo": "OCA autorizado en Navarra",
-          "base_legal": "RITE RD 1027/2007 art. 15",
+          "base_legal": "RITE RD 1027/2007 art. 15; Orden Foral 64/2022, Disp. Ad. Única (exige inspección inicial OCA para potencia térmica nominal >70 kW)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -159,7 +162,7 @@
           "orden": 3,
           "nombre": "Registro/comunicación de puesta en servicio de instalación térmica",
           "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
-          "base_legal": "RITE RD 1027/2007 art. 24",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden Foral 60/2015 (procedimiento foral de tramitación/registro)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",

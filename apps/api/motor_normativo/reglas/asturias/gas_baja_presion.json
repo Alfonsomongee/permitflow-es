@@ -2,14 +2,22 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "asturias",
   "version": "1.1.0",
-  "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "estricta",
-  "estado": "verificado",
-  "aviso": "Umbral de MOP > 5 bar y potencia > 70kW verificado para exigencia de proyecto. Trámite consolidado a DECO0011T01.",
-  "huecos_verificacion": [],
+  "ultima_revision": "2026-07-28",
+  "nivel_verificacion": "generica",
+  "estado": "verificado_parcialmente",
+  "aviso": "Auditoría 2026-07-28 (CRÍTICO): DECO0011T01 no procede para instalaciones que no requieren proyecto (AST-GAS-001, el caso más frecuente); la ficha oficial es taxativa: 'no es precisa ninguna comunicación a la administración' salvo que se requiera proyecto. Sustituido por entrega del certificado de instalación al suministrador. Corregidos también: secuencia de la tasa 046 (posterior), documentos faltantes de DECO0011T01, y cita errónea de RD 984/2015.",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28 (CRÍTICO): eliminado el trámite DECO0011T01 de AST-GAS-001 (MOP<=5bar, P<=70kW, caso sin proyecto). La ficha oficial (https://miprincipado.asturias.es/-/dboid-6269000023985654207573) es taxativa: salvo instalaciones que requieren proyecto, 'no es precisa ninguna comunicación a la administración'; el certificado de instalación se entrega al suministrador de gas, quien lo mantiene a disposición de la Administración.",
+    "RESUELTO 2026-07-28 (ALTO): 'justificante_tasa_046' retirado de los documentos de ENTRADA de DECO0011T01 en AST-GAS-002/003; la ficha establece que la tasa se liquida DESPUÉS del registro.",
+    "RESUELTO 2026-07-28 (ALTO): completados 'documentos_requeridos' de DECO0011T01 con el formulario normalizado ICG 07 y el certificado de pruebas y puesta en servicio del suministrador, exigidos por la ficha oficial.",
+    "RESUELTO 2026-07-28 (MEDIO): eliminada la cita de 'RD 984/2015 modificación RIGLO' de 'fuentes' — el RD 984/2015 regula el mercado organizado de gas y el acceso de terceros al sistema gasista, no modifica el RIGLO (RD 919/2006); la normativa básica de la ficha oficial tampoco lo menciona.",
+    "requiere campo de formulario: clase_instalacion_gas — existe en schemas/clasificador.py (individual|comun|conexion_servicio) pero Step2ParametrosTecnicos.tsx (CamposGas) no lo renderiza; no se ha podido implementar la distinción de la ITC-ICG 07 ap. 3.2 entre instalaciones individuales (>70kW), comunes (>2.000kW) y acometidas interiores (>2.000kW) que dispara el proyecto técnico. AST-GAS-002 sigue aplicando el umbral de 70kW a cualquier instalación (hallazgo ALTO no resuelto, requiere nuevo campo de formulario).",
+    "PENDIENTE (no mecánico): no se han añadido el certificado de chimeneas (edificios nueva planta), el certificado de puesta en marcha de cada aparato a gas (ITC-ICG 08 anexo 4), la inspección periódica quinquenal, ni la base legal completa (apartado 5.7 RD 919/2006, apartado 3.6 ITC-ICG-07, Ley 34/1998); requieren diseño adicional del itinerario, no solo corrección de datos.",
+    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
+  ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
-    "RD 984/2015 modificación RIGLO",
+    "Ley 34/1998, de 7 de octubre, del sector de hidrocarburos",
     "Ficha de procedimiento DECO0011T01 'Comunicación de instalaciones receptoras de gases combustibles (ICG 07)' - sede de Asturias",
     "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos del Principado de Asturias"
   ],
@@ -20,11 +28,11 @@
       "condicion": {
         "and": [
           {
-            "==": [
+            "<=": [
               {
                 "var": "presion_bar"
               },
-              "normal"
+              5
             ]
           },
           {
@@ -92,15 +100,16 @@
         },
         {
           "orden": 3,
-          "nombre": "Comunicación de instalación receptora de gases combustibles (DECO0011T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
-          "base_legal": "ITC-ICG-07",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
-          "formulario_ref": "DECO0011T01",
+          "nombre": "Entrega del certificado de instalación al suministrador de gas",
+          "tipo_actuacion": "accion_usuario",
+          "organismo": "Empresa suministradora/distribuidora de gas",
+          "base_legal": "Ficha oficial DECO0011T01 (Comunicación de instalaciones receptoras de gases combustibles, ICG 07)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste (no hay tasa administrativa en este supuesto)",
+          "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "AST-GAS-001",
           "documentos_requeridos": [
@@ -115,15 +124,9 @@
               "label": "Memoria Técnica de Diseño de gas",
               "descripcion": "",
               "obligatorio": true
-            },
-            {
-              "id": "justificante_tasa_046",
-              "label": "Justificante de pago de tasa (Modelo 046)",
-              "descripcion": "",
-              "obligatorio": true
             }
           ],
-          "notas": "Plazo legal de 30 días desde puesta en servicio para presentar la comunicación."
+          "notas": "CORREGIDO 2026-07-28: esta instalación (MOP<=5 bar, P<=70 kW) NO requiere proyecto y, según la ficha oficial de DECO0011T01, 'no es precisa ninguna comunicación a la administración'. El suministrador de gas mantiene el certificado a disposición de la Administración; no hay tasa modelo 046 en este supuesto."
         }
       ]
     },
@@ -133,11 +136,11 @@
       "condicion": {
         "and": [
           {
-            "==": [
+            "<=": [
               {
                 "var": "presion_bar"
               },
-              "normal"
+              5
             ]
           },
           {
@@ -206,17 +209,23 @@
         {
           "orden": 3,
           "nombre": "Comunicación de instalación receptora de gases combustibles (DECO0011T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
-          "base_legal": "ITC-ICG-07",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Fluidos y Metrología",
+          "base_legal": "RIGLO RD 919/2006 apartado 5.7; ITC-ICG-07 apartado 3.6",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000023985654207573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998, liquidada tras el registro (carta de pago emitida de oficio)",
           "formulario_ref": "DECO0011T01",
           "paralelo_con": null,
           "regla_id": "AST-GAS-002",
           "documentos_requeridos": [
+            {
+              "id": "formulario_icg07",
+              "label": "Formulario de comunicación normalizado ICG 07",
+              "descripcion": "Documento principal de la comunicación, según modelo oficial.",
+              "obligatorio": true
+            },
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación",
@@ -230,13 +239,13 @@
               "obligatorio": true
             },
             {
-              "id": "justificante_tasa_046",
-              "label": "Justificante de pago de tasa (Modelo 046)",
+              "id": "certificado_pruebas_suministrador",
+              "label": "Certificado de pruebas y puesta en servicio del suministrador de gas",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada."
         }
       ]
     },
@@ -244,11 +253,11 @@
       "id": "AST-GAS-003",
       "descripcion": "Instalación receptora de gas en presión MOP > 5 bar",
       "condicion": {
-        "==": [
+        ">": [
           {
             "var": "presion_bar"
           },
-          "5+"
+          5
         ]
       },
       "tramites": [
@@ -307,17 +316,23 @@
         {
           "orden": 3,
           "nombre": "Comunicación de instalación receptora de gases combustibles (DECO0011T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
-          "base_legal": "ITC-ICG-07",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Fluidos y Metrología",
+          "base_legal": "RIGLO RD 919/2006 apartado 5.7; ITC-ICG-07 apartado 3.6",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000023985654207573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998, liquidada tras el registro (carta de pago emitida de oficio)",
           "formulario_ref": "DECO0011T01",
           "paralelo_con": null,
           "regla_id": "AST-GAS-003",
           "documentos_requeridos": [
+            {
+              "id": "formulario_icg07",
+              "label": "Formulario de comunicación normalizado ICG 07",
+              "descripcion": "Documento principal de la comunicación, según modelo oficial.",
+              "obligatorio": true
+            },
             {
               "id": "ci_gas",
               "label": "Certificado de Instalación",
@@ -331,13 +346,13 @@
               "obligatorio": true
             },
             {
-              "id": "justificante_tasa_046",
-              "label": "Justificante de pago de tasa (Modelo 046)",
+              "id": "certificado_pruebas_suministrador",
+              "label": "Certificado de pruebas y puesta en servicio del suministrador de gas",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Proyecto obligatorio independientemente de la potencia por superar MOP 5 bar."
         }
       ]
     }

@@ -2,15 +2,17 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "comunidad_valenciana",
   "version": "2.0.1",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 2.0.0 anterior, que ya estaba en un nivel notablemente mejor que el resto de comunidades de este proyecto: el Decreto 88/2005 (y sus modificaciones por Decreto-ley 14/2020 y Ley 6/2024) están CONFIRMADOS como reales. Se corrigieron dos problemas: (1) 'nivel_verificacion: verificada' estaba contradicho por las propias notas del fichero, que reconocían incertidumbre ('verificar artículo exacto contra el DOGV', 'importe NO verificado') — bajado a 'generica' según la regla del propio proyecto; (2) los id de regla 'CV-FV-3' y 'CV-FV-4' estaban duplicados tres veces cada uno (partición correcta por inversion_eur, pero rompía regla_id como clave única) — renombrados a CV-FV-3A/3B/3C y CV-FV-4A/4B/4C.",
+  "aviso": "Corregido a partir de la versión 2.0.0 anterior, que ya estaba en un nivel notablemente mejor que el resto de comunidades de este proyecto: el Decreto 88/2005 (y sus modificaciones por Decreto-ley 14/2020 y Ley 6/2024) están CONFIRMADOS como reales. Se corrigieron dos problemas: (1) 'nivel_verificacion: verificada' estaba contradicho por las propias notas del fichero, que reconocían incertidumbre ('verificar artículo exacto contra el DOGV', 'importe NO verificado') — bajado a 'generica' según la regla del propio proyecto; (2) los id de regla 'CV-FV-3' y 'CV-FV-4' estaban duplicados tres veces cada uno (partición correcta por inversion_eur, pero rompía regla_id como clave única) — renombrados a CV-FV-3A/3B/3C y CV-FV-4A/4B/4C. Revisión 2026-07-28 (auditoría normativa CV): 'inversion_eur' ya NO es una variable fantasma — el formulario web captura ahora la inversión en euros para fotovoltaica y `apps/web/app/api/clasificar/route.ts` la reenvía al motor; se confirmó contra sede.gva.es (id_proc=15300, apartado 'Tasa o pago') que el umbral de 6.600 € usado en las condiciones de CV-FV-003A/B/C y CV-FV-004A/B/C es el tramo real de la tasa (109,54 € fijos + 45,55 € por los primeros 6.600 € + 12,02 € por cada 6.600 € adicionales o fracción), por lo que las condiciones quedan correctamente calibradas y no solo alcanzables. Se corrigió además el enlace erróneo a id_proc=15300 (alta tensión) en el tramo >100 kW: se sustituye por id_proc=20714, el trámite real de autoconsumo en baja tensión (sin tope superior de 100 kW según la propia ficha), ya que no existe en el schema un campo de tensión de conexión que permita distinguir BT/AT — ver huecos_verificacion. Se corrigieron los importes de tasa (109,54 €→155,09 € y 121,56 €→fórmula con mínimo de 167,11 €) contra la tabla 'Tasas 2025' de la ficha sede.gva.es id_proc=15300.",
   "huecos_verificacion": [
-    "CORRECCIÓN TARDÍA IMPORTANTE: el campo 'inversion_eur', usado en las reglas CV-FV-003A/B/C y CV-FV-004A/B/C para calcular el recargo de tasa, NO está en la lista de campos del ClasificadorInput (sección 3 del contexto del proyecto). Es una variable fantasma que ya traía el fichero original de partida y que se dejó pasar en la primera revisión de este lote — detectada solo al validar formalmente contra la lista de campos completa. Las 6 reglas que la usan seguirán sin disparar hasta que se añada 'inversion_eur' al schema real del backend o se sustituya por un campo existente. Se recomienda tratar esto como bloqueante antes de dar el fichero por utilizable.",
-    "Confirmar el artículo exacto de la Ley 6/2024 que extiende la exención de autorización previa hasta 500 kW (el propio fichero original ya señalaba esto como pendiente)",
-    "Confirmar la existencia y contenido de 'Resolución 24/02/2026 IVACE (DOGV nº 10315)' — no verificada de forma independiente en esta revisión",
-    "Importes de tasa dependientes de inversión no verificados contra la Ley 20/2017 de tasas"
+    "RESUELTO 2026-07-28: 'inversion_eur' ya se captura en el formulario web y se reenvía al motor (apps/web/app/api/clasificar/route.ts); las 6 reglas CV-FV-003A/B/C y CV-FV-004A/B/C ya disparan. El umbral de 6.600 € de sus condiciones se confirmó contra sede.gva.es (id_proc=15300, tabla de tasas) como el tramo real de la fórmula de tasa.",
+    "RESUELTO 2026-07-28: se sustituyó id_proc=15300 (alta tensión, trámite incorrecto para autoconsumo en BT) por id_proc=20714 en las 6 reglas >100 kW. PENDIENTE: no existe en el ClasificadorInput un campo de tensión de conexión (BT/AT); si la instalación >100 kW se conecta en alta tensión, el trámite correcto seguiría siendo el 15300. Se recomienda añadir dicho campo al schema antes de tratar este punto como cerrado.",
+    "RESUELTO 2026-07-28: importes de tasa corregidos contra sede.gva.es id_proc=15300, tabla 'Tasas 2025': 155,09 € para presupuesto ≤6.600 € (antes 109,54 €) y fórmula 109,54+45,55+12,02×ceil((presupuesto−6600)/6600), mínimo 167,11 €, para presupuesto >6.600 € (antes 121,56 € fijos). PENDIENTE: contrastar con la ley de tasas del ejercicio 2026 (los importes verificados son de la tabla 2025).",
+    "Confirmar el artículo exacto de la Ley 6/2024 que extiende la exención de autorización previa hasta 500 kW (el propio fichero original ya señalaba esto como pendiente) — NO LOCALIZADO en fuente admisible, se mantiene como pendiente de verificar; sostiene las reglas CV-FV-003A/B/C.",
+    "Confirmar la existencia y contenido de 'Resolución 24/02/2026 IVACE (DOGV nº 10315)': CONFIRMADA su existencia (DOGV 10315 de 04/03/2026) pero es una resolución de bases reguladoras de AYUDAS/subvenciones en energías renovables, no una norma de tramitación — reetiquetada en 'fuentes', fuera del alcance del motor de tramitación.",
+    "Ampliar el ámbito de CV-FV-002 a todo autoconsumo en BT >10 kW (sin tope de 100 kW) y separar por tensión de conexión, no por potencia: pendiente de un campo de tensión de conexión en el schema; no aplicado en esta revisión para no introducir otra condición sobre una variable inexistente."
   ],
   "fuentes": [
     "Ley 24/2013 art. 53",
@@ -19,7 +21,7 @@
     "Decreto-ley 14/2020, de 7 de agosto — CONFIRMADO real, modifica el Decreto 88/2005",
     "Ley 6/2024, de 5 de diciembre, de simplificación administrativa — CONFIRMADO real",
     "Ley 20/2017 de tasas, Título XX",
-    "Resolución 24/02/2026 IVACE (DOGV nº 10315) — NO VERIFICADO de forma independiente"
+    "Resolución 24/02/2026 IVACE (DOGV nº 10315) — CONFIRMADA real pero es una convocatoria de AYUDAS/subvenciones en energías renovables y biocarburantes, no una norma de tramitación; fuera del alcance del motor de permisos"
   ],
   "reglas": [
     {
@@ -108,9 +110,9 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "109,54 € (NO VERIFICADO importe exacto)",
-          "formulario_ref": null,
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
+          "coste_estimado": "155,09 € (109,54 € fijos + 45,55 € por los primeros 6.600 € de presupuesto; tabla Tasas 2025 de sede.gva.es, pendiente de contrastar con ejercicio 2026)",
+          "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-003A",
           "documentos_requeridos": [
@@ -121,7 +123,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción."
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
         }
       ]
     },
@@ -144,9 +146,9 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
-          "formulario_ref": null,
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
+          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa (fórmula: 109,54 € + 45,55 € por los primeros 6.600 € + 12,02 € por cada 6.600 € adicionales o fracción)",
+          "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-003B",
           "documentos_requeridos": [
@@ -157,7 +159,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción."
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
         }
       ]
     },
@@ -180,9 +182,9 @@
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "121,56 € (base + recargo, NO VERIFICADO importe exacto)",
-          "formulario_ref": null,
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
+          "coste_estimado": "Mínimo 167,11 € (109,54 € + 45,55 € por los primeros 6.600 € + 12,02 € por cada 6.600 € adicionales o fracción de presupuesto; tabla Tasas 2025 de sede.gva.es, pendiente de contrastar con ejercicio 2026)",
+          "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-003C",
           "documentos_requeridos": [
@@ -193,7 +195,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción."
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
         }
       ]
     },
@@ -215,9 +217,9 @@
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "109,54 € (NO VERIFICADO importe exacto)",
-          "formulario_ref": "15300",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
+          "coste_estimado": "155,09 € (109,54 € fijos + 45,55 € por los primeros 6.600 € de presupuesto; tabla Tasas 2025 de sede.gva.es, pendiente de contrastar con ejercicio 2026)",
+          "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-004A",
           "documentos_requeridos": [
@@ -228,7 +230,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005)."
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
         }
       ]
     },
@@ -250,9 +252,9 @@
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
-          "formulario_ref": "15300",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
+          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa (fórmula: 109,54 € + 45,55 € por los primeros 6.600 € + 12,02 € por cada 6.600 € adicionales o fracción)",
+          "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-004B",
           "documentos_requeridos": [
@@ -263,7 +265,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005)."
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
         }
       ]
     },
@@ -285,9 +287,9 @@
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=15300",
-          "coste_estimado": "121,56 € (base + recargo, NO VERIFICADO importe exacto)",
-          "formulario_ref": "15300",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
+          "coste_estimado": "Mínimo 167,11 € (109,54 € + 45,55 € por los primeros 6.600 € + 12,02 € por cada 6.600 € adicionales o fracción de presupuesto; tabla Tasas 2025 de sede.gva.es, pendiente de contrastar con ejercicio 2026)",
+          "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-004C",
           "documentos_requeridos": [
@@ -298,7 +300,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005)."
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
         }
       ]
     }

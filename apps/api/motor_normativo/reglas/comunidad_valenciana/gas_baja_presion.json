@@ -2,27 +2,35 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "comunidad_valenciana",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se sustituyó la comparación numérica de 'presion_bar' (<=0.05) por la comparación categórica correcta. Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar. 'Decreto 39/2005' no se ha podido confirmar de forma independiente en esta revisión — se mantiene como referencia pendiente de verificar.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se sustituyó la comparación numérica de 'presion_bar' (<=0.05) por la comparación categórica correcta. Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar. Revisión 2026-07-28 (auditoría normativa CV): 'Decreto 39/2005' se dio por NO LOCALIZADO tras búsqueda restringida a dogv.gva.es/boe.es/gva.es (existen Decreto 39/2004 y Decreto 39/2015, ninguno de gas) — se elimina de 'fuentes' y se sustituye por el Decreto 141/2012 y la Orden 14/2022, confirmados como normativa autonómica reguladora de la tramitación industrial en la CV. Se corrigió el organismo de las tres reglas: el certificado de instalación de gas lo emite la empresa instaladora habilitada, no un OCA (que no interviene preceptivamente en la puesta en servicio ordinaria), según sede.gva.es id_proc=3192. Se sustituyeron los enlaces genéricos a la raíz de sede.gva.es por id_proc=3192 y se añadió a CV-GAS-002 el trámite de registro/comunicación (plazo legal 30 días) que la ficha oficial exige también para instalaciones sin proyecto.",
   "huecos_verificacion": [
-    "'Decreto 39/2005, de 25 de febrero' y 'Orden de 29 de marzo de 2006' no verificados de forma independiente — pendientes de confirmar en próxima revisión",
+    "RESUELTO 2026-07-28: 'Decreto 39/2005, de 25 de febrero' se declara NO LOCALIZADO (no inexistente en sentido absoluto) tras búsqueda en dogv.gva.es, boe.es y gva.es; se retira de 'fuentes' y se sustituye por Decreto 141/2012 y Orden 14/2022, confirmados reales y aplicables a la tramitación industrial en la CV.",
+    "'Orden de 29 de marzo de 2006' no localizada — referencia eliminada de este campo por no poder confirmarse ni desmentirse con fuente admisible.",
+    "RESUELTO 2026-07-28: organismo corregido en las tres reglas de empresa instaladora habilitada / Servicio Territorial de Industria, Energía y Minas (antes OCA, erróneo); enlaces corregidos a id_proc=3192; CV-GAS-002 ahora incluye el trámite de registro/comunicación con plazo legal de 30 días.",
     "No se ha confirmado si existe una particularidad de la Comunitat Valenciana respecto al umbral general de 70 kW de la ITC-ICG-07",
-    "Tasas y plazos legales no verificados con detalle"
+    "Umbrales de proyecto obligatorio incompletos: la ficha oficial (id_proc=3192) prevé también instalación común >2.000 kW y conexión interior >2.000 kW, no modelados por falta de campo en el schema — pendiente.",
+    "Tasas y plazos legales no verificados con detalle",
+    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Decreto 39/2005, de 25 de febrero, del Consell (Comunitat Valenciana) — NO VERIFICADO de forma independiente en esta revisión"
+    "Decreto 141/2012, de 28 de septiembre, del Consell (simplificación de la puesta en funcionamiento de instalaciones industriales) — CONFIRMADO real",
+    "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — CONFIRMADO real",
+    "Ficha de trámite id_proc=3192 'Instalación receptora de gas (ITC-7)' - sede.gva.es"
   ],
   "reglas": [
     {
       "id": "CV-GAS-001",
       "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
       "condicion": {
-        "==": [
-          { "var": "presion_bar" },
-          "5+"
+        ">": [
+          {
+            "var": "presion_bar"
+          },
+          5
         ]
       },
       "tramites": [
@@ -52,7 +60,7 @@
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) acreditado en la Comunitat Valenciana",
+          "organismo": "Empresa instaladora habilitada de gas",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -65,8 +73,8 @@
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
-              "descripcion": "",
+              "label": "Certificado de Instalación de gas (modelo CERINCOM/CERININD/CERACGAS)",
+              "descripcion": "Emitido por la empresa instaladora habilitada; en su caso, certificado de dirección y fin de obra CERTEREG emitido por el técnico director.",
               "obligatorio": true
             },
             {
@@ -76,30 +84,30 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA)."
         },
         {
           "orden": 3,
           "nombre": "Registro/comunicación de la instalación",
-          "organismo": "Dirección General de Industria",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas",
           "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
           "plataforma": "Sede PROP electrónica (gva.es)",
-          "plataforma_url": "https://sede.gva.es",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=3192",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "3192",
           "paralelo_con": null,
           "regla_id": "CV-GAS-001",
           "documentos_requeridos": [
             {
               "id": "ci_visado",
-              "label": "Certificado de Instalación visado por OCA",
-              "descripcion": "",
+              "label": "Certificados normalizados de instalación (CERINCOM/CERININD/CERACGAS/CERTEREG)",
+              "descripcion": "Presentación ante el Servicio Territorial de Industria antes de que transcurran 30 días desde la puesta en servicio.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es."
         }
       ]
     },
@@ -108,8 +116,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -145,7 +167,7 @@
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) acreditado en la Comunitat Valenciana",
+          "organismo": "Empresa instaladora habilitada de gas",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -158,8 +180,8 @@
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
-              "descripcion": "",
+              "label": "Certificado de Instalación de gas (modelo CERINCOM/CERININD/CERACGAS)",
+              "descripcion": "Emitido por la empresa instaladora habilitada.",
               "obligatorio": true
             },
             {
@@ -169,7 +191,30 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA)."
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro/comunicación de la instalación",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": 30,
+          "plataforma": "Sede PROP electrónica (gva.es)",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=3192",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": "3192",
+          "paralelo_con": null,
+          "regla_id": "CV-GAS-002",
+          "documentos_requeridos": [
+            {
+              "id": "ci_visado",
+              "label": "Certificados normalizados de instalación (CERINCOM/CERININD/CERACGAS)",
+              "descripcion": "Presentación ante el Servicio Territorial de Industria antes de que transcurran 30 días desde la puesta en servicio.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido tras auditoría 2026-07-28: la ficha oficial (id_proc=3192) exige este trámite también para instalaciones sin proyecto (≤70 kW); antes la regla no generaba ninguna comunicación a la Administración pese al plazo legal de 30 días."
         }
       ]
     },
@@ -178,8 +223,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { ">": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -209,7 +268,7 @@
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) acreditado en la Comunitat Valenciana",
+          "organismo": "Empresa instaladora habilitada de gas",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -222,8 +281,8 @@
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
-              "descripcion": "",
+              "label": "Certificado de Instalación de gas (modelo CERINCOM/CERININD/CERACGAS)",
+              "descripcion": "Emitido por la empresa instaladora habilitada; en su caso, certificado de dirección y fin de obra CERTEREG emitido por el técnico director.",
               "obligatorio": true
             },
             {
@@ -233,30 +292,30 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA)."
         },
         {
           "orden": 3,
           "nombre": "Registro/comunicación de la instalación",
-          "organismo": "Dirección General de Industria",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas",
           "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 30,
           "plataforma": "Sede PROP electrónica (gva.es)",
-          "plataforma_url": "https://sede.gva.es",
+          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=3192",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "3192",
           "paralelo_con": null,
           "regla_id": "CV-GAS-003",
           "documentos_requeridos": [
             {
               "id": "ci_visado",
-              "label": "Certificado de Instalación visado por OCA",
-              "descripcion": "",
+              "label": "Certificados normalizados de instalación (CERINCOM/CERININD/CERACGAS/CERTEREG)",
+              "descripcion": "Presentación ante el Servicio Territorial de Industria antes de que transcurran 30 días desde la puesta en servicio.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es."
         }
       ]
     }

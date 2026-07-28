@@ -1,19 +1,21 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "aragon",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
-  "estado": "verificado",
-  "aviso": "Umbrales verificados contra normativa nacional, acatados sin alteración en Aragón.",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-28",
+  "estado": "verificado_parcialmente",
+  "aviso": "Umbrales verificados contra normativa nacional, acatados sin alteración en Aragón. Auditoría 2026-07-28: rellenada plataforma_url del Trámite Nº 26 con la ficha oficial confirmada. 'estado' se mantiene en verificado_parcialmente por los huecos restantes (ver huecos_verificacion), entre ellos la ausencia del trámite ante distribuidora para nuevo suministro.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
     "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón.",
+    "Falta el trámite ante la distribuidora cuando la IRVE requiere nuevo suministro o ampliación de potencia. El schema ya expone el campo 'requiere_nuevo_suministro' (disponible en el formulario web, ver apps/web/components/nueva-instalacion/Step2ParametrosTecnicos.tsx) pero no está usado en ninguna regla de este fichero. No se ha añadido como regla nueva en esta corrección quirúrgica para no introducir una condición no verificada previamente contra fuente primaria (procedimiento y plazos exactos ante la distribuidora no localizados); requiere campo de formulario: requiere_nuevo_suministro, ya disponible, pendiente de regla dedicada verificada."
   ],
   "fuentes": [
     "RD 1053/2014, de 12 de diciembre (ITC-BT-52 y modificacion de ITC-BT-04), BOE-A-2014-13681 -- umbrales verificados contra texto consolidado en esta investigacion",
     "RD 842/2002 (REBT)",
-    "Orden EIE/1731/2017, de 5 de octubre -- citada en ficha oficial de aragon.es como normativa aplicable a la comunicacion de BT; texto articulado no verificado"
+    "Orden EIE/1731/2017, de 5 de octubre -- citada en ficha oficial de aragon.es como normativa aplicable a la comunicacion de BT; texto articulado no verificado",
+    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
   ],
   "reglas": [
     {
@@ -135,8 +137,8 @@
           "base_legal": "RD 842/2002; Orden EIE/1731/2017",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": 15,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
           "coste_estimado": "NO VERIFICADO -- sin epigrafe de la Tasa 14 confirmado para este supuesto",
           "formulario_ref": "Modelo C0004 (certificado de instalacion electrica, segun ficha oficial de BT)",
           "paralelo_con": null,
@@ -155,7 +157,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 26; mismo trámite usado por fotovoltaica, denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa."
         }
       ]
     },
@@ -274,8 +276,8 @@
           "base_legal": "RD 842/2002; Orden EIE/1731/2017",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 20,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "Modelo C0004",
           "paralelo_con": null,
@@ -294,7 +296,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del Trámite Nº 26. CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
         }
       ]
     }

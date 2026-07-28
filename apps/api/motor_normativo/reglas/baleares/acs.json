@@ -2,26 +2,30 @@
   "tipo_instalacion": "acs",
   "comunidad": "baleares",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema (solo 'potencia_kw'): ninguna regla disparaba. Se eliminó 'Decreto 36/2018 de 27 de julio' (real: currículo de música, sin relación con instalaciones térmicas) y 'Orden de 19 de mayo de 2015' por no localizarse en fuente oficial. El umbral de 70 kW se mantiene por ser el umbral general del RITE (ya verificado), no específico de Baleares. HUECO CRÍTICO: igual que en Asturias, este fichero no contiene ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — no se ha añadido una regla inventada, se deja como hueco explícito.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema (solo 'potencia_kw'): ninguna regla disparaba. Se eliminó 'Decreto 36/2018 de 27 de julio' (real: currículo de música, sin relación con instalaciones térmicas) y 'Orden de 19 de mayo de 2015' por no localizarse en fuente oficial. El umbral de 70 kW se mantiene por ser el umbral general del RITE (ya verificado), no específico de Baleares. HUECO CRÍTICO: igual que en Asturias, este fichero no contiene ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — no se ha añadido una regla inventada, se deja como hueco explícito. REVISIÓN 2026-07-28 (auditoría normativa): identificado el trámite real como UDIT-021 'Instalaciones térmicas en los edificios' (Decreto 25/2003, UDIT); corregido el umbral de frontera del RITE a '>= 70 kW'; añadida la regla BAL-ACS-003 de Legionella/PPCL-PSL condicionada al campo 'uso_colectivo' del schema, que ya existía y no se estaba usando; actualizada la plataforma_url a la ficha directa del trámite.",
   "huecos_verificacion": [
-    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
-    "No se ha verificado si Baleares exige una Entidad Colaboradora de la Administración (ECA) específicamente para ACS >70 kW, o si es un trámite directo — el fichero original lo daba por hecho sin fuente verificable",
-    "Tasas y plazos legales no verificados",
-    "Nombre y competencia exacta de la Dirección General actual no confirmados (posible cambio de denominación, ver fotovoltaica_autoconsumo.json de este mismo lote)"
+    "RESUELTO 2026-07-28: se ha añadido la regla BAL-ACS-003 de Legionella/PPCL-PSL (RD 487/2022 + RD 614/2024) condicionada a uso_colectivo == true, usando el campo ya existente en el schema (antes sin usar)",
+    "No se ha verificado si Baleares exige una Entidad Colaboradora de la Administración (ECA) específicamente para ACS >=70 kW, o si es un trámite directo ante la UDIT — el fichero original lo daba por hecho sin fuente verificable",
+    "Tasas exactas del trámite UDIT-021 no verificadas con detalle (confirmado que la ficha oficial permite pagar tasa telemáticamente, pero no se ha consignado el importe)",
+    "Nombre y competencia exacta de la Dirección General actual no confirmados: contradicción entre fuentes oficiales de caib.es (ver fotovoltaica_autoconsumo.json de este mismo lote); se usa redacción neutra",
+    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007)"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "RD 238/2013 modificación RITE"
+    "RD 238/2013 modificación RITE",
+    "Decreto 25/2003, de 28 de marzo, por el que se crea la Unidad de Información y Trámite (UDIT) - Illes Balears",
+    "Ficha de trámite UDIT-021 'Instalaciones térmicas en los edificios' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/225272)",
+    "RD 487/2022 + RD 614/2024 (Prevención y control de la legionelosis)"
   ],
   "reglas": [
     {
       "id": "BAL-ACS-001",
-      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "descripcion": "Instalación de ACS con potencia < 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
-        "<=": [
+        "<": [
           { "var": "potencia_kw" },
           70
         ]
@@ -58,15 +62,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación y comunicación de puesta en servicio",
-          "organismo": "Dirección General competente en energía del Govern de les Illes Balears",
-          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "nombre": "Instalaciones térmicas en los edificios (UDIT-021)",
+          "organismo": "UDIT (Unitat d'Informació i Tràmit) / Direcció General d'Indústria - Govern de les Illes Balears",
+          "base_legal": "RITE RD 1027/2007 art. 23-24; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-021",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/225272",
+          "coste_estimado": "NO VERIFICADO (la ficha oficial permite pagar la tasa correspondiente de forma telemática; importe no consignado)",
+          "formulario_ref": "UDIT-021",
           "paralelo_con": null,
           "regla_id": "BAL-ACS-001",
           "documentos_requeridos": [
@@ -89,9 +93,9 @@
     },
     {
       "id": "BAL-ACS-002",
-      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de ACS con potencia >= 70 kW (requiere proyecto técnico)",
       "condicion": {
-        ">": [
+        ">=": [
           { "var": "potencia_kw" },
           70
         ]
@@ -128,15 +132,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial y certificado de instalación",
-          "organismo": "Dirección General competente en energía del Govern de les Illes Balears",
-          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
+          "nombre": "Inspección inicial y certificado de instalación — Instalaciones térmicas en los edificios (UDIT-021)",
+          "organismo": "UDIT (Unitat d'Informació i Tràmit) / Direcció General d'Indústria - Govern de les Illes Balears",
+          "base_legal": "RITE RD 1027/2007 art. 15, 23-24; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica CAIB",
-          "plataforma_url": "https://www.caib.es/seucaib",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-021",
+          "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/225272",
+          "coste_estimado": "NO VERIFICADO (la ficha oficial permite pagar la tasa correspondiente de forma telemática; importe no consignado)",
+          "formulario_ref": "UDIT-021",
           "paralelo_con": null,
           "regla_id": "BAL-ACS-002",
           "documentos_requeridos": [
@@ -154,6 +158,70 @@
             }
           ],
           "notas": "No confirmado si Baleares exige ECA para este trámite; el fichero original lo daba por hecho sin fuente verificable."
+        }
+      ]
+    },
+    {
+      "id": "BAL-ACS-003",
+      "descripcion": "Plan de Prevención y Control de Legionella (PPCL/PSL) para ACS de uso colectivo (RD 487/2022 art. 3.1 + RD 614/2024)",
+      "condicion": {
+        "==": [
+          { "var": "uso_colectivo" },
+          true
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Elaboración del Plan de Prevención y Control de la Legionelosis (PPCL/PSL)",
+          "organismo": "Empresa de control de legionella acreditada / servicio de prevención",
+          "base_legal": "RD 487/2022 Prevención de Legionelosis; RD 614/2024",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-ACS-003",
+          "documentos_requeridos": [
+            {
+              "id": "plan_legionella",
+              "label": "Plan de Prevención y Control de la Legionelosis",
+              "descripcion": "Documento que describe los procedimientos de limpieza, desinfección y mantenimiento de la instalación de ACS de uso colectivo para prevenir la proliferación de Legionella.",
+              "obligatorio": true
+            },
+            {
+              "id": "analisis_agua_inicial",
+              "label": "Análisis microbiológico inicial del agua",
+              "descripcion": "Análisis de laboratorio acreditado que determina la presencia o ausencia de Legionella pneumophila en el circuito de ACS.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Regla añadida en la revisión 2026-07-28 usando el campo 'uso_colectivo' del schema (previamente sin usar). No se ha localizado normativa autonómica balear específica de censo/registro de instalaciones de riesgo; se aplica el régimen estatal."
+        },
+        {
+          "orden": 2,
+          "nombre": "Notificación/censo ante la autoridad sanitaria (Conselleria de Salut i Consum)",
+          "organismo": "Conselleria de Salut i Consum del Govern de les Illes Balears",
+          "base_legal": "RD 487/2022 art. 10",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "BAL-ACS-003",
+          "documentos_requeridos": [
+            {
+              "id": "notificacion_sanitaria_legionella",
+              "label": "Formulario de notificación/censo de instalación de riesgo",
+              "descripcion": "Comunicación a la autoridad sanitaria autonómica de la puesta en marcha de una instalación sujeta al RD 487/2022.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "NO VERIFICADO: no se ha confirmado el procedimiento/plataforma específico de censo de instalaciones de riesgo de la Conselleria de Salut i Consum de Illes Balears; se deja el organismo competente sin ficha de trámite hasta verificar."
         }
       ]
     }

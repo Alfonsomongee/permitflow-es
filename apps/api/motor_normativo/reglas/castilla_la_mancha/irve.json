@@ -2,7 +2,7 @@
   "tipo_instalacion": "irve",
   "comunidad": "castilla_la_mancha",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminaron dos variables fantasma: 'ubicacion' (no existe; el campo real es 'ubicacion_irve', con valores interior/exterior/via_publica/garaje_comunitario, no los inventados vivienda_unifamiliar/edificio_plurifamiliar/etc.) y 'obra_civil_relevante' (no existe en el schema en absoluto). Se eliminó 'Decreto 36/2018' como base legal: no se ha localizado esta norma. La propia ficha oficial de la JCCM para instalaciones eléctricas de baja tensión (trámite 1002270) ya incluye explícitamente 'instalaciones de las estaciones de recarga para el vehículo eléctrico, que requieran la elaboración de proyecto para su ejecución' dentro del régimen general de BT (vía ITC-BT-04) — confirma que IRVE se tramita por el mismo circuito general, no por un decreto propio. Se sustituyeron los tres niveles de umbral inventados (50kW/obra civil/vía pública) por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014): interior >50kW, exterior >10kW, o modo de carga 4.",
@@ -10,12 +10,13 @@
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de IRVE; se aplica el régimen general de BT (trámite 1002270/020048) más ITC-BT-52 nacional",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28 (auditoría independiente): el organismo citado en CLM-IRVE-001 orden 2 y CLM-IRVE-002 orden 3 era 'Dirección General de Industria, Energía y Minas', que no existe en el organigrama vigente de la Consejería de Desarrollo Sostenible. Corregido a 'Dirección General de Transición Energética', consistente con fotovoltaica/climatización/ACS."
   ],
   "fuentes": [
     "RD 1053/2014, por el que se aprueba la ITC-BT-52",
     "RD 842/2002 REBT, ITC-BT-04",
-    "Ficha de trámite 1002270 'Instalaciones eléctricas de baja tensión' - jccm.es (confirma que IRVE con proyecto se tramita por el régimen general BT)",
+    "Ficha de trámite 1002270 'Registro de una instalación eléctrica de baja tensión' - jccm.es (confirma que IRVE con proyecto se tramita por el régimen general BT)",
     "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
   ],
   "reglas": [
@@ -76,7 +77,7 @@
         {
           "orden": 2,
           "nombre": "Diligenciado del certificado y registro de la instalación (eDice-bt)",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
           "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
@@ -174,7 +175,7 @@
         {
           "orden": 3,
           "nombre": "Diligenciado del certificado y registro de la instalación (portal con proyecto)",
-          "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
+          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
           "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,

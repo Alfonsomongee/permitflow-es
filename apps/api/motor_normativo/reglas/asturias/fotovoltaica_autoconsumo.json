@@ -2,31 +2,91 @@
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "asturias",
   "version": "1.1.0",
-  "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "estricta",
-  "estado": "verificado",
-  "aviso": "Umbral de 500kW verificado y aplicado. RIPRE extraído a regla separada. Bifurcación industrial/terciario implementada.",
-  "huecos_verificacion": [],
+  "ultima_revision": "2026-07-28",
+  "nivel_verificacion": "generica",
+  "estado": "verificado_parcialmente",
+  "aviso": "Auditoría 2026-07-28: umbral de exención de AAP corregido de 500kW (inexistente) a 100kW en BT (Ley 24/2013 art. 53), con exención adicional para autoconsumo sin excedentes independiente de potencia. AUTO0301T01 confirmado como único trámite de AAP disponible en Asturias (es el trámite de instalaciones de producción ≤50MW; no existe trámite específico de autoconsumo). Añadido trámite de CAU/acceso y conexión ante distribuidora, ausente hasta ahora. RIPRE reconducido a instalaciones con excedentes.",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28 (CRÍTICO): trámite AUTO0301T01 verificado en ficha oficial (https://sede.asturias.es/-/dboid-6269000040819315407573): es 'Autorización de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables' (≤50MW), con requisito de 'capacidad técnica' (3 años de experiencia como productor u otras vías). Confirmado por WebSearch que no existe trámite alternativo específico de autoconsumo en la sede del Principado; es el único cauce de AAP disponible. PENDIENTE: no se ha confirmado si los autoconsumidores individuales que superen 100 kW en BT y requieran AAP están exentos del requisito de experiencia como productor (posible antinomia entre RD 244/2019 y el régimen general de RD 1955/2000/Ley 24/2013); revisar caso a caso con la Consejería antes de dar el itinerario por cerrado.",
+    "RESUELTO 2026-07-28 (ALTO): umbral de exención de AAP corregido de 500kW a 100kW en BT (Ley 24/2013 art. 53.3) + exención total para modalidad_autoconsumo=sin_excedentes independientemente de la potencia. Eliminada la referencia inexistente a 'Título VII RD 244/2019'.",
+    "RESUELTO 2026-07-28 (CRÍTICO): añadido trámite AST-FV-CAU (Código de Autoconsumo / acceso y conexión ante la distribuidora), ausente hasta ahora, conforme a RD 1183/2020.",
+    "RESUELTO 2026-07-28 (ALTO): AST-FV-RIPRE reconducida de 'potencia_kw > 1' a modalidad_autoconsumo con excedentes (con_excedentes_sin_compensacion | con_excedentes_con_compensacion); el autoconsumo sin excedentes no es instalación de producción y no accede al RIPRE.",
+    "RESUELTO 2026-07-28 (MEDIO): plataforma_url genérica (https://sede.asturias.es) sustituida por la ficha dboid específica de cada trámite.",
+    "RESUELTO 2026-07-28 (MEDIO): organismo de RECE0017T01 y AUTO0301T01 precisado con el Servicio gestor real (Servicio de Gestión Energética y Servicio de Energías Renovables y Eficiencia Energética, respectivamente, confirmados en ficha oficial).",
+    "PENDIENTE: órgano gestor exacto de RECE0004T01 no confirmado documentalmente en esta sesión (por analogía se mantiene la Consejería genérica); no se ha abierto la ficha completa del trámite.",
+    "requiere campo de formulario: ubicacion_suelo / requiere_acceso_conexion — Step2ParametrosTecnicos.tsx solo los muestra cuando comunidad=cataluna, por lo que el trámite AST-FV-CAU no puede excepcionar aquí el caso de autoconsumo con excedentes ≤15 kW en suelo urbanizado (exento de permiso de acceso y conexión según RD 1183/2020); se modela como paso universal para todas las instalaciones asturianas hasta que el formulario recoja ese dato para todas las comunidades.",
+    "PENDIENTE: cita de 'Resolución de 20 de mayo de 2015' en AST-FV-RIPRE sigue incompleta (falta fecha BOPA 02/06/2015 y órgano emisor 'Consejería de Economía y Empleo'); se corrige el texto pero no se ha ampliado el campo base_legal más allá de lo verificado."
+  ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
     "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53 (Modificado)",
+    "Ley 24/2013 Sector Eléctrico, art. 53 (exención AAP ≤100kW BT / sin excedentes)",
     "REBT RD 842/2002 ITC-BT-40",
     "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos",
     "Ficha de procedimiento 'BT Fotovoltaica Autoconsumo' - asturias.es (códigos AUTO0301T01, RECE0017T01, RECE0004T01, RECE0049T01)"
   ],
   "reglas": [
     {
+      "id": "AST-FV-CAU",
+      "descripcion": "Solicitud de Código de Autoconsumo (CAU) y, en su caso, permiso de acceso y conexión ante la empresa distribuidora. Paso previo obligatorio a la puesta en servicio, ausente hasta la auditoría de 2026-07-28.",
+      "condicion": {
+        ">=": [
+          {
+            "var": "potencia_kw"
+          },
+          0
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Solicitud de Código de Autoconsumo (CAU) y/o permiso de acceso y conexión",
+          "tipo_actuacion": "accion_usuario",
+          "organismo": "Empresa distribuidora eléctrica de la zona (p. ej. EDP, Viesgo)",
+          "base_legal": "RD 1183/2020 de acceso y conexión a las redes de transporte y distribución; RD 244/2019, art. 8",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "distribuidora",
+          "plataforma_url": null,
+          "coste_estimado": "Variable según distribuidora; sin coste para autoconsumo sin excedentes o de potencia reducida",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-CAU",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de CAU / acceso y conexión a la distribuidora",
+              "descripcion": "Formulario propio de la empresa distribuidora correspondiente a la zona de suministro.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "En instalaciones de hasta 15 kW en suelo urbanizado el promotor o instalador puede solicitar directamente el CAU a la distribuidora. En el resto de casos, el CAU se obtiene dentro del proceso de solicitud de acceso y conexión (RD 1183/2020). Es un trámite obligatorio y previo a la puesta en servicio y a la inscripción en el registro autonómico (RECE0017T01/RECE0004T01), no modelado hasta la auditoría de 2026-07-28."
+        }
+      ]
+    },
+    {
       "id": "AST-FV-001-A",
-      "descripcion": "Autoconsumo <= 500 kW (Uso No Industrial): Exento de AAP. Memoria Técnica o Proyecto según REBT.",
+      "descripcion": "Autoconsumo exento de AAP (Uso No Industrial): potencia <= 100 kW en BT, o cualquier potencia si es autoconsumo sin excedentes (Ley 24/2013 art. 53.3). Memoria Técnica o Proyecto según REBT.",
       "condicion": {
         "and": [
           {
-            "<=": [
+            "or": [
               {
-                "var": "potencia_kw"
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
               },
-              500
+              {
+                "==": [
+                  {
+                    "var": "modalidad_autoconsumo"
+                  },
+                  "sin_excedentes"
+                ]
+              }
             ]
           },
           {
@@ -89,12 +149,12 @@
         {
           "orden": 3,
           "nombre": "Inscripción en el registro de instalaciones eléctricas de baja tensión (RECE0017T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Gestión Energética",
           "base_legal": "RD 244/2019",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005718311607573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998 (porcentaje del PEM)",
           "formulario_ref": "RECE0017T01",
           "paralelo_con": null,
@@ -125,15 +185,27 @@
     },
     {
       "id": "AST-FV-001-B",
-      "descripcion": "Autoconsumo <= 500 kW (Uso Industrial): Exento de AAP. Registro en División A del RII.",
+      "descripcion": "Autoconsumo exento de AAP (Uso Industrial): potencia <= 100 kW en BT, o cualquier potencia si es autoconsumo sin excedentes (Ley 24/2013 art. 53.3). Registro en División A del RII.",
       "condicion": {
         "and": [
           {
-            "<=": [
+            "or": [
               {
-                "var": "potencia_kw"
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
               },
-              500
+              {
+                "==": [
+                  {
+                    "var": "modalidad_autoconsumo"
+                  },
+                  "sin_excedentes"
+                ]
+              }
             ]
           },
           {
@@ -201,7 +273,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005765118807573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "RECE0004T01",
           "paralelo_con": null,
@@ -226,7 +298,7 @@
     },
     {
       "id": "AST-FV-002-A",
-      "descripcion": "Autoconsumo > 500 kW (Uso No Industrial): Autorización Administrativa Previa obligatoria.",
+      "descripcion": "Autoconsumo > 100 kW en BT con excedentes (Uso No Industrial): Autorización Administrativa Previa obligatoria (Ley 24/2013 art. 53.3). No aplica si es autoconsumo sin excedentes, exento con independencia de la potencia.",
       "condicion": {
         "and": [
           {
@@ -234,7 +306,15 @@
               {
                 "var": "potencia_kw"
               },
-              500
+              100
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "modalidad_autoconsumo"
+              },
+              "sin_excedentes"
             ]
           },
           {
@@ -273,13 +353,13 @@
         },
         {
           "orden": 2,
-          "nombre": "Autorización Administrativa Previa y de Construcción (AUTO0301T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
-          "base_legal": "Ley 24/2013 art. 53; Título VII RD 244/2019",
+          "nombre": "Autorización Administrativa Previa y de Construcción de instalación de producción de energía eléctrica (AUTO0301T01)",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Energías Renovables y Eficiencia Energética",
+          "base_legal": "Ley 24/2013 art. 53 (exención AAP hasta 100kW BT / sin excedentes); RD 244/2019",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
+          "plataforma_url": "https://sede.asturias.es/-/dboid-6269000040819315407573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "AUTO0301T01",
           "paralelo_con": null,
@@ -298,17 +378,17 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "AUTO0301T01 es el único trámite de Autorización Administrativa Previa disponible en la sede del Principado (verificado 2026-07-28); no existe cauce específico de autoconsumo. Entre sus requisitos figura acreditar capacidad técnica como productor (3 años de experiencia u otras vías equivalentes, art. 'Quién lo puede presentar'), pensado originalmente para productores. No se ha confirmado si los autoconsumidores individuales que superan este umbral están exentos de ese requisito; se recomienda revisión manual del caso concreto antes de dar el trámite por cerrado."
         },
         {
           "orden": 3,
           "nombre": "Inscripción BT (RECE0017T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Gestión Energética",
           "base_legal": "RD 244/2019",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005718311607573",
           "coste_estimado": "Tasa correspondiente",
           "formulario_ref": "RECE0017T01",
           "paralelo_con": null,
@@ -327,7 +407,7 @@
     },
     {
       "id": "AST-FV-002-B",
-      "descripcion": "Autoconsumo > 500 kW (Uso Industrial): Autorización Administrativa Previa y RII.",
+      "descripcion": "Autoconsumo > 100 kW en BT con excedentes (Uso Industrial): Autorización Administrativa Previa y RII. No aplica si es autoconsumo sin excedentes, exento con independencia de la potencia.",
       "condicion": {
         "and": [
           {
@@ -335,7 +415,15 @@
               {
                 "var": "potencia_kw"
               },
-              500
+              100
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "modalidad_autoconsumo"
+              },
+              "sin_excedentes"
             ]
           },
           {
@@ -374,13 +462,13 @@
         },
         {
           "orden": 2,
-          "nombre": "Autorización Administrativa Previa y de Construcción (AUTO0301T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
-          "base_legal": "Ley 24/2013 art. 53",
+          "nombre": "Autorización Administrativa Previa y de Construcción de instalación de producción de energía eléctrica (AUTO0301T01)",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Energías Renovables y Eficiencia Energética",
+          "base_legal": "Ley 24/2013 art. 53 (exención AAP hasta 100kW BT / sin excedentes); RD 244/2019",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
+          "plataforma_url": "https://sede.asturias.es/-/dboid-6269000040819315407573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "AUTO0301T01",
           "paralelo_con": null,
@@ -399,7 +487,7 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "AUTO0301T01 es el único trámite de Autorización Administrativa Previa disponible en la sede del Principado (verificado 2026-07-28); no existe cauce específico de autoconsumo. Entre sus requisitos figura acreditar capacidad técnica como productor (3 años de experiencia u otras vías equivalentes). No se ha confirmado si los autoconsumidores industriales que superan este umbral están exentos de ese requisito; se recomienda revisión manual del caso concreto."
         },
         {
           "orden": 3,
@@ -409,7 +497,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005765118807573",
           "coste_estimado": "Tasa correspondiente",
           "formulario_ref": "RECE0004T01",
           "paralelo_con": null,
@@ -428,13 +516,16 @@
     },
     {
       "id": "AST-FV-RIPRE",
-      "descripcion": "Inscripción en el RIPRE para instalaciones de generación de más de 1 kW",
+      "descripcion": "Inscripción en el RIPRE para instalaciones de autoconsumo con excedentes (instalaciones de producción). No aplica a autoconsumo sin excedentes.",
       "condicion": {
-        ">": [
+        "in": [
           {
-            "var": "potencia_kw"
+            "var": "modalidad_autoconsumo"
           },
-          1
+          [
+            "con_excedentes_sin_compensacion",
+            "con_excedentes_con_compensacion"
+          ]
         ]
       },
       "tramites": [
@@ -442,11 +533,11 @@
           "orden": 99,
           "nombre": "Inscripción en el RIPRE (RECE0049T01)",
           "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
-          "base_legal": "Resolución de 20 de mayo de 2015",
+          "base_legal": "Resolución de 20 de mayo de 2015, de la Consejería de Economía y Empleo, por la que se habilita el Registro de Instalaciones de Producción de Energía Eléctrica en el Principado de Asturias (RIPRE) (BOPA 02/06/2015, ref. 2015-09530)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000006161836107573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "RECE0049T01",
           "paralelo_con": null,

@@ -1,19 +1,21 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "pais_vasco",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminaron 'Decreto 47/2009' y 'Decreto 213/2012' como base legal: ninguno se ha localizado con ese objeto — el Decreto 213/2012 real regula contaminación acústica de la CAPV, sin relación con energías renovables ni instalaciones térmicas. Sustituidos por el Decreto 81/2020 (confirmado real) más el RITE nacional directo. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminaron 'Decreto 47/2009' y 'Decreto 213/2012' como base legal: ninguno se ha localizado con ese objeto — el Decreto 213/2012 real regula contaminación acústica de la CAPV, sin relación con energías renovables ni instalaciones térmicas. Sustituidos por el Decreto 81/2020 (confirmado real) más el RITE nacional directo. Revisión 2026-07-28: se añadió la regla PV-ACS-003 de Plan de Prevención y Control de Legionelosis (PPCL/PSL) para instalaciones de uso colectivo, condicionada a 'uso_colectivo', que resolvía el hueco crítico autodeclarado.",
   "huecos_verificacion": [
-    "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
+    "RESUELTO 2026-07-28: se añadió la regla PV-ACS-003 de Legionella/PPCL-PSL (RD 487/2022 + RD 614/2024) para ACS de uso colectivo, condicionada al campo 'uso_colectivo'.",
     "Tasas y plazos legales no verificados con detalle",
     "No se ha confirmado si el País Vasco exige OCA específicamente para ACS >70 kW más allá de lo que exige el RITE nacional"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
-    "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real"
+    "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real",
+    "RD 487/2022, de 21 de junio, por el que se establecen los requisitos sanitarios para la prevención y el control de la legionelosis",
+    "RD 614/2024, de 25 de junio (modificación del RD 487/2022)"
   ],
   "reglas": [
     {
@@ -170,6 +172,44 @@
             }
           ],
           "notas": "No confirmado si el País Vasco exige OCA específica para este trámite."
+        }
+      ]
+    },
+    {
+      "id": "PV-ACS-003",
+      "descripcion": "ACS de uso colectivo: Plan de Prevención y Control de Legionelosis (PPCL/PSL)",
+      "condicion": {
+        "==": [ { "var": "uso_colectivo" }, true ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Plan de Prevención y Control de la Legionelosis (PPCL) / Programa de Seguridad del Agua (PSL)",
+          "organismo": "Titular de la instalación / Servicio de Salud Pública del Gobierno Vasco (Osasun Publikoa)",
+          "base_legal": "RD 487/2022, de 21 de junio; RD 614/2024, de 25 de junio (modificación)",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "PV-ACS-003",
+          "documentos_requeridos": [
+            {
+              "id": "ppcl",
+              "label": "Plan de Prevención y Control de la Legionelosis / Programa de Seguridad del Agua",
+              "descripcion": "Obligatorio para instalaciones de ACS de uso colectivo (RD 487/2022 y su modificación por RD 614/2024). Añadido en revisión 2026-07-28 al detectarse como hueco crítico autodeclarado.",
+              "obligatorio": true
+            },
+            {
+              "id": "registro_mantenimiento_legionella",
+              "label": "Registro de mantenimiento, limpieza y desinfección",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Regla independiente y acumulable a PV-ACS-001/002 según potencia; aplica siempre que 'uso_colectivo' sea verdadero, con independencia de la potencia de la instalación. No se ha confirmado normativa autonómica vasca adicional que amplíe la obligación estatal — NO VERIFICABLE ese extremo."
         }
       ]
     }

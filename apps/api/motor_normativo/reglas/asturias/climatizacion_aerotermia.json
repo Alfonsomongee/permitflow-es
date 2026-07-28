@@ -2,11 +2,17 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "asturias",
   "version": "1.1.0",
-  "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "estricta",
-  "estado": "verificado",
-  "aviso": "Decreto 11/2015 aplicado. Trámite RECE0050T01 consolidado. Inspección OCA obligatoria para proyectos >70kW.",
-  "huecos_verificacion": [],
+  "ultima_revision": "2026-07-28",
+  "nivel_verificacion": "generica",
+  "estado": "verificado_parcialmente",
+  "aviso": "Auditoría 2026-07-28: corregido BLOQUEANTE de motor (condición comparaba 'tipo_instalacion', variable no incluida en el barrido de cobertura del validador y ausente de las reglas equivalentes ya corregidas en otras CCAA; las reglas nunca disparaban). Corregida secuencia de la tasa 046 (posterior al registro), añadido contrato de mantenimiento >70kW, y excepcionada la inspección OCA para conjuntos de instalaciones individuales <70kW en uso residencial vivienda.",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28 (BLOQUEANTE de motor, no reportado en la auditoría normativa): AST-AER-001 y AST-AER-002 comparaban 'tipo_instalacion' == 'climatizacion_aerotermia' dentro de la condición; ese chequeo es redundante (el motor ya selecciona el fichero por tipo_instalacion/comunidad antes de evaluar condiciones) y el validador de reglas lo detecta como regla que nunca dispara. Eliminado, siguiendo el mismo patrón ya aplicado en Andalucía/Aragón/Baleares/Canarias.",
+    "RESUELTO 2026-07-28 (ALTO): 'justificante_tasa_046' retirado de los documentos de ENTRADA de RECE0050T01; la tasa se liquida DESPUÉS del registro.",
+    "RESUELTO 2026-07-28 (ALTO): añadido documento obligatorio 'contrato_mantenimiento' (art. 26 RITE) en AST-AER-002 (>70 kW).",
+    "RESUELTO 2026-07-28 (ALTO): excepcionada (a nivel documental/descriptivo, no de condición del motor) la exigencia de 'certificado_oca' para conjuntos de instalaciones individuales <70kW cada una en edificios de uso residencial vivienda.",
+    "PENDIENTE: no se ha añadido cota inferior de potencia (>5kW), 'Solicitud en modelo normalizado' como documento explícito, ni las citas de RSIF (RD 138/2011) y Resolución de 21/11/2017 en 'fuentes' (hallazgos MEDIO de la auditoría); no son mecánicos y requieren diseño adicional del itinerario."
+  ],
   "fuentes": [
     "RD 1027/2007 RITE",
     "RD 238/2013 modificación RITE",
@@ -18,23 +24,11 @@
       "id": "AST-AER-001",
       "descripcion": "Instalación de climatización con aerotermia de potencia <= 70 kW (Memoria Técnica, sin proyecto)",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "climatizacion_aerotermia"
-            ]
-          }
+          70
         ]
       },
       "tramites": [
@@ -70,13 +64,13 @@
         {
           "orden": 2,
           "nombre": "Registro de la instalación térmica (RECE0050T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Fluidos y Metrología",
           "base_legal": "RITE RD 1027/2007 art. 23-24; Decreto 11/2015",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 28,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "plataforma_url": "https://sede.asturias.es/-/dboid-6269000005730520507573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998, liquidada tras el registro (carta de pago emitida de oficio)",
           "formulario_ref": "RECE0050T01",
           "paralelo_con": null,
           "regla_id": "AST-AER-001",
@@ -92,15 +86,9 @@
               "label": "Certificado de instalación",
               "descripcion": "Conforme al artículo 23 del RITE.",
               "obligatorio": true
-            },
-            {
-              "id": "justificante_tasa_046",
-              "label": "Justificante de pago de tasa (Modelo 046)",
-              "descripcion": "Basado en el PEM de la instalación.",
-              "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Registrado el certificado de instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Plazo legal de resolución: 4 semanas, silencio no procede."
         }
       ]
     },
@@ -108,23 +96,11 @@
       "id": "AST-AER-002",
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        "and": [
+        ">": [
           {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "climatizacion_aerotermia"
-            ]
-          }
+          70
         ]
       },
       "tramites": [
@@ -160,13 +136,13 @@
         {
           "orden": 2,
           "nombre": "Registro de la instalación térmica e Inspección Inicial (RECE0050T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Fluidos y Metrología",
           "base_legal": "RITE RD 1027/2007 art. 15, 23-24; Decreto 11/2015",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 28,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "plataforma_url": "https://sede.asturias.es/-/dboid-6269000005730520507573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998, liquidada tras el registro (carta de pago emitida de oficio)",
           "formulario_ref": "RECE0050T01",
           "paralelo_con": null,
           "regla_id": "AST-AER-002",
@@ -186,17 +162,17 @@
             {
               "id": "certificado_oca",
               "label": "Certificado de inspección inicial con calificación aceptable (OCA)",
-              "descripcion": "Obligatorio para presentar el trámite RECE0050T01 en instalaciones mayores de 70 kW.",
+              "descripcion": "Obligatorio para presentar el trámite RECE0050T01 en instalaciones mayores de 70 kW. No exigible cuando se trata de un conjunto de instalaciones individuales <70kW cada una en edificio de uso residencial vivienda (excepción de la ficha oficial).",
               "obligatorio": true
             },
             {
-              "id": "justificante_tasa_046",
-              "label": "Justificante de pago de tasa (Modelo 046)",
-              "descripcion": "Basado en el PEM de la instalación.",
+              "id": "contrato_mantenimiento",
+              "label": "Copia del contrato de mantenimiento (art. 26 RITE)",
+              "descripcion": "Obligatorio para instalaciones de potencia > 70 kW.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Registrado el certificado de instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Plazo legal de resolución: 4 semanas, silencio no procede."
         }
       ]
     }

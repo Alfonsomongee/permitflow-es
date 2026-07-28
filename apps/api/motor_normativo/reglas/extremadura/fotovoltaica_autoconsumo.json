@@ -1,15 +1,15 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "extremadura",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "version": "0.10.0",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 47/2022' como base legal: no se ha localizado ninguna norma de Extremadura con ese número/fecha sobre instalaciones eléctricas; existe un RD 47/2022, de 18 de enero, nacional, pero regula protección de aguas frente a nitratos agrícolas, sin relación alguna. Se sustituyó por la normativa real confirmada: Orden de 31/07/2008 (tramitación telemática BT), Resolución de 24/03/2004 (instrucciones técnicas puesta en servicio BT), Decreto 179/2016 (Registro de instalaciones de producción de energía eléctrica de Extremadura) y Resolución de 22/07/2022, que regula explícitamente el procedimiento de autoconsumo para instalaciones BT ≤100 kW — esta última CONFIRMA de forma específica para Extremadura el umbral de 100 kW que en otras comunidades solo se había aplicado por inferencia del art. 53 Ley 24/2013. Se corrigió el bug de partición base sobre 'uso'. Se confirmó la plataforma real: tbtEX.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 47/2022' como base legal: no se ha localizado ninguna norma de Extremadura con ese número/fecha sobre instalaciones eléctricas; existe un RD 47/2022, de 18 de enero, nacional, pero regula protección de aguas frente a nitratos agrícolas, sin relación alguna. Se sustituyó por la normativa real confirmada: Orden de 31/07/2008 (tramitación telemática BT), Resolución de 24/03/2004 (instrucciones técnicas puesta en servicio BT), Decreto 179/2016 (Registro de instalaciones de producción de energía eléctrica de Extremadura) y Resolución de 22/07/2022, que regula explícitamente el procedimiento de autoconsumo para instalaciones BT ≤100 kW — esta última CONFIRMA de forma específica para Extremadura el umbral de 100 kW que en otras comunidades solo se había aplicado por inferencia del art. 53 Ley 24/2013. Se corrigió el bug de partición base sobre 'uso'. Se confirmó la plataforma real: tbtEX. CORRECCIÓN 2026-07-28 (auditoría normativa): confirmado que Extremadura elevó el umbral de exención de autorización administrativa de 100 a 500 kW mediante la Instrucción 03/2023 de la Dirección General de Industria, Energía y Minas (DOE 27/07/2023). Se introduce el tramo intermedio EXT-FV-002 (>100 y ≤500 kW, exento de autorización previa/de construcción pero con registro/comunicación) y se reserva EXT-FV-003 (autorización administrativa plena) para instalaciones >500 kW.",
   "huecos_verificacion": [
-    "No se ha verificado si Extremadura ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
     "Tasas y plazos legales de resolución no verificados con detalle",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "RESUELTO 2026-07-28: se confirmó que Extremadura sí elevó el umbral de exención de autorización de 100 kW a 500 kW mediante Instrucción 03/2023 (DOE 27/07/2023); se corrigieron las reglas EXT-FV-002/EXT-FV-003 y se añadió el trámite de acceso y conexión (CAU) ante la distribuidora en EXT-FV-002 y EXT-FV-003."
   ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
@@ -19,7 +19,9 @@
     "Orden de 31 de julio de 2008 (tramitación telemática del registro de instalaciones eléctricas de baja tensión en Extremadura)",
     "Resolución de 24 de marzo de 2004, de la Dirección General de Ordenación Industrial, Energía y Minas (instrucciones técnicas para la puesta en servicio de instalaciones eléctricas de baja tensión)",
     "Decreto 179/2016, de 8 de noviembre (Registro de instalaciones de producción de energía eléctrica de Extremadura)",
-    "Resolución de 22 de julio de 2022, de la Dirección General de Energía y Minas (procedimientos de comunicación de inscripción al registro de autoconsumo, BT ≤100 kW) — confirma el umbral de 100 kW específicamente para Extremadura",
+    "Resolución de 22 de julio de 2022, de la Dirección General de Industria, Energía y Minas (procedimientos de comunicación de inscripción al registro de autoconsumo, BT ≤100 kW) — confirma el umbral de 100 kW específicamente para Extremadura",
+    "Instrucción 03/2023, de la Dirección General de Industria, Energía y Minas, sobre tramitación de instalaciones de autoconsumo en Extremadura (DOE 27/07/2023) — eleva a 500 kW el umbral de exención de autorización administrativa previa y de construcción (facultad potestativa del RD-ley 18/2022)",
+    "Resolución de 20 de junio de 2022, de la Dirección General de Industria, Energía y Minas (autorización de explotación, acta de puesta en servicio, sector eléctrico y gases canalizados)",
     "Aplicación tbtEX (tramitación telemática de baja tensión de Extremadura) - industriaextremadura.juntaex.es"
   ],
   "reglas": [
@@ -71,12 +73,12 @@
         {
           "orden": 2,
           "nombre": "Comunicación de inscripción al registro administrativo de autoconsumo (tbtEX)",
-          "organismo": "Dirección General de Energía y Minas de la Junta de Extremadura",
+          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
           "base_legal": "Resolución de 22 de julio de 2022; Decreto 179/2016",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "https://sede.gobex.es",
+          "plataforma_url": "https://www.juntaex.es/w/5695",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -107,11 +109,11 @@
     },
     {
       "id": "EXT-FV-002",
-      "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
+      "descripcion": "Autoconsumo de potencia superior a 100 kW y no superior a 500 kW: exento de autorización administrativa previa y de autorización de construcción (Instrucción 03/2023), pero con proyecto técnico y comunicación/registro",
       "condicion": {
-        ">": [
-          { "var": "potencia_kw" },
-          100
+        "and": [
+          { ">": [ { "var": "potencia_kw" }, 100 ] },
+          { "<=": [ { "var": "potencia_kw" }, 500 ] }
         ]
       },
       "tramites": [
@@ -146,6 +148,35 @@
         },
         {
           "orden": 2,
+          "nombre": "Solicitud de acceso y conexión (CAU) ante la empresa distribuidora",
+          "organismo": "Empresa distribuidora de electricidad",
+          "base_legal": "RD 1183/2020 (acceso y conexión)",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-002",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "cau",
+              "label": "Contrato de Acceso y Conexión (CAU) o solicitud de punto de conexión",
+              "descripcion": "Trámite ante la distribuidora, no ante la Junta de Extremadura; añadido en la revisión 2026-07-28 porque el fichero citaba RD 1183/2020 en fuentes sin traducirlo en un paso del flujo.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite añadido en la revisión 2026-07-28 (auditoría normativa): antes solo aparecía como documento opcional 'contrato de acceso' en EXT-FV-001, sin paso propio."
+        },
+        {
+          "orden": 3,
           "nombre": "Inspección inicial por Organismo de Control (OCA)",
           "organismo": "Organismo de Control Autorizado (OCA) habilitado en Extremadura",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
@@ -174,14 +205,14 @@
           "notas": ""
         },
         {
-          "orden": 3,
-          "nombre": "Autorización de explotación / acta de puesta en servicio e inscripción en registro (tbtEX)",
-          "organismo": "Dirección General de Energía y Minas de la Junta de Extremadura",
-          "base_legal": "Resolución de 20 de junio de 2022 (autorización de explotación, acta de puesta en servicio); Decreto 179/2016",
+          "orden": 4,
+          "nombre": "Comunicación de puesta en servicio e inscripción en el registro de autoconsumo (tbtEX) — régimen simplificado, exento de autorización administrativa previa y de construcción",
+          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
+          "base_legal": "Instrucción 03/2023, de la Dirección General de Industria, Energía y Minas (DOE 27/07/2023); Decreto 179/2016",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "https://sede.gobex.es",
+          "plataforma_url": "https://www.juntaex.es/w/5873",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -206,7 +237,141 @@
               "obligatorio": true
             }
           ],
-          "notas": "El mismo procedimiento de autorización de explotación de Extremadura cubre tanto sector eléctrico como gas canalizado (Resolución 20/06/2022) — confirmado real."
+          "notas": "Corregido en la revisión 2026-07-28: Extremadura elevó de 100 a 500 kW el umbral de exención de autorización administrativa previa y de construcción mediante la Instrucción 03/2023 (DOE 27/07/2023). Para este tramo (>100 y ≤500 kW) NO procede autorización administrativa plena, solo comunicación/registro; ver EXT-FV-003 para instalaciones >500 kW."
+        }
+      ]
+    },
+    {
+      "id": "EXT-FV-003",
+      "descripcion": "Autoconsumo de potencia superior a 500 kW: régimen de autorización administrativa previa y de construcción, proyecto técnico",
+      "condicion": {
+        ">": [
+          { "var": "potencia_kw" },
+          500
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación fotovoltaica",
+          "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico firmado",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Solicitud de acceso y conexión (CAU) ante la empresa distribuidora",
+          "organismo": "Empresa distribuidora de electricidad",
+          "base_legal": "RD 1183/2020 (acceso y conexión)",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "cau",
+              "label": "Contrato de Acceso y Conexión (CAU) o solicitud de punto de conexión",
+              "descripcion": "Trámite ante la distribuidora, no ante la Junta de Extremadura; añadido en la revisión 2026-07-28 porque el fichero citaba RD 1183/2020 en fuentes sin traducirlo en un paso del flujo.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite añadido en la revisión 2026-07-28 (auditoría normativa)."
+        },
+        {
+          "orden": 3,
+          "nombre": "Inspección inicial por Organismo de Control (OCA)",
+          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Extremadura",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 4,
+          "nombre": "Autorización administrativa previa y de construcción, autorización de explotación / acta de puesta en servicio e inscripción en registro (tbtEX)",
+          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
+          "base_legal": "Ley 24/2013, art. 53; Instrucción 03/2023 (DOE 27/07/2023); Resolución de 20 de junio de 2022 (autorización de explotación, acta de puesta en servicio); Decreto 179/2016",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
+          "plataforma_url": "https://www.juntaex.es/w/5873",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-003",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "informe_oca",
+              "label": "Informe favorable del OCA",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Solo para instalaciones >500 kW tras la Instrucción 03/2023 (antes el umbral de autorización plena era >100 kW). El mismo procedimiento de autorización de explotación de Extremadura cubre tanto sector eléctrico como gas canalizado (Resolución 20/06/2022) — confirmado real."
         }
       ]
     }

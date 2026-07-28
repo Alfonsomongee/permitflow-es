@@ -1,14 +1,15 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "cataluna",
-  "version": "1.2.0",
-  "ultima_revision": "2026-07-27",
+  "version": "1.2.1",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "aviso": "Dos reglas principales mutuamente excluyentes. Datos resultantes numéricos. La intervención de organismo de control no se universaliza.",
   "huecos_verificacion": [
     "Pendiente de determinar los supuestos sectoriales expresos de inspección inicial por organismo de control en instalaciones receptoras de gas.",
-    "Una presión resultante >5 bar debe revisarse además respecto del alcance semántico del vertical gas_baja_presion."
+    "Una presión resultante >5 bar debe revisarse además respecto del alcance semántico del vertical gas_baja_presion.",
+    "Revisión 2026-07-28: confirmado que el fichero ya diferencia clase_instalacion_gas (individual >70 kW; común/conexión de servicio >2.000 kW), cita Llei 9/2014 + Decret 192/2023, nombra RITSIC y no impone plazo_legal_dias sin respaldo; no se detectaron cambios adicionales necesarios."
   ],
   "fuentes": [
     "RD 919/2006 y ITC-ICG-07",

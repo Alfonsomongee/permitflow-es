@@ -2,7 +2,7 @@
   "tipo_instalacion": "irve",
   "comunidad": "andalucia",
   "version": "1.3.0",
-  "ultima_revision": "2026-07-24",
+  "ultima_revision": "2026-07-28",
   "fuentes": [
     "REBT RD 842/2002 ITC-BT-52",
     "REBT RD 842/2002 ITC-BT-04",
@@ -178,12 +178,12 @@
         {
           "orden": 3,
           "nombre": "Registro en el Sistema TECI — Delegación Territorial de Industria",
-          "organismo": "Delegación Territorial de Economía, Hacienda, Fondos Europeos y de Industria, Energía y Minas (Junta de Andalucía)",
+          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
           "base_legal": "Orden de 24 de octubre de 2005 (BOJA núm. 217/2005, procedimiento TECI); ITC-BT-52 (RD 1053/2014, de 12 de diciembre)",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
-          "plataforma": "TECI (Tramitador Electrónico de Certificados de Instalación)",
-          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/teci/login.jsp",
+          "plataforma": "TECI (Tramitador Electrónico de Certificados de Instalaciones de Baja Tensión) -- aplicacion operada por la empresa instaladora (usuario y clave propios, no certificado digital del titular)",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/teci/",
           "coste_estimado": "0 EUR (valor conservador: tasa de presentación TECI no verificada con fuente primaria en esta fase; pendiente de confirmar contra la Ley 10/2021 de tasas y precios públicos de Andalucía)",
           "documentos_requeridos": [
             {
@@ -217,7 +217,7 @@
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": 15,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.endesa.com/es/empresas/instalaciones/punto-de-recarga",
+          "plataforma_url": "https://www.edistribucion.com/es/conexion-red/solicitud-acceso.html",
           "coste_estimado": "Sin coste (comunicación informativa, no requiere nueva acometida)",
           "documentos_requeridos": [
             {
@@ -376,7 +376,7 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "62.25 EUR",
           "documentos_requeridos": [
             {
@@ -548,7 +548,7 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
@@ -732,7 +732,7 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "100.00 EUR (estimado tramo medio)",
           "documentos_requeridos": [
             {
@@ -904,7 +904,7 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "159.18 EUR",
           "documentos_requeridos": [
             {
@@ -1012,7 +1012,7 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": 45,
           "plataforma": "PUES",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6513.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "Tasa Modelo 046: ~120–300 € según potencia instalada",
           "documentos_requeridos": [
             {
@@ -1029,8 +1029,8 @@
             },
             {
               "id": "certificado_teci",
-              "label": "Justificante de registro TECI",
-              "descripcion": "Resguardo del registro en MITECO como punto de recarga de acceso público.",
+              "label": "Justificante de inscripción en RIPREE",
+              "descripcion": "Resguardo de la inscripción del operador (CPO) en el Registro de Infraestructuras de Puntos de Recarga de Energía Eléctrica (RIPREE, MITECO). CORRIGE una confusión heredada: no existe un 'registro TECI' estatal; el registro estatal para acceso público es RIPREE (ver nota del trámite anterior).",
               "obligatorio": true
             },
             {
@@ -1226,5 +1226,17 @@
       "validado_por": null
     }
   ],
-  "nivel_verificacion": "generica"
+  "nivel_verificacion": "generica",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28 (ALTO): organismo de AND-IRVE-001 trámite 3 citaba 'Delegación Territorial de Economía, Hacienda, Fondos Europeos y de Industria, Energía y Minas' (estructura de consejerías superada) -> corregido a 'Delegación Territorial de Industria, Energía y Minas'.",
+    "RESUELTO 2026-07-28 (MEDIO): denominación de TECI corregida a 'Tramitador Electrónico de Certificados de Instalaciones de Baja Tensión' y aclarado que lo opera la empresa instaladora, no el titular.",
+    "RESUELTO 2026-07-28 (MEDIO): documento fantasma 'certificado_teci' (Justificante de registro TECI estatal, inexistente) sustituido por justificante de inscripción RIPREE, coherente con la nota ya existente en el trámite anterior del mismo bloque.",
+    "RESUELTO 2026-07-28 (MEDIO): plataforma_url genérica del tramitador PUES (ficha SPA no verificable, .../detalle/6513.html) sustituida por la Oficina Virtual real en los trámites cuya plataforma es 'PUES'.",
+    "RESUELTO 2026-07-28 (MEDIO): plataforma_url de la comunicación a distribuidora en AND-IRVE-001 apuntaba a endesa.com (comercializadora) en vez de e-distribucion.com (distribuidora) -- alineado con L13.",
+    "RESUELTO 2026-07-28 (BAJO): plataforma_url de TECI sustituida por la URL canónica del directorio (.../teci/) en vez de login.jsp.",
+    "PENDIENTE (NO VERIFICABLE, no se ha tocado): conflicto de formulario_ref 6513 (usado para TECI) vs 6505 (usado para el registro PUES de AND-IRVE-005) -- las URLs de la sede son una SPA que no permite verificar por fetch qué procedimiento corresponde a cada código. Requiere comprobación manual en navegador.",
+    "PENDIENTE: exclusión de instalaciones con 'riesgos especiales' del régimen TECI no trasladada como validación.",
+    "PENDIENTE: modelos oficiales de CIE/MTD de BT no citan las Resoluciones de 17 de junio de 2015 (BOJA 2015/121/27 y /28).",
+    "PENDIENTE: cadena normativa de la Orden de 24 de octubre de 2005 incompleta (falta Resolución de 24/11/2005 y Orden de 20/2/2006 de modificación)."
+  ]
 }

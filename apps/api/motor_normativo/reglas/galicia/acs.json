@@ -2,15 +2,17 @@
   "tipo_instalacion": "acs",
   "comunidad": "galicia",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Este fichero, a diferencia del resto del lote, ya usaba correctamente 'potencia_kw' (sin variable fantasma). Se eliminó 'Decreto 42/2019' como base legal: es un decreto real de Galicia, pero regula la estructura orgánica de la Consellería de Medio Ambiente, Territorio y Vivienda — sin relación con instalaciones térmicas. También se eliminó 'Orden de 12 de junio de 2020' por no poder confirmarse. Sustituido por el RITE nacional aplicado directamente. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Este fichero, a diferencia del resto del lote, ya usaba correctamente 'potencia_kw' (sin variable fantasma). Se eliminó 'Decreto 42/2019' como base legal: es un decreto real de Galicia, pero regula la estructura orgánica de la Consellería de Medio Ambiente, Territorio y Vivienda — sin relación con instalaciones térmicas. También se eliminó 'Orden de 12 de junio de 2020' por no poder confirmarse. Sustituido por el RITE nacional aplicado directamente. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo. Auditoría 2026-07-28: añadida la regla GAL-ACS-000 para el tramo ≤5 kW, exento de comunicación/registro según el RITE (mismo hueco ALTO detectado en climatizacion_aerotermia.json).",
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
     "No se ha localizado normativa autonómica gallega específica de ACS; se aplica el RITE nacional directamente",
     "Nombre exacto del trámite/registro de instalaciones térmicas en la sede de Galicia no confirmado",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28: añadido el tramo ≤5 kW (regla GAL-ACS-000), exento de comunicación/registro ante la Jefatura Territorial según el RITE (RD 1027/2007)",
+    "plataforma_url de la comunicación de puesta en servicio (GAL-ACS-001/002) sigue apuntando a la raíz genérica de sede.xunta.gal: no se ha identificado en esta auditoría el código de trámite específico de puesta en servicio de instalaciones térmicas en Galicia"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
@@ -18,12 +20,47 @@
   ],
   "reglas": [
     {
-      "id": "GAL-ACS-001",
-      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "GAL-ACS-000",
+      "descripcion": "Instalación de ACS con potencia ≤ 5 kW: exenta de comunicación/registro ante la Jefatura Territorial según el RITE (RD 1027/2007), solo requiere ejecución por instalador habilitado",
       "condicion": {
         "<=": [
           { "var": "potencia_kw" },
-          70
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Ejecución por instalador habilitado (sin comunicación ni registro)",
+          "organismo": "Instalador habilitado (carné de instalador térmico)",
+          "base_legal": "RITE RD 1027/2007 art. 15",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-ACS-000",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones de ACS con potencia térmica nominal ≤5 kW no están sujetas a comunicación de puesta en servicio ni registro ante la Jefatura Territorial según el RITE; basta con su ejecución por instalador habilitado. Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
+        }
+      ]
+    },
+    {
+      "id": "GAL-ACS-001",
+      "descripcion": "Instalación de ACS con potencia > 5 kW y ≤ 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          { ">": [ { "var": "potencia_kw" }, 5 ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
         ]
       },
       "tramites": [

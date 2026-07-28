@@ -2,10 +2,10 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "extremadura",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Fichero generado desde cero (Extremadura no proporcionó fichero original de climatización). Confirmado real el trámite 'Registro de Instalaciones Térmicas en Edificios' de la Junta de Extremadura, con tramo específico 5-70 kW (memoria técnica) y >70 kW (proyecto visado). No se ha localizado decreto autonómico propio; se aplica el RITE nacional directamente vía el procedimiento general de instalación industrial (Decreto 49/2004, Grupo II).",
+  "aviso": "Fichero generado desde cero (Extremadura no proporcionó fichero original de climatización). Confirmado real el trámite 'Registro de Instalaciones Térmicas en Edificios' de la Junta de Extremadura, con tramo específico 5-70 kW (memoria técnica) y >70 kW (proyecto visado). No se ha localizado decreto autonómico propio; se aplica el RITE nacional directamente vía el procedimiento general de instalación industrial (Decreto 49/2004, Grupo II). CORRECCIÓN 2026-07-28 (auditoría normativa): el umbral de 70 kW y los operadores <=70/>70 se confirmaron correctos (RITE exige proyecto solo si la potencia térmica nominal es MAYOR que 70 kW); se corrigió la cita de la ficha de referencia en 'fuentes' (ver nota) y se unificó el nombre del organismo.",
   "huecos_verificacion": [
     "Instalaciones <5 kW térmicos quedan exentas de presentar documentación según fuente consultada (ingenierosindustriales.com, corroborado por el patrón ya visto en Castilla-La Mancha y Comunitat Valenciana) — no modelado por falta de campo de tipo de equipo en el schema",
     "No se ha confirmado el nombre ni número de trámite exacto en la sede electrónica de Extremadura para el registro de instalaciones térmicas",
@@ -16,7 +16,7 @@
     "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
     "Decreto 49/2004, de 20 de abril (procedimiento de instalación y puesta en funcionamiento de establecimientos industriales, Grupo II) - Extremadura",
     "Orden de 12 de diciembre de 2005 (tramitación de expedientes de instalación industrial) - Extremadura",
-    "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios (calefacción a gas), potencia entre 5 y 70 kW' - industriaextremadura.juntaex.es"
+    "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios', potencia entre 5 y 70 kW - industriaextremadura.juntaex.es (id=180/187). ACLARACIÓN 2026-07-28: la ficha localizada usa como ejemplo la categoría 'calefacción a gas'; no se ha localizado una ficha separada por tipo de generador, por lo que se entiende que el registro general de instalaciones térmicas (RITE, Decreto 49/2004) aplica igual a generadores por aerotermia (bomba de calor eléctrica)."
   ],
   "reglas": [
     {
@@ -66,7 +66,7 @@
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "https://sede.gobex.es",
+          "plataforma_url": "http://industriaextremadura.juntaex.es",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -136,7 +136,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "https://sede.gobex.es",
+          "plataforma_url": "http://industriaextremadura.juntaex.es",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,

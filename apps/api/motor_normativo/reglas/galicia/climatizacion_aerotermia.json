@@ -2,29 +2,67 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "galicia",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 42/2019' como base legal: es un decreto real de Galicia, pero regula la estructura orgánica de la Consellería de Medio Ambiente, Territorio y Vivienda — sin relación con instalaciones térmicas. También se eliminaron 'Orden de 12 de junio de 2020' y 'Ley 9/2021' por no poder confirmarse. Sustituido por el RITE nacional aplicado directamente.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 42/2019' como base legal: es un decreto real de Galicia, pero regula la estructura orgánica de la Consellería de Medio Ambiente, Territorio y Vivienda — sin relación con instalaciones térmicas. También se eliminaron 'Orden de 12 de junio de 2020' y 'Ley 9/2021' por no poder confirmarse. Sustituido por el RITE nacional aplicado directamente. Auditoría 2026-07-28: sustituida la cita de la Ley 9/2004 de seguridad industrial de Galicia (derogada desde el 10/07/2015) por el Decreto Legislativo 1/2015, de 12 de febrero (DOG núm. 128, 09/07/2015), confirmado como texto vigente; añadida la regla GAL-CLIMA-000 para el tramo ≤5 kW, exento de comunicación/registro según el RITE.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica gallega específica de climatización; se aplica el RITE nacional directamente",
     "Nombre exacto del trámite/registro de instalaciones térmicas en la sede de Galicia no confirmado en esta revisión — se usa referencia genérica a la sede electrónica",
     "'SIEL (Sistema de Información de Energía de Galicia)' del fichero original no se ha podido confirmar como nombre real de plataforma — sustituido por referencia genérica a sede.xunta.gal",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28: cita a la Ley 9/2004 de seguridad industrial de Galicia (derogada 10/07/2015) sustituida por el Decreto Legislativo 1/2015, de 12 de febrero, confirmado en DOG núm. 128/2015",
+    "RESUELTO 2026-07-28: añadido el tramo ≤5 kW (regla GAL-CLIMA-000), exento de comunicación/registro ante la Jefatura Territorial según el RITE (RD 1027/2007)",
+    "plataforma_url de la comunicación de puesta en servicio (GAL-CLIMA-001/002) sigue apuntando a la raíz genérica de sede.xunta.gal: no se ha podido identificar en esta auditoría el código de trámite específico de puesta en servicio de instalaciones térmicas en Galicia, por lo que no hay ficha profunda confirmada a la que enlazar"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Ley 9/2004, de 10 de agosto, de seguridad industrial de Galicia — confirmada real (aunque su aplicación específica a instalaciones térmicas no se ha verificado en detalle)"
+    "Decreto Legislativo 1/2015, de 12 de febrero, por el que se aprueba el texto refundido de las disposiciones legales de la Comunidad Autónoma de Galicia en materia de política industrial (DOG núm. 128, 09/07/2015) — sustituye a la Ley 9/2004, de 10 de agosto, de seguridad industrial de Galicia, derogada desde el 10/07/2015; su Libro I regula la seguridad industrial"
   ],
   "reglas": [
     {
-      "id": "GAL-CLIMA-001",
-      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "GAL-CLIMA-000",
+      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 5 kW: exenta de comunicación/registro ante la Jefatura Territorial según el RITE (RD 1027/2007), solo requiere ejecución por instalador habilitado",
       "condicion": {
         "<=": [
           { "var": "potencia_kw" },
-          70
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Ejecución por instalador habilitado (sin comunicación ni registro)",
+          "organismo": "Instalador habilitado (categoría térmica o climatización)",
+          "base_legal": "RITE RD 1027/2007 art. 15",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-CLIMA-000",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado de instalador habilitado",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Las instalaciones térmicas con potencia térmica nominal ≤5 kW no están sujetas a comunicación de puesta en servicio ni registro ante la Jefatura Territorial según el RITE; basta con su ejecución por instalador habilitado."
+        }
+      ]
+    },
+    {
+      "id": "GAL-CLIMA-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 5 kW y ≤ 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          { ">": [ { "var": "potencia_kw" }, 5 ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
         ]
       },
       "tramites": [

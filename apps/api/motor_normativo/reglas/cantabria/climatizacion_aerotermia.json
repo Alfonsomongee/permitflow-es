@@ -2,14 +2,15 @@
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "cantabria",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Fichero generado desde cero (Cantabria no proporcionó fichero original de climatización). No se ha localizado ningún decreto autonómico cántabro que desarrolle el RITE para climatización; se aplica el RITE nacional directamente, con el umbral general de 70 kW (MTD/proyecto) ya verificado de forma consistente en el resto de comunidades de este proyecto.",
+  "aviso": "Fichero generado desde cero (Cantabria no proporcionó fichero original de climatización). No se ha localizado ningún decreto autonómico cántabro que desarrolle el RITE para climatización; se aplica el RITE nacional directamente, con el umbral general de 70 kW (MTD/proyecto) ya verificado de forma consistente en el resto de comunidades de este proyecto. Auditoría 2026-07-28: localizada la ficha específica del trámite 49 'Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización' en sede.cantabria.es; sustituye la URL genérica usada anteriormente.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica cántabra específica de climatización",
-    "No se ha confirmado el nombre ni número de trámite exacto de la sede electrónica de Cantabria para la comunicación de puesta en servicio de instalaciones térmicas (por analogía con lo confirmado en Canarias/Asturias, existe un trámite equivalente, pero no se ha localizado su ficha específica para Cantabria en esta revisión)",
-    "Tasas y plazos legales no verificados"
+    "RESUELTO 2026-07-28: localizado el trámite 49 'Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización' (sede.cantabria.es), gestionado por el Servicio de Energía de la Dirección General de Industria, Energía y Minas; sustituye la plataforma_url genérica usada en ambas reglas",
+    "Se confirma que el trámite 49 lleva tasa asociada ('justificante de la tasa correspondiente'); el importe exacto sigue sin verificar",
+    "Tasas (importe exacto) y plazos legales de resolución no verificados"
   ],
   "fuentes": [
     "RITE RD 1027/2007",
@@ -58,15 +59,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Comunicación/certificado de puesta en servicio de instalación térmica",
-          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "nombre": "Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización",
+          "organismo": "Servicio de Energía — Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
           "base_legal": "RITE RD 1027/2007 art. 23-24",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
-          "plataforma_url": "https://sede.cantabria.es",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/diligencia-de-certificados-de-instalaciones-de-calefaccion-agua-caliente-sanitaria-y-climatizacion/49",
+          "coste_estimado": "Tasa asociada confirmada (justificante de tasa exigido en la ficha oficial); importe exacto NO VERIFICADO",
+          "formulario_ref": "49 (MTD-IIA Anexo III / CI-ITE)",
           "paralelo_con": null,
           "regla_id": "CANT-CLI-001",
           "documentos_requeridos": [
@@ -83,7 +84,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Nombre exacto del trámite en la sede de Cantabria no localizado en esta revisión — verificar antes de publicar al cliente."
+          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28); modelos normalizados descargables MTD-IIA Anexo III, CI-ITE, SOL-IIA, CMI-ITE, MT-ITE."
         }
       ]
     },
@@ -128,15 +129,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Comunicación/certificado de puesta en servicio de instalación térmica",
-          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "nombre": "Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización",
+          "organismo": "Servicio de Energía — Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
           "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
-          "plataforma_url": "https://sede.cantabria.es",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/diligencia-de-certificados-de-instalaciones-de-calefaccion-agua-caliente-sanitaria-y-climatizacion/49",
+          "coste_estimado": "Tasa asociada confirmada (justificante de tasa exigido en la ficha oficial); importe exacto NO VERIFICADO",
+          "formulario_ref": "49 (MTD-IIA Anexo III / CI-ITE)",
           "paralelo_con": null,
           "regla_id": "CANT-CLI-002",
           "documentos_requeridos": [
@@ -153,7 +154,7 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28)."
         }
       ]
     }

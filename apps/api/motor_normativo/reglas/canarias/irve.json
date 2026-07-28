@@ -1,30 +1,34 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "canarias",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "version": "0.10.0",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_emplazamiento' (no existe en el schema) y se sustituyó por 'ubicacion_irve' y 'modo_recarga'. Se eliminó 'Decreto 141/2016, de 10 de octubre' como base legal de IRVE: no se ha podido confirmar su existencia; el decreto real que regula la ejecución y puesta en servicio de instalaciones eléctricas en Canarias es el Decreto 141/2009, de 10 de noviembre. Se sustituyó el umbral inventado de 10 kW por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014). Prefijo de regla cambiado de 'CAN' a 'ICAN' (colisión conocida con Cantabria).",
+  "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se bifurca el trámite de puesta en servicio según el estado de la instalación receptora, igual que en fotovoltaica: SICAC 3158 solo para instalaciones receptoras NUEVAS; SICAC 6782 para instalaciones receptoras YA EXISTENTES (caso mayoritario: IRVE en garaje o vivienda ya legalizada), controlado por el campo de entrada 'instalacion_origen_modificada'; (2) se separa el certificado de instalación (lo emite la empresa instaladora en baja tensión) de la inspección inicial OCA/EICI (solo cuando sea preceptiva), que antes se atribuían conjuntamente a la OCA; (3) se corrige el organismo tramitador a Dirección General de Energía — Servicio de Instalaciones Energéticas; (4) se sustituye la plataforma_url genérica de la sede por 3158/6782 según el caso, con la misma bifurcación que fotovoltaica.",
   "huecos_verificacion": [
     "No se ha localizado una norma autonómica canaria específica para IRVE distinta del Decreto 141/2009 general de instalaciones eléctricas; se asume que aplica ese decreto más el régimen nacional ITC-BT-52",
     "El tratamiento de 'garaje_comunitario' respecto al umbral 50/10 kW se ha asimilado a 'interior' — no verificado específicamente para Canarias",
-    "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados"
+    "RESUELTO parcialmente: instalaciones en vía pública requieren además título habilitante municipal de ocupación del dominio público — no modelado como trámite porque depende de la ordenanza municipal concreta; se deja constancia en notas del trámite condicionado a 'ubicacion_irve == via_publica'",
+    "Tasas: se ha registrado el concepto (118)/(12) de la ficha 3158, aplicable por asimilación; importe exacto no verificado",
+    "Verificar en el schema que 'modo_recarga' se compara siempre como cadena ('3'/'4'), no como entero, para que la condición dispare correctamente"
   ],
   "fuentes": [
     "RD 1053/2014, por el que se aprueba la ITC-BT-52",
     "RD 842/2002 REBT",
     "Decreto 141/2009, de 10 de noviembre (Canarias) — Reglamento de ejecución y puesta en servicio de instalaciones eléctricas",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+    "Ficha de trámite SICAC 3158 'Comunicación previa a la puesta en servicio de instalaciones eléctricas de baja tensión' (instalación receptora NUEVA) - sede.gobiernodecanarias.org",
+    "Ficha de trámite SICAC 6782 'Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión' (instalación receptora YA EXISTENTE) - sede.gobiernodecanarias.org"
   ],
   "reglas": [
     {
       "id": "ICAN-IRVE-001",
-      "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado en instalación receptora NUEVA: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
           { "!=": [ { "var": "modo_recarga" }, "4" ] },
+          { "!=": [ { "var": "instalacion_origen_modificada" }, true ] },
           {
             "or": [
               {
@@ -75,14 +79,37 @@
         },
         {
           "orden": 2,
-          "nombre": "Comunicación previa a la puesta en servicio e inscripción en el registro de instalaciones eléctricas de baja tensión (SICAC 3158)",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "nombre": "Certificado de instalación (emitido por instalador)",
+          "organismo": "Empresa instaladora en baja tensión habilitada",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-IRVE-001",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Emitido por la empresa instaladora en baja tensión; acredita la correcta ejecución.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA."
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación previa a la puesta en servicio e inscripción en el registro de instalaciones eléctricas de baja tensión (SICAC 3158) — instalación receptora nueva",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Instalaciones Energéticas",
           "base_legal": "Decreto 141/2009 art. 15-16",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
           "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3158",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa Modelo 700-200: concepto (118), epígrafe (12). Importe exacto no verificado.",
           "formulario_ref": "3158",
           "paralelo_con": null,
           "regla_id": "ICAN-IRVE-001",
@@ -96,30 +123,144 @@
             {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación",
-              "descripcion": "Acredita la correcta ejecución.",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Este procedimiento (3158) está reservado por la propia ficha oficial a instalaciones receptoras NUEVAS."
+        }
+      ]
+    },
+    {
+      "id": "ICAN-IRVE-001B",
+      "descripcion": "IRVE que NO requiere proyecto técnico visado en instalación receptora YA EXISTENTE (caso mayoritario: garaje o vivienda ya legalizada): interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
+      "condicion": {
+        "and": [
+          { "!=": [ { "var": "modo_recarga" }, "4" ] },
+          { "==": [ { "var": "instalacion_origen_modificada" }, true ] },
+          {
+            "or": [
+              {
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                ]
+              },
+              {
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Diseño (MTD) para IRVE",
+          "organismo": "Instalador electricista habilitado (categoría especialista en IRVE)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 141/2009",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-IRVE-001B",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "Documento firmado por instalador habilitado, esquema unifilar, protecciones.",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable",
+              "label": "Declaración responsable del instalador",
+              "descripcion": "",
               "obligatorio": true
             }
           ],
           "notas": ""
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (emitido por instalador)",
+          "organismo": "Empresa instaladora en baja tensión habilitada",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-IRVE-001B",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Emitido por la empresa instaladora en baja tensión; acredita la correcta ejecución.",
+              "obligatorio": true
+            }
+          ],
+          "notas": ""
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión (SICAC 6782) — instalación receptora ya existente",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Instalaciones Energéticas",
+          "base_legal": "Decreto 141/2009 arts. 42.4 y 45",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/6782",
+          "coste_estimado": "Tasa Modelo 700-200: concepto (118), epígrafe (12). Importe exacto no verificado.",
+          "formulario_ref": "6782",
+          "paralelo_con": null,
+          "regla_id": "ICAN-IRVE-001B",
+          "documentos_requeridos": [
+            {
+              "id": "mtd_irve",
+              "label": "Memoria Técnica de Diseño IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Corrección crítica de auditoría: la versión anterior dirigía siempre al 3158, reservado a instalaciones receptoras NUEVAS. Una IRVE instalada en un garaje o vivienda ya legalizada (caso mayoritario) es una modificación/reforma → procedimiento 6782."
         }
       ]
     },
     {
       "id": "ICAN-IRVE-002",
-      "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
+      "descripcion": "IRVE que SÍ requiere proyecto técnico visado en instalación receptora NUEVA: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
-        "or": [
-          { "==": [ { "var": "modo_recarga" }, "4" ] },
+        "and": [
+          { "!=": [ { "var": "instalacion_origen_modificada" }, true ] },
           {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-              { ">": [ { "var": "potencia_kw" }, 50 ] }
-            ]
-          },
-          {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-              { ">": [ { "var": "potencia_kw" }, 10 ] }
+            "or": [
+              { "==": [ { "var": "modo_recarga" }, "4" ] },
+              {
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+                  { ">": [ { "var": "potencia_kw" }, 50 ] }
+                ]
+              },
+              {
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+                  { ">": [ { "var": "potencia_kw" }, 10 ] }
+                ]
+              }
             ]
           }
         ]
@@ -146,13 +287,13 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
+          "notas": "Instalaciones en vía pública requieren además título habilitante municipal de ocupación del dominio público — NO VERIFICADO el trámite concreto, depende de la ordenanza municipal."
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación y puesta en servicio (OCA/EICI)",
-          "organismo": "Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) habilitada en Canarias",
-          "base_legal": "Decreto 141/2009 art. 12-14",
+          "nombre": "Certificado de instalación (instalador) e inspección inicial (OCA/EICI, cuando sea preceptiva)",
+          "organismo": "Empresa instaladora en baja tensión habilitada; Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) cuando la inspección inicial sea preceptiva",
+          "base_legal": "Decreto 141/2009 art. 12-14; REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -169,25 +310,31 @@
               "obligatorio": true
             },
             {
-              "id": "certificado_ocm",
-              "label": "Certificado de inspección inicial (OCA/EICI)",
-              "descripcion": "Emitido por OCA/EICI.",
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Emitido por la empresa instaladora en baja tensión.",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_inspeccion_inicial_oca",
+              "label": "Certificado de inspección inicial (OCA/EICI)",
+              "descripcion": "Solo cuando sea preceptivo, modelo BT 01.",
+              "obligatorio": false
             }
           ],
-          "notas": ""
+          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA; la OCA/EICI solo emite el certificado de inspección inicial cuando es preceptivo."
         },
         {
           "orden": 3,
-          "nombre": "Comunicación/autorización de puesta en servicio e inscripción en el registro (SICAC)",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
+          "nombre": "Comunicación/autorización de puesta en servicio e inscripción en el registro (SICAC 3158) — instalación receptora nueva",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Instalaciones Energéticas",
           "base_legal": "Decreto 141/2009 art. 12-16",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
-          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3158",
+          "coste_estimado": "Tasa Modelo 700-200: concepto (118), epígrafe (12). Importe exacto no verificado.",
+          "formulario_ref": "3158",
           "paralelo_con": null,
           "regla_id": "ICAN-IRVE-002",
           "documentos_requeridos": [
@@ -198,13 +345,128 @@
               "obligatorio": true
             },
             {
-              "id": "certificado_ocm",
-              "label": "Certificado de inspección inicial (OCA/EICI)",
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Este procedimiento (3158) está reservado por la propia ficha oficial a instalaciones receptoras NUEVAS."
+        }
+      ]
+    },
+    {
+      "id": "ICAN-IRVE-002B",
+      "descripcion": "IRVE que SÍ requiere proyecto técnico visado en instalación receptora YA EXISTENTE: interior >50 kW, exterior >10 kW, o modo de recarga 4",
+      "condicion": {
+        "and": [
+          { "==": [ { "var": "instalacion_origen_modificada" }, true ] },
+          {
+            "or": [
+              { "==": [ { "var": "modo_recarga" }, "4" ] },
+              {
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
+                  { ">": [ { "var": "potencia_kw" }, 50 ] }
+                ]
+              },
+              {
+                "and": [
+                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
+                  { ">": [ { "var": "potencia_kw" }, 10 ] }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico para IRVE",
+          "organismo": "Ingeniero técnico industrial o superior competente",
+          "base_legal": "REBT RD 842/2002 ITC-BT-52; Decreto 141/2009",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios profesionales",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-IRVE-002B",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "Documento firmado por técnico competente, visado por colegio profesional.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Instalaciones en vía pública requieren además título habilitante municipal de ocupación del dominio público — NO VERIFICADO el trámite concreto, depende de la ordenanza municipal."
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (instalador) e inspección inicial (OCA/EICI, cuando sea preceptiva)",
+          "organismo": "Empresa instaladora en baja tensión habilitada; Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) cuando la inspección inicial sea preceptiva",
+          "base_legal": "Decreto 141/2009 art. 12-14; REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-IRVE-002B",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Emitido por la empresa instaladora en baja tensión.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_inspeccion_inicial_oca",
+              "label": "Certificado de inspección inicial (OCA/EICI)",
+              "descripcion": "Solo cuando sea preceptivo, modelo BT 01.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA; la OCA/EICI solo emite el certificado de inspección inicial cuando es preceptivo."
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación de puesta en servicio de modificación, reforma o reactivación e inscripción en el registro (SICAC 6782) — instalación receptora ya existente",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Instalaciones Energéticas",
+          "base_legal": "Decreto 141/2009 arts. 42.4 y 45",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/6782",
+          "coste_estimado": "Tasa Modelo 700-200: concepto (118), epígrafe (12). Importe exacto no verificado.",
+          "formulario_ref": "6782",
+          "paralelo_con": null,
+          "regla_id": "ICAN-IRVE-002B",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_irve",
+              "label": "Proyecto técnico IRVE",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Corrección crítica de auditoría: la versión anterior dirigía siempre al 3158, reservado a instalaciones receptoras NUEVAS."
         }
       ]
     }

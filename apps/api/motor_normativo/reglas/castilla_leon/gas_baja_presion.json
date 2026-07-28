@@ -2,30 +2,36 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "castilla_leon",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminaron dos bugs: la variable fantasma 'tipo_edificio' (no existe en el schema) y la comparación numérica de 'presion_bar' (<=0.05) en vez de categórica. Se eliminó 'Decreto 54/2003' como base legal: no se ha localizado esta norma; la ficha oficial de la JCyL para gas cita solo Ley 6/2014 de Industria + RD 919/2006 (RIGLO) + Orden EEI/1036/2021. HALLAZGO IMPORTANTE que se aplica aquí por primera vez y se recomienda extender retroactivamente a Asturias/Canarias/Cantabria/Castilla-La Mancha: la ITC-ICG-07 confirma que las instalaciones alimentadas desde redes que operan a presión >5 bar requieren SIEMPRE proyecto, independientemente de la potencia — esto es lo que representa el valor 'presion_bar=5+' del schema. Se ha reestructurado la partición en consecuencia: presion_bar='5+' → siempre proyecto; presion_bar='normal' → depende del umbral de potencia de 70 kW (confirmado también aquí, igual que en el resto de comunidades).",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminaron dos bugs: la variable fantasma 'tipo_edificio' (no existe en el schema) y la comparación numérica de 'presion_bar' (<=0.05) en vez de categórica. Se eliminó 'Decreto 54/2003' como base legal: no se ha localizado esta norma; la ficha oficial de la JCyL para gas cita solo Ley 6/2014 de Industria + RD 919/2006 (RIGLO) + Orden EEI/1036/2021. HALLAZGO IMPORTANTE que se aplica aquí por primera vez y se recomienda extender retroactivamente a Asturias/Canarias/Cantabria/Castilla-La Mancha: la ITC-ICG-07 confirma que las instalaciones alimentadas desde redes que operan a presión >5 bar requieren SIEMPRE proyecto, independientemente de la potencia — esto es lo que representa el valor 'presion_bar=5+' del schema. Se ha reestructurado la partición en consecuencia: presion_bar='5+' → siempre proyecto; presion_bar='normal' → depende del umbral de potencia de 70 kW (confirmado también aquí, igual que en el resto de comunidades). REVISIÓN 2026-07-28 (auditoría normativa, ALTO): corregida la contaminación cruzada de fuente — se citaba una ficha de trámite de Castilla-La Mancha (jccm.es) como si respaldara contenido de Castilla y León; sustituida por la ficha oficial de la propia JCyL. Corregido el nombre del organismo ('Comercio y Turismo' -> 'Comercio y Economía'); sustituidas las plataforma_url genéricas por la ficha específica del trámite de gas.",
   "huecos_verificacion": [
     "Se recomienda revisar y corregir los ficheros de gas ya entregados de Asturias, Canarias, Cantabria y Castilla-La Mancha aplicando este mismo hallazgo sobre presion_bar='5+' → proyecto siempre",
     "No se ha localizado normativa autonómica de Castilla y León específica de legalización de gas más allá de la ley general de industria",
     "Tasas y plazos legales no verificados con detalle",
-    "Umbral de 2.000 kW para instalaciones comunes (ITC-ICG-07) no modelado por falta de campo que distinga instalación individual/común en el schema"
+    "Umbral de 2.000 kW para instalaciones comunes (ITC-ICG-07) no modelado por falta de campo que distinga instalación individual/común en el schema",
+    "RESUELTO 2026-07-28: fuente contaminada de otra comunidad (jccm.es, Castilla-La Mancha) sustituida por la ficha oficial de la JCyL",
+    "RESUELTO 2026-07-28: organismo corregido a 'Servicio Territorial de Industria, Comercio y Economía' en los 3 trámites de inscripción",
+    "RESUELTO 2026-07-28: plataforma_url sustituida por la ficha específica del trámite de gas en vez del portal genérico",
+    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
     "Ley 6/2014 de Industria de Castilla y León",
     "Orden EEI/1036/2021, de 6 de septiembre (regularización administrativa de instalaciones de seguridad industrial)",
-    "Ficha de trámite 'Registro de una instalación receptora de combustibles gaseosos' - jccm.es/tramites/1002260 (confirma umbrales de la ITC-ICG-07 aplicables con carácter general)"
+    "Ficha de trámite 'Instalación receptora de gas' de la Junta de Castilla y León - https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite (confirma umbrales de la ITC-ICG-07 aplicables con carácter general; corregida en la revisión 2026-07-28: la fuente anterior citaba erróneamente jccm.es, dominio de Castilla-La Mancha)"
   ],
   "reglas": [
     {
       "id": "CYL-GBP-001",
       "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico, independientemente de la potencia",
       "condicion": {
-        "==": [
-          { "var": "presion_bar" },
-          "5+"
+        ">": [
+          {
+            "var": "presion_bar"
+          },
+          5
         ]
       },
       "tramites": [
@@ -78,12 +84,12 @@
         {
           "orden": 3,
           "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
-          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
           "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Castilla y León",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -111,8 +117,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: memoria técnica, sin proyecto",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -148,12 +168,12 @@
         {
           "orden": 2,
           "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
-          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
           "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Castilla y León",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -175,8 +195,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
       "condicion": {
         "and": [
-          { "==": [ { "var": "presion_bar" }, "normal" ] },
-          { ">": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -229,12 +263,12 @@
         {
           "orden": 3,
           "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
-          "organismo": "Servicio Territorial de Industria, Comercio y Turismo de la Junta de Castilla y León",
+          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
           "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Castilla y León",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,

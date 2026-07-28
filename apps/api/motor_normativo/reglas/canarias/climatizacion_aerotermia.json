@@ -1,40 +1,79 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "canarias",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "version": "0.10.0",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 141/2016, de 10 de octubre' como Reglamento de Instalaciones Térmicas de Canarias: no se ha localizado ninguna norma autonómica canaria que desarrolle el RITE. La ficha oficial de Canarias para 'Puesta en funcionamiento de instalaciones térmicas en edificios' (SICAC 3409) cita únicamente normativa nacional (RITE y sus modificaciones, CTE), sin decreto autonómico. Prefijo de regla cambiado de 'CAN' a 'ICAN'.",
+  "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se añade el umbral inferior de 5 kW: la ficha oficial SICAC 3409 solo exige Memoria Técnica cuando la potencia térmica nominal es mayor o igual que 5 kW y menor o igual que 70 kW; por debajo de 5 kW no se exige documentación técnica ni comunicación; (2) se añade el contrato de mantenimiento con empresa mantenedora habilitada, exigido por la ficha para potencia >70 kW; (3) se corrige el organismo tramitador a Servicio de Eficiencia Energética y Nuevas Energías; (4) se corrige el aviso anterior, que afirmaba erróneamente que la ficha 3409 solo cita normativa nacional: cita también el Decreto 154/2001 (procedimiento de puesta en funcionamiento de industrias) y el Decreto 54/2021 (estructura orgánica); (5) se referencian los modelos oficiales Mod. IT_INS (comunicación previa) y Mod. IT_CI (certificado de instalación); (6) se añade la declaración responsable RSIF (RD 552/2019) para instalaciones de aerotermia con refrigerante fluorado, citada por la propia ficha 3409.",
   "huecos_verificacion": [
-    "No se ha localizado normativa autonómica canaria específica de climatización; se aplica el RITE nacional directamente",
-    "Tasas y plazos legales no verificados",
+    "RESUELTO: Decreto 154/2001, de 23 de julio, y Decreto 54/2021, de 27 de mayo, SÍ son normativa autonómica citada por la ficha 3409 (el aviso anterior lo negaba erróneamente)",
+    "RESUELTO: umbral inferior de 5 kW confirmado en la ficha 3409 (documentación exigible solo entre 5 y 70 kW)",
+    "Tasas: Modelo 700, concepto 200 'Tasas por Servicios Administrativos', epígrafe 4 'Inscripción en registros oficiales'; importe exacto no verificado",
     "No se ha confirmado si Canarias exige informe adicional distinto de la comunicación de puesta en funcionamiento (SICAC 3409)"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
+    "RITE RD 1027/2007 (art. 15: umbral de proyecto >70 kW; arts. 16-17 documentación)",
     "RD 1826/2009 (modificación RITE)",
     "RD 238/2013 (modificación RITE)",
     "RD 178/2021 (modificación RITE)",
     "RD 314/2006 Código Técnico de la Edificación",
+    "RD 552/2019 RSIF (Reglamento de seguridad para instalaciones frigoríficas), art. 21 declaración responsable — citado por la ficha 3409, relevante para aerotermia con gases fluorados",
+    "Decreto 154/2001, de 23 de julio, sobre el procedimiento para la puesta en funcionamiento de industrias e instalaciones industriales (normativa autonómica citada en la ficha 3409)",
+    "Decreto 54/2021, de 27 de mayo, Reglamento Orgánico de la Consejería de Transición Ecológica (normativa autonómica citada en la ficha 3409)",
     "Ficha de trámite SICAC 3409 'Puesta en funcionamiento de instalaciones térmicas en edificios' - sede.gobiernodecanarias.org"
   ],
   "reglas": [
     {
-      "id": "ICAN-CLI-001",
-      "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "ICAN-CLI-000",
+      "descripcion": "Instalación de climatización con aerotermia de potencia < 5 kW: sin documentación técnica ni comunicación exigida por la ficha 3409",
       "condicion": {
-        "<=": [
+        "<": [
           { "var": "potencia_kw" },
-          70
+          5
         ]
       },
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Memoria Técnica de Instalación Térmica (MTIT)",
+          "nombre": "Certificado del instalador (sin memoria técnica ni comunicación SICAC)",
           "organismo": "Instalador habilitado en climatización",
-          "base_legal": "RITE RD 1027/2007 art. 17",
+          "base_legal": "RITE RD 1027/2007; ficha SICAC 3409 (documentación exigible solo ≥5 kW)",
+          "plazo_estimado_dias": 2,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-CLI-000",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_instalador",
+              "label": "Certificado del instalador",
+              "descripcion": "Para equipos domésticos pequeños por debajo del umbral de 5 kW, la ficha oficial no exige Memoria Técnica ni comunicación de puesta en funcionamiento.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Añadido por auditoría (ALTO): la versión anterior exigía MTIT y comunicación desde 0 kW, generando trámites inexistentes para equipos domésticos pequeños."
+        }
+      ]
+    },
+    {
+      "id": "ICAN-CLI-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia entre 5 kW y 70 kW, ambos inclusive (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          { ">=": [ { "var": "potencia_kw" }, 5 ] },
+          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Memoria Técnica de Instalación Térmica (MTIT) — Mod. IT_INS",
+          "organismo": "Instalador habilitado en climatización",
+          "base_legal": "RITE RD 1027/2007 art. 17; ficha SICAC 3409 (Mod. IT_INS)",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -46,15 +85,21 @@
           "documentos_requeridos": [
             {
               "id": "mtit_climatizacion",
-              "label": "Memoria Técnica de Instalación Térmica",
-              "descripcion": "",
+              "label": "Memoria Técnica de Instalación Térmica (Mod. IT_INS)",
+              "descripcion": "Modelo oficial de comunicación previa Mod. IT_INS.",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "descripcion": "",
+              "label": "Certificado del instalador (Mod. IT_CI)",
+              "descripcion": "Modelo oficial de certificado de instalación Mod. IT_CI.",
               "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_rsif",
+              "label": "Declaración responsable RSIF (si aplica)",
+              "descripcion": "Declaración responsable del titular conforme al art. 21 del RD 552/2019 (RSIF), exigida cuando la instalación de aerotermia incorpora refrigerante fluorado.",
+              "obligatorio": false
             }
           ],
           "notas": ""
@@ -62,26 +107,26 @@
         {
           "orden": 2,
           "nombre": "Comunicación de puesta en funcionamiento de instalaciones térmicas (SICAC 3409)",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
-          "base_legal": "RITE RD 1027/2007",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Eficiencia Energética y Nuevas Energías",
+          "base_legal": "RITE RD 1027/2007; Decreto 154/2001",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
           "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa Modelo 700, concepto 200 'Tasas por Servicios Administrativos', epígrafe 4 'Inscripción en registros oficiales'. Importe exacto no verificado.",
           "formulario_ref": "3409",
           "paralelo_con": null,
           "regla_id": "ICAN-CLI-001",
           "documentos_requeridos": [
             {
               "id": "mtit_firmada",
-              "label": "MTIT firmada por instalador",
+              "label": "MTIT firmada por instalador (Mod. IT_INS)",
               "descripcion": "",
               "obligatorio": true
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador",
+              "label": "Certificado del instalador (Mod. IT_CI)",
               "descripcion": "",
               "obligatorio": true
             }
@@ -92,7 +137,7 @@
     },
     {
       "id": "ICAN-CLI-002",
-      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico y contrato de mantenimiento)",
       "condicion": {
         ">": [
           { "var": "potencia_kw" },
@@ -104,7 +149,7 @@
           "orden": 1,
           "nombre": "Proyecto Técnico de Instalación Térmica",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007 art. 16",
+          "base_legal": "RITE RD 1027/2007 art. 15",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -125,6 +170,18 @@
               "label": "Certificado de dirección de obra",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento",
+              "label": "Contrato de mantenimiento con empresa mantenedora habilitada",
+              "descripcion": "Exigido por la ficha oficial 3409 cuando la potencia térmica nominal total instalada es mayor que 70 kW.",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_rsif",
+              "label": "Declaración responsable RSIF (si aplica)",
+              "descripcion": "Declaración responsable del titular conforme al art. 21 del RD 552/2019 (RSIF), y certificado de mantenimiento anual, cuando la instalación de aerotermia incorpora refrigerante fluorado.",
+              "obligatorio": false
             }
           ],
           "notas": ""
@@ -132,13 +189,13 @@
         {
           "orden": 2,
           "nombre": "Comunicación de puesta en funcionamiento de instalaciones térmicas (SICAC 3409)",
-          "organismo": "Dirección General de Industria y Energía del Gobierno de Canarias",
-          "base_legal": "RITE RD 1027/2007",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Eficiencia Energética y Nuevas Energías",
+          "base_legal": "RITE RD 1027/2007; Decreto 154/2001",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
           "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa Modelo 700, concepto 200 'Tasas por Servicios Administrativos', epígrafe 4 'Inscripción en registros oficiales'. Importe exacto no verificado.",
           "formulario_ref": "3409",
           "paralelo_con": null,
           "regla_id": "ICAN-CLI-002",
@@ -152,6 +209,12 @@
             {
               "id": "certificado_direccion_obra",
               "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento",
+              "label": "Contrato de mantenimiento con empresa mantenedora habilitada",
               "descripcion": "",
               "obligatorio": true
             }

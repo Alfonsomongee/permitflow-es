@@ -74,6 +74,32 @@ export async function POST(req: Request) {
         nivel_tension_consumidor: formState.nivel_tension_consumidor ?? undefined,
         nivel_tension_generacion: formState.nivel_tension_generacion ?? undefined,
         nivel_tension_conexion: formState.nivel_tension_conexion ?? undefined,
+        modalidad_autoconsumo: formState.modalidad_autoconsumo || undefined,
+        ubicacion_suelo: formState.ubicacion_suelo || undefined,
+        requiere_acceso_conexion: formState.requiere_acceso_conexion,
+        inversion_eur: formState.inversion_eur
+          ? parseFloat(formState.inversion_eur)
+          : undefined,
+        potencia_resultante_kw: formState.potencia_resultante_kw
+          ? parseFloat(formState.potencia_resultante_kw)
+          : undefined,
+        presion_resultante_bar: formState.presion_resultante_bar
+          ? parseFloat(formState.presion_resultante_bar)
+          : undefined,
+        es_ampliacion: formState.es_ampliacion,
+        incremento_potencia_pct: formState.incremento_potencia_pct
+          ? parseFloat(formState.incremento_potencia_pct)
+          : undefined,
+        uso_edificio: formState.uso_edificio || undefined,
+        ventilacion_garaje: formState.ventilacion_garaje || undefined,
+        numero_plazas_garaje: formState.numero_plazas_garaje
+          ? parseInt(formState.numero_plazas_garaje, 10)
+          : undefined,
+        garaje_existente: formState.garaje_existente,
+        acs_centralizada: formState.acs_centralizada,
+        incluida_ambito_legionella: formState.incluida_ambito_legionella,
+        dispone_acumulacion: formState.dispone_acumulacion,
+        dispone_circuito_retorno: formState.dispone_circuito_retorno,
         solicita_ayuda: formState.solicita_ayuda,
       }),
     });

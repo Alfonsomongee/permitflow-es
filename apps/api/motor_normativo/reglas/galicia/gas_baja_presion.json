@@ -2,14 +2,16 @@
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "galicia",
   "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
-  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 62/2010' como base legal: no se ha localizado esta norma. Sustituida por la normativa real confirmada: Orden de 28 de abril de 2008 (DOG núm. 95), que regula la aplicación en Galicia del RIGLO (RD 919/2006). Trámite real confirmado: IN625A 'Registro de instalaciones receptoras de gases combustibles'. Se corrigió un hueco de cobertura: la regla 2 original exigía 'potencia>70 AND uso==industrial' simultáneamente, dejando sin trámite tanto instalaciones industriales ≤70kW como instalaciones no industriales >70kW. La partición ahora depende solo de 'potencia_kw'.",
+  "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 62/2010' como base legal: no se ha localizado esta norma. Sustituida por la normativa real confirmada: Orden de 28 de abril de 2008 (DOG núm. 95), que regula la aplicación en Galicia del RIGLO (RD 919/2006). Trámite real confirmado: IN625A 'Registro de instalaciones receptoras de gases combustibles'. Se corrigió un hueco de cobertura: la regla 2 original exigía 'potencia>70 AND uso==industrial' simultáneamente, dejando sin trámite tanto instalaciones industriales ≤70kW como instalaciones no industriales >70kW. La partición ahora depende solo de 'potencia_kw'. Auditoría 2026-07-28: sustituida la plataforma_url genérica (https://sede.xunta.gal) de IN625A por el enlace profundo confirmado a la ficha del trámite.",
   "huecos_verificacion": [
     "Tras corregir el hueco de cobertura, el fichero ya no diferencia trámites por uso doméstico/comercial/industrial; si esa distinción es normativamente relevante en Galicia, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base",
     "No se ha aplicado aquí el hallazgo de Castilla y León sobre presion_bar='5+' porque este fichero no usa el campo presion_bar en absoluto (usa potencia_kw y uso) — revisar si debería incorporarse",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28: plataforma_url de IN625A sustituida por el enlace profundo confirmado (https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN625A)",
+    "coste_estimado marcado NO VERIFICADO: una fuente oficial (Oficina Virtual de Industria) indica que el trámite SÍ tiene tasas asociadas a la primera inscripción y a modificaciones; no se ha confirmado el importe exacto en esta revisión, se mantiene como hueco abierto"
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
@@ -93,7 +95,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN625A",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "IN625A",
           "paralelo_con": null,
@@ -192,7 +194,7 @@
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN625A",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "IN625A",
           "paralelo_con": null,

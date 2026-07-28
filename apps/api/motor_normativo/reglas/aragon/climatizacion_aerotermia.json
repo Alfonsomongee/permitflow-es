@@ -1,20 +1,22 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "aragon",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
-  "estado": "verificado",
-  "aviso": "Reglas de potencia base verificadas y exención <5kW introducida.",
+  "version": "0.9.1",
+  "ultima_revision": "2026-07-28",
+  "estado": "verificado_parcialmente",
+  "aviso": "Reglas de potencia base verificadas y exención <5kW introducida. Auditoría 2026-07-28: se retiró la cita 'Decreto 108/1992 de Aragón' (norma no localizada en BOA), se corrigió el umbral de proyecto RITE (>70 -> >=70 kW, el caso exacto de 70 kW pasa a proyecto) y se rellenó plataforma_url con la ficha oficial confirmada. Persisten huecos abiertos (ver huecos_verificacion); por eso 'estado' se mantiene en verificado_parcialmente, no verificado.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
     "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos."
+    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón.",
+    "Normativa autonómica de procedimiento para la comunicación de puesta en servicio de instalaciones térmicas: 'Decreto 108/1992 de Aragón' retirado de 'fuentes' por no localizarse en BOA (auditoría 2026-07-28, búsqueda sin resultado). No se ha identificado la norma autonómica de procedimiento realmente aplicable al RITE en Aragón (a diferencia de BT y gas, donde sí se localizó la Orden EIE/1731/2017 y la Orden de 30/03/2007 respectivamente); 'base_legal' de la comunicación de puesta en servicio queda solo con el RITE estatal.",
+    "plataforma_url del trámite de comunicación de puesta en servicio de instalación térmica: se ha rellenado con la página general de RITE/ACS de aragon.es (no se ha localizado el número de trámite específico del tramitador, a diferencia de BT/Nº26 y gas/Nº33)."
   ],
   "fuentes": [
     "RITE RD 1027/2007, modificado por RD 178/2021",
     "REBT RD 842/2002",
-    "Decreto 108/1992 de Aragon -- VIGENCIA NO COMPROBADA, ver huecos_verificacion",
-    "RD 2200/1995 (Reglamento de la Infraestructura para la Calidad y Seguridad Industrial)"
+    "RD 2200/1995 (Reglamento de la Infraestructura para la Calidad y Seguridad Industrial)",
+    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
   ],
   "reglas": [
     {
@@ -32,7 +34,7 @@
     },
     {
       "id": "ARA-CLIM-001",
-      "descripcion": "Instalacion termica >= 5 kW y <=70 kW: memoria tecnica",
+      "descripcion": "Instalacion termica >= 5 kW y <70 kW: memoria tecnica (corregido 2026-07-28: el RITE, RD 1027/2007 IT 1, exige proyecto desde potencia >=70 kW; el caso exacto de 70 kW pasa a ARA-CLIM-002)",
       "condicion": {
         "and": [
           {
@@ -44,7 +46,7 @@
             ]
           },
           {
-            "<=": [
+            "<": [
               {
                 "var": "potencia_kw"
               },
@@ -84,8 +86,8 @@
           "base_legal": "RITE RD 1027/2007; normativa autonomica de procedimiento (vigencia no comprobada)",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": 15,
-          "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
+          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
+          "plataforma_url": "https://www.aragon.es/instalaciones-y-equipos-industriales/rite/acs",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -98,15 +100,15 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la página oficial de RITE/ACS de aragon.es (número de trámite específico no localizado, a diferencia de BT/gas). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
         }
       ]
     },
     {
       "id": "ARA-CLIM-002",
-      "descripcion": "Instalacion termica >70 kW: proyecto tecnico y certificado OCA",
+      "descripcion": "Instalacion termica >=70 kW: proyecto tecnico y certificado OCA (corregido 2026-07-28: umbral RITE es >=70 kW, no >70 kW)",
       "condicion": {
-        ">": [
+        ">=": [
           {
             "var": "potencia_kw"
           },

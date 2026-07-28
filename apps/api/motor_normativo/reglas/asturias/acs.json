@@ -2,11 +2,18 @@
   "tipo_instalacion": "acs",
   "comunidad": "asturias",
   "version": "1.1.0",
-  "ultima_revision": "2026-07-27",
-  "nivel_verificacion": "estricta",
-  "estado": "verificado",
-  "aviso": "Decreto 11/2015 aplicado. Trámite RECE0050T01 consolidado. Regla transversal de Legionelosis (PPCL/PSL) añadida para usos no residenciales individuales.",
-  "huecos_verificacion": [],
+  "ultima_revision": "2026-07-28",
+  "nivel_verificacion": "generica",
+  "estado": "verificado_parcialmente",
+  "aviso": "Auditoría 2026-07-28: corregida secuencia de la tasa 046 (posterior al registro, no documento de entrada), añadido contrato de mantenimiento >70kW, excepcionada la inspección OCA para conjuntos de instalaciones individuales <70kW en uso residencial vivienda, y corregido el enumerado inválido de 'uso' en AST-ACS-003.",
+  "huecos_verificacion": [
+    "RESUELTO 2026-07-28 (ALTO): 'justificante_tasa_046' retirado de los documentos de ENTRADA de RECE0050T01 (AST-ACS-001/002); la ficha oficial establece que la tasa se liquida DESPUÉS del registro (la Administración emite la carta de pago). Se mantiene como coste posterior en 'notas' y 'coste_estimado'.",
+    "RESUELTO 2026-07-28 (ALTO): añadido documento obligatorio 'contrato_mantenimiento' (art. 26 RITE) en AST-ACS-002 (>70 kW).",
+    "RESUELTO 2026-07-28 (ALTO): excepcionada la exigencia de 'certificado_oca' (inspección inicial) en AST-ACS-002 para conjuntos de instalaciones individuales <70kW cada una en edificios de uso residencial vivienda, conforme a la ficha oficial. Usa el campo 'acs_centralizada' (recogido por el formulario) como proxy de 'instalación individual vs. común de edificio'.",
+    "RESUELTO 2026-07-28 (MEDIO): AST-ACS-003 comparaba 'uso' con los valores inexistentes 'comercial' y 'residencial_colectivo' (el enumerado real es residencial|terciario|industrial, ver apps/web/components/nueva-instalacion/types.ts). Sustituido por 'uso in [terciario, industrial] OR acs_centralizada=true', reutilizando el campo acs_centralizada que sí recoge el formulario para aproximar 'uso residencial colectivo'.",
+    "requiere campo de formulario: uso_colectivo — existe en schemas/clasificador.py pero no lo renderiza ningún Step del formulario web; no se ha podido usar como criterio directo y se ha aproximado con acs_centralizada.",
+    "PENDIENTE: no se ha añadido cota inferior de potencia (>5kW) ni 'Solicitud en modelo normalizado' como documento explícito (hallazgos MEDIO de la auditoría), por no ser mecánicos y requerir diseño adicional del itinerario."
+  ],
   "fuentes": [
     "RITE RD 1027/2007",
     "RD 238/2013 modificación RITE",
@@ -59,13 +66,13 @@
         {
           "orden": 2,
           "nombre": "Registro de la instalación térmica (RECE0050T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Fluidos y Metrología",
           "base_legal": "RITE RD 1027/2007 art. 23-24; Decreto 11/2015",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 28,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "plataforma_url": "https://sede.asturias.es/-/dboid-6269000005730520507573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998, liquidada tras el registro (carta de pago emitida de oficio)",
           "formulario_ref": "RECE0050T01",
           "paralelo_con": null,
           "regla_id": "AST-ACS-001",
@@ -81,15 +88,9 @@
               "label": "Certificado de instalación",
               "descripcion": "Acredita que la instalación se ejecutó según MTD.",
               "obligatorio": true
-            },
-            {
-              "id": "justificante_tasa_046",
-              "label": "Justificante de pago de tasa (Modelo 046)",
-              "descripcion": "Basado en el PEM.",
-              "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Registrado el certificado de instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Plazo legal de resolución: 4 semanas, silencio no procede."
         }
       ]
     },
@@ -131,13 +132,13 @@
         {
           "orden": 2,
           "nombre": "Registro de la instalación térmica e Inspección Inicial (RECE0050T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Fluidos y Metrología",
           "base_legal": "RITE RD 1027/2007 art. 15, 23-24; Decreto 11/2015",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 28,
           "plataforma": "Sede Electrónica del Principado de Asturias",
-          "plataforma_url": "https://sede.asturias.es",
-          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "plataforma_url": "https://sede.asturias.es/-/dboid-6269000005730520507573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998, liquidada tras el registro (carta de pago emitida de oficio)",
           "formulario_ref": "RECE0050T01",
           "paralelo_con": null,
           "regla_id": "AST-ACS-002",
@@ -163,33 +164,25 @@
             {
               "id": "certificado_oca",
               "label": "Certificado de inspección inicial con calificación aceptable (OCA)",
-              "descripcion": "Requerido por superar los 70 kW.",
+              "descripcion": "Requerido por superar los 70 kW. No exigible cuando la instalación es un conjunto de instalaciones individuales de menos de 70 kW cada una en edificio de uso residencial vivienda (excepción de la ficha oficial); aproximado con acs_centralizada=false.",
               "obligatorio": true
             },
             {
-              "id": "justificante_tasa_046",
-              "label": "Justificante de pago de tasa (Modelo 046)",
-              "descripcion": "Basado en el PEM.",
+              "id": "contrato_mantenimiento",
+              "label": "Copia del contrato de mantenimiento (art. 26 RITE)",
+              "descripcion": "Obligatorio para instalaciones de potencia > 70 kW.",
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "Registrado el certificado de instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Plazo legal de resolución: 4 semanas, silencio no procede. Si la instalación es un conjunto de unidades individuales <70kW en edificio residencial vivienda, no es exigible el certificado OCA de inspección inicial."
         }
       ]
     },
     {
       "id": "AST-ACS-003",
-      "descripcion": "Prevención y Control de Legionelosis en instalaciones de uso colectivo/terciario",
+      "descripcion": "Prevención y Control de Legionelosis en instalaciones de uso colectivo/terciario/industrial (corregido 2026-07-28: el enumerado real de 'uso' es residencial|terciario|industrial; se usa acs_centralizada=true como proxy de instalación de ACS colectiva en edificio residencial)",
       "condicion": {
         "or": [
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "comercial"
-            ]
-          },
           {
             "==": [
               {
@@ -203,7 +196,15 @@
               {
                 "var": "uso"
               },
-              "residencial_colectivo"
+              "industrial"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "acs_centralizada"
+              },
+              true
             ]
           }
         ]
