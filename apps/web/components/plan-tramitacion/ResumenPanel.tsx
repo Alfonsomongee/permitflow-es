@@ -77,7 +77,7 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
 
   return (
     <aside className="flex flex-col gap-4">
-      <div className="rounded-2xl border border-border bg-surface p-5">
+      <div className="rounded-2xl border border-border bg-surface p-5 shadow-card">
         <p className="mb-3 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-text-secondary">
           <Zap size={12} aria-hidden />
           Instalación
@@ -98,19 +98,19 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-border bg-gradient-to-br from-primary-light to-surface p-5">
+      <div className="rounded-2xl border border-primary/15 bg-gradient-to-br from-primary-light to-surface p-5 shadow-card">
         <p className="mb-3 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-primary-dark">
           <ListChecks size={12} aria-hidden />
           Resumen del plan
         </p>
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-xl bg-surface/70 p-3">
-            <p className="text-2xl font-bold text-text-primary">{tramitesAccionables.length}</p>
+          <div className="rounded-xl bg-surface/80 p-3 shadow-xs">
+            <p className="text-2xl font-semibold tracking-tight text-text-primary">{tramitesAccionables.length}</p>
             <p className="text-[11px] text-text-secondary">trámites</p>
           </div>
           {plan.tiempo_total_estimado_dias !== null && (
-            <div className="rounded-xl bg-surface/70 p-3">
-              <p className="text-2xl font-bold text-text-primary">~{plan.tiempo_total_estimado_dias}</p>
+            <div className="rounded-xl bg-surface/80 p-3 shadow-xs">
+              <p className="text-2xl font-semibold tracking-tight text-text-primary">~{plan.tiempo_total_estimado_dias}</p>
               <p className="text-[11px] text-text-secondary">días estimados</p>
             </div>
           )}
