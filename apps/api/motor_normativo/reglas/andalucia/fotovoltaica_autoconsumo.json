@@ -50,7 +50,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -170,7 +170,7 @@
           "plazo_estimado_dias": 7,
           "plazo_legal_dias": 15,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (tramitación telemática gratuita)",
           "documentos_requeridos": [
             {
@@ -243,7 +243,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -339,7 +339,7 @@
           "plazo_estimado_dias": 7,
           "plazo_legal_dias": 15,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "62.25 EUR",
           "documentos_requeridos": [
             {
@@ -412,7 +412,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -508,7 +508,7 @@
           "plazo_estimado_dias": 7,
           "plazo_legal_dias": 15,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
@@ -593,7 +593,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -689,7 +689,7 @@
           "plazo_estimado_dias": 7,
           "plazo_legal_dias": 15,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "100.00 EUR (estimado tramo medio)",
           "documentos_requeridos": [
             {
@@ -762,7 +762,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -858,7 +858,7 @@
           "plazo_estimado_dias": 7,
           "plazo_legal_dias": 15,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "159.18 EUR",
           "documentos_requeridos": [
             {
@@ -935,7 +935,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -1065,7 +1065,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "62.25 EUR",
           "documentos_requeridos": [
             {
@@ -1136,7 +1136,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -1266,7 +1266,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
@@ -1349,7 +1349,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -1479,7 +1479,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "100.00 EUR (estimado tramo medio)",
           "documentos_requeridos": [
             {
@@ -1550,7 +1550,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -1680,7 +1680,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "159.18 EUR",
           "documentos_requeridos": [
             {
@@ -1727,7 +1727,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -1868,7 +1868,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "320.65 EUR",
           "documentos_requeridos": [
             {
@@ -1915,7 +1915,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -2056,7 +2056,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
@@ -2115,7 +2115,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -2256,7 +2256,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "500.00 EUR (estimado tramo medio)",
           "documentos_requeridos": [
             {
@@ -2303,7 +2303,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -2444,7 +2444,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 30,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "1061.21 EUR",
           "documentos_requeridos": [
             {
@@ -2479,7 +2479,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/autoconsumo/tramitacion.html",
+          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
           "coste_estimado": "Sin coste (solicitud a la distribuidora)",
           "documentos_requeridos": [
             {
@@ -2594,6 +2594,7 @@
     "PENDIENTE (no verificado, no se ha tocado la condición): AND-FV-002 dispara para cualquier instalación no residencial sin cota inferior de potencia (posible falso positivo en comercios de muy baja potencia). No se ha localizado fuente que fije un umbral alternativo -- se deja para una fase posterior con verificación web dedicada.",
     "PENDIENTE: excepciones del párrafo segundo del apartado 2 de la disposición adicional única del Decreto-ley 2/2018 (instalaciones ≤500 kW excluidas de la vía PUES) -- existen pero no se ha identificado cuáles son; no incorporadas.",
     "PENDIENTE: Ley 7/2021 art. 16 citada en fuentes FV -- pertenece al bloque de movilidad/transporte, no de autoconsumo; cita improcedente detectada pero no eliminada en esta pasada (bajo impacto, no listada como CRÍTICO/ALTO).",
-    "PENDIENTE: acuerdo de reparto en autoconsumo colectivo (RD 244/2019 art. 3 y anexo I) no incorporado (hueco B8, criterio profesional sin fuente verificada en esta auditoría)."
+    "PENDIENTE: acuerdo de reparto en autoconsumo colectivo (RD 244/2019 art. 3 y anexo I) no incorporado (hueco B8, criterio profesional sin fuente verificada en esta auditoría).",
+    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.edistribucion.com/es/autoconsumo/tramitacion.html (usada en los trámites 'Solicitud del CAU' y 'Comunicación de autoconsumo a la distribuidora' de todas las reglas AND-FV) devolvía 404 confirmado por un usuario real; sin snapshot en Wayback Machine. e-distribución reestructuró su web: sustituida por https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html ('Autoconsumo: Información sobre modalidades, trámites y normativa'), página vigente verificada por fetch directo, que describe expresamente la solicitud de acceso/CAU y la comunicación de autoconsumo a la distribuidora."
   ]
 }

@@ -10,7 +10,8 @@
     "No se ha localizado normativa autonómica riojana específica de gas más allá del trámite GN-GL",
     "Tasas y plazos legales no verificados",
     "No se ha confirmado si La Rioja distingue trámite entre GL (GLP) y GN (gas natural) más allá del propio nombre del código",
-    "Corregido 2026-07-28: las condiciones de RIO-GAS-001/002/003 comparaban 'presion_bar' contra las cadenas literales \"5+\"/\"normal\", pero motor_normativo/clasificador.py normaliza ese campo a float (\"5+\"->6.0, \"normal\"->0.0) antes de evaluar json-logic, por lo que las tres reglas eran inalcanzables en producción. Se cambiaron a comparaciones numéricas (`presion_bar` > 5 / <= 5) equivalentes al umbral normativo real."
+    "Corregido 2026-07-28: las condiciones de RIO-GAS-001/002/003 comparaban 'presion_bar' contra las cadenas literales \"5+\"/\"normal\", pero motor_normativo/clasificador.py normaliza ese campo a float (\"5+\"->6.0, \"normal\"->0.0) antes de evaluar json-logic, por lo que las tres reglas eran inalcanzables en producción. Se cambiaron a comparaciones numéricas (`presion_bar` > 5 / <= 5) equivalentes al umbral normativo real.",
+    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
@@ -22,7 +23,9 @@
       "descripcion": "Instalación de gas con presión de operación superior a 5 bar: requiere siempre proyecto técnico",
       "condicion": {
         ">": [
-          { "var": "presion_bar" },
+          {
+            "var": "presion_bar"
+          },
           5
         ]
       },
@@ -81,7 +84,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GN-GL",
           "paralelo_con": null,
@@ -109,8 +112,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
       "condicion": {
         "and": [
-          { "<=": [ { "var": "presion_bar" }, 5 ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -174,7 +191,7 @@
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GN-GL",
           "paralelo_con": null,
@@ -196,8 +213,22 @@
       "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia > 70 kW: requiere proyecto técnico",
       "condicion": {
         "and": [
-          { "<=": [ { "var": "presion_bar" }, 5 ] },
-          { ">": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            "<=": [
+              {
+                "var": "presion_bar"
+              },
+              5
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -255,7 +286,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GN-GL",
           "paralelo_con": null,

@@ -10,7 +10,8 @@
     "Tasas exactas no verificadas",
     "'Orden de 26 de marzo de 1998' del fichero original tampoco se ha podido confirmar — no incluida en las fuentes corregidas",
     "RESUELTO 2026-07-28: diferenciados los procedimientos código 60 (sin proyecto) y código 27 (con proyecto) en el trámite de registro, cada uno con su plataforma_url y formulario_ref específicos",
-    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
+    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja.",
+    "RESUELTO 2026-07-28 (enlace roto): plataforma_url del trámite código 27 apuntaba a www.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240 (portal institucional CARM.es, IDTIPO=240 no es un tipo de contenido servido en ese subdominio; la página devuelve 'No hay contenidos en esta sección'). Corregido a sede.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240, confirmado por índice de búsqueda como la ficha real 'Inscripción en el registro de instalaciones receptoras de combustibles gaseosos que requieren presentación de proyecto' en la sede electrónica de la CARM."
   ],
   "fuentes": [
     "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
@@ -90,7 +91,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
-          "plataforma_url": "https://www.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240",
+          "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "27",
           "paralelo_con": null,
