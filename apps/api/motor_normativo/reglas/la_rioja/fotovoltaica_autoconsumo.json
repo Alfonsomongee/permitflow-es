@@ -10,7 +10,8 @@
     "No se ha verificado si La Rioja ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
     "Tasas y plazos legales de resolución no verificados con detalle más allá del plazo de 6 meses confirmado para autorización administrativa",
     "No se ha confirmado el nombre exacto ni la existencia de un registro de autoconsumo diferenciado; La Rioja tramita a través del Servicio de Industria (Registro Integrado Industrial / Registro de instalaciones de producción) según fuente oficial",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
   ],
   "fuentes": [
     "RD 244/2019 autoconsumo eléctrico",
@@ -27,7 +28,9 @@
       "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           100
         ]
       },
@@ -69,7 +72,7 @@
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "AUTee",
           "paralelo_con": null,
@@ -97,7 +100,9 @@
       "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           100
         ]
       },
@@ -162,7 +167,7 @@
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "AUTee",
           "paralelo_con": null,

@@ -11,7 +11,8 @@
     "Tasas y plazos legales no verificados",
     "No se ha confirmado si existe distinción de trámite entre 'CL' y 'CLM' (posiblemente climatización general vs. climatización con máquina, o distinción por tipo de generador) — no localizado en esta revisión",
     "Corregido 2026-07-28: el campo 'organismo' de los trámites CL/CLM usaba la denominación histórica 'Dirección General de Trabajo, Industria y Comercio', desactualizada. Se ha sustituido por 'Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja', denominación vigente confirmada en las fichas oficiales de los trámites IBT (n=24196) y AUTee (n=24593) de la sede electrónica de La Rioja. No se ha localizado ficha oficial propia del trámite CL/CLM que confirme el organismo exacto para ese trámite específico; queda como hueco pendiente si se detecta discrepancia.",
-    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero"
+    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero",
+    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
   ],
   "fuentes": [
     "RITE RD 1027/2007",
@@ -26,7 +27,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -68,7 +71,7 @@
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "CL / CLM",
           "paralelo_con": null,
@@ -96,7 +99,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico e inspección inicial)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -167,7 +172,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://www.larioja.org/oficina-electronica/es",
+          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "CL / CLM",
           "paralelo_con": null,
