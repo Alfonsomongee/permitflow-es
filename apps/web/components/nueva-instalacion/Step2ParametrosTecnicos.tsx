@@ -22,7 +22,7 @@ function CamposPotenciaBase({ label, hint }: { label?: string; hint?: string }) 
       render={({ field, fieldState }) => (
         <Field label={label || "Potencia total de la instalación (kW)"} hint={hint} error={fieldState.error?.message}>
           <NumberInput
-            value={field.value}
+            value={field.value ?? ""}
             onChange={field.onChange}
             placeholder="ej. 9.9"
             min={0}
@@ -78,7 +78,7 @@ function CamposFotovoltaica() {
         render={({ field, fieldState }) => (
           <Field label="Superficie del generador (m²)" hint="Opcional. Se usa para verificar la coherencia con la potencia." error={fieldState.error?.message}>
             <NumberInput
-              value={field.value}
+              value={field.value ?? ""}
               onChange={field.onChange}
               placeholder="ej. 50"
               min={0}
@@ -105,7 +105,7 @@ function CamposFotovoltaica() {
             error={fieldState.error?.message}
           >
             <NumberInput
-              value={field.value}
+              value={field.value ?? ""}
               onChange={field.onChange}
               placeholder="ej. 8000"
               min={0}
@@ -196,7 +196,7 @@ function CamposIRVE() {
           render={({ field, fieldState }) => (
             <Field label="Número de puntos de recarga" error={fieldState.error?.message}>
               <NumberInput
-                value={field.value}
+                value={field.value ?? ""}
                 onChange={field.onChange}
                 placeholder="1"
                 min={1}
@@ -211,7 +211,7 @@ function CamposIRVE() {
           render={({ field, fieldState }) => (
             <Field label="Potencia por punto (kW)" error={fieldState.error?.message}>
               <NumberInput
-                value={field.value}
+                value={field.value ?? ""}
                 onChange={field.onChange}
                 placeholder="7.4"
                 min={1.4}
@@ -498,7 +498,7 @@ function CamposClimatizacionACS() {
         render={({ field, fieldState }) => (
           <Field label="Superficie climatizada (m²)" hint="Necesaria para clasificar si aplica RITE completo." error={fieldState.error?.message}>
             <NumberInput
-              value={field.value}
+              value={field.value ?? ""}
               onChange={field.onChange}
               placeholder="ej. 200"
               min={0}
