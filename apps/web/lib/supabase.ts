@@ -61,6 +61,9 @@ export interface DbExpediente {
   referencia_cliente: string | null;
   notas: string | null;
   version: number;
+  /** Token opaco para el portal de cliente de solo lectura (/portal/[token]).
+   * null hasta que se genera el enlace por primera vez desde el expediente. */
+  share_token: string | null;
   creado_en: string;
   actualizado_en: string;
 }

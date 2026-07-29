@@ -12,6 +12,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/api/health",
+  "/portal(.*)",          // portal de cliente final: enlace de solo lectura sin cuenta
 ]);
 
 export default clerkMiddleware(async (auth, request) => {

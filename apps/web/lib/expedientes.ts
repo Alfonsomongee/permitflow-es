@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { supabaseAdmin, type DbExpediente } from "./supabase";
 import type { FormState } from "@/components/nueva-instalacion/types";
 import type {
@@ -281,6 +282,49 @@ export async function aplicarPatchExpediente(
   }
 
   return data as PatchExpedienteResult;
+}
+
+/**
+ * Devuelve el token del portal de cliente de solo lectura para este
+ * expediente, generándolo si no existe (o rotándolo si `regenerar` es true,
+ * lo que invalida cualquier enlace ya compartido). Token opaco (UUID
+ * aleatorio), no reversible ni predecible: no expone el id interno del
+ * expediente ni ningún dato hasta que se resuelve contra la tabla.
+ */
+export async function obtenerOCrearShareToken(
+  id: string,
+  clerkOrgId: string,
+  regenerar = false
+): Promise<string> {
+  const orgId = await ensureOrgId(clerkOrgId);
+
+  const { data: expediente, error: fetchError } = await supabaseAdmin
+    .from("expedientes")
+    .select("share_token")
+    .eq("id", id)
+    .eq("org_id", orgId)
+    .single();
+
+  if (fetchError || !expediente) {
+    throw new Error("EXPEDIENTE_NO_ENCONTRADO");
+  }
+
+  if (expediente.share_token && !regenerar) {
+    return expediente.share_token;
+  }
+
+  const nuevoToken = randomUUID();
+  const { error: updateError } = await supabaseAdmin
+    .from("expedientes")
+    .update({ share_token: nuevoToken })
+    .eq("id", id)
+    .eq("org_id", orgId);
+
+  if (updateError) {
+    throw new Error(`Error generando el enlace: ${updateError.message}`);
+  }
+
+  return nuevoToken;
 }
 
 export function obtenerKpis(expedientes: DbExpediente[]) {

@@ -17,6 +17,22 @@ export async function POST(req: NextRequest) {
   if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
+  return handle();
+}
+
+// Los Cron Jobs de Vercel invocan por GET (con la cabecera Authorization
+// Bearer $CRON_SECRET si la variable de entorno se llama exactamente así).
+// Antes esta ruta solo aceptaba POST, así que vercel.json nunca podía
+// dispararla: el cron "existía" en el código pero no se ejecutaba nunca.
+export async function GET(req: NextRequest) {
+  const auth = req.headers.get("authorization");
+  if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+  }
+  return handle();
+}
+
+async function handle() {
 
   const PAGE = 500;
   const acumulado = new Map<string, Muestra>(); // clave: comunidad|tipo|claveTramite

@@ -1,8 +1,9 @@
 "use client";
 
-import { Search, Bell, Menu } from "lucide-react";
+import { Search, Menu } from "lucide-react";
 import { useSidebar } from "./SidebarContext";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { NotificationBell } from "@/components/dashboard/NotificationBell";
 
 export function DashboardTopbar() {
   const { toggle } = useSidebar();
@@ -42,15 +43,8 @@ export function DashboardTopbar() {
           <Search size={15} aria-hidden />
         </button>
 
-        {/* Notificaciones */}
-        <button
-          className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-text-secondary hover:bg-bg transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary"
-          aria-label="Notificaciones"
-        >
-          <Bell size={15} aria-hidden />
-          {/* Punto rojo de alerta */}
-          <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-danger ring-2 ring-surface" aria-hidden />
-        </button>
+        {/* Notificaciones de plazos (real, ver components/dashboard/NotificationBell.tsx) */}
+        <NotificationBell />
       </div>
     </header>
   );

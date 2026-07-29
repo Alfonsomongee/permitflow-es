@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/notificaciones-plazos",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/estadisticas-plazos",
+      "schedule": "0 3 * * 0"
+    }
+  ]
+}
