@@ -251,4 +251,7 @@ class Clasificador:
             tiempo_total_estimado_dias=tiempo_total,
             advertencias=advertencias,
             nivel_verificacion=data.get("nivel_verificacion", "verificada"),
+            estado=data.get("estado"),
+            aviso=data.get("aviso"),
+            huecos_verificacion=data.get("huecos_verificacion", []),
         )

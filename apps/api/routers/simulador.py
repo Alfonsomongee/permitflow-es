@@ -178,11 +178,23 @@ class GenerarRequest(BaseModel):
     analisis_id: str
     region: Optional[str] = None
     tipo_inmueble: Optional[str] = None  # Necesario para validar alcance
+    # Coordenadas de la instalación: si se proporcionan, la producción
+    # específica fotovoltaica se calcula con PVGIS real en vez de una media
+    # orientativa para España. Opcionales para no romper clientes existentes.
+    lat: Optional[float] = None
+    lon: Optional[float] = None
 
 
-async def _generar_estudio_background(estudio_id: str, datos_factura: dict, region: Optional[str]):
-    """BackgroundTask que llama al LLM y actualiza el estado del estudio.
-    
+async def _generar_estudio_background(
+    estudio_id: str,
+    datos_factura: dict,
+    region: Optional[str],
+    lat: Optional[float] = None,
+    lon: Optional[float] = None,
+):
+    """BackgroundTask que calcula el escenario financiero (determinista) y,
+    si hay LLM disponible, redacta incentivos/recomendación en texto.
+
     Crea su propia sesión de BD (no reutiliza la del request, que ya está cerrada).
     AVISO: BackgroundTasks es in-process. Un deploy durante la ejecución pierde la tarea.
     El barrido de expiración (ver main.py lifespan) marca como 'error' los estudios
@@ -190,7 +202,7 @@ async def _generar_estudio_background(estudio_id: str, datos_factura: dict, regi
     """
     async with AsyncSessionLocal() as db:
         try:
-            informe = await generar_informe_simulacion(datos_factura, region)
+            informe = await generar_informe_simulacion(datos_factura, region, lat=lat, lon=lon)
             await db.execute(
                 update(EstudioEnergetico)
                 .where(EstudioEnergetico.id == uuid.UUID(estudio_id))
@@ -268,7 +280,9 @@ async def generar_simulacion(
         "fuente_dato": analisis.fuente_dato,
     }
 
-    background_tasks.add_task(_generar_estudio_background, estudio_id, datos, body.region)
+    background_tasks.add_task(
+        _generar_estudio_background, estudio_id, datos, body.region, body.lat, body.lon
+    )
 
     token = _crear_token_estudio(estudio_id)
     return {

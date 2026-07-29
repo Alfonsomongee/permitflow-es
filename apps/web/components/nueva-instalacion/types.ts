@@ -1,5 +1,6 @@
 // Full form state matching the backend ClasificadorInput shape.
 import type { NuevaInstalacionFormData } from "../../lib/validations/nuevaInstalacion";
+import { COBERTURA_NORMATIVA } from "@/content/cobertura_normativa";
 
 export type FormState = NuevaInstalacionFormData;
 
@@ -113,15 +114,36 @@ export const COMUNIDAD_LABEL: Record<string, string> = Object.fromEntries(
   COMUNIDAD_OPTIONS.map((o) => [o.value, o.label])
 );
 
-export const VERTICALES_ANDALUCIA = new Set([
-  "fotovoltaica_autoconsumo",
-  "irve",
-  "climatizacion_aerotermia",
-  "acs",
-  "gas_baja_presion",
-]);
+/**
+ * Nivel de cobertura normativa REAL para el aviso del selector, derivado del
+ * mismo dato que usa el motor (content/cobertura_normativa.ts, generado desde
+ * apps/api/motor_normativo/reglas/*.json). Antes este selector usaba un
+ * conjunto fijo ("solo Andalucía completa, resto solo fotovoltaica") que ya no
+ * reflejaba la realidad: las 17 CCAA x 5 verticales tienen reglas, pero con
+ * niveles de verificación muy distintos.
+ */
+export type NivelCobertura = "verificada" | "atencion" | "generica_grave";
 
+export function nivelCobertura(tipo: string, comunidad: string): NivelCobertura {
+  const combo = COBERTURA_NORMATIVA[comunidad]?.[tipo];
+  if (!combo) return "generica_grave";
+
+  const estado = combo.estado ?? "";
+  if (estado.includes("no_verificado")) return "generica_grave";
+  if (combo.nivelVerificacion === "verificada" && !estado) return "verificada";
+  if (
+    estado.includes("parcial") ||
+    combo.nivelVerificacion === "verificada_parcialmente" ||
+    combo.nivelVerificacion === "verificado_con_observaciones" ||
+    combo.nivelVerificacion === "en_revision" ||
+    combo.nivelVerificacion === "borrador_verificado_parcialmente"
+  ) {
+    return "atencion";
+  }
+  return "generica_grave";
+}
+
+/** @deprecated usa nivelCobertura() — se mantiene para no romper otros usos existentes. */
 export function tieneCobertura(tipo: string, comunidad: string): boolean {
-  if (comunidad === "andalucia") return VERTICALES_ANDALUCIA.has(tipo);
-  return tipo === "fotovoltaica_autoconsumo";
+  return nivelCobertura(tipo, comunidad) === "verificada";
 }

@@ -52,11 +52,53 @@ export interface ValidacionResultado {
   no_evaluables: string[];
 }
 
+export type NivelVerificacionPlan =
+  | "verificada"
+  | "verificada_parcialmente"
+  | "verificado_con_observaciones"
+  | "en_revision"
+  | "borrador_verificado_parcialmente"
+  | "generica";
+
 export interface PlanTramitacion {
   tramites: Tramite[];
   tiempo_total_estimado_dias: number | null;
   advertencias: string[];
-  nivel_verificacion?: "verificada" | "generica";
+  nivel_verificacion?: NivelVerificacionPlan;
+  /** Campo de auditoría interno del JSON de normativa (más granular que
+   * nivel_verificacion; puede indicar mayor severidad, ej. "borrador_no_verificado"). */
+  estado?: string | null;
+  /** Nota de auditoría en texto libre sobre el estado de verificación, si existe. */
+  aviso?: string | null;
+  /** Huecos de verificación documentados (tasas, umbrales, trámites sin confirmar...). */
+  huecos_verificacion?: string[];
+}
+
+/** Compara nivel_verificacion (enum cerrado) y estado (texto libre de auditoría,
+ * más granular) y devuelve la severidad real a mostrar al usuario. estado prima
+ * porque refleja el diagnóstico de la última auditoría de contenido, que puede
+ * ser más grave que el nivel_verificacion general del fichero. */
+export function severidadVerificacion(plan: PlanTramitacion): {
+  nivel: "critico" | "atencion" | "ninguno";
+  etiqueta: string;
+} {
+  const estado = plan.estado ?? "";
+  if (estado.includes("no_verificado")) {
+    return { nivel: "critico", etiqueta: "Borrador no verificado" };
+  }
+  if (plan.nivel_verificacion === "generica") {
+    return { nivel: "critico", etiqueta: "Normativa genérica (sin verificación autonómica)" };
+  }
+  if (
+    estado.includes("parcial") ||
+    plan.nivel_verificacion === "verificada_parcialmente" ||
+    plan.nivel_verificacion === "verificado_con_observaciones" ||
+    plan.nivel_verificacion === "en_revision" ||
+    plan.nivel_verificacion === "borrador_verificado_parcialmente"
+  ) {
+    return { nivel: "atencion", etiqueta: "Verificado con observaciones" };
+  }
+  return { nivel: "ninguno", etiqueta: "Verificado" };
 }
 
 export type TramiteEstado = "pendiente" | "en_curso" | "completado";

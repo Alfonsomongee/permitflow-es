@@ -1,13 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, Clock3, MapPin, Zap } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ChevronDown, Clock3, MapPin, ShieldAlert, Zap } from "lucide-react";
 import {
   type InstalacionParams,
   type PlanTramitacion,
   type TramitesEstadoMap,
   COMUNIDAD_LABEL,
   TIPO_LABEL,
+  severidadVerificacion,
 } from "@/types/plan";
 import { TramiteCard } from "./TramiteCard";
 import { ResumenPanel } from "./ResumenPanel";
@@ -65,6 +67,60 @@ function formatDate(value?: string): string | null {
     month: "short",
     year: "numeric",
   }).format(new Date(value));
+}
+
+function VerificacionBanner({ plan }: { plan: PlanTramitacion }) {
+  const [abierto, setAbierto] = useState(false);
+  const { nivel, etiqueta } = severidadVerificacion(plan);
+  const huecos = plan.huecos_verificacion ?? [];
+
+  if (nivel === "ninguno") return null;
+
+  const estilos =
+    nivel === "critico"
+      ? "border-warning/30 bg-warning-light text-warning-dark"
+      : "border-primary/20 bg-primary-light text-primary-dark";
+
+  return (
+    <div className={`rounded-xl border px-4 py-3 text-xs ${estilos}`}>
+      <div className="flex items-start gap-2">
+        <ShieldAlert size={14} className="mt-0.5 flex-shrink-0" aria-hidden />
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold">{etiqueta}</p>
+          <p className="mt-1 leading-relaxed">
+            {plan.aviso ??
+              "Plan basado en la normativa estatal aplicable. La verificación de las particularidades autonómicas de esta comunidad está en curso: contrasta plataformas y registros antes de presentar."}
+          </p>
+          {huecos.length > 0 && (
+            <>
+              <button
+                type="button"
+                onClick={() => setAbierto((v) => !v)}
+                className="mt-2 flex items-center gap-1 font-medium underline-offset-2 hover:underline"
+              >
+                <ChevronDown
+                  size={12}
+                  className={`transition-transform ${abierto ? "rotate-180" : ""}`}
+                  aria-hidden
+                />
+                {abierto ? "Ocultar" : "Ver"} {huecos.length}{" "}
+                {huecos.length === 1 ? "hueco de verificación" : "huecos de verificación"}
+              </button>
+              {abierto && (
+                <ul className="mt-2 list-disc space-y-1.5 pl-4">
+                  {huecos.map((hueco, i) => (
+                    <li key={i} className="leading-relaxed">
+                      {hueco}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function StatChip({
@@ -190,13 +246,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0 space-y-6">
-            {plan.nivel_verificacion === "generica" && (
-              <p className="rounded-xl border border-warning/30 bg-warning-light px-4 py-3 text-xs text-warning-dark">
-                Plan basado en la normativa estatal aplicable. La verificación de las
-                particularidades autonómicas de esta comunidad está en curso: contrasta
-                plataformas y registros antes de presentar.
-              </p>
-            )}
+            <VerificacionBanner plan={plan} />
             <TimelinePlan
               tramites={plan.tramites}
               estados={expediente ? estados : undefined}

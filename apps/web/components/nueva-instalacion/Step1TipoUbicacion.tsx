@@ -6,7 +6,7 @@ import {
   TIPO_OPTIONS,
   COMUNIDAD_OPTIONS,
   USO_OPTIONS,
-  tieneCobertura,
+  nivelCobertura,
 } from "./types";
 import {
   Field,
@@ -20,7 +20,7 @@ export function Step1TipoUbicacion() {
   
   const tipoInstalacion = watch("tipo_instalacion");
   const comunidad = watch("comunidad");
-  const cobertura = tieneCobertura(tipoInstalacion, comunidad);
+  const cobertura = nivelCobertura(tipoInstalacion, comunidad);
 
   return (
     <div className="flex flex-col gap-5">
@@ -52,10 +52,18 @@ export function Step1TipoUbicacion() {
         )}
       />
 
-      {!cobertura && (
+      {cobertura === "generica_grave" && (
         <InfoBanner type="warning">
-          Esta combinacion esta en desarrollo. Solo Andalucia tiene los 5
-          verticales completos; el resto de CCAA dispone de fotovoltaica.
+          Esta combinacion se basa en normativa generica/borrador aun no
+          verificada especificamente para esta comunidad. Contrasta plataformas,
+          tasas y organismos antes de presentar.
+        </InfoBanner>
+      )}
+      {cobertura === "atencion" && (
+        <InfoBanner type="info">
+          Esta combinacion esta verificada con observaciones: la mayoria de
+          tramites son fiables, pero persisten algunos huecos documentados que
+          se muestran en el plan generado.
         </InfoBanner>
       )}
 

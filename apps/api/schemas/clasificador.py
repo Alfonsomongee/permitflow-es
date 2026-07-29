@@ -220,3 +220,20 @@ class ClasificadorOutput(BaseModel):
         "verificada",
         description="'generica' si el JSON de normativa aún no tiene verificación autonómica específica; 'verificada_parcialmente' o 'en_revision' si hay huecos documentados",
     )
+    estado: Optional[str] = Field(
+        None,
+        description=(
+            "Campo de auditoría interno del JSON de normativa (ej. 'borrador_no_verificado', "
+            "'verificado_con_observaciones'). Más granular que nivel_verificacion: cuando ambos "
+            "campos difieren en severidad, estado refleja el diagnóstico real de la última "
+            "auditoría de contenido y debe primar sobre nivel_verificacion de cara al usuario."
+        ),
+    )
+    aviso: Optional[str] = Field(
+        None,
+        description="Nota de auditoría en texto libre sobre el estado de verificación de esta normativa, si existe.",
+    )
+    huecos_verificacion: List[str] = Field(
+        default_factory=list,
+        description="Huecos de verificación documentados para esta combinación comunidad/tecnología (tasas, umbrales, trámites sin confirmar, etc.).",
+    )

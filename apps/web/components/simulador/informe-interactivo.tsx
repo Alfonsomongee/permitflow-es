@@ -98,8 +98,8 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle>Supuestos de la IA</CardTitle>
-            <CardDescription>Parámetros utilizados para el cálculo</CardDescription>
+            <CardTitle>Supuestos del cálculo</CardTitle>
+            <CardDescription>Parámetros y fuentes utilizados para el cálculo financiero</CardDescription>
           </CardHeader>
           <CardContent>
             <Accordion className="w-full">

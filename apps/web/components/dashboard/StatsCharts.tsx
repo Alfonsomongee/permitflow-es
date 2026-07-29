@@ -38,30 +38,38 @@ type Props = {
 const tendenciaConfig = {
   creados: {
     label: "Creados",
-    color: "hsl(var(--primary))",
+    color: "#1B4FD8",
   },
   resueltos: {
     label: "Resueltos",
-    color: "hsl(var(--success))",
+    color: "#16A34A",
   },
 } satisfies ChartConfig;
 
+// Nota: los tokens semánticos (success/warning/danger/primary) están definidos
+// como hex estático en tailwind.config.ts, no como variables CSS --success, por
+// lo que aquí se usan los mismos valores hex directamente (hsl(var(--x)) no
+// resolvía a ningún color real).
 const estadosConfig = {
-  "Aprobado": {
-    label: "Aprobado",
-    color: "hsl(var(--success))",
-  },
-  "En revisión": {
-    label: "En revisión",
-    color: "hsl(var(--warning))",
-  },
-  "Subsanación": {
-    label: "Subsanación",
-    color: "hsl(var(--danger))",
+  "Borrador": {
+    label: "Borrador",
+    color: "#6B7280",
   },
   "Presentado": {
     label: "Presentado",
-    color: "hsl(var(--primary))",
+    color: "#1B4FD8",
+  },
+  "En revisión": {
+    label: "En revisión",
+    color: "#D97706",
+  },
+  "Aprobado": {
+    label: "Aprobado",
+    color: "#16A34A",
+  },
+  "Rechazado": {
+    label: "Rechazado",
+    color: "#DC2626",
   },
 } satisfies ChartConfig;
 
