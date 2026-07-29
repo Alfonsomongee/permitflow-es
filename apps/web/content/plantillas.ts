@@ -27,6 +27,30 @@ export type PlantillaDocumento = {
   hay_formulario_oficial: boolean;
   url_organismo?: string;
   notas?: string;
+  /**
+   * "mtd" si este documento coincide con un tipo que el motor de generación
+   * real (apps/api/documentos/generador.py, VERTICALES_MTD) puede producir
+   * automáticamente como borrador DOCX a partir de un expediente ya creado.
+   * null si es un documento puramente informativo/de referencia: hoy la
+   * mayoría de la tabla (CAU, CIE, IRG-3, declaración responsable...) no
+   * tiene generación automática — los emite un tercero (distribuidora,
+   * instalador autorizado) o requiere firma de un técnico competente.
+   * Antes esta distinción no existía en el catálogo y la página prometía
+   * más automatización de la que el backend soporta.
+   */
+  tipo_generable?: "mtd";
+};
+
+/** Traduce el slug de tecnología de este catálogo (contenido de marketing/
+ * referencia) al slug que usa el motor normativo/clasificador en el backend.
+ * Son namespaces distintos que coincidieron por casualidad en 3 de 5 casos;
+ * mantenerlos explícitos evita que un futuro cambio en uno rompa al otro. */
+export const TIPO_A_CLASIFICADOR: Record<TipoInstalacion, string> = {
+  fotovoltaica_autoconsumo: "fotovoltaica_autoconsumo",
+  infraestructura_recarga: "irve",
+  climatizacion_aerotermia: "climatizacion_aerotermia",
+  acs_agua_caliente: "acs",
+  gas_baja_presion: "gas_baja_presion",
 };
 
 export const catalogoPlantillas: PlantillaDocumento[] = [
@@ -69,6 +93,7 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     cuando_se_necesita: "Instalaciones fotovoltaicas de hasta 10 kWp",
     hay_formulario_oficial: false,
     notas: "Cada CCAA tiene su propio modelo. Presentar en la sede electrónica de la Consejería de Industria.",
+    tipo_generable: "mtd",
   },
   {
     id: "proyecto_tecnico_fv",
@@ -133,6 +158,7 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     base_legal: "RD 1053/2014 ITC-BT-52 + ITC-BT-04",
     cuando_se_necesita: "Instalaciones interiores < 50 kW / Instalaciones exteriores < 10 kW",
     hay_formulario_oficial: false,
+    tipo_generable: "mtd",
   },
   {
     id: "proyecto_tecnico_irve",
@@ -184,7 +210,7 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     base_legal: "RD 1027/2007 RITE",
     cuando_se_necesita: "Instalaciones térmicas de 5 kW a 70 kW de potencia",
     hay_formulario_oficial: false,
-    notas: "Cada CCAA tiene su propio modelo de MTD simplificada.",
+    notas: "Cada CCAA tiene su propio modelo de MTD simplificada. Generación automática aún no disponible para esta tecnología (solo fotovoltaica e IRVE por ahora).",
   },
   {
     id: "proyecto_tecnico_rite",

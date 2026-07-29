@@ -2,9 +2,36 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { FileText, AlertTriangle, Trash2, CheckCircle2, Filter } from "lucide-react";
+import { FileText, AlertTriangle, Trash2, CheckCircle2, Filter, Sparkles, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import type { DbAlertaBoe } from "@/lib/supabase";
+
+const URGENCIA_STYLES: Record<string, { label: string; bg: string; text: string }> = {
+  alta: { label: "Urgencia alta", bg: "bg-danger-light", text: "text-danger-dark" },
+  media: { label: "Urgencia media", bg: "bg-warning-light", text: "text-warning-dark" },
+  baja: { label: "Urgencia baja", bg: "bg-bg", text: "text-text-secondary" },
+};
+
+/** Distingue una hipótesis del pipeline IA (sin revisar) de un cambio que un
+ * humano ya validó y aplicó al motor normativo (marcar_alerta_aplicada). Sin
+ * esto, el cliente no puede saber si "Normativa nueva" es un hecho confirmado
+ * o una sugerencia del LLM todavía en cola de revisión. */
+function EstadoAplicacion({ aplicada }: { aplicada: boolean }) {
+  if (aplicada) {
+    return (
+      <span className="flex items-center gap-1 rounded-full border border-success/30 bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success">
+        <ShieldCheck size={11} aria-hidden />
+        Verificada y aplicada al motor
+      </span>
+    );
+  }
+  return (
+    <span className="flex items-center gap-1 rounded-full border border-primary/20 bg-primary-light px-2 py-0.5 text-[10px] font-medium text-primary-dark">
+      <Sparkles size={11} aria-hidden />
+      Sugerencia IA — pendiente de revisión
+    </span>
+  );
+}
 
 const TIPO_STYLES = {
   normativa_nueva: {
@@ -80,6 +107,17 @@ function AlertaItem({
               {alerta.resumen}
             </p>
           )}
+
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <EstadoAplicacion aplicada={alerta.aplicada} />
+            {alerta.nivel_urgencia && URGENCIA_STYLES[alerta.nivel_urgencia] && (
+              <span
+                className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${URGENCIA_STYLES[alerta.nivel_urgencia].bg} ${URGENCIA_STYLES[alerta.nivel_urgencia].text}`}
+              >
+                {URGENCIA_STYLES[alerta.nivel_urgencia].label}
+              </span>
+            )}
+          </div>
 
           <div className="mt-2.5 flex flex-wrap items-center gap-3">
             {/* CCAA afectadas */}

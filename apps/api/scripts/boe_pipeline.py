@@ -36,7 +36,7 @@ import urllib.parse
 API_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(API_DIR))
 
-from typing import Any, Literal
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -405,15 +405,21 @@ Si el documento NO es relevante para instalaciones técnicas, devuelve solo:
 
 # ─── Guardar en Supabase ──────────────────────────────────────────────────────
 
-async def guardar_en_supabase(doc: dict, analisis: dict) -> bool:
+async def guardar_en_supabase(doc: dict, analisis: dict) -> Optional[str]:
     """
     Inserta la alerta en la tabla alertas_boe de Supabase.
-    Si no hay conexión, no falla — simplemente devuelve False.
+    Si no hay conexión, no falla — simplemente devuelve None.
+
+    Devuelve el id de la fila insertada (o None si no se pudo guardar), para
+    que guardar_borrador() lo persista en el JSON local. Sin este id, el
+    borrador local y la fila de Supabase quedaban desconectados: no había
+    forma de que revisar_borrador.py marcara la alerta como `aplicada` tras
+    la revisión humana (ver migración pipeline_boe_v2, marcar_alerta_aplicada).
     """
     supabase = get_supabase_client()
     if not supabase:
         print("  Supabase no configurado — alerta solo en fichero local")
-        return False
+        return None
 
     try:
         # Semántica del frontend (alertaAfectaExpediente): null/[] = afecta a
@@ -443,17 +449,24 @@ async def guardar_en_supabase(doc: dict, analisis: dict) -> bool:
         }
 
         result = supabase.table("alertas_boe").insert(data).execute()
+        alerta_id = result.data[0]["id"] if result.data else None
         print(f"  ✓ Alerta guardada en Supabase: {doc['titulo'][:60]}...")
-        return True
+        return alerta_id
     except Exception as e:
         print(f"  Error guardando en Supabase: {e}")
-        return False
+        return None
 
 
 # ─── Guardar borrador local (compatible con v1) ───────────────────────────────
 
-def guardar_borrador(analisis: dict, doc: dict):
-    """Guarda borrador JSON local + actualiza PENDIENTES.md."""
+def guardar_borrador(analisis: dict, doc: dict, alerta_id: Optional[str] = None):
+    """Guarda borrador JSON local + actualiza PENDIENTES.md.
+
+    `alerta_id` es el id de la fila ya insertada en Supabase (alertas_boe),
+    si existe. Se persiste en el borrador para que revisar_borrador.py pueda
+    llamar a marcar_alerta_aplicada() tras la revisión humana y así el estado
+    "aplicada" que ve el cliente en /alertas refleje la realidad.
+    """
     BORRADORES_DIR.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -468,6 +481,7 @@ def guardar_borrador(analisis: dict, doc: dict):
             "url": doc.get("url_html"),
             "fuente": doc.get("fuente"),
         },
+        "alerta_id": alerta_id,
         "analisis": analisis,
         "revisado": False,
         "descartado": False,
@@ -618,11 +632,12 @@ async def main():
         if analisis.get("es_relevante"):
             print(f"   ✓ RELEVANTE [{analisis.get('nivel_urgencia', 'baja').upper()}]: {analisis.get('resumen', '')[:80]}")
 
-            # Guardar borrador local
-            guardar_borrador(analisis, doc)
+            # Guardar en Supabase primero: necesitamos el id insertado para
+            # poder correlacionar el borrador local con la fila real.
+            alerta_id = await guardar_en_supabase(doc, analisis)
 
-            # Guardar en Supabase
-            await guardar_en_supabase(doc, analisis)
+            # Guardar borrador local, enlazado al id de Supabase si existe.
+            guardar_borrador(analisis, doc, alerta_id=alerta_id)
 
             alertas_procesadas.append({"doc": doc, "analisis": analisis})
         else:

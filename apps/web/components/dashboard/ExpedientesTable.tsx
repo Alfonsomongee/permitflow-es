@@ -87,11 +87,14 @@ function formatFecha(iso: string) {
 
 interface ExpedientesTableProps {
   expedientes: Expediente[];
+  /** Prefiltra la búsqueda (ej. viniendo de un enlace desde /plantillas para
+   * un tipo de instalación concreto). El usuario puede seguir editándola. */
+  initialQuery?: string;
 }
 
-export function ExpedientesTable({ expedientes }: ExpedientesTableProps) {
+export function ExpedientesTable({ expedientes, initialQuery = "" }: ExpedientesTableProps) {
   const [filtro, setFiltro] = useState<EstadoExpediente | "todos">("todos");
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
   const [sorting, setSorting] = useState<SortingState>([]);
 
   // Filtrado customizado antes de pasarlo a TanStack (más fácil para multi-campos)

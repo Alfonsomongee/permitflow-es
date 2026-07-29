@@ -76,4 +76,11 @@ export interface DbAlertaBoe {
   verticales_afectados: string[] | null;
   leida: boolean;
   creado_en: string;
+  /** Prioridad asignada por el pipeline BOE (ver migración pipeline_boe_v2). */
+  nivel_urgencia: "alta" | "media" | "baja" | null;
+  /** true solo cuando un humano ha revisado el borrador del LLM y ha aplicado
+   * el cambio al motor normativo (marcar_alerta_aplicada). Antes de eso, la
+   * alerta es una sugerencia sin verificar: no debe leerse como un hecho. */
+  aplicada: boolean;
+  aplicada_en: string | null;
 }

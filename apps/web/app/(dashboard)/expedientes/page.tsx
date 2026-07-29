@@ -13,12 +13,18 @@ import {
 import { diasEntre, hoyIso } from "@/lib/plazos";
 import { calcularVencimientoHabil } from "@/lib/festivos";
 
-export default async function ExpedientesPage() {
+export default async function ExpedientesPage({
+  searchParams,
+}: {
+  searchParams: { buscar?: string };
+}) {
   const { orgId } = await auth();
 
   if (!orgId) {
     redirect("/sign-in");
   }
+
+  const { buscar } = searchParams;
 
   const dbExpedientes = await listarExpedientes(orgId);
   const kpis = obtenerKpis(dbExpedientes);
@@ -132,7 +138,7 @@ export default async function ExpedientesPage() {
         />
       </div>
 
-      <ExpedientesTable expedientes={expedientesUI} />
+      <ExpedientesTable expedientes={expedientesUI} initialQuery={buscar ?? ""} />
     </div>
   );
 }

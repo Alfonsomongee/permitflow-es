@@ -19,6 +19,39 @@ REGLAS_DIR = API_DIR / "motor_normativo" / "reglas"
 sys.path.insert(0, str(API_DIR))
 
 
+def _marcar_aplicada_en_supabase(alerta_id: str) -> bool:
+    """Llama a la función RPC marcar_alerta_aplicada(p_id) para que la alerta
+    que ve el cliente en /alertas dej de mostrarse como "sugerencia IA
+    pendiente" y pase a "verificada y aplicada al motor normativo".
+
+    Antes de este cambio, este script solo actualizaba el JSON local: la fila
+    en Supabase nunca se enteraba de que un humano había revisado y aplicado
+    el cambio, así que el campo `aplicada` se quedaba en false para siempre.
+    """
+    if not alerta_id:
+        print("    ⚠ Este borrador no tiene alerta_id asociado (creado antes de "
+              "esta mejora, o Supabase no estaba configurado al generarlo). "
+              "No se puede actualizar el estado en Supabase.")
+        return False
+    try:
+        from scripts.boe_pipeline import get_supabase_client
+    except ImportError:
+        sys.path.insert(0, str(API_DIR / "scripts"))
+        from boe_pipeline import get_supabase_client
+
+    supabase = get_supabase_client()
+    if not supabase:
+        print("    ⚠ Supabase no configurado — no se puede marcar como aplicada remotamente.")
+        return False
+    try:
+        supabase.rpc("marcar_alerta_aplicada", {"p_id": alerta_id}).execute()
+        print(f"    ✓ Alerta {alerta_id} marcada como aplicada en Supabase.")
+        return True
+    except Exception as e:
+        print(f"    ✗ Error marcando alerta como aplicada en Supabase: {e}")
+        return False
+
+
 def aplicar_diff_automatico(diff: dict, reglas_dir: Path) -> bool:
     """
     Intenta aplicar el diff sugerido por el LLM a los JSONs del motor.
@@ -181,6 +214,8 @@ def main():
                         data["revisado"] = True
                         data["aplicado_automaticamente"] = True
                         data["revisado_en"] = datetime.now().isoformat()
+                        if _marcar_aplicada_en_supabase(data.get("alerta_id")):
+                            data["aplicada_en_supabase"] = True
                     else:
                         print("  ✗ Los tests fallaron tras aplicar el diff. Revirtiendo cambios...")
                         for ruta, original in backups.items():
@@ -207,6 +242,11 @@ def main():
             elif resp == "s":
                 data["revisado"] = True
                 data["revisado_en"] = datetime.now().isoformat()
+                # "sí, marcar revisado" significa que el humano confirma el
+                # cambio (aunque no lo haya aplicado con el diff automático):
+                # también debe reflejarse como aplicado de cara al cliente.
+                if _marcar_aplicada_en_supabase(data.get("alerta_id")):
+                    data["aplicada_en_supabase"] = True
                 with open(arch, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
                 print("  ✓ Marcado como revisado")

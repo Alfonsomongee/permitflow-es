@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import {
   FileText,
   CheckCircle,
@@ -8,10 +9,13 @@ import {
   Building2,
   ExternalLink,
   Search,
+  Sparkles,
+  ArrowRight,
 } from "lucide-react";
 import {
   catalogoPlantillas,
   TIPOS_INSTALACION_LABELS,
+  TIPO_A_CLASIFICADOR,
 } from "@/content/plantillas";
 import type { TipoInstalacion, Organismo } from "@/content/plantillas";
 
@@ -65,6 +69,16 @@ export default function PlantillasPage() {
         <h1 className="text-2xl font-bold text-text-primary">Catálogo de Plantillas</h1>
         <p className="mt-1 text-sm text-text-secondary">
           Documentos técnicos y administrativos necesarios por tipo de instalación.
+        </p>
+        <p className="mt-1 text-xs text-text-secondary">
+          Este catálogo es de referencia normativa. Los documentos marcados con{" "}
+          <Sparkles size={11} className="inline text-ai" aria-hidden /> se pueden
+          generar automáticamente en borrador desde un expediente real, en{" "}
+          <Link href="/expedientes" className="text-primary hover:underline">
+            Expedientes
+          </Link>
+          . El resto los emite un tercero (distribuidora, instalador autorizado)
+          o requiere firma de un técnico competente.
         </p>
       </div>
 
@@ -177,6 +191,25 @@ export default function PlantillasPage() {
 
             {plantilla.notas && (
               <p className="mt-2 text-[10px] italic text-text-secondary">{plantilla.notas}</p>
+            )}
+
+            {/* Generación automática real: solo para los tipos que el backend
+                (VERTICALES_MTD en apps/api/documentos/contextos.py) soporta hoy.
+                Antes esta página no dejaba claro que la generación real vive en
+                Expedientes, no aquí. */}
+            {plantilla.tipo_generable === "mtd" && (
+              <Link
+                href={`/expedientes?buscar=${encodeURIComponent(
+                  TIPO_A_CLASIFICADOR[plantilla.tipos_instalacion[0]]
+                )}`}
+                className="mt-3 flex items-center justify-between gap-2 rounded-lg border border-ai/30 bg-ai/5 px-3 py-2 text-[11px] font-medium text-ai transition-colors hover:bg-ai/10"
+              >
+                <span className="flex items-center gap-1.5">
+                  <Sparkles size={12} aria-hidden />
+                  Generable automáticamente desde uno de tus expedientes
+                </span>
+                <ArrowRight size={12} aria-hidden />
+              </Link>
             )}
           </div>
         ))}
