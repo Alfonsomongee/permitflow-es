@@ -26,6 +26,9 @@ export function MarketingNav() {
 
         {/* Links Desktop */}
         <nav className="hidden items-center gap-6 md:flex" aria-label="Navegación principal">
+          <Link href="#quienes-somos" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
+            Quiénes somos
+          </Link>
           <Link href="#verticales" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
             Verticales
           </Link>
@@ -84,6 +87,9 @@ export function MarketingNav() {
             className="overflow-hidden bg-surface md:hidden border-b border-border"
           >
             <nav className="flex flex-col px-6 py-4 gap-4">
+              <Link href="#quienes-somos" onClick={() => setIsMenuOpen(false)} className="text-sm text-text-secondary hover:text-text-primary">
+                Quiénes somos
+              </Link>
               <Link href="#verticales" onClick={() => setIsMenuOpen(false)} className="text-sm text-text-secondary hover:text-text-primary">
                 Verticales
               </Link>

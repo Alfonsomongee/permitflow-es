@@ -28,6 +28,23 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Scroll suave para los anclajes del nav (#quienes-somos, #verticales...).
+       scroll-padding-top compensa la altura del nav sticky para que el título
+       de la sección no quede tapado al llegar. */
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   body {
@@ -91,5 +108,19 @@
   /* Tarjeta con elevación sutil al hover, usada en listados (expedientes, plantillas...) */
   .card-interactive {
     @apply transition-all duration-200 ease-smooth hover:-translate-y-0.5 hover:shadow-card-hover;
+  }
+
+  /* Marquee horizontal infinito (stack tecnológico en la landing). El
+     contenido se duplica una vez en el componente y este anima solo el
+     primer 50% del ancho para que el loop sea perfectamente continuo. */
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee-scroll 32s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
   }
 }

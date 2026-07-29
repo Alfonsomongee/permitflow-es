@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 const FOOTER_LINKS = {
   producto: [
+    { name: "Quiénes somos", href: "#quienes-somos" },
     { name: "Motor Normativo", href: "#" },
     { name: "Precios", href: "#precios" },
     { name: "Cobertura Autonómica", href: "#cobertura" },

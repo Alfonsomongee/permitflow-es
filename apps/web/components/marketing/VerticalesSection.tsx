@@ -1,5 +1,41 @@
 import { Zap, Wind, Droplets, Flame, Car } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { COBERTURA_NORMATIVA } from "@/content/cobertura_normativa";
+import { COMUNIDAD_LABEL } from "@/types/plan";
+
+/** Las 5 claves de vertical tal y como las usa el motor normativo real
+ * (apps/api/motor_normativo/reglas/{comunidad}/{vertical}.json). */
+const VERTICALES_CLAVE = [
+  "fotovoltaica_autoconsumo",
+  "irve",
+  "climatizacion_aerotermia",
+  "acs",
+  "gas_baja_presion",
+] as const;
+
+/**
+ * Deriva la cobertura real por comunidad desde content/cobertura_normativa.ts
+ * (generado desde los 85 ficheros de reglas), en vez de una lista mantenida
+ * a mano que podía quedar desincronizada de la normativa real sin que nadie
+ * lo notara. "full" solo si las 5 verticales están verificadas sin huecos
+ * críticos; el resto se etiqueta "partial" (normativa activa, en ampliación).
+ */
+function nivelCoberturaCCAA(slug: string): "full" | "partial" {
+  const combos = COBERTURA_NORMATIVA[slug];
+  if (!combos) return "partial";
+  const todasVerificadas = VERTICALES_CLAVE.every((vertical) => {
+    const c = combos[vertical];
+    if (!c) return false;
+    const estadoNoVerificado = (c.estado ?? "").includes("no_verificado");
+    return c.nivelVerificacion === "verificada" && !estadoNoVerificado;
+  });
+  return todasVerificadas ? "full" : "partial";
+}
+
+const CCAA_COBERTURA = Object.entries(COMUNIDAD_LABEL).map(([slug, nombre]) => ({
+  nombre,
+  nivel: nivelCoberturaCCAA(slug),
+}));
 
 const VERTICALES = [
   {
@@ -38,26 +74,6 @@ const VERTICALES = [
     ccaa: 1,
   },
 ];
-
-const CCAA_COBERTURA = [
-  { nombre: "Andalucía",       nivel: "full"    },
-  { nombre: "Aragón",          nivel: "partial" },
-  { nombre: "Asturias",        nivel: "partial" },
-  { nombre: "Baleares",        nivel: "partial" },
-  { nombre: "Canarias",        nivel: "partial" },
-  { nombre: "Cantabria",       nivel: "partial" },
-  { nombre: "Castilla-La Mancha", nivel: "partial" },
-  { nombre: "Castilla y León", nivel: "partial" },
-  { nombre: "Cataluña",        nivel: "partial" },
-  { nombre: "C. Valenciana",   nivel: "partial" },
-  { nombre: "Extremadura",     nivel: "partial" },
-  { nombre: "Galicia",         nivel: "partial" },
-  { nombre: "La Rioja",        nivel: "partial" },
-  { nombre: "Madrid",          nivel: "partial" },
-  { nombre: "Murcia",          nivel: "partial" },
-  { nombre: "Navarra",         nivel: "partial" },
-  { nombre: "País Vasco",      nivel: "partial" },
-] as const;
 
 export function VerticalesSection() {
   return (
@@ -123,9 +139,10 @@ export function VerticalesSection() {
               Las 17 comunidades, en progreso
             </h2>
             <p className="mb-8 max-w-lg text-sm text-text-secondary leading-relaxed">
-              Andalucía cuenta con los cinco verticales completos. El resto de
-              comunidades disponen de fotovoltaica de autoconsumo y se amplían
-              continuamente mediante el pipeline BOE automatizado.
+              Andalucía es hoy la única comunidad con los cinco verticales
+              verificados sin huecos normativos pendientes. El resto ya tiene
+              fotovoltaica de autoconsumo operativa, y se amplía y verifica de
+              forma continua mediante el pipeline BOE automatizado.
             </p>
           </FadeIn>
 

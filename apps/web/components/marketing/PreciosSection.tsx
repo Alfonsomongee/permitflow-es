@@ -20,7 +20,7 @@ const PLANES = [
     destacado: false,
     features: [
       "5 clasificaciones al mes",
-      "Andalucía — 5 verticales",
+      "Andalucía — 5 verticales verificados",
       "Plan de tramitación completo",
       "Bot normativo DeepSeek",
       "Sin exportar a PDF",
@@ -37,7 +37,7 @@ const PLANES = [
     destacado: true,
     features: [
       "Clasificaciones ilimitadas",
-      "17 CC. AA. — todos los verticales",
+      "17 CC. AA. — motor activo en los 5 verticales, en verificación continua",
       "Exportar plan a PDF",
       "Historial ilimitado de expedientes",
       "Alertas BOE en tiempo real",
@@ -101,12 +101,17 @@ export function PreciosSection() {
           {PLANES.map((plan, idx) => (
             <FadeIn key={plan.nombre} delay={idx * 0.1}>
               <div
-                className={`relative flex h-full flex-col rounded-2xl border p-6 transition-transform hover:-translate-y-1 ${
-                  plan.destacado
-                    ? "border-primary bg-surface shadow-md"
-                    : "border-border bg-surface hover:shadow-sm"
+                className={`relative flex h-full flex-col rounded-2xl p-[1px] transition-transform duration-300 hover:-translate-y-1 ${
+                  plan.destacado ? "bg-gradient-to-br from-primary via-primary/40 to-primary shadow-md" : ""
                 }`}
               >
+                <div
+                  className={`flex h-full flex-col rounded-2xl border p-6 ${
+                    plan.destacado
+                      ? "border-transparent bg-surface"
+                      : "border-border bg-surface transition-shadow hover:shadow-sm"
+                  }`}
+                >
                 {plan.destacado && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span className="rounded-full bg-primary px-3 py-1 text-[11px] font-medium text-white shadow-sm">
@@ -145,6 +150,7 @@ export function PreciosSection() {
                     <FeatureItem key={f} text={f} available={false} />
                   ))}
                 </ul>
+                </div>
               </div>
             </FadeIn>
           ))}
@@ -152,8 +158,9 @@ export function PreciosSection() {
 
         <FadeIn delay={0.4}>
           <p className="mt-6 text-center text-xs text-text-secondary">
-            Todos los planes incluyen acceso al motor normativo de Andalucía completo.
-            Precios sin IVA.
+            Todos los planes incluyen Andalucía con sus cinco verticales
+            totalmente verificados; el resto de comunidades se amplían y
+            verifican de forma continua. Precios sin IVA.
           </p>
         </FadeIn>
       </div>
