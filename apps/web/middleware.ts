@@ -12,6 +12,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/api/health",
+  "/api/cron(.*)",        // Vercel crons (se protegen a sí mismos con CRON_SECRET)
   "/portal(.*)",          // portal de cliente final: enlace de solo lectura sin cuenta
 ]);
 
