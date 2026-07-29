@@ -72,6 +72,27 @@ export interface PlanTramitacion {
   aviso?: string | null;
   /** Huecos de verificación documentados (tasas, umbrales, trámites sin confirmar...). */
   huecos_verificacion?: string[];
+  /** Indicador cualitativo de riesgo por trámite (no es una probabilidad de rechazo:
+   * no hay histórico de motivos de rechazo con el que entrenar un modelo predictivo).
+   * Combina la severidad de verificación de la normativa con la completitud de cada
+   * trámite (base legal, plazo legal, documentos requeridos). */
+  riesgo_normativo?: RiesgoNormativoPlan | null;
+}
+
+export type NivelRiesgo = "bajo" | "medio" | "alto";
+
+export interface RiesgoTramite {
+  orden: number;
+  nombre: string;
+  riesgo: NivelRiesgo;
+  motivos: string[];
+}
+
+export interface RiesgoNormativoPlan {
+  severidad_normativa: "critico" | "atencion" | "verificada";
+  tramites: RiesgoTramite[];
+  resumen: Record<NivelRiesgo, number>;
+  hay_riesgo_alto: boolean;
 }
 
 /** Compara nivel_verificacion (enum cerrado) y estado (texto libre de auditoría,

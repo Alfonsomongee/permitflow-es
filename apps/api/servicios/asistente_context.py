@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from models.expediente import Expediente
 import os
 from servicios.conocimiento_tecnico import obtener_guia_tecnica
+from servicios.riesgo_normativo import _severidad_normativa
 
 REGLAS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "motor_normativo", "reglas")
 
@@ -16,6 +17,34 @@ def _cargar_normativa(comunidad: str, tipo_instalacion: str) -> Optional[Dict[st
             return json.load(f)
     except Exception:
         return None
+
+def severidad_verificacion(normativa_json: Dict[str, Any]) -> str:
+    """
+    Determina la severidad real de fiabilidad de un fichero de normativa,
+    combinando 'estado' (campo de auditoría más granular, con narrativa de
+    huecos concretos) y 'nivel_verificacion' (enum general).
+
+    Antes, construir_contexto() solo miraba nivel_verificacion. Eso es
+    insuficiente: casos como aragon/fotovoltaica_autoconsumo.json tienen
+    nivel_verificacion='generica' pero estado='borrador_no_verificado' con
+    huecos_verificacion documentados (umbral de potencia sin respaldo
+    normativo, cita legal retirada, trámite de acceso a red ausente...).
+    'estado' prima porque refleja el diagnóstico de la última auditoría de
+    contenido, que puede ser más grave que el nivel_verificacion general.
+
+    Delega en servicios.riesgo_normativo._severidad_normativa, la misma
+    función que usa el indicador de riesgo normativo por trámite, que a su
+    vez replica el criterio de apps/web/types/plan.ts (severidadVerificacion)
+    — un único criterio de severidad compartido por front, copiloto y motor
+    de riesgo, para no dar tres lecturas distintas de fiabilidad al mismo dato.
+
+    Devuelve: "critico" | "atencion" | "verificada"
+    """
+    return _severidad_normativa(
+        normativa_json.get("nivel_verificacion"),
+        normativa_json.get("estado"),
+    )
+
 
 def construir_contexto(
     expediente: Optional[Expediente] = None,
@@ -119,6 +148,9 @@ pronombres que hagan referencia al contexto, usa SIEMPRE la información anterio
         normativa_json = _cargar_normativa(comunidad, tipo_instalacion)
         if normativa_json:
             nivel = normativa_json.get("nivel_verificacion")
+            estado = normativa_json.get("estado")
+            aviso_auditoria = normativa_json.get("aviso")
+            huecos = normativa_json.get("huecos_verificacion") or []
             # Filtrar fichero si no es elegible
             # Si no tiene nivel de verificación, se ignora por seguridad
             if nivel:
@@ -128,16 +160,42 @@ pronombres que hagan referencia al contexto, usa SIEMPRE la información anterio
                     if reglas_aplicadas:
                         reglas_filtradas = [r for r in normativa_json.get("reglas", []) if r.get("id") in reglas_aplicadas]
                         normativa_json["reglas"] = reglas_filtradas
-                
+
                 normativa_str = json.dumps(normativa_json, ensure_ascii=False)
                 if len(normativa_str) > 12000:
                     normativa_str = normativa_str[:12000] + "...[normativa truncada por longitud]"
 
-                aviso_nivel = f"\nATENCIÓN: Los datos normativos de esta comunidad y tecnología tienen nivel de verificación: '{nivel}'."
-                if nivel != "verificada":
-                    aviso_nivel += " Informa al usuario transparentemente sobre este nivel, indicando que la información podría requerir contraste con el organismo oficial correspondiente."
+                severidad = severidad_verificacion(normativa_json)
+
+                aviso_nivel = f"\nATENCIÓN: Los datos normativos de esta comunidad y tecnología tienen nivel de verificación: '{nivel}'"
+                if estado:
+                    aviso_nivel += f" (estado de auditoría interna: '{estado}')"
+                aviso_nivel += "."
+
+                if severidad == "critico":
+                    aviso_nivel += (
+                        " Este es el nivel de fiabilidad MÁS BAJO posible. DEBES advertir explícitamente "
+                        "al usuario, en tu primera respuesta sobre esta comunidad/tecnología, que estos datos "
+                        "son un borrador no verificado y que debe contrastarlos con el organismo oficial antes "
+                        "de actuar. No afirmes plazos, tasas ni requisitos como si fueran seguros."
+                    )
+                elif severidad == "atencion":
+                    aviso_nivel += (
+                        " Informa al usuario transparentemente sobre este nivel, indicando que la información "
+                        "podría requerir contraste con el organismo oficial correspondiente."
+                    )
                 else:
                     aviso_nivel += " Puedes afirmar con seguridad la validez de estos datos."
+
+                if aviso_auditoria:
+                    aviso_nivel += f"\nNota de la última auditoría de contenido: {aviso_auditoria}"
+
+                if huecos:
+                    huecos_str = "\n".join(f"  - {h}" for h in huecos[:8])
+                    aviso_nivel += (
+                        f"\nHuecos de verificación documentados (cítalos si el usuario pregunta por la "
+                        f"fiabilidad de estos datos, en vez de dar una respuesta genérica):\n{huecos_str}"
+                    )
 
                 sections.append(f"""NORMATIVA JSON DEL VERTICAL (motor de reglas interno):
 Usa esta información para responder preguntas sobre base legal, condiciones de aplicación y detalles de los trámites.

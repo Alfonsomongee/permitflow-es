@@ -124,6 +124,64 @@ function VerificacionBanner({ plan }: { plan: PlanTramitacion }) {
   );
 }
 
+function RiesgoNormativoBanner({ plan }: { plan: PlanTramitacion }) {
+  const [abierto, setAbierto] = useState(false);
+  const riesgo = plan.riesgo_normativo;
+
+  if (!riesgo || riesgo.resumen.alto + riesgo.resumen.medio === 0) return null;
+
+  const tramitesConRiesgo = riesgo.tramites.filter((t) => t.riesgo !== "bajo");
+
+  return (
+    <div className="rounded-xl border border-warning/30 bg-warning-light px-4 py-3 text-xs text-warning-dark">
+      <div className="flex items-start gap-2">
+        <ShieldAlert size={14} className="mt-0.5 flex-shrink-0" aria-hidden />
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold">
+            {riesgo.resumen.alto > 0
+              ? `${riesgo.resumen.alto} trámite${riesgo.resumen.alto === 1 ? "" : "s"} con riesgo alto`
+              : `${riesgo.resumen.medio} trámite${riesgo.resumen.medio === 1 ? "" : "s"} con riesgo medio`}
+          </p>
+          <p className="mt-1 leading-relaxed">
+            Indicador cualitativo, no una predicción: refleja trámites sin base legal citada,
+            sin plazo legal conocido o sin lista de documentos, combinado con la verificación
+            de la normativa de origen.
+          </p>
+          <button
+            type="button"
+            onClick={() => setAbierto((v) => !v)}
+            className="mt-2 flex items-center gap-1 font-medium underline-offset-2 hover:underline"
+          >
+            <ChevronDown
+              size={12}
+              className={`transition-transform ${abierto ? "rotate-180" : ""}`}
+              aria-hidden
+            />
+            {abierto ? "Ocultar" : "Ver"} detalle por trámite
+          </button>
+          {abierto && (
+            <ul className="mt-2 space-y-2">
+              {tramitesConRiesgo.map((t) => (
+                <li key={t.orden} className="leading-relaxed">
+                  <span className="font-medium">
+                    {t.orden}. {t.nombre}
+                  </span>{" "}
+                  <span className="uppercase text-[10px] tracking-wide">({t.riesgo})</span>
+                  <ul className="list-disc pl-4">
+                    {t.motivos.map((m, i) => (
+                      <li key={i}>{m}</li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function StatChip({
   label,
   value,
@@ -248,6 +306,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0 space-y-6">
             <VerificacionBanner plan={plan} />
+            <RiesgoNormativoBanner plan={plan} />
             <TimelinePlan
               tramites={plan.tramites}
               estados={expediente ? estados : undefined}

@@ -8,8 +8,11 @@ from schemas.clasificador import (
     ClasificadorOutput,
     TramiteOutput,
     DocumentoRequerido,
+    RiesgoNormativoOutput,
+    RiesgoTramiteOutput,
 )
 from motor_normativo.excepciones import NormativaNoEncontradaError
+from servicios.riesgo_normativo import calcular_riesgo_plan
 
 logger = logging.getLogger(__name__)
 
@@ -246,6 +249,21 @@ class Clasificador:
                 f"({', '.join(reglas_con_error)}). Revisa el JSON de normativa."
             )
 
+        riesgo_calculado = calcular_riesgo_plan(
+            tramites_output,
+            nivel_verificacion=data.get("nivel_verificacion", "verificada"),
+            estado=data.get("estado"),
+        )
+        riesgo_normativo = RiesgoNormativoOutput(
+            severidad_normativa=riesgo_calculado.severidad_normativa,
+            tramites=[
+                RiesgoTramiteOutput(orden=t.orden, nombre=t.nombre, riesgo=t.riesgo, motivos=t.motivos)
+                for t in riesgo_calculado.tramites
+            ],
+            resumen=riesgo_calculado.resumen,
+            hay_riesgo_alto=riesgo_calculado.hay_riesgo_alto,
+        )
+
         return ClasificadorOutput(
             tramites=tramites_output,
             tiempo_total_estimado_dias=tiempo_total,
@@ -254,4 +272,5 @@ class Clasificador:
             estado=data.get("estado"),
             aviso=data.get("aviso"),
             huecos_verificacion=data.get("huecos_verificacion", []),
+            riesgo_normativo=riesgo_normativo,
         )

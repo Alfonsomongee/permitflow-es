@@ -205,6 +205,20 @@ class TramiteOutput(BaseModel):
     )
 
 
+class RiesgoTramiteOutput(BaseModel):
+    orden: int
+    nombre: str
+    riesgo: Literal["bajo", "medio", "alto"]
+    motivos: List[str] = Field(default_factory=list)
+
+
+class RiesgoNormativoOutput(BaseModel):
+    severidad_normativa: Literal["critico", "atencion", "verificada"]
+    tramites: List[RiesgoTramiteOutput]
+    resumen: dict[str, int]
+    hay_riesgo_alto: bool
+
+
 class ClasificadorOutput(BaseModel):
     tramites: List[TramiteOutput] = Field(..., description="Lista ordenada de trámites")
     tiempo_total_estimado_dias: Optional[int] = Field(None, description="Suma de los plazos estimados")
@@ -236,4 +250,13 @@ class ClasificadorOutput(BaseModel):
     huecos_verificacion: List[str] = Field(
         default_factory=list,
         description="Huecos de verificación documentados para esta combinación comunidad/tecnología (tasas, umbrales, trámites sin confirmar, etc.).",
+    )
+    riesgo_normativo: Optional[RiesgoNormativoOutput] = Field(
+        None,
+        description=(
+            "Indicador cualitativo (no predictivo) de riesgo por trámite, derivado de la "
+            "severidad de verificación de la normativa y de la completitud de cada trámite "
+            "(base legal, plazo legal, documentos requeridos). No es una probabilidad de "
+            "rechazo: no existe histórico de motivos de rechazo con el que entrenar un modelo."
+        ),
     )
