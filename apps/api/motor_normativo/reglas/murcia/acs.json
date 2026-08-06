@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Este fichero, a diferencia del resto del lote, ya usaba correctamente 'potencia_kw' (sin variable fantasma) — mismo patrón visto en Galicia. Se eliminó 'Decreto 56/2016' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia) más el RITE nacional. HUECO CRÍTICO recurrente: este fichero no contenía ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — normativa citada confirmada correcta y vigente, sigue pendiente de implementar. Revisión 2026-07-28: se sustituyó el enlace genérico https://sede.carm.es por la ficha específica del código 61 (IDCONTENIDO=61), se añadió formulario_ref '61' y se incorporó un tramo explícito para potencia <5 kW.",
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024) — NO TOCADO, pendiente de implementación funcional",
@@ -22,7 +23,9 @@
       "descripcion": "Instalación de ACS con potencia < 5 kW: régimen aplicable NO VERIFICADO. La ficha oficial CARM del código 61 diferencia documentalmente los tramos '5-70 kW' y '>70 kW' sin detallar el tratamiento por debajo de 5 kW; se mantiene el mismo trámite que el tramo 5-70 kW hasta confirmar si aplica una exención o simplificación específica",
       "condicion": {
         "<": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           5
         ]
       },
@@ -92,8 +95,22 @@
       "descripcion": "Instalación de ACS con potencia entre 5 y 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [ { "var": "potencia_kw" }, 5 ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -162,7 +179,9 @@
       "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

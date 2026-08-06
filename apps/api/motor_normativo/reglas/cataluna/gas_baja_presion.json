@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
+  "revisado_por": null,
   "aviso": "Dos reglas principales mutuamente excluyentes. Datos resultantes numéricos. La intervención de organismo de control no se universaliza.",
   "huecos_verificacion": [
     "Pendiente de determinar los supuestos sectoriales expresos de inspección inicial por organismo de control en instalaciones receptoras de gas.",

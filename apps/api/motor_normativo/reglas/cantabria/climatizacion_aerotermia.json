@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Fichero generado desde cero (Cantabria no proporcionó fichero original de climatización). No se ha localizado ningún decreto autonómico cántabro que desarrolle el RITE para climatización; se aplica el RITE nacional directamente, con el umbral general de 70 kW (MTD/proyecto) ya verificado de forma consistente en el resto de comunidades de este proyecto. Auditoría 2026-07-28: localizada la ficha específica del trámite 49 'Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización' en sede.cantabria.es; sustituye la URL genérica usada anteriormente.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica cántabra específica de climatización",
@@ -23,7 +24,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -93,7 +96,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

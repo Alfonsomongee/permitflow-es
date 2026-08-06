@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'obra_civil_relevante' (no existe en el schema). Se sustituyó el umbral inventado de 50 kW plano por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4. Revisión 2026-07-28 (auditoría normativa CV): 'Decreto 88/2021, de 2 de julio' es una CITA FALSA por atribución de contenido — se confirmó que ese decreto real regula la provisión de registros de la propiedad vacantes en la CV, sin relación alguna con instalaciones eléctricas o de recarga de vehículos; se elimina de 'fuentes'. Se renombró el trámite inexistente 'DRPS' (Declaración Responsable de Puesta en Servicio) por el trámite real, el registro del Certificado de Instalación Eléctrica de Baja Tensión ante el Servicio Territorial, y se sustituyeron los enlaces genéricos a la raíz de sede.gva.es por los procedimientos reales: id_proc=440 (CV-IRVE-001, con Memoria Técnica de Diseño) e id_proc=436 (CV-IRVE-002, con proyecto e inspección inicial por Organismo de Control Habilitado). Se corrigió también la terminología OCA→OCH (Organismo de Control Habilitado), propia de la CV en baja tensión.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28: 'Decreto 88/2021, de 2 de julio' es CITA FALSA — el decreto real (DOGV 2021/7426) regula la provisión de registros de la propiedad vacantes en la CV, sin relación con IRVE ni con instalaciones eléctricas. Eliminado de 'fuentes'. No consta normativa autonómica valenciana específica de IRVE; aplica el REBT/ITC-BT-52 estatal.",
@@ -27,19 +28,60 @@
       "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
-          { "!=": [ { "var": "modo_recarga" }, "4" ] },
+          {
+            "!=": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
+            ]
+          },
           {
             "or": [
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
                 ]
               },
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
                 ]
               }
             ]
@@ -106,17 +148,58 @@
       "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "or": [
-          { "==": [ { "var": "modo_recarga" }, "4" ] },
           {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-              { ">": [ { "var": "potencia_kw" }, 50 ] }
+            "==": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
             ]
           },
           {
             "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-              { ">": [ { "var": "potencia_kw" }, 10 ] }
+              {
+                "in": [
+                  {
+                    "var": "ubicacion_irve"
+                  },
+                  [
+                    "interior",
+                    "garaje_comunitario"
+                  ]
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  50
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              {
+                "in": [
+                  {
+                    "var": "ubicacion_irve"
+                  },
+                  [
+                    "exterior",
+                    "via_publica"
+                  ]
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              }
             ]
           }
         ]

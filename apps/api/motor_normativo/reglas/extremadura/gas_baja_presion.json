@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Fichero generado desde cero (Extremadura no proporcionó fichero original de gas). Se confirmó real el trámite combinado 'Autorización de explotación para la emisión del acta de puesta en servicio de las instalaciones del sector eléctrico o de los sectores de gases combustibles canalizados' (Resolución de 20 de junio de 2022, modificada por Resolución de 9 de abril de 2024). No se ha localizado decreto autonómico específico de gas; se aplica el RIGLO nacional directamente. Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar. CORRECCIÓN 2026-07-28 (auditoría normativa): se sustituyó la plataforma_url genérica (sede.gobex.es) por la ficha específica del trámite (https://www.juntaex.es/w/5873) en EXT-GAS-001 y EXT-GAS-003.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica extremeña específica de gas más allá del procedimiento combinado eléctrico/gas de la Resolución 20/06/2022",

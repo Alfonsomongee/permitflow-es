@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
+  "revisado_por": null,
   "aviso": "Reglas RITE y sanitarias revisadas. Los plazos y tasas no se automatizan. La inspección periódica de ACS centralizada se mantiene con verificación parcial hasta confirmar literalmente la ITA 9 completa.",
   "huecos_verificacion": [
     "Confirmar directamente en el texto oficial completo de la ITA 9 el alcance y periodicidad de la inspección de ACS centralizada >70 kW con acumulación o retorno.",

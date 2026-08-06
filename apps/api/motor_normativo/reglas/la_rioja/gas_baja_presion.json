@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Fichero generado desde cero (La Rioja no proporcionó fichero original de gas). No se ha localizado decreto autonómico específico de gas; se aplica el RIGLO nacional directamente. Se confirmó real el trámite 'GN-GL. Inscripción de puesta en servicio de Instalaciones receptoras de combustibles gaseosos (GL/GN)' en la oficina electrónica de La Rioja. Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica riojana específica de gas más allá del trámite GN-GL",

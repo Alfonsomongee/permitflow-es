@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Auditoría 2026-07-28: umbral de exención de AAP corregido de 500kW (inexistente) a 100kW en BT (Ley 24/2013 art. 53), con exención adicional para autoconsumo sin excedentes independiente de potencia. AUTO0301T01 confirmado como único trámite de AAP disponible en Asturias (es el trámite de instalaciones de producción ≤50MW; no existe trámite específico de autoconsumo). Añadido trámite de CAU/acceso y conexión ante distribuidora, ausente hasta ahora. RIPRE reconducido a instalaciones con excedentes.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28 (CRÍTICO): trámite AUTO0301T01 verificado en ficha oficial (https://sede.asturias.es/-/dboid-6269000040819315407573): es 'Autorización de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables' (≤50MW), con requisito de 'capacidad técnica' (3 años de experiencia como productor u otras vías). Confirmado por WebSearch que no existe trámite alternativo específico de autoconsumo en la sede del Principado; es el único cauce de AAP disponible. PENDIENTE: no se ha confirmado si los autoconsumidores individuales que superen 100 kW en BT y requieran AAP están exentos del requisito de experiencia como productor (posible antinomia entre RD 244/2019 y el régimen general de RD 1955/2000/Ley 24/2013); revisar caso a caso con la Consejería antes de dar el itinerario por cerrado.",

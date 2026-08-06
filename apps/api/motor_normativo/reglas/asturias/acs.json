@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Auditoría 2026-07-28: corregida secuencia de la tasa 046 (posterior al registro, no documento de entrada), añadido contrato de mantenimiento >70kW, excepcionada la inspección OCA para conjuntos de instalaciones individuales <70kW en uso residencial vivienda, y corregido el enumerado inválido de 'uso' en AST-ACS-003.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28 (ALTO): 'justificante_tasa_046' retirado de los documentos de ENTRADA de RECE0050T01 (AST-ACS-001/002); la ficha oficial establece que la tasa se liquida DESPUÉS del registro (la Administración emite la carta de pago). Se mantiene como coste posterior en 'notas' y 'coste_estimado'.",

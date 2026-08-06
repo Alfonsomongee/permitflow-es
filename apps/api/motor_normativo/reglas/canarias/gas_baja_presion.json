@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se añade la inspección previa por Organismo de Control, que la ficha oficial 3905 declara expresamente como requisito previo del trámite, ausente en la versión anterior; (2) se corrige el organismo tramitador a Servicio de Transporte y Generación en Régimen Ordinario; (3) se añaden el certificado de dirección de obra y el certificado de cumplimiento de chimeneas, exigidos por la ficha y ausentes en la versión anterior; (4) se documenta la distinción entre proyecto técnico y memoria técnica, y entre gas envasado y canalizado, que la ficha modela y el JSON anterior no distinguía (no se ha creado una bifurcación de reglas por falta de un campo de entrada específico para envasado/canalizado; queda registrado como hueco).",
   "huecos_verificacion": [
     "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar",

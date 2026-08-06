@@ -154,6 +154,7 @@
     }
   ],
   "nivel_verificacion": "generica",
+  "revisado_por": null,
   "huecos_verificacion": [
     "RESUELTO 2026-07-28: enum uso 'domestico' -> 'residencial' en AND-GAS-001/002 (incompatible con el resto del motor; CRÍTICO).",
     "RESUELTO 2026-07-28: Decreto 59/2005 mal titulado como 'sobre instalaciones de gas' -> corregido a su objeto real (procedimiento de establecimientos industriales), BOJA 2005/118/3.",

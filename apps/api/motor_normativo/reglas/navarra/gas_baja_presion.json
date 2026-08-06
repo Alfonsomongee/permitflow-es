@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Fichero generado desde cero (Navarra no proporcionó fichero original de gas). Se aplica el RIGLO nacional (RD 919/2006) directamente, complementado con la normativa foral de procedimiento y de umbral de inspección confirmada por auditoría (Orden Foral 60/2015 y Orden Foral 64/2022). Se aplicó el hallazgo confirmado en Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar.",
   "huecos_verificacion": [
     "Auditoría 2026-07-28: se confirmó y añadió como base_legal foral la Orden Foral 60/2015, de 5 de marzo (BON n.º 54, de 20 de marzo de 2015), que regula el procedimiento de tramitación/registro y deroga la Orden Foral 425/2009 (desarrollo RIGLO en Navarra), y la Orden Foral 64/2022, de 21 de octubre (Disp. Adicional Única), que confirma el umbral de 70 kW e inspección inicial OCA en instalaciones térmicas",

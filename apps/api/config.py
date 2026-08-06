@@ -2,7 +2,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Optional
 
 class Settings(BaseSettings):
-    ENVIRONMENT: str = "development"
+    # Fail-safe: sin ENVIRONMENT definido en el entorno, se asume "production" para que
+    # el gate INTERNAL_API_KEY (seguridad.py) exija la clave en vez de abrirse en silencio.
+    # En local, define ENVIRONMENT=development explícitamente en tu .env.
+    ENVIRONMENT: str = "production"
     DATABASE_URL: Optional[str] = None
     REDIS_URL: Optional[str] = None
 

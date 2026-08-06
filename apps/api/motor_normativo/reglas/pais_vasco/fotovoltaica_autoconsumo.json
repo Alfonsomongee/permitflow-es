@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. El Decreto 48/2020, de 31 de marzo, está CONFIRMADO real (regula autorización de instalaciones de producción/transporte/distribución eléctrica, incluido autoconsumo). Se corrigieron los id de regla duplicados 'PV-FV-3' (tres veces) renombrándolos a sufijos A/B/C. Se bajó 'nivel_verificacion' de 'verificada' a 'generica': las propias notas del fichero original reconocían importes 'estimados' y dependientes de la inversión, lo que contradice el requisito de verificación total del proyecto. Revisión 2026-07-28: el campo 'inversion_eur' ya se captura en el formulario web y forma parte del ClasificadorInput (auditoría normativa País Vasco), por lo que las reglas PV-FV-003A/B/C dejan de ser huérfanas. Se corrigió 'plataforma_url' (apuntaba a una página genérica de 'Servicios') y se añadió el trámite de acceso y conexión (CAU) con la distribuidora en las reglas con excedentes.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28: el campo 'inversion_eur' ya está incluido en ClasificadorInput y se captura en el formulario web de fotovoltaica; las reglas PV-FV-003A/B/C disparan correctamente.",
@@ -26,7 +27,12 @@
       "id": "PV-FV-001",
       "descripcion": "Autoconsumo sin excedentes (cualquier potencia) o con excedentes ≤10 kW: exento de autorización",
       "condicion": {
-        "<=": [ { "var": "potencia_kw" }, 10 ]
+        "<=": [
+          {
+            "var": "potencia_kw"
+          },
+          10
+        ]
       },
       "tramites": [
         {
@@ -59,8 +65,22 @@
       "descripcion": "Autoconsumo con excedentes >10 y ≤100 kW: puesta en servicio en Delegación Territorial",
       "condicion": {
         "and": [
-          { ">": [ { "var": "potencia_kw" }, 10 ] },
-          { "<=": [ { "var": "potencia_kw" }, 100 ] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
         ]
       },
       "tramites": [
@@ -117,8 +137,22 @@
       "descripcion": "Autoconsumo con excedentes >100 kW, presupuesto ≤600.000€: autorización administrativa completa",
       "condicion": {
         "and": [
-          { ">": [ { "var": "potencia_kw" }, 100 ] },
-          { "<=": [ { "var": "inversion_eur" }, 600000 ] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "inversion_eur"
+              },
+              600000
+            ]
+          }
         ]
       },
       "tramites": [
@@ -175,8 +209,22 @@
       "descripcion": "Autoconsumo con excedentes >100 kW, sin inversión informada: autorización administrativa completa",
       "condicion": {
         "and": [
-          { ">": [ { "var": "potencia_kw" }, 100 ] },
-          { "==": [ { "var": "inversion_eur" }, null ] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "inversion_eur"
+              },
+              null
+            ]
+          }
         ]
       },
       "tramites": [
@@ -233,8 +281,22 @@
       "descripcion": "Autoconsumo con excedentes >100 kW, presupuesto >600.000€: autorización administrativa completa",
       "condicion": {
         "and": [
-          { ">": [ { "var": "potencia_kw" }, 100 ] },
-          { ">": [ { "var": "inversion_eur" }, 600000 ] }
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            ">": [
+              {
+                "var": "inversion_eur"
+              },
+              600000
+            ]
+          }
         ]
       },
       "tramites": [

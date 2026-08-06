@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminó 'Decreto 56/1996' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia, usado por la sede electrónica de la CARM como base del 'Registro de instalaciones de gases combustibles') más el RIGLO nacional. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar. Revisión 2026-07-28: se diferenciaron los dos procedimientos electrónicos reales de la CARM para el trámite de registro — código 60 ('Registro de instalaciones de gases combustibles', declaración responsable, sin proyecto, MUR-GAS-002) y código 27 ('Registro de instalaciones receptoras de combustibles gaseosos que requieren proyecto', MUR-GAS-001 y MUR-GAS-003) — con su plataforma_url y formulario_ref propios.",
   "huecos_verificacion": [
     "Tasas exactas no verificadas",

@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 36/2018 de 21 de septiembre' como base de la puesta en servicio: el Decreto 36/2018 real de Illes Balears regula el currículo de enseñanzas profesionales de música, no tiene nada que ver con instalaciones eléctricas. La cita de la Ley 13/2012 también tenía la fecha equivocada (el fichero decía '20 de diciembre de 2012'; la fecha real es 20 de noviembre de 2012). Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre el campo opcional 'uso'. Se confirmó que el 'Registro de autoconsumo de las Illes Balears' SÍ existe (a diferencia de la referencia inventada en el lote de Asturias); se sustituyó el nombre inventado 'RIBAT' por el nombre real del registro y por los procedimientos reales identificados (034 y 001). REVISIÓN 2026-07-28 (auditoría normativa): confirmado que Balears eleva el umbral de exención de autorización administrativa a 500 kW (ventanilla oficial de pequeña potencia ≤500 kW); partición corregida de 100 a 500 kW. Itinerario ampliado con los pasos oficiales que faltaban (acceso y conexión a distribuidora, comunicación urbanística municipal, contrato de acceso técnico, modificación de contratos y registro administrativo de producción), siguiendo el mapa de 11 pasos de la ventanilla de la CAIB.",
   "huecos_verificacion": [
     "No se han verificado los artículos concretos de la Ley 13/2012 que regulan el procedimiento de puesta en servicio de autoconsumo; se cita de forma genérica",
@@ -31,7 +32,9 @@
       "descripcion": "Autoconsumo de potencia igual o inferior a 500 kW: régimen exento de autorización administrativa (ventanilla de pequeña potencia de la CAIB), Memoria Técnica de Diseño",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           500
         ]
       },
@@ -225,7 +228,9 @@
       "descripcion": "Autoconsumo de potencia superior a 500 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           500
         ]
       },

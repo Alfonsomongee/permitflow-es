@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'ubicacion' (no existe; el campo real es 'ubicacion_irve', con valores interior/exterior/via_publica/garaje_comunitario, no los inventados vivienda_unifamiliar/vivienda_plurifamiliar/etc.). Se eliminó 'Decreto n.º 56/2019' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia para puesta en servicio de instalaciones) más ITC-BT-52 nacional. Se sustituyeron los umbrales inventados (10 kW plano, y la partición en 3 reglas por tipo de ubicación residencial/no residencial) por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica murciana específica de IRVE; se aplica el Decreto 20/2003 general de puesta en servicio más ITC-BT-52 nacional",
@@ -26,19 +27,60 @@
       "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
-          { "!=": [ { "var": "modo_recarga" }, "4" ] },
+          {
+            "!=": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
+            ]
+          },
           {
             "or": [
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
                 ]
               },
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
                 ]
               }
             ]
@@ -111,17 +153,58 @@
       "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "or": [
-          { "==": [ { "var": "modo_recarga" }, "4" ] },
           {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-              { ">": [ { "var": "potencia_kw" }, 50 ] }
+            "==": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
             ]
           },
           {
             "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-              { ">": [ { "var": "potencia_kw" }, 10 ] }
+              {
+                "in": [
+                  {
+                    "var": "ubicacion_irve"
+                  },
+                  [
+                    "interior",
+                    "garaje_comunitario"
+                  ]
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  50
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              {
+                "in": [
+                  {
+                    "var": "ubicacion_irve"
+                  },
+                  [
+                    "exterior",
+                    "via_publica"
+                  ]
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              }
             ]
           }
         ]

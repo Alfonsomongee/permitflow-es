@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Auditoría 2026-07-28: umbrales de potencia ITC-BT-52 (50kW interior / 10kW exterior, modo 4) confirmados correctos, sin cambios. plataforma_url sustituida por la ficha específica de cada trámite; organismo de RECE0017T01 precisado.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28 (MEDIO): plataforma_url genérica (https://sede.asturias.es) sustituida por la ficha dboid específica de RECE0017T01 y RECE0004T01.",

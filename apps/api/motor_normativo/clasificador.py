@@ -223,8 +223,18 @@ class Clasificador:
                 continue
 
         if not matched_any:
+            # Puede significar dos cosas distintas y las distinguimos en el mensaje:
+            # (a) combinación fuera del alcance documentado en huecos_verificacion
+            #     (p.ej. Canarias gas industrial: solo se verificó residencial/comercial
+            #     a presión normal; ver huecos_verificacion del fichero), o
+            # (b) un vacío real de cobertura pendiente de investigar.
+            # No inventamos una regla para "tapar" el hueco: es preferible un 404 claro
+            # a una respuesta con datos normativos no verificados.
             raise NormativaNoEncontradaError(
-                f"No se encontraron reglas aplicables para los parámetros dados en {params.comunidad}"
+                f"No hay normativa verificada para esta combinación de parámetros en "
+                f"{params.comunidad} / {params.tipo_instalacion}. Puede tratarse de un "
+                f"caso fuera del alcance documentado (revisa huecos_verificacion en el "
+                f"fichero de reglas) más que de un error del clasificador."
             )
 
         # Reasignar orden secuencial (trámites aditivos de múltiples reglas) y

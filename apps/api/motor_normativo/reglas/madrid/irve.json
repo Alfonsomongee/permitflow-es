@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
+  "revisado_por": null,
   "aviso": "Proyecto o MTD conforme a ITC-BT-04/52. Puesta en servicio ante EICI. Vía pública requiere revisión municipal adicional.",
   "huecos_verificacion": [
     "La autorización municipal concreta para IRVE en vía pública depende del municipio y no se modela en este JSON autonómico.",

@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 34/2011' como base legal: no se ha localizado esta norma. Sí existe un decreto real de Castilla-La Mancha en esta materia — el Decreto 13/2010, de 23 de marzo — pero regula exclusivamente las tarifas que las empresas distribuidoras de gas pueden facturar a los usuarios (altas, enganches, inspecciones periódicas), no la legalización de instalaciones. La ficha oficial de la JCCM para instalaciones de gas (trámite 1002259) cita únicamente el RD 919/2006 (RIGLO) nacional. Se corrigió el bug de cobertura: si 'uso' llegaba None, ni la regla 1 (residencial/comercial) ni la regla 2 (colectivo) disparaban; la partición ahora depende solo de 'potencia_kw'.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de legalización de instalaciones de gas (el Decreto 13/2010 real solo regula tarifas)",
@@ -24,7 +25,9 @@
       "descripcion": "Instalación de gas con potencia ≤ 70 kW, sin proyecto",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -82,7 +85,9 @@
       "descripcion": "Instalación de gas con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

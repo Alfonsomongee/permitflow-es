@@ -4,6 +4,7 @@
   "version": "0.9.1",
   "ultima_revision": "2026-07-28",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Reglas de presión y potencias base actualizadas para Aragón. Auditoría 2026-07-28 (CRÍTICO corregido): se retiró la cita a la 'Orden de 28 de febrero de 2003, del Departamento de Industria, Comercio y Turismo', que está DEROGADA desde 2007 y además atribuida a un departamento con nombre erróneo (en 2003 era 'Industria, Comercio y Desarrollo', no 'Turismo'). Sustituida por la Orden de 30 de marzo de 2007, del Departamento de Industria, Comercio y Turismo (nombre correcto en esa fecha), que regula hoy el mismo procedimiento. Rellenada plataforma_url del trámite Nº 33 y añadido el trámite de alta de suministro ante distribuidora. 'estado' se mantiene en verificado_parcialmente por los huecos restantes.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",

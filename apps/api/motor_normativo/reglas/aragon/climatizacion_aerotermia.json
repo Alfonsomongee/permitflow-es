@@ -4,6 +4,7 @@
   "version": "0.9.1",
   "ultima_revision": "2026-07-28",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Reglas de potencia base verificadas y exención <5kW introducida. Auditoría 2026-07-28: se retiró la cita 'Decreto 108/1992 de Aragón' (norma no localizada en BOA), se corrigió el umbral de proyecto RITE (>70 -> >=70 kW, el caso exacto de 70 kW pasa a proyecto) y se rellenó plataforma_url con la ficha oficial confirmada. Persisten huecos abiertos (ver huecos_verificacion); por eso 'estado' se mantiene en verificado_parcialmente, no verificado.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",

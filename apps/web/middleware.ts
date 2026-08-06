@@ -13,6 +13,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*)",
   "/api/health",
   "/api/cron(.*)",        // Vercel crons (se protegen a sí mismos con CRON_SECRET)
+  "/api/webhooks(.*)",    // Stripe y Clerk: no llevan sesión Clerk, verifican firma propia
   "/portal(.*)",          // portal de cliente final: enlace de solo lectura sin cuenta
 ]);
 

@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Fichero generado desde cero (La Rioja no proporcionó fichero original de climatización). Se confirmó real una Resolución de la Dirección General de Trabajo, Industria y Comercio que establece normas complementarias para el desarrollo del RITE en La Rioja, con el umbral de 70 kW para inspección inicial, y una Resolución de 30 de julio de 2015 específica para sustitución de equipos ≤70 kW. Trámite real confirmado: 'CL y CLM' (Inscripción y puesta en servicio de instalaciones térmicas).",
   "huecos_verificacion": [
     "No se ha localizado la fecha exacta de la Resolución de desarrollo del RITE en La Rioja — se cita de forma genérica hasta confirmar",

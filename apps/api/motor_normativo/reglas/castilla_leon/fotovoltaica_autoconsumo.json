@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. El 'Decreto 127/2003' SÍ existe, pero regula autorizaciones administrativas de instalaciones de producción/transporte/distribución de energía eléctrica, no la puesta en servicio de baja tensión que necesita este vertical — y además fue derogado el 18/12/2022 por el Decreto 46/2022. Doblemente incorrecto citarlo aquí. La plataforma 'SIRECYL' no se ha localizado en ninguna fuente oficial; la plataforma real de Castilla y León para BT es BOEL (Boletines Eléctricos), con tasa código 308.1 'Inscripción y control de instalaciones eléctricas'. Se sustituyó el umbral inventado de 10 kW por el umbral estatal confirmado de 100 kW (art. 53 Ley 24/2013). Se corrigió el bug de partición base sobre 'uso'. REVISIÓN 2026-07-28 (auditoría normativa): corregido el nombre del organismo ('Comercio y Turismo' -> 'Comercio y Economía'); sustituidas las plataforma_url genéricas por la ficha específica del trámite BOEL.",
   "huecos_verificacion": [
     "No se ha confirmado si Castilla y León ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
@@ -29,7 +30,9 @@
       "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           100
         ]
       },
@@ -99,7 +102,9 @@
       "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           100
         ]
       },

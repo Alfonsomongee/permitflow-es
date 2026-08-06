@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 62/2010' como base legal: no se ha localizado esta norma. Sustituida por la normativa real confirmada: Orden de 28 de abril de 2008 (DOG núm. 95), que regula la aplicación en Galicia del RIGLO (RD 919/2006). Trámite real confirmado: IN625A 'Registro de instalaciones receptoras de gases combustibles'. Se corrigió un hueco de cobertura: la regla 2 original exigía 'potencia>70 AND uso==industrial' simultáneamente, dejando sin trámite tanto instalaciones industriales ≤70kW como instalaciones no industriales >70kW. La partición ahora depende solo de 'potencia_kw'. Auditoría 2026-07-28: sustituida la plataforma_url genérica (https://sede.xunta.gal) de IN625A por el enlace profundo confirmado a la ficha del trámite.",
   "huecos_verificacion": [
     "Tras corregir el hueco de cobertura, el fichero ya no diferencia trámites por uso doméstico/comercial/industrial; si esa distinción es normativamente relevante en Galicia, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base",
@@ -24,7 +25,9 @@
       "descripcion": "Instalación de gas con potencia ≤ 70 kW",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -123,7 +126,9 @@
       "descripcion": "Instalación de gas con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Auditoría 2026-07-28 (CRÍTICO): DECO0011T01 no procede para instalaciones que no requieren proyecto (AST-GAS-001, el caso más frecuente); la ficha oficial es taxativa: 'no es precisa ninguna comunicación a la administración' salvo que se requiera proyecto. Sustituido por entrega del certificado de instalación al suministrador. Corregidos también: secuencia de la tasa 046 (posterior), documentos faltantes de DECO0011T01, y cita errónea de RD 984/2015.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28 (CRÍTICO): eliminado el trámite DECO0011T01 de AST-GAS-001 (MOP<=5bar, P<=70kW, caso sin proyecto). La ficha oficial (https://miprincipado.asturias.es/-/dboid-6269000023985654207573) es taxativa: salvo instalaciones que requieren proyecto, 'no es precisa ninguna comunicación a la administración'; el certificado de instalación se entrega al suministrador de gas, quien lo mantiene a disposición de la Administración.",

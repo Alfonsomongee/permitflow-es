@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Fichero generado desde cero (Extremadura no proporcionó fichero original de IRVE). No se ha localizado normativa autonómica extremeña específica de IRVE; se aplica el mismo circuito general de registro de instalaciones eléctricas BT confirmado en el lote de FV de esta comunidad (Orden 31/07/2008, Resolución 24/03/2004, plataforma tbtEX) más el régimen técnico nacional ITC-BT-52. Se aplican los umbrales nacionales ya verificados en comunidades anteriores (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4, exigen proyecto técnico. CORRECCIÓN 2026-07-28 (auditoría normativa): se sustituyó la plataforma_url genérica (sede.gobex.es) por industriaextremadura.juntaex.es y se unificó el nombre del organismo a 'Dirección General de Industria, Energía y Minas'.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica extremeña específica de IRVE",
@@ -26,19 +27,60 @@
       "descripcion": "IRVE que NO requiere proyecto técnico visado: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
-          { "!=": [ { "var": "modo_recarga" }, "4" ] },
+          {
+            "!=": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
+            ]
+          },
           {
             "or": [
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
                 ]
               },
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
                 ]
               }
             ]
@@ -111,17 +153,58 @@
       "descripcion": "IRVE que SÍ requiere proyecto técnico visado: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "or": [
-          { "==": [ { "var": "modo_recarga" }, "4" ] },
           {
-            "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-              { ">": [ { "var": "potencia_kw" }, 50 ] }
+            "==": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
             ]
           },
           {
             "and": [
-              { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-              { ">": [ { "var": "potencia_kw" }, 10 ] }
+              {
+                "in": [
+                  {
+                    "var": "ubicacion_irve"
+                  },
+                  [
+                    "interior",
+                    "garaje_comunitario"
+                  ]
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  50
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              {
+                "in": [
+                  {
+                    "var": "ubicacion_irve"
+                  },
+                  [
+                    "exterior",
+                    "via_publica"
+                  ]
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              }
             ]
           }
         ]

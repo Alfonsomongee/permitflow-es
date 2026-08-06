@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "CORREGIDO 2026-07-28 (auditoría normativa): la afirmación anterior de que 'no se ha localizado normativa foral navarra específica' era inexacta. La Orden Foral 60/2015 deroga expresamente (Disp. Derogatoria, punto 16) la Orden Foral 424/2009, de desarrollo foral del RITE en Navarra, y regula el procedimiento general de tramitación/registro de instalaciones térmicas. Además, la Orden Foral 64/2022 (Disposición Adicional Única) exige literalmente inspección inicial por Organismo de Control (OCA) para instalaciones con potencia térmica nominal >70 kW, lo que confirma como base foral directa el umbral de 70 kW ya aplicado en este fichero (antes solo se citaba el RITE nacional). El órgano competente confirmado real es el Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra.",
   "huecos_verificacion": [
     "Nombre exacto del trámite de registro de instalaciones térmicas en Navarra no confirmado en esta revisión",
@@ -25,7 +26,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -95,7 +98,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

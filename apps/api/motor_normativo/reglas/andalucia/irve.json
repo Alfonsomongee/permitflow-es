@@ -1227,6 +1227,7 @@
     }
   ],
   "nivel_verificacion": "generica",
+  "revisado_por": null,
   "huecos_verificacion": [
     "RESUELTO 2026-07-28 (ALTO): organismo de AND-IRVE-001 trámite 3 citaba 'Delegación Territorial de Economía, Hacienda, Fondos Europeos y de Industria, Energía y Minas' (estructura de consejerías superada) -> corregido a 'Delegación Territorial de Industria, Energía y Minas'.",
     "RESUELTO 2026-07-28 (MEDIO): denominación de TECI corregida a 'Tramitador Electrónico de Certificados de Instalaciones de Baja Tensión' y aclarado que lo opera la empresa instaladora, no el titular.",

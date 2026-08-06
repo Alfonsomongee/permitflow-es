@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Auditoría 2026-07-28: corregido BLOQUEANTE de motor (condición comparaba 'tipo_instalacion', variable no incluida en el barrido de cobertura del validador y ausente de las reglas equivalentes ya corregidas en otras CCAA; las reglas nunca disparaban). Corregida secuencia de la tasa 046 (posterior al registro), añadido contrato de mantenimiento >70kW, y excepcionada la inspección OCA para conjuntos de instalaciones individuales <70kW en uso residencial vivienda.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28 (BLOQUEANTE de motor, no reportado en la auditoría normativa): AST-AER-001 y AST-AER-002 comparaban 'tipo_instalacion' == 'climatizacion_aerotermia' dentro de la condición; ese chequeo es redundante (el motor ya selecciona el fichero por tipo_instalacion/comunidad antes de evaluar condiciones) y el validador de reglas lo detecta como regla que nunca dispara. Eliminado, siguiendo el mismo patrón ya aplicado en Andalucía/Aragón/Baleares/Canarias.",

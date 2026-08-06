@@ -4,6 +4,7 @@
   "version": "0.9.1",
   "ultima_revision": "2026-07-28",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "BORRADOR NO VERIFICADO. Auditoría 2026-07-28: se retiró la cita a 'Ley 1/2024 de Aragón' (norma no localizada) y se rellenaron las plataforma_url confirmadas del trámite Nº 26. Persisten huecos: el umbral de 500 kW de ARA-FV-003 no tiene respaldo normativo autonómico confirmado, y falta el trámite de acceso y conexión/CAU ante distribuidora.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original. Auditoría 2026-07-28: confirmada la existencia de la Orden y su modificación por Orden EIE/1132/2018 y Orden ICD/302/2020, no reflejadas aquí por falta de verificación de su alcance exacto sobre este trámite.",

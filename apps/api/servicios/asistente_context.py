@@ -151,6 +151,7 @@ pronombres que hagan referencia al contexto, usa SIEMPRE la información anterio
             estado = normativa_json.get("estado")
             aviso_auditoria = normativa_json.get("aviso")
             huecos = normativa_json.get("huecos_verificacion") or []
+            revisado_por = normativa_json.get("revisado_por")
             # Filtrar fichero si no es elegible
             # Si no tiene nivel de verificación, se ignora por seguridad
             if nivel:
@@ -186,6 +187,14 @@ pronombres que hagan referencia al contexto, usa SIEMPRE la información anterio
                     )
                 else:
                     aviso_nivel += " Puedes afirmar con seguridad la validez de estos datos."
+
+                if not revisado_por:
+                    aviso_nivel += (
+                        "\nEstos datos NO tienen un revisor humano identificado "
+                        "(campo 'revisado_por' vacío). No los presentes como validados "
+                        "por un experto de PermitFlow; trátalos igual que un borrador "
+                        "generado a partir de fuentes públicas sin doble verificación."
+                    )
 
                 if aviso_auditoria:
                     aviso_nivel += f"\nNota de la última auditoría de contenido: {aviso_auditoria}"

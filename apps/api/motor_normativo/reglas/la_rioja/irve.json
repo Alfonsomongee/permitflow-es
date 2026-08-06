@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Fichero generado desde cero (La Rioja no proporcionó fichero original de IRVE). No se ha localizado normativa autonómica riojana específica de IRVE; se aplica el mismo circuito general de registro de instalaciones eléctricas BT confirmado en el lote de FV de esta comunidad (trámite IBT) más el régimen técnico nacional ITC-BT-52. Se aplican los umbrales nacionales ya verificados en comunidades anteriores (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4, exigen proyecto técnico. NOTA IMPORTANTE: el propio portal de Industria y Energía de La Rioja menciona el 'Programa Auto+' — se confirma que ese programa cubre exclusivamente la compra de vehículos eléctricos, no la instalación de puntos de recarga (verificado contra BOE-A-2026-16010 en sesión de verificación de PermitFlow ES del 27/07/2026); no debe presentarse como incentivo de IRVE en ningún componente del producto.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica riojana específica de IRVE",

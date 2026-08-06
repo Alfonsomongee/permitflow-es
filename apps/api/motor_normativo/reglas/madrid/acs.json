@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
+  "revisado_por": null,
   "aviso": "Fronteras RITE corregidas: <5 kW sin registro documental por potencia, 5 a <70 kW con memoria técnica y >=70 kW con proyecto. La puesta en servicio se registra ante EICI. Plazos no se automatizan.",
   "huecos_verificacion": [
     "Confirmar el importe vigente de la tasa y la tarifa EICI en cada expediente.",

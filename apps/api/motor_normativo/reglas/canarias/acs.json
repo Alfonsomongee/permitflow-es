@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se añade el umbral inferior de 5 kW, igual que en climatización: la ficha SICAC 3409 solo exige Memoria Técnica entre 5 y 70 kW; (2) se añade la regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024), ausente hasta ahora pese a estar autodeclarada como hueco crítico; (3) se añade el contrato de mantenimiento con empresa mantenedora habilitada, exigido para potencia >70 kW; (4) se añade el certificado de dirección de obra, exigido por la ficha para potencia >70 kW; (5) se corrige el organismo tramitador a Servicio de Eficiencia Energética y Nuevas Energías; (6) se corrige el aviso anterior, que afirmaba erróneamente que la ficha 3409 solo cita normativa nacional: cita también el Decreto 154/2001 y el Decreto 54/2021; (7) se cierra la duda sobre la ECA: la ficha 3409 no exige ninguna entidad colaboradora para ACS >70 kW — es comunicación directa con proyecto y certificado de dirección de obra, sin resolución administrativa.",
   "huecos_verificacion": [
     "RESUELTO: Decreto 154/2001 y Decreto 54/2021 SÍ son normativa autonómica citada por la ficha 3409 (el aviso anterior lo negaba erróneamente)",
@@ -28,7 +29,9 @@
       "descripcion": "Instalación de ACS de potencia < 5 kW: sin documentación técnica ni comunicación exigida por la ficha 3409",
       "condicion": {
         "<": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           5
         ]
       },
@@ -63,8 +66,22 @@
       "descripcion": "Instalación de ACS con potencia entre 5 kW y 70 kW, ambos inclusive (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [ { "var": "potencia_kw" }, 5 ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -133,7 +150,9 @@
       "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico y contrato de mantenimiento; sin ECA, comunicación directa)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -215,7 +234,9 @@
       "descripcion": "ACS de uso colectivo/terciario incluida en el ámbito del RD 487/2022: Programa/Plan de Prevención y Control de la Legionelosis (PPCL/PSL)",
       "condicion": {
         "==": [
-          { "var": "incluida_ambito_rd_487_2022" },
+          {
+            "var": "incluida_ambito_rd_487_2022"
+          },
           true
         ]
       },

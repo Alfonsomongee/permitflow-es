@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
+  "revisado_por": null,
   "aviso": "Fronteras RITE corregidas. Declaración responsable electrónica y RITSIC. No se infiere inspección por organismo de control solo por potencia o proyecto.",
   "huecos_verificacion": [
     "Pendiente de determinar los supuestos sectoriales expresos de inspección por organismo de control conforme al Decret 192/2023 y su ITA 9.",

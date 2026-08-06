@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 20/2007 de 23 de marzo' como base de la puesta en servicio de instalaciones térmicas: el Decreto 20/2007 real de Illes Balears modifica las condiciones de habitabilidad de viviendas (Decreto 145/1997), no regula climatización. Se sustituyó el umbral inventado de 12 kW por el umbral general del RITE (70 kW, art. 15-17), ya verificado en el lote de Asturias con la misma fuente nacional. Se corrigió el bug de partición base sobre el campo 'uso' (valor no estandar 'residencial_unifamiliar'). REVISIÓN 2026-07-28 (auditoría normativa): identificado el trámite real como UDIT-021 'Instalaciones térmicas en los edificios', gestionado por la UDIT (Unitat d'Informació i Tràmit) al amparo del Decreto 25/2003; corregido el umbral de frontera del RITE a '>= 70 kW' (antes '>70 kW', que dejaba una instalación de exactamente 70 kW en el itinerario equivocado); actualizada la plataforma_url a la ficha directa del trámite.",
   "huecos_verificacion": [
     "No se ha localizado una norma autonómica balear específica que module el umbral MTD/proyecto del RITE; se aplica el umbral general nacional de 70 kW",
@@ -26,7 +27,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia < 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -96,7 +99,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia >= 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Fichero generado desde cero (Cantabria no proporcionó fichero original de ACS). No se ha localizado ningún decreto autonómico cántabro que desarrolle el RITE para ACS; se aplica el RITE nacional directamente, con el umbral general de 70 kW ya verificado en el resto de comunidades. HUECO CRÍTICO recurrente: este fichero no contiene ninguna regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — no se ha añadido una regla inventada, se deja como hueco explícito, igual que en los lotes de Asturias, Baleares y Canarias. Auditoría 2026-07-28: localizada la ficha específica del trámite 49 'Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización' en sede.cantabria.es (cubre expresamente ACS); sustituye la URL genérica usada anteriormente.",
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024)",
@@ -24,7 +25,9 @@
       "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -94,7 +97,9 @@
       "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

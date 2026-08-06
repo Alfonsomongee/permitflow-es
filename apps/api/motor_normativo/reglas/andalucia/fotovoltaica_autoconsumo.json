@@ -2583,6 +2583,7 @@
     }
   ],
   "nivel_verificacion": "generica",
+  "revisado_por": null,
   "huecos_verificacion": [
     "RESUELTO 2026-07-28 (CRÍTICO): faltaba el trámite de solicitud del CAU a la distribuidora y la secuencia estaba invertida (comunicación a la distribuidora en último lugar). Añadido como orden 1 en todas las reglas FV, renumerando el resto.",
     "RESUELTO 2026-07-28 (ALTO): trámite 'RAC' renombrado a RADNE, URL corregida (apuntaba a la portada genérica de la sede del MITECO) y aclarada la inscripción de oficio en BT <100 kW.",

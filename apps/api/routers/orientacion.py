@@ -211,10 +211,13 @@ async def calcular_idoneidad(
     try:
         ubicacion = await resolver_ubicacion(payload.municipio, payload.provincia)
     except ValueError as exc:
+        # geocoding_client ya sanea el mensaje (nunca incluye la API key); es seguro
+        # devolverlo tal cual porque describe el propio error de negocio (dirección
+        # no resuelta, servicio no disponible), no una excepción interna cruda.
         raise HTTPException(status_code=400, detail=str(exc))
-    except Exception as exc:
+    except Exception:
         logger.exception("Error inesperado al geocodificar")
-        raise HTTPException(status_code=500, detail=f"Error interno al calcular idoneidad: {exc}")
+        raise HTTPException(status_code=500, detail="Error interno al calcular idoneidad")
 
     lat = ubicacion["lat"]
     lon = ubicacion["lon"]

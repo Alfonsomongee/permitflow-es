@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se bifurca el trámite de puesta en servicio según el estado de la instalación receptora: SICAC 3158 solo para instalaciones receptoras NUEVAS; SICAC 6782 'Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión' para instalaciones receptoras YA EXISTENTES (caso mayoritario: FV añadida a vivienda ya legalizada), controlado por el nuevo campo de entrada 'instalacion_origen_modificada'; (2) se añaden los trámites de acceso y conexión/CAU ante la distribuidora (e-distribución/Endesa, NRZ105) y de contrato/modificación de contrato de suministro con activación de compensación de excedentes ante la comercializadora (art. 14 RD 244/2019), ausentes en la versión anterior pese a citar el RD 1183/2020 y el RD 244/2019; (3) se corrige el organismo tramitador: no existe una 'Dirección General de Industria y Energía'; son la Dirección General de Energía — Servicio de Instalaciones Energéticas (comunicación previa BT) y — Servicio de Combustibles y Energías Renovables (autorización administrativa, ficha 2721); (4) se corrige la referencia normativa de Anexo III a Anexo VII (tabla 2.1) del Decreto 141/2009, confirmada en las fichas 3158 y 6782; (5) se renombran los documentos a los modelos oficiales ERR (Certificado de instalación de energías renovables) y M.T.D.E.R (Memoria técnica de diseño energías renovables), añadiendo el manual de instrucciones/anexo de información al usuario; (6) se condiciona el Certificado de Inspección Inicial OCA a los supuestos en que sea preceptivo según el Anexo VII, en vez de exigirlo siempre; (7) se sustituye la plataforma_url genérica de la sede por la ficha SICAC 2721 'Autorización administrativa de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables' para el régimen >100 kW; (8) se añade una regla de Calificación Territorial del Cabildo insular, previa y adicional a la licencia municipal, para instalaciones fotovoltaicas de suelo; (9) se documenta la singularidad de los Sistemas Eléctricos Aislados canarios (SEIE): 5 sistemas insulares independientes desde el 1/7/2026 (antes 6), Orden TED/624/2026 (BOE-A-2026-13574); los límites de vertido de excedentes específicos por isla dependen de REE como operador del sistema y quedan NO VERIFICABLES.",
   "huecos_verificacion": [
     "RESUELTO: Anexo III vs VII del Decreto 141/2009 — es el Anexo VII (tabla 2.1); no existe mención al Anexo III en las fichas 3158/6782.",
@@ -40,8 +41,22 @@
       "descripcion": "Autoconsumo ≤100 kW en instalación receptora NUEVA: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño, comunicación previa SICAC 3158",
       "condicion": {
         "and": [
-          { "<=": [ { "var": "potencia_kw" }, 100 ] },
-          { "!=": [ { "var": "instalacion_origen_modificada" }, true ] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "instalacion_origen_modificada"
+              },
+              true
+            ]
+          }
         ]
       },
       "tramites": [
@@ -185,8 +200,22 @@
       "descripcion": "Autoconsumo ≤100 kW en instalación receptora YA EXISTENTE (caso mayoritario: FV añadida a vivienda ya legalizada): comunicación de modificación, reforma o reactivación SICAC 6782",
       "condicion": {
         "and": [
-          { "<=": [ { "var": "potencia_kw" }, 100 ] },
-          { "==": [ { "var": "instalacion_origen_modificada" }, true ] }
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "instalacion_origen_modificada"
+              },
+              true
+            ]
+          }
         ]
       },
       "tramites": [
@@ -330,7 +359,9 @@
       "descripcion": "Autoconsumo de potencia superior a 100 kW: régimen de autorización administrativa, proyecto técnico (SICAC 2721)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           100
         ]
       },
@@ -475,7 +506,9 @@
       "descripcion": "Instalación fotovoltaica de suelo (huerto solar) en suelo no urbanizable/rústico: Calificación Territorial del Cabildo insular, previa a la licencia municipal",
       "condicion": {
         "==": [
-          { "var": "implantacion" },
+          {
+            "var": "implantacion"
+          },
           "suelo"
         ]
       },

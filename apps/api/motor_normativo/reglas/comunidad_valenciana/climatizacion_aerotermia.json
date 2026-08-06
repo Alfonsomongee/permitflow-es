@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 162/1990' como base legal: verificado que ese decreto real regula la Evaluación de Impacto Ambiental de la Comunitat Valenciana, sin relación con instalaciones térmicas. Se sustituyó por el RITE nacional aplicado directamente, con los trámites reales confirmados: G19316 (5-70 kW) y G450/G94685 (>70 kW), gestionados vía el Registro Integrado Industrial (RII). Se eliminó también la referencia a 'Ley 3/2020 disposición adicional sobre ECA' por no poder confirmarse. Revisión 2026-07-28 (auditoría normativa CV): corregido el organismo (el trámite lo inicia en todos los casos el instalador habilitado, se presenta ante el Servicio Territorial de Industria, Energía y Minas); corregido el enlace roto id_proc=G450 por id_proc=450; la inspección inicial por Organismo de Control (OCA/OCH) se marca ahora como condicional ('cuando sea preceptivo'), no obligatoria de forma incondicional, según sede.gva.es id_proc=450. Añadidas a 'fuentes' el Decreto 141/2012 y la Orden 14/2022, citados por la propia ficha oficial como normativa reguladora de la tramitación industrial en la CV.",
   "huecos_verificacion": [
     "Instalaciones <5 kW térmicos pueden quedar fuera del ámbito de comunicación según el propio RITE — no modelado por falta de campo de tipo de equipo en el schema (mismo hueco detectado en Castilla-La Mancha)",
@@ -27,7 +28,9 @@
       "descripcion": "Instalación térmica con aerotermia de potencia ≤ 70 kW (comunicación, sin proyecto)",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -97,7 +100,9 @@
       "descripcion": "Instalación térmica con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

@@ -4,6 +4,7 @@
   "version": "0.9.1",
   "ultima_revision": "2026-07-28",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Umbrales verificados contra normativa nacional, acatados sin alteración en Aragón. Auditoría 2026-07-28: rellenada plataforma_url del Trámite Nº 26 con la ficha oficial confirmada. 'estado' se mantiene en verificado_parcialmente por los huecos restantes (ver huecos_verificacion), entre ellos la ausencia del trámite ante distribuidora para nuevo suministro.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",

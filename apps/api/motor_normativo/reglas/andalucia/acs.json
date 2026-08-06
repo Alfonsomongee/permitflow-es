@@ -811,6 +811,7 @@
     }
   ],
   "nivel_verificacion": "verificada",
+  "revisado_por": null,
   "huecos_verificacion": [
     "RESUELTO 2026-07-28: plataforma_url de AND-ACS-002 (inspección OCA) apuntaba a una página informativa genérica (L7) -- sustituida por la Oficina Virtual real del tramitador PUES.",
     "RESUELTO 2026-07-28: incoherencia de AND-ACS-003 trámite 2 (plataforma='ayuntamiento' vs organismo/URL de la Junta) -- corregida la etiqueta de plataforma.",

@@ -4,6 +4,7 @@
   "version": "0.9.1",
   "ultima_revision": "2026-07-28",
   "estado": "verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Reglas de potencias base actualizadas, y añadida capa sanitaria de legionelosis autonómica. Auditoría 2026-07-28: corregido el umbral de proyecto RITE (>70 -> >=70 kW), añadido el trámite de comunicación de puesta en servicio para >=70 kW (faltaba), añadida la exención <5 kW (homogeneizada con climatización), matizada la vigencia del Decreto 136/2005 y rellenada plataforma_url. Persisten huecos (ver huecos_verificacion); 'estado' se mantiene en verificado_parcialmente.",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",

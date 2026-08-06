@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
+  "revisado_por": null,
   "aviso": "Rutas separadas por tensión. La inscripción de oficio se marca como actuación administrativa, fuera del progreso. La documentación BT debe concretarse conforme a la Instrucción autonómica de 24/11/2025.",
   "huecos_verificacion": [
     "La aplicación del Registro de Producción se determina mediante requiere_registro_produccion conforme al RD 413/2014.",

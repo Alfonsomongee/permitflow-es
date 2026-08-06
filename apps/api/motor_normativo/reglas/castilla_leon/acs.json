@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 117/2009' como base legal: no se ha localizado esta norma, y el mismo número '117' se usaba también (con año distinto) en el fichero de climatización de este mismo lote para la misma materia — patrón de colisión. La ficha oficial de la JCyL para instalaciones térmicas cita Ley 6/2014 de Industria + RITE nacional + Orden EYE/912/2012 (aplicación 'RITE', IAPA1468). REVISIÓN 2026-07-28 (auditoría normativa, CRÍTICO): añadida la regla CYL-ACS-003 de Legionella/PPCL-PSL (RD 487/2022 + RD 614/2024) condicionada al campo 'uso_colectivo' del schema, que ya existía y no se estaba usando en este fichero; añadida CYL-ACS-000 de exención de trámite para potencia < 5 kW (RITE art. 15) y acotado CYL-ACS-001 al tramo 5-70 kW; corregido el nombre del organismo ('Comercio y Turismo' -> 'Comercio y Economía'); sustituidas las plataforma_url genéricas por la ficha específica del trámite de instalaciones térmicas.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28: se ha añadido la regla CYL-ACS-003 de Legionella/PPCL-PSL (RD 487/2022 + RD 614/2024) condicionada a uso_colectivo == true, usando el campo ya existente en el schema (antes sin usar)",
@@ -28,7 +29,9 @@
       "descripcion": "Instalación de ACS con potencia < 5 kW: exenta de documentación e inscripción (RITE art. 15, no alcanza el umbral mínimo de aplicación)",
       "condicion": {
         "<": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           5
         ]
       },
@@ -56,8 +59,22 @@
       "descripcion": "Instalación de ACS con potencia entre 5 kW y 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [ { "var": "potencia_kw" }, 5 ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -126,7 +143,9 @@
       "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -219,7 +238,9 @@
       "descripcion": "Plan de Prevención y Control de Legionella (PPCL/PSL) para ACS de uso colectivo (RD 487/2022 art. 3.1 + RD 614/2024)",
       "condicion": {
         "==": [
-          { "var": "uso_colectivo" },
+          {
+            "var": "uso_colectivo"
+          },
           true
         ]
       },

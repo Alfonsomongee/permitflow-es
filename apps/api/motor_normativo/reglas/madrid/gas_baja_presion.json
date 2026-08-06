@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
+  "revisado_por": null,
   "aviso": "Reglas con y sin proyecto mutuamente excluyentes, usando potencia y presión resultantes. La comunicación de puesta en servicio se realiza mediante el trámite oficial de instalaciones receptoras de gas.",
   "huecos_verificacion": [
     "La ficha oficial no permite automatizar el importe exacto de la tasa sin datos económicos del expediente.",

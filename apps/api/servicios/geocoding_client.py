@@ -30,8 +30,10 @@ async def resolver_comunidad_autonoma(municipio: str, provincia: str) -> str:
             response.raise_for_status()
             data = response.json()
         except httpx.HTTPError as e:
-            raise ValueError(f"Error de red al contactar Geocoding: {e}")
-        
+            # No incluir str(e): httpx.HTTPStatusError embebe la URL completa de la
+            # petición, incluida la query string con GOOGLE_MAPS_API_KEY en texto plano.
+            raise ValueError("Error de red al contactar el servicio de geocodificación") from e
+
     if data.get("status") == "OK" and data.get("results"):
         result = data["results"][0]
         for component in result.get("address_components", []):
@@ -63,7 +65,9 @@ async def resolver_ubicacion(municipio: str, provincia: str) -> dict:
             response.raise_for_status()
             data = response.json()
         except httpx.HTTPError as e:
-            raise ValueError(f"Error de red al contactar Geocoding: {e}")
+            # No incluir str(e): httpx.HTTPStatusError embebe la URL completa de la
+            # petición, incluida la query string con GOOGLE_MAPS_API_KEY en texto plano.
+            raise ValueError("Error de red al contactar el servicio de geocodificación") from e
 
     if data.get("status") != "OK" or not data.get("results"):
         raise ValueError(f"No se pudo resolver la ubicación para {municipio}, {provincia}")

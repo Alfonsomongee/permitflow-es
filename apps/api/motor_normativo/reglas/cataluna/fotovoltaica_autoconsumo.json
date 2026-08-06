@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "en_revision",
   "estado": "borrador_verificado_parcialmente",
+  "revisado_por": null,
   "aviso": "Reglas aditivas por fase. Se distinguen seguridad industrial BT, acceso y conexión, trámite 21526, RIPRE y autorizaciones de producción. La ruta AT y la autorización de explotación se derivan a revisión manual salvo condición técnica verificada.",
   "huecos_verificacion": [
     "Confirmar tasas vigentes por procedimiento.",

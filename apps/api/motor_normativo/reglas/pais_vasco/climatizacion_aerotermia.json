@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-27",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe; se usa 'potencia_kw' como único eje de partición, ya presente correctamente en el fichero original). Se eliminó 'Decreto 47/2009' como base legal: no se ha localizado. La ficha oficial de Euskadi.eus para instalaciones térmicas cita como normativa reguladora el Decreto 81/2020, de 30 de junio, de seguridad industrial, aplicando el RITE nacional directamente, con el umbral de 70 kW confirmado textualmente ('Instalación que no requiere proyecto (P≤70kW)'). Se sustituyó el umbral inventado de 12 kW por el de 70 kW en consecuencia.",
   "huecos_verificacion": [
     "Tasas y plazos legales no verificados con detalle",
@@ -22,7 +23,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -92,7 +95,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

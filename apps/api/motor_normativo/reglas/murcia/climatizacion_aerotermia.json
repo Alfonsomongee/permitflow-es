@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 56/2008' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia, usado por la propia sede electrónica de la CARM como base del 'Registro de instalaciones térmicas en los edificios') más el RITE nacional. Revisión 2026-07-28: se sustituyó el enlace genérico https://sede.carm.es por la ficha específica del código 61 (IDCONTENIDO=61), se añadió formulario_ref '61' y se incorporó un tramo explícito para potencia <5 kW, hasta ahora no diferenciado pese a que la propia ficha oficial CARM distingue documentalmente 5-70 kW de >70 kW.",
   "huecos_verificacion": [
     "Tasas exactas no verificadas",
@@ -22,7 +23,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia < 5 kW: régimen aplicable NO VERIFICADO. La ficha oficial CARM del código 61 diferencia documentalmente los tramos '5-70 kW' y '>70 kW' sin detallar el tratamiento por debajo de 5 kW; se mantiene el mismo trámite que el tramo 5-70 kW hasta confirmar si aplica una exención o simplificación específica",
       "condicion": {
         "<": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           5
         ]
       },
@@ -92,8 +95,22 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia entre 5 y 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [ { "var": "potencia_kw" }, 5 ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -162,7 +179,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

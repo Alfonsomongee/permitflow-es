@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se bifurca el trámite de puesta en servicio según el estado de la instalación receptora, igual que en fotovoltaica: SICAC 3158 solo para instalaciones receptoras NUEVAS; SICAC 6782 para instalaciones receptoras YA EXISTENTES (caso mayoritario: IRVE en garaje o vivienda ya legalizada), controlado por el campo de entrada 'instalacion_origen_modificada'; (2) se separa el certificado de instalación (lo emite la empresa instaladora en baja tensión) de la inspección inicial OCA/EICI (solo cuando sea preceptiva), que antes se atribuían conjuntamente a la OCA; (3) se corrige el organismo tramitador a Dirección General de Energía — Servicio de Instalaciones Energéticas; (4) se sustituye la plataforma_url genérica de la sede por 3158/6782 según el caso, con la misma bifurcación que fotovoltaica.",
   "huecos_verificacion": [
     "No se ha localizado una norma autonómica canaria específica para IRVE distinta del Decreto 141/2009 general de instalaciones eléctricas; se asume que aplica ese decreto más el régimen nacional ITC-BT-52",
@@ -27,20 +28,68 @@
       "descripcion": "IRVE que NO requiere proyecto técnico visado en instalación receptora NUEVA: interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
-          { "!=": [ { "var": "modo_recarga" }, "4" ] },
-          { "!=": [ { "var": "instalacion_origen_modificada" }, true ] },
+          {
+            "!=": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "instalacion_origen_modificada"
+              },
+              true
+            ]
+          },
           {
             "or": [
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
                 ]
               },
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
                 ]
               }
             ]
@@ -136,20 +185,68 @@
       "descripcion": "IRVE que NO requiere proyecto técnico visado en instalación receptora YA EXISTENTE (caso mayoritario: garaje o vivienda ya legalizada): interior con potencia ≤ 50 kW, o exterior con potencia ≤ 10 kW, y modo de recarga distinto de 4",
       "condicion": {
         "and": [
-          { "!=": [ { "var": "modo_recarga" }, "4" ] },
-          { "==": [ { "var": "instalacion_origen_modificada" }, true ] },
+          {
+            "!=": [
+              {
+                "var": "modo_recarga"
+              },
+              "4"
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "instalacion_origen_modificada"
+              },
+              true
+            ]
+          },
           {
             "or": [
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 50 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
                 ]
               },
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { "<=": [ { "var": "potencia_kw" }, 10 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
                 ]
               }
             ]
@@ -245,20 +342,68 @@
       "descripcion": "IRVE que SÍ requiere proyecto técnico visado en instalación receptora NUEVA: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "and": [
-          { "!=": [ { "var": "instalacion_origen_modificada" }, true ] },
+          {
+            "!=": [
+              {
+                "var": "instalacion_origen_modificada"
+              },
+              true
+            ]
+          },
           {
             "or": [
-              { "==": [ { "var": "modo_recarga" }, "4" ] },
               {
-                "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { ">": [ { "var": "potencia_kw" }, 50 ] }
+                "==": [
+                  {
+                    "var": "modo_recarga"
+                  },
+                  "4"
                 ]
               },
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { ">": [ { "var": "potencia_kw" }, 10 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
                 ]
               }
             ]
@@ -360,20 +505,68 @@
       "descripcion": "IRVE que SÍ requiere proyecto técnico visado en instalación receptora YA EXISTENTE: interior >50 kW, exterior >10 kW, o modo de recarga 4",
       "condicion": {
         "and": [
-          { "==": [ { "var": "instalacion_origen_modificada" }, true ] },
+          {
+            "==": [
+              {
+                "var": "instalacion_origen_modificada"
+              },
+              true
+            ]
+          },
           {
             "or": [
-              { "==": [ { "var": "modo_recarga" }, "4" ] },
               {
-                "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["interior", "garaje_comunitario"] ] },
-                  { ">": [ { "var": "potencia_kw" }, 50 ] }
+                "==": [
+                  {
+                    "var": "modo_recarga"
+                  },
+                  "4"
                 ]
               },
               {
                 "and": [
-                  { "in": [ { "var": "ubicacion_irve" }, ["exterior", "via_publica"] ] },
-                  { ">": [ { "var": "potencia_kw" }, 10 ] }
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "interior",
+                        "garaje_comunitario"
+                      ]
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      50
+                    ]
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "ubicacion_irve"
+                      },
+                      [
+                        "exterior",
+                        "via_publica"
+                      ]
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      10
+                    ]
+                  }
                 ]
               }
             ]

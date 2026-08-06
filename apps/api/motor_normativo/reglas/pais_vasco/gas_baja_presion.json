@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'potencia_total_kw' (no existe; el campo real es 'potencia_kw'). Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminó 'Decreto 213/2012' como base legal: es un decreto real del País Vasco, pero su objeto es la contaminación acústica de la CAPV — no tiene ninguna relación con instalaciones de gas. Sustituido por el RIGLO nacional (RD 919/2006) directo, más el Decreto 229/2012 (simplificación del procedimiento para la puesta en servicio de instalaciones industriales), confirmado real como norma general de puesta en servicio industrial en el País Vasco. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar. Revisión 2026-07-28: 'plataforma_url' (https://www.euskadi.eus/industria-energia-minas/) devolvía página vacía/rota; corregida a la ficha específica 'Instalación receptora de gas'. Se añadió el trámite de acometida/alta de suministro con la distribuidora de gas.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica vasca específica de gas más allá del marco general de simplificación industrial (Decreto 229/2012)",

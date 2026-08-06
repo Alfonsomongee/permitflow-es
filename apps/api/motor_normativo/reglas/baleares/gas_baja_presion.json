@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. No se han localizado en fuente oficial ni 'Decreto 36/2006, de 28 de abril' ni 'Orden de 10 de julio de 2007' de la CAIB (a diferencia de otros decretos de este mismo lote, no he confirmado que estén mal atribuidos, pero tampoco he podido verificarlos: se marcan NO VERIFICADO en vez de darlos por buenos, dado el patrón de fabricación normativa detectado en el resto de ficheros de esta comunidad). Se corrigió el bug de partición base sobre el campo 'uso' (patrón #3): la regla 1 exigía uso=='domestico' y la regla 2 exigía potencia>70 O uso!='domestico', dejando mal clasificada cualquier instalación doméstica pequeña sin el campo 'uso' informado. REVISIÓN 2026-07-28 (auditoría normativa): confirmado que 'Decreto 36/2006' y 'Orden de 10 de julio de 2007' NO existen en fuente oficial (probable confusión con el Decreto 36/2003, que además regula instalaciones eléctricas, no gas); ambas citas se han retirado y sustituido por el Decreto 25/2003 (UDIT), norma balear real que ampara los trámites de gas. Identificado el trámite real como UDIT-013 'Instalaciones receptoras de gas'. CORREGIDO EL FALLO CRÍTICO: BAL-GAS-001 (caso más frecuente, instalación doméstica sin proyecto) dirigía el registro/comunicación a la CAIB; la ficha oficial de UDIT establece que las instalaciones SIN proyecto técnico se tramitan directamente con la empresa suministradora, no ante la Administración. Corregido el organismo del paso 3 de BAL-GAS-001 a la empresa suministradora.",
   "huecos_verificacion": [
     "RESUELTO 2026-07-28: 'Decreto 36/2006' y 'Orden de 10 de julio de 2007' de la CAIB NO se han podido localizar en fuente oficial; se retiran como base legal y se sustituyen por el Decreto 25/2003 (UDIT)",
@@ -24,7 +25,12 @@
       "id": "BAL-GAS-001",
       "descripcion": "Instalación de gas baja presión con potencia ≤ 70 kW",
       "condicion": {
-        "<=": [ { "var": "potencia_kw" }, 70 ]
+        "<=": [
+          {
+            "var": "potencia_kw"
+          },
+          70
+        ]
       },
       "tramites": [
         {
@@ -108,7 +114,12 @@
       "id": "BAL-GAS-002",
       "descripcion": "Instalación de gas baja presión con potencia > 70 kW",
       "condicion": {
-        ">": [ { "var": "potencia_kw" }, 70 ]
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          70
+        ]
       },
       "tramites": [
         {

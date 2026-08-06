@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "HUECO CRÍTICO recurrente: no se ha incluido regla de Legionella (PPCL/PSL, RD 487/2022 + RD 614/2024) para ACS de uso colectivo — mismo hueco detectado en todas las comunidades auditadas hasta ahora; sigue NO VERIFICABLE con las fuentes admisibles disponibles. CORREGIDO 2026-07-28 (auditoría normativa): la afirmación anterior de que no existía norma foral propia era inexacta. La Orden Foral 60/2015 deroga expresamente (Disp. Derogatoria, punto 16) la Orden Foral 424/2009, de desarrollo foral del RITE en Navarra, y regula el procedimiento general de tramitación/registro de instalaciones térmicas. La Orden Foral 64/2022 (Disposición Adicional Única) exige literalmente inspección inicial por Organismo de Control (OCA) para instalaciones con potencia térmica nominal >70 kW, lo que aplica también a ACS y confirma como base foral directa el umbral de 70 kW ya usado en este fichero.",
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024) — NO VERIFICABLE, sin tocar en esta revisión",
@@ -25,7 +26,9 @@
       "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "<=": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },
@@ -95,7 +98,9 @@
       "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido tras auditoría normativa del 2026-07-27/28 (ver auditoria_canarias.md). Cambios de esta revisión: (1) se añade el umbral inferior de 5 kW: la ficha oficial SICAC 3409 solo exige Memoria Técnica cuando la potencia térmica nominal es mayor o igual que 5 kW y menor o igual que 70 kW; por debajo de 5 kW no se exige documentación técnica ni comunicación; (2) se añade el contrato de mantenimiento con empresa mantenedora habilitada, exigido por la ficha para potencia >70 kW; (3) se corrige el organismo tramitador a Servicio de Eficiencia Energética y Nuevas Energías; (4) se corrige el aviso anterior, que afirmaba erróneamente que la ficha 3409 solo cita normativa nacional: cita también el Decreto 154/2001 (procedimiento de puesta en funcionamiento de industrias) y el Decreto 54/2021 (estructura orgánica); (5) se referencian los modelos oficiales Mod. IT_INS (comunicación previa) y Mod. IT_CI (certificado de instalación); (6) se añade la declaración responsable RSIF (RD 552/2019) para instalaciones de aerotermia con refrigerante fluorado, citada por la propia ficha 3409.",
   "huecos_verificacion": [
     "RESUELTO: Decreto 154/2001, de 23 de julio, y Decreto 54/2021, de 27 de mayo, SÍ son normativa autonómica citada por la ficha 3409 (el aviso anterior lo negaba erróneamente)",
@@ -29,7 +30,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia < 5 kW: sin documentación técnica ni comunicación exigida por la ficha 3409",
       "condicion": {
         "<": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           5
         ]
       },
@@ -64,8 +67,22 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia entre 5 kW y 70 kW, ambos inclusive (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [ { "var": "potencia_kw" }, 5 ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -140,7 +157,9 @@
       "descripcion": "Instalación de climatización con aerotermia de potencia > 70 kW (requiere proyecto técnico y contrato de mantenimiento)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

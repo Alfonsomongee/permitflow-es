@@ -5,6 +5,7 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
+  "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. La variable 'potencia_termica_kw' no existe en el schema: ninguna regla disparaba. Sustituida por 'potencia_kw'. Se eliminó 'Decreto 117/2003' como Reglamento de Instalaciones Térmicas: no se ha localizado esta norma, y el mismo número '117' se usaba también (con año distinto) en el fichero de ACS de este mismo lote para la misma materia — patrón de colisión. La ficha oficial de la JCyL para instalaciones térmicas cita Ley 6/2014 de Industria + RITE nacional + Orden EYE/912/2012, que aprueba la aplicación informática real llamada 'RITE' (código de procedimiento IAPA1468) — no un decreto propio de puesta en servicio. REVISIÓN 2026-07-28 (auditoría normativa): corregido el nombre del organismo ('Comercio y Turismo' -> 'Comercio y Economía', no existe combinación con 'Turismo' en la estructura territorial de Industria de la JCyL); añadida la regla CYL-AT-000 de exención de trámite para potencia < 5 kW (RITE art. 15) y acotado CYL-AT-001 al tramo 5-70 kW; sustituidas las plataforma_url genéricas por la ficha específica del trámite de instalaciones térmicas.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica de Castilla y León específica de climatización; se aplica el RITE nacional directamente vía la aplicación 'RITE' (IAPA1468)",
@@ -27,7 +28,9 @@
       "descripcion": "Instalación térmica de aerotermia con potencia < 5 kW: exenta de documentación e inscripción (RITE art. 15, no alcanza el umbral mínimo de aplicación)",
       "condicion": {
         "<": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           5
         ]
       },
@@ -55,8 +58,22 @@
       "descripcion": "Instalación térmica de aerotermia con potencia entre 5 kW y 70 kW (memoria técnica, sin proyecto)",
       "condicion": {
         "and": [
-          { ">=": [ { "var": "potencia_kw" }, 5 ] },
-          { "<=": [ { "var": "potencia_kw" }, 70 ] }
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [
@@ -125,7 +142,9 @@
       "descripcion": "Instalación térmica de aerotermia con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         ">": [
-          { "var": "potencia_kw" },
+          {
+            "var": "potencia_kw"
+          },
           70
         ]
       },

@@ -5,10 +5,11 @@
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
+  "revisado_por": null,
   "aviso": "Proyecto o MTD según ITC-BT-04/52 y criterio más restrictivo del aparcamiento. La puesta en servicio se tramita mediante declaración responsable BT y RITSIC.",
   "huecos_verificacion": [
     "Confirmar directamente en la ITA 12 oficial los supuestos catalanes adicionales de inspección inicial por organismo de control.",
-    "La implantación en vía pública de Barcelona requiere título municipal específico y revisión manual.",
+    "RESUELTO 2026-08-06 (parcialmente): la advertencia de implantacion en via publica de Barcelona (CAT-IRVE-VIA-PUBLICA-BARCELONA) referenciaba un campo 'municipio' inexistente en el schema y nunca podia dispararse; se ha desactivado explicitamente. Sigue pendiente anadir soporte de municipio al clasificador para que la advertencia llegue realmente al usuario.",
     "RESUELTO 2026-07-28: la exención de proyecto en garaje_comunitario ahora exige además garaje_existente=true y uso_edificio=residencial (RD 1053/2014, ITC-BT-04 3.1: la exención del párrafo final solo cubre los grupos g) y h) EXISTENTES en edificios de vivienda). Antes solo se comprobaba uso_edificio, dejando sin proyecto garajes nuevos en edificios residenciales que sí lo requieren."
   ],
   "fuentes": [
@@ -476,34 +477,7 @@
     {
       "id": "CAT-IRVE-VIA-PUBLICA-BARCELONA",
       "descripcion": "Advertencia municipal acumulable",
-      "condicion": {
-        "and": [
-          {
-            "==": [
-              {
-                "var": "tipo_instalacion"
-              },
-              "irve"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "municipio"
-              },
-              "barcelona"
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "ubicacion_irve"
-              },
-              "via_publica"
-            ]
-          }
-        ]
-      },
+      "condicion": false,
       "tramites": [
         {
           "orden": 1,
@@ -520,9 +494,10 @@
           "regla_id": "CAT-IRVE-VIA-PUBLICA-BARCELONA",
           "tipo_actuacion": "revision_manual",
           "documentos_requeridos": [],
-          "notas": "La legalización eléctrica autonómica no otorga derechos de ocupación del dominio público."
+          "notas": "La legalización eléctrica autonómica no otorga derechos de ocupación del dominio público. [DESACTIVADA 2026-08-06: la condicion original referenciaba 'municipio', campo inexistente en ClasificadorInput, por lo que la regla nunca podia dispararse. Se ha fijado explicitamente a `false` para documentar la intencion. Para reactivarla hace falta anadir 'municipio' (o una lista de municipios con ordenanza propia) al schema de entrada del clasificador — pendiente de decision de producto.]"
         }
-      ]
+      ],
+      "nivel_verificacion_regla": "generica"
     }
   ]
 }
