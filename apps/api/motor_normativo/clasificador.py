@@ -253,6 +253,16 @@ class Clasificador:
                 t.paralelo_con = mapa_orden.get((regla_id, paralelo_orig))
 
         advertencias = ["El tiempo total es orientativo y asume trámites en serie."]
+        if matched_any and not tramites_output:
+            # Distingue explícitamente "regla encontrada, instalación exenta"
+            # (ej. ARA-ACS-000/ARA-CLIM-000: potencia_kw < 5 sin trámites) de un
+            # plan vacío por error: si no se avisa, un plan sin trámites es
+            # indistinguible en la UI de una respuesta rota.
+            advertencias.append(
+                "No se ha encontrado ningún trámite aplicable para esta combinación de "
+                "parámetros: la normativa consultada indica que esta instalación está "
+                "exenta o no requiere trámite específico en esta comunidad."
+            )
         if reglas_con_error:
             advertencias.append(
                 f"{len(reglas_con_error)} regla(s) del motor normativo no se pudieron evaluar "

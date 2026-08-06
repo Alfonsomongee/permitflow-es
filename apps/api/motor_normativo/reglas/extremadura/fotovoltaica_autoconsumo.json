@@ -13,17 +13,61 @@
     "RESUELTO 2026-07-28: se confirmó que Extremadura sí elevó el umbral de exención de autorización de 100 kW a 500 kW mediante Instrucción 03/2023 (DOE 27/07/2023); se corrigieron las reglas EXT-FV-002/EXT-FV-003 y se añadió el trámite de acceso y conexión (CAU) ante la distribuidora en EXT-FV-002 y EXT-FV-003."
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "REBT RD 842/2002 ITC-BT-40",
-    "Orden de 31 de julio de 2008 (tramitación telemática del registro de instalaciones eléctricas de baja tensión en Extremadura)",
-    "Resolución de 24 de marzo de 2004, de la Dirección General de Ordenación Industrial, Energía y Minas (instrucciones técnicas para la puesta en servicio de instalaciones eléctricas de baja tensión)",
-    "Decreto 179/2016, de 8 de noviembre (Registro de instalaciones de producción de energía eléctrica de Extremadura)",
-    "Resolución de 22 de julio de 2022, de la Dirección General de Industria, Energía y Minas (procedimientos de comunicación de inscripción al registro de autoconsumo, BT ≤100 kW) — confirma el umbral de 100 kW específicamente para Extremadura",
-    "Instrucción 03/2023, de la Dirección General de Industria, Energía y Minas, sobre tramitación de instalaciones de autoconsumo en Extremadura (DOE 27/07/2023) — eleva a 500 kW el umbral de exención de autorización administrativa previa y de construcción (facultad potestativa del RD-ley 18/2022)",
-    "Resolución de 20 de junio de 2022, de la Dirección General de Industria, Energía y Minas (autorización de explotación, acta de puesta en servicio, sector eléctrico y gases canalizados)",
-    "Aplicación tbtEX (tramitación telemática de baja tensión de Extremadura) - industriaextremadura.juntaex.es"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 31 de julio de 2008 (tramitación telemática del registro de instalaciones eléctricas de baja tensión en Extremadura)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 24 de marzo de 2004, de la Dirección General de Ordenación Industrial, Energía y Minas (instrucciones técnicas para la puesta en servicio de instalaciones eléctricas de baja tensión)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 179/2016, de 8 de noviembre (Registro de instalaciones de producción de energía eléctrica de Extremadura)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 22 de julio de 2022, de la Dirección General de Industria, Energía y Minas (procedimientos de comunicación de inscripción al registro de autoconsumo, BT ≤100 kW) — confirma el umbral de 100 kW específicamente para Extremadura",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Instrucción 03/2023, de la Dirección General de Industria, Energía y Minas, sobre tramitación de instalaciones de autoconsumo en Extremadura (DOE 27/07/2023) — eleva a 500 kW el umbral de exención de autorización administrativa previa y de construcción (facultad potestativa del RD-ley 18/2022)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 20 de junio de 2022, de la Dirección General de Industria, Energía y Minas (autorización de explotación, acta de puesta en servicio, sector eléctrico y gases canalizados)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Aplicación tbtEX (tramitación telemática de baja tensión de Extremadura) - industriaextremadura.juntaex.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

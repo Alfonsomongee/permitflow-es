@@ -16,11 +16,31 @@
     "PENDIENTE (BAJO, no aplicado): 'direccion_obra' sigue marcado obligatorio:false en AST-IRVE-002-A/B; la ficha lo exige junto con el proyecto técnico."
   ],
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT",
-    "RD 559/2010 Reglamento del Registro Integrado Industrial",
-    "ITC-BT-04 apartado 3.1 y 3.3",
-    "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos"
+    {
+      "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 559/2010 Reglamento del Registro Integrado Industrial",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "ITC-BT-04 apartado 3.1 y 3.3",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

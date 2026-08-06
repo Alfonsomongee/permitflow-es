@@ -16,11 +16,31 @@
     "No se ha verificado si el País Vasco ha elevado el umbral de exención de autorización de 100 kW a 500 kW — NO VERIFICABLE en esta revisión."
   ],
   "fuentes": [
-    "Ley 24/2013 art. 53",
-    "RD 244/2019",
-    "Decreto 48/2020, de 31 de marzo, del Gobierno Vasco (procedimientos de autorización administrativa de instalaciones de producción, transporte y distribución de energía eléctrica) — CONFIRMADO real",
-    "Decreto Legislativo 1/2025, actualizado por Ley 7/2025 de Presupuestos, Título VI Cap. I art. 129-132 — no verificado en esta revisión",
-    "Ficha de trámite [GE] 'Tramitación de instalaciones de generación de energía eléctrica, incluido autoconsumo' - euskadi.eus - https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/"
+    {
+      "norma": "Ley 24/2013 art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 244/2019",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 48/2020, de 31 de marzo, del Gobierno Vasco (procedimientos de autorización administrativa de instalaciones de producción, transporte y distribución de energía eléctrica) — CONFIRMADO real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto Legislativo 1/2025, actualizado por Ley 7/2025 de Presupuestos, Título VI Cap. I art. 129-132 — no verificado en esta revisión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite [GE] 'Tramitación de instalaciones de generación de energía eléctrica, incluido autoconsumo' - euskadi.eus - https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

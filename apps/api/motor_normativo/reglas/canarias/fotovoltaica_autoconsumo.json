@@ -21,19 +21,71 @@
     "Distinción sin_excedentes/con_excedentes/con_excedentes_con_compensacion se modela vía 'modalidad_autoconsumo' del schema; el trámite de contrato/compensación de excedentes añadido en esta revisión solo aplica cuando hay excedentes con compensación."
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "REBT RD 842/2002 ITC-BT-40",
-    "Decreto 141/2009, de 10 de noviembre, por el que se aprueba el Reglamento por el que se regulan los procedimientos administrativos relativos a la ejecución y puesta en servicio de las instalaciones eléctricas en Canarias (Anexo VII, tabla 2.1: documentación exigible por tipo de instalación)",
-    "Decreto 133/2011, de 17 de mayo, sobre dimensionamiento de acometidas y extensiones de red (normativa autonómica citada en la ficha 3158)",
-    "Orden de 5 de febrero de 2014, sobre tramitación electrónica de los procedimientos de puesta en servicio de instalaciones industriales (normativa autonómica citada en la ficha 3158)",
-    "Ley 5/2021, de 21 de diciembre, de medidas urgentes de impulso de los sectores primario, energético, turístico y territorial de Canarias (citada como normativa autonómica vigente en la ficha 6782)",
-    "Ley 4/2017, de 13 de julio, del Suelo y de los Espacios Naturales Protegidos de Canarias (Calificación Territorial del Cabildo insular para suelo rústico)",
-    "Orden TED/624/2026, de 12 de junio (BOE-A-2026-13574): redefinición de los Sistemas Eléctricos Aislados canarios (SEIE), 5 sistemas desde el 1/7/2026",
-    "Ficha de trámite SICAC 3158 'Comunicación previa a la puesta en servicio de instalaciones eléctricas de baja tensión' (instalación receptora NUEVA) - sede.gobiernodecanarias.org",
-    "Ficha de trámite SICAC 6782 'Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión' (instalación receptora YA EXISTENTE) - sede.gobiernodecanarias.org",
-    "Ficha de trámite SICAC 2721 'Autorización administrativa de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables, cogeneración y residuos' - sede.gobiernodecanarias.org"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 141/2009, de 10 de noviembre, por el que se aprueba el Reglamento por el que se regulan los procedimientos administrativos relativos a la ejecución y puesta en servicio de las instalaciones eléctricas en Canarias (Anexo VII, tabla 2.1: documentación exigible por tipo de instalación)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 133/2011, de 17 de mayo, sobre dimensionamiento de acometidas y extensiones de red (normativa autonómica citada en la ficha 3158)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 5 de febrero de 2014, sobre tramitación electrónica de los procedimientos de puesta en servicio de instalaciones industriales (normativa autonómica citada en la ficha 3158)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 5/2021, de 21 de diciembre, de medidas urgentes de impulso de los sectores primario, energético, turístico y territorial de Canarias (citada como normativa autonómica vigente en la ficha 6782)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 4/2017, de 13 de julio, del Suelo y de los Espacios Naturales Protegidos de Canarias (Calificación Territorial del Cabildo insular para suelo rústico)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden TED/624/2026, de 12 de junio (BOE-A-2026-13574): redefinición de los Sistemas Eléctricos Aislados canarios (SEIE), 5 sistemas desde el 1/7/2026",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite SICAC 3158 'Comunicación previa a la puesta en servicio de instalaciones eléctricas de baja tensión' (instalación receptora NUEVA) - sede.gobiernodecanarias.org",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite SICAC 6782 'Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión' (instalación receptora YA EXISTENTE) - sede.gobiernodecanarias.org",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite SICAC 2721 'Autorización administrativa de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables, cogeneración y residuos' - sede.gobiernodecanarias.org",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

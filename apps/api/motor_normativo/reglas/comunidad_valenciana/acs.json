@@ -16,12 +16,36 @@
     "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "Decreto 173/2000, de 5 de diciembre, del Gobierno Valenciano (condiciones higiénico-sanitarias para prevención de legionelosis) — confirmado real",
-    "Decreto 201/2002, de 10 de diciembre (brotes comunitarios de legionelosis, Comunitat Valenciana) — confirmado real",
-    "Decreto 141/2012, de 28 de septiembre (simplificación de la puesta en funcionamiento de instalaciones industriales) — confirmado real",
-    "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — confirmado real",
-    "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y 450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 173/2000, de 5 de diciembre, del Gobierno Valenciano (condiciones higiénico-sanitarias para prevención de legionelosis) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 201/2002, de 10 de diciembre (brotes comunitarios de legionelosis, Comunitat Valenciana) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 141/2012, de 28 de septiembre (simplificación de la puesta en funcionamiento de instalaciones industriales) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y 450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

@@ -15,10 +15,26 @@
     "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente",
-    "Orden Foral 60/2015, de 5 de marzo (BON n.º 54, de 20 de marzo de 2015) — Gobierno de Navarra, procedimiento de tramitación administrativa; deroga la Orden Foral 425/2009 (desarrollo RIGLO en Navarra)",
-    "Orden Foral 64/2022, de 21 de octubre (BON n.º 226, de 15 de noviembre de 2022) — Disposición Adicional Única: umbral de 70 kW e inspección inicial obligatoria por Organismo de Control (OCA) en instalaciones térmicas"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden Foral 60/2015, de 5 de marzo (BON n.º 54, de 20 de marzo de 2015) — Gobierno de Navarra, procedimiento de tramitación administrativa; deroga la Orden Foral 425/2009 (desarrollo RIGLO en Navarra)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden Foral 64/2022, de 21 de octubre (BON n.º 226, de 15 de noviembre de 2022) — Disposición Adicional Única: umbral de 70 kW e inspección inicial obligatoria por Organismo de Control (OCA) en instalaciones térmicas",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

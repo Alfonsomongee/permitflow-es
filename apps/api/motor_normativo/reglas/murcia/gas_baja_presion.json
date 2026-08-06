@@ -15,9 +15,21 @@
     "RESUELTO 2026-07-28 (enlace roto): plataforma_url del trámite código 27 apuntaba a www.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240 (portal institucional CARM.es, IDTIPO=240 no es un tipo de contenido servido en ese subdominio; la página devuelve 'No hay contenidos en esta sección'). Corregido a sede.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240, confirmado por índice de búsqueda como la ficha real 'Inscripción en el registro de instalaciones receptoras de combustibles gaseosos que requieren presentación de proyecto' en la sede electrónica de la CARM."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real, base legal del 'Registro de instalaciones de gases combustibles' de la sede de la CARM",
-    "Ley 21/1992 de Industria"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real, base legal del 'Registro de instalaciones de gases combustibles' de la sede de la CARM",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 21/1992 de Industria",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

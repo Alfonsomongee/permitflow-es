@@ -16,13 +16,41 @@
     "NO VERIFICABLE: el código IN429A citado en 'fuentes' (pública concurrencia con OCA) no se ha podido confirmar como ficha real en sede.xunta.gal; único resultado real para '429A' es SI429A (Programa Emega, ayudas al emprendimiento femenino, sin relación con instalaciones eléctricas). No se toca hasta confirmación adicional."
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "REBT RD 842/2002 ITC-BT-40",
-    "Resolución de 22 de julio de 2014, de la Dirección General de Energía y Minas (tramitación electrónica de procedimientos) - Galicia",
-    "Resolución de 18 de febrero de 2020, de la Dirección General de Energía y Minas (procedimiento de comunicación de instalaciones de autoconsumo BT <100kW, códigos IN407B/IN407C) - DOG núm. 43, 04/03/2020",
-    "Trámites reales de la sede electrónica de la Xunta de Galicia: IN614A/IN614C (registro BT), IN407B/IN407C (autoconsumo <100kW), IN408A (autoconsumo con autorización), IN429A (pública concurrencia con OCA)"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 22 de julio de 2014, de la Dirección General de Energía y Minas (tramitación electrónica de procedimientos) - Galicia",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 18 de febrero de 2020, de la Dirección General de Energía y Minas (procedimiento de comunicación de instalaciones de autoconsumo BT <100kW, códigos IN407B/IN407C) - DOG núm. 43, 04/03/2020",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Trámites reales de la sede electrónica de la Xunta de Galicia: IN614A/IN614C (registro BT), IN407B/IN407C (autoconsumo <100kW), IN408A (autoconsumo con autorización), IN429A (pública concurrencia con OCA)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

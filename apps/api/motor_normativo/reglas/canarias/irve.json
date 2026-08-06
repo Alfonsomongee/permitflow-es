@@ -15,12 +15,36 @@
     "Verificar en el schema que 'modo_recarga' se compara siempre como cadena ('3'/'4'), no como entero, para que la condición dispare correctamente"
   ],
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT",
-    "Decreto 141/2009, de 10 de noviembre (Canarias) — Reglamento de ejecución y puesta en servicio de instalaciones eléctricas",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
-    "Ficha de trámite SICAC 3158 'Comunicación previa a la puesta en servicio de instalaciones eléctricas de baja tensión' (instalación receptora NUEVA) - sede.gobiernodecanarias.org",
-    "Ficha de trámite SICAC 6782 'Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión' (instalación receptora YA EXISTENTE) - sede.gobiernodecanarias.org"
+    {
+      "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 141/2009, de 10 de noviembre (Canarias) — Reglamento de ejecución y puesta en servicio de instalaciones eléctricas",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite SICAC 3158 'Comunicación previa a la puesta en servicio de instalaciones eléctricas de baja tensión' (instalación receptora NUEVA) - sede.gobiernodecanarias.org",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite SICAC 6782 'Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión' (instalación receptora YA EXISTENTE) - sede.gobiernodecanarias.org",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

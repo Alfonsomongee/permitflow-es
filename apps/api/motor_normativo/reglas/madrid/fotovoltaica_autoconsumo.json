@@ -13,12 +13,36 @@
     "Los importes de tasas no se automatizan salvo que la ficha oficial declare expresamente ausencia de tasa."
   ],
   "fuentes": [
-    "Ley 24/2013, art. 53",
-    "RD 244/2019",
-    "Instrucción de la Comunidad de Madrid de 24/11/2025 sobre puesta en servicio de autoconsumo",
-    "Decreto 86/2025",
-    "RD 413/2014",
-    "RD 842/2002, REBT"
+    {
+      "norma": "Ley 24/2013, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 244/2019",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Instrucción de la Comunidad de Madrid de 24/11/2025 sobre puesta en servicio de autoconsumo",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 86/2025",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 413/2014",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002, REBT",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "validaciones": [
     {

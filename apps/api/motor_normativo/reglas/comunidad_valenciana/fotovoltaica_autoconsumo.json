@@ -16,13 +16,41 @@
     "Ampliar el ámbito de CV-FV-002 a todo autoconsumo en BT >10 kW (sin tope de 100 kW) y separar por tensión de conexión, no por potencia: pendiente de un campo de tensión de conexión en el schema; no aplicado en esta revisión para no introducir otra condición sobre una variable inexistente."
   ],
   "fuentes": [
-    "Ley 24/2013 art. 53",
-    "RD 244/2019",
-    "Decreto 88/2005, de 29 de abril, del Consell (procedimientos de autorización de instalaciones de producción, transporte y distribución de energía eléctrica en la Comunitat Valenciana) — CONFIRMADO real",
-    "Decreto-ley 14/2020, de 7 de agosto — CONFIRMADO real, modifica el Decreto 88/2005",
-    "Ley 6/2024, de 5 de diciembre, de simplificación administrativa — CONFIRMADO real",
-    "Ley 20/2017 de tasas, Título XX",
-    "Resolución 24/02/2026 IVACE (DOGV nº 10315) — CONFIRMADA real pero es una convocatoria de AYUDAS/subvenciones en energías renovables y biocarburantes, no una norma de tramitación; fuera del alcance del motor de permisos"
+    {
+      "norma": "Ley 24/2013 art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 244/2019",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 88/2005, de 29 de abril, del Consell (procedimientos de autorización de instalaciones de producción, transporte y distribución de energía eléctrica en la Comunitat Valenciana) — CONFIRMADO real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto-ley 14/2020, de 7 de agosto — CONFIRMADO real, modifica el Decreto 88/2005",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 6/2024, de 5 de diciembre, de simplificación administrativa — CONFIRMADO real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 20/2017 de tasas, Título XX",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución 24/02/2026 IVACE (DOGV nº 10315) — CONFIRMADA real pero es una convocatoria de AYUDAS/subvenciones en energías renovables y biocarburantes, no una norma de tramitación; fuera del alcance del motor de permisos",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

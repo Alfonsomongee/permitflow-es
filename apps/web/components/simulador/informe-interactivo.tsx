@@ -5,6 +5,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Info, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { LegalDisclaimer } from '@/components/legal/LegalDisclaimer';
 import type { InformeSimulacionIA } from '@/types/simulador';
 
 interface InformeInteractivoProps {
@@ -109,6 +110,17 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
                     <div className="flex items-center gap-2">
                       <Info className="h-4 w-4 text-muted-foreground" />
                       <span>{sup.parametro}: <strong>{sup.valor_asumido}</strong></span>
+                      {sup.fuente_dato && (
+                        <span
+                          className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium ${
+                            sup.fuente_dato === 'leido'
+                              ? 'border-green-300 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950/30 dark:text-green-400'
+                              : 'border-yellow-300 bg-yellow-50 text-yellow-700 dark:border-yellow-800 dark:bg-yellow-950/30 dark:text-yellow-400'
+                          }`}
+                        >
+                          {sup.fuente_dato === 'leido' ? 'Leído de tu factura' : 'Estimado'}
+                        </span>
+                      )}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
@@ -120,6 +132,11 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
           </CardContent>
         </Card>
       </div>
+
+      {/* Disclaimer legal incondicional (D-03 auditoría): antes solo aparecía
+          si había un incentivo pendiente de verificación, dejando el informe
+          financiero sin ningún aviso legal en el caso contrario. */}
+      <LegalDisclaimer />
     </div>
   );
 }

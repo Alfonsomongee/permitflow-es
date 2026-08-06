@@ -12,10 +12,26 @@
     "No se ha confirmado si el País Vasco exige ECA específicamente para instalaciones >70 kW más allá de lo que exige el RITE nacional para inspección inicial"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real",
-    "Ficha oficial 'Instalaciones térmicas' - euskadi.eus, confirma umbral de 70 kW y base legal directa en RD 1027/2007"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha oficial 'Instalaciones térmicas' - euskadi.eus, confirma umbral de 70 kW y base legal directa en RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

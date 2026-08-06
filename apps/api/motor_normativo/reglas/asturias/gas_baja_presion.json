@@ -17,10 +17,26 @@
     "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
-    "Ley 34/1998, de 7 de octubre, del sector de hidrocarburos",
-    "Ficha de procedimiento DECO0011T01 'Comunicación de instalaciones receptoras de gases combustibles (ICG 07)' - sede de Asturias",
-    "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos del Principado de Asturias"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 34/1998, de 7 de octubre, del sector de hidrocarburos",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de procedimiento DECO0011T01 'Comunicación de instalaciones receptoras de gases combustibles (ICG 07)' - sede de Asturias",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos del Principado de Asturias",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

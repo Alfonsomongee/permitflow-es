@@ -15,13 +15,41 @@
     "La regla de Legionella añadida se activa con el campo 'incluida_ambito_rd_487_2022'; si este dato no se recoge en el formulario de entrada, la regla no disparará aunque la instalación esté en el ámbito de aplicación — revisar que el flujo de captura de datos de ACS colectiva/terciaria solicite este campo"
   ],
   "fuentes": [
-    "RITE RD 1027/2007 (art. 15: umbral de proyecto >70 kW)",
-    "RD 314/2006 Código Técnico de la Edificación DB HE4",
-    "RD 487/2022, de 21 de junio, por el que se establecen los requisitos sanitarios para la prevención y el control de la legionelosis",
-    "RD 614/2024 (modificación de desarrollo del RD 487/2022)",
-    "Decreto 154/2001, de 23 de julio, sobre el procedimiento para la puesta en funcionamiento de industrias e instalaciones industriales (normativa autonómica citada en la ficha 3409)",
-    "Decreto 54/2021, de 27 de mayo, Reglamento Orgánico de la Consejería de Transición Ecológica (normativa autonómica citada en la ficha 3409)",
-    "Ficha de trámite SICAC 3409 'Puesta en funcionamiento de instalaciones térmicas en edificios' - sede.gobiernodecanarias.org"
+    {
+      "norma": "RITE RD 1027/2007 (art. 15: umbral de proyecto >70 kW)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 314/2006 Código Técnico de la Edificación DB HE4",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 487/2022, de 21 de junio, por el que se establecen los requisitos sanitarios para la prevención y el control de la legionelosis",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 614/2024 (modificación de desarrollo del RD 487/2022)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 154/2001, de 23 de julio, sobre el procedimiento para la puesta en funcionamiento de industrias e instalaciones industriales (normativa autonómica citada en la ficha 3409)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 54/2021, de 27 de mayo, Reglamento Orgánico de la Consejería de Transición Ecológica (normativa autonómica citada en la ficha 3409)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite SICAC 3409 'Puesta en funcionamiento de instalaciones térmicas en edificios' - sede.gobiernodecanarias.org",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

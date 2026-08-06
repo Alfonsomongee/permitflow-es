@@ -16,9 +16,21 @@
     "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta el trámite específico de GLP en depósito fijo (UDIT-027, distinto de UDIT-013) y los trámites de puesta en servicio/prueba de estanquidad por la suministradora e inspección periódica; el schema ofrece 'combustible' y 'presion_bar' sin usar todavía para esta ramificación"
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
-    "Decreto 25/2003, de 28 de marzo, por el que se crea la Unidad de Información y Trámite (UDIT) - Illes Balears",
-    "Ficha de trámite UDIT-013 'Instalaciones receptoras de gas' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/315206)"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 25/2003, de 28 de marzo, por el que se crea la Unidad de Información y Trámite (UDIT) - Illes Balears",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite UDIT-013 'Instalaciones receptoras de gas' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/315206)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

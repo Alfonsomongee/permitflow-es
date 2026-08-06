@@ -16,10 +16,26 @@
     "VERIFICADO 2026-07-28: el valor 'via_publica' de 'ubicacion_irve' usado en las condiciones de NAV-IRVE-001/002 SÍ es válido — está en el Literal real de schemas/clasificador.py (línea 40) y ya fue añadido a VALORES_VALIDOS en motor_normativo/validar_reglas.py; no es código muerto. No se ha modificado la condición."
   ],
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT",
-    "Orden Foral 60/2015, de 5 de marzo de 2015 (BON n.º 54, de 20 de marzo de 2015) — vigente, sustituye a la derogada Orden Foral 181/2003 sobre instalaciones de baja tensión",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    {
+      "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden Foral 60/2015, de 5 de marzo de 2015 (BON n.º 54, de 20 de marzo de 2015) — vigente, sustituye a la derogada Orden Foral 181/2003 sobre instalaciones de baja tensión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

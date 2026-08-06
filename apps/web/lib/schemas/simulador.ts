@@ -39,6 +39,10 @@ const supuestoSchema = z.object({
   parametro: z.string().min(1),
   valor_asumido: z.string(),
   razon: z.string(),
+  // El backend lo emite en apps/api/servicios/calculo_financiero.py (D-02 auditoría):
+  // sin declararlo aquí, Zod lo descartaba silenciosamente al parsear la respuesta
+  // y el frontend no podía distinguir un dato leído de la factura de uno estimado.
+  fuente_dato: z.enum(["leido", "estimado"]).optional(),
 });
 
 const informeSimulacionSchema = z.object({

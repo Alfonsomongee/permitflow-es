@@ -1,11 +1,14 @@
 from fastapi import UploadFile, HTTPException
 from pydantic import BaseModel, field_validator, ValidationError
+import logging
 import re
 import io
 import pypdf
 from typing import Literal
 
 from servicios.ai_client import completar_estructurado
+
+logger = logging.getLogger(__name__)
 
 MAX_PDF_BYTES = 10 * 1024 * 1024  # 10 MB
 MAX_PAGINAS = 6
@@ -187,6 +190,12 @@ async def parsear_factura(file: UploadFile) -> dict:
             "fuente_dato": "estimado" if resultado.consumo_es_estimado else "leido",
         }
     except ValidationError as e:
-        return {"estado": "no_extraido", "error": "Fallo de validación", "detalle": str(e)}
+        # Endpoint público sin autenticar: no devolvemos el detalle de pydantic
+        # (puede reflejar fragmentos del texto de la factura) al cliente.
+        logger.warning("Fallo de validación al extraer datos de factura: %s", e)
+        return {"estado": "no_extraido", "error": "No se pudo validar la información extraída de la factura"}
     except Exception as e:
-        return {"estado": "no_extraido", "error": str(e)}
+        # Idem: no exponer str(e) de excepciones del SDK del LLM (puede incluir
+        # base_url, códigos de error y cuerpo de respuesta del proveedor).
+        logger.exception("Error inesperado al extraer datos de factura")
+        return {"estado": "no_extraido", "error": "No se pudo procesar el PDF"}

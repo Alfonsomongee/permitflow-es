@@ -16,13 +16,41 @@
     "RESUELTO 2026-07-28: plataforma_url sustituida por la ficha específica del trámite BOEL en vez del portal genérico"
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "Ley 6/2014, de 12 de septiembre, de Industria de Castilla y León",
-    "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
-    "Decreto 46/2022, de 24 de noviembre (Castilla y León) — procedimientos de autorizaciones administrativas de instalaciones eléctricas, sustituye al derogado Decreto 127/2003",
-    "Aplicación BOEL (Boletines Eléctricos) - tramitacastillayleon.jcyl.es"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 6/2014, de 12 de septiembre, de Industria de Castilla y León",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 46/2022, de 24 de noviembre (Castilla y León) — procedimientos de autorizaciones administrativas de instalaciones eléctricas, sustituye al derogado Decreto 127/2003",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Aplicación BOEL (Boletines Eléctricos) - tramitacastillayleon.jcyl.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

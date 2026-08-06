@@ -15,9 +15,21 @@
     "coste_estimado marcado NO VERIFICADO: una fuente oficial (Oficina Virtual de Industria) indica que el trámite SÍ tiene tasas asociadas a la primera inscripción y a modificaciones; no se ha confirmado el importe exacto en esta revisión, se mantiene como hueco abierto"
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Orden de 28 de abril de 2008, por la que se regula la aplicación en la Comunidad Autónoma de Galicia del Reglamento técnico de distribución y utilización de combustibles gaseosos - DOG núm. 95, 19/05/2008",
-    "Trámite IN625A 'Registro de instalaciones receptoras de gases combustibles' - sede.xunta.gal"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 28 de abril de 2008, por la que se regula la aplicación en la Comunidad Autónoma de Galicia del Reglamento técnico de distribución y utilización de combustibles gaseosos - DOG núm. 95, 19/05/2008",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Trámite IN625A 'Registro de instalaciones receptoras de gases combustibles' - sede.xunta.gal",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

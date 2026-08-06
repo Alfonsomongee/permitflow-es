@@ -13,10 +13,26 @@
     "Falta el trámite ante la distribuidora cuando la IRVE requiere nuevo suministro o ampliación de potencia. El schema ya expone el campo 'requiere_nuevo_suministro' (disponible en el formulario web, ver apps/web/components/nueva-instalacion/Step2ParametrosTecnicos.tsx) pero no está usado en ninguna regla de este fichero. No se ha añadido como regla nueva en esta corrección quirúrgica para no introducir una condición no verificada previamente contra fuente primaria (procedimiento y plazos exactos ante la distribuidora no localizados); requiere campo de formulario: requiere_nuevo_suministro, ya disponible, pendiente de regla dedicada verificada."
   ],
   "fuentes": [
-    "RD 1053/2014, de 12 de diciembre (ITC-BT-52 y modificacion de ITC-BT-04), BOE-A-2014-13681 -- umbrales verificados contra texto consolidado en esta investigacion",
-    "RD 842/2002 (REBT)",
-    "Orden EIE/1731/2017, de 5 de octubre -- citada en ficha oficial de aragon.es como normativa aplicable a la comunicacion de BT; texto articulado no verificado",
-    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
+    {
+      "norma": "RD 1053/2014, de 12 de diciembre (ITC-BT-52 y modificacion de ITC-BT-04), BOE-A-2014-13681 -- umbrales verificados contra texto consolidado en esta investigacion",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 (REBT)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden EIE/1731/2017, de 5 de octubre -- citada en ficha oficial de aragon.es como normativa aplicable a la comunicacion de BT; texto articulado no verificado",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

@@ -17,9 +17,21 @@
     "plataforma_url de la comunicación de puesta en servicio (GAL-CLIMA-001/002) sigue apuntando a la raíz genérica de sede.xunta.gal: no se ha podido identificar en esta auditoría el código de trámite específico de puesta en servicio de instalaciones térmicas en Galicia, por lo que no hay ficha profunda confirmada a la que enlazar"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Decreto Legislativo 1/2015, de 12 de febrero, por el que se aprueba el texto refundido de las disposiciones legales de la Comunidad Autónoma de Galicia en materia de política industrial (DOG núm. 128, 09/07/2015) — sustituye a la Ley 9/2004, de 10 de agosto, de seguridad industrial de Galicia, derogada desde el 10/07/2015; su Libro I regula la seguridad industrial"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto Legislativo 1/2015, de 12 de febrero, por el que se aprueba el texto refundido de las disposiciones legales de la Comunidad Autónoma de Galicia en materia de política industrial (DOG núm. 128, 09/07/2015) — sustituye a la Ley 9/2004, de 10 de agosto, de seguridad industrial de Galicia, derogada desde el 10/07/2015; su Libro I regula la seguridad industrial",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

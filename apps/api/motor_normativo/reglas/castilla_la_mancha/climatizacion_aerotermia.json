@@ -15,9 +15,21 @@
     "RESUELTO 2026-07-28 (auditoría independiente): la nota de exención documental describía el alcance de forma incompleta/imprecisa (solo mencionaba <5kW). Corregido: la exención real de la ficha 1002272 distingue tres supuestos (ver nota del trámite CLM-AT-001 orden 1)."
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Ficha de trámite 1002272 'Registro de una instalación térmica' - jccm.es"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite 1002272 'Registro de una instalación térmica' - jccm.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

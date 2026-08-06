@@ -13,11 +13,31 @@
     "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Decreto 49/2004, de 20 de abril (procedimiento de instalación y puesta en funcionamiento de establecimientos industriales, Grupo II) - Extremadura",
-    "Orden de 12 de diciembre de 2005 (tramitación de expedientes de instalación industrial) - Extremadura",
-    "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios', potencia entre 5 y 70 kW - industriaextremadura.juntaex.es (id=180/187). ACLARACIÓN 2026-07-28: la ficha localizada usa como ejemplo la categoría 'calefacción a gas'; no se ha localizado una ficha separada por tipo de generador, por lo que se entiende que el registro general de instalaciones térmicas (RITE, Decreto 49/2004) aplica igual a generadores por aerotermia (bomba de calor eléctrica)."
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 49/2004, de 20 de abril (procedimiento de instalación y puesta en funcionamiento de establecimientos industriales, Grupo II) - Extremadura",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 12 de diciembre de 2005 (tramitación de expedientes de instalación industrial) - Extremadura",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios', potencia entre 5 y 70 kW - industriaextremadura.juntaex.es (id=180/187). ACLARACIÓN 2026-07-28: la ficha localizada usa como ejemplo la categoría 'calefacción a gas'; no se ha localizado una ficha separada por tipo de generador, por lo que se entiende que el registro general de instalaciones térmicas (RITE, Decreto 49/2004) aplica igual a generadores por aerotermia (bomba de calor eléctrica).",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

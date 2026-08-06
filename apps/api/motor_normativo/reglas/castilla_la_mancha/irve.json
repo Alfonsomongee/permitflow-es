@@ -15,10 +15,26 @@
     "RESUELTO 2026-07-28 (auditoría independiente): el organismo citado en CLM-IRVE-001 orden 2 y CLM-IRVE-002 orden 3 era 'Dirección General de Industria, Energía y Minas', que no existe en el organigrama vigente de la Consejería de Desarrollo Sostenible. Corregido a 'Dirección General de Transición Energética', consistente con fotovoltaica/climatización/ACS."
   ],
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT, ITC-BT-04",
-    "Ficha de trámite 1002270 'Registro de una instalación eléctrica de baja tensión' - jccm.es (confirma que IRVE con proyecto se tramita por el régimen general BT)",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    {
+      "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT, ITC-BT-04",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite 1002270 'Registro de una instalación eléctrica de baja tensión' - jccm.es (confirma que IRVE con proyecto se tramita por el régimen general BT)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

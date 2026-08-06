@@ -12,10 +12,26 @@
     "RESUELTO (2026-07-28): importes de tasa de registro incorporados (memoria técnica 3,12 €/6,24 €; proyecto 15,60 €/31,22 €/52,04 €) según tarifario vigente publicado en sede.comunidad.madrid, sección 'Pago de tasas' del trámite de instalaciones térmicas no industriales."
   ],
   "fuentes": [
-    "RD 1027/2007 (RITE)",
-    "Orden 9343/2003, de 1 de octubre",
-    "Decreto 38/2002, de 28 de febrero",
-    "Resolución de 5 de marzo de 2025"
+    {
+      "norma": "RD 1027/2007 (RITE)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden 9343/2003, de 1 de octubre",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 38/2002, de 28 de febrero",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 5 de marzo de 2025",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "validaciones": [
     {

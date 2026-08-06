@@ -16,13 +16,41 @@
     "NO VERIFICABLE (auditoría 2026-07-28): no se ha localizado una ficha específica de 'autorización administrativa previa' para generación eléctrica >100kW en el catálogo de sede.cantabria.es; solo se ha encontrado el trámite 59 ('Autorización y puesta en servicio de instalaciones eléctricas de alta tensión'), que no coincide con claridad con el caso de autoconsumo en baja tensión >100kW. Se mantiene la plataforma_url genérica en CANT-FV-002 orden2 en vez de enlazar a un trámite que podría no corresponder."
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "REBT RD 842/2002 ITC-BT-40",
-    "Decreto 99/1996, de 26 de septiembre (traspaso de competencias en materia de industria a Cantabria)",
-    "Orden de 17 de octubre de 2003 (instrucciones de aplicación del REBT en Cantabria), modificada por Orden de 5 de mayo de 2004 y Orden INN/2/2015",
-    "Ficha de trámite 3446 'Legalización de instalaciones de Baja Tensión' y 180 'Inscripción en el Registro de instalaciones eléctricas de baja tensión no industriales' - sede.cantabria.es"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 99/1996, de 26 de septiembre (traspaso de competencias en materia de industria a Cantabria)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 17 de octubre de 2003 (instrucciones de aplicación del REBT en Cantabria), modificada por Orden de 5 de mayo de 2004 y Orden INN/2/2015",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite 3446 'Legalización de instalaciones de Baja Tensión' y 180 'Inscripción en el Registro de instalaciones eléctricas de baja tensión no industriales' - sede.cantabria.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

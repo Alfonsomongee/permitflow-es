@@ -4,9 +4,21 @@
   "version": "1.1.0",
   "ultima_revision": "2026-07-28",
   "fuentes": [
-    "RD 919/2006 (Reglamento técnico de distribución y utilización de combustibles gaseosos, denominado RIGLO/RICG)",
-    "Decreto 59/2005, de 1 de marzo (Andalucía), por el que se regula el procedimiento para la instalación, ampliación, traslado y puesta en funcionamiento de los establecimientos industriales (norma horizontal de procedimiento industrial; NO es una norma sectorial de instalaciones de gas) -- corregido tras auditoria 2026-07-27",
-    "Orden de 5 de marzo de 2013 (Andalucía), de desarrollo del Decreto 59/2005: crea el tramitador PUES y regula la comunicacion de puesta en funcionamiento de instalaciones de gas entre otros 10 tipos"
+    {
+      "norma": "RD 919/2006 (Reglamento técnico de distribución y utilización de combustibles gaseosos, denominado RIGLO/RICG)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 59/2005, de 1 de marzo (Andalucía), por el que se regula el procedimiento para la instalación, ampliación, traslado y puesta en funcionamiento de los establecimientos industriales (norma horizontal de procedimiento industrial; NO es una norma sectorial de instalaciones de gas) -- corregido tras auditoria 2026-07-27",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 5 de marzo de 2013 (Andalucía), de desarrollo del Decreto 59/2005: crea el tramitador PUES y regula la comunicacion de puesta en funcionamiento de instalaciones de gas entre otros 10 tipos",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

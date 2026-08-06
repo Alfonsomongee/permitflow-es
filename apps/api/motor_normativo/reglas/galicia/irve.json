@@ -17,11 +17,31 @@
     "NO VERIFICABLE: el código IN429A (GAL-IRVE-002 orden 2, inspección inicial OCA) no se ha podido confirmar como ficha real en sede.xunta.gal; único resultado real para '429A' es SI429A (Programa Emega, ayudas al emprendimiento femenino, sin relación con instalaciones eléctricas). plataforma_url de este trámite se deja sin tocar (sigue apuntando a la raíz genérica) hasta confirmación adicional del código correcto."
   ],
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT",
-    "Resolución de 22 de julio de 2014, de la Dirección General de Energía y Minas (tramitación electrónica) - Galicia",
-    "Trámites IN614A/IN614C (registro/comunicación instalaciones BT) - sede.xunta.gal",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    {
+      "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 22 de julio de 2014, de la Dirección General de Energía y Minas (tramitación electrónica) - Galicia",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Trámites IN614A/IN614C (registro/comunicación instalaciones BT) - sede.xunta.gal",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

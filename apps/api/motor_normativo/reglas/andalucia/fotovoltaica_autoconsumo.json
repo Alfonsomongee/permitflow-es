@@ -4,18 +4,66 @@
   "version": "1.3.0",
   "ultima_revision": "2026-07-28",
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Decreto 59/2005, de 1 de marzo (Andalucía) -- procedimiento de establecimientos industriales",
-    "Orden 5 marzo 2013 Junta de Andalucía",
-    "Autoconsumo -- Junta de Andalucía (Consejería de Industria, Energía y Minas): https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/energia/autoconsumo.html -- fuente primaria verificada 2026-07-27 para CAU, RADNE, RAIPEE, autorización de explotación y fase de activación/contrato",
-    "Decreto-ley 2/2018, de 26 de junio (Andalucía), disposición adicional única — verificado gap 5.3 (Fase 0 investigación)",
-    "Resolución de 28 de septiembre de 2023, Secretaría General de Energía (BOJA 2023/193/69) -- aprueba la ficha técnica descriptiva de BT del aplicativo PUES vigente; sustituye a la cita anterior 'Decreto-ley 3/2024, de 6 de febrero', no localizada con fuente admisible tras auditoría 2026-07-27",
-    "Resolucion de 13 de octubre de 2023, Secretaria General de Energia -- VEAJA/9588 confirmado (Fase 1, bloque 2.2)",
-    "RD 477/2021 y cierre de convocatoria -- verificado (Fase 1, bloque 2.4)",
-    "Manual de tramitación de autoconsumo, Secretaría General de Energía, noviembre 2025: https://www.juntadeandalucia.es/sites/default/files/inline-files/2025/11/MANUAL_tramitacion_autoconsumo_noviembre_2025.pdf"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 59/2005, de 1 de marzo (Andalucía) -- procedimiento de establecimientos industriales",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden 5 marzo 2013 Junta de Andalucía",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Autoconsumo -- Junta de Andalucía (Consejería de Industria, Energía y Minas): https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/energia/autoconsumo.html -- fuente primaria verificada 2026-07-27 para CAU, RADNE, RAIPEE, autorización de explotación y fase de activación/contrato",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto-ley 2/2018, de 26 de junio (Andalucía), disposición adicional única — verificado gap 5.3 (Fase 0 investigación)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 28 de septiembre de 2023, Secretaría General de Energía (BOJA 2023/193/69) -- aprueba la ficha técnica descriptiva de BT del aplicativo PUES vigente; sustituye a la cita anterior 'Decreto-ley 3/2024, de 6 de febrero', no localizada con fuente admisible tras auditoría 2026-07-27",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolucion de 13 de octubre de 2023, Secretaria General de Energia -- VEAJA/9588 confirmado (Fase 1, bloque 2.2)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 477/2021 y cierre de convocatoria -- verificado (Fase 1, bloque 2.4)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Manual de tramitación de autoconsumo, Secretaría General de Energía, noviembre 2025: https://www.juntadeandalucia.es/sites/default/files/inline-files/2025/11/MANUAL_tramitacion_autoconsumo_noviembre_2025.pdf",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {
@@ -192,7 +240,7 @@
       ]
     },
     {
-      "id": "AND-FV-001B",
+      "id": "AND-FV-001B-1",
       "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto <= 6k)",
       "condicion": {
         "and": [
@@ -361,7 +409,7 @@
       ]
     },
     {
-      "id": "AND-FV-001B",
+      "id": "AND-FV-001B-2",
       "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto <= 6k) (Sin inversión informada)",
       "condicion": {
         "and": [
@@ -530,7 +578,7 @@
       ]
     },
     {
-      "id": "AND-FV-001B",
+      "id": "AND-FV-001B-3",
       "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto 6k-60k)",
       "condicion": {
         "and": [
@@ -711,7 +759,7 @@
       ]
     },
     {
-      "id": "AND-FV-001B",
+      "id": "AND-FV-001B-4",
       "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto > 60k)",
       "condicion": {
         "and": [
@@ -880,7 +928,7 @@
       ]
     },
     {
-      "id": "AND-FV-002",
+      "id": "AND-FV-002-1",
       "descripcion": "Autoconsumo >15 kW y <=500 kW, o uso terciario/industrial <=500 kW (requiere proyecto técnico; vía PUES) (presupuesto <= 6k)",
       "condicion": {
         "and": [
@@ -1081,7 +1129,7 @@
       ]
     },
     {
-      "id": "AND-FV-002",
+      "id": "AND-FV-002-2",
       "descripcion": "Autoconsumo >15 kW y <=500 kW, o uso terciario/industrial <=500 kW (requiere proyecto técnico; vía PUES) (presupuesto <= 6k) (Sin inversión informada)",
       "condicion": {
         "and": [
@@ -1282,7 +1330,7 @@
       ]
     },
     {
-      "id": "AND-FV-002",
+      "id": "AND-FV-002-3",
       "descripcion": "Autoconsumo >15 kW y <=500 kW, o uso terciario/industrial <=500 kW (requiere proyecto técnico; vía PUES) (presupuesto 6k-60k)",
       "condicion": {
         "and": [
@@ -1495,7 +1543,7 @@
       ]
     },
     {
-      "id": "AND-FV-002",
+      "id": "AND-FV-002-4",
       "descripcion": "Autoconsumo >15 kW y <=500 kW, o uso terciario/industrial <=500 kW (requiere proyecto técnico; vía PUES) (presupuesto > 60k)",
       "condicion": {
         "and": [
@@ -1696,7 +1744,7 @@
       ]
     },
     {
-      "id": "AND-FV-004",
+      "id": "AND-FV-004-1",
       "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción (presupuesto <= 5k)",
       "condicion": {
         "and": [
@@ -1884,7 +1932,7 @@
       ]
     },
     {
-      "id": "AND-FV-004",
+      "id": "AND-FV-004-2",
       "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción (presupuesto <= 5k) (Sin inversión informada)",
       "condicion": {
         "and": [
@@ -2072,7 +2120,7 @@
       ]
     },
     {
-      "id": "AND-FV-004",
+      "id": "AND-FV-004-3",
       "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción (presupuesto 5k-500k)",
       "condicion": {
         "and": [
@@ -2272,7 +2320,7 @@
       ]
     },
     {
-      "id": "AND-FV-004",
+      "id": "AND-FV-004-4",
       "descripcion": "Autoconsumo >500 kW: autorización administrativa previa y de construcción (presupuesto > 500k)",
       "condicion": {
         "and": [

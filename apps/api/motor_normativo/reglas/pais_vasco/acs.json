@@ -13,10 +13,26 @@
     "No se ha confirmado si el País Vasco exige OCA específicamente para ACS >70 kW más allá de lo que exige el RITE nacional"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real",
-    "RD 487/2022, de 21 de junio, por el que se establecen los requisitos sanitarios para la prevención y el control de la legionelosis",
-    "RD 614/2024, de 25 de junio (modificación del RD 487/2022)"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 487/2022, de 21 de junio, por el que se establecen los requisitos sanitarios para la prevención y el control de la legionelosis",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 614/2024, de 25 de junio (modificación del RD 487/2022)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

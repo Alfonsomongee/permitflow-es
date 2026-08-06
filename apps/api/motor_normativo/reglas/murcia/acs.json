@@ -14,8 +14,16 @@
     "RESUELTO PARCIALMENTE 2026-07-28: añadida regla MUR-ACS-000 para potencia <5 kW; el régimen exacto aplicable a ese tramo NO VERIFICADO — misma incertidumbre documentada en climatizacion_aerotermia.json"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

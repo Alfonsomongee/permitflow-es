@@ -16,10 +16,26 @@
   ],
   "verificacion_2026_07_28": "Auditoría normativa Región de Murcia (28/07/2026): confirmado que el procedimiento 0019 de la Sede Electrónica CARM aplica también a IRVE (la ficha oficial cita expresamente RIPREE/vehículo eléctrico). Se sustituyó el enlace genérico https://sede.carm.es por la URL de la ficha específica del procedimiento 0019 en ambos trámites de registro (MUR-IRVE-001 y MUR-IRVE-002). No se detectaron otros hallazgos MEDIO/BAJO específicos de IRVE en la auditoría (semáforo OK).",
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT",
-    "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    {
+      "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

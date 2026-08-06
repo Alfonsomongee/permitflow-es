@@ -14,9 +14,21 @@
     "Tasas (importe exacto) y plazos legales de resolución no verificados"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "RD 314/2006 Código Técnico de la Edificación"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 314/2006 Código Técnico de la Edificación",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

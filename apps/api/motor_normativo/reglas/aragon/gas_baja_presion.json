@@ -17,9 +17,21 @@
     "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
-    "RD 919/2006, Reglamento tecnico de distribucion y utilizacion de combustibles gaseosos, ITC-ICG 01 a 11",
-    "Orden de 30 de marzo de 2007, del Departamento de Industria, Comercio y Turismo (Aragón) -- sustituye a la Orden de 28/02/2003 (derogada), regula la acreditación de condiciones de seguridad industrial de instalaciones receptoras de combustibles gaseosos",
-    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
+    {
+      "norma": "RD 919/2006, Reglamento tecnico de distribucion y utilizacion de combustibles gaseosos, ITC-ICG 01 a 11",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 30 de marzo de 2007, del Departamento de Industria, Comercio y Turismo (Aragón) -- sustituye a la Orden de 28/02/2003 (derogada), regula la acreditación de condiciones de seguridad industrial de instalaciones receptoras de combustibles gaseosos",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

@@ -15,10 +15,26 @@
     "RESUELTO 2026-07-28: 'plataforma_url' corregida de 'servicios/0043312' (genérica) a https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/ (ficha específica del trámite [GE])."
   ],
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT",
-    "Decreto 48/2020, de 31 de marzo (Gobierno Vasco) — confirmado real",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    {
+      "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 48/2020, de 31 de marzo (Gobierno Vasco) — confirmado real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

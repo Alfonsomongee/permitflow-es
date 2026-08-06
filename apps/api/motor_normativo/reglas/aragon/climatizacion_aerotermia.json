@@ -14,10 +14,26 @@
     "plataforma_url del trámite de comunicación de puesta en servicio de instalación térmica: se ha rellenado con la página general de RITE/ACS de aragon.es (no se ha localizado el número de trámite específico del tramitador, a diferencia de BT/Nº26 y gas/Nº33)."
   ],
   "fuentes": [
-    "RITE RD 1027/2007, modificado por RD 178/2021",
-    "REBT RD 842/2002",
-    "RD 2200/1995 (Reglamento de la Infraestructura para la Calidad y Seguridad Industrial)",
-    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
+    {
+      "norma": "RITE RD 1027/2007, modificado por RD 178/2021",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 2200/1995 (Reglamento de la Infraestructura para la Calidad y Seguridad Industrial)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

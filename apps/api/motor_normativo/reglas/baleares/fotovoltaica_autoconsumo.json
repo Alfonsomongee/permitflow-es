@@ -16,15 +16,51 @@
     "No se ha verificado municipio a municipio (67 ayuntamientos) el trámite urbanístico de comunicación previa/licencia de obras; se incluye como trámite genérico sin detalle local"
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "REBT RD 842/2002 ITC-BT-40",
-    "RD-ley 18/2022 (facultad de elevación del umbral a 500 kW)",
-    "Ley 13/2012, de 20 de noviembre, de medidas urgentes para la activación económica en materia de industria y energía, nuevas tecnologías, residuos, aguas, otras actividades y medidas tributarias (BOE-A-2013-355)",
-    "Ficha de trámite 034 'Registro de instalaciones de producción de energía eléctrica de pequeña potencia conectadas a red' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/1447066)",
-    "Ventanilla de tramitación de instalaciones de autoconsumo de pequeña potencia (≤500 kW) - caib.es (https://www.caib.es/sites/instalacionspetitapotencia/)",
-    "'Registro de autoconsumo de las Illes Balears' - Dirección General de Economía Circular, Transición Energética y Cambio Climático"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD-ley 18/2022 (facultad de elevación del umbral a 500 kW)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 13/2012, de 20 de noviembre, de medidas urgentes para la activación económica en materia de industria y energía, nuevas tecnologías, residuos, aguas, otras actividades y medidas tributarias (BOE-A-2013-355)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite 034 'Registro de instalaciones de producción de energía eléctrica de pequeña potencia conectadas a red' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/1447066)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ventanilla de tramitación de instalaciones de autoconsumo de pequeña potencia (≤500 kW) - caib.es (https://www.caib.es/sites/instalacionspetitapotencia/)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "'Registro de autoconsumo de las Illes Balears' - Dirección General de Economía Circular, Transición Energética y Cambio Climático",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

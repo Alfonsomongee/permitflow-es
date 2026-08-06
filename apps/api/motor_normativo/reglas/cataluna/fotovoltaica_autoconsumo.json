@@ -16,15 +16,51 @@
     "Pendiente (no verificable con las herramientas disponibles): si el Decret llei 22/2025 modifica también el régimen de los tramos <=10 kW y 10-100 kW (CAT-FV-BT-RITSIC), más allá de los tramos 100-500 y >500 kW ya citados."
   ],
   "fuentes": [
-    "RD 244/2019",
-    "Ley 24/2013",
-    "RD 1183/2020",
-    "RD 842/2002 REBT e ITC aplicables a instalaciones generadoras",
-    "Decret llei 16/2019, de 26 de novembre",
-    "Decret llei 24/2021, de 26 d’octubre",
-    "Decret llei 22/2025, de 28 d’octubre, per augmentar la resiliència del subministrament elèctric a Catalunya",
-    "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
-    "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
+    {
+      "norma": "RD 244/2019",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT e ITC aplicables a instalaciones generadoras",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decret llei 16/2019, de 26 de novembre",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decret llei 24/2021, de 26 d’octubre",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decret llei 22/2025, de 28 d’octubre, per augmentar la resiliència del subministrament elèctric a Catalunya",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "validaciones": [
     {

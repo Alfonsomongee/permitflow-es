@@ -18,10 +18,26 @@
     "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Ley 6/2014 de Industria de Castilla y León",
-    "Orden EEI/1036/2021, de 6 de septiembre (regularización administrativa de instalaciones de seguridad industrial)",
-    "Ficha de trámite 'Instalación receptora de gas' de la Junta de Castilla y León - https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite (confirma umbrales de la ITC-ICG-07 aplicables con carácter general; corregida en la revisión 2026-07-28: la fuente anterior citaba erróneamente jccm.es, dominio de Castilla-La Mancha)"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 6/2014 de Industria de Castilla y León",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden EEI/1036/2021, de 6 de septiembre (regularización administrativa de instalaciones de seguridad industrial)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite 'Instalación receptora de gas' de la Junta de Castilla y León - https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite (confirma umbrales de la ITC-ICG-07 aplicables con carácter general; corregida en la revisión 2026-07-28: la fuente anterior citaba erróneamente jccm.es, dominio de Castilla-La Mancha)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

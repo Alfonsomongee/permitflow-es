@@ -89,8 +89,10 @@ async def chat_asistente(
                 # 0: "texto" para chunks. (Formato de vercel AI Data Stream Protocol)
                 yield f'0:{json.dumps(chunk)}\n'
         except Exception as e:
-            logger.error(f"Error en stream de asistente: {e}")
-            yield f'3:{json.dumps(str(e))}\n'
+            # No reenviar str(e) al navegador: puede incluir detalles crudos del
+            # SDK del proveedor de IA (base_url, cuerpo de error, etc.).
+            logger.exception("Error en stream de asistente")
+            yield f'3:{json.dumps("Error al generar la respuesta")}\n'
             
         # 6. Registrar uso una vez terminado el stream
         try:
@@ -128,8 +130,10 @@ async def chat_asistente(
                 # texto chunk -> 0:"..."
                 yield f'0:{json.dumps(chunk)}\n'
         except Exception as e:
-            logger.error(f"Error en stream de asistente: {e}")
-            yield f'3:{json.dumps(str(e))}\n'
+            # No reenviar str(e) al navegador: puede incluir detalles crudos del
+            # SDK del proveedor de IA (base_url, cuerpo de error, etc.).
+            logger.exception("Error en stream de asistente")
+            yield f'3:{json.dumps("Error al generar la respuesta")}\n'
             
         if usage_stats:
             try:

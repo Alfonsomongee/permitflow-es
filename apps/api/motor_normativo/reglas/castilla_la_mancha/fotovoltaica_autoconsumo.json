@@ -15,14 +15,46 @@
     "RESUELTO 2026-07-28 (auditoría independiente): el organismo citado en CLM-FV-001 orden 2 y CLM-FV-002 orden 3 era 'Dirección General de Industria, Energía y Minas', que no existe en el organigrama vigente de la Consejería de Desarrollo Sostenible. Corregido a 'Dirección General de Transición Energética', la misma DG citada correctamente en climatización/ACS y competente sobre la Instrucción 1/2020 de autoconsumo."
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "Ley 21/1992 de Industria",
-    "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
-    "Ficha de trámite 1002270 'Registro de una instalación eléctrica de baja tensión' y 020048 (mismo trámite) - jccm.es",
-    "Plataforma eDice-bt (diligenciado de certificados BT) - edice.castillalamancha.es",
-    "Instrucción 1/2020 sobre tramitación de instalaciones de autoconsumo (Dirección General de Transición Energética), disponible en https://edice.castillalamancha.es/eDice-bt/autoconsumo.pdf"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 21/1992 de Industria",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite 1002270 'Registro de una instalación eléctrica de baja tensión' y 020048 (mismo trámite) - jccm.es",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Plataforma eDice-bt (diligenciado de certificados BT) - edice.castillalamancha.es",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Instrucción 1/2020 sobre tramitación de instalaciones de autoconsumo (Dirección General de Transición Energética), disponible en https://edice.castillalamancha.es/eDice-bt/autoconsumo.pdf",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

@@ -13,10 +13,26 @@
     "RESUELTO 2026-07-28: la exención de proyecto en garaje_comunitario ahora exige además garaje_existente=true y uso_edificio=residencial (RD 1053/2014, ITC-BT-04 3.1: la exención del párrafo final solo cubre los grupos g) y h) EXISTENTES en edificios de vivienda). Antes solo se comprobaba uso_edificio, dejando sin proyecto garajes nuevos en edificios residenciales que sí lo requieren."
   ],
   "fuentes": [
-    "RD 842/2002 REBT, ITC-BT-04",
-    "RD 1053/2014, ITC-BT-52",
-    "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
-    "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
+    {
+      "norma": "RD 842/2002 REBT, ITC-BT-04",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1053/2014, ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "validaciones": [
     {

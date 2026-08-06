@@ -15,11 +15,31 @@
     "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007) y el requisito de instalador con certificación de gases fluorados (Reglamento (UE) 517/2014, trámite balear UDIT-049) para equipos de aerotermia"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 238/2013 modificación RITE",
-    "REBT RD 842/2002 (si aplica)",
-    "Decreto 25/2003, de 28 de marzo, por el que se crea la Unidad de Información y Trámite (UDIT) - Illes Balears",
-    "Ficha de trámite UDIT-021 'Instalaciones térmicas en los edificios' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/225272)"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 238/2013 modificación RITE",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 (si aplica)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 25/2003, de 28 de marzo, por el que se crea la Unidad de Información y Trámite (UDIT) - Illes Balears",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite UDIT-021 'Instalaciones térmicas en los edificios' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/225272)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

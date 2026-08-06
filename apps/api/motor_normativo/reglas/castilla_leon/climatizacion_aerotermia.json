@@ -16,11 +16,31 @@
     "RESUELTO 2026-07-28: plataforma_url sustituida por la ficha específica del trámite de instalaciones térmicas en vez del portal genérico"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "RD 314/2006 Código Técnico de la Edificación",
-    "Ley 6/2014 de Industria de Castilla y León",
-    "Orden EYE/912/2012, de 17 de octubre (aplicación informática 'RITE', procedimiento IAPA1468) - jcyl.es"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 314/2006 Código Técnico de la Edificación",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 6/2014 de Industria de Castilla y León",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden EYE/912/2012, de 17 de octubre (aplicación informática 'RITE', procedimiento IAPA1468) - jcyl.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

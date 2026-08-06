@@ -17,10 +17,26 @@
     "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Decreto 141/2012, de 28 de septiembre, del Consell (simplificación de la puesta en funcionamiento de instalaciones industriales) — CONFIRMADO real",
-    "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — CONFIRMADO real",
-    "Ficha de trámite id_proc=3192 'Instalación receptora de gas (ITC-7)' - sede.gva.es"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 141/2012, de 28 de septiembre, del Consell (simplificación de la puesta en funcionamiento de instalaciones industriales) — CONFIRMADO real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — CONFIRMADO real",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite id_proc=3192 'Instalación receptora de gas (ITC-7)' - sede.gva.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

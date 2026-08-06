@@ -15,10 +15,26 @@
     "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
   ],
   "fuentes": [
-    "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-    "RD 842/2002 REBT",
-    "Trámite IBT 'Inscripción y puesta en servicio de instalaciones en baja tensión' - larioja.org oficina electrónica",
-    "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)"
+    {
+      "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Trámite IBT 'Inscripción y puesta en servicio de instalaciones en baja tensión' - larioja.org oficina electrónica",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

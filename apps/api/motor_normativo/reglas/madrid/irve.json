@@ -12,10 +12,26 @@
     "Los importes de tasa y tarifa EICI dependen del expediente y deben consultarse en la ficha vigente."
   ],
   "fuentes": [
-    "RD 842/2002, REBT, ITC-BT-04",
-    "RD 1053/2014, ITC-BT-52",
-    "Decreto 38/2002",
-    "Orden 9344/2003, modificada por Orden 163/2024"
+    {
+      "norma": "RD 842/2002, REBT, ITC-BT-04",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1053/2014, ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 38/2002",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden 9344/2003, modificada por Orden 163/2024",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "validaciones": [
     {

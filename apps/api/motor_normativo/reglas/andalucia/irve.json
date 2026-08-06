@@ -4,21 +4,81 @@
   "version": "1.3.0",
   "ultima_revision": "2026-07-28",
   "fuentes": [
-    "REBT RD 842/2002 ITC-BT-52",
-    "REBT RD 842/2002 ITC-BT-04",
-    "REBT RD 842/2002 ITC-BT-05",
-    "RD 184/2022",
-    "Orden TED/445/2023",
-    "Ley 7/2021 art.15",
-    "RDL 29/2021",
-    "RD 1183/2020",
-    "Circular CNMC 1/2024",
-    "Decreto 59/2005 Junta de Andalucía",
-    "Orden 5 marzo 2013 Junta de Andalucía",
-    "Orden 24 octubre 2005 Junta de Andalucía",
-    "Orden de 24 de octubre de 2005 (BOJA 217/2005) — procedimiento TECI, verificado gap 5.1 (Fase 0 investigación)",
-    "RD 184/2022 art. 10; Orden TED/445/2023 -- correccion RIPREE (Fase 1, bloque 2.5)",
-    "RD 609/2026, de 22 de julio (BOE-A-2026-16010) -- cierre MOVES III / Programa Auto+ (Fase 1, bloque 2.4)"
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-52",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-04",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-05",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 184/2022",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden TED/445/2023",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 7/2021 art.15",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RDL 29/2021",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Circular CNMC 1/2024",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 59/2005 Junta de Andalucía",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden 5 marzo 2013 Junta de Andalucía",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden 24 octubre 2005 Junta de Andalucía",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 24 de octubre de 2005 (BOJA 217/2005) — procedimiento TECI, verificado gap 5.1 (Fase 0 investigación)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 184/2022 art. 10; Orden TED/445/2023 -- correccion RIPREE (Fase 1, bloque 2.5)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 609/2026, de 22 de julio (BOE-A-2026-16010) -- cierre MOVES III / Programa Auto+ (Fase 1, bloque 2.4)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {
@@ -239,7 +299,7 @@
       ]
     },
     {
-      "id": "AND-IRVE-005",
+      "id": "AND-IRVE-005-1",
       "descripcion": "IRVE privada (sin acceso publico) que requiere proyecto tecnico: Modo 4, o exterior >10 kW, o no exterior >50 kW — tramitable por PUES (presupuesto <= 6k)",
       "condicion": {
         "and": [
@@ -411,7 +471,7 @@
       ]
     },
     {
-      "id": "AND-IRVE-005",
+      "id": "AND-IRVE-005-2",
       "descripcion": "IRVE privada (sin acceso publico) que requiere proyecto tecnico: Modo 4, o exterior >10 kW, o no exterior >50 kW — tramitable por PUES (presupuesto <= 6k) (Sin inversión informada)",
       "condicion": {
         "and": [
@@ -583,7 +643,7 @@
       ]
     },
     {
-      "id": "AND-IRVE-005",
+      "id": "AND-IRVE-005-3",
       "descripcion": "IRVE privada (sin acceso publico) que requiere proyecto tecnico: Modo 4, o exterior >10 kW, o no exterior >50 kW — tramitable por PUES (presupuesto 6k-60k)",
       "condicion": {
         "and": [
@@ -767,7 +827,7 @@
       ]
     },
     {
-      "id": "AND-IRVE-005",
+      "id": "AND-IRVE-005-4",
       "descripcion": "IRVE privada (sin acceso publico) que requiere proyecto tecnico: Modo 4, o exterior >10 kW, o no exterior >50 kW — tramitable por PUES (presupuesto > 60k)",
       "condicion": {
         "and": [

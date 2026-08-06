@@ -17,11 +17,31 @@
     "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07 apartado 3.2 (umbral de 70 kW individual) y 3.6 (plazo de comunicación)",
-    "Orden IND/23/2009, de 23 de septiembre (documentación de instalación, ampliación y traslado de industrias en Cantabria)",
-    "RD 709/2015 (requisitos esenciales de seguridad para equipos a presión)",
-    "Ficha de trámite 599 'Comunicación y puesta en servicio de instalaciones receptoras de gas de uso no industrial que requieran proyecto' - sede.cantabria.es (sustituye al trámite 3482, más genérico, citado en la versión anterior)",
-    "Ficha de trámite 438 'Registro y puesta en servicio de instalaciones receptoras de combustibles gaseosos' - sede.cantabria.es (usado en CANT-GBP-002 para uso industrial/terciario y presión >5 bar)"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07 apartado 3.2 (umbral de 70 kW individual) y 3.6 (plazo de comunicación)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden IND/23/2009, de 23 de septiembre (documentación de instalación, ampliación y traslado de industrias en Cantabria)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 709/2015 (requisitos esenciales de seguridad para equipos a presión)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite 599 'Comunicación y puesta en servicio de instalaciones receptoras de gas de uso no industrial que requieran proyecto' - sede.cantabria.es (sustituye al trámite 3482, más genérico, citado en la versión anterior)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de trámite 438 'Registro y puesta en servicio de instalaciones receptoras de combustibles gaseosos' - sede.cantabria.es (usado en CANT-GBP-002 para uso industrial/terciario y presión >5 bar)",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

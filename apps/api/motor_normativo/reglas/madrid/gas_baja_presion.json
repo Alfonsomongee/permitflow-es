@@ -13,10 +13,26 @@
     "RESUELTO (2026-07-28): importes de tasa por tramos de inversión incorporados (51,32 €/91,67 €/164,95 €/238,23 €/256,11 € y tramo superior) y plazo legal de 15 días hábiles fijado, según ficha oficial de sede.comunidad.madrid, secciones 'Pago de tasas' y 'Tramitación' del trámite de instalaciones receptoras de gas natural/GLP."
   ],
   "fuentes": [
-    "Ley 34/1998",
-    "RD 1434/2002",
-    "RD 919/2006 e ITC-ICG-07",
-    "RD 1085/1992"
+    {
+      "norma": "Ley 34/1998",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1434/2002",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 919/2006 e ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1085/1992",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "validaciones": [
     {

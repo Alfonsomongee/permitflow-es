@@ -15,8 +15,16 @@
     "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Resolución de 20 de junio de 2022, de la Dirección General de Industria, Energía y Minas (autorización de explotación, acta de puesta en servicio, sector eléctrico y gases canalizados), modificada por Resolución de 9 de abril de 2024 - Extremadura"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 20 de junio de 2022, de la Dirección General de Industria, Energía y Minas (autorización de explotación, acta de puesta en servicio, sector eléctrico y gases canalizados), modificada por Resolución de 9 de abril de 2024 - Extremadura",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

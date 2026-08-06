@@ -16,12 +16,36 @@
     "RESUELTO 2026-07-28: añadida referencia a tasa H00003 (Ordenación de las instalaciones acogidas a régimen especial), aplicable cuando la instalación se acoge a PRETOR con excedentes sin compensación"
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "REBT RD 842/2002 ITC-BT-40",
-    "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real, base legal única para instalaciones industriales/eléctricas/térmicas/gas en Murcia",
-    "Procedimiento 0019 'Registro de instalaciones eléctricas de baja tensión' y PRETOR (Registro de Instalaciones de Producción de Energía Eléctrica) - sede.carm.es / mui.carm.es"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real, base legal única para instalaciones industriales/eléctricas/térmicas/gas en Murcia",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Procedimiento 0019 'Registro de instalaciones eléctricas de baja tensión' y PRETOR (Registro de Instalaciones de Producción de Energía Eléctrica) - sede.carm.es / mui.carm.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

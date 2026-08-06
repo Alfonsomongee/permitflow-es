@@ -15,9 +15,21 @@
     "RESUELTO 2026-07-28: plataforma_url genérica sustituida por industriaextremadura.juntaex.es (mejor referencia que la portada de sede.gobex.es, aunque sigue sin ser la ficha específica del trámite)"
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "Decreto 49/2004, de 20 de abril (procedimiento de instalación y puesta en funcionamiento de establecimientos industriales, Grupo II) - Extremadura",
-    "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios' - industriaextremadura.juntaex.es"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 49/2004, de 20 de abril (procedimiento de instalación y puesta en funcionamiento de establecimientos industriales, Grupo II) - Extremadura",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios' - industriaextremadura.juntaex.es",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

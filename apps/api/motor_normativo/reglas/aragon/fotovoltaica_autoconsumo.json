@@ -16,13 +16,41 @@
     "Tramo 100-500 kW: el umbral de exención de inscripción RAIPEE (100 kW) y el umbral de autorización administrativa (500 kW) son magnitudes distintas; el fichero no cubre explícitamente si las instalaciones entre 100 y 500 kW requieren inscripción RAIPEE pese a no requerir autorización administrativa. Pendiente de verificación primaria."
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo electrico",
-    "RD 1183/2020 acceso y conexion",
-    "Ley 24/2013 Sector Electrico, art. 53",
-    "RD 842/2002 REBT ITC-BT-40",
-    "Orden EIE/1731/2017 -- citada en ficha oficial de aragon.es para BT; no verificada especificamente para autoconsumo",
-    "Ley 7/2021 Cambio Climatico art. 16 -- no verificado el contenido especifico citado",
-    "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial"
+    {
+      "norma": "RD 244/2019 autoconsumo electrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexion",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Electrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 842/2002 REBT ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden EIE/1731/2017 -- citada en ficha oficial de aragon.es para BT; no verificada especificamente para autoconsumo",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 7/2021 Cambio Climatico art. 16 -- no verificado el contenido especifico citado",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

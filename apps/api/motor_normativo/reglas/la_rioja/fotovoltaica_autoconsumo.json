@@ -15,13 +15,41 @@
     "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
   ],
   "fuentes": [
-    "RD 244/2019 autoconsumo eléctrico",
-    "RD 1183/2020 acceso y conexión",
-    "Ley 24/2013 Sector Eléctrico, art. 53",
-    "REBT RD 842/2002 ITC-BT-40",
-    "RD 2135/1980 (liberalización industrial), citado en la ficha oficial de La Rioja para instalaciones BT",
-    "Resolución 128/2025, de 6 de febrero (regularización de instalaciones BT) - larioja.org",
-    "Ficha oficial 'Autoconsumo de energía eléctrica. Registro administrativo de instalaciones de generación de autoconsumo' (modelo AUTee) - larioja.org oficina electrónica"
+    {
+      "norma": "RD 244/2019 autoconsumo eléctrico",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1183/2020 acceso y conexión",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "REBT RD 842/2002 ITC-BT-40",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 2135/1980 (liberalización industrial), citado en la ficha oficial de La Rioja para instalaciones BT",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución 128/2025, de 6 de febrero (regularización de instalaciones BT) - larioja.org",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Ficha oficial 'Autoconsumo de energía eléctrica. Registro administrativo de instalaciones de generación de autoconsumo' (modelo AUTee) - larioja.org oficina electrónica",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

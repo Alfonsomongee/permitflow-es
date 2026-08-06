@@ -13,9 +13,21 @@
     "Revisión 2026-07-28: confirmado que el fichero ya diferencia clase_instalacion_gas (individual >70 kW; común/conexión de servicio >2.000 kW), cita Llei 9/2014 + Decret 192/2023, nombra RITSIC y no impone plazo_legal_dias sin respaldo; no se detectaron cambios adicionales necesarios."
   ],
   "fuentes": [
-    "RD 919/2006 y ITC-ICG-07",
-    "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
-    "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes"
+    {
+      "norma": "RD 919/2006 y ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "validaciones": [
     {

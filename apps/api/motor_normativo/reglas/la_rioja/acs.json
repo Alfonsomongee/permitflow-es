@@ -17,10 +17,26 @@
     "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "Resolución de la Dirección General de Trabajo, Industria y Comercio (normas complementarias de desarrollo del RITE en La Rioja) - larioja.org",
-    "Orden de 22 de febrero de 2001, de la Consejería de Hacienda y Economía del Gobierno de La Rioja (evacuación de productos de combustión, mantenimiento e inspección de aparatos de gas en instalaciones individuales de calefacción y/o ACS)",
-    "Trámite 'CL y CLM. Inscripción y puesta en servicio de instalaciones térmicas' - larioja.org oficina electrónica"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de la Dirección General de Trabajo, Industria y Comercio (normas complementarias de desarrollo del RITE en La Rioja) - larioja.org",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Orden de 22 de febrero de 2001, de la Consejería de Hacienda y Economía del Gobierno de La Rioja (evacuación de productos de combustión, mantenimiento e inspección de aparatos de gas en instalaciones individuales de calefacción y/o ACS)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Trámite 'CL y CLM. Inscripción y puesta en servicio de instalaciones térmicas' - larioja.org oficina electrónica",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

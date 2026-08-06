@@ -15,8 +15,16 @@
     "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
   ],
   "fuentes": [
-    "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-    "Trámite 'GN-GL. Inscripción de puesta en servicio de Instalaciones receptoras de combustibles gaseosos (GL/GN)' - larioja.org oficina electrónica"
+    {
+      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Trámite 'GN-GL. Inscripción de puesta en servicio de Instalaciones receptoras de combustibles gaseosos (GL/GN)' - larioja.org oficina electrónica",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {

@@ -16,11 +16,31 @@
     "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
   ],
   "fuentes": [
-    "RITE RD 1027/2007",
-    "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-    "Resolución de la Dirección General de Trabajo, Industria y Comercio (normas complementarias de desarrollo del RITE en La Rioja) - larioja.org, boletín oficial de La Rioja",
-    "Resolución de 30 de julio de 2015, de la Dirección General de Innovación, Trabajo, Industria y Comercio (procedimiento de sustitución/reposición de generadores ≤70 kW) - La Rioja",
-    "Trámite 'CL y CLM. Inscripción y puesta en servicio de instalaciones térmicas' - larioja.org oficina electrónica"
+    {
+      "norma": "RITE RD 1027/2007",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de la Dirección General de Trabajo, Industria y Comercio (normas complementarias de desarrollo del RITE en La Rioja) - larioja.org, boletín oficial de La Rioja",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Resolución de 30 de julio de 2015, de la Dirección General de Innovación, Trabajo, Industria y Comercio (procedimiento de sustitución/reposición de generadores ≤70 kW) - La Rioja",
+      "url": null,
+      "fecha_consulta": null
+    },
+    {
+      "norma": "Trámite 'CL y CLM. Inscripción y puesta en servicio de instalaciones térmicas' - larioja.org oficina electrónica",
+      "url": null,
+      "fecha_consulta": null
+    }
   ],
   "reglas": [
     {
