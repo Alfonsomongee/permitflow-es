@@ -29,6 +29,14 @@ class Settings(BaseSettings):
     
     # Integrations
     RESEND_API_KEY: Optional[str] = None
+    # Antes no declaradas: pydantic-settings solo expone en settings.* las
+    # variables que están en la clase, así que aunque estuvieran en .env,
+    # getattr(settings, "NOTIFICATION_EMAIL", ...) siempre devolvía el
+    # default y dependían de que también existieran como variables de
+    # entorno reales del proceso (cierto en GitHub Actions, falso en local
+    # con solo un .env). Declaradas aquí, funcionan en ambos casos.
+    NOTIFICATION_EMAIL: Optional[str] = None
+    RESEND_FROM_DOMAIN: Optional[str] = None
     SUPABASE_URL: Optional[str] = None
     SUPABASE_SERVICE_ROLE_KEY: Optional[str] = None
     SENTRY_DSN: Optional[str] = None

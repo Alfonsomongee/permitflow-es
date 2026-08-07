@@ -321,7 +321,6 @@ export function SimulatorWizard() {
                 <p className="text-xs text-muted-foreground bg-muted/50 rounded-md p-3">
                   Al subir tu factura, extraemos automáticamente el consumo y la potencia. Si la extracción automática no funciona,
                   el texto se procesará con un servicio de IA externo. No almacenamos el texto completo de tu factura ni el identificador de tu suministro.
-                  {' '}<a href="/privacidad" className="underline">Política de privacidad</a>.
                 </p>
 
                 <div className="grid w-full max-w-sm items-center gap-1.5 mx-auto">

@@ -1,28 +1,51 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+// href: null = todavía no existe el destino (contenido/página pendiente).
+// Se renderiza como texto "Próximamente" en vez de un enlace muerto (href="#")
+// -- ver D-11 de la auditoría 2026-08-06. No se inventa contenido legal ni
+// documentación que no existe: solo se deja de fingir que el enlace funciona.
 const FOOTER_LINKS = {
   producto: [
     { name: "Quiénes somos", href: "#quienes-somos" },
-    { name: "Motor Normativo", href: "#" },
+    { name: "Motor Normativo", href: null },
     { name: "Precios", href: "#precios" },
     { name: "Cobertura Autonómica", href: "#cobertura" },
     { name: "Verticales", href: "#verticales" },
   ],
   recursos: [
-    { name: "Documentación", href: "#" },
-    { name: "API de Integración", href: "#" },
-    { name: "Blog", href: "#" },
-    { name: "Soporte", href: "#" },
+    { name: "Documentación", href: null },
+    { name: "API de Integración", href: null },
+    { name: "Blog", href: null },
+    { name: "Soporte", href: "/contacto" },
   ],
   legal: [
-    { name: "Aviso Legal", href: "#" },
-    { name: "Política de Privacidad", href: "#" },
-    { name: "Términos de Servicio", href: "#" },
+    { name: "Aviso Legal", href: null },
+    { name: "Política de Privacidad", href: null },
+    { name: "Términos de Servicio", href: null },
   ],
 };
+
+function FooterLink({ href, children }: { href: string | null; children: ReactNode }) {
+  if (!href) {
+    return (
+      <span className="inline-flex items-center gap-1.5 text-sm text-text-secondary/50">
+        {children}
+        <span className="rounded-full border border-border px-1.5 py-0.5 text-[10px] leading-none">
+          Próximamente
+        </span>
+      </span>
+    );
+  }
+  return (
+    <Link href={href} className="text-sm text-text-secondary transition-colors hover:text-primary">
+      {children}
+    </Link>
+  );
+}
 
 export function Footer() {
   return (
@@ -43,17 +66,24 @@ export function Footer() {
             </p>
             
             <div className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-text-primary">Recibe alertas del BOE</span>
+              <span className="text-sm font-medium text-text-primary">
+                Recibe alertas del BOE <span className="text-text-secondary">(próximamente)</span>
+              </span>
+              {/* Sin backend de newsletter todavía: deshabilitado en vez de
+                  simular un envío que no va a ningún sitio (ver D-11,
+                  auditoría 2026-08-06). */}
               <form className="flex max-w-sm items-center gap-2" onSubmit={(e) => e.preventDefault()}>
                 <input
                   type="email"
                   placeholder="tu@email.com"
-                  className="w-full rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                  disabled
+                  className="w-full cursor-not-allowed rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary/50 opacity-60"
                 />
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center rounded-md bg-primary p-2 text-white transition-opacity hover:opacity-90"
-                  aria-label="Suscribirse"
+                  disabled
+                  className="inline-flex cursor-not-allowed items-center justify-center rounded-md bg-primary p-2 text-white opacity-60"
+                  aria-label="Suscribirse (próximamente)"
                 >
                   <ArrowRight size={16} />
                 </button>
@@ -68,9 +98,7 @@ export function Footer() {
               <ul className="flex flex-col gap-3">
                 {FOOTER_LINKS.producto.map((link) => (
                   <li key={link.name}>
-                    <Link href={link.href} className="text-sm text-text-secondary transition-colors hover:text-primary">
-                      {link.name}
-                    </Link>
+                    <FooterLink href={link.href}>{link.name}</FooterLink>
                   </li>
                 ))}
               </ul>
@@ -80,9 +108,7 @@ export function Footer() {
               <ul className="flex flex-col gap-3">
                 {FOOTER_LINKS.recursos.map((link) => (
                   <li key={link.name}>
-                    <Link href={link.href} className="text-sm text-text-secondary transition-colors hover:text-primary">
-                      {link.name}
-                    </Link>
+                    <FooterLink href={link.href}>{link.name}</FooterLink>
                   </li>
                 ))}
               </ul>
@@ -92,9 +118,7 @@ export function Footer() {
               <ul className="flex flex-col gap-3">
                 {FOOTER_LINKS.legal.map((link) => (
                   <li key={link.name}>
-                    <Link href={link.href} className="text-sm text-text-secondary transition-colors hover:text-primary">
-                      {link.name}
-                    </Link>
+                    <FooterLink href={link.href}>{link.name}</FooterLink>
                   </li>
                 ))}
               </ul>
