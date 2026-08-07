@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, Zap } from "lucide-react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,13 +22,25 @@ import { PresupuestoButton } from "./PresupuestoButton";
 
 export function NuevaInstalacionForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [step, setStep] = useState<StepId>(1);
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
+  // Si se llega desde el simulador de ahorro (?potencia=X), prellenamos la
+  // potencia recomendada calculada allí en vez de que el usuario tenga que
+  // volver a introducirla -- antes el simulador y el wizard estaban
+  // completamente desconectados (mejora 2026-08-07). tipo_instalacion y uso
+  // ya son "fotovoltaica_autoconsumo"/"residencial" por defecto (el único
+  // caso que llega desde el simulador), así que no hace falta forzarlos.
+  const potenciaSugerida = searchParams.get("potencia");
+  const initialValues: FormState = potenciaSugerida
+    ? { ...FORM_INITIAL, potencia_kw: potenciaSugerida }
+    : FORM_INITIAL;
+
   const methods = useForm<FormState>({
     resolver: zodResolver(nuevaInstalacionSchema),
-    defaultValues: FORM_INITIAL,
+    defaultValues: initialValues,
     mode: "onTouched",
   });
 

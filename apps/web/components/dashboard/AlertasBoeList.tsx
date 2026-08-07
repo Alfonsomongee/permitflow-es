@@ -211,6 +211,10 @@ export function AlertasBoeList({
 }) {
   const [lista, setLista] = useState(alertas);
   const [filtroTipo, setFiltroTipo] = useState<string>("todos");
+  const [filtroCcaa, setFiltroCcaa] = useState<string>("todas");
+  const [filtroVertical, setFiltroVertical] = useState<string>("todos");
+  const [filtroUrgencia, setFiltroUrgencia] = useState<string>("todas");
+  const [marcandoTodas, setMarcandoTodas] = useState(false);
 
   const marcarLeida = async (id: string) => {
     // Optimistic update
@@ -230,10 +234,56 @@ export function AlertasBoeList({
     }
   };
 
+  const marcarTodasLeidas = async () => {
+    const pendientes = lista.filter((a) => !a.leida).map((a) => a.id);
+    if (pendientes.length === 0) return;
+
+    setMarcandoTodas(true);
+    // Optimistic update
+    setLista((prev) => prev.map((a) => ({ ...a, leida: true })));
+
+    try {
+      const resultados = await Promise.allSettled(
+        pendientes.map((id) =>
+          fetch("/api/alertas/leer", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id }),
+          })
+        )
+      );
+      const fallidas = resultados.filter((r) => r.status === "rejected").length;
+      if (fallidas > 0) {
+        toast.error(`${fallidas} alerta${fallidas !== 1 ? "s" : ""} no se pudo marcar como leída`);
+      } else {
+        toast.success("Todas las alertas marcadas como leídas");
+      }
+    } finally {
+      setMarcandoTodas(false);
+    }
+  };
+
+  const ccaaDisponibles = useMemo(() => {
+    const set = new Set<string>();
+    lista.forEach((a) => a.ccaa_afectadas?.forEach((c) => set.add(c)));
+    return Array.from(set).sort();
+  }, [lista]);
+
+  const verticalesDisponibles = useMemo(() => {
+    const set = new Set<string>();
+    lista.forEach((a) => a.verticales_afectados?.forEach((v) => set.add(v)));
+    return Array.from(set).sort();
+  }, [lista]);
+
   const listaFiltrada = useMemo(() => {
-    if (filtroTipo === "todos") return lista;
-    return lista.filter((a) => a.tipo === filtroTipo);
-  }, [lista, filtroTipo]);
+    return lista.filter((a) => {
+      if (filtroTipo !== "todos" && a.tipo !== filtroTipo) return false;
+      if (filtroCcaa !== "todas" && !(a.ccaa_afectadas ?? []).includes(filtroCcaa)) return false;
+      if (filtroVertical !== "todos" && !(a.verticales_afectados ?? []).includes(filtroVertical)) return false;
+      if (filtroUrgencia !== "todas" && a.nivel_urgencia !== filtroUrgencia) return false;
+      return true;
+    });
+  }, [lista, filtroTipo, filtroCcaa, filtroVertical, filtroUrgencia]);
 
   const noLeidas = lista.filter((a) => !a.leida).length;
 
@@ -260,7 +310,7 @@ export function AlertasBoeList({
           <p className="text-xs text-text-secondary">Todas las alertas leídas</p>
         )}
         
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Filter size={14} className="text-text-secondary" />
           <select
             value={filtroTipo}
@@ -272,6 +322,54 @@ export function AlertasBoeList({
             <option value="modificacion">Modificación</option>
             <option value="derogacion">Derogación</option>
           </select>
+
+          {ccaaDisponibles.length > 0 && (
+            <select
+              value={filtroCcaa}
+              onChange={(e) => setFiltroCcaa(e.target.value)}
+              className="rounded-lg border border-border bg-surface px-2 py-1 text-xs text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+            >
+              <option value="todas">Todas las CCAA</option>
+              {ccaaDisponibles.map((ccaa) => (
+                <option key={ccaa} value={ccaa}>{ccaa}</option>
+              ))}
+            </select>
+          )}
+
+          {verticalesDisponibles.length > 0 && (
+            <select
+              value={filtroVertical}
+              onChange={(e) => setFiltroVertical(e.target.value)}
+              className="rounded-lg border border-border bg-surface px-2 py-1 text-xs text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+            >
+              <option value="todos">Todos los verticales</option>
+              {verticalesDisponibles.map((v) => (
+                <option key={v} value={v}>{v}</option>
+              ))}
+            </select>
+          )}
+
+          <select
+            value={filtroUrgencia}
+            onChange={(e) => setFiltroUrgencia(e.target.value)}
+            className="rounded-lg border border-border bg-surface px-2 py-1 text-xs text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+          >
+            <option value="todas">Cualquier urgencia</option>
+            <option value="alta">Urgencia alta</option>
+            <option value="media">Urgencia media</option>
+            <option value="baja">Urgencia baja</option>
+          </select>
+
+          {noLeidas > 0 && (
+            <button
+              onClick={marcarTodasLeidas}
+              disabled={marcandoTodas}
+              className="flex items-center gap-1 rounded-lg border border-border px-2 py-1 text-xs text-text-secondary transition-colors hover:bg-success hover:text-white disabled:opacity-50"
+            >
+              <CheckCircle2 size={12} aria-hidden />
+              Marcar todas leídas
+            </button>
+          )}
         </div>
       </div>
 

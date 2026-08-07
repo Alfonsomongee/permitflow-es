@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UploadCloud, FileWarning, ArrowRight, ArrowLeft, Loader2, Download, AlertCircle } from 'lucide-react';
 import { useSimulatorStore } from '@/store/use-simulator-store';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -61,7 +62,7 @@ export function SimulatorWizard() {
 
   // Selectores reactivos (no getState())
   const facturaFile = useSimulatorStore(s => s.facturaFile);
-  const codigoPostal = useSimulatorStore(s => s.codigoPostal);
+  const tipoInmueble = useSimulatorStore(s => s.tipoInmueble);
 
   const [simulacionEstado, setSimulacionEstado] = useState<SimulacionEstado>('idle');
   const [errorMensaje, setErrorMensaje] = useState<string | null>(null);
@@ -159,12 +160,15 @@ export function SimulatorWizard() {
       // --- Paso 2: Generar informe ---
       setSimulacionEstado('generando_informe');
 
+      // Antes se enviaban facturaId/direccion/superficieDisponible/
+      // interesadoEnBaterias, campos que GenerarRequest (apps/api/routers/
+      // simulador.py) nunca ha aceptado -- analisis_id es obligatorio y sin
+      // él el backend devolvía 422 en el 100% de los envíos. Corregido para
+      // enviar el contrato real (ver hallazgo "simulador roto", auditoría
+      // de mejoras 2026-08-07).
       const { estudio_id, token } = await generateSimulation({
-        facturaId: factura.id,
-        direccion: codigoPostal,
-        superficieDisponible: 0, // Mock for API compat if needed, adjust API as needed.
-        presupuesto: globalPresupuesto,
-        interesadoEnBaterias: false,
+        analisisId: factura.id,
+        tipoInmueble,
       }, controller.signal);
 
       // --- Paso 3: Polling hasta completado, error o timeout ---
@@ -423,6 +427,31 @@ export function SimulatorWizard() {
               <ArrowLeft className="mr-2 h-4 w-4" /> Volver a simular
             </Button>
             <InformeInteractivo informe={informe} />
+
+            {/* CTA hacia el wizard de trámites: antes, quien ya calculaba su
+                ahorro tenía que volver a introducir todo desde cero para
+                iniciar el expediente (mejora 2026-08-07). Prellenamos la
+                potencia recomendada por el propio informe. */}
+            <Card className="border-primary/30 bg-primary/5">
+              <CardContent className="flex flex-col items-center gap-3 py-6 text-center sm:flex-row sm:justify-between sm:text-left">
+                <div>
+                  <p className="font-medium">¿Listo para dar el siguiente paso?</p>
+                  <p className="text-sm text-muted-foreground">
+                    Genera el plan de trámites para tu instalación con estos mismos datos.
+                  </p>
+                </div>
+                <Link
+                  href={
+                    informe.escenarios[0]
+                      ? `/nueva-instalacion?potencia=${Math.round(informe.escenarios[0].potencia_kwp * 10) / 10}`
+                      : '/nueva-instalacion'
+                  }
+                  className={buttonVariants({ variant: 'default' })}
+                >
+                  Iniciar trámite <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </CardContent>
+            </Card>
           </motion.div>
         )}
       </AnimatePresence>

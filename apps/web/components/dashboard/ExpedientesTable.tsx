@@ -94,8 +94,23 @@ interface ExpedientesTableProps {
 
 export function ExpedientesTable({ expedientes, initialQuery = "" }: ExpedientesTableProps) {
   const [filtro, setFiltro] = useState<EstadoExpediente | "todos">("todos");
+  const [comunidadFiltro, setComunidadFiltro] = useState<string>("todas");
+  const [tipoFiltro, setTipoFiltro] = useState<string>("todos");
   const [query, setQuery] = useState(initialQuery);
   const [sorting, setSorting] = useState<SortingState>([]);
+
+  // Antes solo se podía filtrar por estado (chips) o buscar comunidad/tipo
+  // escribiendo el texto exacto -- con muchos expedientes activos pesa no
+  // tener desplegables dedicados (mejora 2026-08-07).
+  const comunidadesDisponibles = useMemo(() => {
+    const set = new Set(expedientes.map((e) => e.comunidad));
+    return Array.from(set).sort();
+  }, [expedientes]);
+
+  const tiposDisponibles = useMemo(() => {
+    const set = new Set(expedientes.map((e) => e.tipo_instalacion));
+    return Array.from(set).sort();
+  }, [expedientes]);
 
   // Filtrado customizado antes de pasarlo a TanStack (más fácil para multi-campos)
   const filteredData = useMemo(() => {
@@ -103,6 +118,8 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
 
     return expedientes.filter((expediente) => {
       const matchesEstado = filtro === "todos" || expediente.estado === filtro;
+      const matchesComunidad = comunidadFiltro === "todas" || expediente.comunidad === comunidadFiltro;
+      const matchesTipo = tipoFiltro === "todos" || expediente.tipo_instalacion === tipoFiltro;
       const searchable = [
         expediente.cliente,
         TIPO_LABEL[expediente.tipo_instalacion],
@@ -114,9 +131,14 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
         .join(" ")
         .toLowerCase();
 
-      return matchesEstado && (!normalizedQuery || searchable.includes(normalizedQuery));
+      return (
+        matchesEstado &&
+        matchesComunidad &&
+        matchesTipo &&
+        (!normalizedQuery || searchable.includes(normalizedQuery))
+      );
     });
-  }, [expedientes, filtro, query]);
+  }, [expedientes, filtro, comunidadFiltro, tipoFiltro, query]);
 
   const columns: ColumnDef<Expediente>[] = useMemo(
     () => [
@@ -220,7 +242,11 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
     },
   });
 
-  const hasFilters = filtro !== "todos" || query.trim() !== "";
+  const hasFilters =
+    filtro !== "todos" ||
+    comunidadFiltro !== "todas" ||
+    tipoFiltro !== "todos" ||
+    query.trim() !== "";
 
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-card">
@@ -268,6 +294,32 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
               </button>
             ))}
           </div>
+
+          {comunidadesDisponibles.length > 1 && (
+            <select
+              value={comunidadFiltro}
+              onChange={(e) => setComunidadFiltro(e.target.value)}
+              className="h-9 rounded-lg border border-border bg-bg px-2 text-xs text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+            >
+              <option value="todas">Todas las CC. AA.</option>
+              {comunidadesDisponibles.map((c) => (
+                <option key={c} value={c}>{COMUNIDAD_LABEL[c] ?? c}</option>
+              ))}
+            </select>
+          )}
+
+          {tiposDisponibles.length > 1 && (
+            <select
+              value={tipoFiltro}
+              onChange={(e) => setTipoFiltro(e.target.value)}
+              className="h-9 rounded-lg border border-border bg-bg px-2 text-xs text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+            >
+              <option value="todos">Todos los tipos</option>
+              {tiposDisponibles.map((t) => (
+                <option key={t} value={t}>{TIPO_LABEL[t] ?? t}</option>
+              ))}
+            </select>
+          )}
         </div>
       </div>
 

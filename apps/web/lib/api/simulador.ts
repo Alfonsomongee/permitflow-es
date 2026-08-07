@@ -87,11 +87,19 @@ export function uploadInvoice(
 
 export function generateSimulation(
   data: {
-    direccion: string;
-    superficieDisponible: number;
-    presupuesto: number;
-    interesadoEnBaterias: boolean;
-    facturaId?: string;
+    /** id devuelto por uploadInvoice() -- el backend lo llama analisis_id */
+    analisisId: string;
+    tipoInmueble: string;
+    /**
+     * region/lat/lon son opcionales: si no se envían, el backend usa un
+     * punto medio orientativo de producción para España peninsular en vez
+     * de PVGIS real (ver apps/api/servicios/informes_ia.py). Hoy el wizard
+     * solo captura un código postal, no coordenadas, así que se omiten aquí
+     * a propósito en vez de fabricar una conversión CP -> CCAA sin verificar.
+     */
+    region?: string;
+    lat?: number;
+    lon?: number;
   },
   signal?: AbortSignal,
 ) {
@@ -102,7 +110,13 @@ export function generateSimulation(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        analisis_id: data.analisisId,
+        tipo_inmueble: data.tipoInmueble,
+        region: data.region,
+        lat: data.lat,
+        lon: data.lon,
+      }),
       signal,
     },
     generarResponseSchema,
