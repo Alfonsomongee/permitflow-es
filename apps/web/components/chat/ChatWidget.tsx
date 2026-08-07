@@ -15,72 +15,135 @@ import {
   Bot,
   User,
   AlertTriangle,
+  Flag,
+  Check,
 } from "lucide-react";
+import { toast } from "sonner";
 import { useDeepSeekChat } from "./useDeepSeekChat";
-import type { PlanTramitacion, InstalacionParams } from "@/types/plan";
-import { buildSystemPrompt } from "./buildSystemPrompt";
+import { useChatContextStore } from "@/store/use-chat-context-store";
 import { DecryptedText } from "@/components/ui/decrypted-text";
-
-// ─── Props ────────────────────────────────────────────────────────────────────
-
-interface ChatWidgetProps {
-  /** Si se pasa, el bot conoce el expediente activo */
-  plan?: PlanTramitacion | null;
-  params?: InstalacionParams | null;
-  /** Normativa JSON cruda del vertical (import dinámico desde el servidor) */
-  normativaJson?: object | null;
-}
 
 // ─── Burbuja del mensaje ──────────────────────────────────────────────────────
 
 function MessageBubble({
   role,
   content,
+  id,
+  onReport,
 }: {
   role: "user" | "assistant";
   content: string;
+  id?: string;
+  /** Solo aplica a mensajes del asistente ya persistidos (mejoras 2026-08-07) */
+  onReport?: (mensajeId: string, contenido: string) => Promise<boolean>;
 }) {
   const isUser = role === "user";
+  const [reportando, setReportando] = useState(false);
+  const [motivo, setMotivo] = useState("");
+  const [reportado, setReportado] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+
+  const enviarReporte = async () => {
+    if (!id || !onReport || !motivo.trim()) return;
+    setEnviando(true);
+    const ok = await onReport(id, motivo.trim());
+    setEnviando(false);
+    if (ok) {
+      setReportado(true);
+      setReportando(false);
+      toast.success("Gracias, lo revisaremos.");
+    } else {
+      toast.error("No se pudo enviar el reporte.");
+    }
+  };
+
   return (
-    <div className={`flex gap-2.5 ${isUser ? "flex-row-reverse" : "flex-row"}`}>
-      {/* Avatar */}
-      <div
-        className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white mt-0.5 ${
-          isUser ? "bg-primary" : "bg-neutral-600"
-        }`}
-      >
-        {isUser ? (
-          <User size={12} aria-hidden />
-        ) : (
-          <Bot size={12} aria-hidden />
+    <div className={`flex flex-col gap-1 ${isUser ? "items-end" : "items-start"}`}>
+      <div className={`flex gap-2.5 ${isUser ? "flex-row-reverse" : "flex-row"}`}>
+        {/* Avatar */}
+        <div
+          className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white mt-0.5 ${
+            isUser ? "bg-primary" : "bg-neutral-600"
+          }`}
+        >
+          {isUser ? (
+            <User size={12} aria-hidden />
+          ) : (
+            <Bot size={12} aria-hidden />
+          )}
+        </div>
+
+        {/* Burbuja */}
+        <div
+          className={`group/bubble max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+            isUser
+              ? "rounded-tr-sm bg-primary text-white"
+              : "rounded-tl-sm bg-surface border border-border text-text-primary"
+          }`}
+        >
+          {isUser ? (
+            /* Mensajes del usuario: texto plano */
+            content.split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                {i < content.split("\n").length - 1 && <br />}
+              </span>
+            ))
+          ) : (
+            /* Respuestas del asistente: efecto de descifrado */
+            <DecryptedText
+              text={content}
+              duration={Math.min(800 + content.length * 4, 2400)}
+              animate
+            />
+          )}
+        </div>
+
+        {/* Reportar respuesta incorrecta: solo asistente, solo una vez
+            persistido el mensaje (tiene id) -- mejoras 2026-08-07. */}
+        {!isUser && id && onReport && !reportado && (
+          <button
+            onClick={() => setReportando((v) => !v)}
+            className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center self-start rounded text-text-secondary/40 opacity-0 transition-opacity hover:text-danger group-hover/bubble:opacity-100"
+            title="Reportar respuesta incorrecta"
+            aria-label="Reportar respuesta incorrecta"
+          >
+            <Flag size={11} aria-hidden />
+          </button>
+        )}
+        {!isUser && reportado && (
+          <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center self-start text-success" title="Reportado">
+            <Check size={11} aria-hidden />
+          </span>
         )}
       </div>
 
-      {/* Burbuja */}
-      <div
-        className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-          isUser
-            ? "rounded-tr-sm bg-primary text-white"
-            : "rounded-tl-sm bg-surface border border-border text-text-primary"
-        }`}
-      >
-        {isUser ? (
-          /* Mensajes del usuario: texto plano */
-          content.split("\n").map((line, i) => (
-            <span key={i}>
-              {line}
-              {i < content.split("\n").length - 1 && <br />}
-            </span>
-          ))
-        ) : (
-          /* Respuestas del asistente: efecto de descifrado */
-          <DecryptedText
-            text={content}
-            duration={Math.min(800 + content.length * 4, 2400)}
-            animate
+      {reportando && !reportado && (
+        <div className="ml-8 flex w-[75%] flex-col gap-1.5 rounded-lg border border-border bg-surface p-2">
+          <textarea
+            value={motivo}
+            onChange={(e) => setMotivo(e.target.value)}
+            placeholder="¿Qué está mal en esta respuesta?"
+            rows={2}
+            className="resize-none rounded-md border border-border bg-bg px-2 py-1 text-xs text-text-primary outline-none focus:border-primary"
           />
-        )}
-      </div>
+          <div className="flex justify-end gap-1.5">
+            <button
+              onClick={() => setReportando(false)}
+              className="rounded-md px-2 py-1 text-[11px] text-text-secondary hover:bg-bg"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={enviarReporte}
+              disabled={!motivo.trim() || enviando}
+              className="rounded-md bg-danger/10 px-2 py-1 text-[11px] font-medium text-danger hover:bg-danger/20 disabled:opacity-50"
+            >
+              {enviando ? "Enviando…" : "Enviar reporte"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -94,15 +157,21 @@ const SUGGESTED_QUESTIONS = [
   "¿Puedo tramitarlo telemáticamente?",
 ];
 
-export function ChatWidget({ plan, params, normativaJson }: ChatWidgetProps) {
+export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const systemPrompt = buildSystemPrompt(plan, params, normativaJson);
-  const { messages, loading, error, sendMessage, clearChat } = useDeepSeekChat({
-    systemPrompt,
+  // Contexto del expediente activo, publicado por SetChatContext desde la
+  // página del expediente (ChatWidget vive en el layout compartido, no
+  // puede recibirlo como prop -- mejoras 2026-08-07).
+  const { expedienteId, comunidad, tecnologia } = useChatContextStore();
+
+  const { messages, loading, error, sendMessage, clearChat, reportMessage } = useDeepSeekChat({
+    expedienteId,
+    comunidad,
+    tecnologia,
   });
 
   // Auto-scroll al último mensaje
@@ -133,7 +202,7 @@ export function ChatWidget({ plan, params, normativaJson }: ChatWidgetProps) {
     }
   };
 
-  const hasContext = !!(plan && params);
+  const hasContext = !!(comunidad && tecnologia);
 
   return (
     <>
@@ -156,7 +225,7 @@ export function ChatWidget({ plan, params, normativaJson }: ChatWidgetProps) {
                 </p>
                 <p className="text-[11px] text-text-secondary">
                   {hasContext
-                    ? `Contexto: ${params?.tipo_instalacion?.replace(/_/g, " ")} · ${params?.comunidad}`
+                    ? `Contexto: ${tecnologia?.replace(/_/g, " ")} · ${comunidad}`
                     : "Sin expediente activo"}
                 </p>
               </div>
@@ -207,7 +276,7 @@ export function ChatWidget({ plan, params, normativaJson }: ChatWidgetProps) {
               </div>
             ) : (
               messages.map((m, i) => (
-                <MessageBubble key={i} role={m.role} content={m.content} />
+                <MessageBubble key={m.id ?? i} role={m.role} content={m.content} id={m.id} onReport={reportMessage} />
               ))
             )}
 

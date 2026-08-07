@@ -35,6 +35,10 @@ export async function POST(req: Request) {
         "Content-Type": "application/json",
         "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
         "x-org-id": orgId,
+        // Quién de la organización escribe -- antes no se enviaba, así que
+        // asistente_conversaciones.user_id nunca podía rellenarse
+        // correctamente (historial de chat, mejoras 2026-08-07).
+        "x-user-id": userId,
       },
       body: JSON.stringify(body),
     });

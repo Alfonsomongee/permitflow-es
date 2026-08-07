@@ -1,27 +1,42 @@
 import json
 import logging
-from typing import AsyncGenerator
+import uuid
+from typing import AsyncGenerator, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException
 from fastapi.responses import StreamingResponse
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
 from models.expediente import Expediente
-from schemas.asistente import AsistenteChatRequest
+from models.asistente import AsistenteConversacion, AsistenteMensaje, AsistenteReporte
+from schemas.asistente import (
+    AsistenteChatRequest,
+    AsistenteConversacionOut,
+    AsistenteReporteRequest,
+)
 from servicios.ai_client import completar_stream
 from servicios.asistente_context import construir_contexto
 from servicios.asistente_presupuesto import verificar_presupuesto, registrar_uso
 from servicios.tenant_context import TenantContext, get_tenant_context, set_tenant_context
-# from models.asistente import AsistenteConversacion, AsistenteMensaje (para guardar historial, si se quiere, por ahora lo simplificaremos)
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/asistente", tags=["asistente"])
 
+# user_id no forma parte del contexto de tenant (eso resuelve org_id vía
+# X-Org-Id); es simplemente quién de la organización escribió el mensaje,
+# para poder mostrarlo/filtrar el historial por persona. Next.js lo inyecta
+# desde la sesión de Clerk (auth().userId), igual que ya hace con X-Org-Id.
+async def _x_user_id(x_user_id: Optional[str] = Header(default=None)) -> str:
+    return x_user_id or "desconocido"
+
+
 @router.post("/chat")
 async def chat_asistente(
     request: AsistenteChatRequest,
     ctx: TenantContext = Depends(get_tenant_context),
+    user_id: str = Depends(_x_user_id),
 ):
     # 0. Organización ya resuelta y contexto de tenant (app.current_org_id)
     # ya fijado en la sesión por la dependencia get_tenant_context (B-05 paso b).
@@ -43,6 +58,44 @@ async def chat_asistente(
         if not expediente:
             raise HTTPException(status_code=404, detail="Expediente no encontrado")
 
+    # 2b. Resolver/crear la conversación (historial de chat, mejoras
+    # 2026-08-07). Antes este endpoint no escribía nunca en
+    # asistente_conversaciones/asistente_mensajes pese a que el modelo y las
+    # políticas RLS ya existían -- el chat era 100% efímero.
+    conversacion: Optional[AsistenteConversacion] = None
+    if request.conversacion_id:
+        res = await session.execute(
+            select(AsistenteConversacion).where(
+                AsistenteConversacion.id == request.conversacion_id,
+                AsistenteConversacion.org_id == internal_org_id,
+            )
+        )
+        conversacion = res.scalars().first()
+        if not conversacion:
+            raise HTTPException(status_code=404, detail="Conversación no encontrada")
+
+    if not conversacion:
+        conversacion = AsistenteConversacion(
+            org_id=internal_org_id,
+            user_id=user_id,
+            expediente_id=request.expediente_id,
+        )
+        session.add(conversacion)
+        await session.commit()
+        await session.refresh(conversacion)
+
+    # 2c. Persistir el turno del usuario. El frontend siempre manda el
+    # historial completo de la sesión, así que solo el último mensaje es
+    # nuevo -- los anteriores ya se guardaron en peticiones previas.
+    ultimo = request.mensajes[-1] if request.mensajes else None
+    if ultimo and ultimo.role == "user":
+        session.add(AsistenteMensaje(
+            conversacion_id=conversacion.id,
+            rol="user",
+            contenido=ultimo.content[:2000],
+        ))
+        await session.commit()
+
     # 3. Construir contexto
     # Reutilizamos los params o inferimos de comunidad/tecnologia
     params = request.params or {}
@@ -63,16 +116,19 @@ async def chat_asistente(
             "content": msg.content[:2000] # Sanitizar/Truncar un poco si es user hostil
         })
 
-    # 5. Configurar el stream SSE y registrar uso al final.
-    # La sesión original (`session`, con app.current_org_id ya fijado por
-    # get_tenant_context) puede haber sido cerrada por FastAPI para cuando
-    # termina el stream, así que se abre una sesión efímera aparte para el
-    # INSERT de uso — y por eso hay que repetir set_tenant_context en ella
-    # (B-05 paso b): el GUC es de ámbito de transacción/sesión, no global.
+    # 5. Configurar el stream SSE, persistir la respuesta y registrar uso al
+    # final. La sesión original (`session`, con app.current_org_id ya fijado
+    # por get_tenant_context) puede haber sido cerrada por FastAPI para cuando
+    # termina el stream, así que se abre una sesión efímera aparte para los
+    # INSERT posteriores — y por eso hay que repetir set_tenant_context en
+    # ella (B-05 paso b): el GUC es de ámbito de transacción/sesión, no global.
     from database import AsyncSessionLocal
+
+    conversacion_id = conversacion.id
 
     async def sse_generator_with_usage() -> AsyncGenerator[str, None]:
         usage_stats = {}
+        respuesta_completa = ""
 
         try:
             async for chunk in completar_stream(
@@ -82,6 +138,7 @@ async def chat_asistente(
                 temperatura=0.1,
                 usage_stats=usage_stats
             ):
+                respuesta_completa += chunk
                 # Formato Vercel AI SDK stream:
                 # texto chunk -> 0:"..."
                 yield f'0:{json.dumps(chunk)}\n'
@@ -91,10 +148,24 @@ async def chat_asistente(
             logger.exception("Error en stream de asistente")
             yield f'3:{json.dumps("Error al generar la respuesta")}\n'
 
-        if usage_stats:
-            try:
-                async with AsyncSessionLocal() as stream_session:
-                    await set_tenant_context(stream_session, internal_org_id)
+        mensaje_id = None
+        try:
+            async with AsyncSessionLocal() as stream_session:
+                await set_tenant_context(stream_session, internal_org_id)
+
+                if respuesta_completa:
+                    mensaje = AsistenteMensaje(
+                        conversacion_id=conversacion_id,
+                        rol="assistant",
+                        contenido=respuesta_completa,
+                        tokens=usage_stats.get("completion_tokens"),
+                    )
+                    stream_session.add(mensaje)
+                    await stream_session.commit()
+                    await stream_session.refresh(mensaje)
+                    mensaje_id = mensaje.id
+
+                if usage_stats:
                     await registrar_uso(
                         org_id=internal_org_id,
                         session=stream_session,
@@ -102,7 +173,97 @@ async def chat_asistente(
                         tokens_entrada_cache=usage_stats.get("prompt_cache_hit_tokens", 0),
                         tokens_salida=usage_stats.get("completion_tokens", 0)
                     )
-            except Exception as e:
-                logger.error(f"No se pudo registrar uso de IA: {e}")
+        except Exception as e:
+            logger.error(f"No se pudo persistir el mensaje/uso de IA: {e}")
+
+        # Metadatos de cierre: conversacion_id (para que el cliente lo
+        # reutilice en el siguiente turno) y mensaje_id (para poder
+        # reportar esta respuesta concreta como incorrecta). Prefijo 8:
+        # reservado aquí para "anotación", análogo al uso que le da el
+        # protocolo de streaming de Vercel AI SDK -- no interfiere con 0:/3:.
+        yield f'8:{json.dumps({"conversacion_id": str(conversacion_id), "mensaje_id": str(mensaje_id) if mensaje_id else None})}\n'
 
     return StreamingResponse(sse_generator_with_usage(), media_type="text/event-stream")
+
+
+@router.get("/conversacion", response_model=Optional[AsistenteConversacionOut])
+async def obtener_conversacion_reciente(
+    expediente_id: Optional[str] = None,
+    ctx: TenantContext = Depends(get_tenant_context),
+    user_id: str = Depends(_x_user_id),
+):
+    """Devuelve la conversación más reciente de este usuario para el
+    expediente indicado (o la conversación general, sin expediente, si no
+    se pasa `expediente_id`), con sus mensajes en orden cronológico.
+
+    Permite que el widget de chat recupere el historial al reabrirse en vez
+    de empezar siempre de cero (mejoras 2026-08-07)."""
+    session = ctx.session
+
+    stmt = (
+        select(AsistenteConversacion)
+        .where(
+            AsistenteConversacion.org_id == ctx.org_id,
+            AsistenteConversacion.user_id == user_id,
+        )
+        .options(selectinload(AsistenteConversacion.mensajes))
+        .order_by(AsistenteConversacion.creado_en.desc())
+        .limit(1)
+    )
+    if expediente_id:
+        try:
+            expediente_uuid = uuid.UUID(expediente_id)
+        except ValueError:
+            raise HTTPException(status_code=400, detail="expediente_id inválido")
+        stmt = stmt.where(AsistenteConversacion.expediente_id == expediente_uuid)
+    else:
+        stmt = stmt.where(AsistenteConversacion.expediente_id.is_(None))
+
+    res = await session.execute(stmt)
+    conversacion = res.scalars().first()
+    if not conversacion:
+        return None
+
+    return AsistenteConversacionOut(
+        id=conversacion.id,
+        expediente_id=conversacion.expediente_id,
+        mensajes=conversacion.mensajes,
+    )
+
+
+@router.post("/reportar")
+async def reportar_mensaje(
+    body: AsistenteReporteRequest,
+    ctx: TenantContext = Depends(get_tenant_context),
+    user_id: str = Depends(_x_user_id),
+):
+    """Registra que un usuario marcó una respuesta del asistente como
+    incorrecta/alucinada. El schema AsistenteReporteRequest ya existía desde
+    hace tiempo pero ningún endpoint lo usaba (mejoras 2026-08-07)."""
+    session = ctx.session
+
+    # El mensaje debe existir y pertenecer (vía su conversación) a esta
+    # organización -- si no, 404 en vez de filtrar silenciosamente para no
+    # dar pistas sobre IDs de otras organizaciones.
+    res = await session.execute(
+        select(AsistenteMensaje)
+        .join(AsistenteConversacion, AsistenteConversacion.id == AsistenteMensaje.conversacion_id)
+        .where(
+            AsistenteMensaje.id == body.mensaje_id,
+            AsistenteConversacion.org_id == ctx.org_id,
+            AsistenteMensaje.rol == "assistant",
+        )
+    )
+    mensaje = res.scalars().first()
+    if not mensaje:
+        raise HTTPException(status_code=404, detail="Mensaje no encontrado")
+
+    session.add(AsistenteReporte(
+        mensaje_id=mensaje.id,
+        org_id=ctx.org_id,
+        user_id=user_id,
+        contenido=body.contenido[:2000],
+    ))
+    await session.commit()
+
+    return {"ok": True}
