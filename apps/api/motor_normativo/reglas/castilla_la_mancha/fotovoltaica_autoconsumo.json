@@ -17,43 +17,43 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 21/1992 de Industria",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-1992-17363",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite 1002270 'Registro de una instalación eléctrica de baja tensión' y 020048 (mismo trámite) - jccm.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.jccm.es/tramites/1002270",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Plataforma eDice-bt (diligenciado de certificados BT) - edice.castillalamancha.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://edice.castillalamancha.es/eDice-bt/acerca.jsp",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Instrucción 1/2020 sobre tramitación de instalaciones de autoconsumo (Dirección General de Transición Energética), disponible en https://edice.castillalamancha.es/eDice-bt/autoconsumo.pdf",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://edice.castillalamancha.es/eDice-bt/autoconsumo.pdf",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

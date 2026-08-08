@@ -17,18 +17,17 @@
   "fuentes": [
     {
       "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 13/2010, de 23 de marzo (Castilla-La Mancha) — regula tarifas de empresas distribuidoras de gas, NO la legalización de instalaciones; se cita solo como referencia de contexto",
-      "url": null,
-      "fecha_consulta": null
+      "url": null
     },
     {
       "norma": "Ficha de trámite 1002260 'Registro de una instalación receptora de combustibles gaseosos' - jccm.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.jccm.es/tramites/1002260",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
