@@ -17,18 +17,18 @@
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 49/2004, de 20 de abril (procedimiento de instalación y puesta en funcionamiento de establecimientos industriales, Grupo II) - Extremadura",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://doe.juntaex.es/pdfs/doe/2004/480o/04040052.pdf",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de servicio 'Registro de Instalaciones Térmicas en Edificios' - industriaextremadura.juntaex.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "http://industriaextremadura.juntaex.es/kamino/aplicaciones/servicios.php?id=180",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

@@ -17,13 +17,13 @@
   "fuentes": [
     {
       "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 842/2002 REBT",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden de 17 de octubre de 2003 (Cantabria), modificada por Orden de 5 de mayo de 2004 y Orden INN/2/2015",
@@ -32,18 +32,18 @@
     },
     {
       "norma": "Ficha de trámite 3158/3446/180 (registro/legalización de instalaciones BT) - sede.cantabria.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Grupo de Trabajo de Infraestructuras de Recarga del Vehículo Eléctrico (GTIRVE) - IDAE, confirma que Cantabria tramita IRVE por el circuito general de registro de instalaciones BT",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.idae.es/tecnologias/eficiencia-energetica/transporte/grupo-de-trabajo-de-infraestructuras-de-recarga-del-vehiculo-electrico-gtirve",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

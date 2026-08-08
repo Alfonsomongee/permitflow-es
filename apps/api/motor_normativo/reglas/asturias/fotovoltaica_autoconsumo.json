@@ -21,33 +21,33 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico, art. 53 (exención AAP ≤100kW BT / sin excedentes)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002 ITC-BT-40",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-23233",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de procedimiento 'BT Fotovoltaica Autoconsumo' - asturias.es (códigos AUTO0301T01, RECE0017T01, RECE0004T01, RECE0049T01)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.asturias.es/-/dboid-6269000040819315407573",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

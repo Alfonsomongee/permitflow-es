@@ -15,23 +15,23 @@
   "fuentes": [
     {
       "norma": "RD 842/2002 REBT, ITC-BT-04",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1053/2014, ITC-BT-52",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Llei 9/2014, de 31 de juliol, de la seguretat industrial dels establiments, les instal·lacions i els productes",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://portaljuridic.gencat.cat/ca/document-del-pjur/?documentId=668687",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decret 192/2023, de 7 de novembre, de la seguretat industrial dels establiments, les instal·lacions i els productes",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://portaljuridic.gencat.cat/ca/document-del-pjur/?documentId=971700",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "validaciones": [

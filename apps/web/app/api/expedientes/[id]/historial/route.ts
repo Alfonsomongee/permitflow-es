@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { obtenerExpediente } from "@/lib/expedientes";
 import { supabaseAdmin } from "@/lib/supabase";
+import { resolverNombresClerk } from "@/lib/clerk-nombres";
 
 export async function GET(
   _req: Request,
@@ -29,5 +30,18 @@ export async function GET(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ historial: data ?? [], usuario_actual: userId });
+  const historial = data ?? [];
+
+  // Resolver operador_id (Clerk user id crudo) a un nombre legible -- antes
+  // el panel de actividad mostraba "operador …a1b2c3" para cualquiera que no
+  // fuera el propio usuario (mejoras 2026-08-07). Una sola llamada batch,
+  // no una por entrada.
+  const nombresPorId = await resolverNombresClerk(historial.map((h) => h.operador_id));
+
+  const historialConNombre = historial.map((h) => ({
+    ...h,
+    operador_nombre: nombresPorId[h.operador_id] ?? null,
+  }));
+
+  return NextResponse.json({ historial: historialConNombre, usuario_actual: userId });
 }

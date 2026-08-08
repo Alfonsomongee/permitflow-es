@@ -16,38 +16,38 @@
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007 (art. 15: umbral de proyecto >70 kW; arts. 16-17 documentación)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1826/2009 (modificación RITE)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2009-19915",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 238/2013 (modificación RITE)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2013-3905",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 178/2021 (modificación RITE)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2021-4572",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 314/2006 Código Técnico de la Edificación",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-5515",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 552/2019 RSIF (Reglamento de seguridad para instalaciones frigoríficas), art. 21 declaración responsable — citado por la ficha 3409, relevante para aerotermia con gases fluorados",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-15228",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 154/2001, de 23 de julio, sobre el procedimiento para la puesta en funcionamiento de industrias e instalaciones industriales (normativa autonómica citada en la ficha 3409)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.gobiernodecanarias.org/boc/2001/097/002.html",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 54/2021, de 27 de mayo, Reglamento Orgánico de la Consejería de Transición Ecológica (normativa autonómica citada en la ficha 3409)",
@@ -56,8 +56,8 @@
     },
     {
       "norma": "Ficha de trámite SICAC 3409 'Puesta en funcionamiento de instalaciones térmicas en edificios' - sede.gobiernodecanarias.org",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gobiernodecanarias.org/sede/tramites/3409",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

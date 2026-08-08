@@ -17,33 +17,33 @@
   "fuentes": [
     {
       "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 842/2002 REBT",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 141/2009, de 10 de noviembre (Canarias) — Reglamento de ejecución y puesta en servicio de instalaciones eléctricas",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.gobiernodecanarias.org/boc/2009/230/003.html",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite SICAC 3158 'Comunicación previa a la puesta en servicio de instalaciones eléctricas de baja tensión' (instalación receptora NUEVA) - sede.gobiernodecanarias.org",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gobiernodecanarias.org/sede/tramites/3158",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite SICAC 6782 'Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión' (instalación receptora YA EXISTENTE) - sede.gobiernodecanarias.org",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gobiernodecanarias.org/sede/tramites/6782",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

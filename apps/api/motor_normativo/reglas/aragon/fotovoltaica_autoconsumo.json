@@ -18,38 +18,38 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo electrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexion",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Electrico, art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 842/2002 REBT ITC-BT-40",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden EIE/1731/2017 -- citada en ficha oficial de aragon.es para BT; no verificada especificamente para autoconsumo",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=987941024949&type=pdf",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 7/2021 Cambio Climatico art. 16 -- no verificado el contenido especifico citado",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-8447",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=845932645757&type=pdf",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

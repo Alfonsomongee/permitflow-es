@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { capturar } from "@/lib/analytics/posthog";
 
 const contactoSchema = z.object({
   nombre: z.string().min(2, "Indica tu nombre."),
@@ -60,6 +61,8 @@ export function ContactoForm() {
         throw new Error(body.detail || "No se pudo enviar el mensaje.");
       }
 
+      // Sin nombre/email/mensaje: solo el tipo de consulta (mejoras 2026-08-07).
+      capturar("contacto_enviado", { tipo_instalacion: tipo || undefined });
       setEnviado(true);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No se pudo enviar el mensaje.");

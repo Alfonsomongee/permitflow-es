@@ -1,10 +1,10 @@
 from sqlalchemy import String, Integer, DateTime, ForeignKey, Date, UniqueConstraint, text
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from datetime import datetime, timezone, date
 from database import Base
-from typing import Optional
+from typing import Optional, List
 
 class AsistenteUso(Base):
     """Contadores diarios de uso del asistente por organización."""
@@ -34,8 +34,16 @@ class AsistenteConversacion(Base):
     org_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizaciones.id"), nullable=False, index=True)
     user_id: Mapped[str] = mapped_column(String, nullable=False) # Clerk user ID
     expediente_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("expedientes.id"), nullable=True)
-    
+
     creado_en: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+    # Historial de chat (mejoras 2026-08-07): antes ningún endpoint escribía
+    # aquí, así que no hacía falta esta relación para cargar los mensajes de
+    # vuelta. lazy="raise" evita el N+1 clásico por descuido: cualquier
+    # acceso debe pasar por selectinload/joinedload explícito.
+    mensajes: Mapped[List["AsistenteMensaje"]] = relationship(
+        "AsistenteMensaje", lazy="raise", order_by="AsistenteMensaje.creado_en"
+    )
 
 class AsistenteMensaje(Base):
     """Un mensaje individual dentro de una conversación."""

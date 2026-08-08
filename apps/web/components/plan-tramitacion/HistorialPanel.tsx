@@ -9,6 +9,9 @@ interface EntradaHistorial {
   estado_anterior: string | null;
   estado_nuevo: string;
   operador_id: string;
+  /** Nombre resuelto vía Clerk (mejoras 2026-08-07); null si no se pudo
+   * resolver (usuario eliminado, Clerk no disponible, etc). */
+  operador_nombre: string | null;
   creado_en: string;
 }
 
@@ -95,7 +98,9 @@ export function HistorialPanel({ expedienteId }: { expedienteId: string }) {
                 <span className="mt-0.5 block text-[10px] text-text-secondary">
                   {fecha}
                   {" · "}
-                  {esTuyo ? "tú" : `operador …${e.operador_id.slice(-6)}`}
+                  {esTuyo
+                    ? "tú"
+                    : e.operador_nombre ?? `operador …${e.operador_id.slice(-6)}`}
                 </span>
               </li>
             );

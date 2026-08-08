@@ -18,23 +18,23 @@
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 173/2000, de 5 de diciembre, del Gobierno Valenciano (condiciones higiénico-sanitarias para prevención de legionelosis) — confirmado real",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://dogv.gva.es/portal/ficha_disposicion.jsp?id=26&sig=4008/2000&L=1",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 201/2002, de 10 de diciembre (brotes comunitarios de legionelosis, Comunitat Valenciana) — confirmado real",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://dogv.gva.es/auto/dogv/docvpub/rlgv/2002/D_2002_201_ca_C_20021219.pdf",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 141/2012, de 28 de septiembre (simplificación de la puesta en funcionamiento de instalaciones industriales) — confirmado real",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://dogv.gva.es/datos/2012/10/01/pdf/2012_9018.pdf",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — confirmado real",
@@ -43,8 +43,8 @@
     },
     {
       "norma": "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y 450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gva.es/es/detall-tramit?id_proc=G19316",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

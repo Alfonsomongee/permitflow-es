@@ -14,6 +14,7 @@ import {
   STEPS,
 } from "./types";
 import { nuevaInstalacionSchema } from "../../lib/validations/nuevaInstalacion";
+import { capturar } from "@/lib/analytics/posthog";
 import { StepIndicator } from "./StepIndicator";
 import { Step1TipoUbicacion } from "./Step1TipoUbicacion";
 import { Step2ParametrosTecnicos } from "./Step2ParametrosTecnicos";
@@ -123,6 +124,13 @@ export function NuevaInstalacionForm() {
         throw new Error(errorMessage);
       }
 
+      // Solo categorías (tipo/comunidad/uso), nunca datos identificativos
+      // del cliente -- mejoras 2026-08-07.
+      capturar("expediente_creado", {
+        tipo_instalacion: data.tipo_instalacion,
+        comunidad: data.comunidad,
+        uso: data.uso,
+      });
       router.push(`/expedientes/${resData.expedienteId}`);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Error inesperado al clasificar.";

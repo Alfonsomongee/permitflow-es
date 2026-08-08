@@ -8,6 +8,7 @@ import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UploadCloud, FileWarning, ArrowRight, ArrowLeft, Loader2, Download, AlertCircle } from 'lucide-react';
 import { useSimulatorStore } from '@/store/use-simulator-store';
+import { capturar } from '@/lib/analytics/posthog';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -195,6 +196,12 @@ export function SimulatorWizard() {
           setInforme(estudio.resultado);
           setSimulacionEstado('completado');
           setStep('resultados');
+          // Sin datos de la factura ni del informe -- solo la potencia
+          // recomendada, para poder ver el funnel simulador -> expediente
+          // sin capturar nada sensible (mejoras 2026-08-07).
+          capturar('simulador_completado', {
+            potencia_kwp: estudio.resultado.escenarios[0]?.potencia_kwp,
+          });
           return;
         }
 
@@ -447,6 +454,7 @@ export function SimulatorWizard() {
                       : '/nueva-instalacion'
                   }
                   className={buttonVariants({ variant: 'default' })}
+                  onClick={() => capturar('simulador_cta_nueva_instalacion_click')}
                 >
                   Iniciar trámite <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

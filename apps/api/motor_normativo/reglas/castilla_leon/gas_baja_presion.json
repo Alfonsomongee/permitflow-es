@@ -20,23 +20,23 @@
   "fuentes": [
     {
       "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 6/2014 de Industria de Castilla y León",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://bocyl.jcyl.es/eli/es-cl/l/2014/09/12/6",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden EEI/1036/2021, de 6 de septiembre (regularización administrativa de instalaciones de seguridad industrial)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://bocyl.jcyl.es/eli/es-cl/o/2021/09/06eei1036/",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite 'Instalación receptora de gas' de la Junta de Castilla y León - https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite (confirma umbrales de la ITC-ICG-07 aplicables con carácter general; corregida en la revisión 2026-07-28: la fuente anterior citaba erróneamente jccm.es, dominio de Castilla-La Mancha)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

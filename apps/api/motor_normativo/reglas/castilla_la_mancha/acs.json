@@ -18,13 +18,13 @@
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite 1002272 'Registro de una instalación térmica' - jccm.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.jccm.es/tramites/1002272",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

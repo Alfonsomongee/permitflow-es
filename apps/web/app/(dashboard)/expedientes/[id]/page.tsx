@@ -4,6 +4,7 @@ import { PlanTramitacionView } from "@/components/plan-tramitacion";
 import { obtenerExpediente } from "@/lib/expedientes";
 import { alertasNoLeidasParaExpediente } from "@/lib/alertas";
 import { AlertasExpedienteBanner } from "@/components/plan-tramitacion/AlertasExpedienteBanner";
+import { SetChatContext } from "@/components/plan-tramitacion/SetChatContext";
 import type { InstalacionParams } from "@/types/plan";
 
 interface PageProps {
@@ -41,6 +42,11 @@ export default async function ExpedienteDetallePage({ params }: PageProps) {
 
   return (
     <>
+      <SetChatContext
+        expedienteId={expediente.id}
+        comunidad={expediente.comunidad}
+        tecnologia={expediente.tipo_instalacion}
+      />
       <AlertasExpedienteBanner alertas={alertasRelacionadas} />
       <PlanTramitacionView
         plan={plan}

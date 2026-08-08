@@ -18,48 +18,48 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002 ITC-BT-40",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD-ley 18/2022 (facultad de elevación del umbral a 500 kW)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-17040",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 13/2012, de 20 de noviembre, de medidas urgentes para la activación económica en materia de industria y energía, nuevas tecnologías, residuos, aguas, otras actividades y medidas tributarias (BOE-A-2013-355)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-355",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite 034 'Registro de instalaciones de producción de energía eléctrica de pequeña potencia conectadas a red' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/1447066)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ventanilla de tramitación de instalaciones de autoconsumo de pequeña potencia (≤500 kW) - caib.es (https://www.caib.es/sites/instalacionspetitapotencia/)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.caib.es/sites/instalacionspetitapotencia/",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "'Registro de autoconsumo de las Illes Balears' - Dirección General de Economía Circular, Transición Energética y Cambio Climático",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.caib.es/sites/instalacionspetitapotencia/es/paso_7_inscripcion_al_registro_de_autoconsumo_de_las_islas_baleares/",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

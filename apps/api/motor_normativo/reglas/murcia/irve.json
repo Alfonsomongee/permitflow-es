@@ -18,23 +18,23 @@
   "fuentes": [
     {
       "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 842/2002 REBT",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 20/2003, de 21 de marzo (Región de Murcia) — confirmado real",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.carm.es/web/descarga?ARCHIVO=Decreto+20-2003_03-07-2003_10-27-57.pdf&ALIAS=ARCH&IDCONTENIDO=4106&IDTIPO=60&RASTRO=c634%24m2240%2C2248",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

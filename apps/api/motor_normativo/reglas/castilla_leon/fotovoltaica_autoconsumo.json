@@ -18,38 +18,38 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 6/2014, de 12 de septiembre, de Industria de Castilla y León",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://bocyl.jcyl.es/eli/es-cl/l/2014/09/12/6",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002 ITC-BT-40, ITC-BT-04",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 46/2022, de 24 de noviembre (Castilla y León) — procedimientos de autorizaciones administrativas de instalaciones eléctricas, sustituye al derogado Decreto 127/2003",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://bocyl.jcyl.es/eli/es-cl/d/2022/11/24/46/",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Aplicación BOEL (Boletines Eléctricos) - tramitacastillayleon.jcyl.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://economia.jcyl.es/web/es/industria/boletin-instalaciones-electricas-boel.html",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
