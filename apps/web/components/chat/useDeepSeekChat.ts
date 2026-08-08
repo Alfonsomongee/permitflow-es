@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import { capturar } from "@/lib/analytics/posthog";
 
 export interface ChatMessage {
   role: "user" | "assistant";
@@ -90,6 +91,13 @@ export function useDeepSeekChat({
       setMessages([...updated]);
       setLoading(true);
       setError(null);
+
+      // Sin el texto de la pregunta: solo que se usó el asistente y en qué
+      // contexto (mejoras 2026-08-07).
+      capturar("asistente_mensaje_enviado", {
+        con_expediente: !!expedienteId,
+        tecnologia,
+      });
 
       try {
         const res = await fetch(DEEPSEEK_API_URL, {
