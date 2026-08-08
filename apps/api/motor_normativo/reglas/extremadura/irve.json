@@ -17,18 +17,18 @@
   "fuentes": [
     {
       "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 842/2002 REBT",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden de 31 de julio de 2008 (tramitación telemática BT en Extremadura)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "http://industriaextremadura.juntaex.es/kamino/aplicaciones/servicios.php?id=221",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Resolución de 24 de marzo de 2004 (instrucciones técnicas puesta en servicio BT en Extremadura)",
@@ -37,8 +37,8 @@
     },
     {
       "norma": "ITC-BT-04 apartado 3.1 y 3.3 (RD 1053/2014, Disposición final segunda, BOE-A-2014-13681)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
