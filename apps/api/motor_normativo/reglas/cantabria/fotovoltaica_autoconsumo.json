@@ -18,23 +18,23 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002 ITC-BT-40",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 99/1996, de 26 de septiembre (traspaso de competencias en materia de industria a Cantabria)",
@@ -48,8 +48,8 @@
     },
     {
       "norma": "Ficha de trámite 3446 'Legalización de instalaciones de Baja Tensión' y 180 'Inscripción en el Registro de instalaciones eléctricas de baja tensión no industriales' - sede.cantabria.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
