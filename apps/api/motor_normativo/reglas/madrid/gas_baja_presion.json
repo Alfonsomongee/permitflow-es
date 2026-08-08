@@ -15,23 +15,23 @@
   "fuentes": [
     {
       "norma": "Ley 34/1998",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-23284",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1434/2002",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-25421",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 919/2006 e ITC-ICG-07",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1085/1992",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1992-22638",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "validaciones": [

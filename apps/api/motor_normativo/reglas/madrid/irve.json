@@ -14,23 +14,23 @@
   "fuentes": [
     {
       "norma": "RD 842/2002, REBT, ITC-BT-04",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1053/2014, ITC-BT-52",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 38/2002",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://gestiona.comunidad.madrid/wleg_pub/servlet/Servidor?opcion=VerHtml&nmnorma=1448&cdestado=P",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden 9344/2003, modificada por Orden 163/2024",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://gestiona.comunidad.madrid/wleg_pub/secure/normativas/contenidoNormativa.jsf?opcion=VerHtml&nmnorma=4033&eli=true",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "validaciones": [

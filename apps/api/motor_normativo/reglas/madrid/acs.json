@@ -15,33 +15,33 @@
   "fuentes": [
     {
       "norma": "RD 1027/2007 (RITE)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden 9343/2003, de 1 de octubre",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://gestiona.comunidad.madrid/wleg_pub/secure/normativas/contenidoNormativa.jsf?opcion=VerHtml&nmnorma=4021&eli=true",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 38/2002, de 28 de febrero",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://gestiona.comunidad.madrid/wleg_pub/servlet/Servidor?opcion=VerHtml&nmnorma=1448&cdestado=P",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Resolución de 5 de marzo de 2025 (modelos de formularios)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2025/03/31/BOCM-20250331-41.PDF",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 487/2022",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-10297",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 614/2024",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-10297",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "validaciones": [
