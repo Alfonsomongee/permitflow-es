@@ -19,18 +19,18 @@
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto Legislativo 1/2015, de 12 de febrero, por el que se aprueba el texto refundido de las disposiciones legales de la Comunidad Autónoma de Galicia en materia de política industrial (DOG núm. 128, 09/07/2015) — sustituye a la Ley 9/2004, de 10 de agosto, de seguridad industrial de Galicia, derogada desde el 10/07/2015; su Libro I regula la seguridad industrial",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.xunta.gal/dog/Publicados/2015/20150709/AnuncioCA04-180515-0004_es.html",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

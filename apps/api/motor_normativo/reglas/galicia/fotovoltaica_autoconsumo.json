@@ -18,38 +18,38 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002 ITC-BT-40",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Resolución de 22 de julio de 2014, de la Dirección General de Energía y Minas (tramitación electrónica de procedimientos) - Galicia",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.xunta.gal/dog/Publicados/2014/20140825/AnuncioCA04-190814-0001_es.html",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Resolución de 18 de febrero de 2020, de la Dirección General de Energía y Minas (procedimiento de comunicación de instalaciones de autoconsumo BT <100kW, códigos IN407B/IN407C) - DOG núm. 43, 04/03/2020",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.xunta.gal/dog/Publicados/2020/20200304/AnuncioG0424-240220-0004_es.html",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Trámites reales de la sede electrónica de la Xunta de Galicia: IN614A/IN614C (registro BT), IN407B/IN407C (autoconsumo <100kW), IN408A (autoconsumo con autorización), IN429A (pública concurrencia con OCA)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.xunta.gal/es/detalle-procedemento?codtram=IN407B",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
