@@ -23,68 +23,68 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002 ITC-BT-40",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 141/2009, de 10 de noviembre, por el que se aprueba el Reglamento por el que se regulan los procedimientos administrativos relativos a la ejecución y puesta en servicio de las instalaciones eléctricas en Canarias (Anexo VII, tabla 2.1: documentación exigible por tipo de instalación)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.gobiernodecanarias.org/boc/2009/230/003.html",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 133/2011, de 17 de mayo, sobre dimensionamiento de acometidas y extensiones de red (normativa autonómica citada en la ficha 3158)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.gobiernodecanarias.org/boc/2011/111/001.html",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden de 5 de febrero de 2014, sobre tramitación electrónica de los procedimientos de puesta en servicio de instalaciones industriales (normativa autonómica citada en la ficha 3158)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gobiernodecanarias.org/boc/boc-a-2014-032-624.pdf",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 5/2021, de 21 de diciembre, de medidas urgentes de impulso de los sectores primario, energético, turístico y territorial de Canarias (citada como normativa autonómica vigente en la ficha 6782)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-2543",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 4/2017, de 13 de julio, del Suelo y de los Espacios Naturales Protegidos de Canarias (Calificación Territorial del Cabildo insular para suelo rústico)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2017-10295",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden TED/624/2026, de 12 de junio (BOE-A-2026-13574): redefinición de los Sistemas Eléctricos Aislados canarios (SEIE), 5 sistemas desde el 1/7/2026",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-13574",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite SICAC 3158 'Comunicación previa a la puesta en servicio de instalaciones eléctricas de baja tensión' (instalación receptora NUEVA) - sede.gobiernodecanarias.org",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gobiernodecanarias.org/sede/tramites/3158",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite SICAC 6782 'Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión' (instalación receptora YA EXISTENTE) - sede.gobiernodecanarias.org",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gobiernodecanarias.org/sede/tramites/6782",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite SICAC 2721 'Autorización administrativa de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables, cogeneración y residuos' - sede.gobiernodecanarias.org",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gobiernodecanarias.org/sede/tramites/2721",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
