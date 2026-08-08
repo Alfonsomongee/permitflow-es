@@ -19,23 +19,23 @@
   "fuentes": [
     {
       "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 34/1998, de 7 de octubre, del sector de hidrocarburos",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-23284",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de procedimiento DECO0011T01 'Comunicación de instalaciones receptoras de gases combustibles (ICG 07)' - sede de Asturias",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://miprincipado.asturias.es/-/dboid-6269000023985654207573",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto Legislativo 1/1998, de 11 de junio, texto refundido de las Leyes de Tasas y Precios Públicos del Principado de Asturias",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-23233",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
