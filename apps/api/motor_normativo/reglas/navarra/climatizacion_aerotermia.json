@@ -16,13 +16,13 @@
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente en instalaciones industriales/energéticas",
@@ -31,13 +31,13 @@
     },
     {
       "norma": "Orden Foral 60/2015, de 5 de marzo de 2015 (BON n.º 54, de 20 de marzo de 2015) — Disp. Derogatoria punto 16: deroga la Orden Foral 424/2009 de desarrollo foral del RITE; regula el procedimiento general de tramitación/registro de instalaciones térmicas en Navarra",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.lexnavarra.navarra.es/detalle.asp?r=35513",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden Foral 64/2022, de 21 de octubre — Disposición Adicional Única: exige inspección inicial por Organismo de Control (OCA) antes de la puesta en servicio de instalaciones con potencia térmica nominal en generación de calor o frío >70 kW",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.lexnavarra.navarra.es/detalle.asp?r=55330",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

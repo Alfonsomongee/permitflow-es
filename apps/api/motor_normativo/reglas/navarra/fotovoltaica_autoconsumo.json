@@ -18,43 +18,43 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico, art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002 ITC-BT-40",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto-ley Foral 1/2022 (Navarra) — CONFIRMADO real, art. sobre especialidades de autorización de instalaciones de autoconsumo renovable, confirma umbral de 100 kW",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.lexnavarra.navarra.es/detalle.asp?r=54722",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden Foral 64/2022, de 21 de octubre (Navarra) — confirmada real, especialidades de autorización de autoconsumo y comunidades energéticas",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.lexnavarra.navarra.es/detalle.asp?r=55330",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden Foral 60/2015, de 5 de marzo de 2015 (BON n.º 54, de 20 de marzo de 2015) — deroga la Orden Foral 181/2003 y otras normas de BT; referencia vigente en sustitución",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.lexnavarra.navarra.es/detalle.asp?r=35513",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha oficial 'Tramitación y registro administrativo de instalaciones de autoconsumo de energía eléctrica' - navarra.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.navarra.es/es/tramites/on/-/line/Tramitacion-y-registro-administrativo-de-instalaciones-de-autoconsumo-de-energia-electrica",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
