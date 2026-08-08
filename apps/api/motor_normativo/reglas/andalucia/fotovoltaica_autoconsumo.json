@@ -6,63 +6,63 @@
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1183/2020 acceso y conexión",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-17278",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 24/2013 Sector Eléctrico",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 842/2002 REBT ITC-BT-40",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 59/2005, de 1 de marzo (Andalucía) -- procedimiento de establecimientos industriales",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.juntadeandalucia.es/boja/2005/118/3",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden 5 marzo 2013 Junta de Andalucía",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.juntadeandalucia.es/boja/2013/48/1",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Autoconsumo -- Junta de Andalucía (Consejería de Industria, Energía y Minas): https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/energia/autoconsumo.html -- fuente primaria verificada 2026-07-27 para CAU, RADNE, RAIPEE, autorización de explotación y fase de activación/contrato",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/energia/autoconsumo.html",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto-ley 2/2018, de 26 de junio (Andalucía), disposición adicional única — verificado gap 5.3 (Fase 0 investigación)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.juntadeandalucia.es/boja/2018/127/2",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Resolución de 28 de septiembre de 2023, Secretaría General de Energía (BOJA 2023/193/69) -- aprueba la ficha técnica descriptiva de BT del aplicativo PUES vigente; sustituye a la cita anterior 'Decreto-ley 3/2024, de 6 de febrero', no localizada con fuente admisible tras auditoría 2026-07-27",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.juntadeandalucia.es/boja/2023/193/69",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Resolucion de 13 de octubre de 2023, Secretaria General de Energia -- VEAJA/9588 confirmado (Fase 1, bloque 2.2)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.juntadeandalucia.es/boja/2023/206/75.html",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 477/2021 y cierre de convocatoria -- verificado (Fase 1, bloque 2.4)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2021-10824",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Manual de tramitación de autoconsumo, Secretaría General de Energía, noviembre 2025: https://www.juntadeandalucia.es/sites/default/files/inline-files/2025/11/MANUAL_tramitacion_autoconsumo_noviembre_2025.pdf",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.juntadeandalucia.es/sites/default/files/inline-files/2025/11/MANUAL_tramitacion_autoconsumo_noviembre_2025.pdf",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
