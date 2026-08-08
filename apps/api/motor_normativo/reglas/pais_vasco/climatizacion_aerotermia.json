@@ -14,23 +14,23 @@
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 1826/2009, RD 238/2013, RD 178/2021 (modificaciones RITE)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — confirmado real",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.euskadi.eus/gobierno-vasco/-/eli/es-pv/d/2020/06/30/81/dof/spa/html/",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha oficial 'Instalaciones térmicas' - euskadi.eus, confirma umbral de 70 kW y base legal directa en RD 1027/2007",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.euskadi.eus/procedimiento/it/web01-tramite/es/",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

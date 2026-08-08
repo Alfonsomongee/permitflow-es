@@ -17,18 +17,18 @@
   "fuentes": [
     {
       "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
+      "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Decreto 229/2012, de 30 de octubre (Gobierno Vasco) — confirmado real, simplificación del procedimiento de puesta en servicio de instalaciones industriales",
-      "url": null,
-      "fecha_consulta": null
+      "norma": "Decreto 81/2020, de 30 de junio, de seguridad industrial (Gobierno Vasco) — corrige cita: el Decreto 229/2012 citado originalmente fue derogado por la disposición derogatoria única, letra b), del Decreto 81/2020, vigente desde el 1 de octubre de 2020",
+      "url": "https://www.euskadi.eus/gobierno-vasco/-/eli/es-pv/d/2020/06/30/81/dof/spa/html/",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ley 21/1992 de Industria",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-1992-17363",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

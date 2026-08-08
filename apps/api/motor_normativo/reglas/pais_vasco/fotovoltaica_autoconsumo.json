@@ -18,28 +18,28 @@
   "fuentes": [
     {
       "norma": "Ley 24/2013 art. 53",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13645",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 244/2019",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-5089",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 48/2020, de 31 de marzo, del Gobierno Vasco (procedimientos de autorización administrativa de instalaciones de producción, transporte y distribución de energía eléctrica) — CONFIRMADO real",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.euskadi.eus/gobierno-vasco/-/eli/es-pv/d/2020/03/31/48/dof/spa/html/",
+      "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Decreto Legislativo 1/2025, actualizado por Ley 7/2025 de Presupuestos, Título VI Cap. I art. 129-132 — no verificado en esta revisión",
-      "url": null,
-      "fecha_consulta": null
+      "norma": "Decreto Legislativo 1/2025, de 20 de marzo, Texto Refundido de la Ley de Tasas y Precios Públicos de la CAPV, Título VI Cap. I (Tasa por Servicios Comunes en materia de Industria, Seguridad Industrial, Energía y Minas), arts. 129-130 — verificado: art. 129 hecho imponible, art. 130 sujeto pasivo",
+      "url": "https://www.euskadi.eus/gobierno-vasco/-/eli/es-pv/dlg/2025/03/20/1/dof/spa/html/",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite [GE] 'Tramitación de instalaciones de generación de energía eléctrica, incluido autoconsumo' - euskadi.eus - https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
