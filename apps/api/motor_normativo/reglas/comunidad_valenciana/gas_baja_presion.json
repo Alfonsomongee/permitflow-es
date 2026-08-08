@@ -19,13 +19,13 @@
   "fuentes": [
     {
       "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 141/2012, de 28 de septiembre, del Consell (simplificación de la puesta en funcionamiento de instalaciones industriales) — CONFIRMADO real",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://dogv.gva.es/datos/2012/10/01/pdf/2012_9018.pdf",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden 14/2022, de 5 de diciembre (obligatoriedad de tramitación electrónica en Industria, Energía y Minería) — CONFIRMADO real",
@@ -34,8 +34,8 @@
     },
     {
       "norma": "Ficha de trámite id_proc=3192 'Instalación receptora de gas (ITC-7)' - sede.gva.es",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://sede.gva.es/es/detall-tramit?id_proc=3192",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
