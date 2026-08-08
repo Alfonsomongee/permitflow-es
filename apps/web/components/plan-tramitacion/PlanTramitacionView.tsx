@@ -16,6 +16,7 @@ import { ResumenPanel } from "./ResumenPanel";
 import { ExportPdfButtons } from "./ExportPdfButton";
 import { DetallesExpediente } from "./DetallesExpediente";
 import { PortalClienteCard } from "./PortalClienteCard";
+import { DocumentosClientePanel } from "./DocumentosClientePanel";
 import { HistorialPanel } from "./HistorialPanel";
 import { DocumentosPanel } from "./DocumentosPanel";
 import { TimelinePlan } from "./TimelinePlan";
@@ -411,6 +412,7 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
                 />
               )}
               {expediente && <PortalClienteCard expedienteId={expediente.id} />}
+              {expediente && <DocumentosClientePanel expedienteId={expediente.id} />}
               {expediente && <HistorialPanel expedienteId={expediente.id} />}
             </div>
           </div>

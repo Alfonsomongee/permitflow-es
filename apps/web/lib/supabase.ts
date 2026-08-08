@@ -68,6 +68,23 @@ export interface DbExpediente {
   actualizado_en: string;
 }
 
+/** Documento subido por el propietario final desde el portal público
+ * (/portal/[token]), asociado a un trámite y documento requerido concreto
+ * del plan. El archivo en sí vive en el bucket privado "documentos-cliente"
+ * (storage_path); esta fila es solo el metadato. */
+export interface DbDocumentoCliente {
+  id: string;
+  expediente_id: string;
+  tramite_orden: number;
+  documento_id: string;
+  documento_label: string;
+  nombre_original: string;
+  storage_path: string;
+  tamano_bytes: number;
+  tipo_mime: string;
+  subido_en: string;
+}
+
 export interface DbAlertaBoe {
   id: string;
   org_id: string | null;

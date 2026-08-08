@@ -1,22 +1,24 @@
 /**
  * apps/web/app/portal/[token]/page.tsx
  *
- * Portal de cliente final: vista pública de solo lectura de un expediente,
- * sin necesidad de cuenta. El enlace lo genera el instalador/gestoría desde
- * PortalClienteCard (panel del expediente) y usa un token opaco (UUID
- * aleatorio) como única credencial — no hay login ni cookie de sesión aquí.
+ * Portal de cliente final: vista pública de un expediente, sin necesidad de
+ * cuenta. El enlace lo genera el instalador/gestoría desde PortalClienteCard
+ * (panel del expediente) y usa un token opaco (UUID aleatorio) como única
+ * credencial — no hay login ni cookie de sesión aquí.
  *
- * Deliberadamente NO reutiliza PlanTramitacionView completo: esa vista tiene
- * paneles internos (notas, historial de auditoría, validación normativa,
- * generación de documentos) que no son para el propietario final. Esta
- * página solo muestra el plan y su progreso.
+ * Desde 2026-08-08 no es puramente de solo lectura: el propietario puede
+ * subir documentación pendiente por trámite (ver PortalTramitesList /
+ * DocumentoUploadControl), primera pieza del portal bidireccional. Sigue
+ * sin exponer notas internas, historial de auditoría ni validación
+ * normativa -- eso sigue siendo exclusivo de PlanTramitacionView.
  */
 import { notFound } from "next/navigation";
 import { Building2, CalendarClock, MapPin, ShieldCheck, Zap } from "lucide-react";
 import { supabaseAdmin } from "@/lib/supabase";
 import { TIPO_LABEL, COMUNIDAD_LABEL, type PlanTramitacion, type TramitesEstadoMap } from "@/types/plan";
-import { TramiteCard } from "@/components/plan-tramitacion/TramiteCard";
 import { TimelinePlan } from "@/components/plan-tramitacion/TimelinePlan";
+import { PortalTramitesList } from "@/components/plan-tramitacion/PortalTramitesList";
+import type { DocumentoSubidoResumen } from "@/components/plan-tramitacion/DocumentoUploadControl";
 
 export const dynamic = "force-dynamic";
 
@@ -37,12 +39,21 @@ async function obtenerExpedientePorToken(token: string) {
   const { data } = await supabaseAdmin
     .from("expedientes")
     .select(
-      "tipo_instalacion, comunidad, potencia_kw, estado, plan_tramitacion, tramites_estado, tramites_completados, actualizado_en"
+      "id, tipo_instalacion, comunidad, potencia_kw, estado, plan_tramitacion, tramites_estado, tramites_completados, actualizado_en"
     )
     .eq("share_token", token)
     .maybeSingle();
 
   return data;
+}
+
+async function obtenerDocumentosSubidos(expedienteId: string): Promise<DocumentoSubidoResumen[]> {
+  const { data } = await supabaseAdmin
+    .from("documentos_cliente")
+    .select("id, tramite_orden, documento_id, nombre_original, subido_en")
+    .eq("expediente_id", expedienteId)
+    .order("subido_en", { ascending: false });
+  return data ?? [];
 }
 
 export default async function PortalClientePage({
@@ -52,6 +63,8 @@ export default async function PortalClientePage({
 }) {
   const expediente = await obtenerExpedientePorToken(params.token);
   if (!expediente) notFound();
+
+  const documentosSubidos = await obtenerDocumentosSubidos(expediente.id);
 
   const plan = expediente.plan_tramitacion as PlanTramitacion | null;
   const estados = (expediente.tramites_estado ?? {}) as TramitesEstadoMap;
@@ -114,23 +127,21 @@ export default async function PortalClientePage({
           </div>
         )}
 
-        <div className="space-y-3">
-          {tramitesAccionables.map((tramite) => (
-            <TramiteCard
-              key={tramite.orden}
-              tramite={tramite}
-              estadoInfo={estados[String(tramite.orden)]}
-              comunidad={expediente.comunidad}
-            />
-          ))}
-        </div>
+        <PortalTramitesList
+          tramites={tramitesAccionables}
+          estados={estados}
+          comunidad={expediente.comunidad}
+          token={params.token}
+          subidosIniciales={documentosSubidos}
+        />
 
         <div className="mt-8 flex items-start gap-2.5 rounded-xl border border-border bg-surface px-4 py-3 text-xs text-text-secondary">
           <CalendarClock size={14} className="mt-0.5 flex-shrink-0" aria-hidden />
           <p>
-            Enlace de solo lectura compartido por tu instalador o gestoría a
-            través de PermitFlow. Los plazos son estimaciones orientativas y
-            pueden variar según el organismo tramitador.
+            Enlace compartido por tu instalador o gestoría a través de
+            PermitFlow. Puedes adjuntar la documentación pendiente en cada
+            trámite. Los plazos son estimaciones orientativas y pueden
+            variar según el organismo tramitador.
           </p>
         </div>
 

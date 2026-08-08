@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   AlertTriangle,
   BarChart3,
@@ -110,7 +110,16 @@ function PlazoBadge({
   );
 }
 
-function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
+function DocumentoItem({
+  doc,
+  extra,
+}: {
+  doc: DocumentoRequerido;
+  /** Contenido adicional bajo la descripción del documento -- hoy solo lo
+   * usa el portal de cliente (portal/[token]) para el control de subida.
+   * undefined en el dashboard: cero cambio de comportamiento ahí. */
+  extra?: ReactNode;
+}) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -154,6 +163,7 @@ function DocumentoItem({ doc }: { doc: DocumentoRequerido }) {
           aria-hidden
         />
       </button>
+      {extra && <div className="px-2 pb-3">{extra}</div>}
     </li>
   );
 }
@@ -166,6 +176,10 @@ interface TramiteCardProps {
   onEstadoChange?: (estado: TramiteEstado) => void;
   estadistica?: EstadisticaPlazo;
   comunidad: string;
+  /** Solo usado por el portal de cliente (portal/[token]) para insertar el
+   * control de subida de cada documento requerido. undefined en el
+   * dashboard normal. */
+  renderDocumentoExtra?: (doc: DocumentoRequerido) => ReactNode;
 }
 
 export function TramiteCard({
@@ -176,6 +190,7 @@ export function TramiteCard({
   onEstadoChange,
   estadistica,
   comunidad,
+  renderDocumentoExtra,
 }: TramiteCardProps) {
   const [open, setOpen] = useState(defaultOpen);
   const estado: TramiteEstado = estadoInfo?.estado ?? "pendiente";
@@ -328,7 +343,7 @@ export function TramiteCard({
                 </p>
                 <ul>
                   {obligatorios.map((doc) => (
-                    <DocumentoItem key={doc.id} doc={doc} />
+                    <DocumentoItem key={doc.id} doc={doc} extra={renderDocumentoExtra?.(doc)} />
                   ))}
                 </ul>
               </div>
@@ -341,7 +356,7 @@ export function TramiteCard({
                 </p>
                 <ul>
                   {opcionales.map((doc) => (
-                    <DocumentoItem key={doc.id} doc={doc} />
+                    <DocumentoItem key={doc.id} doc={doc} extra={renderDocumentoExtra?.(doc)} />
                   ))}
                 </ul>
               </div>

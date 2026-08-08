@@ -16,7 +16,8 @@ const isPublicRoute = createRouteMatcher([
   "/api/contacto",        // proxy del formulario anterior; protegido por rate limit + honeypot en FastAPI
   "/api/cron(.*)",        // Vercel crons (se protegen a sí mismos con CRON_SECRET)
   "/api/webhooks(.*)",    // Stripe y Clerk: no llevan sesión Clerk, verifican firma propia
-  "/portal(.*)",          // portal de cliente final: enlace de solo lectura sin cuenta
+  "/portal(.*)",          // portal de cliente final: enlace sin cuenta (incluye subida de documentos)
+  "/api/portal(.*)",      // API del portal público: mismo token opaco como única credencial, sin sesión Clerk
 ]);
 
 export default clerkMiddleware(async (auth, request) => {
