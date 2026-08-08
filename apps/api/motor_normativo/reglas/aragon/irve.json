@@ -15,23 +15,23 @@
   "fuentes": [
     {
       "norma": "RD 1053/2014, de 12 de diciembre (ITC-BT-52 y modificacion de ITC-BT-04), BOE-A-2014-13681 -- umbrales verificados contra texto consolidado en esta investigacion",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-13681",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 842/2002 (REBT)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden EIE/1731/2017, de 5 de octubre -- citada en ficha oficial de aragon.es como normativa aplicable a la comunicacion de BT; texto articulado no verificado",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=987941024949&type=pdf",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=845932645757&type=pdf",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

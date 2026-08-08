@@ -19,8 +19,8 @@
   "fuentes": [
     {
       "norma": "RD 919/2006, Reglamento tecnico de distribucion y utilizacion de combustibles gaseosos, ITC-ICG 01 a 11",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Orden de 30 de marzo de 2007, del Departamento de Industria, Comercio y Turismo (Aragón) -- sustituye a la Orden de 28/02/2003 (derogada), regula la acreditación de condiciones de seguridad industrial de instalaciones receptoras de combustibles gaseosos",
@@ -29,8 +29,8 @@
     },
     {
       "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=845932645757&type=pdf",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [

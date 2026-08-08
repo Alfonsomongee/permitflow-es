@@ -16,23 +16,23 @@
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007, modificado por RD 178/2021",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15820",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "REBT RD 842/2002",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-18099",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "RD 2200/1995 (Reglamento de la Infraestructura para la Calidad y Seguridad Industrial)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-1996-2468",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=845932645757&type=pdf",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
