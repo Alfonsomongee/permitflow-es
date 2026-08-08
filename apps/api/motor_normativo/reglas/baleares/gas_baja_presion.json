@@ -18,18 +18,18 @@
   "fuentes": [
     {
       "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Decreto 25/2003, de 28 de marzo, por el que se crea la Unidad de Información y Trámite (UDIT) - Illes Balears",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.caib.es/sites/transparenciaperconselleria/es/n/decret_252003_de_28_de_mara_pel_qual_es_crea_la_unitat_dinformacia_i_tramit_i_es_regula_la_posada_en_funcionament_dinstalalacions_industrials_en_lambit_de_les_illes_balears/",
+      "fecha_consulta": "2026-08-08"
     },
     {
       "norma": "Ficha de trámite UDIT-013 'Instalaciones receptoras de gas' - caib.es (https://www.caib.es/seucaib/es/tramites/tramite/315206)",
-      "url": null,
-      "fecha_consulta": null
+      "url": "https://www.caib.es/seucaib/es/tramites/tramite/315206",
+      "fecha_consulta": "2026-08-08"
     }
   ],
   "reglas": [
