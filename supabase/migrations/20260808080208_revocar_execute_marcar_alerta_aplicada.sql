@@ -1,0 +1,13 @@
+-- marcar_alerta_aplicada es SECURITY DEFINER (corre con privilegios de su
+-- dueño, así que se salta RLS en alertas_boe) y estaba expuesta como RPC
+-- pública (/rest/v1/rpc/marcar_alerta_aplicada) a anon/authenticated,
+-- detectado por el linter de seguridad de Supabase tras aplicar la
+-- migración de RLS (2026-08-08).
+--
+-- Permitía a cualquiera con la clave anon pública marcar una alerta
+-- normativa como "aplicada" (con aplicada_en/leida) sin haber revisado nada
+-- de verdad, ocultándola del flujo de revisión humana que la columna
+-- `aplicada` está pensada para registrar (ver comentario en
+-- apps/web/lib/supabase.ts::DbAlertaBoe.aplicada). Solo debe poder llamarla
+-- el backend con service_role/postgres.
+revoke execute on function public.marcar_alerta_aplicada(uuid) from anon, authenticated;

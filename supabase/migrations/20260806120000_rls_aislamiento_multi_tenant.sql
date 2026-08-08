@@ -102,28 +102,41 @@ create policy tenant_isolation on historial_tramites
     )
   );
 
--- ─── alertas_boe (parcialmente global: org_id NULL = compartida) ───────────
--- No se restringe la lectura (las alertas globales deben verlas todos los
--- tenants), solo la escritura: solo el pipeline (que usa service_role,
--- exento de RLS) debe poder insertar/modificar.
+-- ─── alertas_boe (tabla global real, SIN columna org_id) ───────────────────
+-- Corrección 2026-08-08: la versión original de este archivo asumía una
+-- columna alertas_boe.org_id que nunca existió en el esquema real (se
+-- detectó al aplicar esta migración contra la base de datos de producción:
+-- Postgres rechazó la migración con "column org_id does not exist"). La
+-- tabla es 100% global -- todas las alertas normativas son compartidas por
+-- todos los tenants, no hay columna de organización que filtrar. Se deja
+-- lectura abierta y se cierra toda escritura pública: solo el pipeline BOE
+-- (que usa service_role/postgres, exentos de RLS) debe poder insertar o
+-- modificar filas.
 alter table alertas_boe enable row level security;
 alter table alertas_boe force row level security;
 
 drop policy if exists lectura_global_y_propia on alertas_boe;
-create policy lectura_global_y_propia on alertas_boe
+drop policy if exists lectura_global on alertas_boe;
+create policy lectura_global on alertas_boe
   for select
-  using (org_id is null or org_id = app_current_org_id());
+  using (true);
 
 drop policy if exists escritura_solo_propia on alertas_boe;
-create policy escritura_solo_propia on alertas_boe
+drop policy if exists sin_escritura_publica on alertas_boe;
+create policy sin_escritura_publica on alertas_boe
   for insert
-  with check (org_id = app_current_org_id());
+  with check (false);
 
 drop policy if exists actualizacion_solo_propia on alertas_boe;
-create policy actualizacion_solo_propia on alertas_boe
+drop policy if exists sin_actualizacion_publica on alertas_boe;
+create policy sin_actualizacion_publica on alertas_boe
   for update
-  using (org_id = app_current_org_id())
-  with check (org_id = app_current_org_id());
+  using (false);
+
+drop policy if exists sin_borrado_publico on alertas_boe;
+create policy sin_borrado_publico on alertas_boe
+  for delete
+  using (false);
 
 -- ─── alertas_leidas ──────────────────────────────────────────────────────
 alter table alertas_leidas enable row level security;
@@ -198,3 +211,12 @@ create policy tenant_isolation on asistente_mensajes
 -- y catalogo_componentes/estadisticas_plazos/idoneidad_cache no llevan RLS:
 -- son datos globales o agregados sin distinción por organización, documentado
 -- así explícitamente en sus propias migraciones/modelos.
+--
+-- Corrección 2026-08-08: al aplicar esta migración se detectó que el rol
+-- anon/authenticated tenía además INSERT/UPDATE/DELETE sobre organizaciones
+-- (no solo SELECT), pese a que la tabla no lleva política de fila. Eso sí
+-- era explotable: cualquiera con la clave anon pública podía crear
+-- organizaciones falsas o alterar el plan/suscripcion_activa de una real.
+-- Se revoca todo salvo el SELECT mínimo que necesita la resolución
+-- clerk_org_id -> org_id interno.
+revoke insert, update, delete on organizaciones from anon, authenticated;
