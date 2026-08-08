@@ -4,10 +4,12 @@ import { Search, Menu } from "lucide-react";
 import { useSidebar } from "./SidebarContext";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { NotificationBell } from "@/components/dashboard/NotificationBell";
+import { useCommandPaletteStore } from "@/store/use-command-palette-store";
 
 export function DashboardTopbar() {
   const { toggle } = useSidebar();
   const title = usePageTitle();
+  const openPalette = useCommandPaletteStore((s) => s.toggle);
 
   return (
     <header className="flex h-[60px] flex-shrink-0 items-center justify-between border-b border-border bg-surface px-4 md:px-6">
@@ -23,10 +25,11 @@ export function DashboardTopbar() {
       </div>
 
       <div className="flex items-center gap-3">
-        {/* Buscador global */}
-        <button 
+        {/* Buscador global (abre el Command Palette, ver layouts/CommandPalette.tsx) */}
+        <button
+          onClick={openPalette}
           className="hidden md:flex items-center gap-2 rounded-lg border border-border bg-bg px-3 py-1.5 text-xs text-text-secondary hover:border-primary/50 hover:bg-surface transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary"
-          aria-label="Buscar expediente"
+          aria-label="Buscar expediente o comando"
         >
           <Search size={14} aria-hidden />
           <span>Buscar expediente…</span>
@@ -34,9 +37,10 @@ export function DashboardTopbar() {
             ⌘K
           </kbd>
         </button>
-        
+
         {/* Buscador móvil (icono solo) */}
-        <button 
+        <button
+          onClick={openPalette}
           className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-text-secondary hover:bg-bg transition-colors md:hidden outline-none focus-visible:ring-2 focus-visible:ring-primary"
           aria-label="Buscar"
         >

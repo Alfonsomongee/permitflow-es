@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import {
   LayoutGrid,
   Plus,
@@ -85,22 +86,24 @@ export function DashboardSidebar() {
                     href={href}
                     onClick={() => close()}
                     className={`
-                      relative flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-all duration-150 ease-smooth outline-none focus-visible:ring-2 focus-visible:ring-primary
+                      relative flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-colors duration-150 ease-smooth outline-none focus-visible:ring-2 focus-visible:ring-primary
                       ${isActive
-                        ? "bg-primary-light text-primary font-medium"
+                        ? "text-primary font-medium"
                         : "text-text-secondary hover:bg-bg hover:text-text-primary"
                       }
                     `}
                     aria-current={isActive ? "page" : undefined}
                   >
                     {isActive && (
-                      <span
+                      <motion.span
+                        layoutId="sidebarActivePill"
                         aria-hidden
-                        className="absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-primary"
+                        className="absolute inset-0 rounded-lg bg-primary-light"
+                        transition={{ type: "spring", stiffness: 500, damping: 40 }}
                       />
                     )}
-                    <Icon size={16} aria-hidden className={isActive ? "text-primary" : "text-text-secondary/80"} />
-                    {label}
+                    <Icon size={16} aria-hidden className={`relative ${isActive ? "text-primary" : "text-text-secondary/80"}`} />
+                    <span className="relative">{label}</span>
                   </Link>
                 </li>
               );

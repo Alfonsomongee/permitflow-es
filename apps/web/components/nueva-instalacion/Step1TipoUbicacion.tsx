@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
+import { CheckCircle2 } from "lucide-react";
 import {
   type FormState,
   TIPO_OPTIONS,
   COMUNIDAD_OPTIONS,
+  COMUNIDAD_LABEL,
   USO_OPTIONS,
   nivelCobertura,
 } from "./types";
@@ -14,13 +17,24 @@ import {
   ToggleGroup,
   InfoBanner,
 } from "./FormPrimitives";
+import { AutocompleteDireccion } from "./AutocompleteDireccion";
 
 export function Step1TipoUbicacion() {
-  const { control, watch } = useFormContext<FormState>();
-  
+  const { control, watch, setValue } = useFormContext<FormState>();
+
   const tipoInstalacion = watch("tipo_instalacion");
   const comunidad = watch("comunidad");
   const cobertura = nivelCobertura(tipoInstalacion, comunidad);
+  const [sugerenciaDireccion, setSugerenciaDireccion] = useState<string | null>(null);
+
+  const handleComunidadResuelta = (comunidadResuelta: string | null, direccion: string) => {
+    if (comunidadResuelta && COMUNIDAD_LABEL[comunidadResuelta]) {
+      setValue("comunidad", comunidadResuelta, { shouldValidate: true, shouldDirty: true });
+      setSugerenciaDireccion(direccion);
+    } else {
+      setSugerenciaDireccion(null);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -38,6 +52,10 @@ export function Step1TipoUbicacion() {
         )}
       />
 
+      <Field label="Dirección (opcional)" hint="Autocompleta la comunidad autónoma de abajo; puedes corregirla si hace falta.">
+        <AutocompleteDireccion onComunidadResuelta={handleComunidadResuelta} />
+      </Field>
+
       <Controller
         control={control}
         name="comunidad"
@@ -45,9 +63,18 @@ export function Step1TipoUbicacion() {
           <Field label="Comunidad autonoma" error={fieldState.error?.message}>
             <Select
               value={field.value}
-              onChange={field.onChange}
+              onChange={(v) => {
+                field.onChange(v);
+                setSugerenciaDireccion(null);
+              }}
               options={COMUNIDAD_OPTIONS}
             />
+            {sugerenciaDireccion && (
+              <p className="mt-1 flex items-center gap-1.5 text-xs text-success-dark">
+                <CheckCircle2 size={12} aria-hidden />
+                Detectada a partir de &quot;{sugerenciaDireccion}&quot;
+              </p>
+            )}
           </Field>
         )}
       />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Filter, Plus, Search, ChevronLeft, ChevronRight, ArrowUpDown } from "lucide-react";
 import {
@@ -20,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import {
   type Expediente,
   type EstadoExpediente,
@@ -98,6 +99,22 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
   const [tipoFiltro, setTipoFiltro] = useState<string>("todos");
   const [query, setQuery] = useState(initialQuery);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Atajo '/' para saltar directo a la búsqueda sin usar el ratón, útil para
+  // gestorías que revisan muchos expedientes al día (mejora 2026-08-08).
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isTyping = target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable;
+      if (e.key === "/" && !isTyping) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Antes solo se podía filtrar por estado (chips) o buscar comunidad/tipo
   // escribiendo el texto exacto -- con muchos expedientes activos pesa no
@@ -271,11 +288,17 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
               aria-hidden
             />
             <input
+              ref={searchInputRef}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Buscar..."
-              className="h-9 w-full rounded-lg border border-border bg-bg pl-9 pr-3 text-sm text-text-primary outline-none transition-colors placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary/20 sm:w-64"
+              className="h-9 w-full rounded-lg border border-border bg-bg pl-9 pr-9 text-sm text-text-primary outline-none transition-colors placeholder:text-text-secondary focus:border-primary focus:ring-1 focus:ring-primary/20 sm:w-64"
             />
+            {!query && (
+              <kbd className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] font-medium text-text-secondary">
+                /
+              </kbd>
+            )}
           </label>
 
           <div className="flex items-center gap-1.5 overflow-x-auto">
@@ -296,29 +319,31 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
           </div>
 
           {comunidadesDisponibles.length > 1 && (
-            <select
-              value={comunidadFiltro}
-              onChange={(e) => setComunidadFiltro(e.target.value)}
-              className="h-9 rounded-lg border border-border bg-bg px-2 text-xs text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-            >
-              <option value="todas">Todas las CC. AA.</option>
-              {comunidadesDisponibles.map((c) => (
-                <option key={c} value={c}>{COMUNIDAD_LABEL[c] ?? c}</option>
-              ))}
-            </select>
+            <Select value={comunidadFiltro} onValueChange={(v) => setComunidadFiltro(v as string)}>
+              <SelectTrigger className="min-w-[9.5rem]">
+                <SelectValue placeholder="Todas las CC. AA." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="todas">Todas las CC. AA.</SelectItem>
+                {comunidadesDisponibles.map((c) => (
+                  <SelectItem key={c} value={c}>{COMUNIDAD_LABEL[c] ?? c}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           )}
 
           {tiposDisponibles.length > 1 && (
-            <select
-              value={tipoFiltro}
-              onChange={(e) => setTipoFiltro(e.target.value)}
-              className="h-9 rounded-lg border border-border bg-bg px-2 text-xs text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
-            >
-              <option value="todos">Todos los tipos</option>
-              {tiposDisponibles.map((t) => (
-                <option key={t} value={t}>{TIPO_LABEL[t] ?? t}</option>
-              ))}
-            </select>
+            <Select value={tipoFiltro} onValueChange={(v) => setTipoFiltro(v as string)}>
+              <SelectTrigger className="min-w-[8.5rem]">
+                <SelectValue placeholder="Todos los tipos" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="todos">Todos los tipos</SelectItem>
+                {tiposDisponibles.map((t) => (
+                  <SelectItem key={t} value={t}>{TIPO_LABEL[t] ?? t}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           )}
         </div>
       </div>

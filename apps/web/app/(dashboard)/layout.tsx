@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import { DashboardSidebar } from "@/components/layouts/DashboardSidebar";
 import { DashboardTopbar } from "@/components/layouts/DashboardTopbar";
 import { SidebarProvider } from "@/components/layouts/SidebarContext";
+import { CommandPalette } from "@/components/layouts/CommandPalette";
 import type { ReactNode } from "react";
 
 // Lazy load the chat widget to improve initial bundle size
@@ -34,6 +35,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </div>
 
         <ChatWidget />
+        <CommandPalette />
       </div>
     </SidebarProvider>
   );

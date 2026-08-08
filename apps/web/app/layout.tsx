@@ -6,7 +6,11 @@ import { Toaster } from "@/components/ui/sonner";
 import { PostHogProvider } from "@/components/analytics/PostHogProvider";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "PermitFlow ES - Tramitacion automatica de instalaciones",

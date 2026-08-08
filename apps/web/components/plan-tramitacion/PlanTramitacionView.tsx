@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2, ChevronDown, Clock3, MapPin, ShieldAlert, Zap } from "lucide-react";
 import {
@@ -15,19 +16,45 @@ import { TramiteCard } from "./TramiteCard";
 import { ResumenPanel } from "./ResumenPanel";
 import { ExportPdfButtons } from "./ExportPdfButton";
 import { DetallesExpediente } from "./DetallesExpediente";
-import { PortalClienteCard } from "./PortalClienteCard";
-import { DocumentosClientePanel } from "./DocumentosClientePanel";
-import { SubsanacionesPanel } from "./SubsanacionesPanel";
-import { HistorialPanel } from "./HistorialPanel";
-import { DocumentosPanel } from "./DocumentosPanel";
-import { TimelinePlan } from "./TimelinePlan";
 import { ValidadorPanel } from "./ValidadorPanel";
+import { TimelinePlan } from "./TimelinePlan";
 import { useTramitesEstado } from "./useTramitesEstado";
 import { useEstadisticasPlazo } from "./useEstadisticasPlazo";
 import { claveTramite } from "@/lib/tramiteClave";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShieldCheck, FileText } from "lucide-react";
 import { AnimatedList } from "@/components/ui/animated-list";
+
+/**
+ * Carga perezosa de los paneles laterales que no son visibles de inicio
+ * (segunda pestaña, colapsados o más abajo del pliegue): reduce el JS que
+ * hay que descargar/parsear antes de poder interactuar con la cabecera y
+ * el listado principal de trámites (mejora 2026-08-08).
+ */
+function PanelSkeleton() {
+  return <div className="h-16 animate-pulse rounded-2xl border border-border bg-surface" aria-hidden />;
+}
+
+const DocumentosPanel = dynamic(
+  () => import("./DocumentosPanel").then((m) => m.DocumentosPanel),
+  { loading: () => <PanelSkeleton /> }
+);
+const PortalClienteCard = dynamic(
+  () => import("./PortalClienteCard").then((m) => m.PortalClienteCard),
+  { loading: () => <PanelSkeleton /> }
+);
+const DocumentosClientePanel = dynamic(
+  () => import("./DocumentosClientePanel").then((m) => m.DocumentosClientePanel),
+  { loading: () => <PanelSkeleton /> }
+);
+const SubsanacionesPanel = dynamic(
+  () => import("./SubsanacionesPanel").then((m) => m.SubsanacionesPanel),
+  { loading: () => <PanelSkeleton /> }
+);
+const HistorialPanel = dynamic(
+  () => import("./HistorialPanel").then((m) => m.HistorialPanel),
+  { loading: () => <PanelSkeleton /> }
+);
 
 type ExpedienteEstado = "borrador" | "pendiente" | "en_revision" | "aprobado" | "rechazado";
 
