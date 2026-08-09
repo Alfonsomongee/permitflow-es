@@ -1,0 +1,16 @@
+{
+  "descripcion": "Fotovoltaica residencial 10kW en Baleares con excedentes y compensación",
+  "input": {
+    "tipo_instalacion": "fotovoltaica_autoconsumo",
+    "comunidad": "baleares",
+    "potencia_kw": 10,
+    "uso": "residencial",
+    "tension": "BT",
+    "municipio": "Palma",
+    "modalidad_autoconsumo": "con_excedentes_con_compensacion"
+  },
+  "num_tramites_esperado": 8,
+  "tiempo_total_esperado_dias": 90,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/baleares/fotovoltaica_autoconsumo.json regla BAL-FV-001."
+}

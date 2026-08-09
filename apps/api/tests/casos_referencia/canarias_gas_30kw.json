@@ -1,0 +1,16 @@
+{
+  "descripcion": "Gas baja presión 30kW residencial en Canarias",
+  "input": {
+    "tipo_instalacion": "gas_baja_presion",
+    "comunidad": "canarias",
+    "potencia_kw": 30,
+    "uso": "residencial",
+    "tension": "BT",
+    "municipio": "Las Palmas de Gran Canaria",
+    "presion_bar": "normal"
+  },
+  "num_tramites_esperado": 4,
+  "tiempo_total_esperado_dias": 33,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/canarias/gas_baja_presion.json regla ICAN-GBP-001."
+}

@@ -1,0 +1,19 @@
+{
+  "descripcion": "IRVE pública 50kW terciario en Asturias con acceso público y nuevo suministro",
+  "input": {
+    "tipo_instalacion": "irve",
+    "comunidad": "asturias",
+    "potencia_kw": 50,
+    "uso": "terciario",
+    "tension": "BT",
+    "municipio": "Gijón",
+    "acceso_publico": true,
+    "modo_recarga": "4",
+    "ubicacion_irve": "exterior",
+    "requiere_nuevo_suministro": true
+  },
+  "num_tramites_esperado": 4,
+  "tiempo_total_esperado_dias": 45,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/asturias/irve.json regla AST-IRVE-002-A."
+}

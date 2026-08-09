@@ -1,0 +1,20 @@
+{
+  "descripcion": "IRVE privada 22kW en Baleares con ayuda solicitada (GEN-AYUDA-INFORMATIVA)",
+  "input": {
+    "tipo_instalacion": "irve",
+    "comunidad": "baleares",
+    "potencia_kw": 22,
+    "uso": "residencial",
+    "tension": "BT",
+    "municipio": "Palma",
+    "acceso_publico": false,
+    "modo_recarga": "3",
+    "ubicacion_irve": "garaje_comunitario",
+    "requiere_nuevo_suministro": false,
+    "solicita_ayuda": true
+  },
+  "num_tramites_esperado": 3,
+  "tiempo_total_esperado_dias": 12,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/baleares/irve.json regla BAL-IRVE-001 y trámite transversal GEN-AYUDA-INFORMATIVA."
+}

@@ -1,0 +1,16 @@
+{
+  "descripcion": "Fotovoltaica residencial 5kW en Madrid con excedentes y compensación",
+  "input": {
+    "tipo_instalacion": "fotovoltaica_autoconsumo",
+    "comunidad": "madrid",
+    "potencia_kw": 5,
+    "uso": "residencial",
+    "tension": "BT",
+    "municipio": "Madrid",
+    "modalidad_autoconsumo": "con_excedentes_con_compensacion"
+  },
+  "num_tramites_esperado": 2,
+  "tiempo_total_esperado_dias": 0,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/madrid/fotovoltaica_autoconsumo.json reglas MAD-FV-BT-PUESTA-SERVICIO y MAD-FV-REGISTRO-OFICIO."
+}

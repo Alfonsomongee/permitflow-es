@@ -1,0 +1,16 @@
+{
+  "descripcion": "Gas baja presión 25kW residencial en Comunidad Valenciana",
+  "input": {
+    "tipo_instalacion": "gas_baja_presion",
+    "comunidad": "comunidad_valenciana",
+    "potencia_kw": 25,
+    "uso": "residencial",
+    "tension": "BT",
+    "municipio": "Valencia",
+    "presion_bar": "normal"
+  },
+  "num_tramites_esperado": 3,
+  "tiempo_total_esperado_dias": 32,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/comunidad_valenciana/gas_baja_presion.json regla CV-GAS-002."
+}

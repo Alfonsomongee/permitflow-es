@@ -1,0 +1,16 @@
+{
+  "descripcion": "Gas baja presión 35kW residencial en Galicia",
+  "input": {
+    "tipo_instalacion": "gas_baja_presion",
+    "comunidad": "galicia",
+    "potencia_kw": 35,
+    "uso": "residencial",
+    "tension": "BT",
+    "municipio": "Santiago de Compostela",
+    "presion_bar": "normal"
+  },
+  "num_tramites_esperado": 3,
+  "tiempo_total_esperado_dias": 30,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/galicia/gas_baja_presion.json regla GAL-GBP-001."
+}

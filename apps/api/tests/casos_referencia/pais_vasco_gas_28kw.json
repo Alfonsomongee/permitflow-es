@@ -1,0 +1,16 @@
+{
+  "descripcion": "Gas baja presión 28kW residencial en País Vasco",
+  "input": {
+    "tipo_instalacion": "gas_baja_presion",
+    "comunidad": "pais_vasco",
+    "potencia_kw": 28,
+    "uso": "residencial",
+    "tension": "BT",
+    "municipio": "Bilbao",
+    "presion_bar": "normal"
+  },
+  "num_tramites_esperado": 3,
+  "tiempo_total_esperado_dias": 37,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/pais_vasco/gas_baja_presion.json regla PV-GAS-002."
+}

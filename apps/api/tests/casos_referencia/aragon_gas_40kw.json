@@ -1,0 +1,16 @@
+{
+  "descripcion": "Gas baja presión 40kW residencial en Aragón",
+  "input": {
+    "tipo_instalacion": "gas_baja_presion",
+    "comunidad": "aragon",
+    "potencia_kw": 40,
+    "uso": "residencial",
+    "tension": "BT",
+    "municipio": "Zaragoza",
+    "presion_bar": "normal"
+  },
+  "num_tramites_esperado": 4,
+  "tiempo_total_esperado_dias": 26,
+  "validado_por": "Antigravity - 2026-08-09",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/aragon/gas_baja_presion.json regla ARA-GAS-001."
+}
