@@ -18,6 +18,7 @@ from routers.asistente import router as asistente_router
 from routers.simulador import router as simulador_router
 from routers.ayudas import router as ayudas_router
 from routers.contacto import router as contacto_router
+from routers.newsletter import router as newsletter_router
 from fastapi.responses import JSONResponse
 import traceback
 
@@ -185,3 +186,4 @@ app.include_router(asistente_router)
 app.include_router(simulador_router)
 app.include_router(ayudas_router)
 app.include_router(contacto_router)
+app.include_router(newsletter_router)

@@ -21,6 +21,7 @@ import models.expediente
 import models.idoneidad_cache
 import models.asistente
 import models.simulacion
+import models.newsletter
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
