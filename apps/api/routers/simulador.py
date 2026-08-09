@@ -14,6 +14,7 @@ from config import settings
 from database import get_db, AsyncSessionLocal
 from models.simulacion import AnalisisFactura, EstudioEnergetico
 from servicios.facturas_parser import parsear_factura
+from servicios.datadis_parser import leer_y_validar_csv, parsear_csv_datadis
 from servicios.informes_ia import generar_informe_simulacion
 from servicios.rate_limit import get_redis, rate_limit as _rate_limit, get_real_ip as _get_real_ip
 
@@ -129,6 +130,63 @@ async def subir_factura(
     }
 
 
+@router.post("/factura/csv", response_model=dict)
+async def subir_factura_csv(
+    request: Request,
+    file: UploadFile = File(...),
+    db: AsyncSession = Depends(get_db),
+    redis: Redis = Depends(get_redis)
+):
+    """Sube un export CSV de consumo de Datadis (datadis.es) en vez de una
+    factura en PDF: el titular se lo descarga él mismo desde su portal
+    (pestaña 'Consumo' -> tipo de fichero 'Consumo'), sin que PermitFlow
+    necesite registrarse como tercero autorizado ante Datadis.
+
+    Frente al PDF, da el consumo real medido (no el de un único periodo de
+    facturación) y, si cubre los 12 meses del año, un perfil mensual que el
+    simulador usa para cruzar con la producción solar mes a mes (ver
+    calculo_financiero.calcular_escenario_fv).
+
+    Rate limit: comparte el cupo de /factura (mismo abuso potencial).
+    """
+    ip = _get_real_ip(request)
+    await _rate_limit(redis, ip, "factura", max_req=10)
+
+    contenido = await leer_y_validar_csv(file)
+    resultado = parsear_csv_datadis(contenido)
+
+    datos_raw_saneados = {
+        k: v for k, v in resultado.items()
+        if k not in ("cups",)
+    }
+
+    cups_hash = _hash_cups(resultado["cups"]) if resultado.get("cups") else None
+
+    analisis = AnalisisFactura(
+        cups_hash=cups_hash,
+        consumo_anual_kwh=resultado.get("consumo_anual_kwh"),
+        consumo_mensual_kwh=resultado.get("consumo_mensual_kwh"),
+        potencia_contratada_kw=None,  # Datadis no da potencia contratada; se pide aparte si hace falta
+        estado_extraccion=resultado.get("estado"),
+        extraccion_fuente=resultado.get("extraccion_fuente"),
+        fuente_dato=resultado.get("fuente_dato"),
+        datos_raw=datos_raw_saneados,
+    )
+    db.add(analisis)
+    await db.commit()
+    await db.refresh(analisis)
+
+    return {
+        "id": str(analisis.id),
+        "estado": analisis.estado_extraccion,
+        "cups_masked": f"{resultado['cups'][:6]}...{resultado['cups'][-4:]}" if resultado.get("cups") else None,
+        "consumo_anual_kwh": analisis.consumo_anual_kwh,
+        "consumo_mensual_disponible": analisis.consumo_mensual_kwh is not None,
+        "fuente_dato": analisis.fuente_dato,
+        "error": resultado.get("error"),
+    }
+
+
 class GenerarRequest(BaseModel):
     analisis_id: str
     region: Optional[str] = None
@@ -233,6 +291,7 @@ async def generar_simulacion(
         "consumo_anual_kwh": analisis.consumo_anual_kwh,
         "potencia_contratada_kw": analisis.potencia_contratada_kw,
         "fuente_dato": analisis.fuente_dato,
+        "consumo_mensual_kwh": analisis.consumo_mensual_kwh,
     }
 
     background_tasks.add_task(

@@ -65,3 +65,54 @@ def test_coste_inicial_siempre_positivo():
     resultado = calcular_escenario_fv(consumo_anual_kwh=2500)
     assert resultado.coste_inicial > 0
     assert resultado.ahorro_anual > 0
+
+
+def test_matching_mensual_reduce_autoconsumo_si_consumo_esta_desfasado():
+    """Un hogar que consume sobre todo en invierno (cuando el sol produce
+    menos) debe autoconsumir menos de lo que estimaría el ratio plano anual
+    -- el matching mensual tiene que capturar eso, no promediarlo."""
+    consumo_anual = 4000.0
+    # Consumo concentrado en los 3 meses de menor producción solar
+    # (índices 0-based: 11=dic, 0=ene, 1=feb)
+    consumo_mensual = [
+        1300.0 if m in (11, 0, 1) else (4000.0 - 3900.0) / 9 for m in range(12)
+    ]
+    # Producción específica plana ficticia (misma cada mes) a 1 kWp
+    produccion_mensual_1kwp = [100.0] * 12
+
+    con_matching = calcular_escenario_fv(
+        consumo_anual_kwh=consumo_anual,
+        consumo_mensual_kwh=consumo_mensual,
+        produccion_mensual_kwh_1kwp=produccion_mensual_1kwp,
+    )
+    sin_matching = calcular_escenario_fv(consumo_anual_kwh=consumo_anual)
+
+    assert con_matching.ahorro_anual < sin_matching.ahorro_anual
+    parametros = {s.parametro for s in con_matching.supuestos}
+    assert "perfil_mensual_consumo" in parametros
+
+
+def test_matching_mensual_ignorado_si_faltan_datos():
+    """Si solo se pasa uno de los dos arrays de 12 meses, se debe caer al
+    comportamiento por defecto sin fallar."""
+    resultado = calcular_escenario_fv(
+        consumo_anual_kwh=3000,
+        consumo_mensual_kwh=[250.0] * 12,
+        produccion_mensual_kwh_1kwp=None,
+    )
+    parametros = {s.parametro for s in resultado.supuestos}
+    assert "perfil_mensual_consumo" not in parametros
+
+
+def test_matching_mensual_nunca_supera_consumo_anual():
+    consumo_anual = 3000.0
+    consumo_mensual = [consumo_anual / 12] * 12
+    produccion_mensual_1kwp = [500.0] * 12  # producción muy alta a propósito
+
+    resultado = calcular_escenario_fv(
+        consumo_anual_kwh=consumo_anual,
+        consumo_mensual_kwh=consumo_mensual,
+        produccion_mensual_kwh_1kwp=produccion_mensual_1kwp,
+    )
+    ahorro_maximo = consumo_anual * 0.261
+    assert resultado.ahorro_anual <= ahorro_maximo + 0.01

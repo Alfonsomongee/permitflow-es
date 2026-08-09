@@ -1,6 +1,14 @@
+import uuid
+
 import pytest
+from fastapi.testclient import TestClient
 from pydantic import ValidationError
+
+from database import get_db
+from main import app
+from models.simulacion import AnalisisFactura
 from servicios.informes_ia import InformeSimulacionIA, EscenarioAhorro, Incentivo
+from servicios.rate_limit import get_redis
 
 def test_informe_simulacion_ia_schema_valido():
     # Verifica que el esquema acepte datos correctos
@@ -69,3 +77,106 @@ def test_escenario_ahorro_valida_campos_requeridos():
             tiempo_retorno_anios=5
             # Faltan ahorro_5_anios, ahorro_10_anios y potencia_kwp
         )
+
+
+# ---------------------------------------------------------------------------
+# POST /simulador/factura/csv (import de consumo de Datadis)
+# ---------------------------------------------------------------------------
+
+
+class _FakeRedis:
+    def __init__(self):
+        self.counts: dict[str, int] = {}
+
+    async def incr(self, key: str) -> int:
+        self.counts[key] = self.counts.get(key, 0) + 1
+        return self.counts[key]
+
+    async def expire(self, key: str, ttl: int) -> None:
+        pass
+
+
+class _FakeSession:
+    """Simula lo mínimo de AsyncSession que usa el endpoint: add/commit/refresh.
+    Asigna un id (como haría un flush real) si el objeto no lo tiene ya."""
+
+    def add(self, obj):
+        if getattr(obj, "id", None) is None:
+            obj.id = uuid.uuid4()
+        self._ultimo = obj
+
+    async def commit(self):
+        pass
+
+    async def refresh(self, obj):
+        pass
+
+
+@pytest.fixture
+def fake_redis():
+    return _FakeRedis()
+
+
+@pytest.fixture
+def client(fake_redis):
+    async def _override_get_redis():
+        yield fake_redis
+
+    async def _override_get_db():
+        yield _FakeSession()
+
+    app.dependency_overrides[get_redis] = _override_get_redis
+    app.dependency_overrides[get_db] = _override_get_db
+    with TestClient(app) as c:
+        yield c
+    app.dependency_overrides.clear()
+
+
+def _csv_anual_simple() -> bytes:
+    from datetime import date, timedelta
+
+    filas = ["CUPS;Fecha;Hora;Consumo_kWh;Metodo_obtencion"]
+    inicio = date(2024, 1, 1)
+    for i in range(365):
+        dia = inicio + timedelta(days=i)
+        filas.append(f"ES0022000006025866PZ1P;{dia.strftime('%d/%m/%Y')};1;10,0;R")
+    return "\n".join(filas).encode("utf-8")
+
+
+def test_subir_factura_csv_exitoso(client):
+    resp = client.post(
+        "/simulador/factura/csv",
+        files={"file": ("consumo.csv", _csv_anual_simple(), "text/csv")},
+    )
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["estado"] == "exitoso"
+    assert body["consumo_anual_kwh"] > 0
+    assert body["consumo_mensual_disponible"] is True
+    assert body["cups_masked"].startswith("ES0022")
+
+
+def test_subir_factura_csv_formato_no_reconocido(client):
+    contenido = b"CUPS;Fecha;Periodo;PotenciaMaxima_kW\nES123;01/01/2024;P1;4,6\n"
+    resp = client.post(
+        "/simulador/factura/csv",
+        files={"file": ("potencias.csv", contenido, "text/csv")},
+    )
+    assert resp.status_code == 200  # el endpoint no lanza 4xx: guarda el estado "no_extraido"
+    body = resp.json()
+    assert body["estado"] == "no_extraido"
+    assert body["error"] is not None
+
+
+def test_subir_factura_csv_rate_limit(client):
+    for _ in range(10):
+        resp = client.post(
+            "/simulador/factura/csv",
+            files={"file": ("consumo.csv", _csv_anual_simple(), "text/csv")},
+        )
+        assert resp.status_code == 200
+    resp = client.post(
+        "/simulador/factura/csv",
+        files={"file": ("consumo.csv", _csv_anual_simple(), "text/csv")},
+    )
+    assert resp.status_code == 429

@@ -84,6 +84,8 @@ def calcular_escenario_fv(
     produccion_especifica_kwh_kwp_year: Optional[float] = None,
     produccion_especifica_fuente: Literal["pvgis", "estimado_espana"] = "estimado_espana",
     precio_kwh: Optional[float] = None,
+    consumo_mensual_kwh: Optional[list[float]] = None,
+    produccion_mensual_kwh_1kwp: Optional[list[float]] = None,
 ) -> EscenarioCalculado:
     """Calcula un escenario de autoconsumo fotovoltaico residencial con
     fórmulas deterministas y auditables. No usa LLM en ningún paso numérico.
@@ -92,8 +94,18 @@ def calcular_escenario_fv(
       1. kwp_recomendada = consumo_anual_kwh / produccion_especifica, acotado
          a un rango residencial razonable [1.5, 10] kWp.
       2. produccion_anual_kwh = kwp_recomendada * produccion_especifica.
-      3. energia_autoconsumida_kwh = min(produccion_anual_kwh * ratio_autoconsumo,
-         consumo_anual_kwh) — nunca se autoconsume más de lo que se consume.
+      3. energia_autoconsumida_kwh: por defecto, min(produccion_anual_kwh *
+         ratio_autoconsumo, consumo_anual_kwh) — nunca se autoconsume más de
+         lo que se consume. Si se dan consumo_mensual_kwh (12 valores reales,
+         p.ej. de un export de Datadis) y produccion_mensual_kwh_1kwp (12
+         valores de PVGIS a 1 kWp), el ratio_autoconsumo se aplica sobre la
+         suma de min(producción_mes, consumo_mes) mes a mes en vez de sobre
+         el total anual: un mes con poco consumo (p.ej. una segunda
+         residencia en invierno) no puede "compensarse" con la producción
+         de otro mes, que es lo que la fórmula anual sí permitía sin darse
+         cuenta. El ratio de simultaneidad intradía sigue siendo una
+         estimación (ver RATIO_AUTOCONSUMO_NOTA) -- esto solo corrige la
+         parte de la estimación que SÍ podemos verificar con datos reales.
       4. ahorro_anual = energia_autoconsumida_kwh * precio_kwh.
       5. coste_inicial = kwp_recomendada * coste_eur_kwp (punto medio de la
          horquilla de mercado).
@@ -115,9 +127,25 @@ def calcular_escenario_fv(
     produccion_anual_kwh = kwp_recomendada * produccion_especifica
 
     ratio_autoconsumo = (RATIO_AUTOCONSUMO_MIN + RATIO_AUTOCONSUMO_MAX) / 2
-    energia_autoconsumida_kwh = min(
-        produccion_anual_kwh * ratio_autoconsumo, consumo_anual_kwh
+
+    usar_matching_mensual = (
+        consumo_mensual_kwh is not None
+        and len(consumo_mensual_kwh) == 12
+        and produccion_mensual_kwh_1kwp is not None
+        and len(produccion_mensual_kwh_1kwp) == 12
     )
+
+    if usar_matching_mensual:
+        produccion_mensual_kwh = [p * kwp_recomendada for p in produccion_mensual_kwh_1kwp]
+        techo_mensual_kwh = sum(
+            min(prod_mes, cons_mes)
+            for prod_mes, cons_mes in zip(produccion_mensual_kwh, consumo_mensual_kwh)
+        )
+        energia_autoconsumida_kwh = min(techo_mensual_kwh * ratio_autoconsumo, consumo_anual_kwh)
+    else:
+        energia_autoconsumida_kwh = min(
+            produccion_anual_kwh * ratio_autoconsumo, consumo_anual_kwh
+        )
 
     ahorro_anual = energia_autoconsumida_kwh * precio
 
@@ -156,7 +184,17 @@ def calcular_escenario_fv(
         SupuestoCalculo(
             parametro="ratio_autoconsumo_sin_bateria",
             valor_asumido=f"{ratio_autoconsumo:.0%}",
-            razon=RATIO_AUTOCONSUMO_NOTA,
+            razon=(
+                (
+                    RATIO_AUTOCONSUMO_NOTA
+                    + " El propio porcentaje sigue siendo una horquilla de "
+                    "mercado, pero se aplica sobre el mínimo mensual real "
+                    "entre producción y consumo (ver siguiente supuesto), no "
+                    "sobre el total anual."
+                )
+                if usar_matching_mensual
+                else RATIO_AUTOCONSUMO_NOTA
+            ),
             fuente_dato="estimado",
         ),
         SupuestoCalculo(
@@ -169,6 +207,21 @@ def calcular_escenario_fv(
             fuente_dato="estimado",
         ),
     ]
+
+    if usar_matching_mensual:
+        supuestos.append(
+            SupuestoCalculo(
+                parametro="perfil_mensual_consumo",
+                valor_asumido="12 meses (histórico real)",
+                razon=(
+                    "Consumo real mes a mes (p.ej. de un export de Datadis), "
+                    "cruzado con la producción mensual de PVGIS para esta "
+                    "ubicación. Evita sobreestimar el autoconsumo en meses "
+                    "de bajo consumo con la producción de otros meses."
+                ),
+                fuente_dato="leido",
+            )
+        )
 
     return EscenarioCalculado(
         nombre="Autoconsumo fotovoltaico residencial",

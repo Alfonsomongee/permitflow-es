@@ -86,22 +86,29 @@ async def generar_informe_simulacion(
     consumo = datos_factura.get("consumo_anual_kwh") or 0
     potencia = datos_factura.get("potencia_contratada_kw") or 0
     fuente_dato_factura = datos_factura.get("fuente_dato", "estimado")
+    # Solo presente si el origen fue un export CSV de Datadis con los 12
+    # meses cubiertos (ver servicios/datadis_parser.py). None para PDF.
+    consumo_mensual = datos_factura.get("consumo_mensual_kwh")
 
     produccion_especifica = None
     produccion_fuente: Literal["pvgis", "estimado_espana"] = "estimado_espana"
+    produccion_mensual_1kwp = None
     if lat is not None and lon is not None:
-        from servicios.pvgis_client import consultar_pvgis
+        from servicios.pvgis_client import consultar_pvgis_mensual
 
-        pvgis = await consultar_pvgis(lat, lon)
+        pvgis = await consultar_pvgis_mensual(lat, lon)
         if pvgis and pvgis.get("produccion_especifica_kwh_kwp_year"):
             produccion_especifica = pvgis["produccion_especifica_kwh_kwp_year"]
             produccion_fuente = "pvgis"
+            produccion_mensual_1kwp = pvgis.get("produccion_mensual_kwh")
 
     escenario_calculado = calcular_escenario_fv(
         consumo_anual_kwh=consumo,
         potencia_contratada_kw=potencia,
         produccion_especifica_kwh_kwp_year=produccion_especifica,
         produccion_especifica_fuente=produccion_fuente,
+        consumo_mensual_kwh=consumo_mensual,
+        produccion_mensual_kwh_1kwp=produccion_mensual_1kwp,
     )
 
     supuestos_utilizados = [

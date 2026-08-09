@@ -24,6 +24,10 @@ class AnalisisFactura(Base):
     # Se guarda el HMAC-SHA256 para deduplicación/caché sin revelar el valor.
     cups_hash = Column(String, nullable=True)
     consumo_anual_kwh = Column(Float, nullable=True)
+    # Perfil de consumo real mes a mes (enero..diciembre), solo cuando el
+    # origen es un export CSV de Datadis con cobertura de los 12 meses
+    # calendario (ver servicios/datadis_parser.py). Null para facturas PDF.
+    consumo_mensual_kwh = Column(JSON, nullable=True)
     potencia_contratada_kw = Column(Float, nullable=True)
     estado_extraccion = Column(String, nullable=False)  # 'exitoso', 'no_extraido'
     # Fuente de extracción por campo: {"cups": "regex", "consumo": "llm", ...}
