@@ -4,9 +4,17 @@ export const facturaResponseSchema = z.discriminatedUnion("estado", [
   z.object({
     estado: z.literal("exitoso"),
     id: z.string().min(1),
+    consumo_anual_kwh: z.number().finite().nonnegative().nullable().optional(),
+    fuente_dato: z.enum(["leido", "estimado"]).nullable().optional(),
+    // Solo presente en la respuesta de /simulador/factura/csv (import de Datadis)
+    consumo_mensual_disponible: z.boolean().optional(),
   }),
   z.object({
-    estado: z.literal("error"),
+    // El backend (facturas_parser.py / datadis_parser.py) emite "no_extraido",
+    // nunca "error" -- el literal anterior no coincidía nunca y cualquier
+    // fallo de extracción se convertía en un ApiContractError genérico en
+    // vez del mensaje real (bug encontrado al añadir el import de Datadis).
+    estado: z.literal("no_extraido"),
     error: z.string().min(1).optional(),
   }),
 ]);

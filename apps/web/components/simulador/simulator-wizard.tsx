@@ -15,16 +15,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { InformeInteractivo } from './informe-interactivo';
-import { 
-  uploadInvoice, 
-  generateSimulation, 
-  pollSimulationStatus, 
-  getSimulationErrorMessage 
+import {
+  uploadInvoice,
+  uploadInvoiceCsv,
+  generateSimulation,
+  pollSimulationStatus,
+  getSimulationErrorMessage
 } from '@/lib/api/simulador';
 
 const POLL_INTERVAL_MS = 3000;
 const POLL_TIMEOUT_MS = 90_000;
 const MAX_PDF_SIZE = 10 * 1024 * 1024;
+const MAX_CSV_SIZE = 5 * 1024 * 1024; // mismo límite que servicios/datadis_parser.py
 
 // Tipos de inmueble no residenciales: redirigir a contacto
 const TIPO_NO_RESIDENCIAL = new Set(['empresa', 'comunidad_vecinos']);
@@ -118,15 +120,25 @@ export function SimulatorWizard() {
       return;
     }
 
-    if (file.type !== 'application/pdf' && extension !== 'pdf') {
-      setFileError('Solo se admiten archivos PDF.');
+    const esPdf = file.type === 'application/pdf' || extension === 'pdf';
+    const esCsv = file.type === 'text/csv' || extension === 'csv';
+
+    if (!esPdf && !esCsv) {
+      setFileError('Solo se admiten archivos PDF o el export CSV de consumo de Datadis.');
       setFacturaFile(null);
       e.target.value = '';
       return;
     }
 
-    if (file.size > MAX_PDF_SIZE) {
+    if (esPdf && file.size > MAX_PDF_SIZE) {
       setFileError('El archivo es demasiado grande (máximo 10 MB).');
+      setFacturaFile(null);
+      e.target.value = '';
+      return;
+    }
+
+    if (esCsv && file.size > MAX_CSV_SIZE) {
+      setFileError('El archivo es demasiado grande (máximo 5 MB).');
       setFacturaFile(null);
       e.target.value = '';
       return;
@@ -147,14 +159,19 @@ export function SimulatorWizard() {
     setErrorMensaje(null);
 
     try {
-      // --- Paso 1: Subir factura y extraer datos ---
-      const factura = await uploadInvoice(facturaFile, controller.signal);
+      // --- Paso 1: Subir factura (PDF) o export de consumo (Datadis CSV) ---
+      const esCsv = facturaFile.name.split('.').pop()?.toLowerCase() === 'csv';
+      const factura = esCsv
+        ? await uploadInvoiceCsv(facturaFile, controller.signal)
+        : await uploadInvoice(facturaFile, controller.signal);
 
       if (factura.estado !== 'exitoso') {
         throw new Error(
           factura.error
-            ? `No pudimos leer la factura: ${factura.error}`
-            : 'No pudimos extraer los datos de tu factura. Por favor, comprueba que es un PDF descargado desde el área de cliente de tu distribuidora.'
+            ? `No pudimos leer el archivo: ${factura.error}`
+            : esCsv
+              ? 'No pudimos extraer los datos del archivo. Comprueba que has descargado el fichero de tipo "Consumo" desde Datadis.'
+              : 'No pudimos extraer los datos de tu factura. Por favor, comprueba que es un PDF descargado desde el área de cliente de tu distribuidora.'
         );
       }
 
@@ -340,13 +357,25 @@ export function SimulatorWizard() {
                     <input
                       id="factura"
                       type="file"
-                      accept=".pdf,.jpg,.jpeg,.png"
+                      accept=".pdf,.jpg,.jpeg,.png,.csv"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       onChange={handleFileChange}
                     />
                     <UploadCloud className="mx-auto h-10 w-10 text-muted-foreground mb-4" />
                     <p className="text-sm font-medium">Haz clic o arrastra tu factura aquí</p>
-                    <p className="text-xs text-muted-foreground mt-1">Preferiblemente en formato PDF</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Formato PDF, o el CSV de consumo descargado de{' '}
+                      <a
+                        href="https://datadis.es"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline hover:text-foreground"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Datadis
+                      </a>{' '}
+                      (más preciso)
+                    </p>
                   </div>
                 </div>
 

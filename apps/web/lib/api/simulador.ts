@@ -85,6 +85,27 @@ export function uploadInvoice(
   );
 }
 
+/** Como uploadInvoice(), pero para el export CSV de consumo de Datadis
+ * (datadis.es) en vez de una factura en PDF -- ver
+ * apps/api/servicios/datadis_parser.py. */
+export function uploadInvoiceCsv(
+  file: File,
+  signal?: AbortSignal,
+) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  return requestValidated(
+    "/api/simulador/factura/csv",
+    {
+      method: "POST",
+      body: formData,
+      signal,
+    },
+    facturaResponseSchema,
+  );
+}
+
 export function generateSimulation(
   data: {
     /** id devuelto por uploadInvoice() -- el backend lo llama analisis_id */

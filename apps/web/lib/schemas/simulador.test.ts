@@ -11,9 +11,11 @@ describe("facturaResponseSchema", () => {
     expect(() => facturaResponseSchema.parse(valid)).not.toThrow();
   });
 
-  it("acepta estado error con y sin mensaje", () => {
-    expect(() => facturaResponseSchema.parse({ estado: "error", error: "algo falló" })).not.toThrow();
-    expect(() => facturaResponseSchema.parse({ estado: "error" })).not.toThrow();
+  it("acepta estado no_extraido con y sin mensaje", () => {
+    // El backend (facturas_parser.py / datadis_parser.py) emite "no_extraido",
+    // no "error" -- contrato corregido al añadir el import de Datadis.
+    expect(() => facturaResponseSchema.parse({ estado: "no_extraido", error: "algo falló" })).not.toThrow();
+    expect(() => facturaResponseSchema.parse({ estado: "no_extraido" })).not.toThrow();
   });
 
   it("rechaza estados desconocidos", () => {
