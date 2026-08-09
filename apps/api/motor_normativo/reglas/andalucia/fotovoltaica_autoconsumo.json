@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "andalucia",
-  "version": "1.3.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.3.1",
+  "ultima_revision": "2026-08-09",
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
@@ -2521,27 +2521,6 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
-          "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": "distribuidora",
-          "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "Sin coste (solicitud a la distribuidora)",
-          "documentos_requeridos": [
-            {
-              "id": "solicitud_cau",
-              "label": "Solicitud de CAU a la distribuidora",
-              "descripcion": "Primer paso obligatorio de la legalización de autoconsumo: solicitud a la empresa distribuidora del Código de Autoconsumo (CAU) que identifica unívocamente la instalación. Sin CAU no puede completarse el registro PUES ni la comunicación posterior a la distribuidora.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 31,
           "nombre": "PRTR / Next Generation autoconsumo (CERRADO — sin nuevas solicitudes en Andalucia)",
           "organismo": "Agencia Andaluza de la Energía (AAE) — Convocatoria Next Generation EU",
           "base_legal": "RD 477/2021 PRTR; Resolución convocatoria Junta de Andalucía",
@@ -2633,6 +2612,7 @@
   "nivel_verificacion": "generica",
   "revisado_por": null,
   "huecos_verificacion": [
+    "RESUELTO 2026-08-09 (bug de duplicación): AND-FV-003 repetía 'Solicitud del CAU' -- ya presente incondicionalmente en AND-FV-001/001B/002/004 -- por lo que un usuario con solicita_ayuda=true veía ese trámite dos veces en el plan. Eliminado de AND-FV-003, que ahora solo aporta el trámite propio de ayudas (PRTR/Next Generation).",
     "RESUELTO 2026-07-28 (CRÍTICO): faltaba el trámite de solicitud del CAU a la distribuidora y la secuencia estaba invertida (comunicación a la distribuidora en último lugar). Añadido como orden 1 en todas las reglas FV, renumerando el resto.",
     "RESUELTO 2026-07-28 (ALTO): trámite 'RAC' renombrado a RADNE, URL corregida (apuntaba a la portada genérica de la sede del MITECO) y aclarada la inscripción de oficio en BT <100 kW.",
     "RESUELTO 2026-07-28 (ALTO): añadida 'Autorización administrativa de explotación' como trámite independiente en AND-FV-004 (>500 kW), ausente en versiones anteriores.",

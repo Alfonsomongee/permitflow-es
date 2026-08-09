@@ -13,6 +13,7 @@ from schemas.clasificador import (
 )
 from motor_normativo.excepciones import NormativaNoEncontradaError
 from servicios.riesgo_normativo import calcular_riesgo_plan
+from servicios.ayudas import simular_ayudas
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +43,29 @@ def _parse_documentos(raw: list) -> list[DocumentoRequerido]:
                 obligatorio=item.get("obligatorio", True),
             ))
     return result
+
+
+def _condicion_referencia_var(condicion: object, nombre_var: str) -> bool:
+    """
+    Recorre recursivamente un árbol de condición json-logic buscando si
+    referencia una variable dada (ej. {"var": "solicita_ayuda"}).
+
+    Se usa para distinguir, tras evaluar las reglas de una CCAA, si esa
+    comunidad ya tiene contenido específico sobre ayudas/subvenciones
+    (una regla cuya condición mira solicita_ayuda) frente a las que aún
+    no lo tienen -- ver el trámite genérico añadido en Clasificador.clasificar().
+    """
+    if isinstance(condicion, dict):
+        for key, value in condicion.items():
+            if key == "var":
+                var_name = value[0] if isinstance(value, list) and value else value
+                if var_name == nombre_var:
+                    return True
+            if _condicion_referencia_var(value, nombre_var):
+                return True
+    elif isinstance(condicion, list):
+        return any(_condicion_referencia_var(item, nombre_var) for item in condicion)
+    return False
 
 
 class Clasificador:
@@ -163,12 +187,20 @@ class Clasificador:
         # para remapear paralelo_con tras el reordenado aditivo.
         origenes: list[tuple[str, int | None, int | None]] = []
 
+        # True si alguna regla de ESTA CCAA que referencia solicita_ayuda ha
+        # disparado -- indica que la comunidad ya tiene contenido específico
+        # de ayudas/subvenciones investigado, y por tanto no debe añadirse el
+        # trámite genérico transversal (ver más abajo).
+        ayuda_cubierta_por_ccaa = False
+
         for regla in data.get("reglas", []):
             condicion_json = regla.get("condicion", True)
             try:
                 result = jsonLogic(condicion_json, eval_locals)
                 if result:
                     matched_any = True
+                    if _condicion_referencia_var(condicion_json, "solicita_ayuda"):
+                        ayuda_cubierta_por_ccaa = True
                     for t in regla.get("tramites", []):
                         if t.get("obsoleta"):
                             logger.info(
@@ -236,6 +268,52 @@ class Clasificador:
                 f"caso fuera del alcance documentado (revisa huecos_verificacion en el "
                 f"fichero de reglas) más que de un error del clasificador."
             )
+
+        # Regla transversal de ayudas/subvenciones: si el usuario marca
+        # solicita_ayuda y la CCAA no tiene todavía una regla propia en el
+        # JSON de normativa que lo cubra (ayuda_cubierta_por_ccaa), añadimos
+        # un trámite informativo construido con el catálogo YA investigado en
+        # servicios/catalogo_ayudas.py (mismo dato que expone /api/v1/ayudas/simular
+        # y el paso 3 del asistente de nueva instalación) en vez de duplicar esa
+        # investigación aquí o mostrar un aviso vacío. Si el catálogo tampoco
+        # tiene nada para esa combinación, se usa su aviso honesto de
+        # "no localizado" -- nunca se inventa organismo, convocatoria o estado.
+        # Hoy solo Andalucía (AND-FV-003) tiene una regla propia en el motor;
+        # el día que se añada la de otra CCAA, este trámite deja de aparecer
+        # ahí automáticamente -- no requiere tocar este código.
+        if eval_locals.get("solicita_ayuda") and not ayuda_cubierta_por_ccaa:
+            resultado_ayudas = simular_ayudas(params.comunidad, params.tipo_instalacion)
+            if resultado_ayudas.ayudas:
+                organismos = {a.organismo for a in resultado_ayudas.ayudas}
+                organismo_ayuda = (
+                    next(iter(organismos)) if len(organismos) == 1 else "Varios organismos (ver detalle)"
+                )
+                detalle = "\n".join(
+                    f"- {a.nombre} ({a.organismo}, estado: {a.estado}): {a.resumen_cuantia}. "
+                    f"Plazo: {a.plazo}. Fuente: {a.fuente_url}"
+                    for a in resultado_ayudas.ayudas
+                )
+                notas_ayuda = f"{resultado_ayudas.aviso}\n\nProgramas detectados:\n{detalle}"
+            else:
+                organismo_ayuda = "Administración autonómica / agencia de energía de tu comunidad"
+                notas_ayuda = resultado_ayudas.aviso
+
+            tramites_output.append(
+                TramiteOutput(
+                    orden=len(tramites_output) + 1,
+                    nombre="Ayudas a la inversión disponibles para esta instalación",
+                    tipo_actuacion="informativa",
+                    organismo=organismo_ayuda,
+                    base_legal=(
+                        "RD 477/2021 (marco estatal de ayudas Next Generation EU al "
+                        "autoconsumo) y normativa autonómica de desarrollo"
+                    ),
+                    documentos_requeridos=[],
+                    notas=notas_ayuda,
+                    regla_id="GEN-AYUDA-INFORMATIVA",
+                )
+            )
+            origenes.append(("GEN-AYUDA-INFORMATIVA", None, None))
 
         # Reasignar orden secuencial (trámites aditivos de múltiples reglas) y
         # remapear paralelo_con: en el JSON referencia el `orden` original dentro
