@@ -64,8 +64,9 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     ccaa_aplicacion: "estatal",
     base_legal: "RD 244/2019, Art. 5",
     cuando_se_necesita: "Siempre — primer paso antes de cualquier otro trámite",
-    hay_formulario_oficial: false,
-    notas: "Cada distribuidora (Endesa, Iberdrola, UFD...) tiene su propio formulario.",
+    hay_formulario_oficial: true,
+    url_organismo: "https://www.ufd.es/en/new-self-consumption-connection/finaliza-tu-proceso-de-autoconsumo-acceso-y-conexion/",
+    notas: "Cada distribuidora (Endesa, Iberdrola, UFD...) tramita el CAU a través de su propia plataforma digital, con formulario propio. Enlace mostrado como ejemplo (UFD, grupo Naturgy).",
   },
   {
     id: "acuerdo_reparto_colectivo",
@@ -78,8 +79,8 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     base_legal: "RD 244/2019, Art. 17 y siguientes",
     cuando_se_necesita: "Solo en instalaciones de autoconsumo colectivo (varios participantes)",
     hay_formulario_oficial: true,
-    url_organismo: "https://www.idae.es",
-    notas: "Modelo en ZIP en la sección de Autoconsumo del IDAE.",
+    url_organismo: "https://www.idae.es/publicaciones/guia-de-autoconsumo-colectivo",
+    notas: "Modelo de acuerdo de reparto y anexos descargables en la Guía de Autoconsumo Colectivo del IDAE.",
   },
   {
     id: "mtd_fv",
@@ -119,7 +120,7 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     base_legal: "Decreto 141/2012 Andalucía (y posteriores)",
     cuando_se_necesita: "Instalaciones en Andalucía de hasta 500 kWp",
     hay_formulario_oficial: true,
-    url_organismo: "https://www.juntadeandalucia.es",
+    url_organismo: "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/13674.html",
   },
   {
     id: "inscripcion_registro_autoconsumo",
@@ -132,7 +133,8 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     base_legal: "RD 244/2019, Art. 20",
     cuando_se_necesita: "Siempre — último paso de la legalización",
     hay_formulario_oficial: true,
-    url_organismo: "https://sedeaplicaciones.minetur.gob.es",
+    url_organismo: "https://sede.miteco.gob.es",
+    notas: "URL actualizada al dominio vigente de la sede electrónica del MITECO (el anterior, sedeaplicaciones.minetur.gob.es, es una marca ministerial obsoleta). No se ha localizado el código de procedimiento específico de este trámite en la sede: se enlaza la sede general en vez de una página de procedimiento concreta no verificada.",
   },
   {
     id: "cie_irve",
@@ -196,8 +198,9 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     ccaa_aplicacion: "estatal",
     base_legal: "Ley 49/1960 LPH + RD-ley 29/2021",
     cuando_se_necesita: "Instalación en plaza privada de edificio comunitario",
-    hay_formulario_oficial: false,
-    notas: "Plazo: comunicar 30 días antes del inicio de las obras. No requiere aprobación — solo comunicación.",
+    hay_formulario_oficial: true,
+    url_organismo: "https://www.idae.es/publicaciones/guia-05-pasos-para-autoconsumo-en-comunidades-de-propietarios",
+    notas: "Plazo: comunicar 30 días antes de las obras (Art. 17.5 LPH). Se enlaza la guía oficial del IDAE con modelo y pautas para comunidades.",
   },
   {
     id: "mtd_rite",
@@ -275,8 +278,9 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     ccaa_aplicacion: "estatal",
     base_legal: "Ley 39/2015 + legislación urbanística de cada CCAA",
     cuando_se_necesita: "Antes del inicio de las obras en la mayoría de instalaciones FV e IRVE",
-    hay_formulario_oficial: false,
-    notas: "Cada municipio tiene su propio modelo. Inicio de obras inmediato. La Licencia de Obras solo se requiere en edificios protegidos o BIC.",
+    hay_formulario_oficial: true,
+    url_organismo: "https://seuelectronica.ajuntament.barcelona.cat/oficinavirtual/es/tramit/20230001649",
+    notas: "Cada municipio tiene su propio modelo y sede electrónica. Inicio de obras inmediato. Enlace mostrado como ejemplo municipal representativo (Barcelona); el identificador de trámite de la sede se renumera periódicamente, verifica que el enlace sigue apuntando al trámite correcto antes de confiar en él.",
   },
 ];
 
