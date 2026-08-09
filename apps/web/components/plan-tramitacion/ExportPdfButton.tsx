@@ -36,6 +36,7 @@ export function ExportPdfButtons({ titulo, expedienteId }: ExportPdfButtonProps)
   };
 
   const handlePrint = () => {
+    setPrinting(true);
 
     const prevTitle = document.title;
     if (titulo) {
