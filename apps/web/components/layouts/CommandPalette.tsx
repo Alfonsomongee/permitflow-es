@@ -141,7 +141,7 @@ export function CommandPalette() {
         router.push(`/expedientes/${entrada.expediente.id}`);
       }
     },
-    [router]
+    [router, setOpen]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
