@@ -4,7 +4,7 @@ apps/api/servicios/catalogo_ayudas.py
 Catalogo de ayudas y subvenciones publicas para instalaciones tecnicas en Espana.
 
 ORIGEN DE LOS DATOS:
-Investigacion manual realizada en julio de 2026 mediante busqueda web dirigida a
+Investigacion manual realizada en julio-agosto de 2026 mediante busqueda web dirigida a
 fuentes oficiales (IDAE, BOE, boletines autonomicos, portales de agencias
 energeticas regionales). NO es un feed en vivo ni una base de datos actualizada
 automaticamente: cada entrada lleva su propia fecha de consulta y nivel de
@@ -67,7 +67,7 @@ class Ayuda:
     plazo: str
     fuente_url: str
     fiabilidad: Fiabilidad
-    fecha_consulta: str = "2026-07-29"
+    fecha_consulta: str = "2026-08-09"
     notas: str = ""
 
 
@@ -90,6 +90,7 @@ AYUDAS_ESTATALES: list[Ayuda] = [
         "prorrogado por RD-ley 16/2025",
         fuente_url="https://sede.agenciatributaria.gob.es/Sede/irpf/campana-renta/deducciones-eficiencia-energetica/deduccion-obras-rehabilitacion-energetica.html",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
         notas="Aplica tambien a solar termica/biomasa/geotermia si logran los umbrales de reduccion de demanda o consumo.",
     ),
     Ayuda(
@@ -105,6 +106,7 @@ AYUDAS_ESTATALES: list[Ayuda] = [
         plazo="Convocatoria 30/12/2025-10/02/2026, ya cerrada",
         fuente_url="https://www.idae.es/ayudas-y-financiacion/para-movilidad-y-vehiculos/programa-moves-corredores",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
         notas="MOVES III (compra de vehiculo y recarga privada) cerro definitivamente el 31/12/2025. Su sucesor, "
         "'Plan Auto+' / 'Plan Auto 2030', NO cubre puntos de recarga domesticos o privados, solo compra de "
         "vehiculo electrico/PHEV via descuento en concesionario. Para recarga privada, la unica via activa en 2026 "
@@ -124,6 +126,7 @@ AYUDAS_ESTATALES: list[Ayuda] = [
         "hasta 30/06/2026",
         fuente_url="https://www.idae.es/en/support-and-funding/renovation-buildings/programa-pree-5000-rehabilitacion-energetica-de-edificios",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
 ]
 
@@ -146,6 +149,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Desde 12/11/2025 hasta 30/09/2027 o agotamiento de fondos (>160 M EUR)",
         fuente_url="https://www.agenciaandaluzadelaenergia.es/en/node/3563",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="AND-IRVE-MOVES3",
@@ -159,6 +163,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Solicitud 15/07/2025-31/12/2025, ya cerrada. Sin convocatoria MOVES III abierta en 2026.",
         fuente_url="https://www.agenciaandaluzadelaenergia.es/en/node/3623",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="AND-TERMICAS",
@@ -169,9 +174,10 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         estado="no_localizado",
         resumen_cuantia="No confirmado para 2026 (convocatoria previa: 108 M EUR / 6.500 proyectos)",
         requisitos="Solar termica, geotermica, hidrotermica, aerotermica (excepto aire-aire), biomasa",
-        plazo="Nueva convocatoria de verano 2026 anunciada pero sin confirmar publicacion oficial",
+        plazo="Sin nueva convocatoria oficial publicada para residenciales aislados en BOJA en 2026",
         fuente_url="https://www.agenciaandaluzadelaenergia.es/en/biblioteca/aerotermia",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
         notas="Verificar en BOJA antes de anunciar como vigente.",
     ),
     # ARAGON
@@ -187,6 +193,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Fuera del plazo de presentacion, sin convocatoria 2026 confirmada",
         fuente_url="https://www.aragon.es/temas/industria-energia-mineria/ayudas-subvenciones-industria-energia-mineria",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="ARA-IRVE",
@@ -200,6 +207,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Cerrado; se anuncia aviso para bases 2027",
         fuente_url="https://www.aragon.es/tramitador/-/tramite/ayudas-del-programa-moves-iii/moves-iii-2025-implantacion-de-infraestructura-de-recarga-de-vehiculos-electricos",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="ARA-TERMICAS",
@@ -213,6 +221,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="No se localizo convocatoria 2026 abierta confirmada; consultar tramitador",
         fuente_url="https://www.aragon.es/tramitador/-/tramite/ayudas-ligadas-al-autoconsumo-almacenamiento-y-sistemas-termicos-con-fuentes-de-energia-renovable-renovables/programa-6-realizacion-de-instalaciones-de-energias-renovables-termicas-en-el-sector-residencial",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="ARA-GAS-RENOVE",
@@ -226,6 +235,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="No confirmada convocatoria 2026 activa",
         fuente_url="https://www.aragon.es/tramitador/-/tramite/convocatoria-concesion-subvenciones-materia-ahorro-eficiente-energia-traves-puesta-marcha-plan-renove-aragon-2018/convocatoria-2024",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
         notas="Unico programa de gas de baja presion localizado en toda la investigacion (17 CCAA); tratar con "
         "cautela por ser de una convocatoria historica (2024) sin confirmar continuidad.",
     ),
@@ -237,15 +247,17 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         nombre="FOTOPAR 2026",
         organismo="Direccio General d'Economia Circular, Transicio Energetica i Canvi Climatic (Govern Balear), "
         "cofinanciado FEDER 2021-2027",
-        estado="vigente",
+        estado="en_ejecucion",
         resumen_cuantia="No especificado en % - instalaciones FV hasta 5 kWp y/o microeolica hasta 5 kW; "
         "presupuesto 4 M EUR",
         requisitos="Personas fisicas residentes en Baleares sin actividad economica, o con actividad economica "
         "de alta en Censo AEAT. Solo instalaciones nuevas o ampliaciones (baterias anadidas a instalacion "
         "ya operativa NO subvencionables).",
-        plazo="Hasta 30/04/2026",
+        plazo="Solicitud cerrada el 30/04/2026; expedientes en fase de resolucion/justificacion",
         fuente_url="https://www.caib.es/seucaib/es/tramites/tramite/6439804",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
+        notas="Plazo de solicitud finalizado el 30/04/2026. Consultar estado en intranet.caib.es/subvenfront.",
     ),
     Ayuda(
         id="BAL-IRVE",
@@ -260,6 +272,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="No verificado en fuente primaria (BOIB) para 2026",
         fuente_url="https://femp-fondos-europa.es/convocatorias/convocatoria-ayudas-moves-iii-islas-baleares/",
         fiabilidad="no_verificado",
+        fecha_consulta="2026-08-09",
         notas="Fuente secundaria unicamente; verificar en BOIB/CAIB antes de mostrar como vigente.",
     ),
     Ayuda(
@@ -274,6 +287,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Plazo de solicitud finalizado el 30/06/2025; no localizada convocatoria 2026",
         fuente_url="https://www.caib.es/seucaib/es/tramites/tramite/4862280",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     # CANARIAS
     Ayuda(
@@ -290,6 +304,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         "fecha de hoy",
         fuente_url="https://sede.gobiernodecanarias.org",
         fiabilidad="no_verificado",
+        fecha_consulta="2026-08-09",
         notas="Requiere verificacion directa en sede electronica antes de mostrar cifras.",
     ),
     Ayuda(
@@ -305,6 +320,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Plazo citado hasta 13/07/2026 - probablemente agotado a fecha de hoy",
         fuente_url="https://smartgridsinfo.es",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
         notas="No dirigido a particulares/instaladoras, sino a flotas y corporaciones locales.",
     ),
     # CANTABRIA
@@ -317,9 +333,10 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         estado="cerrado",
         resumen_cuantia="No especificado con fiabilidad suficiente",
         requisitos="Instalaciones termicas con renovables para climatizacion/ACS en viviendas",
-        plazo="Vigente hasta 30/06/2026 segun BOC - probablemente ya cerrado a fecha de hoy",
+        plazo="Vigente hasta 30/06/2026 segun BOC - cerrado a fecha de hoy",
         fuente_url="https://boc.cantabria.es",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="CANT-IRVE",
@@ -333,6 +350,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Cerrado; sustituido desde 01/01/2026 por 'Plan Auto Plus' (bases aun no confirmadas en Cantabria)",
         fuente_url="https://sede.cantabria.es",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
     ),
     # CASTILLA-LA MANCHA
     Ayuda(
@@ -348,6 +366,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Cerrado a nuevas solicitudes desde finales de 2023; en fase de resolucion/justificacion",
         fuente_url="https://energia.castillalamancha.es/ayudas/autoconsumo-almacenamiento-e-instalaciones-termicas",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="CLM-IRVE",
@@ -362,6 +381,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Cerrado a nuevas solicitudes desde 31/12/2025; plazo de justificacion hasta 31/12/2026",
         fuente_url="https://energia.castillalamancha.es/ayudas/plan-moves-iii-2025",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     # CASTILLA Y LEON
     Ayuda(
@@ -377,6 +397,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="01/04/2026 - 31/10/2026",
         fuente_url="https://tramita.jcyl.es",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
         notas="BOCYL n.51, 17/03/2026.",
     ),
     Ayuda(
@@ -392,6 +413,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Sin nuevas solicitudes; plazo de justificacion hasta 31/05/2026",
         fuente_url="https://energia.jcyl.es/web/es/solar-termica-biomasa-geotermia.html",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     # CATALUNA
     Ayuda(
@@ -406,6 +428,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Ejecucion/justificacion de expedientes concedidos hasta 31/08/2026",
         fuente_url="https://icaen.gencat.cat/ca/energia/ajuts/energies-renovables/ajuts-renovables-2022",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="CAT-TERMICAS-PREE5000",
@@ -419,6 +442,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Plazo de ejecucion/justificacion vence 08/04/2026, sin nueva convocatoria abierta",
         fuente_url="https://icaen.gencat.cat/es/energia/ajuts/edificis/pree5000-icaen-programa-dajuts-a-la-rehabilitacio-energetica-dedificis/index.html",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     # EXTREMADURA
     Ayuda(
@@ -435,6 +459,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Plazo 26/01/2022-31/12/2023, sin sucesor 2024-2026",
         fuente_url="https://www.juntaex.es/w/6039",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="EXT-IRVE",
@@ -449,6 +474,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Convocatoria 2025: 23/09/2025-31/12/2025, cerrada; sin convocatoria 2026",
         fuente_url="https://www.juntaex.es/w/6033",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="EXT-TERMICAS",
@@ -463,6 +489,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Fuera de plazo (PREE5000: 08/11/2022-31/07/2024)",
         fuente_url="https://www.juntaex.es/w/6099",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     # GALICIA
     Ayuda(
@@ -475,11 +502,11 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         resumen_cuantia="50% inversion elegible, max. 4.000 EUR/vivienda (paneles) + 2.000 EUR baterias; "
         "hasta 25.000 EUR multivivienda. Dotacion 2.000.000 EUR (IN421N/O)",
         requisitos="Residencial en ambitos rurales/no urbanos (IN421N/O); empresas 100-1.000 kWp (IN421S)",
-        plazo="Solicitud cerrada (31/10/2025-01/12/2025); ejecucion/justificacion hasta 30/09/2026",
+        plazo="Solicitud cerrada (IN421S: 28/01/2026-02/03/2026; IN421N/O: 31/10/2025-01/12/2025); ejecucion/justificacion hasta 30/09/2026",
         fuente_url="https://www.inega.gal/es/ayudas/subvenciones-para-el-ano-2025-2026-proyectos-de-energia-fotovoltaica-en-el-sector",
         fiabilidad="oficial",
-        notas="Galicia es la unica comunidad con ciclo de convocatoria anual claramente activo en 2026 — "
-        "vigilar DOG para la proxima convocatoria (dic-2026/ene-2027).",
+        fecha_consulta="2026-08-09",
+        notas="Galicia mantiene un ciclo de convocatorias anuales a traves del INEGA. Las lineas 2026 (IN421S, IN421N/O) cerraron su plazo de presentacion en el primer trimestre; vigilar DOG para la proxima convocatoria (previsiblemente dic-2026/ene-2027).",
     ),
     Ayuda(
         id="GAL-IRVE",
@@ -494,6 +521,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Solicitud cerrada desde 31/12/2025; ampliaciones sucesivas de credito, ejecucion hasta 31/12/2026",
         fuente_url="https://www.inega.gal/es/ayudas/subvenciones-ano-2025-para-movilidad-electrica-programa-moves-iii-en-galicia-in421q-in421r",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="GAL-TERMICAS",
@@ -504,11 +532,13 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         estado="en_ejecucion",
         resumen_cuantia="50% inversion elegible; tope 900 EUR/kW aerotermia (max. 2.500 EUR/vivienda), "
         "biomasa hasta 8.000 EUR/vivienda, geotermia hasta 10.000 EUR/vivienda, solar termica hasta "
-        "2.000 EUR/vivienda",
-        requisitos="Personas fisicas y comunidades de vecinos en Galicia",
-        plazo="Solicitud cerrada (09/02/2026-13/03/2026); ejecucion/justificacion hasta 30/09/2026",
+        "2.000 EUR/vivienda. Presupuesto 2,1 M EUR (800.000 EUR aerotermia)",
+        requisitos="Personas fisicas y comunidades de vecinos en Galicia (solicitud via entidades colaboradoras)",
+        plazo="Solicitud 28/01/2026-13/03/2026 (cerrada); ejecucion/justificacion hasta 30/09/2026",
         fuente_url="https://www.inega.gal/es/ayudas/subvencions-para-o-ano-2026-proxectos-de-enerxias-renovables-de-uso-termico-no-sector",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
+        notas="Publicado en DOG de 20/01/2026 (Resolucion de 16/12/2025).",
     ),
     # MADRID
     Ayuda(
@@ -523,6 +553,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Plazo finalizo 14/12/2020; sin convocatoria sucesora autonomica localizada",
         fuente_url="https://sede.idae.gob.es/tramites-servicios/comunidad-autonoma-de-madrid-0",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="MAD-IRVE",
@@ -531,14 +562,13 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         nombre="MOVES III Madrid (Programa 2 - infraestructura de recarga)",
         organismo="FENERCOM",
         estado="agotado",
-        resumen_cuantia="Presupuesto agotado en ~1 mes desde inicio (11/06/2025); 93,2% del presupuesto "
-        "de recarga ya concedido",
+        resumen_cuantia="Presupuesto agotado; 93,2% del presupuesto de recarga concedido",
         requisitos="Particulares, autonomos, empresas, comunidades de propietarios",
-        plazo="Solicitud cerrada 31/12/2025; reasignaciones sucesivas de fondos liberados (ultima 22/07/2026), "
-        "ejecucion vigente hasta 31/12/2026",
+        plazo="Solicitud cerrada desde 31/12/2025; reasignaciones periodicas de fondos liberados para lista de espera (ultima 22/07/2026 con 1,5 M EUR), ejecucion vigente hasta 31/12/2026",
         fuente_url="https://www.comunidad.madrid/noticias/2026/07/22/comunidad-madrid-otorga-15-millones-euros-peticiones-espera-programa-moves-iii-2025-fomentar-movilidad-electrica",
         fiabilidad="oficial",
-        notas="Puede haber reasignaciones puntuales de fondos liberados; consultar FENERCOM para lista de espera.",
+        fecha_consulta="2026-08-09",
+        notas="Puede haber reasignaciones puntuales de fondos liberados por bajas o desestimaciones; consultar FENERCOM para lista de espera.",
     ),
     # MURCIA
     Ayuda(
@@ -554,6 +584,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="23/03/2026-30/04/2026, cerrado; pendiente ver si reabre",
         fuente_url="https://sede.carm.es/web/pagina?IDCONTENIDO=4609",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="MUR-IRVE",
@@ -561,13 +592,14 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         vertical="irve",
         nombre="MOVES III (infraestructura de recarga)",
         organismo="ARGEM / CARM",
-        estado="vigente",
+        estado="en_ejecucion",
         resumen_cuantia="Hasta 70% del coste subvencionable, hasta 80% en municipios <5.000 hab.",
         requisitos="Particulares, autonomos, empresas, comunidades de propietarios, entidades sin animo de "
         "lucro, entidades locales, universidades",
-        plazo="Tramitacion por orden de llegada hasta agotar fondos, con efecto retroactivo desde 01/01/2025",
+        plazo="Solicitudes cerradas; en fase de resolucion y pago de expedientes presentados en Sede Electronica CARM (procedimiento 3573)",
         fuente_url="https://sede.carm.es/web/pagina?IDCONTENIDO=3573",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     # NAVARRA
     Ayuda(
@@ -584,6 +616,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="01/05/2026-31/08/2026",
         fuente_url="https://www.navarra.es/es/-/nota-prensa/las-ayudas-del-plan-tximista-auto-2026-se-podran-solicitar",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="NAV-TERMICAS",
@@ -599,6 +632,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Solicitud 20/01/2026-19/02/2026, ya cerrada",
         fuente_url="https://www.eseficiencia.es/2026/01/19/navarra-lanza-nuevas-ayudas-impulsar-transicion-energetica-descarbonizacion-555-millones",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
     ),
     # PAIS VASCO
     Ayuda(
@@ -614,6 +648,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Desde 09/05/2025 hasta 30/09/2026 o agotamiento de fondos",
         fuente_url="https://www.euskadi.eus/ayuda_subvencion/2025/eve-programa-de-ayudas-a-la-generacion-electrica-para-autoconsumo-mediante-energias-renovables",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
     Ayuda(
         id="EUS-TERMICAS-EVE",
@@ -629,6 +664,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Hasta 30/09/2026 o agotamiento de fondos",
         fuente_url="https://www.euskadi.eus",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
         notas="Compatible con deduccion fiscal vasca del 15% sobre la inversion.",
     ),
     # LA RIOJA
@@ -644,6 +680,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="2 meses desde el 04/07/2026 (hasta aprox. 04/09/2026)",
         fuente_url="https://www.smartgridsinfo.es/2026/07/17/rioja-convoca-ayudas-infraestructuras-electricas-puntos-recarga-proyectos-renovables",
         fiabilidad="secundaria",
+        fecha_consulta="2026-08-09",
         notas="No aplica a particulares/instaladoras - solo entidades locales. No se localizo convocatoria "
         "riojana para particulares o empresas en 2026.",
     ),
@@ -660,6 +697,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Hasta 18/05/2026, cerrado",
         fuente_url="https://cindi.gva.es",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
         notas="No se localizo convocatoria IVACE 2026 propia para particulares/empresas mas alla de esta.",
     ),
     Ayuda(
@@ -674,6 +712,7 @@ AYUDAS_AUTONOMICAS: list[Ayuda] = [
         plazo="Finalizado a fin de 2025, sin nuevas solicitudes en 2026",
         fuente_url="https://moves.ivace.es/es/moves-iii-recarga",
         fiabilidad="oficial",
+        fecha_consulta="2026-08-09",
     ),
 ]
 
