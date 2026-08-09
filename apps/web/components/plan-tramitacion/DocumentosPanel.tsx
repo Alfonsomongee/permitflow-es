@@ -6,7 +6,17 @@ import { FileArchive, FileText, FileType2, ListChecks, Loader2 } from "lucide-re
 
 type TipoDocumento = "plan" | "checklist" | "mtd" | "dossier";
 
-const VERTICALES_MTD = new Set(["fotovoltaica_autoconsumo", "irve"]);
+// Mantener sincronizado con documentos/contextos.py::VERTICALES_MTD (backend).
+// climatizacion_aerotermia/acs solo generan MTD para instalaciones de 5-70 kW
+// (RANGO_POTENCIA_MTD_TERMICA_KW); fuera de rango el backend devuelve un 400
+// con el mensaje explicando por qué (no se filtra aquí porque este componente
+// no recibe la potencia del expediente).
+const VERTICALES_MTD = new Set([
+  "fotovoltaica_autoconsumo",
+  "irve",
+  "climatizacion_aerotermia",
+  "acs",
+]);
 
 interface DocumentosPanelProps {
   expedienteId: string;

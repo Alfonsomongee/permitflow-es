@@ -210,7 +210,8 @@ export const catalogoPlantillas: PlantillaDocumento[] = [
     base_legal: "RD 1027/2007 RITE",
     cuando_se_necesita: "Instalaciones térmicas de 5 kW a 70 kW de potencia",
     hay_formulario_oficial: false,
-    notas: "Cada CCAA tiene su propio modelo de MTD simplificada. Generación automática aún no disponible para esta tecnología (solo fotovoltaica e IRVE por ahora).",
+    notas: "Cada CCAA tiene su propio modelo de MTD simplificada. El borrador generado por PermitFlow es genérico (RITE); revísalo contra el modelo autonómico correspondiente antes de presentarlo.",
+    tipo_generable: "mtd",
   },
   {
     id: "proyecto_tecnico_rite",

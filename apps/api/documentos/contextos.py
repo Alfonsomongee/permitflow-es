@@ -9,7 +9,15 @@ TIPO_LABEL = {
     "irve": "Recarga de vehículo eléctrico (IRVE)",
 }
 
-VERTICALES_MTD = {"fotovoltaica_autoconsumo", "irve"}
+VERTICALES_MTD = {"fotovoltaica_autoconsumo", "irve", "climatizacion_aerotermia", "acs"}
+
+# La MTD térmica simplificada (RITE) solo aplica a instalaciones de 5-70 kW;
+# por debajo no se exige MTD y por encima se exige Proyecto Técnico visado
+# (ver catalogoPlantillas en apps/web/content/plantillas.ts, entradas
+# "mtd_rite" / "proyecto_tecnico_rite"). fotovoltaica_autoconsumo e irve no
+# tienen este límite: su rango ya lo acota el propio motor normativo.
+RANGO_POTENCIA_MTD_TERMICA_KW = (5, 70)
+VERTICALES_MTD_TERMICA = {"climatizacion_aerotermia", "acs"}
 
 MODO_RECARGA_LABEL = {
     "1": "Modo 1", "2": "Modo 2", "3": "Modo 3", "4": "Modo 4",

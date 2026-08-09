@@ -11,7 +11,9 @@ from docx import Document
 from docx.shared import Pt, RGBColor
 
 from .contextos import (
+    RANGO_POTENCIA_MTD_TERMICA_KW,
     VERTICALES_MTD,
+    VERTICALES_MTD_TERMICA,
     bases_legales_unicas,
     datos_instalacion,
     etiqueta_comunidad,
@@ -29,6 +31,12 @@ NORMATIVA_BASE = {
     "irve": [
         "RD 842/2002 - Reglamento Electrotécnico para Baja Tensión (REBT)",
         "ITC-BT-52 - Instalaciones con fines especiales: infraestructura de recarga de VE",
+    ],
+    "climatizacion_aerotermia": [
+        "RD 1027/2007 - Reglamento de Instalaciones Térmicas en los Edificios (RITE)",
+    ],
+    "acs": [
+        "RD 1027/2007 - Reglamento de Instalaciones Térmicas en los Edificios (RITE)",
     ],
 }
 
@@ -58,9 +66,19 @@ def generar_mtd_docx(payload: GenerarDocumentoInput) -> bytes:
     exp = payload.expediente
     if exp.tipo_instalacion not in VERTICALES_MTD:
         raise ValueError(
-            f"El borrador de MTD solo está disponible para fotovoltaica e IRVE "
-            f"(recibido: {exp.tipo_instalacion})"
+            f"El borrador de MTD solo está disponible para fotovoltaica, IRVE, "
+            f"climatización/aerotermia y ACS (recibido: {exp.tipo_instalacion})"
         )
+
+    if exp.tipo_instalacion in VERTICALES_MTD_TERMICA:
+        minimo, maximo = RANGO_POTENCIA_MTD_TERMICA_KW
+        if not (minimo <= exp.potencia_kw <= maximo):
+            raise ValueError(
+                f"La MTD térmica simplificada (RITE) solo aplica a instalaciones de "
+                f"{minimo} a {maximo} kW (recibido: {exp.potencia_kw:g} kW). Por debajo "
+                f"de {minimo} kW no se exige MTD; por encima de {maximo} kW se exige "
+                f"Proyecto Técnico visado por un ingeniero, no un borrador de MTD."
+            )
 
     doc = Document()
 
@@ -112,6 +130,16 @@ def generar_mtd_docx(payload: GenerarDocumentoInput) -> bytes:
         doc.add_paragraph(
             f"Modalidad de autoconsumo (con/sin excedentes, RD 244/2019): {POR_COMPLETAR}."
         )
+    if exp.tipo_instalacion in VERTICALES_MTD_TERMICA:
+        doc.add_paragraph(
+            f"Generador térmico (tipo, marca, modelo, potencia nominal), sistema de "
+            f"distribución/emisión, regulación y control (RITE IT 1): {POR_COMPLETAR}."
+        )
+        if exp.tipo_instalacion == "acs":
+            doc.add_paragraph(
+                f"Medidas de prevención de legionela (temperatura de acumulación y "
+                f"distribución, purgas): {POR_COMPLETAR}."
+            )
 
     _titulo(doc, "6. Trámites administrativos asociados")
     filas = [(f"{t.orden}. {t.nombre}", t.organismo) for t in payload.plan.tramites]

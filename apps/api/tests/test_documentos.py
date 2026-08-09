@@ -108,6 +108,40 @@ def test_mtd_rechaza_vertical_no_soportado():
                                    combustible="gas_natural"))
 
 
+# ── MTD térmica (RITE): climatización/aerotermia y ACS, 5-70 kW ────────────
+
+@pytest.mark.parametrize("tipo_instalacion", ["climatizacion_aerotermia", "acs"])
+def test_mtd_termica_dentro_de_rango_genera_docx(tipo_instalacion):
+    contenido, media_type, filename = generar_documento(
+        _payload(tipo="mtd", tipo_instalacion=tipo_instalacion, potencia_kw=30)
+    )
+    assert filename.endswith(".docx")
+    doc = Document(io.BytesIO(contenido))
+    texto = "\n".join(p.text for p in doc.paragraphs)
+    assert "RITE" in texto or "RITE" in "\n".join(
+        c.text for t in doc.tables for r in t.rows for c in r.cells
+    )
+
+
+def test_mtd_acs_incluye_seccion_legionela():
+    contenido, _, _ = generar_documento(
+        _payload(tipo="mtd", tipo_instalacion="acs", potencia_kw=30)
+    )
+    doc = Document(io.BytesIO(contenido))
+    texto = "\n".join(p.text for p in doc.paragraphs)
+    assert "legionela" in texto.lower()
+
+
+@pytest.mark.parametrize("potencia_kw", [3, 100])
+def test_mtd_termica_fuera_de_rango_rechazada(potencia_kw):
+    # Por debajo de 5 kW no se exige MTD; por encima de 70 kW se exige
+    # Proyecto Técnico visado, no un borrador de MTD simplificada.
+    with pytest.raises(VerticalNoSoportadoError):
+        generar_documento(_payload(
+            tipo="mtd", tipo_instalacion="climatizacion_aerotermia", potencia_kw=potencia_kw
+        ))
+
+
 def test_dossier_zip_contenido():
     contenido, media_type, filename = generar_documento(_payload(tipo="dossier"))
     assert media_type == "application/zip"
