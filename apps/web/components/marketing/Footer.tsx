@@ -2,24 +2,27 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { NewsletterForm } from "./NewsletterForm";
 
 // href: null = todavía no existe el destino (contenido/página pendiente).
 // Se renderiza como texto "Próximamente" en vez de un enlace muerto (href="#")
 // -- ver D-11 de la auditoría 2026-08-06. No se inventa contenido legal ni
 // documentación que no existe: solo se deja de fingir que el enlace funciona.
+//
+// "API de Integración" y "Blog" se retiraron (2026-08-09): no existe ni
+// está en desarrollo un producto de API pública, y no hay contenido
+// editorial que mostrar en un blog. Un enlace "Próximamente" a algo que ni
+// siquiera está en el roadmap es peor que no tener enlace.
 const FOOTER_LINKS = {
   producto: [
     { name: "Quiénes somos", href: "#quienes-somos" },
-    { name: "Motor Normativo", href: null },
+    { name: "Motor Normativo", href: "/producto/motor-normativo" },
     { name: "Precios", href: "#precios" },
     { name: "Cobertura Autonómica", href: "#cobertura" },
     { name: "Verticales", href: "#verticales" },
   ],
   recursos: [
-    { name: "Documentación", href: null },
-    { name: "API de Integración", href: null },
-    { name: "Blog", href: null },
+    { name: "Documentación", href: "/documentacion" },
     { name: "Soporte", href: "/contacto" },
   ],
   legal: [
@@ -67,27 +70,9 @@ export function Footer() {
             
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium text-text-primary">
-                Recibe alertas del BOE <span className="text-text-secondary">(próximamente)</span>
+                Recibe alertas del BOE
               </span>
-              {/* Sin backend de newsletter todavía: deshabilitado en vez de
-                  simular un envío que no va a ningún sitio (ver D-11,
-                  auditoría 2026-08-06). */}
-              <form className="flex max-w-sm items-center gap-2" onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="email"
-                  placeholder="tu@email.com"
-                  disabled
-                  className="w-full cursor-not-allowed rounded-md border border-border bg-bg px-3 py-2 text-sm text-text-primary placeholder:text-text-secondary/50 opacity-60"
-                />
-                <button
-                  type="submit"
-                  disabled
-                  className="inline-flex cursor-not-allowed items-center justify-center rounded-md bg-primary p-2 text-white opacity-60"
-                  aria-label="Suscribirse (próximamente)"
-                >
-                  <ArrowRight size={16} />
-                </button>
-              </form>
+              <NewsletterForm />
             </div>
           </div>
 
