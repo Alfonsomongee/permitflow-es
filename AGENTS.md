@@ -385,21 +385,22 @@ uv add openai
 
 > Actualizar esta sección en cada sesión de trabajo.
 
-**Fase:** 0 — Inicialización
+**Fase:** 1 — Desarrollo de funcionalidades y UX
 
 **Completado:**
-- [ ] Monorepo inicializado
-- [ ] Next.js configurado con Tailwind + shadcn/ui
-- [ ] FastAPI con estructura base
-- [ ] Supabase conectado + esquema de base de datos aplicado
-- [ ] Clerk configurado (auth)
-- [ ] Deploy automático en Vercel funcionando
+- [x] Monorepo inicializado
+- [x] Next.js configurado con Tailwind + shadcn/ui + Base UI
+- [x] FastAPI con estructura base y endpoints de expedientes/clasificador
+- [x] Supabase conectado + esquema de base de datos aplicado
+- [x] Clerk configurado (auth multi-tenant)
+- [x] Motor normativo y verificación de fuentes por CCAA (17/17 comunidades)
+- [x] Mejoras UX B2B (Sidebar animado, Base UI Select, Command Palette `Cmd+K`, atajo `/` en tabla, autocompletado de dirección con Google Places y dynamic imports)
 
 **En curso:**
-- Inicialización del monorepo y configuración del entorno
+- Validación final y optimización pre-despliegue
 
 **Próxima tarea:**
-- Montar el esqueleto de la app: estructura de carpetas, dependencias, primer deploy vacío
+- Probar `pnpm build` en entorno de despliegue con la clave `GOOGLE_MAPS_API_KEY` configurada
 
 **Bloqueado:**
 - Nada actualmente
