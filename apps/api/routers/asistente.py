@@ -15,9 +15,10 @@ from schemas.asistente import (
     AsistenteConversacionOut,
     AsistenteReporteRequest,
 )
-from servicios.ai_client import completar_stream
+from servicios.ai_client import completar_con_tools_stream, completar_stream
 from servicios.asistente_context import construir_contexto
 from servicios.asistente_presupuesto import verificar_presupuesto, registrar_uso
+from servicios.asistente_tools import TOOLS_SCHEMA, ejecutar_tool
 from servicios.tenant_context import TenantContext, get_tenant_context, set_tenant_context
 
 logger = logging.getLogger(__name__)
@@ -126,18 +127,41 @@ async def chat_asistente(
 
     conversacion_id = conversacion.id
 
+    # Tool calling (fase 2 de "bot que rellena trámites", 2026-08-09): solo se
+    # ofrecen herramientas cuando hay un expediente cargado en la conversación
+    # -- ambas tools (consultar_estado_tramites, consultar_ayudas_disponibles)
+    # leen datos de ESE expediente concreto, ya resuelto y filtrado por tenant
+    # más arriba (Expediente.org_id == internal_org_id). El chat general sin
+    # expediente sigue exactamente el mismo camino que antes (completar_stream,
+    # con streaming real token a token), sin ningún cambio de comportamiento.
+    async def _ejecutar_tool_del_expediente(nombre: str, argumentos: dict) -> str:
+        return await ejecutar_tool(nombre, argumentos, expediente)
+
     async def sse_generator_with_usage() -> AsyncGenerator[str, None]:
         usage_stats = {}
         respuesta_completa = ""
 
-        try:
-            async for chunk in completar_stream(
+        if expediente is not None:
+            generador = completar_con_tools_stream(
+                mensajes=mensajes_llm,
+                system=system_prompt,
+                tools=TOOLS_SCHEMA,
+                ejecutar_tool=_ejecutar_tool_del_expediente,
+                max_tokens=1000,
+                temperatura=0.1,
+                usage_stats=usage_stats,
+            )
+        else:
+            generador = completar_stream(
                 mensajes=mensajes_llm,
                 system=system_prompt,
                 max_tokens=1000,
                 temperatura=0.1,
                 usage_stats=usage_stats
-            ):
+            )
+
+        try:
+            async for chunk in generador:
                 respuesta_completa += chunk
                 # Formato Vercel AI SDK stream:
                 # texto chunk -> 0:"..."

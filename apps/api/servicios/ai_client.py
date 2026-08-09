@@ -1,3 +1,4 @@
+import json
 import logging
 from typing import Type, TypeVar
 
@@ -172,4 +173,102 @@ async def completar_stream(
             delta = chunk.choices[0].delta
             if delta and delta.content:
                 yield delta.content
+
+
+async def completar_con_tools_stream(
+    mensajes: List[Dict[str, str]],
+    system: str,
+    tools: List[Dict[str, Any]],
+    ejecutar_tool,
+    max_tokens: int = 1000,
+    temperatura: float = 0.1,
+    usage_stats: dict = None,
+    max_rondas_tool: int = 3,
+) -> AsyncIterator[str]:
+    """
+    Variante de completar_stream() con tool calling (function calling estilo
+    OpenAI; DeepSeek es API-compatible -- ver
+    https://api-docs.deepseek.com/guides/function_calling).
+
+    `ejecutar_tool` es un callable async `(nombre: str, argumentos: dict) -> str`
+    que ejecuta la herramienta y devuelve el resultado como texto (ver
+    servicios/asistente_tools.py). No debe lanzar: si falla, debe devolver un
+    string explicando el error, para que el LLM pueda reaccionar en vez de
+    romper el turno completo.
+
+    Simplificación deliberada frente a completar_stream(): las rondas de
+    decisión de herramienta se hacen SIN streaming (una tool call es un JSON
+    completo, no tiene sentido "escribirlo a máquina" token a token), y la
+    respuesta final -- una vez resueltas las herramientas, o si el modelo no
+    pide ninguna -- se entrega en un único chunk en vez de token a token. Es
+    peor efecto "máquina de escribir" en el turno final, pero evita
+    reimplementar el parseo incremental de tool_calls en modo streaming (los
+    deltas llegan fragmentados por índice de tool call) para un beneficio de
+    UX menor en el turno final. Si en el futuro hace falta streaming real del
+    turno final, sustituir el `yield` final por una llamada adicional con
+    stream=True reutilizando `msgs` ya resueltos.
+    """
+    msgs: List[Dict[str, Any]] = []
+    if system:
+        msgs.append({"role": "system", "content": system})
+    msgs.extend(mensajes)
+
+    for _ronda in range(max_rondas_tool):
+        response = await _client.chat.completions.create(
+            model=DEFAULT_MODEL,
+            messages=msgs,
+            max_tokens=max_tokens,
+            temperature=temperatura,
+            tools=tools,
+            tool_choice="auto",
+        )
+
+        if usage_stats is not None and response.usage:
+            usage_stats["prompt_tokens"] = (
+                usage_stats.get("prompt_tokens", 0) + response.usage.prompt_tokens
+            )
+            usage_stats["completion_tokens"] = (
+                usage_stats.get("completion_tokens", 0) + response.usage.completion_tokens
+            )
+
+        choice_msg = response.choices[0].message
+        tool_calls = choice_msg.tool_calls or []
+
+        if not tool_calls:
+            yield choice_msg.content or ""
+            return
+
+        msgs.append({
+            "role": "assistant",
+            "content": choice_msg.content,
+            "tool_calls": [
+                {
+                    "id": tc.id,
+                    "type": "function",
+                    "function": {"name": tc.function.name, "arguments": tc.function.arguments},
+                }
+                for tc in tool_calls
+            ],
+        })
+
+        for tc in tool_calls:
+            try:
+                args = json.loads(tc.function.arguments or "{}")
+            except json.JSONDecodeError:
+                args = {}
+            try:
+                resultado = await ejecutar_tool(tc.function.name, args)
+            except Exception as exc:  # noqa: BLE001 — un fallo de tool no debe tumbar el chat
+                logger.exception(f"Error ejecutando tool '{tc.function.name}'")
+                resultado = f"Error interno consultando esta información: {exc}"
+            msgs.append({
+                "role": "tool",
+                "tool_call_id": tc.id,
+                "content": resultado,
+            })
+
+    yield (
+        "No he podido resolver tu consulta usando las herramientas disponibles "
+        "tras varios intentos. Intenta reformular la pregunta."
+    )
 
