@@ -116,3 +116,28 @@ def test_matching_mensual_nunca_supera_consumo_anual():
     )
     ahorro_maximo = consumo_anual * 0.261
     assert resultado.ahorro_anual <= ahorro_maximo + 0.01
+
+
+def test_factura_actual_es_consumo_por_precio():
+    consumo = 4000
+    resultado = calcular_escenario_fv(consumo_anual_kwh=consumo, precio_kwh=0.25)
+    assert resultado.factura_actual_anual == pytest.approx(consumo * 0.25, abs=0.01)
+
+
+def test_factura_con_instalacion_es_factura_actual_menos_ahorro():
+    resultado = calcular_escenario_fv(consumo_anual_kwh=4000)
+    esperado = resultado.factura_actual_anual - resultado.ahorro_anual
+    assert resultado.factura_con_instalacion_anual == pytest.approx(esperado, abs=0.01)
+
+
+def test_factura_con_instalacion_nunca_es_negativa():
+    # Con un precio_kwh manual muy bajo, ahorro_anual podría en teoría
+    # acercarse a factura_actual_anual; la factura con instalación no debe
+    # bajar de 0 en ningún caso.
+    resultado = calcular_escenario_fv(consumo_anual_kwh=4000, precio_kwh=0.01)
+    assert resultado.factura_con_instalacion_anual >= 0.0
+
+
+def test_factura_con_instalacion_menor_que_factura_actual():
+    resultado = calcular_escenario_fv(consumo_anual_kwh=4000)
+    assert resultado.factura_con_instalacion_anual < resultado.factura_actual_anual

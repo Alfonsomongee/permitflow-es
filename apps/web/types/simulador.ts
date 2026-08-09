@@ -24,6 +24,10 @@ export interface EscenarioAhorro {
   ahorro_anual: number;
   ahorro_5_anios: number;
   ahorro_10_anios: number;
+  // Factura eléctrica anual sin y con la instalación (calculo_financiero.py),
+  // para dibujar el ahorro junto a la factura real y no como cifra aislada.
+  factura_actual_anual?: number;
+  factura_con_instalacion_anual?: number;
 }
 
 export interface InformeSimulacionIA {

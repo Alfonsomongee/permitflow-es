@@ -71,6 +71,14 @@ class EscenarioCalculado:
     tiempo_retorno_anios: float
     potencia_kwp: float
     produccion_anual_estimada_kwh: float
+    # Coste de la factura eléctrica anual sin y con la instalación, en euros.
+    # Antes el informe solo mostraba el ahorro (una cifra derivada) sin nunca
+    # dibujar la factura real de la que sale: el usuario no podía ver "pagas
+    # X hoy, pagarías Y con la instalación", solo un número de ahorro
+    # desconectado de su factura. Se calculan aquí (no en el frontend) para
+    # que salgan de la misma fórmula trazable que el resto del escenario.
+    factura_actual_anual: float = 0.0
+    factura_con_instalacion_anual: float = 0.0
     supuestos: list[SupuestoCalculo] = field(default_factory=list)
 
 
@@ -154,6 +162,14 @@ def calcular_escenario_fv(
 
     tiempo_retorno = coste_inicial / ahorro_anual if ahorro_anual > 0 else 0.0
 
+    # Factura actual = todo el consumo anual al precio medio; factura con
+    # instalación = la misma factura menos lo que deja de comprarse a la red
+    # (ahorro_anual). No resta más que el propio consumo (max 0) para no
+    # mostrar una factura negativa si algún día ahorro_anual > factura_actual
+    # por un precio_kwh manual atípico.
+    factura_actual_anual = consumo_anual_kwh * precio
+    factura_con_instalacion_anual = max(factura_actual_anual - ahorro_anual, 0.0)
+
     supuestos = [
         SupuestoCalculo(
             parametro="produccion_especifica_kwh_kwp_year",
@@ -223,6 +239,21 @@ def calcular_escenario_fv(
             )
         )
 
+    supuestos.append(
+        SupuestoCalculo(
+            parametro="factura_actual_anual_eur",
+            valor_asumido=f"{factura_actual_anual:.0f} €/año",
+            razon=(
+                "consumo_anual_kwh × precio_kwh_eur -- la factura eléctrica "
+                "anual sin instalación, calculada con el mismo precio medio "
+                "usado para el ahorro (no es un importe leído literalmente de "
+                "la factura, que incluye término de potencia y otros cargos "
+                "fijos no modelados aquí)."
+            ),
+            fuente_dato="leido" if usar_matching_mensual else "estimado",
+        )
+    )
+
     return EscenarioCalculado(
         nombre="Autoconsumo fotovoltaico residencial",
         coste_inicial=_redondear(coste_inicial, 2),
@@ -232,5 +263,7 @@ def calcular_escenario_fv(
         tiempo_retorno_anios=_redondear(tiempo_retorno, 1),
         potencia_kwp=_redondear(kwp_recomendada, 2),
         produccion_anual_estimada_kwh=_redondear(produccion_anual_kwh, 0),
+        factura_actual_anual=_redondear(factura_actual_anual, 2),
+        factura_con_instalacion_anual=_redondear(factura_con_instalacion_anual, 2),
         supuestos=supuestos,
     )

@@ -38,6 +38,8 @@ class EscenarioAhorro(BaseModel):
     tiempo_retorno_anios: float = Field(ge=0)
     potencia_kwp: float = Field(gt=0)
     produccion_anual_estimada_kwh: Optional[float] = None
+    factura_actual_anual: float = Field(default=0.0, ge=0)
+    factura_con_instalacion_anual: float = Field(default=0.0, ge=0)
 
 
 class InformeSimulacionIA(BaseModel):
@@ -138,6 +140,8 @@ async def generar_informe_simulacion(
         tiempo_retorno_anios=escenario_calculado.tiempo_retorno_anios,
         potencia_kwp=escenario_calculado.potencia_kwp,
         produccion_anual_estimada_kwh=escenario_calculado.produccion_anual_estimada_kwh,
+        factura_actual_anual=escenario_calculado.factura_actual_anual,
+        factura_con_instalacion_anual=escenario_calculado.factura_con_instalacion_anual,
     )
 
     texto = _InformeTextoIA(

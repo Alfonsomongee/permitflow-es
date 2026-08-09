@@ -41,6 +41,11 @@ const escenarioSchema = z.object({
   ahorro_anual: z.number().finite().positive(),
   ahorro_5_anios: z.number().finite().nonnegative(),
   ahorro_10_anios: z.number().finite().nonnegative(),
+  // Añadidos en apps/api/servicios/calculo_financiero.py para poder dibujar
+  // la factura real (sin/con instalación) junto al ahorro -- opcionales para
+  // no romper si algún caller antiguo del backend aún no los emite.
+  factura_actual_anual: z.number().finite().nonnegative().optional(),
+  factura_con_instalacion_anual: z.number().finite().nonnegative().optional(),
 });
 
 const supuestoSchema = z.object({

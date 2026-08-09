@@ -79,6 +79,50 @@ def test_escenario_ahorro_valida_campos_requeridos():
         )
 
 
+def test_escenario_ahorro_factura_actual_vs_con_instalacion():
+    # Contrato de apps/web/types/simulador.ts: estos dos campos alimentan la
+    # gráfica de factura real antes/después de la instalación.
+    escenario = EscenarioAhorro(
+        nombre="Escenario 1",
+        coste_inicial=5000,
+        ahorro_anual=800,
+        ahorro_5_anios=4000,
+        ahorro_10_anios=8000,
+        tiempo_retorno_anios=6.25,
+        potencia_kwp=4.5,
+        factura_actual_anual=1200,
+        factura_con_instalacion_anual=400,
+    )
+    assert escenario.factura_actual_anual == 1200
+    assert escenario.factura_con_instalacion_anual == 400
+
+    # Si no se pasan, no deben ser obligatorios (compatibilidad hacia atrás
+    # con cualquier caller que aún no los conozca) y no deben ser negativos.
+    sin_factura = EscenarioAhorro(
+        nombre="Sin factura",
+        coste_inicial=1000,
+        ahorro_anual=200,
+        ahorro_5_anios=1000,
+        ahorro_10_anios=2000,
+        tiempo_retorno_anios=5,
+        potencia_kwp=3,
+    )
+    assert sin_factura.factura_actual_anual == 0.0
+    assert sin_factura.factura_con_instalacion_anual == 0.0
+
+    with pytest.raises(ValidationError):
+        EscenarioAhorro(
+            nombre="Factura negativa",
+            coste_inicial=1000,
+            ahorro_anual=200,
+            ahorro_5_anios=1000,
+            ahorro_10_anios=2000,
+            tiempo_retorno_anios=5,
+            potencia_kwp=3,
+            factura_actual_anual=-100,
+        )
+
+
 # ---------------------------------------------------------------------------
 # POST /simulador/factura/csv (import de consumo de Datadis)
 # ---------------------------------------------------------------------------
