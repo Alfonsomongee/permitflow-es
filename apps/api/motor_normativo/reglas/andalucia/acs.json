@@ -135,7 +135,8 @@
             }
           ],
           "notas": null,
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": "6505"
         }
       ]
     },
@@ -233,7 +234,8 @@
             }
           ],
           "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": "6505"
         }
       ]
     },
@@ -331,7 +333,8 @@
             }
           ],
           "notas": null,
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": "6505"
         }
       ]
     },
@@ -417,7 +420,8 @@
             }
           ],
           "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         }
       ]
     },
@@ -503,7 +507,8 @@
             }
           ],
           "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.\nPENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         }
       ]
     },
@@ -601,7 +606,8 @@
             }
           ],
           "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         }
       ]
     },
@@ -687,7 +693,8 @@
             }
           ],
           "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         }
       ]
     },
@@ -795,7 +802,8 @@
             }
           ],
           "notas": "La notificación debe realizarse antes de la puesta en marcha de la instalación. Las inspecciones de Salud Pública son periódicas y no anunciadas. NOTA DE CRITERIO: el disparador legal correcto de esta obligación es el ámbito del art. 3.1 del RD 487/2022 (uso colectivo con posible aerosolización, típicamente ACS con acumulación y recirculación), NO la potencia. Mientras el wizard no capture uso_colectivo/acumulacion/recirculacion (Bloque 9B pendiente), esta regla usa el criterio de potencia/uso como red de seguridad transitoria para no perder cobertura; en cuanto existan esos campos, sustituir por el criterio legal correcto.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": "10527"
         }
       ]
     }

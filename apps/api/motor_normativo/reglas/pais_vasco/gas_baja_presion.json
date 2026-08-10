@@ -77,7 +77,7 @@
           "plataforma": "Euskadi.eus - Ventanilla de Industria",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IG",
           "paralelo_con": null,
           "regla_id": "PV-GAS-001",
           "documentos_requeridos": [
@@ -184,7 +184,7 @@
           "plataforma": "Euskadi.eus - Ventanilla de Industria",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IG",
           "paralelo_con": null,
           "regla_id": "PV-GAS-002",
           "documentos_requeridos": [
@@ -285,7 +285,7 @@
           "plataforma": "Euskadi.eus - Ventanilla de Industria",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IG",
           "paralelo_con": null,
           "regla_id": "PV-GAS-003",
           "documentos_requeridos": [

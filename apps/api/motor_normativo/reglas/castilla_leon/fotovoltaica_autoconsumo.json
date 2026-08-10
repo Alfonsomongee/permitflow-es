@@ -104,7 +104,7 @@
           "plataforma": "BOEL (Boletines Eléctricos)",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/1/1240837594471/Tramite",
           "coste_estimado": "Tasa código 308.1 'Inscripción y control de instalaciones eléctricas' — importe NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IAPA13",
           "paralelo_con": null,
           "regla_id": "CYL-FV-001",
           "documentos_requeridos": [
@@ -193,7 +193,7 @@
           "plataforma": "BOEL / Sede Electrónica de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/1/1240837594471/Tramite",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IAPA13",
           "paralelo_con": null,
           "regla_id": "CYL-FV-002",
           "documentos_requeridos": [

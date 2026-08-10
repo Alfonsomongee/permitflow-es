@@ -108,7 +108,7 @@
           "plataforma": "Sede Electrónica de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IAPA1496",
           "paralelo_con": null,
           "regla_id": "CYL-GBP-001",
           "documentos_requeridos": [
@@ -192,7 +192,7 @@
           "plataforma": "Sede Electrónica de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IAPA1496",
           "paralelo_con": null,
           "regla_id": "CYL-GBP-002",
           "documentos_requeridos": [
@@ -287,7 +287,7 @@
           "plataforma": "Sede Electrónica de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IAPA1496",
           "paralelo_con": null,
           "regla_id": "CYL-GBP-003",
           "documentos_requeridos": [

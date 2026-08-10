@@ -95,7 +95,7 @@
           "plataforma": "Sede Electrónica de la Junta de Extremadura",
           "plataforma_url": "https://www.juntaex.es/w/5873",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "CIP 5873",
           "paralelo_con": null,
           "regla_id": "EXT-GAS-001",
           "documentos_requeridos": [
@@ -274,7 +274,7 @@
           "plataforma": "Sede Electrónica de la Junta de Extremadura",
           "plataforma_url": "https://www.juntaex.es/w/5873",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "CIP 5873",
           "paralelo_con": null,
           "regla_id": "EXT-GAS-003",
           "documentos_requeridos": [

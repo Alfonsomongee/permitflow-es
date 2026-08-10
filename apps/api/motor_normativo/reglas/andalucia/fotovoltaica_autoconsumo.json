@@ -208,7 +208,8 @@
             }
           ],
           "notas": "Plazo legal: 45 días hábiles, silencio positivo. Presentación telemática disponible con certificado digital en la sede de la Junta de Andalucía.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,
@@ -377,7 +378,8 @@
             }
           ],
           "notas": null,
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,
@@ -546,7 +548,8 @@
             }
           ],
           "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,
@@ -727,7 +730,8 @@
             }
           ],
           "notas": null,
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,
@@ -896,7 +900,8 @@
             }
           ],
           "notas": null,
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,
@@ -1075,7 +1080,8 @@
             }
           ],
           "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,
@@ -1276,7 +1282,8 @@
             }
           ],
           "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,
@@ -1489,7 +1496,8 @@
             }
           ],
           "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,
@@ -1690,7 +1698,8 @@
             }
           ],
           "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         },
         {
           "orden": 5,

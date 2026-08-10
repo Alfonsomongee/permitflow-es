@@ -85,7 +85,7 @@
           "plataforma": "Euskadi.eus - Sede Electrónica",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/it/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IT",
           "paralelo_con": null,
           "regla_id": "PV-AER-001",
           "documentos_requeridos": [
@@ -174,7 +174,7 @@
           "plataforma": "Euskadi.eus - Sede Electrónica",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/it/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IT",
           "paralelo_con": null,
           "regla_id": "PV-AER-002",
           "documentos_requeridos": [

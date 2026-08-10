@@ -132,9 +132,9 @@
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?codtram=IN622B",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IN622B",
           "paralelo_con": null,
           "regla_id": "GAL-CLIMA-001",
           "documentos_requeridos": [
@@ -233,9 +233,9 @@
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?codtram=IN622B",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "IN622B",
           "paralelo_con": null,
           "regla_id": "GAL-CLIMA-002",
           "documentos_requeridos": [

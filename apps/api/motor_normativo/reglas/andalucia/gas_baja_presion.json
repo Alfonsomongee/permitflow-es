@@ -91,7 +91,8 @@
               "descripcion": "Memoria Técnica de Instalación presentada previamente."
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         }
       ]
     },
@@ -160,7 +161,8 @@
               "descripcion": "Visado del proyecto por el colegio profesional correspondiente."
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         }
       ]
     }

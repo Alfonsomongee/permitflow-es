@@ -89,9 +89,9 @@
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "http://industriaextremadura.juntaex.es",
+          "plataforma_url": "https://www.juntaex.es/w/5625",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "CIP 5625",
           "paralelo_con": null,
           "regla_id": "EXT-AT-001",
           "documentos_requeridos": [
@@ -161,9 +161,9 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "http://industriaextremadura.juntaex.es",
+          "plataforma_url": "https://www.juntaex.es/w/5625",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "CIP 5625",
           "paralelo_con": null,
           "regla_id": "EXT-AT-002",
           "documentos_requeridos": [

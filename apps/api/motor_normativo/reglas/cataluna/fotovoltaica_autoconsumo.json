@@ -321,7 +321,7 @@
           "plataforma": "Canal Empresa (OGE)",
           "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/21526-installacio-generadora-autoconsum-compensacio",
           "coste_estimado": null,
-          "formulario_ref": null,
+          "formulario_ref": "21526",
           "paralelo_con": null,
           "regla_id": "CAT-FV-COMPENSACION-21526",
           "tipo_actuacion": "accion_usuario",

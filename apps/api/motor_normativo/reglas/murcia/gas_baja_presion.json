@@ -289,9 +289,9 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
-          "plataforma_url": "https://sede.carm.es",
+          "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240",
           "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "formulario_ref": "27",
           "paralelo_con": null,
           "regla_id": "MUR-GAS-003",
           "documentos_requeridos": [

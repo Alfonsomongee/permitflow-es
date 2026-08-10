@@ -108,7 +108,8 @@
               "obligatorio": true
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         }
       ]
     },
@@ -210,7 +211,8 @@
               "obligatorio": true
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null
         }
       ]
     }
