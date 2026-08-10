@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UploadCloud, FileWarning, ArrowRight, ArrowLeft, Loader2, Download, AlertCircle } from 'lucide-react';
+import { UploadCloud, FileWarning, ArrowRight, ArrowLeft, Loader2, Download, AlertCircle, Check } from 'lucide-react';
 import { useSimulatorStore } from '@/store/use-simulator-store';
 import { capturar } from '@/lib/analytics/posthog';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -30,6 +30,12 @@ const MAX_CSV_SIZE = 5 * 1024 * 1024; // mismo límite que servicios/datadis_par
 
 // Tipos de inmueble no residenciales: redirigir a contacto
 const TIPO_NO_RESIDENCIAL = new Set(['empresa', 'comunidad_vecinos']);
+
+const PASOS = [
+  { id: 'inmueble', label: 'Datos del inmueble' },
+  { id: 'presupuesto', label: 'Presupuesto' },
+  { id: 'factura', label: 'Factura' },
+] as const;
 
 const inmuebleSchema = z.object({
   tipoInmueble: z.enum(['vivienda_unifamiliar', 'comunidad_vecinos', 'empresa'], {
@@ -241,6 +247,7 @@ export function SimulatorWizard() {
     }
   };
 
+  const stepIndex = PASOS.findIndex((p) => p.id === step);
   const progressValue = step === 'inmueble' ? 33 : step === 'presupuesto' ? 66 : 100;
 
   return (
@@ -248,11 +255,28 @@ export function SimulatorWizard() {
       {step !== 'resultados' && (
         <div className="mb-8">
           <Progress value={progressValue} className="h-2" />
-          <div className="flex justify-between mt-2 text-xs text-muted-foreground font-medium">
-            <span className={step === 'inmueble' ? 'text-primary' : ''}>1. Datos del Inmueble</span>
-            <span className={step === 'presupuesto' ? 'text-primary' : ''}>2. Presupuesto</span>
-            <span className={step === 'factura' ? 'text-primary' : ''}>3. Factura</span>
-          </div>
+          <ol className="flex list-none justify-between mt-2 text-xs font-medium">
+            {PASOS.map((paso, i) => {
+              const completado = i < stepIndex;
+              const activo = paso.id === step;
+              return (
+                <li
+                  key={paso.id}
+                  aria-current={activo ? 'step' : undefined}
+                  className={`flex items-center gap-1 ${
+                    activo ? 'text-primary' : completado ? 'text-text-primary' : 'text-muted-foreground'
+                  }`}
+                >
+                  {completado ? (
+                    <Check className="h-3.5 w-3.5" aria-hidden />
+                  ) : (
+                    <span aria-hidden>{i + 1}.</span>
+                  )}
+                  {paso.label}
+                </li>
+              );
+            })}
+          </ol>
         </div>
       )}
 
@@ -265,20 +289,24 @@ export function SimulatorWizard() {
                 <CardDescription>Cuéntanos dónde quieres instalar las placas solares.</CardDescription>
               </CardHeader>
               <form onSubmit={inmuebleForm.handleSubmit(onInmuebleSubmit)}>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 pb-6">
                   <div className="space-y-2">
-                    <Label htmlFor="tipoInmueble">Tipo de Inmueble</Label>
+                    <Label htmlFor="tipoInmueble">Tipo de inmueble</Label>
                     <select
                       id="tipoInmueble"
                       className="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                       {...inmuebleForm.register('tipoInmueble')}
+                      aria-invalid={!!inmuebleForm.formState.errors.tipoInmueble}
+                      aria-describedby={inmuebleForm.formState.errors.tipoInmueble ? 'tipoInmueble-error' : undefined}
                     >
-                      <option value="vivienda_unifamiliar">Vivienda Unifamiliar</option>
-                      <option value="comunidad_vecinos">Comunidad de Vecinos</option>
-                      <option value="empresa">Empresa / Nave Industrial</option>
+                      <option value="vivienda_unifamiliar">Vivienda unifamiliar</option>
+                      <option value="comunidad_vecinos">Comunidad de vecinos</option>
+                      <option value="empresa">Empresa / nave industrial</option>
                     </select>
                     {inmuebleForm.formState.errors.tipoInmueble && (
-                      <p className="text-sm text-destructive">{inmuebleForm.formState.errors.tipoInmueble.message}</p>
+                      <p id="tipoInmueble-error" className="text-sm text-destructive">
+                        {inmuebleForm.formState.errors.tipoInmueble.message}
+                      </p>
                     )}
                     {/* Aviso de captura de lead para tipos no residenciales */}
                     {['empresa', 'comunidad_vecinos'].includes(inmuebleForm.watch('tipoInmueble')) && (
@@ -289,16 +317,33 @@ export function SimulatorWizard() {
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="codigoPostal">Código Postal</Label>
-                    <Input id="codigoPostal" placeholder="Ej: 28001" {...inmuebleForm.register('codigoPostal')} />
-                    {inmuebleForm.formState.errors.codigoPostal && (
-                      <p className="text-sm text-destructive">{inmuebleForm.formState.errors.codigoPostal.message}</p>
+                    <Label htmlFor="codigoPostal">Código postal</Label>
+                    <Input
+                      id="codigoPostal"
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={5}
+                      placeholder="Ej.: 28001"
+                      aria-invalid={!!inmuebleForm.formState.errors.codigoPostal}
+                      aria-describedby={
+                        inmuebleForm.formState.errors.codigoPostal ? 'codigoPostal-error' : 'codigoPostal-ayuda'
+                      }
+                      {...inmuebleForm.register('codigoPostal')}
+                    />
+                    {inmuebleForm.formState.errors.codigoPostal ? (
+                      <p id="codigoPostal-error" className="text-sm text-destructive">
+                        {inmuebleForm.formState.errors.codigoPostal.message}
+                      </p>
+                    ) : (
+                      <p id="codigoPostal-ayuda" className="text-xs text-muted-foreground">
+                        5 dígitos del código postal donde está o estará la instalación.
+                      </p>
                     )}
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
-                  <Button type="submit">
-                    Siguiente <ArrowRight className="ml-2 h-4 w-4" />
+                  <Button type="submit" className="min-h-11">
+                    Siguiente <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                   </Button>
                 </CardFooter>
               </form>
@@ -314,7 +359,7 @@ export function SimulatorWizard() {
                 <CardDescription>¿Cuánto tienes pensado invertir aproximadamente?</CardDescription>
               </CardHeader>
               <form onSubmit={presupuestoForm.handleSubmit(onPresupuestoSubmit)}>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 pb-6">
                   <div className="space-y-2">
                     <Label htmlFor="presupuesto">Presupuesto (€)</Label>
                     <Input id="presupuesto" type="number" {...presupuestoForm.register('presupuesto', { valueAsNumber: true })} />
@@ -344,7 +389,7 @@ export function SimulatorWizard() {
                 <CardTitle>Sube tu factura de luz</CardTitle>
                 <CardDescription>Necesitamos tu factura para calcular con precisión tu ahorro mensual.</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-6 pb-6">
                 {/* Aviso RGPD */}
                 <p className="text-xs text-muted-foreground bg-muted/50 rounded-md p-3">
                   Al subir tu factura, extraemos automáticamente el consumo y la potencia. Si la extracción automática no funciona,
