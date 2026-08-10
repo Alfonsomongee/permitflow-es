@@ -230,7 +230,7 @@ export function TramiteCard({
               >
                 {tramite.nombre}
               </p>
-              <p className="mt-1 truncate text-sm text-text-secondary">{tramite.organismo}</p>
+              <p className="mt-1 line-clamp-2 text-sm leading-snug text-text-secondary">{tramite.organismo}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2 mt-1">
@@ -253,7 +253,8 @@ export function TramiteCard({
                   value={estado}
                   onChange={(e) => onEstadoChange(e.target.value as TramiteEstado)}
                   disabled={pending}
-                  className={`h-9 w-36 appearance-none rounded-xl border pl-3 pr-8 text-xs font-semibold shadow-sm outline-none transition-colors disabled:opacity-50 ${
+                  aria-label={`Estado del trámite: ${tramite.nombre}`}
+                  className={`h-11 w-36 appearance-none rounded-xl border pl-3 pr-8 text-xs font-semibold shadow-sm outline-none transition-colors disabled:opacity-50 ${
                     estado === "completado" ? "border-success bg-success-light text-success-dark" :
                     estado === "en_curso" ? "border-warning bg-warning-light text-warning-dark" :
                     "border-border bg-surface text-text-primary hover:border-primary focus:border-primary"
@@ -284,7 +285,9 @@ export function TramiteCard({
             
             <button
               onClick={() => setOpen((value) => !value)}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface text-text-secondary shadow-sm transition-colors hover:border-primary hover:text-primary"
+              aria-expanded={open}
+              aria-label={open ? `Contraer detalles de ${tramite.nombre}` : `Ver detalles de ${tramite.nombre}`}
+              className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-border bg-surface text-text-secondary shadow-sm transition-colors hover:border-primary hover:text-primary"
             >
               <ChevronDown
                 size={16}

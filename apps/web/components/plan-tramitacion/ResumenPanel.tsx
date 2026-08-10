@@ -1,4 +1,4 @@
-import { AlertTriangle, Building2, Gauge, ListChecks, MapPin, Zap } from "lucide-react";
+import { AlertTriangle, Building2, Gauge, Info, ListChecks, MapPin, Zap } from "lucide-react";
 import {
   type InstalacionParams,
   type PlanTramitacion,
@@ -55,14 +55,18 @@ function ParamRow({
   if (value === undefined || value === null || value === "") return null;
   const display = typeof value === "boolean" ? (value ? "Sí" : "No") : String(value);
 
+  // Etiqueta y valor apilados verticalmente en vez de en fila (etiqueta
+  // izquierda / valor a la derecha truncado): con textos largos como "tipo
+  // de instalación" en una columna lateral de ancho fijo, la fila obligaba a
+  // truncar valores importantes. Apilado, el valor siempre se ve completo.
   return (
-    <>
-      <span className="flex items-center gap-2 text-sm text-text-secondary">
-        {Icon && <Icon size={13} className="flex-shrink-0" aria-hidden />}
+    <div className="min-w-0">
+      <span className="flex items-center gap-1.5 text-xs text-text-secondary">
+        {Icon && <Icon size={12} className="flex-shrink-0" aria-hidden />}
         {label}
       </span>
-      <span className="max-w-[150px] truncate text-right font-medium text-text-primary" title={display}>{display}</span>
-    </>
+      <span className="mt-0.5 block text-sm font-medium leading-snug text-text-primary">{display}</span>
+    </div>
   );
 }
 
@@ -70,6 +74,15 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
   const organismos = new Set(plan.tramites.map((tramite) => tramite.organismo)).size;
   const visibles = CAMPOS_VISIBLES_POR_TIPO[params.tipo_instalacion] || [];
   const isVisible = (key: string) => visibles.includes(key);
+
+  // La advertencia de "tiempo orientativo" (siempre presente, ver
+  // clasificador.py) no es del mismo nivel que un aviso de normativa sin
+  // verificar o de reglas con error: mostrarla con el mismo estilo naranja
+  // que las demás le daba un peso visual que no le corresponde. Se separa
+  // para mostrarla como nota discreta junto a "días estimados", y el resto
+  // (sí relevantes, sí requieren atención) conserva el aviso completo.
+  const advertenciaOrientativa = plan.advertencias.find((a) => a.includes("orientativo"));
+  const otrasAdvertencias = plan.advertencias.filter((a) => a !== advertenciaOrientativa);
 
   const tramitesAccionables = plan.tramites.filter(
     (t) => t.tipo_actuacion === "accion_usuario" || t.tipo_actuacion === undefined
@@ -82,7 +95,7 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
           <Zap size={12} aria-hidden />
           Instalación
         </p>
-        <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
           <ParamRow icon={Building2} label="Tipo" value={TIPO_LABEL[params.tipo_instalacion] ?? params.tipo_instalacion} />
           <ParamRow icon={MapPin} label="CC. AA." value={COMUNIDAD_LABEL[params.comunidad] ?? params.comunidad} />
           {isVisible("potencia_kw") && <ParamRow icon={Gauge} label="Potencia" value={`${params.potencia_kw} kW`} />}
@@ -118,11 +131,17 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
         <p className="mt-3 text-xs text-text-secondary">
           Repartidos entre <span className="font-medium text-text-primary">{organismos}</span> organismos distintos.
         </p>
+        {advertenciaOrientativa && (
+          <p className="mt-1.5 flex items-start gap-1.5 text-[11px] leading-relaxed text-text-secondary/80">
+            <Info size={11} className="mt-0.5 flex-shrink-0" aria-hidden />
+            {advertenciaOrientativa}
+          </p>
+        )}
       </div>
 
-      {plan.advertencias.length > 0 && (
+      {otrasAdvertencias.length > 0 && (
         <div className="space-y-2">
-          {plan.advertencias.map((advertencia, index) => (
+          {otrasAdvertencias.map((advertencia, index) => (
             <div
               key={index}
               className="flex items-start gap-2.5 rounded-xl border border-warning/30 bg-warning-light px-4 py-3 text-xs leading-relaxed text-warning-dark"

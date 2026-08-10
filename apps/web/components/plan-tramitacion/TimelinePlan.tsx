@@ -27,7 +27,7 @@ export function TimelinePlan({ tramites, estados = {}, tiempoSerie }: TimelinePl
 
   return (
     <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
-      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
+      <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
         <p className="text-[11px] font-semibold uppercase tracking-wider text-text-secondary">
           Línea temporal estimada
         </p>
@@ -46,15 +46,19 @@ export function TimelinePlan({ tramites, estados = {}, tiempoSerie }: TimelinePl
           )}
         </p>
       </div>
+      <p className="mb-5 text-xs text-text-secondary">
+        Cada barra representa la duración estimada de un trámite; los trámites que pueden
+        tramitarse a la vez aparecen en un tono más claro.
+      </p>
 
-      <div className="relative">
+      <div className="relative" role="list">
         <div className="pointer-events-none absolute inset-0 flex justify-between">
           {marcas.map((_, i) => (
             <div key={i} className="h-full w-px bg-border/60" />
           ))}
         </div>
 
-        <div className="relative flex flex-col gap-2.5">
+        <div className="relative flex flex-col gap-3">
           {slots.map((slot, idx) => {
             const left = (slot.inicioDia / total) * 100;
             const width = Math.max((slot.duracion / total) * 100, 2);
@@ -62,7 +66,11 @@ export function TimelinePlan({ tramites, estados = {}, tiempoSerie }: TimelinePl
             return (
               <motion.div
                 key={slot.orden}
-                className="flex items-center gap-3"
+                role="listitem"
+                aria-label={`${slot.orden}. ${slot.nombre}: empieza el día ${slot.inicioDia}, dura ${slot.duracion} día${
+                  slot.duracion === 1 ? "" : "s"
+                }${slot.paralelo ? ", puede tramitarse en paralelo con otro trámite" : ""}`}
+                className="flex items-center gap-2 sm:gap-3"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
@@ -72,7 +80,7 @@ export function TimelinePlan({ tramites, estados = {}, tiempoSerie }: TimelinePl
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                <span className="w-28 flex-shrink-0 truncate text-xs text-text-secondary sm:w-44">
+                <span className="line-clamp-2 w-24 flex-shrink-0 text-xs leading-snug text-text-secondary sm:w-48">
                   {slot.orden}. {slot.nombre}
                 </span>
                 <div className="relative h-4 flex-1 overflow-hidden rounded-full bg-bg">
@@ -90,7 +98,7 @@ export function TimelinePlan({ tramites, estados = {}, tiempoSerie }: TimelinePl
                     title={`Día ${slot.inicioDia} → ${slot.finDia} (${slot.duracion}d)${slot.paralelo ? " · en paralelo" : ""}`}
                   />
                 </div>
-                <span className="w-9 flex-shrink-0 text-right text-xs font-medium tabular-nums text-text-secondary">
+                <span className="w-11 flex-shrink-0 pr-1 text-right text-xs font-medium tabular-nums text-text-secondary">
                   {slot.duracion}d
                 </span>
               </motion.div>
