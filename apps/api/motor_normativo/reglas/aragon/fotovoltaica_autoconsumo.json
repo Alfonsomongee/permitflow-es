@@ -13,7 +13,8 @@
     "Umbral de 500 kW en ARA-FV-003: se retiró la cita a 'Ley 1/2024 de Aragón' por ser una norma no localizada. No se ha podido confirmar en fuente primaria (BOA) el precepto exacto que fija ese umbral de 500 kW para el régimen de autorización administrativa en Aragón; las normas candidatas (Ley 1/2021 de simplificación administrativa, Ley 5/2024 de comunidades energéticas y autoconsumo industrial) no han sido cotejadas artículo por artículo. Cifra mantenida por continuidad operativa, pendiente de verificación primaria.",
     "Falta el trámite de acceso y conexión a red / obtención del CAU ante la distribuidora (RD 1183/2020, citado en 'fuentes' sin trámite asociado). No se ha añadido como trámite mecánico porque su exigibilidad depende de la modalidad de autoconsumo (con/sin excedentes): requiere campo de formulario 'modalidad_autoconsumo' con lógica condicional dedicada (no incluida en esta corrección quirúrgica para no alterar la condición de las reglas existentes sin verificación previa del supuesto exacto).",
     "ARA-FV-002, trámite 'Certificado de la OCA (EICI)': el REBT no exige certificado OCA con carácter general en BT (10-500 kW); solo procede en los supuestos tasados de la ITC-BT-05. Requiere campo de formulario 'tension' (existe en el schema y en el formulario web) para distinguir BT de AT y condicionar el paso OCA; no implementado en esta corrección para no inventar lógica de clasificación no verificada.",
-    "Tramo 100-500 kW: el umbral de exención de inscripción RAIPEE (100 kW) y el umbral de autorización administrativa (500 kW) son magnitudes distintas; el fichero no cubre explícitamente si las instalaciones entre 100 y 500 kW requieren inscripción RAIPEE pese a no requerir autorización administrativa. Pendiente de verificación primaria."
+    "Tramo 100-500 kW: el umbral de exención de inscripción RAIPEE (100 kW) y el umbral de autorización administrativa (500 kW) son magnitudes distintas; el fichero no cubre explícitamente si las instalaciones entre 100 y 500 kW requieren inscripción RAIPEE pese a no requerir autorización administrativa. Pendiente de verificación primaria.",
+    "RESUELTO 2026-08-11: faltaba por completo el trámite de inscripción en el registro de autoconsumo. Añadido según la ficha oficial del procedimiento 2459, que lo exige a todos los autoconsumidores: Aragón NO aplica la inscripción de oficio que permite el art. 9.4 de la Ley 24/2013 por debajo de 100 kW en BT."
   ],
   "fuentes": [
     {
@@ -50,6 +51,11 @@
       "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
       "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=845932645757&type=pdf",
       "fecha_consulta": "2026-08-08"
+    },
+    {
+      "norma": "Ficha del procedimiento 2459 'Registro administrativo de autoconsumo de energía eléctrica' del Gobierno de Aragón: exige la inscripción a todos los autoconsumidores con independencia de modalidad, potencia y tensión",
+      "url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica",
+      "fecha_consulta": "2026-08-11"
     }
   ],
   "reglas": [
@@ -315,6 +321,96 @@
           "notas": "CORRECCION 2026-07-28: nota reconciliada. Las instalaciones de produccion no superiores a 100 kW asociadas a autoconsumo con excedentes estan exentas de inscripcion en el RAIPEE (confirmado en fuente oficial aragon.es); ese umbral de exencion (100 kW) es DISTINTO del umbral de autorizacion administrativa (500 kW) que activa esta regla ARA-FV-003. El tramo 100-500 kW no queda cubierto por ninguna regla de este fichero en materia de inscripcion RAIPEE (ver huecos_verificacion). Plazo y silencio (90 dias, desestimatorio) tomados de la aplicacion supletoria estatal (RD 1955/2000), no confirmados especificamente para Aragon. plataforma_url rellenada con la ficha oficial del Trámite Nº 26 por continuidad con el resto del fichero; pendiente confirmar si el procedimiento de autorización administrativa (RAIPEE) usa un canal de tramitación distinto al de la mera comunicación de BT.",
           "registro_salida": null,
           "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-FV-RADNE-HASTA-100",
+      "descripcion": "Inscripción en el registro de autoconsumo, exigida a todos los autoconsumidores en Aragón. Hasta 100 kW se acredita con el certificado de instalación diligenciado.",
+      "condicion": {
+        "<=": [
+          {
+            "var": "potencia_kw"
+          },
+          100
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Inscripción en el Registro administrativo de autoconsumo (RADNE)",
+          "organismo": "Dirección General de Energía y Minas del Gobierno de Aragón",
+          "base_legal": "RD 244/2019 arts. 19 y 20; ficha del procedimiento 2459 del Gobierno de Aragón",
+          "tipo_actuacion": "accion_usuario",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede electrónica del Gobierno de Aragón",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica",
+          "coste_estimado": "Sin tasa identificada en la ficha del procedimiento",
+          "formulario_ref": "F107",
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "formulario_f107",
+              "label": "Formulario F107 de alta en el RADNE",
+              "descripcion": "Formulario de alta, modificación o baja de autoconsumidores en el registro administrativo de autoconsumo.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_c0004",
+              "label": "Certificado de instalación eléctrica (modelo C0004) diligenciado",
+              "descripcion": "Certificado de la instalación de generación diligenciado por el órgano competente de la comunidad autónoma. Exigido cuando la potencia instalada del equipo generador es igual o inferior a 100 kW.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Aragón exige esta inscripción a todos los autoconsumidores, sea cual sea la modalidad, la potencia y la tensión de conexión: no aplica la inscripción de oficio que el art. 9.4 de la Ley 24/2013 permite por debajo de 100 kW en baja tensión, a diferencia de otras comunidades. Antes de solicitarla hay que pedir el código de autoconsumo (CAU) a la distribuidora. Se presenta ante la Dirección General de Energía y Minas aunque el registro sea del ministerio."
+        }
+      ]
+    },
+    {
+      "id": "ARA-FV-RADNE-MAS-100",
+      "descripcion": "Inscripción en el registro de autoconsumo por encima de 100 kW: se acredita con la autorización de explotación.",
+      "condicion": {
+        ">": [
+          {
+            "var": "potencia_kw"
+          },
+          100
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Inscripción en el Registro administrativo de autoconsumo (RADNE)",
+          "organismo": "Dirección General de Energía y Minas del Gobierno de Aragón",
+          "base_legal": "RD 244/2019 arts. 19 y 20; ficha del procedimiento 2459 del Gobierno de Aragón",
+          "tipo_actuacion": "accion_usuario",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede electrónica del Gobierno de Aragón",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica",
+          "coste_estimado": "Sin tasa identificada en la ficha del procedimiento",
+          "formulario_ref": "F107",
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "formulario_f107",
+              "label": "Formulario F107 de alta en el RADNE",
+              "descripcion": "Formulario de alta, modificación o baja de autoconsumidores en el registro administrativo de autoconsumo.",
+              "obligatorio": true
+            },
+            {
+              "id": "autorizacion_explotacion",
+              "label": "Autorización de explotación",
+              "descripcion": "Exigida cuando la potencia instalada del equipo generador supera los 100 kW, en lugar del certificado de instalación diligenciado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Aragón exige esta inscripción a todos los autoconsumidores, sea cual sea la modalidad, la potencia y la tensión de conexión: no aplica la inscripción de oficio que el art. 9.4 de la Ley 24/2013 permite por debajo de 100 kW en baja tensión, a diferencia de otras comunidades. Antes de solicitarla hay que pedir el código de autoconsumo (CAU) a la distribuidora. Se presenta ante la Dirección General de Energía y Minas aunque el registro sea del ministerio."
         }
       ]
     }

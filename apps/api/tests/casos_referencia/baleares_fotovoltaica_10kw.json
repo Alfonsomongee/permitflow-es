@@ -9,8 +9,8 @@
     "municipio": "Palma",
     "modalidad_autoconsumo": "con_excedentes_con_compensacion"
   },
-  "num_tramites_esperado": 8,
+  "num_tramites_esperado": 9,
   "tiempo_total_esperado_dias": 90,
   "validado_por": "Antigravity - 2026-08-09",
-  "notas_validacion": "Ejecutado contra motor_normativo/reglas/baleares/fotovoltaica_autoconsumo.json regla BAL-FV-001."
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/baleares/fotovoltaica_autoconsumo.json regla BAL-FV-001. 2026-08-11: el esperado pasa de 8 a 9 trámites. No hay ningún trámite nuevo: la inscripción en el Registro de autoconsumo de las Illes Balears viajaba fusionada con el registro de producción (procedimiento 034) dentro de un único elemento, aunque la nota del propio trámite ya decía que la practica de oficio la Dirección General. Verificado contra la ventanilla oficial de tramitación de la CAIB (paso 7) y separada en BAL-FV-RADNE-OFICIO, para que la interfaz pueda distinguir lo que presenta el titular de lo que hace la Administración. El nuevo trámite es de tipo oficio_administracion, así que las tareas pendientes del usuario siguen siendo las mismas 8. El tiempo total no cambia porque la inscripción de oficio no declara plazo."
 }

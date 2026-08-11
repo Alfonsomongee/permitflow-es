@@ -19,11 +19,20 @@ especialidad autonómica: ninguna comunidad puede convertirla en trámite del
 usuario. Lo relevante para el producto es que un trámite de oficio no debe
 contar como tarea pendiente ni llevar coste ni formulario asociado.
 
-Nota sobre el alcance: este test cubre las comunidades que hoy modelan el
-trámite de forma explícita. Aragón no lo emite en ningún tramo y Baleares lo
-mezcla con el registro de producción en un único trámite; ambos casos están
-documentados como huecos en sus ficheros y no se fuerzan aquí, porque separarlos
-sin una fuente autonómica que lo respalde sería inventar normativa.
+**La práctica autonómica no es uniforme**, y verificarla comunidad a comunidad
+(2026-08-11) dio tres resultados distintos:
+
+- **Andalucía y Madrid** siguen el mínimo estatal: de oficio por debajo de
+  100 kW en BT, a solicitud por encima o en AT.
+- **Baleares** va más allá: la ventanilla de tramitación de la CAIB (paso 7)
+  confirma que la Dirección General inscribe de oficio hasta 500 kW.
+- **Aragón** no aplica el automatismo: la ficha del procedimiento 2459 exige la
+  inscripción "independientemente de la modalidad de autoconsumo, de la potencia
+  instalada del equipo generador y de la tensión a la que estén conectados".
+
+Es decir, aplicar el criterio estatal por defecto a las cuatro habría sido
+incorrecto en dos de ellas. Por eso los tests distinguen por comunidad en vez de
+imponer una regla única: la diferencia es el dato, no el ruido.
 """
 
 import pytest
@@ -31,8 +40,8 @@ import pytest
 from motor_normativo.clasificador import Clasificador
 from schemas.clasificador import ClasificadorInput
 
-# Comunidades que modelan el registro de autoconsumo como trámite propio, y el
-# fragmento que identifica ese trámite en su plan.
+# Comunidades que siguen el umbral estatal de 100 kW, y el fragmento que
+# identifica el trámite de registro de autoconsumo en su plan.
 MODELAN_REGISTRO = [
     ("andalucia", "RADNE"),
     ("madrid", "Registro Administrativo de Autoconsumo"),
@@ -118,3 +127,59 @@ def test_el_tramite_de_oficio_no_cuenta_como_tarea_pendiente(comunidad, marca):
         t for t in resultado.tramites if t.tipo_actuacion in (None, "accion_usuario")
     ]
     assert not any(marca in t.nombre for t in accionables)
+
+
+class TestBalearesVaMasAlla:
+    """La CAIB inscribe de oficio hasta 500 kW, no solo hasta 100."""
+
+    @pytest.mark.parametrize("potencia", [20.0, 99.0, 150.0, 500.0])
+    def test_de_oficio_en_todo_el_rango_de_pequena_potencia(self, potencia):
+        tramite = tramite_registro("baleares", "Registro de autoconsumo", potencia, "BT")
+        assert tramite.tipo_actuacion == "oficio_administracion"
+
+    def test_no_se_mezcla_con_el_registro_de_produccion(self):
+        """Antes viajaban fusionados en un solo trámite, así que el registro de
+        producción (que sí presenta el titular) arrastraba consigo una
+        inscripción que en realidad hace la Administración."""
+        nombres = [t.nombre for t in plan("baleares", 20.0, "BT").tramites]
+        fusionados = [n for n in nombres if "034" in n and "autoconsumo" in n.lower()]
+        assert not fusionados, f"Siguen fusionados: {fusionados}"
+
+    def test_el_registro_de_produccion_sigue_siendo_del_titular(self):
+        resultado = plan("baleares", 20.0, "BT")
+        proc_034 = [t for t in resultado.tramites if "034" in t.nombre]
+        assert len(proc_034) == 1
+        assert proc_034[0].tipo_actuacion == "accion_usuario"
+
+
+class TestAragonNoAplicaElAutomatismo:
+    """Aragón exige la inscripción siempre, por decisión propia.
+
+    Ficha del procedimiento 2459: "Todos los sujetos consumidores que realicen
+    autoconsumo, independientemente de la modalidad de autoconsumo a la que estén
+    acogidos, de la potencia instalada del equipo generador y de la tensión a la
+    que estén conectados."
+    """
+
+    @pytest.mark.parametrize("potencia,tension", [(20.0, "BT"), (99.0, "BT"), (150.0, "AT")])
+    def test_siempre_la_solicita_el_titular(self, potencia, tension):
+        tramite = tramite_registro("aragon", "RADNE", potencia, tension)
+        assert tramite.tipo_actuacion == "accion_usuario", (
+            "Aragón no aplica la inscripción de oficio: su ficha oficial la exige "
+            "con independencia de potencia y tensión."
+        )
+
+    def test_referencia_el_formulario_real(self):
+        tramite = tramite_registro("aragon", "RADNE", 20.0, "BT")
+        assert tramite.formulario_ref == "F107"
+
+    def test_la_documentacion_cambia_en_los_100_kw(self):
+        """Hasta 100 kW se acredita con el certificado de instalación
+        diligenciado; por encima, con la autorización de explotación."""
+        hasta = tramite_registro("aragon", "RADNE", 100.0, "BT")
+        mas = tramite_registro("aragon", "RADNE", 150.0, "AT")
+        ids_hasta = {d.id for d in hasta.documentos_requeridos}
+        ids_mas = {d.id for d in mas.documentos_requeridos}
+        assert "certificado_instalacion_c0004" in ids_hasta
+        assert "autorizacion_explotacion" in ids_mas
+        assert ids_hasta != ids_mas
