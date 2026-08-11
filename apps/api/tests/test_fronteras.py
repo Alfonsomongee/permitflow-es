@@ -43,6 +43,33 @@ def generar_casos_frontera(umbral: float, campo: str) -> list[float]:
     paso = CAMPOS_NUMERICOS.get(campo, 1)
     return [umbral - paso, umbral, umbral + paso]
 
+
+def _cotas_del_schema(campo: str) -> tuple[float | None, float | None]:
+    """Devuelve (minimo_exclusivo, minimo_inclusivo) declarados en el schema.
+
+    Se leen de `ClasificadorInput` en vez de codificarlos aquí para que las
+    fronteras generadas sigan al schema si este cambia. Antes el filtro era un
+    `v < 0` fijo, y al endurecer `potencia_kw` a `gt=0` (auditoría QA
+    2026-08-11, M-02) el generador empezó a producir un caso de 0 kW que el
+    schema rechaza: un valor fuera del dominio no es una frontera del motor.
+    """
+    campo_info = ClasificadorInput.model_fields.get(campo)
+    gt = ge = None
+    for restriccion in getattr(campo_info, "metadata", []) or []:
+        gt = getattr(restriccion, "gt", None) if gt is None else gt
+        ge = getattr(restriccion, "ge", None) if ge is None else ge
+    return gt, ge
+
+
+def valor_admisible(campo: str, valor: float) -> bool:
+    """¿El schema acepta este valor para este campo?"""
+    gt, ge = _cotas_del_schema(campo)
+    if gt is not None and valor <= gt:
+        return False
+    if ge is not None and valor < ge:
+        return False
+    return valor >= 0  # ningún campo numérico del motor admite negativos
+
 def assert_sin_duplicados(resultado):
     nombres = [t.nombre for t in resultado.tramites]
     duplicados = {n for n in nombres if nombres.count(n) > 1}
@@ -87,8 +114,8 @@ def build_fronteras():
                 umbrales = extraer_umbrales(condicion, campo)
                 for u in umbrales:
                     for v in generar_casos_frontera(u, campo):
-                        if v < 0:
-                            continue  # No probamos valores negativos físicos
+                        if not valor_admisible(campo, v):
+                            continue  # fuera del dominio que declara el schema
 
                         nuevo_input = dict(base_input)
                         nuevo_input[campo] = v

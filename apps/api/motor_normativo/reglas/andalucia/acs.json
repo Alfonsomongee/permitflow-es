@@ -948,11 +948,15 @@
         "combustible"
       ],
       "condicion": {
-        "==": [
+        "in": [
           {
             "var": "combustible"
           },
-          "gas"
+          [
+            "gas_natural",
+            "glp_deposito",
+            "glp_envases"
+          ]
         ]
       },
       "mensaje": "ACS con caldera/calentador de gas: además del certificado RITE se requiere el certificado de instalación de gas IRG-3, que es un documento distinto y lo emite el instalador de gas habilitado.",

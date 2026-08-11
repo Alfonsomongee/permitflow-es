@@ -46,7 +46,7 @@
   "reglas": [
     {
       "id": "CANT-GBP-001",
-      "descripcion": "Instalación de gas en presión normal (uso residencial o comercial)",
+      "descripcion": "Instalación de gas en presión normal y uso residencial (el uso terciario e industrial lo cubre CANT-GBP-002)",
       "condicion": {
         "and": [
           {
@@ -58,23 +58,11 @@
             ]
           },
           {
-            "or": [
+            "==": [
               {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
+                "var": "uso"
               },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "comercial"
-                ]
-              }
+              "residencial"
             ]
           }
         ]

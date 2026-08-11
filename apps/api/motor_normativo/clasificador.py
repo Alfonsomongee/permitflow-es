@@ -78,24 +78,41 @@ class Clasificador:
             datos[campo] = valor
 
     def _normalizar_fotovoltaica(self, datos: dict) -> None:
+        """Reconcilia `tension` (campo grueso, heredado) con los tres niveles finos.
+
+        La comprobación de conflicto debe ser simétrica: antes solo se hacía en
+        la rama "bt", así que declarar tension="AT" con consumidor y generación
+        en BT se aceptaba en silencio y devolvía el plan de alta tensión
+        (autorización administrativa) para una instalación que no lo era
+        — auditoría QA 2026-08-11, M-01.
+        """
         tension = str(datos.get("tension") or "").lower()
-        if tension == "bt":
-            self._completar_si_falta(datos, "nivel_tension_consumidor", "bt")
-            self._completar_si_falta(datos, "nivel_tension_generacion", "bt")
-            self._completar_si_falta(datos, "nivel_tension_conexion", "bt")
-            
-            niveles_informados = [
+
+        if tension in ("bt", "at"):
+            # `tension` describe el nivel de conexión; los otros dos solo se
+            # rellenan por defecto en BT, donde consumidor y generación
+            # coinciden necesariamente con la conexión.
+            self._completar_si_falta(datos, "nivel_tension_conexion", tension)
+            if tension == "bt":
+                self._completar_si_falta(datos, "nivel_tension_consumidor", "bt")
+                self._completar_si_falta(datos, "nivel_tension_generacion", "bt")
+
+            # Conflicto: el campo grueso dice una cosa y algún nivel fino la
+            # contradice. Se comprueba en ambos sentidos.
+            contrario = "at" if tension == "bt" else "bt"
+            niveles = [
                 datos.get("nivel_tension_consumidor"),
                 datos.get("nivel_tension_generacion"),
                 datos.get("nivel_tension_conexion"),
             ]
-            if any(nivel == "at" for nivel in niveles_informados):
+            if any(nivel == contrario for nivel in niveles):
                 datos["_conflicto_tension"] = True
-                
-        elif tension == "at":
-            self._completar_si_falta(datos, "nivel_tension_conexion", "at")
-        
-        if not tension and not all([datos.get("nivel_tension_consumidor"), datos.get("nivel_tension_generacion"), datos.get("nivel_tension_conexion")]):
+
+        if not tension and not all([
+            datos.get("nivel_tension_consumidor"),
+            datos.get("nivel_tension_generacion"),
+            datos.get("nivel_tension_conexion"),
+        ]):
             datos["_falta_tension"] = True
 
     def normalizar_parametros(self, datos: dict) -> dict:
@@ -153,7 +170,14 @@ class Clasificador:
                         organismo="Oficina técnica",
                         base_legal="N/A",
                         tipo_actuacion="revision_manual",
-                        notas="Conflicto detectado: Se indica tensión BT genérica pero existen niveles específicos AT.",
+                        notas=(
+                            "Conflicto detectado: el nivel de tensión general declarado "
+                            f"({str(eval_locals.get('tension') or '').upper()}) no concuerda con "
+                            "alguno de los niveles específicos indicados para consumidor, "
+                            "generación o conexión. De ese dato dependen la puesta en servicio y "
+                            "el tipo de inscripción registral, así que el plan no se puede "
+                            "construir hasta aclararlo."
+                        ),
                         documentos_requeridos=[],
                         regla_id="REVISION-MANUAL-FV-TENSION-CONFLICTIVA"
                     )

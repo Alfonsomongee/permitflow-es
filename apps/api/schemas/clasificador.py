@@ -23,19 +23,31 @@ ComunidadAutonoma = Literal[
     "pais_vasco",
 ]
 
+# Los mismos tres valores que ofrece el formulario (USO_OPTIONS). Era `str`
+# libre, así que uso="marciano" o uso="" se aceptaban y cambiaban el plan sin
+# error, porque las reglas ramifican sobre este campo.
+Uso = Literal["residencial", "terciario", "industrial"]
+
+# Modos de recarga de la IEC 61851. No existe el modo 5.
+ModoRecarga = Literal["1", "2", "3", "4"]
+
 # ─── Input ────────────────────────────────────────────────────────────────────
 
 class ClasificadorInput(BaseModel):
     tipo_instalacion: TipoInstalacion = Field(..., description="Tipo de instalación, ej. fotovoltaica_autoconsumo")
     comunidad: ComunidadAutonoma = Field(..., description="Comunidad autónoma en formato slug, ej. andalucia")
-    potencia_kw: float = Field(..., description="Potencia en kW", ge=0)
+    # gt=0: una instalación de 0 kW no existe. Antes se aceptaba y devolvía un
+    # plan completo de trámites (auditoría QA 2026-08-11, M-02).
+    potencia_kw: float = Field(..., description="Potencia en kW", gt=0)
     superficie_m2: Optional[float] = Field(None, description="Superficie en m2, si aplica", ge=0)
-    uso: str = Field(..., description="Uso de la instalación: residencial, industrial, terciario")
+    # Literal en vez de str libre: las reglas ramifican sobre este valor, así que
+    # una errata cambiaba el plan en silencio en vez de dar error.
+    uso: Uso = Field(..., description="Uso de la instalación: residencial, industrial, terciario")
     combustible: Optional[str] = Field(None, description="Tipo de combustible: gas_natural, glp_deposito, glp_envases")
     presion_bar: Optional[str] = Field(None, description="Rango de presión: normal o 5+")
-    numero_puntos: Optional[int] = Field(None, description="Número de puntos de recarga")
-    potencia_por_punto_kw: Optional[float] = Field(None, description="Potencia por punto en kW")
-    modo_recarga: Optional[str] = Field(None, description="Modo de recarga: 1, 2, 3 o 4")
+    numero_puntos: Optional[int] = Field(None, description="Número de puntos de recarga", ge=1)
+    potencia_por_punto_kw: Optional[float] = Field(None, description="Potencia por punto en kW", gt=0)
+    modo_recarga: Optional[ModoRecarga] = Field(None, description="Modo de recarga: 1, 2, 3 o 4")
     acceso_publico: Optional[bool] = Field(None, description="True si la IRVE es de acceso público")
     ubicacion_irve: Optional[str] = Field(None, description="interior | exterior | via_publica | garaje_comunitario")
     requiere_nuevo_suministro: Optional[bool] = Field(None, description="True si requiere nuevo suministro o aumento de potencia")
@@ -50,15 +62,17 @@ class ClasificadorInput(BaseModel):
     recirculacion: Optional[bool] = Field(None, description="True si tiene recirculación")
     uso_colectivo: Optional[bool] = Field(None, description="True si es de uso colectivo")
     
-    inversion_eur: Optional[float] = Field(None, description="Presupuesto de la instalación en euros")
+    inversion_eur: Optional[float] = Field(None, description="Presupuesto de la instalación en euros", ge=0)
 
     # Gas specific fields
     clase_instalacion_gas: Optional[Literal["individual", "comun", "conexion_servicio"]] = Field(None, description="Clase de instalación de gas")
-    presion_operacion_bar: Optional[float] = Field(None, description="Presión de operación en bar")
+    # ge=0 en las presiones: una presión negativa no solo es imposible, es que
+    # además relajaba los requisitos (hacía desaparecer el proyecto técnico).
+    presion_operacion_bar: Optional[float] = Field(None, description="Presión de operación en bar", ge=0)
     es_ampliacion: Optional[bool] = Field(False, description="True si es una ampliación de instalación existente")
-    incremento_potencia_pct: Optional[float] = Field(0, description="Porcentaje de incremento de potencia respecto a la original")
-    potencia_resultante_kw: Optional[float] = Field(None, description="Potencia total resultante tras ampliación")
-    presion_resultante_bar: Optional[float] = Field(None, description="Presión resultante tras ampliación")
+    incremento_potencia_pct: Optional[float] = Field(0, description="Porcentaje de incremento de potencia respecto a la original", ge=0)
+    potencia_resultante_kw: Optional[float] = Field(None, description="Potencia total resultante tras ampliación", ge=0)
+    presion_resultante_bar: Optional[float] = Field(None, description="Presión resultante tras ampliación", ge=0)
     combustible_gas: Optional[Literal["gas_natural", "glp"]] = Field(None, description="Variante de gas combustible")
 
     # IRVE specific fields

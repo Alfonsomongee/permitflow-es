@@ -130,6 +130,80 @@ def _lint_fichero(rel: str, data: dict) -> list[Hallazgo]:
     if '"notes"' in json.dumps(data):
         hallazgos.append(Hallazgo(rel, "Campo legacy 'notes' encontrado; usar 'notas'"))
 
+    hallazgos.extend(_lint_valores_de_enum(rel, data))
+    return hallazgos
+
+
+# Valores admisibles de los campos de tipo enum, tomados de schemas/clasificador.py.
+# Se declaran aquí (y no se importan) porque el linter debe poder correr sobre el
+# árbol de reglas sin arrancar el resto del backend; el test
+# tests/test_motor_normativo_lint.py comprueba que ambas listas coinciden.
+VALORES_ENUM: dict[str, set[str]] = {
+    "uso": {"residencial", "terciario", "industrial"},
+    "modo_recarga": {"1", "2", "3", "4"},
+    "tipo_instalacion": {
+        "fotovoltaica_autoconsumo", "irve", "climatizacion_aerotermia",
+        "acs", "gas_baja_presion",
+    },
+    "modalidad_autoconsumo": {
+        "sin_excedentes", "con_excedentes_sin_compensacion",
+        "con_excedentes_con_compensacion",
+    },
+    "clase_instalacion_gas": {"individual", "comun", "conexion_servicio"},
+    "uso_edificio": {"residencial", "no_residencial"},
+    "ventilacion_garaje": {"natural", "forzada"},
+    "ubicacion_suelo": {"urbanizado", "no_urbanizable"},
+    "nivel_tension_consumidor": {"bt", "at"},
+    "nivel_tension_generacion": {"bt", "at"},
+    "nivel_tension_conexion": {"bt", "at"},
+    "combustible_gas": {"gas_natural", "glp"},
+}
+
+
+def _comparaciones_con_literal(node: Any, acc: list[tuple[str, Any]]) -> None:
+    """Recolecta las comparaciones `{"=="|"!=": [{"var": X}, literal]}`."""
+    if isinstance(node, dict):
+        for op, args in node.items():
+            if op in ("==", "!=", "===", "!==") and isinstance(args, list) and len(args) == 2:
+                for x, y in ((args[0], args[1]), (args[1], args[0])):
+                    if isinstance(x, dict) and "var" in x and isinstance(y, str):
+                        nombre = x["var"][0] if isinstance(x["var"], list) else x["var"]
+                        if isinstance(nombre, str):
+                            acc.append((nombre, y))
+            _comparaciones_con_literal(args, acc)
+    elif isinstance(node, list):
+        for item in node:
+            _comparaciones_con_literal(item, acc)
+
+
+def _lint_valores_de_enum(rel: str, data: dict) -> list[Hallazgo]:
+    """Detecta comparaciones contra valores que el schema nunca puede producir.
+
+    json-logic no da error al comparar contra un valor imposible: la condición
+    simplemente evalúa a falso siempre, y la rama queda muerta sin que nada lo
+    señale. La auditoría QA 2026-08-11 encontró dos casos así en producción:
+    `uso == "comercial"` (el enum solo tiene residencial/terciario/industrial),
+    que dejaba el uso terciario de Canarias devolviendo un 404 de "sin
+    normativa"; y `combustible == "gas"` en una validación de Andalucía, que
+    por eso no saltaba nunca.
+    """
+    hallazgos: list[Hallazgo] = []
+    comparaciones: list[tuple[str, Any]] = []
+
+    for regla in data.get("reglas", []):
+        _comparaciones_con_literal(regla.get("condicion"), comparaciones)
+    for validacion in data.get("validaciones", []):
+        _comparaciones_con_literal(validacion.get("condicion"), comparaciones)
+
+    for campo, valor in comparaciones:
+        admisibles = VALORES_ENUM.get(campo)
+        if admisibles and valor not in admisibles:
+            hallazgos.append(Hallazgo(
+                rel,
+                f"Valor imposible en condición: {campo} == '{valor}'. "
+                f"El schema solo admite {sorted(admisibles)}, así que esta rama "
+                f"nunca se activa (json-logic no avisa: evalúa a falso en silencio)."
+            ))
     return hallazgos
 
 
