@@ -42,6 +42,78 @@
   ],
   "reglas": [
     {
+      "id": "AND-ACS-RITE-EXENTA-EQUIPO",
+      "descripcion": "ACS por calentador instantáneo, calentador acumulador o termo eléctrico hasta 70 kW, o sistema solar de un único elemento prefabricado: exenta de documentación técnica y de registro (RD 1027/2007, arts. 15.1.c y 24.2).",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "tipo_generador_acs"
+                      },
+                      [
+                        "calentador_instantaneo",
+                        "calentador_acumulador",
+                        "termo_electrico"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  }
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "tipo_generador_acs"
+                  },
+                  "sistema_solar_prefabricado"
+                ]
+              }
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sin trámite ante la Administración: instalación exenta por tipo de equipo",
+          "organismo": "Empresa instaladora habilitada RITE (categoría C1 o superior)",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1.c y 24.2",
+          "tipo_actuacion": "informativa",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste administrativo",
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "documentos_requeridos": [],
+          "paralelo_con": null,
+          "notas": "El RITE excluye expresamente de presentar documentación y de acreditar el cumplimiento ante la comunidad autónoma a las instalaciones de agua caliente sanitaria producidas con calentadores instantáneos, calentadores acumuladores o termos eléctricos hasta 70 kW (sumando todos los equipos), y a los sistemas solares de un único elemento prefabricado. No hay memoria técnica ni registro que presentar. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas; si además hay obligaciones sanitarias (legionelosis), esas siguen aplicando aparte."
+        }
+      ]
+    },
+    {
       "id": "AND-ACS-RITE-EXENTA",
       "descripcion": "Instalación térmica de potencia nominal inferior a 5 kW: exenta de documentación técnica y de registro ante la comunidad autónoma (RD 1027/2007, arts. 15.1.c y 24.2).",
       "condicion": {
@@ -79,41 +151,83 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
             "and": [
               {
-                "and": [
+                ">=": [
                   {
-                    "<=": [
-                      {
-                        "var": "potencia_kw"
-                      },
-                      70
-                    ]
+                    "var": "potencia_kw"
                   },
-                  {
-                    "==": [
-                      {
-                        "var": "uso"
-                      },
-                      "residencial"
-                    ]
-                  }
+                  5
                 ]
               },
               {
-                "<=": [
+                "and": [
                   {
-                    "var": "inversion_eur"
+                    "and": [
+                      {
+                        "<=": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          70
+                        ]
+                      },
+                      {
+                        "==": [
+                          {
+                            "var": "uso"
+                          },
+                          "residencial"
+                        ]
+                      }
+                    ]
                   },
-                  10000
+                  {
+                    "<=": [
+                      {
+                        "var": "inversion_eur"
+                      },
+                      10000
+                    ]
+                  }
                 ]
               }
             ]
@@ -195,41 +309,83 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
             "and": [
               {
+                ">=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  5
+                ]
+              },
+              {
                 "and": [
                   {
-                    "<=": [
+                    "and": [
                       {
-                        "var": "potencia_kw"
+                        "<=": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          70
+                        ]
                       },
-                      70
+                      {
+                        "==": [
+                          {
+                            "var": "uso"
+                          },
+                          "residencial"
+                        ]
+                      }
                     ]
                   },
                   {
                     "==": [
                       {
-                        "var": "uso"
+                        "var": "inversion_eur"
                       },
-                      "residencial"
+                      null
                     ]
                   }
-                ]
-              },
-              {
-                "==": [
-                  {
-                    "var": "inversion_eur"
-                  },
-                  null
                 ]
               }
             ]
@@ -311,41 +467,83 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
             "and": [
               {
-                "and": [
+                ">=": [
                   {
-                    "<=": [
-                      {
-                        "var": "potencia_kw"
-                      },
-                      70
-                    ]
+                    "var": "potencia_kw"
                   },
-                  {
-                    "==": [
-                      {
-                        "var": "uso"
-                      },
-                      "residencial"
-                    ]
-                  }
+                  5
                 ]
               },
               {
-                ">": [
+                "and": [
                   {
-                    "var": "inversion_eur"
+                    "and": [
+                      {
+                        "<=": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          70
+                        ]
+                      },
+                      {
+                        "==": [
+                          {
+                            "var": "uso"
+                          },
+                          "residencial"
+                        ]
+                      }
+                    ]
                   },
-                  10000
+                  {
+                    ">": [
+                      {
+                        "var": "inversion_eur"
+                      },
+                      10000
+                    ]
+                  }
                 ]
               }
             ]
@@ -427,41 +625,83 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
             "and": [
               {
-                "or": [
+                ">=": [
                   {
-                    "!=": [
-                      {
-                        "var": "uso"
-                      },
-                      "residencial"
-                    ]
+                    "var": "potencia_kw"
                   },
-                  {
-                    ">": [
-                      {
-                        "var": "potencia_kw"
-                      },
-                      70
-                    ]
-                  }
+                  5
                 ]
               },
               {
-                "<=": [
+                "and": [
                   {
-                    "var": "inversion_eur"
+                    "or": [
+                      {
+                        "!=": [
+                          {
+                            "var": "uso"
+                          },
+                          "residencial"
+                        ]
+                      },
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          70
+                        ]
+                      }
+                    ]
                   },
-                  5000
+                  {
+                    "<=": [
+                      {
+                        "var": "inversion_eur"
+                      },
+                      5000
+                    ]
+                  }
                 ]
               }
             ]
@@ -531,41 +771,83 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
             "and": [
               {
-                "or": [
+                ">=": [
                   {
-                    "!=": [
-                      {
-                        "var": "uso"
-                      },
-                      "residencial"
-                    ]
+                    "var": "potencia_kw"
                   },
-                  {
-                    ">": [
-                      {
-                        "var": "potencia_kw"
-                      },
-                      70
-                    ]
-                  }
+                  5
                 ]
               },
               {
-                "==": [
+                "and": [
                   {
-                    "var": "inversion_eur"
+                    "or": [
+                      {
+                        "!=": [
+                          {
+                            "var": "uso"
+                          },
+                          "residencial"
+                        ]
+                      },
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          70
+                        ]
+                      }
+                    ]
                   },
-                  null
+                  {
+                    "==": [
+                      {
+                        "var": "inversion_eur"
+                      },
+                      null
+                    ]
+                  }
                 ]
               }
             ]
@@ -635,51 +917,93 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
             "and": [
               {
-                "or": [
+                ">=": [
                   {
-                    "!=": [
-                      {
-                        "var": "uso"
-                      },
-                      "residencial"
-                    ]
+                    "var": "potencia_kw"
                   },
-                  {
-                    ">": [
-                      {
-                        "var": "potencia_kw"
-                      },
-                      70
-                    ]
-                  }
+                  5
                 ]
               },
               {
                 "and": [
                   {
-                    ">": [
+                    "or": [
                       {
-                        "var": "inversion_eur"
+                        "!=": [
+                          {
+                            "var": "uso"
+                          },
+                          "residencial"
+                        ]
                       },
-                      5000
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          70
+                        ]
+                      }
                     ]
                   },
                   {
-                    "<=": [
+                    "and": [
                       {
-                        "var": "inversion_eur"
+                        ">": [
+                          {
+                            "var": "inversion_eur"
+                          },
+                          5000
+                        ]
                       },
-                      300000
+                      {
+                        "<=": [
+                          {
+                            "var": "inversion_eur"
+                          },
+                          300000
+                        ]
+                      }
                     ]
                   }
                 ]
@@ -751,41 +1075,83 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
             "and": [
               {
-                "or": [
+                ">=": [
                   {
-                    "!=": [
+                    "var": "potencia_kw"
+                  },
+                  5
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "or": [
                       {
-                        "var": "uso"
+                        "!=": [
+                          {
+                            "var": "uso"
+                          },
+                          "residencial"
+                        ]
                       },
-                      "residencial"
+                      {
+                        ">": [
+                          {
+                            "var": "potencia_kw"
+                          },
+                          70
+                        ]
+                      }
                     ]
                   },
                   {
                     ">": [
                       {
-                        "var": "potencia_kw"
+                        "var": "inversion_eur"
                       },
-                      70
+                      300000
                     ]
                   }
-                ]
-              },
-              {
-                ">": [
-                  {
-                    "var": "inversion_eur"
-                  },
-                  300000
                 ]
               }
             ]
@@ -1017,6 +1383,7 @@
     "PENDIENTE: Ley 10/2021 art. 44 (base de tasas 21,94/45,77/66,43/424,48 €) no verificada.",
     "PENDIENTE: plazo_legal_dias=30 para registro PUES en ACS (otros ficheros usan 45 o 10 días) sin fuente citada -- no unificado en esta pasada.",
     "RESUELTO 2026-07-28 (enlace roto): plataforma_url de 'Registro de instalación ACS en PUES' (3 ocurrencias) apuntaba a .../procedimientos/detalle/6513.html, que corresponde a TECI (Tramitador Electrónico de Certificados de Instalación de baja tensión, SIA 215668, verificado en andalucia/irve.json), no al registro térmico. Sustituida por .../detalle/6505.html, confirmado con Wayback Machine (200, archivado) y con la página oficial de carnés RITE de la Junta de Andalucía como 'Puesta en servicio de instalaciones industriales que no requieren autorización previa: ... instalaciones térmicas de edificios (climatización, calefacción, ACS)'. Esto resuelve también el conflicto 6513 vs 6505 que quedaba documentado como PENDIENTE en andalucia/irve.json.",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita. Queda pendiente el otro supuesto del art. 15.1.c (calentadores instantáneos, acumuladores y termos eléctricos <= 70 kW), que sí requiere conocer el tipo de equipo generador."
+    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita.",
+    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
   ]
 }

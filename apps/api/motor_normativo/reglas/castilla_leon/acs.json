@@ -15,7 +15,8 @@
     "RESUELTO 2026-07-28: organismo corregido a 'Servicio Territorial de Industria, Comercio y Economía' en los 2 trámites de inscripción",
     "RESUELTO 2026-07-28: añadido el tramo de exención < 5 kW (CYL-ACS-000) que faltaba respecto del RITE art. 15",
     "RESUELTO 2026-07-28: plataforma_url sustituida por la ficha específica del trámite de instalaciones térmicas en vez del portal genérico",
-    "NO VERIFICADO: procedimiento/plataforma exacto de censo de instalaciones de riesgo de legionelosis ante la Consejería de Sanidad de Castilla y León (trámite de la regla CYL-ACS-003, orden 2)"
+    "NO VERIFICADO: procedimiento/plataforma exacto de censo de instalaciones de riesgo de legionelosis ante la Consejería de Sanidad de Castilla y León (trámite de la regla CYL-ACS-003, orden 2)",
+    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
   ],
   "fuentes": [
     {
@@ -40,6 +41,78 @@
     }
   ],
   "reglas": [
+    {
+      "id": "CYL-ACS-RITE-EXENTA-EQUIPO",
+      "descripcion": "ACS por calentador instantáneo, calentador acumulador o termo eléctrico hasta 70 kW, o sistema solar de un único elemento prefabricado: exenta de documentación técnica y de registro (RD 1027/2007, arts. 15.1.c y 24.2).",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "tipo_generador_acs"
+                      },
+                      [
+                        "calentador_instantaneo",
+                        "calentador_acumulador",
+                        "termo_electrico"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  }
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "tipo_generador_acs"
+                  },
+                  "sistema_solar_prefabricado"
+                ]
+              }
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sin trámite ante la Administración: instalación exenta por tipo de equipo",
+          "organismo": "Instalador habilitado (categoría térmica)",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1.c y 24.2",
+          "tipo_actuacion": "informativa",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste administrativo",
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "documentos_requeridos": [],
+          "paralelo_con": null,
+          "notas": "El RITE excluye expresamente de presentar documentación y de acreditar el cumplimiento ante la comunidad autónoma a las instalaciones de agua caliente sanitaria producidas con calentadores instantáneos, calentadores acumuladores o termos eléctricos hasta 70 kW (sumando todos los equipos), y a los sistemas solares de un único elemento prefabricado. No hay memoria técnica ni registro que presentar. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas; si además hay obligaciones sanitarias (legionelosis), esas siguen aplicando aparte."
+        }
+      ]
+    },
     {
       "id": "CYL-ACS-000",
       "descripcion": "Instalación de ACS con potencia < 5 kW: exenta de documentación e inscripción (RITE art. 15, no alcanza el umbral mínimo de aplicación)",
@@ -79,19 +152,61 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
-            "<=": [
+            "and": [
               {
-                "var": "potencia_kw"
+                ">=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  5
+                ]
               },
-              70
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  70
+                ]
+              }
             ]
           }
         ]
@@ -165,11 +280,53 @@
       "id": "CYL-ACS-002",
       "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
-        ">": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
-          70
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [

@@ -128,6 +128,89 @@ def test_la_exencion_cita_su_base_legal(comunidad, vertical):
         )
 
 
+class TestExencionPorTipoDeEquipo:
+    """Segundo y tercer supuesto del art. 15.1.c, que aplican solo a ACS:
+
+      "[...] las instalaciones de producción de agua caliente sanitaria por medio
+      de calentadores instantáneos, calentadores acumuladores, termos eléctricos
+      cuando la potencia térmica nominal de cada uno de ellos por separado o su
+      suma sea menor o igual que 70 kW y los sistemas solares consistentes en un
+      único elemento prefabricado."
+
+    Estaban anotados como hueco en 13 ficheros porque el formulario no preguntaba
+    el tipo de equipo. Sin ese dato, un termo eléctrico de 60 kW recibía el mismo
+    plan que una caldera de 60 kW.
+    """
+
+    EXENTOS = ["calentador_instantaneo", "calentador_acumulador", "termo_electrico"]
+    NO_EXENTOS = ["caldera", "bomba_calor", "otro"]
+
+    def _acs(self, comunidad, potencia, tipo=None):
+        datos = dict(
+            comunidad=comunidad,
+            tipo_instalacion="acs",
+            potencia_kw=potencia,
+            uso="residencial",
+            acs_centralizada=False,
+            incluida_ambito_legionella=False,
+        )
+        if tipo:
+            datos["tipo_generador_acs"] = tipo
+        plan = Clasificador().clasificar(ClasificadorInput(**datos))
+        return [t for t in accionables(plan) if por_el_rite(t)]
+
+    @pytest.mark.parametrize("comunidad", COMUNIDADES)
+    @pytest.mark.parametrize("tipo", EXENTOS)
+    def test_calentadores_y_termos_hasta_70kw_estan_exentos(self, comunidad, tipo):
+        assert not self._acs(comunidad, 60.0, tipo), (
+            f"{comunidad}: un {tipo} de 60 kW no debería requerir documentación RITE"
+        )
+
+    @pytest.mark.parametrize("comunidad", COMUNIDADES)
+    def test_el_solar_prefabricado_esta_exento(self, comunidad):
+        assert not self._acs(comunidad, 60.0, "sistema_solar_prefabricado")
+
+    @pytest.mark.parametrize("comunidad", COMUNIDADES)
+    def test_el_limite_de_70kw_es_inclusivo(self, comunidad):
+        """"menor o igual que 70 kW": a 70,0 exime; por encima, no."""
+        assert not self._acs(comunidad, 70.0, "termo_electrico")
+        assert self._acs(comunidad, 70.01, "termo_electrico"), (
+            f"{comunidad}: por encima de 70 kW el termo eléctrico deja de estar exento"
+        )
+
+    @pytest.mark.parametrize("comunidad", COMUNIDADES)
+    @pytest.mark.parametrize("tipo", NO_EXENTOS)
+    def test_los_equipos_no_listados_siguen_requiriendo_documentacion(self, comunidad, tipo):
+        assert self._acs(comunidad, 60.0, tipo), (
+            f"{comunidad}: un {tipo} de 60 kW sí requiere documentación RITE"
+        )
+
+    @pytest.mark.parametrize("comunidad", COMUNIDADES)
+    def test_sin_informar_el_equipo_el_plan_no_cambia(self, comunidad):
+        """Retrocompatibilidad: el campo es opcional y `in(None, [...])` es falso,
+        así que un expediente antiguo sigue recibiendo el mismo plan."""
+        sin_dato = self._acs(comunidad, 60.0)
+        con_caldera = self._acs(comunidad, 60.0, "caldera")
+        assert [t.nombre for t in sin_dato] == [t.nombre for t in con_caldera]
+
+    @pytest.mark.parametrize("comunidad", COMUNIDADES)
+    def test_no_se_duplica_la_exencion_por_debajo_de_5kw(self, comunidad):
+        """A 3 kW con termo eléctrico concurren los supuestos 1 y 2: debe salir
+        un solo aviso, no dos que digan lo mismo."""
+        plan = Clasificador().clasificar(
+            ClasificadorInput(
+                comunidad=comunidad, tipo_instalacion="acs", potencia_kw=3.0,
+                uso="residencial", tipo_generador_acs="termo_electrico",
+                acs_centralizada=False, incluida_ambito_legionella=False,
+            )
+        )
+        informativos = [t for t in plan.tramites if t.tipo_actuacion == "informativa"]
+        assert len(informativos) <= 1, (
+            f"{comunidad}: {len(informativos)} avisos de exención solapados: "
+            f"{[t.nombre for t in informativos]}"
+        )
+
+
 def test_el_umbral_no_afecta_a_las_obligaciones_sanitarias():
     """La exención del RITE es de documentación industrial, no de salud pública.
 

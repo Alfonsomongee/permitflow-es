@@ -50,6 +50,7 @@ export const FORM_INITIAL: FormState = {
   clase_instalacion_gas: "",
   requiere_registro_produccion: undefined,
   numero_suministros_edificio: "",
+  tipo_generador_acs: "",
 };
 
 export type StepId = 1 | 2 | 3;

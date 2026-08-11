@@ -70,6 +70,9 @@ export const nuevaInstalacionSchema = z.object({
   clase_instalacion_gas: z.string().optional(),
   requiere_registro_produccion: z.boolean().optional(),
   numero_suministros_edificio: z.string().optional(),
+  // El RITE (art. 15.1.c) exime de documentacion y registro al ACS producida
+  // con calentadores, termos electricos hasta 70 kW o solar prefabricado.
+  tipo_generador_acs: z.string().optional(),
 
   // Step 3
   solicita_ayuda: z.boolean(),

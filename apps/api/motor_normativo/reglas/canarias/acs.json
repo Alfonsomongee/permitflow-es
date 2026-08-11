@@ -12,7 +12,8 @@
     "RESUELTO: umbral inferior de 5 kW confirmado en la ficha 3409",
     "RESUELTO: no existe ECA (Entidad Colaboradora) para ACS >70 kW en Canarias; es comunicación directa con proyecto y certificado de dirección de obra, sin resolución administrativa expresa",
     "Tasas: Modelo 700, concepto 200, epígrafe 4; importe exacto no verificado",
-    "La regla de Legionella añadida se activa con el campo 'incluida_ambito_rd_487_2022'; si este dato no se recoge en el formulario de entrada, la regla no disparará aunque la instalación esté en el ámbito de aplicación — revisar que el flujo de captura de datos de ACS colectiva/terciaria solicite este campo"
+    "La regla de Legionella añadida se activa con el campo 'incluida_ambito_rd_487_2022'; si este dato no se recoge en el formulario de entrada, la regla no disparará aunque la instalación esté en el ámbito de aplicación — revisar que el flujo de captura de datos de ACS colectiva/terciaria solicite este campo",
+    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
   ],
   "fuentes": [
     {
@@ -52,6 +53,78 @@
     }
   ],
   "reglas": [
+    {
+      "id": "ICAN-ACS-RITE-EXENTA-EQUIPO",
+      "descripcion": "ACS por calentador instantáneo, calentador acumulador o termo eléctrico hasta 70 kW, o sistema solar de un único elemento prefabricado: exenta de documentación técnica y de registro (RD 1027/2007, arts. 15.1.c y 24.2).",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              {
+                "and": [
+                  {
+                    "in": [
+                      {
+                        "var": "tipo_generador_acs"
+                      },
+                      [
+                        "calentador_instantaneo",
+                        "calentador_acumulador",
+                        "termo_electrico"
+                      ]
+                    ]
+                  },
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  }
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "tipo_generador_acs"
+                  },
+                  "sistema_solar_prefabricado"
+                ]
+              }
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sin trámite ante la Administración: instalación exenta por tipo de equipo",
+          "organismo": "Instalador habilitado en instalaciones térmicas",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1.c y 24.2",
+          "tipo_actuacion": "informativa",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste administrativo",
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "documentos_requeridos": [],
+          "paralelo_con": null,
+          "notas": "El RITE excluye expresamente de presentar documentación y de acreditar el cumplimiento ante la comunidad autónoma a las instalaciones de agua caliente sanitaria producidas con calentadores instantáneos, calentadores acumuladores o termos eléctricos hasta 70 kW (sumando todos los equipos), y a los sistemas solares de un único elemento prefabricado. No hay memoria técnica ni registro que presentar. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas; si además hay obligaciones sanitarias (legionelosis), esas siguen aplicando aparte."
+        }
+      ]
+    },
     {
       "id": "ICAN-ACS-000",
       "descripcion": "Instalación de ACS de potencia < 5 kW: sin documentación técnica ni comunicación exigida por la ficha 3409",
@@ -98,19 +171,61 @@
       "condicion": {
         "and": [
           {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
           {
-            "<=": [
+            "and": [
               {
-                "var": "potencia_kw"
+                ">=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  5
+                ]
               },
-              70
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  70
+                ]
+              }
             ]
           }
         ]
@@ -184,11 +299,53 @@
       "id": "ICAN-ACS-002",
       "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico y contrato de mantenimiento; sin ECA, comunicación directa)",
       "condicion": {
-        ">": [
+        "and": [
           {
-            "var": "potencia_kw"
+            "!": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "in": [
+                        {
+                          "var": "tipo_generador_acs"
+                        },
+                        [
+                          "calentador_instantaneo",
+                          "calentador_acumulador",
+                          "termo_electrico"
+                        ]
+                      ]
+                    },
+                    {
+                      "<=": [
+                        {
+                          "var": "potencia_kw"
+                        },
+                        70
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "tipo_generador_acs"
+                    },
+                    "sistema_solar_prefabricado"
+                  ]
+                }
+              ]
+            }
           },
-          70
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [

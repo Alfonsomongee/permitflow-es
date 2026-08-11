@@ -662,6 +662,40 @@ function CamposClimatizacionACS() {
       {esACS && (
         <>
           <SectionDivider label="Datos de la instalación de ACS" />
+
+          {/* El RITE (art. 15.1.c) exime de documentación y de registro ante la
+              comunidad autónoma al ACS producida con calentadores instantáneos,
+              calentadores acumuladores o termos eléctricos hasta 70 kW, y a los
+              sistemas solares de un único elemento prefabricado. Es normativa
+              estatal, así que se pregunta en las 17 comunidades. Sin este dato,
+              un termo eléctrico de 60 kW recibía el mismo plan que una caldera
+              de 60 kW (auditoría QA 2026-08-11). */}
+          <Controller
+            control={control}
+            name="tipo_generador_acs"
+            render={({ field, fieldState }) => (
+              <Field
+                label="Equipo que produce el agua caliente"
+                hint="El RITE exime de memoria técnica y de registro a los calentadores y termos eléctricos de hasta 70 kW, y al solar de un único elemento prefabricado."
+                error={fieldState.error?.message}
+              >
+                <ToggleGroup
+                  value={field.value ?? ""}
+                  onChange={field.onChange}
+                  options={[
+                    { value: "caldera", label: "Caldera" },
+                    { value: "bomba_calor", label: "Bomba de calor" },
+                    { value: "termo_electrico", label: "Termo eléctrico" },
+                    { value: "calentador_instantaneo", label: "Calentador instantáneo" },
+                    { value: "calentador_acumulador", label: "Calentador acumulador" },
+                    { value: "sistema_solar_prefabricado", label: "Solar prefabricado" },
+                  ]}
+                  cols={3}
+                />
+              </Field>
+            )}
+          />
+
           <Controller
             control={control}
             name="acs_centralizada"

@@ -35,6 +35,7 @@ export const CAMPOS_STRING = [
   "ventilacion_garaje",
   "implantacion",
   "clase_instalacion_gas",
+  "tipo_generador_acs",
 ] as const;
 
 /** Campos decimales (parseFloat; se omiten si están vacíos o no son numéricos). */

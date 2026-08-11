@@ -7,15 +7,28 @@ import {
 } from "@/types/plan";
 import { contarTramites, textoPlazoTotal } from "@/lib/tramites-conteo";
 
+/**
+ * Qué parámetros se muestran en el resumen, por tecnología.
+ *
+ * El criterio es: si el motor ramifica sobre un dato, el usuario tiene que
+ * poder verlo aquí. Antes faltaban justamente los que más deciden el plan
+ * —`modalidad_autoconsumo` en fotovoltaica, `combustible` y `presion_bar` en
+ * gas, `uso` en IRVE— así que no había forma de auditar por qué había salido
+ * ese plan y no otro (auditoría QA 2026-08-11, M-05).
+ *
+ * `tension` se retira de IRVE: estaba declarado visible pero el formulario de
+ * IRVE no recoge ese campo, así que nunca llegaba a pintarse.
+ */
 const CAMPOS_VISIBLES_POR_TIPO: Record<string, string[]> = {
   fotovoltaica_autoconsumo: [
     "potencia_kw",
     "tension",
+    "modalidad_autoconsumo",
     "solicita_ayuda",
   ],
   irve: [
     "potencia_kw",
-    "tension",
+    "uso",
     "numero_puntos",
     "modo_recarga",
     "ubicacion_irve",
@@ -35,9 +48,30 @@ const CAMPOS_VISIBLES_POR_TIPO: Record<string, string[]> = {
   gas_baja_presion: [
     "potencia_kw",
     "uso",
+    "combustible",
+    "presion_bar",
     "solicita_ayuda",
   ],
 };
+
+/** Etiquetas legibles de los valores que el motor maneja en formato slug. */
+const VALOR_LABEL: Record<string, string> = {
+  sin_excedentes: "Sin excedentes",
+  con_excedentes_sin_compensacion: "Con excedentes, sin compensación",
+  con_excedentes_con_compensacion: "Con excedentes, con compensación",
+  gas_natural: "Gas natural",
+  glp_deposito: "GLP (depósito)",
+  glp_envases: "GLP (envases)",
+  normal: "Presión normal (< 5 bar)",
+  "5+": "Alta presión (≥ 5 bar)",
+  residencial: "Residencial",
+  terciario: "Terciario / comercial",
+  industrial: "Industrial",
+};
+
+function etiquetaValor(valor: string): string {
+  return VALOR_LABEL[valor] ?? valor.replace(/_/g, " ");
+}
 
 interface ResumenPanelProps {
   params: InstalacionParams;
@@ -102,10 +136,19 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
           <ParamRow icon={MapPin} label="CC. AA." value={COMUNIDAD_LABEL[params.comunidad] ?? params.comunidad} />
           {isVisible("potencia_kw") && <ParamRow icon={Gauge} label="Potencia" value={`${params.potencia_kw} kW`} />}
           {isVisible("tension") && params.tension && <ParamRow label="Tensión" value={params.tension} />}
-          {isVisible("uso") && params.uso && <ParamRow label="Uso" value={params.uso} />}
+          {isVisible("uso") && params.uso && <ParamRow label="Uso" value={etiquetaValor(params.uso)} />}
+          {isVisible("modalidad_autoconsumo") && params.modalidad_autoconsumo && (
+            <ParamRow label="Modalidad de autoconsumo" value={etiquetaValor(params.modalidad_autoconsumo)} />
+          )}
+          {isVisible("combustible") && params.combustible && (
+            <ParamRow label="Combustible" value={etiquetaValor(params.combustible)} />
+          )}
+          {isVisible("presion_bar") && params.presion_bar && (
+            <ParamRow label="Presión de la red" value={etiquetaValor(params.presion_bar)} />
+          )}
           {isVisible("numero_puntos") && params.numero_puntos && <ParamRow label="Puntos de recarga" value={params.numero_puntos} />}
           {isVisible("modo_recarga") && params.modo_recarga && <ParamRow label="Modo de recarga" value={`Modo ${params.modo_recarga}`} />}
-          {isVisible("ubicacion_irve") && params.ubicacion_irve && <ParamRow label="Ubicación" value={params.ubicacion_irve.replace(/_/g, " ")} />}
+          {isVisible("ubicacion_irve") && params.ubicacion_irve && <ParamRow label="Ubicación" value={etiquetaValor(params.ubicacion_irve)} />}
           {isVisible("acceso_publico") && params.acceso_publico !== undefined && (
             <ParamRow label="Acceso" value={params.acceso_publico ? "Público (TECI)" : "Privado (PUES)"} />
           )}

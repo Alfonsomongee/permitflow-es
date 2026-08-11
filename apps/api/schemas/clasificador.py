@@ -31,6 +31,28 @@ Uso = Literal["residencial", "terciario", "industrial"]
 # Modos de recarga de la IEC 61851. No existe el modo 5.
 ModoRecarga = Literal["1", "2", "3", "4"]
 
+# Tipo de equipo que produce el ACS. Importa porque el RITE (RD 1027/2007,
+# art. 15.1.c) exime de documentación y de registro ante la comunidad autónoma,
+# además de a las instalaciones de menos de 5 kW, a estas dos familias:
+#
+#   "las instalaciones de producción de agua caliente sanitaria por medio de
+#    calentadores instantáneos, calentadores acumuladores, termos eléctricos
+#    cuando la potencia térmica nominal de cada uno de ellos por separado o su
+#    suma sea menor o igual que 70 kW y los sistemas solares consistentes en un
+#    único elemento prefabricado."
+#
+# Sin este dato no se puede aplicar la exención, así que un termo eléctrico de
+# 60 kW recibía el mismo plan que una caldera de 60 kW.
+TipoGeneradorACS = Literal[
+    "calentador_instantaneo",
+    "calentador_acumulador",
+    "termo_electrico",
+    "sistema_solar_prefabricado",
+    "caldera",
+    "bomba_calor",
+    "otro",
+]
+
 # ─── Input ────────────────────────────────────────────────────────────────────
 
 class ClasificadorInput(BaseModel):
@@ -82,6 +104,15 @@ class ClasificadorInput(BaseModel):
     requiere_inspeccion_inicial_oc: Optional[bool] = Field(None, description="Dato técnico derivado: True si la instalación requiere inspección inicial por organismo de control. No debe introducirse manualmente.")
 
     # ACS centralizada
+    tipo_generador_acs: Optional[TipoGeneradorACS] = Field(
+        None,
+        description=(
+            "Equipo que produce el ACS. Los calentadores instantáneos, calentadores "
+            "acumuladores y termos eléctricos hasta 70 kW, y los sistemas solares de un "
+            "único elemento prefabricado, están exentos de documentación y registro "
+            "(RITE art. 15.1.c y 24.2)."
+        ),
+    )
     acs_centralizada: Optional[bool] = Field(None, description="True si la instalación ACS es de uso centralizado (instalación común de edificio)")
     dispone_acumulacion: Optional[bool] = Field(None, description="True si la instalación ACS tiene depósito de acumulación")
     dispone_circuito_retorno: Optional[bool] = Field(None, description="True si la instalación ACS tiene circuito de retorno")
