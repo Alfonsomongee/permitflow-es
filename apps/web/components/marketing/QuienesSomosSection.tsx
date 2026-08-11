@@ -10,7 +10,6 @@
 import { Target, ShieldCheck, Newspaper, ListChecks, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "@/components/ui/fade-in";
-import { CountUp } from "@/components/ui/count-up";
 
 const PRINCIPIOS = [
   "Cada trámite lleva su base legal citada, no una referencia genérica.",
@@ -69,8 +68,8 @@ export function QuienesSomosSection() {
                 <ListChecks size={17} aria-hidden />
               </div>
               <div>
-                <p className="text-3xl font-medium tracking-tight text-text-primary">
-                  <CountUp to={85} suffix="" duration={1400} />
+                <p className="text-3xl font-medium tabular-nums tracking-tight text-text-primary">
+                  85
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-text-secondary">
                   combinaciones comunidad × tecnología evaluadas por el motor

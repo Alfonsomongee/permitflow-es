@@ -64,17 +64,17 @@ export interface StepMeta {
 export const STEPS: StepMeta[] = [
   {
     id: 1,
-    label: "Tipo y ubicacion",
+    label: "Tipo y ubicación",
     description: (s) =>
       s.tipo_instalacion && s.comunidad
         ? `${TIPO_LABEL[s.tipo_instalacion] ?? s.tipo_instalacion} - ${COMUNIDAD_LABEL[s.comunidad] ?? s.comunidad}`
-        : "Selecciona el tipo de instalacion",
+        : "Selecciona el tipo de instalación",
   },
   {
     id: 2,
-    label: "Parametros tecnicos",
+    label: "Parámetros técnicos",
     description: (s) =>
-      s.potencia_kw ? `${s.potencia_kw} kW` : "Potencia y caracteristicas",
+      s.potencia_kw ? `${s.potencia_kw} kW` : "Potencia y características",
   },
   {
     id: 3,
@@ -85,22 +85,22 @@ export const STEPS: StepMeta[] = [
 
 export const TIPO_OPTIONS = [
   { value: "fotovoltaica_autoconsumo", label: "Fotovoltaica autoconsumo" },
-  { value: "irve", label: "Recarga de vehiculo electrico (IRVE)" },
-  { value: "climatizacion_aerotermia", label: "Climatizacion y aerotermia" },
+  { value: "irve", label: "Recarga de vehículo eléctrico (IRVE)" },
+  { value: "climatizacion_aerotermia", label: "Climatización y aerotermia" },
   { value: "acs", label: "Agua caliente sanitaria (ACS)" },
-  { value: "gas_baja_presion", label: "Gas baja presion" },
+  { value: "gas_baja_presion", label: "Gas baja presión" },
 ];
 
 export const COMUNIDAD_OPTIONS = [
-  { value: "andalucia", label: "Andalucia" },
-  { value: "aragon", label: "Aragon" },
+  { value: "andalucia", label: "Andalucía" },
+  { value: "aragon", label: "Aragón" },
   { value: "asturias", label: "Asturias" },
   { value: "baleares", label: "Baleares" },
   { value: "canarias", label: "Canarias" },
   { value: "cantabria", label: "Cantabria" },
   { value: "castilla_la_mancha", label: "Castilla-La Mancha" },
-  { value: "castilla_leon", label: "Castilla y Leon" },
-  { value: "cataluna", label: "Cataluna" },
+  { value: "castilla_leon", label: "Castilla y León" },
+  { value: "cataluna", label: "Cataluña" },
   { value: "comunidad_valenciana", label: "C. Valenciana" },
   { value: "extremadura", label: "Extremadura" },
   { value: "galicia", label: "Galicia" },
@@ -108,7 +108,7 @@ export const COMUNIDAD_OPTIONS = [
   { value: "madrid", label: "Madrid" },
   { value: "murcia", label: "Murcia" },
   { value: "navarra", label: "Navarra" },
-  { value: "pais_vasco", label: "Pais Vasco" },
+  { value: "pais_vasco", label: "País Vasco" },
 ];
 
 export const USO_OPTIONS = [

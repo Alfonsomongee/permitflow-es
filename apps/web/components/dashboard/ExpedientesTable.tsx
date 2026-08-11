@@ -33,7 +33,7 @@ import {
 const FILTER_OPTIONS: { value: EstadoExpediente | "todos"; label: string }[] = [
   { value: "todos", label: "Todos" },
   { value: "pendiente", label: "Pendiente" },
-  { value: "en_revision", label: "En revision" },
+  { value: "en_revision", label: "En revisión" },
   { value: "aprobado", label: "Aprobado" },
   { value: "borrador", label: "Borrador" },
   { value: "rechazado", label: "Rechazado" },
@@ -63,12 +63,15 @@ function ProgressBar({
     <div className="flex items-center gap-2">
       <div className="h-1.5 w-20 overflow-hidden rounded-full bg-border">
         <div
-          className="h-full rounded-full bg-gradient-primary transition-all duration-300 ease-smooth"
+          className="h-full rounded-full bg-primary transition-all duration-300 ease-smooth"
           style={{ width: `${pct}%` }}
-          aria-label={`${completados} de ${total} tramites completados`}
+          aria-label={`${completados} de ${total} trámites completados`}
         />
       </div>
-      <span className="text-xs text-text-secondary">
+      {/* tabular-nums: sin ancho de dígito fijo, la columna de progreso baila
+          de fila en fila y la tabla se lee como una hoja mal montada
+          (auditoría UX/UI 2026-08-11, D-07). */}
+      <span className="text-xs tabular-nums text-text-secondary">
         {completados}/{total}
       </span>
     </div>
@@ -221,7 +224,7 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
           </button>
         ),
         cell: ({ row }) => (
-          <span className="text-text-secondary">
+          <span className="tabular-nums text-text-secondary">
             {formatFecha(row.original.fecha_actualizacion)}
           </span>
         ),
@@ -309,7 +312,7 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
                 onClick={() => setFiltro(option.value)}
                 className={`whitespace-nowrap rounded-full px-3 py-1 text-xs transition-all duration-150 ease-smooth ${
                   filtro === option.value
-                    ? "bg-gradient-primary font-medium text-white shadow-xs"
+                    ? "bg-primary font-medium text-white shadow-xs"
                     : "text-text-secondary hover:bg-bg"
                 }`}
               >

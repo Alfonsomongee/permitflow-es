@@ -13,9 +13,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PermitFlow ES - Tramitacion automatica de instalaciones",
+  title: "PermitFlow — Tramitación de instalaciones técnicas",
   description:
-    "Clasifica instalaciones tecnicas y genera el plan de tramitacion para cada comunidad autonoma.",
+    "Clasifica la instalación y obtén el plan de tramitación exacto para cada comunidad autónoma, con la base legal de cada trámite citada.",
 };
 
 export const viewport: Viewport = {

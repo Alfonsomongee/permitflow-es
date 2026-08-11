@@ -34,7 +34,7 @@ function Slider({
         >
           <SliderPrimitive.Indicator
             data-slot="slider-range"
-            className="bg-gradient-primary select-none data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+            className="bg-primary select-none data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
           />
         </SliderPrimitive.Track>
         {Array.from({ length: _values.length }, (_, index) => (

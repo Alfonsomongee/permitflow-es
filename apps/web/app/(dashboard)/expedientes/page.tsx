@@ -106,7 +106,7 @@ export default async function ExpedientesPage({
           className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
         >
           <Plus size={15} aria-hidden />
-          Nueva instalacion
+          Nueva instalación
         </Link>
       </div>
 

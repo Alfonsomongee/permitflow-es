@@ -149,22 +149,22 @@ export interface InstalacionParams {
 
 export const TIPO_LABEL: Record<string, string> = {
   fotovoltaica_autoconsumo: "Fotovoltaica autoconsumo",
-  climatizacion_aerotermia: "Climatizacion y aerotermia",
+  climatizacion_aerotermia: "Climatización y aerotermia",
   acs: "Agua caliente sanitaria (ACS)",
-  gas_baja_presion: "Gas baja presion",
-  irve: "Recarga de vehiculo electrico (IRVE)",
+  gas_baja_presion: "Gas baja presión",
+  irve: "Recarga de vehículo eléctrico (IRVE)",
 };
 
 export const COMUNIDAD_LABEL: Record<string, string> = {
-  andalucia: "Andalucia",
-  aragon: "Aragon",
+  andalucia: "Andalucía",
+  aragon: "Aragón",
   asturias: "Asturias",
   baleares: "Baleares",
   canarias: "Canarias",
   cantabria: "Cantabria",
   castilla_la_mancha: "Castilla-La Mancha",
-  castilla_leon: "Castilla y Leon",
-  cataluna: "Cataluna",
+  castilla_leon: "Castilla y León",
+  cataluna: "Cataluña",
   comunidad_valenciana: "C. Valenciana",
   extremadura: "Extremadura",
   galicia: "Galicia",
@@ -172,7 +172,7 @@ export const COMUNIDAD_LABEL: Record<string, string> = {
   madrid: "Madrid",
   murcia: "Murcia",
   navarra: "Navarra",
-  pais_vasco: "Pais Vasco",
+  pais_vasco: "País Vasco",
 };
 
 export const PLATAFORMA_LABEL: Record<string, string> = {
@@ -184,14 +184,14 @@ export const PLATAFORMA_LABEL: Record<string, string> = {
 };
 
 export const DOCUMENTO_LABEL: Record<string, string> = {
-  memoria_tecnica_diseno_itc_bt_52: "Memoria tecnica de diseno ITC-BT-52",
-  esquema_unifilar_conexion_elegido: "Esquema unifilar de conexion",
+  memoria_tecnica_diseno_itc_bt_52: "Memoria técnica de diseño ITC-BT-52",
+  esquema_unifilar_conexion_elegido: "Esquema unifilar de conexión",
   datos_titular: "Datos del titular",
   datos_instalador: "Datos del instalador",
   potencia_prevista: "Potencia prevista",
-  identificacion_puntos_recarga: "Identificacion de puntos de recarga",
-  certificado_instalacion_electrica: "Certificado de instalacion electrica (CIE)",
-  carnet_instalador_electricista: "Carne de instalador electricista",
+  identificacion_puntos_recarga: "Identificación de puntos de recarga",
+  certificado_instalacion_electrica: "Certificado de instalación eléctrica (CIE)",
+  carnet_instalador_electricista: "Carné de instalador electricista",
   justificante_pago_tasas: "Justificante de pago de tasas",
   dni_nie_titular: "DNI/NIE del titular",
 };

@@ -8,8 +8,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-gradient-primary text-white shadow-xs hover:shadow-card hover:brightness-[1.04]",
+        // Color plano, no degradado. El degradado en el botón primario es uno
+        // de los marcadores más reconocibles de plantilla, no aporta jerarquía
+        // —ya la da el contraste— y ninguna referencia enterprise lo usa
+        // (auditoría UX/UI 2026-08-11, D-04).
+        default: "bg-primary text-white shadow-xs hover:bg-primary-dark",
         outline:
           "border-border bg-background text-text-primary shadow-xs hover:bg-muted hover:border-text-secondary/30 aria-expanded:bg-muted",
         secondary:

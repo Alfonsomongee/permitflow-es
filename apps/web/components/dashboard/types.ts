@@ -21,7 +21,7 @@ export interface Expediente {
 export const ESTADO_LABEL: Record<EstadoExpediente, string> = {
   borrador: "Borrador",
   pendiente: "Pendiente",
-  en_revision: "En revision",
+  en_revision: "En revisión",
   aprobado: "Aprobado",
   rechazado: "Rechazado",
 };
@@ -40,21 +40,21 @@ export const ESTADO_STYLES: Record<
 export const TIPO_LABEL: Record<string, string> = {
   fotovoltaica_autoconsumo: "Fotovoltaica",
   irve: "IRVE",
-  climatizacion_aerotermia: "Climatizacion",
+  climatizacion_aerotermia: "Climatización",
   acs: "ACS",
   gas_baja_presion: "Gas BP",
 };
 
 export const COMUNIDAD_LABEL: Record<string, string> = {
-  andalucia: "Andalucia",
-  aragon: "Aragon",
+  andalucia: "Andalucía",
+  aragon: "Aragón",
   asturias: "Asturias",
   baleares: "Baleares",
   canarias: "Canarias",
   cantabria: "Cantabria",
   castilla_la_mancha: "Castilla-La Mancha",
-  castilla_leon: "Castilla y Leon",
-  cataluna: "Cataluna",
+  castilla_leon: "Castilla y León",
+  cataluna: "Cataluña",
   comunidad_valenciana: "C. Valenciana",
   extremadura: "Extremadura",
   galicia: "Galicia",
@@ -62,5 +62,5 @@ export const COMUNIDAD_LABEL: Record<string, string> = {
   madrid: "Madrid",
   murcia: "Murcia",
   navarra: "Navarra",
-  pais_vasco: "Pais Vasco",
+  pais_vasco: "País Vasco",
 };

@@ -1,91 +1,74 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { FormattedMessage } from "@/components/chat/FormattedMessage";
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&";
-
-interface DecryptedTextProps {
+interface TypewriterTextProps {
   text: string;
-  /** Duración total de la animación en ms (default 1200) */
-  duration?: number;
-  /** Delay inicial en ms antes de empezar (default 0) */
-  delay?: number;
+  /** Velocidad aproximada de aparición en ms (default ~15ms) */
+  speed?: number;
   className?: string;
-  /** Si false, omite la animación y muestra el texto directamente */
+  /** Si false, muestra el texto de inmediato sin animación */
   animate?: boolean;
 }
 
 /**
- * Muestra el texto con efecto de "descifrado" — los caracteres aleatorizan
- * durante un momento antes de fijarse en su valor final.
- * Ideal para respuestas del asistente IA.
+ * Muestra el texto de forma progresiva con una cadencia limpia y natural (efecto escritura),
+ * apareciendo letra a letra / palabra a palabra de forma normal, sin símbolos ni aleatorizaciones ("sin jeroglíficos").
  */
-import { FormattedMessage } from "@/components/chat/FormattedMessage";
-
-export function DecryptedText({
+export function TypewriterText({
   text,
-  duration = 1200,
-  delay = 0,
+  speed = 15,
   className,
   animate = true,
-}: DecryptedTextProps) {
-  const [displayed, setDisplayed] = useState(animate ? "" : text);
-  const frameRef = useRef<NodeJS.Timeout | null>(null);
-  const startRef = useRef<number | null>(null);
+}: TypewriterTextProps) {
+  const [displayedLength, setDisplayedLength] = useState(animate ? 0 : text.length);
+  const prevTextRef = useRef(text);
 
   useEffect(() => {
     if (!animate) {
-      setDisplayed(text);
+      setDisplayedLength(text.length);
       return;
     }
 
-    // Espera el delay inicial
-    const delayTimer = setTimeout(() => {
-      const totalChars = text.length;
+    // Si el texto se está transmitiendo por streaming SSE (se añade contenido al final),
+    // mostramos directamente lo nuevo sin reiniciar la animación
+    if (text.startsWith(prevTextRef.current) && prevTextRef.current.length > 0) {
+      prevTextRef.current = text;
+      setDisplayedLength(text.length);
+      return;
+    }
 
-      const tick = () => {
-        const now = Date.now();
-        if (startRef.current === null) startRef.current = now;
-        const elapsed = now - startRef.current;
-        const progress = Math.min(elapsed / duration, 1);
+    prevTextRef.current = text;
+    setDisplayedLength(0);
 
-        // Cuántos caracteres ya están "fijados"
-        const fixed = Math.floor(progress * totalChars);
+    // Ajustar cadencia de aparición según la longitud del texto para un flujo cómodo y legible
+    // Avanza entre 1 y 3 caracteres cada ~16ms para una animación constante y suave a 60fps
+    const stepSize = Math.max(1, Math.ceil(text.length / 75));
 
-        let result = "";
-        for (let i = 0; i < totalChars; i++) {
-          if (text[i] === " " || text[i] === "\n") {
-            result += text[i];
-          } else if (i < fixed) {
-            result += text[i];
-          } else {
-            result += CHARS[Math.floor(Math.random() * CHARS.length)];
-          }
+    const timer = setInterval(() => {
+      setDisplayedLength((current) => {
+        const next = current + stepSize;
+        if (next >= text.length) {
+          clearInterval(timer);
+          return text.length;
         }
+        return next;
+      });
+    }, speed);
 
-        setDisplayed(result);
+    return () => clearInterval(timer);
+  }, [text, speed, animate]);
 
-        if (progress < 1) {
-          frameRef.current = setTimeout(tick, 40);
-        } else {
-          setDisplayed(text);
-        }
-      };
-
-      tick();
-    }, delay);
-
-    return () => {
-      clearTimeout(delayTimer);
-      if (frameRef.current) clearTimeout(frameRef.current);
-      startRef.current = null;
-    };
-  }, [text, duration, delay, animate]);
+  const currentContent = text.slice(0, displayedLength);
 
   return (
     <FormattedMessage
-      content={displayed || text}
+      content={currentContent || text}
       className={className}
     />
   );
 }
+
+// Mantener alias DecryptedText para compatibilidad total con importaciones existentes
+export const DecryptedText = TypewriterText;

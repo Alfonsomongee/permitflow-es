@@ -90,10 +90,10 @@ function MessageBubble({
               </span>
             ))
           ) : (
-            /* Respuestas del asistente: efecto de descifrado */
+            /* Respuestas del asistente: aparición progresiva limpia con cadencia natural */
             <DecryptedText
               text={content}
-              duration={Math.min(800 + content.length * 4, 2400)}
+              speed={16}
               animate
             />
           )}

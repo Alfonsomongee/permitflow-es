@@ -47,13 +47,12 @@
     }
   }
 
+  /* Fondo neutro plano. Antes llevaba dos radial-gradient azules con
+     background-attachment: fixed — decorativos, y `fixed` fuerza repintado en
+     cada frame de scroll. La profundidad la dan las sombras de las tarjetas,
+     que ya están calibradas (auditoría UX/UI 2026-08-11, D-08). */
   body {
     @apply bg-bg text-text-primary;
-    /* Wash radial muy sutil para dar profundidad sin perder la seriedad del fondo neutro */
-    background-image:
-      radial-gradient(1200px 600px at 100% -10%, rgba(27, 79, 216, 0.035), transparent 60%),
-      radial-gradient(800px 400px at -5% 15%, rgba(27, 79, 216, 0.025), transparent 55%);
-    background-attachment: fixed;
   }
 
   h1, h2, h3, h4 {
@@ -110,17 +109,8 @@
     @apply transition-all duration-200 ease-smooth hover:-translate-y-0.5 hover:shadow-card-hover;
   }
 
-  /* Marquee horizontal infinito (stack tecnológico en la landing). El
-     contenido se duplica una vez en el componente y este anima solo el
-     primer 50% del ancho para que el loop sea perfectamente continuo. */
-  @keyframes marquee-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  .animate-marquee {
-    animation: marquee-scroll 32s linear infinite;
-  }
-  .animate-marquee:hover {
-    animation-play-state: paused;
-  }
+  /* El marquee del stack tecnológico se ha retirado junto con su componente
+     (auditoría UX/UI 2026-08-11, D-03): mostraba las dependencias internas en
+     el espacio que corresponde a prueba social, y una animación infinita en
+     bucle no aporta información. Lo sustituye CoberturaNormativaBanda. */
 }

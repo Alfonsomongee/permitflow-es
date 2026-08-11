@@ -1,65 +1,56 @@
 import Link from "next/link";
-import { ArrowRight, Zap, FileText, CheckCircle2, Clock } from "lucide-react";
+import { ArrowRight, FileText, CheckCircle2, Clock } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
-import { SplitText } from "@/components/ui/split-text";
-import { CountUp } from "@/components/ui/count-up";
 
-const STATS = [
-  { value: 5,  prefix: "",    suffix: "",   label: "verticales completos en Andalucía" },
-  { value: 17, prefix: "",    suffix: "",   label: "comunidades autónomas con fotovoltaica" },
-  { value: 2,  prefix: "< ",  suffix: " s", label: "para generar el plan de tramitación" },
+/**
+ * Cifras de cobertura del motor normativo.
+ *
+ * Se muestran estáticas a propósito. Antes subían animadas con `CountUp`, lo
+ * que invita a mirar la animación en vez de leer el dato — y en un producto de
+ * cumplimiento el dato es el argumento.
+ *
+ * La tercera métrica era «< 2 s para generar el plan». Se ha sustituido por la
+ * fecha de última revisión normativa: el tiempo de respuesta es una métrica de
+ * vanidad técnica que además compromete una promesa, mientras que a quien
+ * compra esto le importa cuándo se revisó por última vez la normativa que va a
+ * usar para presentar un expediente (auditoría UX/UI 2026-08-11, D-10).
+ */
+const COBERTURA = [
+  { valor: "17", label: "comunidades autónomas cubiertas" },
+  { valor: "5", label: "tecnologías: fotovoltaica, IRVE, aerotermia, ACS y gas" },
+  { valor: "Ago. 2026", label: "última revisión del motor normativo" },
 ];
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-surface">
-      {/* Elemento de fondo decorativo */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-surface to-surface" aria-hidden />
-
-      <div className="relative mx-auto max-w-6xl px-6 py-12 md:py-24">
+    <section className="border-b border-border bg-surface">
+      <div className="mx-auto max-w-6xl px-6 py-12 md:py-24">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
-          
+
           {/* Columna Izquierda: Texto */}
           <div className="flex flex-col items-start">
-            <FadeIn delay={0.1}>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary-light px-3 py-1.5">
-                <Zap size={12} className="text-primary" aria-hidden />
-                <span className="text-xs font-medium text-primary">
-                  Motor normativo · 17 CC. AA. · 5 verticales
+            <FadeIn>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-md border border-border bg-bg px-3 py-1.5">
+                <span className="text-xs font-medium text-text-secondary">
+                  Motor normativo · 17 CC. AA. · 5 tecnologías
                 </span>
               </div>
-            </FadeIn>
 
-            <FadeIn delay={0.2}>
               <h1 className="mb-5 text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.1] tracking-tight text-text-primary">
-                <SplitText
-                  text="El trámite correcto,"
-                  delay={0.3}
-                  stagger={0.07}
-                />
-                {" "}
-                <SplitText
-                  text="a la primera"
-                  delay={0.55}
-                  stagger={0.08}
-                  className="text-primary"
-                />
+                El trámite correcto,{" "}
+                <span className="text-primary">a la primera</span>
               </h1>
-            </FadeIn>
 
-            <FadeIn delay={0.3}>
               <p className="mb-8 max-w-xl text-lg text-text-secondary leading-relaxed">
-                PermitFlow clasifica cualquier instalación técnica en segundos y genera
-                el plan de tramitación exacto para tu comunidad autónoma, sin buscar
-                en el BOE.
+                PermitFlow clasifica la instalación y genera el plan de tramitación
+                exacto para tu comunidad autónoma, con la base legal de cada trámite
+                citada y los huecos de verificación a la vista.
               </p>
-            </FadeIn>
 
-            <FadeIn delay={0.4}>
               <div className="flex flex-wrap items-center gap-3">
                 <Link
                   href="/nueva-instalacion"
-                  className="flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium text-white shadow-sm transition-all hover:opacity-90 hover:shadow-md hover:-translate-y-0.5"
+                  className="flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
                 >
                   Clasificar instalación
                   <ArrowRight size={15} aria-hidden />
@@ -74,9 +65,9 @@ export function HeroSection() {
             </FadeIn>
           </div>
 
-          {/* Columna Derecha: Gráfico/Mock UI */}
-          <div className="hidden lg:block relative">
-            <FadeIn delay={0.5} className="relative z-10 mx-auto w-full max-w-md rounded-2xl border border-border bg-bg/50 p-6 shadow-xl backdrop-blur-sm">
+          {/* Columna Derecha: ejemplo real de plan de tramitación */}
+          <div className="hidden lg:block">
+            <FadeIn className="mx-auto w-full max-w-md rounded-2xl border border-border bg-surface p-6 shadow-card">
               <div className="mb-4 flex items-center justify-between border-b border-border pb-4">
                 <div>
                   <h3 className="font-medium text-text-primary">Autoconsumo Residencial</h3>
@@ -111,25 +102,21 @@ export function HeroSection() {
                 </div>
               </div>
             </FadeIn>
-
-            {/* Elementos flotantes de fondo */}
-            <FadeIn delay={0.7} className="absolute -right-6 -bottom-6 -z-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl" />
-            <FadeIn delay={0.6} className="absolute -left-6 -top-6 -z-10 h-32 w-32 rounded-full bg-success/10 blur-2xl" />
           </div>
 
         </div>
       </div>
 
-      {/* Stats bar */}
-      <div className="relative border-t border-border bg-surface/50 backdrop-blur-sm">
+      {/* Banda de cobertura */}
+      <div className="border-t border-border">
         <div className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          {STATS.map(({ value, prefix, suffix, label }, idx) => (
-            <FadeIn key={label} delay={0.6 + idx * 0.1} className="px-8 py-6">
-              <p className="text-3xl font-medium tracking-tight text-text-primary">
-                <CountUp to={value} prefix={prefix} suffix={suffix} duration={1600} />
+          {COBERTURA.map(({ valor, label }) => (
+            <div key={label} className="px-8 py-6">
+              <p className="text-3xl font-medium tracking-tight tabular-nums text-text-primary">
+                {valor}
               </p>
               <p className="mt-1 text-sm text-text-secondary">{label}</p>
-            </FadeIn>
+            </div>
           ))}
         </div>
       </div>

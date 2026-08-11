@@ -58,7 +58,7 @@ export function DashboardSidebar() {
             className="group flex items-center gap-2.5 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-primary"
             onClick={() => close()}
           >
-            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-gradient-primary shadow-xs transition-transform duration-200 ease-smooth group-hover:scale-105">
+            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-primary shadow-xs">
               <Zap size={14} className="text-white" aria-hidden />
             </div>
             <span className="text-sm font-medium text-text-primary tracking-tight">

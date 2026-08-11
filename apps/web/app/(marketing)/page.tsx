@@ -6,7 +6,7 @@
  */
 import { MarketingNav } from "@/components/marketing/MarketingNav";
 import { HeroSection } from "@/components/marketing/HeroSection";
-import { TechStackMarquee } from "@/components/marketing/TechStackMarquee";
+import { CoberturaNormativaBanda } from "@/components/marketing/CoberturaNormativaBanda";
 import { QuienesSomosSection } from "@/components/marketing/QuienesSomosSection";
 import { VerticalesSection } from "@/components/marketing/VerticalesSection";
 import { ComoFuncionaSection } from "@/components/marketing/ComoFuncionaSection";
@@ -18,7 +18,7 @@ export default function LandingPage() {
     <>
       <MarketingNav />
       <HeroSection />
-      <TechStackMarquee />
+      <CoberturaNormativaBanda />
       <QuienesSomosSection />
       <VerticalesSection />
       <ComoFuncionaSection />
