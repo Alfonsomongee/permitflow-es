@@ -217,7 +217,7 @@ function CamposFotovoltaica() {
         control={control}
         name="superficie_m2"
         render={({ field, fieldState }) => (
-          <Field label="Superficie del generador (m²)" hint="Opcional. Se usa para verificar la coherencia con la potencia." error={fieldState.error?.message}>
+          <Field label="Superficie ocupada por los módulos (m²)" hint="Opcional. Si la indicas, el plan avisa cuando no cuadra con la potencia declarada (un dedazo habitual es dar la potencia pico en vez de la nominal)." error={fieldState.error?.message}>
             <NumberInput
               value={field.value ?? ""}
               onChange={field.onChange}
@@ -647,7 +647,7 @@ function CamposClimatizacionACS() {
         control={control}
         name="superficie_m2"
         render={({ field, fieldState }) => (
-          <Field label="Superficie climatizada (m²)" hint="Necesaria para clasificar si aplica RITE completo." error={fieldState.error?.message}>
+          <Field label="Superficie climatizada (m²)" hint="Opcional. El RITE se aplica por potencia térmica, no por superficie: este dato no cambia los trámites, se guarda como contexto para la memoria o el proyecto." error={fieldState.error?.message}>
             <NumberInput
               value={field.value ?? ""}
               onChange={field.onChange}

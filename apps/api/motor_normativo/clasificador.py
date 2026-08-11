@@ -12,6 +12,7 @@ from schemas.clasificador import (
     RiesgoTramiteOutput,
 )
 from motor_normativo.excepciones import NormativaNoEncontradaError
+from motor_normativo.coherencia import comprobar_coherencia
 from servicios.riesgo_normativo import calcular_riesgo_plan
 from servicios.ayudas import simular_ayudas
 
@@ -346,6 +347,11 @@ class Clasificador:
                 f"{len(reglas_con_error)} regla(s) del motor normativo no se pudieron evaluar "
                 f"({', '.join(reglas_con_error)}). Revisa el JSON de normativa."
             )
+
+        # Coherencia física entre los datos declarados (superficie vs potencia,
+        # potencia total vs puntos de recarga). Son avisos, no errores: el motor
+        # no conoce el proyecto real. Ver motor_normativo/coherencia.py.
+        advertencias.extend(comprobar_coherencia(eval_locals))
 
         riesgo_calculado = calcular_riesgo_plan(
             tramites_output,
