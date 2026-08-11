@@ -21,6 +21,49 @@
 
 > **Corrección posterior (2026-08-11).** Al implementar las correcciones, la verificación normativa obligó a revisar dos hallazgos: **A-04 resultó ser un falso positivo** y **A-03 estaba mal diagnosticado**. Ambos derivaban de usar el número de trámites como indicador de si una comunidad modela un umbral, lo cual no es válido: una comunidad puede agrupar varios pasos en un trámite agregado. Las fichas correspondientes explican el error y lo que sí resultó verificable.
 
+---
+
+## Estado de las correcciones
+
+Todos los hallazgos vigentes están corregidos. La suite pasa de 438 a **941 tests**; linter de coherencia sin hallazgos y `tsc --noEmit` limpio.
+
+| Hallazgo | Estado | Commit |
+|---|---|---|
+| C-01 contrato proxy↔motor | Corregido en dos fases: constructor declarativo + campos en el formulario | `32f345e`, `0fb973e` |
+| C-02 umbral RITE 5 kW | Unificado en las 17 CCAA, con base legal verificada en el BOE | `5247607` |
+| C-03 textos falsos de superficie | Implementada la comprobación que prometían | `8cd9152` |
+| A-01 avisos contradictorios | Criterio único en `lib/verificacion.ts` | `ac94526` |
+| A-02 huecos ocultos | El banner ya no desaparece cuando hay huecos | `ac94526` |
+| A-03 inscripción de oficio | Reformulado y corregido en Andalucía | `5de6307` |
+| ~~A-04~~ | **Retirado: falso positivo** | `5de6307` |
+| A-05 validador | 18 validaciones muertas revividas + panel honesto | `dc8dbf2` |
+| M-01 conflicto de tensión | Comprobación simétrica | `d3cff27` |
+| M-02 cotas del schema | `gt`/`ge` y `Literal` donde faltaban | `d3cff27` |
+| M-03 conteo de trámites | `lib/tramites-conteo.ts` compartido | `eb4a39b` |
+| M-04 "~0 días" | `null` cuando no hay estimación | `eb4a39b` |
+| M-05 resumen incompleto | Pendiente (ver abajo) | — |
+| M-06 `tipo_actuacion` por defecto | Corregido donde causaba daño (exenciones RITE) | `5247607` |
+| M-07 peso visual del banner | Crítico pasa a paleta `danger` | `ac94526` |
+| M-08 `revision_manual` como mensaje | 12 mensajes reescritos | `22048dc` |
+| B-01 a B-06 | Cerrados | `22048dc` |
+
+### Hallazgos encontrados *durante* la corrección
+
+Cinco problemas que la auditoría no había detectado y que aparecieron al verificar o al arreglar:
+
+1. **Galicia eximía del RITE a 5,0 kW exactos** (usaba `<= 5` para la exención y `> 5` para la memoria, dejando el valor frontera en el lado equivocado).
+2. **Dos ramas muertas por valores imposibles**: `uso == "comercial"` y `combustible == "gas"`. La primera era la causa real de que Canarias devolviera 404 en gas terciario — no un hueco de cobertura, una errata. El linter ya detecta esta clase de error.
+3. **Solapamiento en Cantabria**, introducido por mí al corregir el punto anterior sin mirar el contexto de esa comunidad: dos reglas disparaban a la vez y el plan pedía memoria técnica *y* proyecto. Detectado al verificar el resultado, no el diff.
+4. **18 de las 26 validaciones eran código muerto** (A-05 resultó peor de lo reportado): Madrid y Cataluña usan formatos que el validador no implementaba, así que el panel decía "3 comprobaciones superadas" sin haber ejecutado ninguna.
+5. **Los trámites informativos no se renderizaban** en ninguna sección: se filtraban fuera de los accionables y nadie los pintaba. Con la unificación del RITE eso habría dejado un plan aparentemente vacío en 16 comunidades.
+
+### Lo que queda abierto
+
+- **M-05** · el panel de resumen sigue sin mostrar `modalidad_autoconsumo`, `combustible` ni `presion_bar`, que son parámetros que deciden el plan. Es un cambio de UI sin riesgo normativo.
+- **Aragón y Baleares · registro de autoconsumo.** Aragón no emite el trámite en ningún tramo; Baleares lo fusiona con el registro de producción. Separarlos exige una fuente autonómica específica que no he localizado: documentado como hueco en sus ficheros, no inventado.
+- **RITE art. 15.1.c, segundo supuesto.** Quedan exentas las instalaciones de ACS por calentadores, acumuladores o termos eléctricos de hasta 70 kW. No se modela porque el formulario no pregunta el tipo de equipo generador. Anotado en los 13 ficheros de ACS afectados.
+- **Cobertura del validador.** Sigue habiendo 60 de 85 combinaciones sin comprobaciones definidas. Ahora el panel lo dice explícitamente en vez de quedarse en blanco, pero completarlas requiere trabajo normativo por comunidad.
+
 **Diagnóstico general.** El motor no se cae con ninguna combinación (0 crashes, 0 reglas con error de evaluación en 2.397 combinaciones) y la disciplina de honestidad normativa es sólida: no se inventan datos y los huecos están documentados. El problema no es de robustez, es de **integridad del contrato entre capas y de simetría entre comunidades**: hay reglas correctamente escritas que la aplicación real nunca puede activar, y hay normativa estatal idéntica implementada de tres formas distintas según la comunidad.
 
 **El hallazgo con más impacto de negocio es C-01**: 9 variables que las reglas usan nunca salen del formulario, dejando fuera trámites de legionela, registro de producción y calificación territorial en 8 comunidades. Un usuario con una instalación afectada recibe un plan incompleto sin ningún aviso de que lo es.
