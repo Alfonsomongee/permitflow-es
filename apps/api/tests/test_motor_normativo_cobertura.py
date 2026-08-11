@@ -95,24 +95,30 @@ BASELINES: dict[str, dict] = {
     ),
 }
 
+# Los tres usos, no solo residencial: el solapamiento de Cantabria/gas que
+# destapó la auditoría QA 2026-08-11 solo aparecía en uso terciario, y ni este
+# smoke ni test_fronteras.py (que parte de inputs residenciales) lo veían.
+USOS = ("residencial", "terciario", "industrial")
+
 CASOS = [
-    (comunidad, tipo_instalacion)
+    (comunidad, tipo_instalacion, uso)
     for comunidad in COMUNIDADES
     for tipo_instalacion in BASELINES
+    for uso in USOS
 ]
 
 
 @pytest.mark.parametrize(
-    "comunidad,tipo_instalacion",
+    "comunidad,tipo_instalacion,uso",
     CASOS,
-    ids=[f"{c}-{t}" for c, t in CASOS],
+    ids=[f"{c}-{t}-{u}" for c, t, u in CASOS],
 )
-def test_clasificar_no_revienta_para_ninguna_combinacion(comunidad, tipo_instalacion):
+def test_clasificar_no_revienta_para_ninguna_combinacion(comunidad, tipo_instalacion, uso):
     clasificador = Clasificador()
     params = ClasificadorInput(
         tipo_instalacion=tipo_instalacion,
         comunidad=comunidad,
-        **BASELINES[tipo_instalacion],
+        **{**BASELINES[tipo_instalacion], "uso": uso},
     )
 
     try:
@@ -127,13 +133,28 @@ def test_clasificar_no_revienta_para_ninguna_combinacion(comunidad, tipo_instala
     # ninguna regla debe haber fallado en silencio al evaluarse.
     ordenes = [t.orden for t in resultado.tramites]
     assert len(ordenes) == len(set(ordenes)), (
-        f"{comunidad}/{tipo_instalacion}: orden duplicado tras el reordenado "
-        f"aditivo: {ordenes}"
+        f"{comunidad}/{tipo_instalacion}/{uso}: orden duplicado tras el "
+        f"reordenado aditivo: {ordenes}"
+    )
+
+    # Trámites repetidos ENTRE reglas distintas. El linter ya detecta los
+    # duplicados dentro de una misma regla (el bug de AND-FV-003), pero no
+    # puede ver los que surgen cuando dos reglas que se solapan disparan a la
+    # vez: eso solo se aprecia ejecutando el motor. Es lo que pasó en Cantabria
+    # al corregir un valor de enum muerto — el plan pedía dos veces el
+    # certificado de instalación de gas, y a la vez memoria técnica Y proyecto,
+    # que son excluyentes.
+    nombres = [t.nombre for t in resultado.tramites]
+    repetidos = sorted({n for n in nombres if nombres.count(n) > 1})
+    assert not repetidos, (
+        f"{comunidad}/{tipo_instalacion}/{uso}: trámite(s) repetidos entre reglas "
+        f"distintas: {repetidos}. Reglas que dispararon: "
+        f"{sorted({t.regla_id for t in resultado.tramites if t.regla_id})}"
     )
 
     fallos_evaluacion = [
         a for a in resultado.advertencias if "no se pudieron evaluar" in a
     ]
     assert not fallos_evaluacion, (
-        f"{comunidad}/{tipo_instalacion}: {fallos_evaluacion[0]}"
+        f"{comunidad}/{tipo_instalacion}/{uso}: {fallos_evaluacion[0]}"
     )
