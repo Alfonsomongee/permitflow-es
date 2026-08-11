@@ -22,6 +22,7 @@ import { useTramitesEstado } from "./useTramitesEstado";
 import { useEstadisticasPlazo } from "./useEstadisticasPlazo";
 import { claveTramite } from "@/lib/tramiteClave";
 import { contarTramites } from "@/lib/tramites-conteo";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShieldCheck, FileText } from "lucide-react";
 import { AnimatedList } from "@/components/ui/animated-list";
@@ -33,7 +34,11 @@ import { AnimatedList } from "@/components/ui/animated-list";
  * el listado principal de trámites (mejora 2026-08-08).
  */
 function PanelSkeleton() {
-  return <div className="h-16 animate-pulse rounded-2xl border border-border bg-surface" aria-hidden />;
+  return (
+    <div className="rounded-2xl border border-border bg-surface p-4">
+      <Skeleton className="h-4 w-1/3" />
+    </div>
+  );
 }
 
 const DocumentosPanel = dynamic(

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ChevronDown, Download, FileCheck2, Loader2 } from "lucide-react";
+import { SkeletonLista } from "@/components/ui/skeleton";
 
 interface DocumentoCliente {
   id: string;
@@ -76,6 +77,8 @@ export function DocumentosClientePanel({ expedienteId }: { expedienteId: string 
           />
         )}
       </button>
+
+      {abierto && cargando && <SkeletonLista filas={3} className="mt-3" />}
 
       {abierto && !cargando && (
         <div className="mt-3">

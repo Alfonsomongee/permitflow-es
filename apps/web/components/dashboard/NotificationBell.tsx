@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Bell, CheckCheck, Clock, AlertTriangle } from "lucide-react";
+import { SkeletonLista } from "@/components/ui/skeleton";
 
 interface Notificacion {
   id: string;
@@ -107,9 +108,14 @@ export function NotificationBell() {
           </div>
 
           <div className="max-h-80 overflow-y-auto">
-            {notificaciones.length === 0 ? (
+            {/* "Cargando…" centrado colapsaba el desplegable a una línea y luego
+                lo estiraba al llegar las notificaciones. El skeleton mantiene la
+                altura (auditoría UX/UI 2026-08-11, D-06). */}
+            {cargando && notificaciones.length === 0 ? (
+              <SkeletonLista filas={3} className="px-3.5 py-3" />
+            ) : notificaciones.length === 0 ? (
               <p className="px-3.5 py-6 text-center text-xs text-text-secondary">
-                {cargando ? "Cargando…" : "Sin plazos próximos ni vencidos."}
+                Sin plazos próximos ni vencidos.
               </p>
             ) : (
               notificaciones.map((n) => (

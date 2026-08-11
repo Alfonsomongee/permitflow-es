@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ChevronDown, History, Loader2 } from "lucide-react";
+import { SkeletonLista } from "@/components/ui/skeleton";
 
 interface EntradaHistorial {
   id: string;
@@ -75,7 +76,11 @@ export function HistorialPanel({ expedienteId }: { expedienteId: string }) {
         )}
       </button>
 
-      {abierto && (
+      {/* Al desplegar, la lista tardaba en llegar y el panel crecía de golpe.
+          El skeleton reserva la altura (auditoría UX/UI 2026-08-11, D-06). */}
+      {abierto && cargando && <SkeletonLista filas={3} className="mt-3" />}
+
+      {abierto && !cargando && (
         <ul className="mt-3 flex max-h-64 flex-col gap-2.5 overflow-y-auto pr-2 custom-scrollbar">
           {entradas.map((e) => {
             const fecha = new Date(e.creado_en).toLocaleDateString("es-ES", {

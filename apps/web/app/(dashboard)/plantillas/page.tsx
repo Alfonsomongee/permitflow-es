@@ -72,7 +72,7 @@ export default function PlantillasPage() {
         </p>
         <p className="mt-1 text-xs text-text-secondary">
           Este catálogo es de referencia normativa. Los documentos marcados con{" "}
-          <Sparkles size={11} className="inline text-ai" aria-hidden /> se pueden
+          <Sparkles size={11} className="inline text-primary" aria-hidden /> se pueden
           generar automáticamente en borrador desde un expediente real, en{" "}
           <Link href="/expedientes" className="text-primary hover:underline">
             Expedientes
@@ -202,7 +202,7 @@ export default function PlantillasPage() {
                 href={`/expedientes?buscar=${encodeURIComponent(
                   TIPO_A_CLASIFICADOR[plantilla.tipos_instalacion[0]]
                 )}`}
-                className="mt-3 flex items-center justify-between gap-2 rounded-lg border border-ai/30 bg-ai/5 px-3 py-2 text-[11px] font-medium text-ai transition-colors hover:bg-ai/10"
+                className="mt-3 flex items-center justify-between gap-2 rounded-lg border border-primary/25 bg-primary-light px-3 py-2 text-[11px] font-medium text-primary-dark transition-colors hover:bg-primary/10"
               >
                 <span className="flex items-center gap-1.5">
                   <Sparkles size={12} aria-hidden />

@@ -64,7 +64,7 @@ export function QuienesSomosSection() {
           {/* Cifra real del motor */}
           <FadeIn delay={0.2}>
             <div className="flex h-full flex-col justify-between gap-4 rounded-2xl border border-border bg-bg p-6 shadow-card">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-ai/10 text-ai">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-light text-primary">
                 <ListChecks size={17} aria-hidden />
               </div>
               <div>
@@ -83,7 +83,7 @@ export function QuienesSomosSection() {
           {/* Transparencia normativa */}
           <FadeIn delay={0.3}>
             <div className="flex h-full flex-col gap-3 rounded-2xl border border-border bg-bg p-6 shadow-card">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-ai/10 text-ai">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-light text-primary">
                 <ShieldCheck size={17} aria-hidden />
               </div>
               <div>

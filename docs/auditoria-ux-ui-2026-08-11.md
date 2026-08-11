@@ -72,9 +72,19 @@ El comentario del fichero dice que la lista «coincide con package.json — no e
 
 `primary`, `success`, `warning`, `danger`, `ai` (teal), y tres paletas de plataforma (`pues`, `teci`, `miteco`), además de los tokens de shadcn. El consenso de 2026 en producto enterprise va justo al revés: superficie casi monocroma y **un** acento. El color de acento `ai` en teal es especialmente problemático porque marca visualmente «esto lo hace una IA» en un producto cuyo argumento de venta es el rigor normativo.
 
-**6. Carga: 18 spinners frente a 2 skeletons.**
+> **Hallazgo adicional al implementarlo (2026-08-11).** El acento `ai` no solo era contraproducente: era **factualmente incorrecto**. Donde más se usaba era en los documentos «generables» del catálogo de plantillas, y esa generación (`apps/api/documentos/`) es `python-docx` rellenando datos ya conocidos del expediente — comprobado: no hay una sola llamada a `ai_client`, `deepseek` ni `openai` en ese módulo. Se estaba marcando como producto de IA una plantilla determinista. El copy ya era honesto («generable automáticamente», no «con IA»); era solo el color el que sugería otra cosa.
 
-18 componentes usan `Loader2` girando; solo 2 usan `animate-pulse`. Un spinner no comunica nada salvo espera y provoca saltos de layout al resolverse. El skeleton preserva la estructura, reduce el desplazamiento acumulado y hace que la espera se perciba más corta.
+**6. Carga: spinners donde debería haber skeletons.**
+
+18 componentes usan `Loader2` girando; solo 2 usan `animate-pulse`.
+
+> **Corrección posterior (2026-08-11).** Esa proporción, tal como la enuncié, exagera el problema. Al implementarlo comprobé que **10 de esos 18 spinners están dentro de botones**, que es su uso correcto: el usuario acaba de lanzar la acción, sabe qué espera y no hay layout que preservar. Otros aparecen junto al chevron de un panel plegable, donde tampoco molestan.
+>
+> El problema real es más acotado y afecta a cinco sitios, todos ellos paneles que hacen fetch en cliente y dejan el hueco vacío hasta que llegan los datos: `ValidadorPanel`, `HistorialPanel`, `DocumentosClientePanel`, `SubsanacionesPanel` y `NotificationBell`. Ahí el contenido aparece de golpe y empuja lo que hay debajo.
+>
+> Conviene anotar de dónde vino el error: conté ocurrencias de `Loader2` sin distinguir el contexto de uso. Es el mismo defecto de método que produjo el falso positivo A-04 de la auditoría de motor normativo — medir agregados y concluir sin mirar los casos.
+
+Un spinner no comunica nada salvo espera y provoca saltos de layout al resolverse. El skeleton preserva la estructura, reduce el desplazamiento acumulado y hace que la espera se perciba más corta.
 
 **7. Los números no están alineados.**
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AlertTriangle, CheckCircle2, ChevronDown, Clock, Loader2, Plus, ShieldAlert } from "lucide-react";
+import { SkeletonLista } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import type { Tramite } from "@/types/plan";
 import { diasEntre, hoyIso } from "@/lib/plazos";
@@ -175,6 +176,8 @@ export function SubsanacionesPanel({
           <ChevronDown size={14} className={`text-text-secondary transition-transform ${abierto ? "rotate-180" : ""}`} aria-hidden />
         )}
       </button>
+
+      {abierto && cargando && <SkeletonLista filas={2} className="mt-3" />}
 
       {abierto && !cargando && (
         <div className="mt-3 space-y-2.5">

@@ -59,13 +59,20 @@ const config: Config = {
           secondary: "#6B7280",
         },
 
-        // Acento IA (funciones asistidas por LLM: simulador, chatbot) —
-        // se usa con moderación para diferenciar lo "inteligente" de lo normativo
-        ai: {
-          DEFAULT: "#0D9488",
-          light: "#E7F8F6",
-          dark: "#0B6B62",
-        },
+        // El acento `ai` (teal #0D9488) se ha retirado — auditoría UX/UI
+        // 2026-08-11, D-05. Marcaba con un color propio "lo que hace la IA",
+        // y eso era contraproducente por dos razones:
+        //
+        // 1. En un producto cuyo argumento de venta es el rigor normativo,
+        //    señalar en otro color unas funciones concretas invita a
+        //    desconfiar justo de las que quieres que se usen.
+        // 2. Era además inexacto. Donde más se usaba era en los documentos
+        //    "generables" del catálogo de plantillas, y esa generación
+        //    (apps/api/documentos/) es python-docx rellenando datos ya
+        //    conocidos del expediente: no interviene ningún modelo.
+        //
+        // La funcionalidad sigue siendo identificable por el icono y por el
+        // texto, que ya dice "generable automáticamente" y no "con IA".
 
         // Tokens shadcn/ui (base-nova) — necesarios para que los primitivos de
         // components/ui/* (button, card, badge, alert, table, tabs...) resuelvan

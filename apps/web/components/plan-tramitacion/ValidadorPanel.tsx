@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, CheckCircle2, Loader2, RotateCw, XCircle } from "lucide-react";
+import { SkeletonTexto } from "@/components/ui/skeleton";
 import type { ValidacionResultado } from "@/types/plan";
 
 interface ValidadorPanelProps {
@@ -87,6 +88,15 @@ export function ValidadorPanel({ expedienteId }: ValidadorPanelProps) {
       )}
 
       {error && <p className="text-xs text-danger-dark">{error}</p>}
+
+      {/* Mientras valida, el cuerpo quedaba vacío y el resultado aparecía de
+          golpe empujando el resto del panel. El skeleton reserva el hueco
+          (auditoría UX/UI 2026-08-11, D-06). */}
+      {cargando && !error && !requiereUpgrade && (
+        <div className="rounded-xl border border-border px-3.5 py-3" aria-busy="true">
+          <SkeletonTexto lineas={2} />
+        </div>
+      )}
 
       {resultado && !cargando && (
         <>
