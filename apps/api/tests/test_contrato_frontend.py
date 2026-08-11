@@ -127,6 +127,36 @@ def test_toda_variable_de_las_reglas_es_enviable_desde_el_frontend(
     )
 
 
+def test_mapa_de_campos_condicionales_esta_al_dia():
+    """`campos_condicionales.ts` se genera desde las condiciones de los JSON.
+
+    Si alguien cambia una condición del motor y no regenera el fichero, el
+    formulario dejará de preguntar un campo que las reglas sí necesitan — que es
+    exactamente el mecanismo de C-01. Este test compara el contenido en disco con
+    el que produciría el generador ahora mismo.
+    """
+    import importlib.util
+
+    script = RAIZ / "scripts" / "generar_campos_condicionales.py"
+    salida = RAIZ / "apps" / "web" / "content" / "campos_condicionales.ts"
+    assert salida.exists(), "Falta campos_condicionales.ts: ejecuta el generador"
+
+    spec = importlib.util.spec_from_file_location("generar_campos_condicionales", script)
+    modulo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(modulo)
+
+    antes = salida.read_text(encoding="utf-8")
+    modulo.main()
+    despues = salida.read_text(encoding="utf-8")
+
+    if antes != despues:
+        salida.write_text(antes, encoding="utf-8")  # no dejar el árbol sucio
+    assert antes == despues, (
+        "apps/web/content/campos_condicionales.ts está desactualizado respecto a las "
+        "reglas del motor. Ejecuta: python3 scripts/generar_campos_condicionales.py"
+    )
+
+
 def test_el_proxy_usa_el_constructor_declarativo():
     """Evita que alguien vuelva a enumerar los campos a mano en la ruta."""
     ruta = RAIZ / "apps" / "web" / "app" / "api" / "clasificar" / "route.ts"

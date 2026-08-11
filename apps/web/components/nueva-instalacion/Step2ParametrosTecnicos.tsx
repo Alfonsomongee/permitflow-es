@@ -2,6 +2,7 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import { type FormState } from "./types";
+import { campoAplica } from "@/content/campos_condicionales";
 import {
   Field,
   NumberInput,
@@ -10,6 +11,146 @@ import {
   SectionDivider,
   InfoBanner,
 } from "./FormPrimitives";
+
+// ─── Campos que solo aplican en algunas comunidades ──────────────────────────
+
+/**
+ * Campos que las reglas de ciertas comunidades usan para ramificar y que el
+ * formulario no recogía (auditoría QA 2026-08-11, C-01). Al no enviarse,
+ * json-logic los evaluaba como falsy y desaparecían del plan trámites reales:
+ * plan de legionela, calificación territorial, registro de producción e
+ * inspección inicial por organismo de control.
+ *
+ * Qué campo se muestra en qué comunidad NO se decide aquí: se consulta
+ * `campoAplica()` sobre el mapa generado desde las propias condiciones del
+ * motor (content/campos_condicionales.ts). Mantener esa correspondencia a mano
+ * es precisamente lo que causó C-01.
+ */
+interface DefinicionCampo {
+  tipo: "bool" | "entero" | "opciones";
+  label: string;
+  hint?: string;
+  opciones?: { value: string; label: string }[];
+  cols?: 2 | 3 | 4;
+}
+
+const CAMPOS_NORMATIVOS: Record<string, DefinicionCampo> = {
+  uso_colectivo: {
+    tipo: "bool",
+    label: "¿Es una instalación de uso colectivo?",
+    hint: "Da servicio a varias viviendas, locales o usuarios (no a una única vivienda). Activa las obligaciones de prevención de legionelosis.",
+  },
+  acumulacion: {
+    tipo: "bool",
+    label: "¿Tiene depósito de acumulación?",
+    hint: "Los depósitos de acumulación son puntos críticos en el control de legionela.",
+  },
+  recirculacion: {
+    tipo: "bool",
+    label: "¿Tiene circuito de recirculación?",
+    hint: "El retorno de agua caliente influye en el régimen de control sanitario aplicable.",
+  },
+  incluida_ambito_rd_487_2022: {
+    tipo: "bool",
+    label: "¿Está incluida en el ámbito del RD 487/2022 (legionela)?",
+    hint: "El RD 487/2022 fija los requisitos sanitarios para instalaciones de riesgo frente a legionela. Ante la duda, consúltalo con el técnico redactor.",
+  },
+  instalacion_origen_modificada: {
+    tipo: "bool",
+    label: "¿Se modifica la instalación eléctrica existente?",
+    hint: "Si la instalación de origen se reforma o amplía, el trámite de puesta en servicio es distinto al de una instalación nueva.",
+  },
+  implantacion: {
+    tipo: "opciones",
+    label: "Tipo de implantación",
+    hint: "La implantación en suelo puede exigir Calificación Territorial ante el Cabildo insular.",
+    cols: 3,
+    opciones: [
+      { value: "cubierta", label: "Cubierta" },
+      { value: "suelo", label: "Suelo" },
+      { value: "marquesina", label: "Marquesina" },
+      { value: "fachada", label: "Fachada" },
+    ],
+  },
+  clase_instalacion_gas: {
+    tipo: "opciones",
+    label: "Clase de instalación de gas",
+    hint: "Determina si hace falta proyecto técnico o basta con declaración responsable.",
+    cols: 3,
+    opciones: [
+      { value: "individual", label: "Individual" },
+      { value: "comun", label: "Común del edificio" },
+      { value: "conexion_servicio", label: "Conexión de servicio" },
+    ],
+  },
+  requiere_registro_produccion: {
+    tipo: "bool",
+    label: "¿Requiere inscripción en el Registro de Producción de Energía Eléctrica?",
+    hint: "Aplica a instalaciones que vierten energía a la red bajo el RD 413/2014. En autoconsumo sin excedentes no aplica.",
+  },
+  numero_suministros_edificio: {
+    tipo: "entero",
+    label: "Número de suministros eléctricos del edificio",
+    hint: "En edificios residenciales con 20 o más suministros puede exigirse inspección inicial por organismo de control.",
+  },
+};
+
+/**
+ * Renderiza los campos de `campos` que apliquen a la comunidad y tecnología
+ * seleccionadas. Si ninguno aplica, no pinta ni el separador.
+ */
+function CamposSegunNormativa({ campos }: { campos: string[] }) {
+  const { control, watch } = useFormContext<FormState>();
+  const comunidad = watch("comunidad");
+  const tipoInstalacion = watch("tipo_instalacion");
+
+  const aplicables = campos.filter((campo) =>
+    campoAplica(comunidad, tipoInstalacion, campo)
+  );
+  if (aplicables.length === 0) return null;
+
+  return (
+    <>
+      <SectionDivider label="Datos exigidos por la normativa de esta comunidad" />
+      {aplicables.map((campo) => {
+        const def = CAMPOS_NORMATIVOS[campo];
+        if (!def) return null;
+        return (
+          <Controller
+            key={campo}
+            control={control}
+            name={campo as keyof FormState}
+            render={({ field, fieldState }) => (
+              <Field label={def.label} hint={def.hint} error={fieldState.error?.message}>
+                {def.tipo === "bool" ? (
+                  <BoolToggle
+                    value={(field.value as boolean | undefined) ?? false}
+                    onChange={field.onChange}
+                  />
+                ) : def.tipo === "entero" ? (
+                  <NumberInput
+                    value={(field.value as string | undefined) ?? ""}
+                    onChange={field.onChange}
+                    placeholder="ej. 24"
+                    min={0}
+                    step={1}
+                  />
+                ) : (
+                  <ToggleGroup
+                    value={(field.value as string | undefined) ?? ""}
+                    onChange={field.onChange}
+                    options={def.opciones ?? []}
+                    cols={def.cols ?? 2}
+                  />
+                )}
+              </Field>
+            )}
+          />
+        );
+      })}
+    </>
+  );
+}
 
 // ─── Sub-formularios por vertical ────────────────────────────────────────────
 
@@ -167,6 +308,10 @@ function CamposFotovoltaica() {
           />
         </>
       )}
+
+      <CamposSegunNormativa
+        campos={["implantacion", "instalacion_origen_modificada", "requiere_registro_produccion"]}
+      />
     </>
   );
 }
@@ -374,6 +519,10 @@ function CamposIRVE() {
         </>
       )}
 
+      <CamposSegunNormativa
+        campos={["instalacion_origen_modificada", "numero_suministros_edificio"]}
+      />
+
       <CamposDatosElectricos />
     </>
   );
@@ -475,6 +624,8 @@ function CamposGas() {
           )}
         </>
       )}
+
+      <CamposSegunNormativa campos={["clase_instalacion_gas"]} />
     </>
   );
 }
@@ -563,6 +714,15 @@ function CamposClimatizacionACS() {
           )}
         </>
       )}
+
+      <CamposSegunNormativa
+        campos={[
+          "uso_colectivo",
+          "acumulacion",
+          "recirculacion",
+          "incluida_ambito_rd_487_2022",
+        ]}
+      />
     </>
   );
 }
