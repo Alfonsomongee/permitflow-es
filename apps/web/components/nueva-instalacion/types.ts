@@ -1,6 +1,7 @@
 // Full form state matching the backend ClasificadorInput shape.
 import type { NuevaInstalacionFormData } from "../../lib/validations/nuevaInstalacion";
 import { COBERTURA_NORMATIVA } from "@/content/cobertura_normativa";
+import { severidadDeVerificacion } from "@/lib/verificacion";
 
 export type FormState = NuevaInstalacionFormData;
 
@@ -133,23 +134,19 @@ export const COMUNIDAD_LABEL: Record<string, string> = Object.fromEntries(
  */
 export type NivelCobertura = "verificada" | "atencion" | "generica_grave";
 
+/** Aviso previo del selector, derivado del MISMO criterio que el banner del
+ * plan (lib/verificacion.ts). Antes esta función replicaba esa lógica con el
+ * orden de los condicionales invertido, así que Aragón y Asturias se
+ * anunciaban aquí como "verificado parcialmente" y en el plan resultante como
+ * "normativa genérica sin verificar" (auditoría QA 2026-08-11, A-01). */
 export function nivelCobertura(tipo: string, comunidad: string): NivelCobertura {
   const combo = COBERTURA_NORMATIVA[comunidad]?.[tipo];
   if (!combo) return "generica_grave";
 
-  const estado = combo.estado ?? "";
-  if (estado.includes("no_verificado")) return "generica_grave";
-  if (combo.nivelVerificacion === "verificada" && !estado) return "verificada";
-  if (
-    estado.includes("parcial") ||
-    combo.nivelVerificacion === "verificada_parcialmente" ||
-    combo.nivelVerificacion === "verificado_con_observaciones" ||
-    combo.nivelVerificacion === "en_revision" ||
-    combo.nivelVerificacion === "borrador_verificado_parcialmente"
-  ) {
-    return "atencion";
-  }
-  return "generica_grave";
+  const { nivel } = severidadDeVerificacion(combo.nivelVerificacion, combo.estado);
+  if (nivel === "critico") return "generica_grave";
+  if (nivel === "atencion") return "atencion";
+  return "verificada";
 }
 
 /** @deprecated usa nivelCobertura() — se mantiene para no romper otros usos existentes. */

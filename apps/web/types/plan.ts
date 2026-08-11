@@ -1,3 +1,8 @@
+import {
+  severidadDeVerificacion,
+  type ResultadoVerificacion,
+} from "@/lib/verificacion";
+
 // El motor normativo (fuera de Andalucía) usa nombres de plataforma en texto
 // libre por comunidad (ej. "SIRECYL", "Sede Electrónica del Gobierno de Aragón"),
 // así que el tipo no puede ser un enum cerrado.
@@ -95,31 +100,13 @@ export interface RiesgoNormativoPlan {
   hay_riesgo_alto: boolean;
 }
 
-/** Compara nivel_verificacion (enum cerrado) y estado (texto libre de auditoría,
- * más granular) y devuelve la severidad real a mostrar al usuario. estado prima
- * porque refleja el diagnóstico de la última auditoría de contenido, que puede
- * ser más grave que el nivel_verificacion general del fichero. */
-export function severidadVerificacion(plan: PlanTramitacion): {
-  nivel: "critico" | "atencion" | "ninguno";
-  etiqueta: string;
-} {
-  const estado = plan.estado ?? "";
-  if (estado.includes("no_verificado")) {
-    return { nivel: "critico", etiqueta: "Borrador no verificado" };
-  }
-  if (plan.nivel_verificacion === "generica") {
-    return { nivel: "critico", etiqueta: "Normativa genérica (sin verificación autonómica)" };
-  }
-  if (
-    estado.includes("parcial") ||
-    plan.nivel_verificacion === "verificada_parcialmente" ||
-    plan.nivel_verificacion === "verificado_con_observaciones" ||
-    plan.nivel_verificacion === "en_revision" ||
-    plan.nivel_verificacion === "borrador_verificado_parcialmente"
-  ) {
-    return { nivel: "atencion", etiqueta: "Verificado con observaciones" };
-  }
-  return { nivel: "ninguno", etiqueta: "Verificado" };
+/** Severidad de verificación del plan, a partir del criterio único de
+ * lib/verificacion.ts. Antes esta función duplicaba esa lógica con el orden de
+ * los condicionales invertido respecto al aviso del paso 1 del formulario, y
+ * las dos fases se contradecían en 9 combinaciones (auditoría QA 2026-08-11,
+ * A-01). */
+export function severidadVerificacion(plan: PlanTramitacion): ResultadoVerificacion {
+  return severidadDeVerificacion(plan.nivel_verificacion, plan.estado);
 }
 
 export type TramiteEstado = "pendiente" | "en_curso" | "completado";

@@ -104,12 +104,26 @@ function VerificacionBanner({ plan }: { plan: PlanTramitacion }) {
   const { nivel, etiqueta } = severidadVerificacion(plan);
   const huecos = plan.huecos_verificacion ?? [];
 
-  if (nivel === "ninguno") return null;
+  // Antes esto era `if (nivel === "ninguno") return null`, y como los huecos se
+  // pintan dentro del banner, la única combinación que la app declara plenamente
+  // verificada (Andalucía/ACS) era también la única que ocultaba sus 8 huecos
+  // documentados: el plan más fiable era el que menos reservas enseñaba
+  // (auditoría QA 2026-08-11, A-02). Ahora, si hay huecos, se muestran igual —
+  // con estilo neutro, porque la normativa sí está verificada.
+  if (nivel === "ninguno" && huecos.length === 0) return null;
 
   const estilos =
     nivel === "critico"
-      ? "border-warning/30 bg-warning-light text-warning-dark"
-      : "border-primary/20 bg-primary-light text-primary-dark";
+      ? "border-danger/30 bg-danger-light text-danger-dark"
+      : nivel === "atencion"
+        ? "border-warning/30 bg-warning-light text-warning-dark"
+        : "border-border bg-muted text-text-secondary";
+
+  const descripcion =
+    plan.aviso ??
+    (nivel === "ninguno"
+      ? "Normativa verificada para esta comunidad. Quedan algunos puntos concretos sin confirmar, detallados abajo."
+      : "Plan basado en la normativa estatal aplicable. La verificación de las particularidades autonómicas de esta comunidad está en curso: contrasta plataformas y registros antes de presentar.");
 
   return (
     <div className={`rounded-xl border px-4 py-3 text-xs ${estilos}`}>
@@ -117,10 +131,7 @@ function VerificacionBanner({ plan }: { plan: PlanTramitacion }) {
         <ShieldAlert size={14} className="mt-0.5 flex-shrink-0" aria-hidden />
         <div className="min-w-0 flex-1">
           <p className="font-semibold">{etiqueta}</p>
-          <p className="mt-1 leading-relaxed">
-            {plan.aviso ??
-              "Plan basado en la normativa estatal aplicable. La verificación de las particularidades autonómicas de esta comunidad está en curso: contrasta plataformas y registros antes de presentar."}
-          </p>
+          <p className="mt-1 leading-relaxed">{descripcion}</p>
           {huecos.length > 0 && (
             <>
               <button
