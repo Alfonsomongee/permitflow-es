@@ -68,7 +68,9 @@
             }
           ],
           "notas": "Las instalaciones térmicas con potencia térmica nominal ≤5 kW no están sujetas a comunicación de puesta en servicio ni registro ante la Jefatura Territorial según el RITE; basta con su ejecución por instalador habilitado.",
-          "tipo_actuacion": "informativa"
+          "tipo_actuacion": "informativa",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -123,7 +125,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -152,7 +156,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Nombre exacto del trámite no confirmado en esta revisión."
+          "notas": "Nombre exacto del trámite no confirmado en esta revisión.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -195,7 +201,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -224,7 +232,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -253,7 +263,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

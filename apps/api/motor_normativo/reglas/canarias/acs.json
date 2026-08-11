@@ -86,7 +86,9 @@
             }
           ],
           "notas": "Añadido por auditoría (ALTO): mismo hueco del umbral inferior de 5 kW que en climatización.",
-          "tipo_actuacion": "informativa"
+          "tipo_actuacion": "informativa",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -141,7 +143,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo/terciario, ver la regla ICAN-ACS-LEGIONELLA."
+          "notas": "Si el edificio es de uso colectivo/terciario, ver la regla ICAN-ACS-LEGIONELLA.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -170,7 +174,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -219,7 +225,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Ver la regla ICAN-ACS-LEGIONELLA si el edificio es de uso colectivo."
+          "notas": "Ver la regla ICAN-ACS-LEGIONELLA si el edificio es de uso colectivo.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -254,7 +262,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Confirmado por auditoría: no se exige ECA (Entidad Colaboradora); es comunicación directa con proyecto y certificado de dirección de obra, sin que sea necesaria la emisión de una resolución administrativa."
+          "notas": "Confirmado por auditoría: no se exige ECA (Entidad Colaboradora); es comunicación directa con proyecto y certificado de dirección de obra, sin que sea necesaria la emisión de una resolución administrativa.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -297,7 +307,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido por auditoría (ALTO): hueco crítico autodeclarado en la versión anterior — no existía ninguna regla de Legionella pese a estar señalado como pendiente."
+          "notas": "Añadido por auditoría (ALTO): hueco crítico autodeclarado en la versión anterior — no existía ninguna regla de Legionella pese a estar señalado como pendiente.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

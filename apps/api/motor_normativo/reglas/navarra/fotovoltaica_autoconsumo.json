@@ -91,7 +91,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Confirmado textualmente: instalaciones ≤100 kW conectadas a red ≤1 kV no precisan autorización administrativa previa ni de construcción (Decreto-ley Foral 1/2022)."
+          "notas": "Confirmado textualmente: instalaciones ≤100 kW conectadas a red ≤1 kV no precisan autorización administrativa previa ni de construcción (Decreto-ley Foral 1/2022).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -114,7 +116,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -137,7 +141,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -174,7 +180,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -197,7 +205,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para instalaciones ≤5 ha aplica el procedimiento simplificado del Decreto-ley Foral 1/2022, con especialidades en materia ambiental (Ley Foral 17/2020)."
+          "notas": "Para instalaciones ≤5 ha aplica el procedimiento simplificado del Decreto-ley Foral 1/2022, con especialidades en materia ambiental (Ley Foral 17/2020).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -220,7 +230,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -249,7 +261,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

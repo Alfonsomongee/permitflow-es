@@ -79,7 +79,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -102,7 +104,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -131,7 +135,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28 (CRÍTICO): base_legal actualizada. La Orden de 28/02/2003 citada previamente está derogada desde 2007 y venía con el departamento mal atribuido; sustituida por la Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo). plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 33; denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
+          "notas": "CORRECCION 2026-07-28 (CRÍTICO): base_legal actualizada. La Orden de 28/02/2003 citada previamente está derogada desde 2007 y venía con el departamento mal atribuido; sustituida por la Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo). plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 33; denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -154,7 +160,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "AÑADIDO 2026-07-28: faltaba este trámite, imprescindible tras la comunicación de puesta en servicio para que el suministro quede operativo. Organismo y plataforma exactos no verificados en fuente primaria; ver huecos_verificacion."
+          "notas": "AÑADIDO 2026-07-28: faltaba este trámite, imprescindible tras la comunicación de puesta en servicio para que el suministro quede operativo. Organismo y plataforma exactos no verificados en fuente primaria; ver huecos_verificacion.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -203,7 +211,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -232,7 +242,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -267,7 +279,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28 (CRÍTICO): base_legal actualizada (Orden de 28/02/2003 derogada, sustituida por Orden de 30/03/2007). plataforma_url rellenada con la ficha oficial confirmada del Trámite Nº 33."
+          "notas": "CORRECCION 2026-07-28 (CRÍTICO): base_legal actualizada (Orden de 28/02/2003 derogada, sustituida por Orden de 30/03/2007). plataforma_url rellenada con la ficha oficial confirmada del Trámite Nº 33.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -290,7 +304,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "AÑADIDO 2026-07-28: faltaba este trámite, imprescindible tras la comunicación de puesta en servicio para que el suministro quede operativo. Organismo y plataforma exactos no verificados en fuente primaria; ver huecos_verificacion."
+          "notas": "AÑADIDO 2026-07-28: faltaba este trámite, imprescindible tras la comunicación de puesta en servicio para que el suministro quede operativo. Organismo y plataforma exactos no verificados en fuente primaria; ver huecos_verificacion.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -327,7 +343,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -356,7 +374,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -391,7 +411,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

@@ -58,7 +58,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -113,7 +115,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Exención de documentación según la ficha oficial 1002272 (CORREGIDO 2026-07-28, alcance previo incompleto): (a) cualquier instalación <5 kW, sea cual sea el equipo; (b) calentadores instantáneos, acumuladores y termos eléctricos hasta 70 kW; (c) sistemas solares de elemento único prefabricado, sin límite de potencia expreso. No modelado por falta de campo de tipo de equipo en el schema."
+          "notas": "Exención de documentación según la ficha oficial 1002272 (CORREGIDO 2026-07-28, alcance previo incompleto): (a) cualquier instalación <5 kW, sea cual sea el equipo; (b) calentadores instantáneos, acumuladores y termos eléctricos hasta 70 kW; (c) sistemas solares de elemento único prefabricado, sin límite de potencia expreso. No modelado por falta de campo de tipo de equipo en el schema.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -142,7 +146,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -179,7 +185,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -208,7 +216,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "El paso 'EICI' del fichero original no se ha podido confirmar contra fuente oficial de Castilla-La Mancha; se sustituye por OCA genérico hasta verificar."
+          "notas": "El paso 'EICI' del fichero original no se ha podido confirmar contra fuente oficial de Castilla-La Mancha; se sustituye por OCA genérico hasta verificar.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -237,7 +247,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

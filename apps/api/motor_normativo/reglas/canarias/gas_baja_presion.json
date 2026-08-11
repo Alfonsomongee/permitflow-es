@@ -92,7 +92,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -115,7 +117,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido por auditoría (ALTO): la versión anterior pasaba directamente de certificado de instalador a comunicación, sin esta inspección previa declarada como requisito por la propia ficha."
+          "notas": "Añadido por auditoría (ALTO): la versión anterior pasaba directamente de certificado de instalador a comunicación, sin esta inspección previa declarada como requisito por la propia ficha.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -150,7 +154,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -185,7 +191,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo legal de 30 días no confirmado específicamente para Canarias; la ficha 3905 indica 'Plazo de presentación: Todo el año' y 'No cabe recurso', sin confirmar un plazo de 30 días. El objeto real de la ficha cubre gas envasado y canalizado, con requisitos que pueden diferir según el RIGLO; esta regla no distingue ambos supuestos por falta de un campo de entrada específico."
+          "notas": "Plazo legal de 30 días no confirmado específicamente para Canarias; la ficha 3905 indica 'Plazo de presentación: Todo el año' y 'No cabe recurso', sin confirmar un plazo de 30 días. El objeto real de la ficha cubre gas envasado y canalizado, con requisitos que pueden diferir según el RIGLO; esta regla no distingue ambos supuestos por falta de un campo de entrada específico.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

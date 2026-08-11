@@ -71,7 +71,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "El uso doméstico/comercial/industrial puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no se usa como condición de disparo (bug de cobertura ya corregido respecto al fichero original)."
+          "notas": "El uso doméstico/comercial/industrial puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no se usa como condición de disparo (bug de cobertura ya corregido respecto al fichero original).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -100,7 +102,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -129,7 +133,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -172,7 +178,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -201,7 +209,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -230,7 +240,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

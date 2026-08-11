@@ -65,7 +65,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -94,7 +96,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -117,7 +121,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido en revisión 2026-07-28."
+          "notas": "Añadido en revisión 2026-07-28.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -172,7 +178,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -201,7 +209,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -224,7 +234,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido en revisión 2026-07-28."
+          "notas": "Añadido en revisión 2026-07-28.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -273,7 +285,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -302,7 +316,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -325,7 +341,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido en revisión 2026-07-28."
+          "notas": "Añadido en revisión 2026-07-28.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

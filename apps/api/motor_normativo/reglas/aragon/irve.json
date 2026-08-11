@@ -122,7 +122,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -145,7 +147,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -174,7 +178,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 26; mismo trámite usado por fotovoltaica, denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 26; mismo trámite usado por fotovoltaica, denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -261,7 +267,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -284,7 +292,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -313,7 +323,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del Trámite Nº 26. CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del Trámite Nº 26. CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

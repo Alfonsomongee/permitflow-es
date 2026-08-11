@@ -183,7 +183,9 @@
           "regla_id": "CAT-FV-AT-REVISION",
           "tipo_actuacion": "revision_manual",
           "documentos_requeridos": [],
-          "notas": "No se aplica la ruta BT. Debe determinarse el procedimiento concreto según la instalación."
+          "notas": "No se aplica la ruta BT. Debe determinarse el procedimiento concreto según la instalación.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -239,7 +241,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "No confundir con el Registre d’Autoconsum de Catalunya (RAC)."
+          "notas": "No confundir con el Registre d’Autoconsum de Catalunya (RAC).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -333,7 +337,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Ámbito verificado: >15 y <=100 kW en cualquier tipo de suelo, o <=15 kW en suelo no urbanizable. No se presume automático ni de oficio; la documentación exacta debe confirmarse en la ficha vigente."
+          "notas": "Ámbito verificado: >15 y <=100 kW en cualquier tipo de suelo, o <=15 kW en suelo no urbanizable. No se presume automático ni de oficio; la documentación exacta debe confirmarse en la ficha vigente.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -383,7 +389,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Solo se activa cuando el dato técnico derivado requiere_registro_produccion es verdadero."
+          "notas": "Solo se activa cuando el dato técnico derivado requiere_registro_produccion es verdadero.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -434,7 +442,9 @@
           "regla_id": "CAT-FV-EXENCION-AAP-AAC-100-500",
           "tipo_actuacion": "informativa",
           "documentos_requeridos": [],
-          "notas": "La exención se limita a AAP/AAC y no elimina acceso/conexión, puesta en servicio, RAC o RIPRE cuando procedan."
+          "notas": "La exención se limita a AAP/AAC y no elimina acceso/conexión, puesta en servicio, RAC o RIPRE cuando procedan.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -484,7 +494,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -508,7 +520,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

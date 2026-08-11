@@ -86,7 +86,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -109,7 +111,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -138,7 +142,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "No confirmado si existe un 'Registro de autoconsumo' diferenciado; se usa el registro general de instalaciones BT."
+          "notas": "No confirmado si existe un 'Registro de autoconsumo' diferenciado; se usa el registro general de instalaciones BT.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -175,7 +181,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -198,7 +206,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "plazo_legal_dias no confirmado. NOTA: No existe ficha específica en sede.cantabria.es para este trámite, se presenta por registro general / instancia genérica a la Dirección General de Industria, Energía y Minas."
+          "notas": "plazo_legal_dias no confirmado. NOTA: No existe ficha específica en sede.cantabria.es para este trámite, se presenta por registro general / instancia genérica a la Dirección General de Industria, Energía y Minas.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -221,7 +231,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "El fichero original incluía aquí una 'Inspección EICI' que no está verificada: la propia ficha oficial de Cantabria declara que actualmente no existen entidades colaboradoras acreditadas para este procedimiento. No se incluye como trámite firme; verificar vigencia antes de exigirlo a un cliente real."
+          "notas": "El fichero original incluía aquí una 'Inspección EICI' que no está verificada: la propia ficha oficial de Cantabria declara que actualmente no existen entidades colaboradoras acreditadas para este procedimiento. No se incluye como trámite firme; verificar vigencia antes de exigirlo a un cliente real.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -250,7 +262,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

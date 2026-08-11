@@ -132,7 +132,9 @@
               "obligatorio": false
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -155,7 +157,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido tras auditoría 2026-07-28: el trámite 'DRPS' no existe con ese nombre en la CV; el nombre y el enlace (id_proc=440) corresponden al procedimiento real de instalaciones de BT con Memoria Técnica de Diseño."
+          "notas": "Corregido tras auditoría 2026-07-28: el trámite 'DRPS' no existe con ese nombre en la CV; el nombre y el enlace (id_proc=440) corresponden al procedimiento real de instalaciones de BT con Memoria Técnica de Diseño.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -242,7 +246,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -271,7 +277,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -300,7 +308,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido tras auditoría 2026-07-28: el trámite 'DRPS' no existe con ese nombre en la CV; el nombre y el enlace (id_proc=436) corresponden al procedimiento real con proyecto e inspección inicial por Organismo de Control Habilitado. Esta regla no cubre el caso 'con proyecto sin inspección inicial preceptiva' (id_proc=434) por falta de un campo en el schema — ver huecos_verificacion."
+          "notas": "Corregido tras auditoría 2026-07-28: el trámite 'DRPS' no existe con ese nombre en la CV; el nombre y el enlace (id_proc=436) corresponden al procedimiento real con proyecto e inspección inicial por Organismo de Control Habilitado. Esta regla no cubre el caso 'con proyecto sin inspección inicial preceptiva' (id_proc=434) por falta de un campo en el schema — ver huecos_verificacion.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

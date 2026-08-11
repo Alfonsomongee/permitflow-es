@@ -125,7 +125,9 @@
           "regla_id": "CAT-ACS-INFO",
           "tipo_actuacion": "informativa",
           "documentos_requeridos": [],
-          "notas": "No equivale a exención del cumplimiento técnico del RITE ni de otras obligaciones."
+          "notas": "No equivale a exención del cumplimiento técnico del RITE ni de otras obligaciones.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -183,7 +185,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -265,7 +269,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -353,7 +359,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Obligación sanitaria; no se modela como una solicitud administrativa universal."
+          "notas": "Obligación sanitaria; no se modela como una solicitud administrativa universal.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -425,7 +433,9 @@
           "regla_id": "CAT-ACS-INSPECCION-PERIODICA",
           "tipo_actuacion": "revision_manual",
           "documentos_requeridos": [],
-          "notas": "No debe presentarse como obligación cerrada hasta confirmar la ITA 9 oficial completa."
+          "notas": "No debe presentarse como obligación cerrada hasta confirmar la ITA 9 oficial completa.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

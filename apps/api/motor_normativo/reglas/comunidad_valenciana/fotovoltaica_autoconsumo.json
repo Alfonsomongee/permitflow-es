@@ -86,7 +86,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Inscripción de oficio en el Registro de autoconsumo de la CV; autoconsumo sin excedentes exento de autorización con independencia de la potencia."
+          "notas": "Inscripción de oficio en el Registro de autoconsumo de la CV; autoconsumo sin excedentes exento de autorización con independencia de la potencia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -135,7 +137,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Con excedentes ≤100 kW: inscripción de oficio en el Registro de producción."
+          "notas": "Con excedentes ≤100 kW: inscripción de oficio en el Registro de producción.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -192,7 +196,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -249,7 +255,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -306,7 +314,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -355,7 +365,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -404,7 +416,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -453,7 +467,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema)."
+          "notas": "Grupo primero: plazo 6 meses; silencio negativo (art. 6.3 Decreto 88/2005). Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

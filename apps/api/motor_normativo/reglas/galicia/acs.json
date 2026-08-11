@@ -62,7 +62,9 @@
             }
           ],
           "notas": "Las instalaciones de ACS con potencia térmica nominal ≤5 kW no están sujetas a comunicación de puesta en servicio ni registro ante la Jefatura Territorial según el RITE; basta con su ejecución por instalador habilitado. Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero.",
-          "tipo_actuacion": "informativa"
+          "tipo_actuacion": "informativa",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -117,7 +119,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
+          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -146,7 +150,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -189,7 +195,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo."
+          "notas": "Revisar hueco de Legionella (PPCL/PSL) si el edificio es de uso colectivo.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -218,7 +226,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -247,7 +257,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

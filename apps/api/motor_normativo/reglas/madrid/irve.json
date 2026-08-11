@@ -128,7 +128,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -198,7 +200,9 @@
               }
             }
           ],
-          "notas": "Requiere pago de tasas y tarifa EICI."
+          "notas": "Requiere pago de tasas y tarifa EICI.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -283,7 +287,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -319,7 +325,9 @@
               "obligatorio": false
             }
           ],
-          "notas": "Requiere pago de tasas y tarifa EICI."
+          "notas": "Requiere pago de tasas y tarifa EICI.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -362,7 +370,9 @@
           "regla_id": "MAD-IRVE-VIA-PUBLICA",
           "tipo_actuacion": "revision_manual",
           "documentos_requeridos": [],
-          "notas": "La puesta en servicio eléctrica no sustituye el título municipal para ocupar la vía pública."
+          "notas": "La puesta en servicio eléctrica no sustituye el título municipal para ocupar la vía pública.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

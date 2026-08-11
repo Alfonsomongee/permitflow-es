@@ -114,7 +114,7 @@ export const COBERTURA_NORMATIVA: Record<string, Record<string, CoberturaCombo>>
     climatizacion_aerotermia: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 4 },
     fotovoltaica_autoconsumo: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 6 },
     gas_baja_presion: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 5 },
-    irve: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 5 },
+    irve: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 6 },
   },
   navarra: {
     acs: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 6 },

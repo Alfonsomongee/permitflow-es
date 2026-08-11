@@ -130,7 +130,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -159,7 +161,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -246,7 +250,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -269,7 +275,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La ITC-BT-04 confirma que las estaciones de recarga que requieren proyecto están sujetas a inspección inicial dentro del régimen general de BT."
+          "notas": "La ITC-BT-04 confirma que las estaciones de recarga que requieren proyecto están sujetas a inspección inicial dentro del régimen general de BT.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -298,7 +306,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

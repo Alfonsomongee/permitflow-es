@@ -148,7 +148,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -171,7 +173,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA."
+          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -200,7 +204,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Este procedimiento (3158) está reservado por la propia ficha oficial a instalaciones receptoras NUEVAS."
+          "notas": "Este procedimiento (3158) está reservado por la propia ficha oficial a instalaciones receptoras NUEVAS.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -305,7 +311,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -328,7 +336,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -357,7 +367,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corrección crítica de auditoría: la versión anterior dirigía siempre al 3158, reservado a instalaciones receptoras NUEVAS. Una IRVE instalada en un garaje o vivienda ya legalizada (caso mayoritario) es una modificación/reforma → procedimiento 6782."
+          "notas": "Corrección crítica de auditoría: la versión anterior dirigía siempre al 3158, reservado a instalaciones receptoras NUEVAS. Una IRVE instalada en un garaje o vivienda ya legalizada (caso mayoritario) es una modificación/reforma → procedimiento 6782.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -456,7 +468,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones en vía pública requieren además título habilitante municipal de ocupación del dominio público — NO VERIFICADO el trámite concreto, depende de la ordenanza municipal."
+          "notas": "Instalaciones en vía pública requieren además título habilitante municipal de ocupación del dominio público — NO VERIFICADO el trámite concreto, depende de la ordenanza municipal.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -491,7 +505,9 @@
               "obligatorio": false
             }
           ],
-          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA; la OCA/EICI solo emite el certificado de inspección inicial cuando es preceptivo."
+          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA; la OCA/EICI solo emite el certificado de inspección inicial cuando es preceptivo.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -520,7 +536,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Este procedimiento (3158) está reservado por la propia ficha oficial a instalaciones receptoras NUEVAS."
+          "notas": "Este procedimiento (3158) está reservado por la propia ficha oficial a instalaciones receptoras NUEVAS.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -619,7 +637,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones en vía pública requieren además título habilitante municipal de ocupación del dominio público — NO VERIFICADO el trámite concreto, depende de la ordenanza municipal."
+          "notas": "Instalaciones en vía pública requieren además título habilitante municipal de ocupación del dominio público — NO VERIFICADO el trámite concreto, depende de la ordenanza municipal.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -654,7 +674,9 @@
               "obligatorio": false
             }
           ],
-          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA; la OCA/EICI solo emite el certificado de inspección inicial cuando es preceptivo."
+          "notas": "Corrección de auditoría: el certificado de instalación lo emite el instalador, no la OCA; la OCA/EICI solo emite el certificado de inspección inicial cuando es preceptivo.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -683,7 +705,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corrección crítica de auditoría: la versión anterior dirigía siempre al 3158, reservado a instalaciones receptoras NUEVAS."
+          "notas": "Corrección crítica de auditoría: la versión anterior dirigía siempre al 3158, reservado a instalaciones receptoras NUEVAS.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

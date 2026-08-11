@@ -29,6 +29,12 @@ export interface Tramite {
   plataforma_url: string | null;
   coste_estimado: string | null;
   formulario_ref?: string | null;
+  /** Registro de salida de la instalación (ej. "RITSIC"). Lo emite el backend
+   * desde 2026 pero faltaba en este tipo, así que no se renderizaba en ningún
+   * sitio (auditoría QA 2026-08-11, B-01). */
+  registro_salida?: string | null;
+  /** Medio de presentación exigido (ej. "electronico_obligatorio"). */
+  medio_presentacion?: string | null;
   paralelo_con?: number | null;
   regla_id?: string | null;
 }

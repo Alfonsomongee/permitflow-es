@@ -95,7 +95,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -118,7 +120,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -147,7 +151,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido 2026-07-28: sustituido el trámite genérico 3482 por el 599, específico para 'uso no industrial' (coincide con el ámbito residencial/comercial de esta regla). Plazo legal de 30 días desde puesta en servicio para instalaciones que requieren proyecto (ITC-ICG-07 apartado 3.6), aplicable solo cuando la instalación individual supera los 70 kW (apartado 3.2 ITC-ICG-07). Para instalaciones sin proyecto, no es precisa comunicación según la propia ITC-ICG-07 (hueco: esta regla no distingue todavía ese caso por potencia)."
+          "notas": "Corregido 2026-07-28: sustituido el trámite genérico 3482 por el 599, específico para 'uso no industrial' (coincide con el ámbito residencial/comercial de esta regla). Plazo legal de 30 días desde puesta en servicio para instalaciones que requieren proyecto (ITC-ICG-07 apartado 3.6), aplicable solo cuando la instalación individual supera los 70 kW (apartado 3.2 ITC-ICG-07). Para instalaciones sin proyecto, no es precisa comunicación según la propia ITC-ICG-07 (hueco: esta regla no distingue todavía ese caso por potencia).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -204,7 +210,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Proyecto exigido por presión >5 bar independientemente de la potencia, o por tratarse de uso industrial/terciario. Umbrales exactos de potencia para exigir proyecto en instalaciones industriales/terciarias en Cantabria NO VERIFICADOS (ver huecos_verificacion)."
+          "notas": "Proyecto exigido por presión >5 bar independientemente de la potencia, o por tratarse de uso industrial/terciario. Umbrales exactos de potencia para exigir proyecto en instalaciones industriales/terciarias en Cantabria NO VERIFICADOS (ver huecos_verificacion).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -227,7 +235,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -256,7 +266,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "AÑADIDA 2026-07-28 para cerrar el hueco de cobertura de uso industrial/terciario y presión >5 bar (detectado por el validador automático como 'plan vacío'). Trámite 438 confirmado real en sede.cantabria.es como procedimiento general de registro y puesta en servicio de instalaciones receptoras de gas (a diferencia del 599, que se limita a 'uso no industrial'). Plazo de 1 mes desde puesta en servicio confirmado por búsqueda; no se ha podido verificar con lectura completa de la ficha oficial (solo extractos de búsqueda) — revisar antes de publicar al cliente."
+          "notas": "AÑADIDA 2026-07-28 para cerrar el hueco de cobertura de uso industrial/terciario y presión >5 bar (detectado por el validador automático como 'plan vacío'). Trámite 438 confirmado real en sede.cantabria.es como procedimiento general de registro y puesta en servicio de instalaciones receptoras de gas (a diferencia del 599, que se limita a 'uso no industrial'). Plazo de 1 mes desde puesta en servicio confirmado por búsqueda; no se ha podido verificar con lectura completa de la ficha oficial (solo extractos de búsqueda) — revisar antes de publicar al cliente.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

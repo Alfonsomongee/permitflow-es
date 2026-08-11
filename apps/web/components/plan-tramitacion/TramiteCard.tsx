@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react";
 import {
   AlertTriangle,
+  Archive,
   BarChart3,
   Check,
   CheckCircle2,
@@ -13,6 +14,7 @@ import {
   FileText,
   Loader2,
   Scale,
+  Send,
 } from "lucide-react";
 import { PlataformaBadge } from "./PlataformaBadge";
 import type {
@@ -320,6 +322,31 @@ export function TramiteCard({
                   <div>
                     <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Coste estimado</p>
                     <p className="mt-0.5 text-xs leading-relaxed text-text-primary">{tramite.coste_estimado}</p>
+                  </div>
+                </div>
+              )}
+              {/* El backend emite estos dos campos desde hace tiempo, pero
+                  faltaban en el tipo del frontend y no se pintaban en ningún
+                  sitio (auditoría QA 2026-08-11, B-01). */}
+              {tramite.registro_salida && (
+                <div className="flex items-start gap-2.5">
+                  <Archive size={14} className="mt-0.5 flex-shrink-0 text-text-secondary" aria-hidden />
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Registro de salida</p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-text-primary">{tramite.registro_salida}</p>
+                  </div>
+                </div>
+              )}
+              {tramite.medio_presentacion && (
+                <div className="flex items-start gap-2.5">
+                  <Send size={14} className="mt-0.5 flex-shrink-0 text-text-secondary" aria-hidden />
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">Medio de presentación</p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-text-primary">
+                      {tramite.medio_presentacion === "electronico_obligatorio"
+                        ? "Electrónico obligatorio"
+                        : tramite.medio_presentacion.replace(/_/g, " ")}
+                    </p>
                   </div>
                 </div>
               )}

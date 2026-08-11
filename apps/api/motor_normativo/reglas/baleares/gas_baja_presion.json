@@ -66,7 +66,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -89,7 +91,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -118,7 +122,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido 2026-07-28: la ficha oficial del trámite de instalaciones receptoras de gas (UDIT-013) establece que las instalaciones que NO requieren proyecto técnico (como esta, ≤70 kW) se tramitan directamente con la empresa suministradora, y no ante la Dirección General de Industria de la CAIB (que solo interviene cuando hay proyecto técnico, ver BAL-GAS-002)."
+          "notas": "Corregido 2026-07-28: la ficha oficial del trámite de instalaciones receptoras de gas (UDIT-013) establece que las instalaciones que NO requieren proyecto técnico (como esta, ≤70 kW) se tramitan directamente con la empresa suministradora, y no ante la Dirección General de Industria de la CAIB (que solo interviene cuando hay proyecto técnico, ver BAL-GAS-002).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -155,7 +161,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -178,7 +186,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -207,7 +217,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La partición se basa únicamente en potencia_kw. El campo 'uso' (doméstico/terciario/industrial) puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no debe usarse como condición de disparo porque, al ser opcional, un valor ausente (None) puede dejar la instalación sin ningún trámite asignado (bug de partición ya corregido respecto al fichero original)."
+          "notas": "La partición se basa únicamente en potencia_kw. El campo 'uso' (doméstico/terciario/industrial) puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no debe usarse como condición de disparo porque, al ser opcional, un valor ausente (None) puede dejar la instalación sin ningún trámite asignado (bug de partición ya corregido respecto al fichero original).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

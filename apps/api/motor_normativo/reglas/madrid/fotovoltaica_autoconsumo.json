@@ -109,7 +109,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La documentación exacta depende de la modalidad y de la Instrucción vigente."
+          "notas": "La documentación exacta depende de la modalidad y de la Instrucción vigente.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -159,7 +161,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Las fases concretas dependen de las características del expediente."
+          "notas": "Las fases concretas dependen de las características del expediente.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -226,7 +230,9 @@
           "regla_id": "MAD-FV-REGISTRO-OFICIO",
           "tipo_actuacion": "oficio_administracion",
           "documentos_requeridos": [],
-          "notas": "No requiere solicitud del titular cuando consumidor y generación están en BT y la potencia instalada es inferior a 100 kW."
+          "notas": "No requiere solicitud del titular cuando consumidor y generación están en BT y la potencia instalada es inferior a 100 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -306,7 +312,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La ficha oficial indica que no requiere pago de tasa."
+          "notas": "La ficha oficial indica que no requiere pago de tasa.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -356,7 +364,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Solo aplica cuando requiere_registro_produccion es verdadero."
+          "notas": "Solo aplica cuando requiere_registro_produccion es verdadero.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

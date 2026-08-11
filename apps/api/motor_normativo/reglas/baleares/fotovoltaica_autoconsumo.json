@@ -102,7 +102,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -125,7 +127,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Paso 2 de la ventanilla oficial de pequeña potencia de la CAIB. Solo aplica en determinados casos (típicamente autoconsumo con excedentes, modalidad_autoconsumo distinta de 'sin_excedentes'); en autoconsumo sin excedentes puede no ser necesario."
+          "notas": "Paso 2 de la ventanilla oficial de pequeña potencia de la CAIB. Solo aplica en determinados casos (típicamente autoconsumo con excedentes, modalidad_autoconsumo distinta de 'sin_excedentes'); en autoconsumo sin excedentes puede no ser necesario.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -148,7 +152,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -171,7 +177,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "No verificado municipio a municipio (67 ayuntamientos de Illes Balears); puede incluir afección de normativa insular o de patrimonio en cascos históricos."
+          "notas": "No verificado municipio a municipio (67 ayuntamientos de Illes Balears); puede incluir afección de normativa insular o de patrimonio en cascos históricos.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 5,
@@ -200,7 +208,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La inscripción en el Registro de autoconsumo de las Illes Balears la realiza de oficio la Dirección General una vez completada la documentación del procedimiento 034 (confirmado en guía oficial de tramitación de autoconsumo de pequeña potencia)."
+          "notas": "La inscripción en el Registro de autoconsumo de las Illes Balears la realiza de oficio la Dirección General una vez completada la documentación del procedimiento 034 (confirmado en guía oficial de tramitación de autoconsumo de pequeña potencia).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 6,
@@ -223,7 +233,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Paso 8 de la ventanilla oficial de pequeña potencia de la CAIB. Aplica en autoconsumo con excedentes (modalidad_autoconsumo distinta de 'sin_excedentes')."
+          "notas": "Paso 8 de la ventanilla oficial de pequeña potencia de la CAIB. Aplica en autoconsumo con excedentes (modalidad_autoconsumo distinta de 'sin_excedentes').",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 7,
@@ -239,7 +251,9 @@
           "paralelo_con": null,
           "regla_id": "BAL-FV-001",
           "documentos_requeridos": [],
-          "notas": "Paso 9 de la ventanilla oficial de pequeña potencia de la CAIB. Aplica en autoconsumo con excedentes (modalidad_autoconsumo distinta de 'sin_excedentes')."
+          "notas": "Paso 9 de la ventanilla oficial de pequeña potencia de la CAIB. Aplica en autoconsumo con excedentes (modalidad_autoconsumo distinta de 'sin_excedentes').",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 8,
@@ -255,7 +269,9 @@
           "paralelo_con": null,
           "regla_id": "BAL-FV-001",
           "documentos_requeridos": [],
-          "notas": "Paso 11 (último) de la ventanilla oficial de pequeña potencia de la CAIB."
+          "notas": "Paso 11 (último) de la ventanilla oficial de pequeña potencia de la CAIB.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -292,7 +308,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -321,7 +339,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -337,7 +357,9 @@
           "paralelo_con": null,
           "regla_id": "BAL-FV-002",
           "documentos_requeridos": [],
-          "notas": "Paso 2 de la ventanilla oficial de la CAIB, exigible con carácter general por encima de 500 kW."
+          "notas": "Paso 2 de la ventanilla oficial de la CAIB, exigible con carácter general por encima de 500 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -353,7 +375,9 @@
           "paralelo_con": null,
           "regla_id": "BAL-FV-002",
           "documentos_requeridos": [],
-          "notas": "No verificado municipio a municipio (67 ayuntamientos de Illes Balears)."
+          "notas": "No verificado municipio a municipio (67 ayuntamientos de Illes Balears).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 5,
@@ -382,7 +406,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "plazo_legal_dias no confirmado. Para instalaciones de producción de potencia superior a 500 kW la CAIB gestiona un trámite de autorización específico (\"Autorización de instalaciones de producción de energía eléctrica de potencia superior a 500 kW\"), distinto de la ventanilla de pequeña potencia."
+          "notas": "plazo_legal_dias no confirmado. Para instalaciones de producción de potencia superior a 500 kW la CAIB gestiona un trámite de autorización específico (\"Autorización de instalaciones de producción de energía eléctrica de potencia superior a 500 kW\"), distinto de la ventanilla de pequeña potencia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 6,
@@ -398,7 +424,9 @@
           "paralelo_con": null,
           "regla_id": "BAL-FV-002",
           "documentos_requeridos": [],
-          "notas": "Paso 8 de la ventanilla oficial de la CAIB."
+          "notas": "Paso 8 de la ventanilla oficial de la CAIB.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 7,
@@ -414,7 +442,9 @@
           "paralelo_con": null,
           "regla_id": "BAL-FV-002",
           "documentos_requeridos": [],
-          "notas": "Paso 9 de la ventanilla oficial de la CAIB."
+          "notas": "Paso 9 de la ventanilla oficial de la CAIB.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 8,
@@ -430,7 +460,9 @@
           "paralelo_con": null,
           "regla_id": "BAL-FV-002",
           "documentos_requeridos": [],
-          "notas": "Paso 11 (último) de la ventanilla oficial de la CAIB."
+          "notas": "Paso 11 (último) de la ventanilla oficial de la CAIB.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

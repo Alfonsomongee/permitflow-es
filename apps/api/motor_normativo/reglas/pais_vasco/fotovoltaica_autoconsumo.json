@@ -76,7 +76,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Autoconsumo sin excedentes excluido de autorización con independencia de la potencia."
+          "notas": "Autoconsumo sin excedentes excluido de autorización con independencia de la potencia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -125,7 +127,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Umbral de 100 kW: umbral general estatal (RD 1955/2000 / Ley 24/2013 art. 53.2) aplicable en toda España, también en el País Vasco. No es una particularidad autonómica diferenciada."
+          "notas": "Umbral de 100 kW: umbral general estatal (RD 1955/2000 / Ley 24/2013 art. 53.2) aplicable en toda España, también en el País Vasco. No es una particularidad autonómica diferenciada.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -148,7 +152,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28."
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -197,7 +203,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53)."
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -220,7 +228,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28."
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -269,7 +279,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53)."
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -292,7 +304,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28."
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -341,7 +355,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53). El fichero original distinguía tramos 600k-1.5M€ y >1.5M€ con tasas de 204,96€ y 787,77€ respectivamente — no verificados con detalle, fusionados aquí en una sola regla hasta confirmar."
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53). El fichero original distinguía tramos 600k-1.5M€ y >1.5M€ con tasas de 204,96€ y 787,77€ respectivamente — no verificados con detalle, fusionados aquí en una sola regla hasta confirmar.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -364,7 +380,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28."
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

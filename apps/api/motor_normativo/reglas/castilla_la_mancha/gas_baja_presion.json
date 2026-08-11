@@ -64,7 +64,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -87,7 +89,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -124,7 +128,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -147,7 +153,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -176,7 +184,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo de 30 días desde puesta en servicio (régimen general ITC-ICG-07 3.6, consistente con lo confirmado en Asturias); no verificado el plazo exacto específico de Castilla-La Mancha. CORREGIDO 2026-07-28: plataforma_url apuntaba al trámite 1002259 ('Registro de una estación de servicio para vehículos a gas', objeto distinto); se sustituye por 1002260 ('Registro de una instalación receptora de combustibles gaseosos'), el trámite real de legalización."
+          "notas": "Plazo de 30 días desde puesta en servicio (régimen general ITC-ICG-07 3.6, consistente con lo confirmado en Asturias); no verificado el plazo exacto específico de Castilla-La Mancha. CORREGIDO 2026-07-28: plataforma_url apuntaba al trámite 1002259 ('Registro de una estación de servicio para vehículos a gas', objeto distinto); se sustituye por 1002260 ('Registro de una instalación receptora de combustibles gaseosos'), el trámite real de legalización.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

@@ -52,7 +52,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -107,7 +109,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "NO VERIFICADO si por debajo de 5 kW existe un régimen distinto (exención de registro o trámite simplificado). La ficha oficial del código 61 solo detalla modelos para '5-70 kW' y '>70 kW'; se aplica cautelarmente el mismo trámite que el tramo 5-70 kW hasta confirmación."
+          "notas": "NO VERIFICADO si por debajo de 5 kW existe un régimen distinto (exención de registro o trámite simplificado). La ficha oficial del código 61 solo detalla modelos para '5-70 kW' y '>70 kW'; se aplica cautelarmente el mismo trámite que el tramo 5-70 kW hasta confirmación.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -136,7 +140,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "NO VERIFICADO si el registro es exigible por debajo de 5 kW."
+          "notas": "NO VERIFICADO si el registro es exigible por debajo de 5 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -191,7 +197,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -220,7 +228,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -263,7 +273,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -292,7 +304,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

@@ -73,7 +73,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -128,7 +130,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -157,7 +161,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones <5 kW pueden quedar fuera del ámbito de comunicación según el propio RITE — no modelado en esta regla."
+          "notas": "Instalaciones <5 kW pueden quedar fuera del ámbito de comunicación según el propio RITE — no modelado en esta regla.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -200,7 +206,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -229,7 +237,9 @@
               "obligatorio": false
             }
           ],
-          "notas": "Corregido tras auditoría 2026-07-28: antes se exigía de forma incondicional para toda instalación >70 kW; la ficha oficial la condiciona ('cuando sea preceptivo')."
+          "notas": "Corregido tras auditoría 2026-07-28: antes se exigía de forma incondicional para toda instalación >70 kW; la ficha oficial la condiciona ('cuando sea preceptivo').",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -258,7 +268,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Enlace corregido a id_proc=450 (id_proc=G450 devolvía página vacía). Aplica exclusivamente al supuesto de una única empresa instaladora; si intervienen varias empresas coordinadas por técnico, el procedimiento real es id_proc=22742, no modelado por falta de campo en el schema."
+          "notas": "Enlace corregido a id_proc=450 (id_proc=G450 devolvía página vacía). Aplica exclusivamente al supuesto de una única empresa instaladora; si intervienen varias empresas coordinadas por técnico, el procedimiento real es id_proc=22742, no modelado por falta de campo en el schema.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

@@ -85,7 +85,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "En instalaciones de hasta 15 kW en suelo urbanizado el promotor o instalador puede solicitar directamente el CAU a la distribuidora. En el resto de casos, el CAU se obtiene dentro del proceso de solicitud de acceso y conexión (RD 1183/2020). Es un trámite obligatorio y previo a la puesta en servicio y a la inscripción en el registro autonómico (RECE0017T01/RECE0004T01), no modelado hasta la auditoría de 2026-07-28."
+          "notas": "En instalaciones de hasta 15 kW en suelo urbanizado el promotor o instalador puede solicitar directamente el CAU a la distribuidora. En el resto de casos, el CAU se obtiene dentro del proceso de solicitud de acceso y conexión (RD 1183/2020). Es un trámite obligatorio y previo a la puesta en servicio y a la inscripción en el registro autonómico (RECE0017T01/RECE0004T01), no modelado hasta la auditoría de 2026-07-28.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -146,7 +148,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Exento de Autorización Administrativa Previa y de Construcción."
+          "notas": "Exento de Autorización Administrativa Previa y de Construcción.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -169,7 +173,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -204,7 +210,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite de seguridad industrial para uso no industrial."
+          "notas": "Trámite de seguridad industrial para uso no industrial.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -265,7 +273,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -288,7 +298,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -317,7 +329,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite específico para recintos industriales."
+          "notas": "Trámite específico para recintos industriales.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -374,7 +388,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -403,7 +419,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "AUTO0301T01 es el único trámite de Autorización Administrativa Previa disponible en la sede del Principado (verificado 2026-07-28); no existe cauce específico de autoconsumo. Entre sus requisitos figura acreditar capacidad técnica como productor (3 años de experiencia u otras vías equivalentes, art. 'Quién lo puede presentar'), pensado originalmente para productores. No se ha confirmado si los autoconsumidores individuales que superan este umbral están exentos de ese requisito; se recomienda revisión manual del caso concreto antes de dar el trámite por cerrado."
+          "notas": "AUTO0301T01 es el único trámite de Autorización Administrativa Previa disponible en la sede del Principado (verificado 2026-07-28); no existe cauce específico de autoconsumo. Entre sus requisitos figura acreditar capacidad técnica como productor (3 años de experiencia u otras vías equivalentes, art. 'Quién lo puede presentar'), pensado originalmente para productores. No se ha confirmado si los autoconsumidores individuales que superan este umbral están exentos de ese requisito; se recomienda revisión manual del caso concreto antes de dar el trámite por cerrado.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -426,7 +444,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -483,7 +503,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -512,7 +534,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "AUTO0301T01 es el único trámite de Autorización Administrativa Previa disponible en la sede del Principado (verificado 2026-07-28); no existe cauce específico de autoconsumo. Entre sus requisitos figura acreditar capacidad técnica como productor (3 años de experiencia u otras vías equivalentes). No se ha confirmado si los autoconsumidores industriales que superan este umbral están exentos de ese requisito; se recomienda revisión manual del caso concreto."
+          "notas": "AUTO0301T01 es el único trámite de Autorización Administrativa Previa disponible en la sede del Principado (verificado 2026-07-28); no existe cauce específico de autoconsumo. Entre sus requisitos figura acreditar capacidad técnica como productor (3 años de experiencia u otras vías equivalentes). No se ha confirmado si los autoconsumidores industriales que superan este umbral están exentos de ese requisito; se recomienda revisión manual del caso concreto.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -535,7 +559,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -581,7 +607,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si tiene excedentes, requiere contrato técnico. Si es sin excedentes, requiere certificado de imposibilidad de vertido."
+          "notas": "Si tiene excedentes, requiere contrato técnico. Si es sin excedentes, requiere certificado de imposibilidad de vertido.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

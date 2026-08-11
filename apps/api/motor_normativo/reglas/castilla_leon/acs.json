@@ -67,7 +67,9 @@
           "regla_id": "CYL-ACS-000",
           "documentos_requeridos": [],
           "notas": "Instalaciones de potencia inferior a 5 kW quedan fuera del ámbito de aplicación del RITE y no requieren memoria técnica, proyecto ni inscripción en el Registro de instalaciones térmicas (aplicación 'RITE', IAPA1468). Si el edificio es de uso colectivo, revisar igualmente la regla CYL-ACS-003 de Legionella, que no depende de la potencia.",
-          "tipo_actuacion": "informativa"
+          "tipo_actuacion": "informativa",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -122,7 +124,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo/terciario, ver además la regla CYL-ACS-003 (Plan de Prevención y Control de Legionelosis)."
+          "notas": "Si el edificio es de uso colectivo/terciario, ver además la regla CYL-ACS-003 (Plan de Prevención y Control de Legionelosis).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -151,7 +155,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -188,7 +194,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo, ver además la regla CYL-ACS-003 (Plan de Prevención y Control de Legionelosis)."
+          "notas": "Si el edificio es de uso colectivo, ver además la regla CYL-ACS-003 (Plan de Prevención y Control de Legionelosis).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -217,7 +225,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -246,7 +256,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -289,7 +301,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Regla añadida en la revisión 2026-07-28 usando el campo 'uso_colectivo' del schema (previamente sin usar en este fichero). No se ha localizado normativa autonómica de Castilla y León específica de censo/registro de instalaciones de riesgo de legionelosis; se aplica el régimen estatal."
+          "notas": "Regla añadida en la revisión 2026-07-28 usando el campo 'uso_colectivo' del schema (previamente sin usar en este fichero). No se ha localizado normativa autonómica de Castilla y León específica de censo/registro de instalaciones de riesgo de legionelosis; se aplica el régimen estatal.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -312,7 +326,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "NO VERIFICADO: no se ha confirmado el procedimiento/plataforma específico de censo de instalaciones de riesgo de la Consejería de Sanidad de Castilla y León; se deja el organismo competente sin ficha de trámite hasta verificar."
+          "notas": "NO VERIFICADO: no se ha confirmado el procedimiento/plataforma específico de censo de instalaciones de riesgo de la Consejería de Sanidad de Castilla y León; se deja el organismo competente sin ficha de trámite hasta verificar.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

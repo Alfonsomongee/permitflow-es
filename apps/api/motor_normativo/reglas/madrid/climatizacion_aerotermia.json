@@ -82,7 +82,9 @@
           "regla_id": "MAD-AERO-INFO",
           "tipo_actuacion": "informativa",
           "documentos_requeridos": [],
-          "notas": "No equivale a exención del cumplimiento técnico."
+          "notas": "No equivale a exención del cumplimiento técnico.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -140,7 +142,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -170,7 +174,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Requiere tasa; consultar importe y tarifa vigentes."
+          "notas": "Requiere tasa; consultar importe y tarifa vigentes.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -220,7 +226,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -256,7 +264,9 @@
               "obligatorio": false
             }
           ],
-          "notas": "La posible inspección se determina por el procedimiento aplicable; no se infiere universalmente por potencia."
+          "notas": "La posible inspección se determina por el procedimiento aplicable; no se infiere universalmente por potencia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

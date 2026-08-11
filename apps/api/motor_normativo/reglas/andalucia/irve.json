@@ -206,7 +206,10 @@
             }
           ],
           "notas": "Para instalaciones ≤50 kW privadas, la MTD sustituye al proyecto técnico. No requiere visado colegial.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -233,7 +236,10 @@
             }
           ],
           "notas": "El CIE es el documento que acredita que la instalación ha sido ejecutada conforme a la MTD. Se presenta junto con la MTD en el registro PUES.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -267,7 +273,9 @@
           ],
           "notas": "Procedimiento TECI: registro declarativo simplificado (sin proyecto), no consta plazo legal de resolución fijado por norma — por eso plazo_legal_dias es null. Código de procedimiento 6513 (SIA 215668), verificado con fuente primaria oficial (juntadeandalucía.es). URL directa de la sede pendiente de verificar en próxima fase. CORRIGE el enrutamiento anterior: esta instalación se dirigía a PUES; el PUES queda reservado para modo 4, exterior >10 kW o interior >50 kW (regla AND-IRVE-005).",
           "formulario_ref": "6513",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -294,7 +302,10 @@
             }
           ],
           "notas": "Esta comunicación es informativa cuando no se requiere nuevo suministro. La distribuidora dispone de 15 días hábiles para responder. En Andalucía, la distribuidora de referencia es Endesa (E-Distribución Redes Digitales).",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -405,7 +416,10 @@
             }
           ],
           "notas": "Requiere proyecto por superar los umbrales TECI (Modo 4, exterior >10 kW o interior >50 kW).",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -426,7 +440,10 @@
             }
           ],
           "notas": "El CIE se presenta junto con el proyecto visado en el registro PUES.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -466,7 +483,9 @@
           ],
           "formulario_ref": "6505",
           "notas": "Plazo legal de resolución: 45 días hábiles. Silencio administrativo positivo.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -577,7 +596,10 @@
             }
           ],
           "notas": "Requiere proyecto por superar los umbrales TECI (Modo 4, exterior >10 kW o interior >50 kW).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -598,7 +620,10 @@
             }
           ],
           "notas": "El CIE se presenta junto con el proyecto visado en el registro PUES.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -638,7 +663,9 @@
           ],
           "formulario_ref": "6505",
           "notas": "Plazo legal de resolución: 45 días hábiles. Silencio administrativo positivo.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -761,7 +788,10 @@
             }
           ],
           "notas": "Requiere proyecto por superar los umbrales TECI (Modo 4, exterior >10 kW o interior >50 kW).",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -782,7 +812,10 @@
             }
           ],
           "notas": "El CIE se presenta junto con el proyecto visado en el registro PUES.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -822,7 +855,9 @@
           ],
           "formulario_ref": "6505",
           "notas": "Plazo legal de resolución: 45 días hábiles. Silencio administrativo positivo.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -933,7 +968,10 @@
             }
           ],
           "notas": "Requiere proyecto por superar los umbrales TECI (Modo 4, exterior >10 kW o interior >50 kW).",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -954,7 +992,10 @@
             }
           ],
           "notas": "El CIE se presenta junto con el proyecto visado en el registro PUES.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -994,7 +1035,9 @@
           ],
           "formulario_ref": "6505",
           "notas": "Plazo legal de resolución: 45 días hábiles. Silencio administrativo positivo.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -1029,7 +1072,10 @@
             }
           ],
           "notas": "Para IRVE de acceso público, siempre se requiere proyecto técnico con independencia de la potencia.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -1062,7 +1108,10 @@
             }
           ],
           "notas": "CORRIGE una confusion heredada: no existe un 'registro TECI' a nivel nacional; el nombre 'TECI' es exclusivo del sistema regional andaluz de baja tension sin proyecto (ver regla AND-IRVE-001). El registro estatal para operadores de puntos de recarga de acceso publico (CPO) es RIPREE, gestionado por MITECO. Es una obligacion del operador (CPO), no del titular de una instalacion privada: registra al operador para el reporte de informacion (protocolo OCPI hacia el Sistema de Gestion y Visualizacion de Red Electrica y el mapa REVE), no es una autorizacion de puesta en servicio de la instalacion (esa sigue via PUES, regla AND-IRVE-002 orden 3).",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -1101,7 +1150,10 @@
             }
           ],
           "notas": "El registro PUES se realiza tras obtener el registro TECI. Ambos son independientes pero el TECI debe estar completado primero.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -1142,7 +1194,10 @@
             }
           ],
           "notas": "La distribuidora tiene 60 días hábiles para responder la solicitud de acceso. Este trámite puede ejecutarse en paralelo con la MTD/CIE para reducir el plazo total.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -1170,7 +1225,10 @@
           "coste_estimado": "No aplica: programa cerrado a nuevas solicitudes",
           "documentos_requeridos": [],
           "notas": "MOVES III finalizo definitivamente el 31/12/2025 (RD 609/2026, de 22 de julio, considerando vigente el Programa MOVES 'entre los años 2019 y 2025'). El programa sucesor estatal, Programa Auto+ (RD 609/2026, desarrollo del RDL 7/2026), financia UNICAMENTE la compra de vehiculo electrico y NO cubre infraestructura de recarga. Para infraestructura de recarga de ACCESO PUBLICO existe el programa MOVES Corredores de Recarga (Orden TED/1477/2025, gestionado por IDAE), pero su convocatoria ya cerro el plazo de solicitudes el 10/02/2026 -- no es una via abierta a fecha de esta revision. Para instalaciones privadas/domesticas de recarga no existe ayuda estatal directa vigente. Contexto fiscal (no gestionado por este producto): deduccion del 15% en IRPF por instalacion de punto de recarga (art. 10 Ley 35/2006) -- verificar vigencia exacta antes de comunicarla al cliente, su estado de convalidacion parlamentaria no esta completamente confirmado. Si el usuario tiene una ayuda MOVES III ya concedida, el plazo de justificacion se extiende hasta el 31/12/2026.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

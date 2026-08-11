@@ -92,7 +92,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -121,7 +123,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Inscripción inmediata a partir de la presentación de la documentación de puesta en servicio (confirmado en ficha oficial)."
+          "notas": "Inscripción inmediata a partir de la presentación de la documentación de puesta en servicio (confirmado en ficha oficial).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -158,7 +162,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -181,7 +187,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Umbral de 100 kW para inspección inicial confirmado en la ITC-BT-04, aplicable en el resto de Castilla y León igual que en Castilla-La Mancha."
+          "notas": "Umbral de 100 kW para inspección inicial confirmado en la ITC-BT-04, aplicable en el resto de Castilla y León igual que en Castilla-La Mancha.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -210,7 +218,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "plazo_legal_dias no confirmado."
+          "notas": "plazo_legal_dias no confirmado.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

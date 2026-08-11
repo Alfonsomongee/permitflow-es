@@ -67,7 +67,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación de agua caliente sanitaria. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación de agua caliente sanitaria. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -144,7 +146,10 @@
             }
           ],
           "notas": "Las instalaciones de ACS deben mantener el agua a ≥60°C en el acumulador y ≥50°C en los puntos de consumo para prevenir la legionelosis.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -178,7 +183,9 @@
           ],
           "notas": null,
           "paralelo_con": null,
-          "formulario_ref": "6505"
+          "formulario_ref": "6505",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -255,7 +262,10 @@
             }
           ],
           "notas": "Las instalaciones de ACS deben mantener el agua a ≥60°C en el acumulador y ≥50°C en los puntos de consumo para prevenir la legionelosis.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -289,7 +299,9 @@
           ],
           "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
           "paralelo_con": null,
-          "formulario_ref": "6505"
+          "formulario_ref": "6505",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -366,7 +378,10 @@
             }
           ],
           "notas": "Las instalaciones de ACS deben mantener el agua a ≥60°C en el acumulador y ≥50°C en los puntos de consumo para prevenir la legionelosis.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -400,7 +415,9 @@
           ],
           "notas": null,
           "paralelo_con": null,
-          "formulario_ref": "6505"
+          "formulario_ref": "6505",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -471,7 +488,10 @@
             }
           ],
           "notas": null,
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -499,7 +519,9 @@
           ],
           "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
           "paralelo_con": null,
-          "formulario_ref": null
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -570,7 +592,10 @@
             }
           ],
           "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -598,7 +623,9 @@
           ],
           "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.\nPENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
           "paralelo_con": null,
-          "formulario_ref": null
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -681,7 +708,10 @@
             }
           ],
           "notas": null,
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -709,7 +739,9 @@
           ],
           "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
           "paralelo_con": null,
-          "formulario_ref": null
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -780,7 +812,10 @@
             }
           ],
           "notas": null,
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -808,7 +843,9 @@
           ],
           "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
           "paralelo_con": null,
-          "formulario_ref": null
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -889,7 +926,10 @@
             }
           ],
           "notas": "El RD 487/2022 (en vigor desde 2023) amplía las instalaciones sujetas a control de legionella. Hoteles, hospitales, gimnasios y cualquier instalación con acumuladores >2.000 L están obligados.",
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -917,7 +957,9 @@
           ],
           "notas": "La notificación debe realizarse antes de la puesta en marcha de la instalación. Las inspecciones de Salud Pública son periódicas y no anunciadas. NOTA DE CRITERIO: el disparador legal correcto de esta obligación es el ámbito del art. 3.1 del RD 487/2022 (uso colectivo con posible aerosolización, típicamente ACS con acumulación y recirculación), NO la potencia. Mientras el wizard no capture uso_colectivo/acumulacion/recirculacion (Bloque 9B pendiente), esta regla usa el criterio de potencia/uso como red de seguridad transitoria para no perder cobertura; en cuanto existan esos campos, sustituir por el criterio legal correcto.",
           "paralelo_con": null,
-          "formulario_ref": "10527"
+          "formulario_ref": "10527",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

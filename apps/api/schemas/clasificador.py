@@ -107,43 +107,86 @@ class ClasificadorInput(BaseModel):
     @model_validator(mode='after')
     def validate_inputs_by_ca(self):
         # Madrid Gas Validation
+        # Los mensajes van en castellano como el resto de la aplicación: el proxy
+        # los reenvía tal cual al usuario, así que estaban llegando en inglés
+        # (auditoría QA 2026-08-11, B-06).
         if self.comunidad == "madrid" and self.tipo_instalacion == "gas_baja_presion":
             if self.potencia_resultante_kw is None:
-                raise ValueError("potencia_resultante_kw is required for gas installations")
+                raise ValueError(
+                    "Indica la potencia resultante de la instalación de gas: en Madrid "
+                    "determina si hace falta proyecto técnico."
+                )
             if self.presion_resultante_bar is None:
-                raise ValueError("presion_resultante_bar is required for gas installations")
+                raise ValueError(
+                    "Indica la presión resultante de la instalación de gas: en Madrid "
+                    "determina el procedimiento aplicable."
+                )
             if self.es_ampliacion:
                 if self.incremento_potencia_pct is None or self.incremento_potencia_pct == 0:
-                    raise ValueError("incremento_potencia_pct must be provided and greater than 0 when es_ampliacion is True")
+                    raise ValueError(
+                        "Has marcado que es una ampliación: indica el porcentaje de "
+                        "incremento de potencia respecto a la instalación original."
+                    )
         
         # Cataluña Validations
         if self.comunidad == "cataluna":
             if self.tipo_instalacion == "gas_baja_presion":
                 if self.potencia_resultante_kw is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica la potencia resultante de la instalación de gas: en Cataluña "
+                        "determina si hace falta proyecto técnico."
+                    )
                 if self.presion_resultante_bar is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica la presión resultante de la instalación de gas: en Cataluña determina "
+                        "el procedimiento aplicable."
+                    )
                 if self.es_ampliacion:
                     if self.incremento_potencia_pct is None or self.incremento_potencia_pct == 0:
-                        raise ValueError("revision_manual")
+                        raise ValueError(
+                            "Has marcado que es una ampliación: indica el porcentaje de incremento de "
+                            "potencia respecto a la instalación original."
+                        )
             
             elif self.tipo_instalacion == "irve" and self.ubicacion_irve == "garaje_comunitario":
                 if self.uso_edificio is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica el uso del edificio: en un garaje comunitario de Cataluña, la "
+                        "ITC-BT-04 distingue entre edificio residencial y no residencial."
+                    )
                 if self.ventilacion_garaje is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica si la ventilación del garaje es natural o forzada: condiciona los "
+                        "requisitos de seguridad de la instalación de recarga."
+                    )
                 if self.numero_plazas_garaje is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica el número de plazas del garaje: es uno de los umbrales que decide el "
+                        "nivel de documentación exigible."
+                    )
                 if self.garaje_existente is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica si el garaje es existente o de obra nueva: la ITC-BT-04 aplica "
+                        "requisitos distintos a cada caso."
+                    )
             
             elif self.tipo_instalacion == "fotovoltaica_autoconsumo":
                 if self.modalidad_autoconsumo is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Selecciona la modalidad de autoconsumo (sin excedentes, con excedentes con o "
+                        "sin compensación): determina buena parte del plan."
+                    )
                 if self.ubicacion_suelo is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica la clasificación del suelo (urbanizado o no urbanizable): en suelo no "
+                        "urbanizable pueden exigirse autorizaciones adicionales."
+                    )
                 if self.requiere_acceso_conexion is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica si la instalación requiere acceso y conexión a la red de "
+                        "distribución: de ello depende todo el bloque de trámites con la "
+                        "distribuidora."
+                    )
 
             elif self.tipo_instalacion == "acs":
                 # La legionella solo es dato obligatorio cuando la instalación es
@@ -153,7 +196,11 @@ class ClasificadorInput(BaseModel):
                     or (self.potencia_kw is not None and self.potencia_kw >= 70)
                 )
                 if legionella_material and self.incluida_ambito_legionella is None:
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica si la instalación está incluida en el ámbito de prevención de "
+                        "legionelosis: es obligatorio en Cataluña para ACS centralizada o de 70 kW o "
+                        "más (Decret 352/2004)."
+                    )
                 # Inspección periódica: si centralizada y >70 kW, se necesitan datos de acumulación/retorno
                 if (
                     self.acs_centralizada is True
@@ -162,7 +209,11 @@ class ClasificadorInput(BaseModel):
                     and self.dispone_acumulacion is None
                     and self.dispone_circuito_retorno is None
                 ):
-                    raise ValueError("revision_manual")
+                    raise ValueError(
+                        "Indica si la instalación dispone de acumulación y/o circuito de retorno: en "
+                        "ACS centralizada de más de 70 kW determina el régimen de inspección "
+                        "periódica."
+                    )
                     
         # Sincronización tension ↔ nivel_tension_conexion
         if self.nivel_tension_conexion is None and self.tension is not None:

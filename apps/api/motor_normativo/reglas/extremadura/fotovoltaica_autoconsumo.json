@@ -115,7 +115,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -150,7 +152,9 @@
               "obligatorio": false
             }
           ],
-          "notas": "Umbral de 100 kW confirmado específicamente por el propio título del procedimiento de Extremadura (Resolución 22/07/2022)."
+          "notas": "Umbral de 100 kW confirmado específicamente por el propio título del procedimiento de Extremadura (Resolución 22/07/2022).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -205,7 +209,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -234,7 +240,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite añadido en la revisión 2026-07-28 (auditoría normativa): antes solo aparecía como documento opcional 'contrato de acceso' en EXT-FV-001, sin paso propio."
+          "notas": "Trámite añadido en la revisión 2026-07-28 (auditoría normativa): antes solo aparecía como documento opcional 'contrato de acceso' en EXT-FV-001, sin paso propio.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -263,7 +271,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -298,7 +308,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido en la revisión 2026-07-28: Extremadura elevó de 100 a 500 kW el umbral de exención de autorización administrativa previa y de construcción mediante la Instrucción 03/2023 (DOE 27/07/2023). Para este tramo (>100 y ≤500 kW) NO procede autorización administrativa plena, solo comunicación/registro; ver EXT-FV-003 para instalaciones >500 kW."
+          "notas": "Corregido en la revisión 2026-07-28: Extremadura elevó de 100 a 500 kW el umbral de exención de autorización administrativa previa y de construcción mediante la Instrucción 03/2023 (DOE 27/07/2023). Para este tramo (>100 y ≤500 kW) NO procede autorización administrativa plena, solo comunicación/registro; ver EXT-FV-003 para instalaciones >500 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -341,7 +353,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -370,7 +384,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite añadido en la revisión 2026-07-28 (auditoría normativa)."
+          "notas": "Trámite añadido en la revisión 2026-07-28 (auditoría normativa).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -399,7 +415,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -434,7 +452,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Solo para instalaciones >500 kW tras la Instrucción 03/2023 (antes el umbral de autorización plena era >100 kW). El mismo procedimiento de autorización de explotación de Extremadura cubre tanto sector eléctrico como gas canalizado (Resolución 20/06/2022) — confirmado real."
+          "notas": "Solo para instalaciones >500 kW tras la Instrucción 03/2023 (antes el umbral de autorización plena era >100 kW). El mismo procedimiento de autorización de explotación de Extremadura cubre tanto sector eléctrico como gas canalizado (Resolución 20/06/2022) — confirmado real.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

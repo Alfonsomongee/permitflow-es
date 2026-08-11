@@ -149,7 +149,7 @@ export function nivelCobertura(tipo: string, comunidad: string): NivelCobertura 
   return "verificada";
 }
 
-/** @deprecated usa nivelCobertura() — se mantiene para no romper otros usos existentes. */
-export function tieneCobertura(tipo: string, comunidad: string): boolean {
-  return nivelCobertura(tipo, comunidad) === "verificada";
-}
+// tieneCobertura() se ha eliminado (auditoría QA 2026-08-11, B-05). Estaba
+// marcada @deprecated, no tenía ningún uso en el código, y devolvía true solo
+// para Andalucía/ACS: si alguien la hubiera usado como puerta de acceso habría
+// bloqueado 84 de las 85 combinaciones. Usa nivelCobertura().

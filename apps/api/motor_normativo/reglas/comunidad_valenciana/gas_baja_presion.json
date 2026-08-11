@@ -72,7 +72,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -101,7 +103,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA)."
+          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -124,7 +128,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es."
+          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -179,7 +185,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -208,7 +216,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA)."
+          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -231,7 +241,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido tras auditoría 2026-07-28: la ficha oficial (id_proc=3192) exige este trámite también para instalaciones sin proyecto (≤70 kW); antes la regla no generaba ninguna comunicación a la Administración pese al plazo legal de 30 días."
+          "notas": "Añadido tras auditoría 2026-07-28: la ficha oficial (id_proc=3192) exige este trámite también para instalaciones sin proyecto (≤70 kW); antes la regla no generaba ninguna comunicación a la Administración pese al plazo legal de 30 días.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -280,7 +292,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -309,7 +323,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA)."
+          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria; corregido tras auditoría 2026-07-28 (antes atribuido erróneamente a OCA).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -332,7 +348,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es."
+          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

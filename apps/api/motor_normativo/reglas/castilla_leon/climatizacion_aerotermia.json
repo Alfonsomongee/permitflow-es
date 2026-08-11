@@ -70,7 +70,9 @@
           "regla_id": "CYL-AT-000",
           "documentos_requeridos": [],
           "notas": "Instalaciones de potencia inferior a 5 kW quedan fuera del ámbito de aplicación del RITE y no requieren memoria técnica, proyecto ni inscripción en el Registro de instalaciones térmicas (aplicación 'RITE', IAPA1468).",
-          "tipo_actuacion": "informativa"
+          "tipo_actuacion": "informativa",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -125,7 +127,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -154,7 +158,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Procedimiento de carácter voluntario y alternativo a la presentación documental general (confirmado en fuente oficial); inscripción inmediata desde la presentación."
+          "notas": "Procedimiento de carácter voluntario y alternativo a la presentación documental general (confirmado en fuente oficial); inscripción inmediata desde la presentación.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -191,7 +197,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -220,7 +228,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -249,7 +259,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

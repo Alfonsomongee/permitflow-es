@@ -63,7 +63,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación de agua caliente sanitaria. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación de agua caliente sanitaria. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -112,7 +114,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -135,7 +139,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la página oficial de RITE/ACS de aragon.es (número de trámite específico no localizado). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la página oficial de RITE/ACS de aragon.es (número de trámite específico no localizado). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -172,7 +178,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -195,7 +203,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -218,7 +228,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "AÑADIDO 2026-07-28: faltaba este trámite para el tramo >=70 kW; ARA-ACS-001 (<70 kW) sí lo tenía, dejando el itinerario incompleto para mayor potencia. Se replica el mismo trámite y misma plataforma/URL usados en ARA-ACS-001 y en ARA-CLIM-002 (climatizacion_aerotermia.json) para el equivalente >=70 kW."
+          "notas": "AÑADIDO 2026-07-28: faltaba este trámite para el tramo >=70 kW; ARA-ACS-001 (<70 kW) sí lo tenía, dejando el itinerario incompleto para mayor potencia. Se replica el mismo trámite y misma plataforma/URL usados en ARA-ACS-001 y en ARA-CLIM-002 (climatizacion_aerotermia.json) para el equivalente >=70 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -255,7 +267,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Exigido imperativamente para instalaciones de uso colectivo (hoteles, residencias, gimnasios, etc.) de forma previa a su puesta en marcha."
+          "notas": "Exigido imperativamente para instalaciones de uso colectivo (hoteles, residencias, gimnasios, etc.) de forma previa a su puesta en marcha.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

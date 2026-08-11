@@ -12,9 +12,9 @@
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "El fichero original distinguía IRVE residencial de no residencial (comercial/industrial) con el mismo umbral de potencia — no se ha localizado fuente que confirme que esa distinción, más allá del umbral técnico de proyecto, sea relevante; se ha simplificado a la partición estándar por ubicación/potencia/modo de recarga",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "RESUELTO 2026-07-28: Auditoría normativa Región de Murcia (28/07/2026): confirmado que el procedimiento 0019 de la Sede Electrónica CARM aplica también a IRVE (la ficha oficial cita expresamente RIPREE/vehículo eléctrico). Se sustituyó el enlace genérico https://sede.carm.es por la URL de la ficha específica del procedimiento 0019 en ambos trámites de registro (MUR-IRVE-001 y MUR-IRVE-002). No se detectaron otros hallazgos MEDIO/BAJO específicos de IRVE en la auditoría (semáforo OK)."
   ],
-  "verificacion_2026_07_28": "Auditoría normativa Región de Murcia (28/07/2026): confirmado que el procedimiento 0019 de la Sede Electrónica CARM aplica también a IRVE (la ficha oficial cita expresamente RIPREE/vehículo eléctrico). Se sustituyó el enlace genérico https://sede.carm.es por la URL de la ficha específica del procedimiento 0019 en ambos trámites de registro (MUR-IRVE-001 y MUR-IRVE-002). No se detectaron otros hallazgos MEDIO/BAJO específicos de IRVE en la auditoría (semáforo OK).",
   "fuentes": [
     {
       "norma": "RD 1053/2014, por el que se aprueba la ITC-BT-52",
@@ -131,7 +131,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -160,7 +162,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -247,7 +251,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO."
+          "notas": "Instalaciones en vía pública probablemente requieren además autorización municipal — NO VERIFICADO.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -276,7 +282,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -305,7 +313,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

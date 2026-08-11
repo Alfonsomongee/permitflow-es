@@ -67,7 +67,11 @@
               "descripcion": "Acreditación de la categoría del instalador (IG-I o IG-II) según RIGLO."
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -92,7 +96,10 @@
             }
           ],
           "paralelo_con": null,
-          "formulario_ref": null
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -137,7 +144,11 @@
               "descripcion": "Documento firmado por técnico competente con memoria, planos, pliego de condiciones y presupuesto."
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -162,7 +173,10 @@
             }
           ],
           "paralelo_con": null,
-          "formulario_ref": null
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

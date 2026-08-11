@@ -90,7 +90,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -113,7 +115,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -143,7 +147,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORREGIDO 2026-07-28: esta instalación (MOP<=5 bar, P<=70 kW) NO requiere proyecto y, según la ficha oficial de DECO0011T01, 'no es precisa ninguna comunicación a la administración'. El suministrador de gas mantiene el certificado a disposición de la Administración; no hay tasa modelo 046 en este supuesto."
+          "notas": "CORREGIDO 2026-07-28: esta instalación (MOP<=5 bar, P<=70 kW) NO requiere proyecto y, según la ficha oficial de DECO0011T01, 'no es precisa ninguna comunicación a la administración'. El suministrador de gas mantiene el certificado a disposición de la Administración; no hay tasa modelo 046 en este supuesto.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -192,7 +198,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -221,7 +229,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -262,7 +272,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada."
+          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -299,7 +311,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Proyecto obligatorio independientemente de la potencia."
+          "notas": "Proyecto obligatorio independientemente de la potencia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -328,7 +342,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -369,7 +385,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Proyecto obligatorio independientemente de la potencia por superar MOP 5 bar."
+          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Proyecto obligatorio independientemente de la potencia por superar MOP 5 bar.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

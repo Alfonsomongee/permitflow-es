@@ -213,7 +213,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -396,7 +398,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -486,7 +490,9 @@
           "regla_id": "CAT-IRVE-INSPECCION-INICIAL-VERIFICAR",
           "tipo_actuacion": "revision_manual",
           "documentos_requeridos": [],
-          "notas": "No genera por sí sola un documento obligatorio automático."
+          "notas": "No genera por sí sola un documento obligatorio automático.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -510,7 +516,9 @@
           "regla_id": "CAT-IRVE-VIA-PUBLICA-BARCELONA",
           "tipo_actuacion": "revision_manual",
           "documentos_requeridos": [],
-          "notas": "La legalización eléctrica autonómica no otorga derechos de ocupación del dominio público. [DESACTIVADA 2026-08-06: la condicion original referenciaba 'municipio', campo inexistente en ClasificadorInput, por lo que la regla nunca podia dispararse. Se ha fijado explicitamente a `false` para documentar la intencion. Para reactivarla hace falta anadir 'municipio' (o una lista de municipios con ordenanza propia) al schema de entrada del clasificador — pendiente de decision de producto.]"
+          "notas": "La legalización eléctrica autonómica no otorga derechos de ocupación del dominio público. [DESACTIVADA 2026-08-06: la condicion original referenciaba 'municipio', campo inexistente en ClasificadorInput, por lo que la regla nunca podia dispararse. Se ha fijado explicitamente a `false` para documentar la intencion. Para reactivarla hace falta anadir 'municipio' (o una lista de municipios con ordenanza propia) al schema de entrada del clasificador — pendiente de decision de producto.]",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ],
       "nivel_verificacion_regla": "generica"

@@ -130,7 +130,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -153,7 +155,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido 2026-07-28: se sustituyó el trámite genérico de baja tensión (UDIT-001) por el trámite específico de recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045). Para IRVE de acceso público, verificar si aplica un trámite distinto (no confirmado)."
+          "notas": "Corregido 2026-07-28: se sustituyó el trámite genérico de baja tensión (UDIT-001) por el trámite específico de recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045). Para IRVE de acceso público, verificar si aplica un trámite distinto (no confirmado).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -240,7 +244,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -263,7 +269,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido 2026-07-28: el certificado de instalación (boletín) lo emite la empresa instaladora, no la OCA. Se ha separado de la inspección inicial OCA (ver siguiente trámite), que solo procede en los supuestos de la ITC-BT-05."
+          "notas": "Corregido 2026-07-28: el certificado de instalación (boletín) lo emite la empresa instaladora, no la OCA. Se ha separado de la inspección inicial OCA (ver siguiente trámite), que solo procede en los supuestos de la ITC-BT-05.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -286,7 +294,9 @@
               "obligatorio": false
             }
           ],
-          "notas": "La inspección inicial por OCA solo es obligatoria en los supuestos previstos en la ITC-BT-05 (no en todos los casos con proyecto técnico); no se marca como documento obligatorio de forma incondicional."
+          "notas": "La inspección inicial por OCA solo es obligatoria en los supuestos previstos en la ITC-BT-05 (no en todos los casos con proyecto técnico); no se marca como documento obligatorio de forma incondicional.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 4,
@@ -321,7 +331,9 @@
               "obligatorio": false
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

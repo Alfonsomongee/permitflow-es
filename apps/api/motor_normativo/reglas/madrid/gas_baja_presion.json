@@ -194,7 +194,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Requiere pago de tasa; importe según expediente."
+          "notas": "Requiere pago de tasa; importe según expediente.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -311,7 +313,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -347,7 +351,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Requiere pago de tasa; importe según expediente."
+          "notas": "Requiere pago de tasa; importe según expediente.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

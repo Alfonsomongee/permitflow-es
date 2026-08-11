@@ -57,7 +57,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -115,7 +117,11 @@
               "obligatorio": true
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -151,7 +157,10 @@
             }
           ],
           "paralelo_con": null,
-          "formulario_ref": null
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -190,7 +199,11 @@
               "obligatorio": true
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -218,7 +231,11 @@
               "obligatorio": true
             }
           ],
-          "paralelo_con": null
+          "paralelo_con": null,
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -254,7 +271,10 @@
             }
           ],
           "paralelo_con": null,
-          "formulario_ref": null
+          "formulario_ref": null,
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

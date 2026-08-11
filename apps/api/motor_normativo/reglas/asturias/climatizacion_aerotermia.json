@@ -63,7 +63,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -118,7 +120,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -147,7 +151,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Registrado el certificado de instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Plazo legal de resolución: 4 semanas, silencio no procede."
+          "notas": "Registrado el certificado de instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Plazo legal de resolución: 4 semanas, silencio no procede.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -190,7 +196,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -231,7 +239,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Registrado el certificado de instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Plazo legal de resolución: 4 semanas, silencio no procede."
+          "notas": "Registrado el certificado de instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Plazo legal de resolución: 4 semanas, silencio no procede.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

@@ -96,7 +96,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -125,7 +127,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para instalaciones sin proyecto, el diligenciado se realiza directamente en eDice-bt; con proyecto, en un portal externo (confirmado en la propia herramienta oficial)."
+          "notas": "Para instalaciones sin proyecto, el diligenciado se realiza directamente en eDice-bt; con proyecto, en un portal externo (confirmado en la propia herramienta oficial).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -162,7 +166,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -185,7 +191,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "El umbral de 100 kW para exigencia de inspección inicial en instalaciones industriales está confirmado directamente en la ficha oficial de la JCCM (ITC-BT-04)."
+          "notas": "El umbral de 100 kW para exigencia de inspección inicial en instalaciones industriales está confirmado directamente en la ficha oficial de la JCCM (ITC-BT-04).",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -214,7 +222,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

@@ -93,7 +93,9 @@
           "regla_id": "MAD-ACS-INFO",
           "tipo_actuacion": "informativa",
           "documentos_requeridos": [],
-          "notas": "No equivale a exención del cumplimiento técnico ni de otras obligaciones."
+          "notas": "No equivale a exención del cumplimiento técnico ni de otras obligaciones.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -151,7 +153,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -181,7 +185,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Requiere tasa; consultar importe y tarifa vigentes."
+          "notas": "Requiere tasa; consultar importe y tarifa vigentes.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -231,7 +237,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -267,7 +275,9 @@
               "obligatorio": false
             }
           ],
-          "notas": "La intervención inspectora se rige por la normativa y el procedimiento EICI; no se afirma una inspección universal adicional solo por potencia."
+          "notas": "La intervención inspectora se rige por la normativa y el procedimiento EICI; no se afirma una inspección universal adicional solo por potencia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -317,7 +327,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Obligación sanitaria y de mantenimiento; no se modela como solicitud administrativa universal."
+          "notas": "Obligación sanitaria y de mantenimiento; no se modela como solicitud administrativa universal.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

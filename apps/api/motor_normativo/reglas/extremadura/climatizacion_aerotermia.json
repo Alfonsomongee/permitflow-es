@@ -66,7 +66,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -121,7 +123,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Instalaciones <5 kW pueden quedar exentas de documentación — no modelado en esta regla."
+          "notas": "Instalaciones <5 kW pueden quedar exentas de documentación — no modelado en esta regla.",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -150,7 +154,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -193,7 +199,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -222,7 +230,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Confirmado real el registro específico 'alta potencia térmica' (>5.000 kW calor / >1.000 kW frío) como categoría distinta en la sede de Extremadura; para el tramo >70kW estándar de este proyecto aplica el registro general de instalaciones térmicas con proyecto."
+          "notas": "Confirmado real el registro específico 'alta potencia térmica' (>5.000 kW calor / >1.000 kW frío) como categoría distinta en la sede de Extremadura; para el tramo >70kW estándar de este proyecto aplica el registro general de instalaciones térmicas con proyecto.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

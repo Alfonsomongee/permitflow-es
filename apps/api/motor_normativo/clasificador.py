@@ -207,6 +207,9 @@ class Clasificador:
             )
         matched_any = False
         reglas_con_error: list[str] = []
+        # Reglas que disparan y declaran un nivel de verificación propio peor
+        # que "verificada" (clave `nivel_verificacion_regla`).
+        reglas_sin_verificar: list[tuple[str, str]] = []
 
         # (regla_id, orden_original, paralelo_con_original) por cada trámite emitido,
         # para remapear paralelo_con tras el reordenado aditivo.
@@ -226,6 +229,14 @@ class Clasificador:
                     matched_any = True
                     if _condicion_referencia_var(condicion_json, "solicita_ayuda"):
                         ayuda_cubierta_por_ccaa = True
+                    # Algunas reglas declaran su propio nivel de verificación,
+                    # más granular que el del fichero. Era un dato que nadie
+                    # leía (auditoría QA 2026-08-11, B-01): si una regla en
+                    # concreto está sin verificar, el usuario debe saberlo
+                    # aunque el resto del fichero esté bien.
+                    nivel_regla = regla.get("nivel_verificacion_regla")
+                    if nivel_regla and nivel_regla != "verificada":
+                        reglas_sin_verificar.append((regla.get("id", "?"), nivel_regla))
                     for t in regla.get("tramites", []):
                         if t.get("obsoleta"):
                             logger.info(
@@ -370,6 +381,14 @@ class Clasificador:
             advertencias.append(
                 f"{len(reglas_con_error)} regla(s) del motor normativo no se pudieron evaluar "
                 f"({', '.join(reglas_con_error)}). Revisa el JSON de normativa."
+            )
+
+        if reglas_sin_verificar:
+            detalle = ", ".join(f"{rid} ({nivel})" for rid, nivel in reglas_sin_verificar)
+            advertencias.append(
+                f"Este plan incluye {len(reglas_sin_verificar)} regla(s) cuya verificación "
+                f"individual no está cerrada: {detalle}. Los trámites que generan pueden "
+                f"cambiar; contrástalos antes de presentar."
             )
 
         # Coherencia física entre los datos declarados (superficie vs potencia,

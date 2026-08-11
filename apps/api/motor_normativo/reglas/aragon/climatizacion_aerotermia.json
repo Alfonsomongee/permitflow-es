@@ -62,7 +62,9 @@
           "formulario_ref": null,
           "documentos_requeridos": [],
           "paralelo_con": null,
-          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -111,7 +113,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -134,7 +138,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la página oficial de RITE/ACS de aragon.es (número de trámite específico no localizado, a diferencia de BT/gas). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial."
+          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la página oficial de RITE/ACS de aragon.es (número de trámite específico no localizado, a diferencia de BT/gas). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -171,7 +177,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -194,7 +202,9 @@
               "obligatorio": true
             }
           ],
-          "notas": null
+          "notas": null,
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -217,7 +227,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto."
+          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

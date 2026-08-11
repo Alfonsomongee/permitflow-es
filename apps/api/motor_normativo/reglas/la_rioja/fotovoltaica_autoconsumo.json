@@ -91,7 +91,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -120,7 +122,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial)."
+          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial).",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -157,7 +161,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -186,7 +192,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -215,7 +223,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo de 6 meses para la autorización administrativa confirmado en ficha oficial de La Rioja; puede suspenderse si se requieren informes preceptivos de otros organismos."
+          "notas": "Plazo de 6 meses para la autorización administrativa confirmado en ficha oficial de La Rioja; puede suspenderse si se requieren informes preceptivos de otros organismos.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }

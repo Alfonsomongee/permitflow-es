@@ -92,7 +92,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -121,7 +123,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora responde en 5 días hábiles (IN407C); si no contesta, se entiende sin objeciones y se comunica al Registro Administrativo de Autoconsumo del Ministerio en el mes en curso."
+          "notas": "La distribuidora responde en 5 días hábiles (IN407C); si no contesta, se entiende sin objeciones y se comunica al Registro Administrativo de Autoconsumo del Ministerio en el mes en curso.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     },
@@ -158,7 +162,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 2,
@@ -187,7 +193,9 @@
               "obligatorio": true
             }
           ],
-          "notas": ""
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
         },
         {
           "orden": 3,
@@ -216,7 +224,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "plazo_legal_dias no confirmado."
+          "notas": "plazo_legal_dias no confirmado.",
+          "registro_salida": null,
+          "medio_presentacion": null
         }
       ]
     }
