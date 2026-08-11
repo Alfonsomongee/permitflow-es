@@ -392,9 +392,15 @@ class Clasificador:
             hay_riesgo_alto=riesgo_calculado.hay_riesgo_alto,
         )
 
+        # None (no 0) cuando ningún trámite del plan aporta plazo: la UI mostraba
+        # un rotundo "~0 días estimados", que se lee como "trámite inmediato" en
+        # vez de "no lo sabemos" — auditoría QA 2026-08-11, M-04. Afectaba a 11
+        # combinaciones (Cataluña y Madrid enteras, más C. Valenciana en FV).
+        aporta_plazo = any(t.plazo_estimado_dias for t in tramites_output)
+
         return ClasificadorOutput(
             tramites=tramites_output,
-            tiempo_total_estimado_dias=tiempo_total,
+            tiempo_total_estimado_dias=tiempo_total if aporta_plazo else None,
             advertencias=advertencias,
             nivel_verificacion=data.get("nivel_verificacion", "verificada"),
             estado=data.get("estado"),

@@ -21,6 +21,7 @@ import { TimelinePlan } from "./TimelinePlan";
 import { useTramitesEstado } from "./useTramitesEstado";
 import { useEstadisticasPlazo } from "./useEstadisticasPlazo";
 import { claveTramite } from "@/lib/tramiteClave";
+import { contarTramites } from "@/lib/tramites-conteo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShieldCheck, FileText } from "lucide-react";
 import { AnimatedList } from "@/components/ui/animated-list";
@@ -270,9 +271,14 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
   const titulo = TIPO_LABEL[params.tipo_instalacion] ?? params.tipo_instalacion;
   const ccaa = COMUNIDAD_LABEL[params.comunidad] ?? params.comunidad;
 
-  const tramitesAccionables = plan.tramites.filter(t => t.tipo_actuacion === "accion_usuario" || t.tipo_actuacion === undefined);
-  const tramitesOficio = plan.tramites.filter(t => t.tipo_actuacion === "oficio_administracion");
-  const tramitesRevision = plan.tramites.filter(t => t.tipo_actuacion === "revision_manual");
+  // Criterio compartido con el panel lateral y la línea temporal: antes cada
+  // uno contaba a su manera (auditoría QA 2026-08-11, M-03).
+  const {
+    accionables: tramitesAccionables,
+    oficio: tramitesOficio,
+    informativos: tramitesInformativos,
+    revision: tramitesRevision,
+  } = contarTramites(plan.tramites);
 
   const tramitesCompletados = expediente ? completados : 0;
   const progreso =
@@ -375,10 +381,33 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
                 </div>
               )}
 
+              {/* Los trámites informativos ("esta instalación está exenta") no
+                  son tareas: si se mezclaban con los accionables inflaban el
+                  contador y el denominador del progreso, y si no se pintaban en
+                  ningún sitio el plan quedaba vacío sin explicación. Van
+                  primero, porque suelen ser la razón de que haya poco que hacer. */}
+              {tramitesInformativos.length > 0 && (
+                <div className="mb-4 space-y-3">
+                  {tramitesInformativos.map((tramite) => (
+                    <TramiteCard
+                      key={tramite.orden}
+                      tramite={tramite}
+                      defaultOpen
+                      estadoInfo={undefined}
+                      comunidad={params.comunidad}
+                    />
+                  ))}
+                </div>
+              )}
+
               <div className="mb-2 text-sm font-medium text-text-secondary">
-                {tramitesAccionables.length} {tramitesAccionables.length === 1 ? "trámite" : "trámites"} a realizar
+                {tramitesAccionables.length === 0
+                  ? "Sin trámites pendientes por tu parte"
+                  : `${tramitesAccionables.length} ${
+                      tramitesAccionables.length === 1 ? "trámite" : "trámites"
+                    } a realizar`}
               </div>
-              
+
               <AnimatedList className="space-y-3">
                 {tramitesAccionables.map((tramite, i) => (
                   <TramiteCard

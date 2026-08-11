@@ -10,7 +10,7 @@
     "modalidad_autoconsumo": "con_excedentes_con_compensacion"
   },
   "num_tramites_esperado": 2,
-  "tiempo_total_esperado_dias": 0,
+  "tiempo_total_esperado_dias": null,
   "validado_por": "Antigravity - 2026-08-09",
-  "notas_validacion": "Ejecutado contra motor_normativo/reglas/madrid/fotovoltaica_autoconsumo.json reglas MAD-FV-BT-PUESTA-SERVICIO y MAD-FV-REGISTRO-OFICIO."
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/madrid/fotovoltaica_autoconsumo.json reglas MAD-FV-BT-PUESTA-SERVICIO y MAD-FV-REGISTRO-OFICIO. 2026-08-11: el esperado pasa de 0 a null. Ninguno de los dos trámites de Madrid tiene plazo_estimado_dias, y devolver 0 hacía que la UI mostrase '~0 días estimados', que se lee como 'trámite inmediato' en vez de 'no lo sabemos' (auditoría QA, M-04). El dato de partida no ha cambiado: sigue sin haber plazos verificados para Madrid."
 }

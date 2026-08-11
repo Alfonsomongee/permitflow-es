@@ -5,6 +5,7 @@ import {
   COMUNIDAD_LABEL,
   TIPO_LABEL,
 } from "@/types/plan";
+import { contarTramites, textoPlazoTotal } from "@/lib/tramites-conteo";
 
 const CAMPOS_VISIBLES_POR_TIPO: Record<string, string[]> = {
   fotovoltaica_autoconsumo: [
@@ -84,9 +85,10 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
   const advertenciaOrientativa = plan.advertencias.find((a) => a.includes("orientativo"));
   const otrasAdvertencias = plan.advertencias.filter((a) => a !== advertenciaOrientativa);
 
-  const tramitesAccionables = plan.tramites.filter(
-    (t) => t.tipo_actuacion === "accion_usuario" || t.tipo_actuacion === undefined
-  );
+  // Criterio compartido con la línea temporal y el contador de progreso; antes
+  // cada componente contaba a su manera (auditoría QA 2026-08-11, M-03).
+  const { accionables, oficio } = contarTramites(plan.tramites);
+  const plazo = textoPlazoTotal(plan.tiempo_total_estimado_dias);
 
   return (
     <aside className="flex flex-col gap-4">
@@ -118,18 +120,28 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
         </p>
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-xl bg-surface/80 p-3 shadow-xs">
-            <p className="text-2xl font-semibold tracking-tight text-text-primary">{tramitesAccionables.length}</p>
-            <p className="text-[11px] text-text-secondary">trámites</p>
+            <p className="text-2xl font-semibold tracking-tight text-text-primary">{accionables.length}</p>
+            <p className="text-[11px] text-text-secondary">
+              {accionables.length === 1 ? "trámite a realizar" : "trámites a realizar"}
+            </p>
           </div>
-          {plan.tiempo_total_estimado_dias !== null && (
-            <div className="rounded-xl bg-surface/80 p-3 shadow-xs">
-              <p className="text-2xl font-semibold tracking-tight text-text-primary">~{plan.tiempo_total_estimado_dias}</p>
-              <p className="text-[11px] text-text-secondary">días estimados</p>
-            </div>
-          )}
+          <div className="rounded-xl bg-surface/80 p-3 shadow-xs">
+            <p className="text-2xl font-semibold tracking-tight text-text-primary">{plazo.valor}</p>
+            <p className="text-[11px] text-text-secondary">{plazo.etiqueta}</p>
+          </div>
         </div>
         <p className="mt-3 text-xs text-text-secondary">
           Repartidos entre <span className="font-medium text-text-primary">{organismos}</span> organismos distintos.
+          {oficio.length > 0 && (
+            <>
+              {" "}Además hay{" "}
+              <span className="font-medium text-text-primary">{oficio.length}</span>{" "}
+              {oficio.length === 1
+                ? "actuación que tramita la Administración de oficio"
+                : "actuaciones que tramita la Administración de oficio"}
+              : no tienes que hacer nada, pero ocupan tiempo en el calendario.
+            </>
+          )}
         </p>
         {advertenciaOrientativa && (
           <p className="mt-1.5 flex items-start gap-1.5 text-[11px] leading-relaxed text-text-secondary/80">
