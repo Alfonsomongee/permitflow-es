@@ -40,6 +40,15 @@ export const FORM_INITIAL: FormState = {
   incluida_ambito_legionella: undefined,
   dispone_acumulacion: undefined,
   dispone_circuito_retorno: undefined,
+  uso_colectivo: undefined,
+  acumulacion: undefined,
+  recirculacion: undefined,
+  incluida_ambito_rd_487_2022: undefined,
+  instalacion_origen_modificada: undefined,
+  implantacion: "",
+  clase_instalacion_gas: "",
+  requiere_registro_produccion: undefined,
+  numero_suministros_edificio: "",
 };
 
 export type StepId = 1 | 2 | 3;

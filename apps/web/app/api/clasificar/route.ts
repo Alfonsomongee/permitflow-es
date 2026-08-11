@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { crearExpediente } from "@/lib/expedientes";
+import { construirPayloadClasificador } from "@/lib/clasificador-payload";
 import type { FormState } from "@/components/nueva-instalacion/types";
 import type { PlanTramitacion } from "@/types/plan";
 
@@ -92,55 +93,10 @@ export async function POST(req: Request) {
         "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
       },
       signal: AbortSignal.timeout(15000),
-      body: JSON.stringify({
-        tipo_instalacion: formState.tipo_instalacion,
-        comunidad: formState.comunidad,
-        potencia_kw: parseFloat(formState.potencia_kw) || 0,
-        uso: formState.uso,
-        numero_puntos: formState.numero_puntos
-          ? parseInt(formState.numero_puntos, 10)
-          : undefined,
-        potencia_por_punto_kw: formState.potencia_por_punto_kw
-          ? parseFloat(formState.potencia_por_punto_kw)
-          : undefined,
-        modo_recarga: formState.modo_recarga || undefined,
-        acceso_publico: formState.acceso_publico,
-        ubicacion_irve: formState.ubicacion_irve || undefined,
-        requiere_nuevo_suministro: formState.requiere_nuevo_suministro,
-        combustible: formState.combustible || undefined,
-        presion_bar: formState.presion_bar || undefined,
-        tension: formState.tension || undefined,
-        nivel_tension_consumidor: formState.nivel_tension_consumidor || undefined,
-        nivel_tension_generacion: formState.nivel_tension_generacion || undefined,
-        nivel_tension_conexion: formState.nivel_tension_conexion || undefined,
-        modalidad_autoconsumo: formState.modalidad_autoconsumo || undefined,
-        ubicacion_suelo: formState.ubicacion_suelo || undefined,
-        requiere_acceso_conexion: formState.requiere_acceso_conexion,
-        inversion_eur: formState.inversion_eur
-          ? parseFloat(formState.inversion_eur)
-          : undefined,
-        potencia_resultante_kw: formState.potencia_resultante_kw
-          ? parseFloat(formState.potencia_resultante_kw)
-          : undefined,
-        presion_resultante_bar: formState.presion_resultante_bar
-          ? parseFloat(formState.presion_resultante_bar)
-          : undefined,
-        es_ampliacion: formState.es_ampliacion,
-        incremento_potencia_pct: formState.incremento_potencia_pct
-          ? parseFloat(formState.incremento_potencia_pct)
-          : undefined,
-        uso_edificio: formState.uso_edificio || undefined,
-        ventilacion_garaje: formState.ventilacion_garaje || undefined,
-        numero_plazas_garaje: formState.numero_plazas_garaje
-          ? parseInt(formState.numero_plazas_garaje, 10)
-          : undefined,
-        garaje_existente: formState.garaje_existente,
-        acs_centralizada: formState.acs_centralizada,
-        incluida_ambito_legionella: formState.incluida_ambito_legionella,
-        dispone_acumulacion: formState.dispone_acumulacion,
-        dispone_circuito_retorno: formState.dispone_circuito_retorno,
-        solicita_ayuda: formState.solicita_ayuda,
-      }),
+      // El payload se construye de forma declarativa en lib/clasificador-payload.ts.
+      // Enumerar los campos aquí a mano fue la causa de que 9 variables que las
+      // reglas sí usan nunca llegaran al motor (auditoría QA 2026-08-11, C-01).
+      body: JSON.stringify(construirPayloadClasificador(formState)),
     });
   } catch {
     return NextResponse.json(

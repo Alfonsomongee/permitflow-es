@@ -57,6 +57,20 @@ export const nuevaInstalacionSchema = z.object({
   dispone_acumulacion: z.boolean().optional(),
   dispone_circuito_retorno: z.boolean().optional(),
 
+  // Campos que las reglas del motor sí usan pero que el formulario no recogia:
+  // sin ellos json-logic los evalua como falsy y la rama negativa gana en
+  // silencio, dejando fuera tramites de legionela, registro de produccion,
+  // calificacion territorial e inspeccion inicial (auditoria QA 2026-08-11, C-01).
+  uso_colectivo: z.boolean().optional(),
+  acumulacion: z.boolean().optional(),
+  recirculacion: z.boolean().optional(),
+  incluida_ambito_rd_487_2022: z.boolean().optional(),
+  instalacion_origen_modificada: z.boolean().optional(),
+  implantacion: z.string().optional(),
+  clase_instalacion_gas: z.string().optional(),
+  requiere_registro_produccion: z.boolean().optional(),
+  numero_suministros_edificio: z.string().optional(),
+
   // Step 3
   solicita_ayuda: z.boolean(),
 }).superRefine((data, ctx) => {
