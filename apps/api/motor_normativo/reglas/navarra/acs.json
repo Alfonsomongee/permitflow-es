@@ -12,7 +12,8 @@
     "Nombre exacto del trámite de registro de instalaciones térmicas en Navarra no confirmado",
     "Tasas y plazos legales no verificados",
     "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó la ficha específica de trámite de registro térmico en navarra.es dentro del presupuesto de la auditoría — PENDIENTE",
-    "RESUELTO 2026-07-28 (auditoría normativa): se añaden como base_legal foral la Orden Foral 60/2015 (procedimiento de tramitación/registro; deroga la OF 424/2009 de desarrollo del RITE en Navarra) y la Orden Foral 64/2022, Disp. Ad. Única (umbral 70 kW e inspección inicial OCA). Se retira la afirmación 'no se ha localizado normativa foral'."
+    "RESUELTO 2026-07-28 (auditoría normativa): se añaden como base_legal foral la Orden Foral 60/2015 (procedimiento de tramitación/registro; deroga la OF 424/2009 de desarrollo del RITE en Navarra) y la Orden Foral 64/2022, Disp. Ad. Única (umbral 70 kW e inspección inicial OCA). Se retira la afirmación 'no se ha localizado normativa foral'.",
+    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita. Queda pendiente el otro supuesto del art. 15.1.c (calentadores instantáneos, acumuladores y termos eléctricos <= 70 kW), que sí requiere conocer el tipo de equipo generador."
   ],
   "fuentes": [
     {
@@ -38,14 +39,56 @@
   ],
   "reglas": [
     {
-      "id": "NAV-ACS-001",
-      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "NAV-ACS-RITE-EXENTA",
+      "descripcion": "Instalación térmica de potencia nominal inferior a 5 kW: exenta de documentación técnica y de registro ante la comunidad autónoma (RD 1027/2007, arts. 15.1.c y 24.2).",
       "condicion": {
-        "<=": [
+        "<": [
           {
             "var": "potencia_kw"
           },
-          70
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sin trámite ante la Administración: instalación exenta por potencia",
+          "organismo": "Instalador habilitado en instalaciones térmicas",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1.c y 24.2",
+          "tipo_actuacion": "informativa",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste administrativo",
+          "formulario_ref": null,
+          "documentos_requeridos": [],
+          "paralelo_con": null,
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación de agua caliente sanitaria. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+        }
+      ]
+    },
+    {
+      "id": "NAV-ACS-001",
+      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [

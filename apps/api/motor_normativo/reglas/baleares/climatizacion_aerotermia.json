@@ -43,14 +43,56 @@
   ],
   "reglas": [
     {
-      "id": "BAL-CLIMA-001",
-      "descripcion": "Instalación de climatización con aerotermia de potencia < 70 kW (memoria técnica, sin proyecto)",
+      "id": "BAL-CLIMA-RITE-EXENTA",
+      "descripcion": "Instalación térmica de potencia nominal inferior a 5 kW: exenta de documentación técnica y de registro ante la comunidad autónoma (RD 1027/2007, arts. 15.1.c y 24.2).",
       "condicion": {
         "<": [
           {
             "var": "potencia_kw"
           },
-          70
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sin trámite ante la Administración: instalación exenta por potencia",
+          "organismo": "Instalador habilitado (categoría térmica)",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1.c y 24.2",
+          "tipo_actuacion": "informativa",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste administrativo",
+          "formulario_ref": null,
+          "documentos_requeridos": [],
+          "paralelo_con": null,
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación térmica. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+        }
+      ]
+    },
+    {
+      "id": "BAL-CLIMA-001",
+      "descripcion": "Instalación de climatización con aerotermia de potencia < 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [

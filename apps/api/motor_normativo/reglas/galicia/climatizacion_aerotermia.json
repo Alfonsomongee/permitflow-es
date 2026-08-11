@@ -38,7 +38,7 @@
       "id": "GAL-CLIMA-000",
       "descripcion": "Instalación de climatización con aerotermia de potencia ≤ 5 kW: exenta de comunicación/registro ante la Jefatura Territorial según el RITE (RD 1027/2007), solo requiere ejecución por instalador habilitado",
       "condicion": {
-        "<=": [
+        "<": [
           {
             "var": "potencia_kw"
           },
@@ -67,7 +67,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Las instalaciones térmicas con potencia térmica nominal ≤5 kW no están sujetas a comunicación de puesta en servicio ni registro ante la Jefatura Territorial según el RITE; basta con su ejecución por instalador habilitado."
+          "notas": "Las instalaciones térmicas con potencia térmica nominal ≤5 kW no están sujetas a comunicación de puesta en servicio ni registro ante la Jefatura Territorial según el RITE; basta con su ejecución por instalador habilitado.",
+          "tipo_actuacion": "informativa"
         }
       ]
     },
@@ -77,7 +78,7 @@
       "condicion": {
         "and": [
           {
-            ">": [
+            ">=": [
               {
                 "var": "potencia_kw"
               },

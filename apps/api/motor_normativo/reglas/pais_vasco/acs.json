@@ -10,7 +10,8 @@
   "huecos_verificacion": [
     "RESUELTO 2026-07-28: se añadió la regla PV-ACS-003 de Legionella/PPCL-PSL (RD 487/2022 + RD 614/2024) para ACS de uso colectivo, condicionada al campo 'uso_colectivo'.",
     "Tasas y plazos legales no verificados con detalle",
-    "No se ha confirmado si el País Vasco exige OCA específicamente para ACS >70 kW más allá de lo que exige el RITE nacional"
+    "No se ha confirmado si el País Vasco exige OCA específicamente para ACS >70 kW más allá de lo que exige el RITE nacional",
+    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita. Queda pendiente el otro supuesto del art. 15.1.c (calentadores instantáneos, acumuladores y termos eléctricos <= 70 kW), que sí requiere conocer el tipo de equipo generador."
   ],
   "fuentes": [
     {
@@ -36,14 +37,56 @@
   ],
   "reglas": [
     {
-      "id": "PV-ACS-001",
-      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "id": "PV-ACS-RITE-EXENTA",
+      "descripcion": "Instalación térmica de potencia nominal inferior a 5 kW: exenta de documentación técnica y de registro ante la comunidad autónoma (RD 1027/2007, arts. 15.1.c y 24.2).",
       "condicion": {
-        "<=": [
+        "<": [
           {
             "var": "potencia_kw"
           },
-          70
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sin trámite ante la Administración: instalación exenta por potencia",
+          "organismo": "Instalador habilitado (categoría térmica)",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1.c y 24.2",
+          "tipo_actuacion": "informativa",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste administrativo",
+          "formulario_ref": null,
+          "documentos_requeridos": [],
+          "paralelo_con": null,
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación de agua caliente sanitaria. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+        }
+      ]
+    },
+    {
+      "id": "PV-ACS-001",
+      "descripcion": "Instalación de ACS con potencia ≤ 70 kW (memoria técnica, sin proyecto)",
+      "condicion": {
+        "and": [
+          {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          }
         ]
       },
       "tramites": [

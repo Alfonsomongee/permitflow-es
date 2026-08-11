@@ -94,7 +94,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido por auditoría (ALTO): la versión anterior exigía MTIT y comunicación desde 0 kW, generando trámites inexistentes para equipos domésticos pequeños."
+          "notas": "Añadido por auditoría (ALTO): la versión anterior exigía MTIT y comunicación desde 0 kW, generando trámites inexistentes para equipos domésticos pequeños.",
+          "tipo_actuacion": "informativa"
         }
       ]
     },

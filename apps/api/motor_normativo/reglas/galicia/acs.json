@@ -32,7 +32,7 @@
       "id": "GAL-ACS-000",
       "descripcion": "Instalación de ACS con potencia ≤ 5 kW: exenta de comunicación/registro ante la Jefatura Territorial según el RITE (RD 1027/2007), solo requiere ejecución por instalador habilitado",
       "condicion": {
-        "<=": [
+        "<": [
           {
             "var": "potencia_kw"
           },
@@ -61,7 +61,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Las instalaciones de ACS con potencia térmica nominal ≤5 kW no están sujetas a comunicación de puesta en servicio ni registro ante la Jefatura Territorial según el RITE; basta con su ejecución por instalador habilitado. Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero."
+          "notas": "Las instalaciones de ACS con potencia térmica nominal ≤5 kW no están sujetas a comunicación de puesta en servicio ni registro ante la Jefatura Territorial según el RITE; basta con su ejecución por instalador habilitado. Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (PPCL/PSL) — no incluido todavía como trámite en este fichero.",
+          "tipo_actuacion": "informativa"
         }
       ]
     },
@@ -71,7 +72,7 @@
       "condicion": {
         "and": [
           {
-            ">": [
+            ">=": [
               {
                 "var": "potencia_kw"
               },

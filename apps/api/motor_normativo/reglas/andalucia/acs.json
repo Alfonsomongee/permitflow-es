@@ -42,36 +42,78 @@
   ],
   "reglas": [
     {
+      "id": "AND-ACS-RITE-EXENTA",
+      "descripcion": "Instalación térmica de potencia nominal inferior a 5 kW: exenta de documentación técnica y de registro ante la comunidad autónoma (RD 1027/2007, arts. 15.1.c y 24.2).",
+      "condicion": {
+        "<": [
+          {
+            "var": "potencia_kw"
+          },
+          5
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Sin trámite ante la Administración: instalación exenta por potencia",
+          "organismo": "Empresa instaladora habilitada RITE (categoría C1 o superior)",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1.c y 24.2",
+          "tipo_actuacion": "informativa",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste administrativo",
+          "formulario_ref": null,
+          "documentos_requeridos": [],
+          "paralelo_con": null,
+          "notas": "Por debajo de 5 kW de potencia térmica nominal, el RITE no exige proyecto ni memoria técnica, y el art. 24.2 excluye expresamente estas instalaciones de la acreditación ante el órgano competente de la comunidad autónoma: no hay registro que presentar para la instalación de agua caliente sanitaria. La instalación debe ejecutarla igualmente una empresa instaladora habilitada y cumplir el resto de exigencias técnicas del reglamento. Si la potencia real supera los 5 kW, vuelve a calcular el plan: cambia."
+        }
+      ]
+    },
+    {
       "id": "AND-ACS-001-1",
       "descripcion": "Instalación ACS residencial ≤70 kW — régimen simplificado (presupuesto <= 10k)",
       "condicion": {
         "and": [
           {
-            "and": [
+            ">=": [
               {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
+                "var": "potencia_kw"
               },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
-              }
+              5
             ]
           },
           {
-            "<=": [
+            "and": [
               {
-                "var": "inversion_eur"
+                "and": [
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "uso"
+                      },
+                      "residencial"
+                    ]
+                  }
+                ]
               },
-              10000
+              {
+                "<=": [
+                  {
+                    "var": "inversion_eur"
+                  },
+                  10000
+                ]
+              }
             ]
           }
         ]
@@ -146,31 +188,43 @@
       "condicion": {
         "and": [
           {
+            ">=": [
+              {
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
             "and": [
               {
-                "<=": [
+                "and": [
                   {
-                    "var": "potencia_kw"
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
                   },
-                  70
+                  {
+                    "==": [
+                      {
+                        "var": "uso"
+                      },
+                      "residencial"
+                    ]
+                  }
                 ]
               },
               {
                 "==": [
                   {
-                    "var": "uso"
+                    "var": "inversion_eur"
                   },
-                  "residencial"
+                  null
                 ]
               }
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "inversion_eur"
-              },
-              null
             ]
           }
         ]
@@ -245,31 +299,43 @@
       "condicion": {
         "and": [
           {
-            "and": [
+            ">=": [
               {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
+                "var": "potencia_kw"
               },
-              {
-                "==": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
-              }
+              5
             ]
           },
           {
-            ">": [
+            "and": [
               {
-                "var": "inversion_eur"
+                "and": [
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "uso"
+                      },
+                      "residencial"
+                    ]
+                  }
+                ]
               },
-              10000
+              {
+                ">": [
+                  {
+                    "var": "inversion_eur"
+                  },
+                  10000
+                ]
+              }
             ]
           }
         ]
@@ -344,31 +410,43 @@
       "condicion": {
         "and": [
           {
-            "or": [
+            ">=": [
               {
-                "!=": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
+                "var": "potencia_kw"
               },
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              }
+              5
             ]
           },
           {
-            "<=": [
+            "and": [
               {
-                "var": "inversion_eur"
+                "or": [
+                  {
+                    "!=": [
+                      {
+                        "var": "uso"
+                      },
+                      "residencial"
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  }
+                ]
               },
-              5000
+              {
+                "<=": [
+                  {
+                    "var": "inversion_eur"
+                  },
+                  5000
+                ]
+              }
             ]
           }
         ]
@@ -431,31 +509,43 @@
       "condicion": {
         "and": [
           {
-            "or": [
+            ">=": [
               {
-                "!=": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
+                "var": "potencia_kw"
               },
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              }
+              5
             ]
           },
           {
-            "==": [
+            "and": [
               {
-                "var": "inversion_eur"
+                "or": [
+                  {
+                    "!=": [
+                      {
+                        "var": "uso"
+                      },
+                      "residencial"
+                    ]
+                  },
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  }
+                ]
               },
-              null
+              {
+                "==": [
+                  {
+                    "var": "inversion_eur"
+                  },
+                  null
+                ]
+              }
             ]
           }
         ]
@@ -518,41 +608,53 @@
       "condicion": {
         "and": [
           {
-            "or": [
+            ">=": [
               {
-                "!=": [
-                  {
-                    "var": "uso"
-                  },
-                  "residencial"
-                ]
+                "var": "potencia_kw"
               },
-              {
-                ">": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  70
-                ]
-              }
+              5
             ]
           },
           {
             "and": [
               {
-                ">": [
+                "or": [
                   {
-                    "var": "inversion_eur"
+                    "!=": [
+                      {
+                        "var": "uso"
+                      },
+                      "residencial"
+                    ]
                   },
-                  5000
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  }
                 ]
               },
               {
-                "<=": [
+                "and": [
                   {
-                    "var": "inversion_eur"
+                    ">": [
+                      {
+                        "var": "inversion_eur"
+                      },
+                      5000
+                    ]
                   },
-                  300000
+                  {
+                    "<=": [
+                      {
+                        "var": "inversion_eur"
+                      },
+                      300000
+                    ]
+                  }
                 ]
               }
             ]
@@ -617,31 +719,43 @@
       "condicion": {
         "and": [
           {
-            "or": [
+            ">=": [
               {
-                "!=": [
+                "var": "potencia_kw"
+              },
+              5
+            ]
+          },
+          {
+            "and": [
+              {
+                "or": [
                   {
-                    "var": "uso"
+                    "!=": [
+                      {
+                        "var": "uso"
+                      },
+                      "residencial"
+                    ]
                   },
-                  "residencial"
+                  {
+                    ">": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      70
+                    ]
+                  }
                 ]
               },
               {
                 ">": [
                   {
-                    "var": "potencia_kw"
+                    "var": "inversion_eur"
                   },
-                  70
+                  300000
                 ]
               }
-            ]
-          },
-          {
-            ">": [
-              {
-                "var": "inversion_eur"
-              },
-              300000
             ]
           }
         ]
@@ -856,6 +970,7 @@
     "PENDIENTE: AND-ACS-003 mantiene el criterio de potencia/uso como 'red de seguridad transitoria' hasta que el wizard capture uso_colectivo/acumulacion/recirculacion en producción (Bloque 9B); los campos ya existen en la condición OR pero no se ha retirado el criterio antiguo, tal como el propio fichero documenta.",
     "PENDIENTE: Ley 10/2021 art. 44 (base de tasas 21,94/45,77/66,43/424,48 €) no verificada.",
     "PENDIENTE: plazo_legal_dias=30 para registro PUES en ACS (otros ficheros usan 45 o 10 días) sin fuente citada -- no unificado en esta pasada.",
-    "RESUELTO 2026-07-28 (enlace roto): plataforma_url de 'Registro de instalación ACS en PUES' (3 ocurrencias) apuntaba a .../procedimientos/detalle/6513.html, que corresponde a TECI (Tramitador Electrónico de Certificados de Instalación de baja tensión, SIA 215668, verificado en andalucia/irve.json), no al registro térmico. Sustituida por .../detalle/6505.html, confirmado con Wayback Machine (200, archivado) y con la página oficial de carnés RITE de la Junta de Andalucía como 'Puesta en servicio de instalaciones industriales que no requieren autorización previa: ... instalaciones térmicas de edificios (climatización, calefacción, ACS)'. Esto resuelve también el conflicto 6513 vs 6505 que quedaba documentado como PENDIENTE en andalucia/irve.json."
+    "RESUELTO 2026-07-28 (enlace roto): plataforma_url de 'Registro de instalación ACS en PUES' (3 ocurrencias) apuntaba a .../procedimientos/detalle/6513.html, que corresponde a TECI (Tramitador Electrónico de Certificados de Instalación de baja tensión, SIA 215668, verificado en andalucia/irve.json), no al registro térmico. Sustituida por .../detalle/6505.html, confirmado con Wayback Machine (200, archivado) y con la página oficial de carnés RITE de la Junta de Andalucía como 'Puesta en servicio de instalaciones industriales que no requieren autorización previa: ... instalaciones térmicas de edificios (climatización, calefacción, ACS)'. Esto resuelve también el conflicto 6513 vs 6505 que quedaba documentado como PENDIENTE en andalucia/irve.json.",
+    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita. Queda pendiente el otro supuesto del art. 15.1.c (calentadores instantáneos, acumuladores y termos eléctricos <= 70 kW), que sí requiere conocer el tipo de equipo generador."
   ]
 }

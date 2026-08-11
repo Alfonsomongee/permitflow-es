@@ -66,7 +66,8 @@
           "paralelo_con": null,
           "regla_id": "CYL-ACS-000",
           "documentos_requeridos": [],
-          "notas": "Instalaciones de potencia inferior a 5 kW quedan fuera del ámbito de aplicación del RITE y no requieren memoria técnica, proyecto ni inscripción en el Registro de instalaciones térmicas (aplicación 'RITE', IAPA1468). Si el edificio es de uso colectivo, revisar igualmente la regla CYL-ACS-003 de Legionella, que no depende de la potencia."
+          "notas": "Instalaciones de potencia inferior a 5 kW quedan fuera del ámbito de aplicación del RITE y no requieren memoria técnica, proyecto ni inscripción en el Registro de instalaciones térmicas (aplicación 'RITE', IAPA1468). Si el edificio es de uso colectivo, revisar igualmente la regla CYL-ACS-003 de Legionella, que no depende de la potencia.",
+          "tipo_actuacion": "informativa"
         }
       ]
     },

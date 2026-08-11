@@ -85,7 +85,8 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido por auditoría (ALTO): mismo hueco del umbral inferior de 5 kW que en climatización."
+          "notas": "Añadido por auditoría (ALTO): mismo hueco del umbral inferior de 5 kW que en climatización.",
+          "tipo_actuacion": "informativa"
         }
       ]
     },
