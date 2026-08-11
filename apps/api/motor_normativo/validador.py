@@ -1,10 +1,29 @@
 """Validador pre-presentación: comprobaciones de coherencia sobre los datos del
 expediente, definidas en la clave `validaciones` de los JSONs de normativa.
 
-Semántica: la `condicion` (json-logic) describe el PROBLEMA — si evalúa truthy,
-la validación dispara un hallazgo. `campos_requeridos` actúa como guarda: si
-alguno es None, la validación no aplica (json-logic-py evalúa argumentos de
-forma eager, así que un `and` no protege de operar aritmética sobre nulos).
+Conviven tres formatos, porque los ficheros se escribieron en momentos distintos.
+El validador soporta los tres; la auditoría QA 2026-08-11 (A-05) descubrió que
+solo implementaba el primero, así que 18 de las 26 validaciones definidas —todas
+las de Madrid y Cataluña— eran código muerto: el panel decía "Sin incidencias ·
+3 comprobaciones superadas" cuando ninguna de las tres se había ejecutado. Un
+falso positivo tranquilizador en las dos comunidades que la aplicación presenta
+como mejor verificadas.
+
+1. **Condición json-logic** — `{condicion, severidad, mensaje, fuente}`.
+   La `condicion` describe el PROBLEMA: si evalúa truthy, dispara un hallazgo.
+   `campos_requeridos` actúa aquí como guarda: si alguno es None, la validación
+   no aplica (json-logic-py evalúa los argumentos de forma eager, así que un
+   `and` no protege de operar aritmética sobre nulos).
+
+2. **Campos obligatorios** — `{campos_requeridos, accion_si_faltan}`.
+   Sin `condicion`. Aquí `campos_requeridos` no es una guarda sino el objeto de
+   la comprobación: si falta alguno, el plan no se puede considerar fiable.
+   Se usa para datos que el schema no exige pero de los que dependen reglas de
+   esa comunidad (p. ej. `clase_instalacion_gas` en Madrid decide entre
+   proyecto técnico y declaración responsable).
+
+3. **Dominio de valor** — `{campo, valores_permitidos, obligatorio}`.
+   Comprueba que el valor de un campo está dentro de una lista cerrada.
 """
 import json
 import logging
@@ -35,9 +54,75 @@ class ValidadorOutput(BaseModel):
     no_evaluables: List[str] = Field(default_factory=list)
 
 
+def _legible(campo: str) -> str:
+    return campo.replace("_", " ")
+
+
 class Validador:
     def __init__(self, reglas_dir: Optional[Path] = None):
         self.reglas_dir = reglas_dir or (Path(__file__).parent / "reglas")
+
+    def _evaluar(self, v: dict, vid: str, datos: dict) -> Optional[Hallazgo]:
+        """Aplica la validación en el formato que corresponda. None = sin hallazgo."""
+
+        # Formato 3: dominio cerrado de un campo.
+        if "valores_permitidos" in v:
+            campo = v["campo"]
+            valor = datos.get(campo)
+            if valor is None:
+                if not v.get("obligatorio"):
+                    return None
+                return Hallazgo(
+                    id=vid,
+                    severidad="error",
+                    mensaje=(
+                        f"Falta el dato «{_legible(campo)}», necesario para clasificar esta "
+                        f"instalación en esta comunidad. Valores admitidos: "
+                        f"{', '.join(v['valores_permitidos'])}."
+                    ),
+                    fuente=v.get("fuente"),
+                )
+            if valor not in v["valores_permitidos"]:
+                return Hallazgo(
+                    id=vid,
+                    severidad="error",
+                    mensaje=(
+                        f"El valor «{valor}» no es válido para «{_legible(campo)}». "
+                        f"Valores admitidos: {', '.join(v['valores_permitidos'])}."
+                    ),
+                    fuente=v.get("fuente"),
+                )
+            return None
+
+        # Formato 2: campos obligatorios sin condición asociada.
+        if "condicion" not in v and "accion_si_faltan" in v:
+            faltan = [c for c in v.get("campos_requeridos", []) if datos.get(c) is None]
+            if not faltan:
+                return None
+            return Hallazgo(
+                id=vid,
+                severidad="error",
+                mensaje=(
+                    "Faltan datos de los que dependen las reglas de esta comunidad: "
+                    + ", ".join(f"«{_legible(c)}»" for c in faltan)
+                    + ". Sin ellos el plan puede omitir trámites aplicables, así que conviene "
+                    "revisarlo con un técnico antes de presentar nada."
+                ),
+                fuente=v.get("fuente"),
+            )
+
+        # Formato 1: condición json-logic. `campos_requeridos` es aquí una guarda.
+        campos = v.get("campos_requeridos") or []
+        if any(datos.get(campo) is None for campo in campos):
+            return None  # no aplica: faltan datos para evaluarla
+        if jsonLogic(v.get("condicion", False), datos):
+            return Hallazgo(
+                id=vid,
+                severidad=v.get("severidad") or "aviso",
+                mensaje=v.get("mensaje") or "",
+                fuente=v.get("fuente"),
+            )
+        return None
 
     def validar(self, params: ClasificadorInput) -> ValidadorOutput:
         file_path = (
@@ -60,24 +145,17 @@ class Validador:
 
         for v in validaciones:
             vid = v.get("id", "sin-id")
-            campos = v.get("campos_requeridos", [])
-            if any(eval_locals.get(campo) is None for campo in campos):
-                continue  # no aplica: faltan datos para evaluarla
-
             try:
-                if jsonLogic(v.get("condicion", False), eval_locals):
-                    hallazgos.append(Hallazgo(
-                        id=vid,
-                        severidad=v.get("severidad", "aviso"),
-                        mensaje=v.get("mensaje", ""),
-                        fuente=v.get("fuente"),
-                    ))
-            except Exception as e:  # noqa: BLE001 — condición malformada
+                hallazgo = self._evaluar(v, vid, eval_locals)
+            except Exception as e:  # noqa: BLE001 — definición malformada
                 logger.error(
                     f"Validación {vid} no evaluable en "
                     f"{params.comunidad}/{params.tipo_instalacion}: {e}"
                 )
                 no_evaluables.append(vid)
+                continue
+            if hallazgo is not None:
+                hallazgos.append(hallazgo)
 
         hallazgos.sort(key=lambda h: 0 if h.severidad == "error" else 1)
         return ValidadorOutput(

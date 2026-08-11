@@ -41,10 +41,26 @@ export function ValidadorPanel({ expedienteId }: ValidadorPanelProps) {
     void validar();
   }, [validar]);
 
-  // Sin comprobaciones definidas para este vertical/comunidad: mejor no
-  // renderizar nada que mostrar un panel Pro que confiesa estar vacío.
-  if (!cargando && !error && !requiereUpgrade && resultado?.total_definidas === 0) {
-    return null;
+  // Antes, si no había comprobaciones definidas para esta comunidad y vertical,
+  // el panel devolvía null y la pestaña "Validación" quedaba en blanco sin
+  // explicación. Como eso ocurre en 60 de las 85 combinaciones (auditoría QA
+  // 2026-08-11, A-05), el usuario podía interpretar el vacío como "todo
+  // correcto". Se dice explícitamente que no hay nada que comprobar todavía.
+  const sinComprobaciones =
+    !cargando && !error && !requiereUpgrade && resultado?.total_definidas === 0;
+
+  if (sinComprobaciones) {
+    return (
+      <div className="p-3">
+        <p className="rounded-xl border border-border bg-muted px-3.5 py-3 text-xs leading-relaxed text-text-secondary">
+          Todavía no hay comprobaciones previas definidas para esta comunidad y esta
+          tecnología. Que no aparezca ninguna incidencia aquí{" "}
+          <span className="font-medium text-text-primary">no significa que el expediente
+          esté correcto</span>: significa que aún no hemos modelado qué revisar en este
+          caso concreto.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -74,9 +90,7 @@ export function ValidadorPanel({ expedienteId }: ValidadorPanelProps) {
 
       {resultado && !cargando && (
         <>
-          {resultado.total_definidas === 0 ? (
-            <p className="text-xs text-text-secondary">Aún no hay comprobaciones definidas para este vertical y comunidad.</p>
-          ) : resultado.hallazgos.length === 0 ? (
+          {resultado.hallazgos.length === 0 ? (
             <div className="flex items-center gap-2 rounded-xl bg-success-light px-3.5 py-3 text-xs font-medium text-success-dark">
               <CheckCircle2 size={15} aria-hidden />
               Sin incidencias · {resultado.total_definidas} comprobaciones superadas
