@@ -57,12 +57,32 @@ Cinco problemas que la auditoría no había detectado y que aparecieron al verif
 4. **18 de las 26 validaciones eran código muerto** (A-05 resultó peor de lo reportado): Madrid y Cataluña usan formatos que el validador no implementaba, así que el panel decía "3 comprobaciones superadas" sin haber ejecutado ninguna.
 5. **Los trámites informativos no se renderizaban** en ninguna sección: se filtraban fuera de los accionables y nadie los pintaba. Con la unificación del RITE eso habría dejado un plan aparentemente vacío en 16 comunidades.
 
-### Lo que queda abierto
+### Segunda ronda: cierre de lo que quedaba abierto
 
-- **M-05** · el panel de resumen sigue sin mostrar `modalidad_autoconsumo`, `combustible` ni `presion_bar`, que son parámetros que deciden el plan. Es un cambio de UI sin riesgo normativo.
-- **Aragón y Baleares · registro de autoconsumo.** Aragón no emite el trámite en ningún tramo; Baleares lo fusiona con el registro de producción. Separarlos exige una fuente autonómica específica que no he localizado: documentado como hueco en sus ficheros, no inventado.
-- **RITE art. 15.1.c, segundo supuesto.** Quedan exentas las instalaciones de ACS por calentadores, acumuladores o termos eléctricos de hasta 70 kW. No se modela porque el formulario no pregunta el tipo de equipo generador. Anotado en los 13 ficheros de ACS afectados.
-- **Cobertura del validador.** Sigue habiendo 60 de 85 combinaciones sin comprobaciones definidas. Ahora el panel lo dice explícitamente en vez de quedarse en blanco, pero completarlas requiere trabajo normativo por comunidad.
+Los cuatro puntos que quedaron pendientes se han cerrado. La suite llega a **1.223 tests**.
+
+| Pendiente | Resultado | Commit |
+|---|---|---|
+| M-05 resumen incompleto | Añadidos `modalidad_autoconsumo`, `combustible` y `presion_bar` con etiquetas legibles; retirado `tension` de IRVE, que nunca se recogía | `cac2263` |
+| RITE art. 15.1.c, supuestos 2 y 3 | Modelados en las 17 CCAA con el campo nuevo `tipo_generador_acs` | `cac2263` |
+| Aragón y Baleares · registro de autoconsumo | Localizadas las fuentes autonómicas y modelado cada una según la suya | `0a6e649` |
+| Cobertura del validador | Comprobaciones de base estatal para las 17 comunidades en fotovoltaica | `0e7bac4` |
+
+**Lo más relevante de esta segunda ronda es que las tres comunidades hacen tres cosas distintas con el mismo trámite**, y verificarlo una por una era la única forma de saberlo:
+
+- **Andalucía y Madrid** siguen el mínimo del art. 9.4 de la Ley 24/2013: inscripción de oficio por debajo de 100 kW en BT.
+- **Baleares** va más allá: la ventanilla de la CAIB confirma que inscribe de oficio hasta 500 kW.
+- **Aragón** no aplica el automatismo. Su ficha del procedimiento 2459 exige la inscripción *"independientemente de la modalidad de autoconsumo, de la potencia instalada del equipo generador y de la tensión a la que estén conectados"*.
+
+Aplicarles el criterio estatal por defecto habría sido incorrecto en dos de las tres. Los tests distinguen ahora por comunidad en vez de imponer una regla única: la diferencia es el dato, no el ruido.
+
+En Baleares volvió a aparecer el patrón de Andalucía —**el conocimiento en la prosa y no en la estructura**—: la nota del trámite ya decía que la inscripción se practica de oficio, pero viajaba fusionada con el registro de producción en un único elemento marcado como tarea del usuario.
+
+### Lo que sigue abierto, y por qué
+
+- **Registro de autoconsumo en Baleares por encima de 500 kW.** La ventanilla consultada solo cubre pequeña potencia; no está verificado si el automatismo se mantiene. Anotado como hueco.
+- **Validaciones en ACS, gas, IRVE y climatización.** Las cuatro transversales creadas hablan de modalidades de autoconsumo, que no existen en esas tecnologías. Inventar comprobaciones para rellenar el hueco sería peor que dejarlo: esas combinaciones siguen mostrando el aviso honesto de que aún no hay nada modelado.
+- **Discrepancia de umbral en Andalucía.** El manual de la Junta de julio de 2019 sitúa en 100 kW el umbral de autorización administrativa; el Decreto-ley 2/2018 andaluz lo eleva a 500 kW, y es lo que el motor aplica. No he podido contrastar cuál prevalece hoy con el manual de noviembre de 2025 que las fuentes del fichero ya citan. Se deja como está —el dato verificado previamente— y queda anotado.
 
 **Diagnóstico general.** El motor no se cae con ninguna combinación (0 crashes, 0 reglas con error de evaluación en 2.397 combinaciones) y la disciplina de honestidad normativa es sólida: no se inventan datos y los huecos están documentados. El problema no es de robustez, es de **integridad del contrato entre capas y de simetría entre comunidades**: hay reglas correctamente escritas que la aplicación real nunca puede activar, y hay normativa estatal idéntica implementada de tres formas distintas según la comunidad.
 
