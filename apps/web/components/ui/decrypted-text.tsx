@@ -20,6 +20,8 @@ interface DecryptedTextProps {
  * durante un momento antes de fijarse en su valor final.
  * Ideal para respuestas del asistente IA.
  */
+import { FormattedMessage } from "@/components/chat/FormattedMessage";
+
 export function DecryptedText({
   text,
   duration = 1200,
@@ -81,8 +83,9 @@ export function DecryptedText({
   }, [text, duration, delay, animate]);
 
   return (
-    <span className={className} aria-label={text}>
-      {displayed || "\u00A0"}
-    </span>
+    <FormattedMessage
+      content={displayed || text}
+      className={className}
+    />
   );
 }
