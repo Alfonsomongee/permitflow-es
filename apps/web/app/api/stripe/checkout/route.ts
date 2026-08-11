@@ -10,7 +10,7 @@ import Stripe from "stripe";
 import { supabaseAdmin } from "@/lib/supabase";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_placeholder", {
-  apiVersion: "2026-06-24.dahlia",
+  apiVersion: "2026-07-29.dahlia",
 });
 
 const PRICE_IDS: Record<string, string> = {
