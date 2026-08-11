@@ -14,9 +14,12 @@
 | Severidad | Nº | Hallazgos |
 |---|---|---|
 | **Crítico** | 3 | C-01 contrato roto proxy↔motor (11 reglas inalcanzables), C-02 umbral RITE 5 kW incoherente entre CCAA, C-03 campos pedidos al usuario con justificación falsa |
-| **Alto** | 5 | A-01 avisos contradictorios antes/después de clasificar, A-02 huecos de verificación ocultos justo donde más se confía, A-03 umbral 100 kW no modelado en 3 CCAA, A-04 C. Valenciana sin ninguna diferenciación por potencia, A-05 validaciones pre-presentación solo en 3 de 17 CCAA |
+| **Alto** | 4 | A-01 avisos contradictorios antes/después de clasificar, A-02 huecos de verificación ocultos justo donde más se confía, A-03 inscripción de oficio presentada como tarea con coste, A-05 validaciones pre-presentación solo en 4 de 17 CCAA |
 | **Medio** | 7 | M-01 a M-07 (ver detalle) |
 | **Bajo** | 5 | B-01 a B-05 (ver detalle) |
+| ~~Alto~~ | 1 | **A-04 retirado: falso positivo** (ver su ficha) |
+
+> **Corrección posterior (2026-08-11).** Al implementar las correcciones, la verificación normativa obligó a revisar dos hallazgos: **A-04 resultó ser un falso positivo** y **A-03 estaba mal diagnosticado**. Ambos derivaban de usar el número de trámites como indicador de si una comunidad modela un umbral, lo cual no es válido: una comunidad puede agrupar varios pasos en un trámite agregado. Las fichas correspondientes explican el error y lo que sí resultó verificable.
 
 **Diagnóstico general.** El motor no se cae con ninguna combinación (0 crashes, 0 reglas con error de evaluación en 2.397 combinaciones) y la disciplina de honestidad normativa es sólida: no se inventan datos y los huecos están documentados. El problema no es de robustez, es de **integridad del contrato entre capas y de simetría entre comunidades**: hay reglas correctamente escritas que la aplicación real nunca puede activar, y hay normativa estatal idéntica implementada de tres formas distintas según la comunidad.
 
@@ -183,38 +186,36 @@ severidadVerificacion (DESPUÉS): no_verificado → generica → parcial → nin
 
 ---
 
-### A-03 · ALTO · El umbral de 100 kW del RD 244/2019 no está modelado en 3 comunidades
+### A-03 · ALTO · La inscripción de oficio en el registro de autoconsumo se presenta como tarea del usuario
 
-- **Comunidades afectadas:** Andalucía, Aragón, Baleares
+> **Reformulado el 2026-08-11 tras verificar la normativa.** El enunciado original de este hallazgo era *"el umbral de 100 kW no está modelado en Andalucía, Aragón y Baleares"*, deducido de que el número de trámites no cambiaba al cruzar los 100 kW. Ese diagnóstico era **incorrecto**: contar trámites no mide si un umbral está modelado, y en el caso de Andalucía el umbral relevante de autorización administrativa no son 100 kW sino 500 kW, por el **Decreto-ley 2/2018 andaluz** (disposición adicional única), que ya estaba verificado y citado en las fuentes del fichero. Cambiarlo a 100 kW habría introducido un error. Lo que sí resulta verificable se describe a continuación.
+
+- **Comunidades afectadas:** Andalucía (corregido); Aragón y Baleares (documentado, no corregido)
 - **Tecnología:** fotovoltaica autoconsumo
-- **Configuración:** BT, con excedentes con compensación, 99,99 kW vs 101 kW
 
-El RD 244/2019 art. 19 distingue la inscripción **de oficio** (BT + generación BT + <100 kW) de la inscripción **a solicitud** (≥100 kW), y por encima de 100 kW suele activarse proyecto técnico e inspección OCA.
+**Base legal.** Art. 9.4 de la Ley 24/2013 del Sector Eléctrico, en la redacción del RDL 15/2018, citado literalmente en el manual de tramitación de autoconsumo de la Secretaría General de Industria, Energía y Minas de la Junta de Andalucía (ap. 5.1.7 y 5.2.7):
 
-**Resultado observado**
+> "Para aquellos sujetos consumidores conectados a baja tensión, en los que la instalación generadora sea de baja tensión y la potencia instalada de generación sea menor de 100 kW que realicen autoconsumo, la inscripción se llevará a cabo **de oficio** por las Comunidades Autónomas [...]. Para el resto de instalaciones [...] con potencias mayores de 100 kW o aquellas que no sean en BT tendrán que **presentar solicitud de inscripción**."
 
-```
-andalucia   99.99 kW: 6 trámites   101 kW: 6 trámites   ← plan idéntico
-aragon      99.99 kW: 3 trámites   101 kW: 3 trámites   ← plan idéntico
-baleares    99.99 kW: 8 trámites   101 kW: 8 trámites   ← plan idéntico
-```
+Es una obligación de la Administración, no del ciudadano, así que no admite especialidad autonómica.
 
-Las otras 14 comunidades sí reaccionan al umbral (añaden proyecto técnico, inspección inicial, autorización administrativa o cambio de tipo de inscripción).
+**Resultado observado.** En Andalucía, el trámite "Inscripción en el RADNE" se emitía sin `tipo_actuacion` —es decir, como acción del usuario— en todo el rango, con **62,25 € de coste estimado** y un formulario del MITECO que rellenar. Lo llamativo: el propio campo `organismo` del trámite ya decía *"(inscripción de oficio en BT <100 kW)"*. El conocimiento estaba en la prosa y no en la estructura, así que la interfaz no podía distinguirlo y lo contaba como tarea pendiente con coste.
 
-**Resultado esperado.** Cambio de plan al cruzar 100 kW, coherente con el resto de comunidades.
+**Resultado esperado.** Por debajo de 100 kW con consumo y generación en BT: trámite de oficio, sin coste, sin formulario y sin contar como tarea. Igual o por encima de 100 kW, o en AT: solicitud del titular. Madrid ya lo modelaba así.
+
+**Aragón y Baleares.** Aragón no emite ningún trámite de registro de autoconsumo, y Baleares lo fusiona con el registro de producción en un único trámite. Separarlos sin una fuente autonómica que lo respalde sería inventar normativa, así que quedan documentados como huecos en sus ficheros.
 
 ---
 
-### A-04 · ALTO · Comunidad Valenciana devuelve el mismo plan de 0,5 kW a 500 kW
+### A-04 · ~~ALTO~~ · FALSO POSITIVO — retirado
 
-- **Comunidad afectada:** Comunidad Valenciana
-- **Tecnología:** fotovoltaica autoconsumo
-
-**Resultado observado.** Un único trámite para todo el rango 0,5 – 100 kW; a partir de 101 kW cambia a otro trámite único. No hay diferenciación por potencia dentro de esos tramos, ni distinción entre modalidades de compensación.
-
-Perfiles planos comparables (sin reacción alguna a la potencia en todo el rango probado): Asturias (5), Baleares (8), Canarias (5), Madrid (2 hasta el corte de 100 kW).
-
-**Resultado esperado.** Como mínimo diferenciar MTD vs proyecto técnico y el umbral de registro. Un plan de un solo trámite para una instalación de 500 kW no es plausible.
+> **Retirado el 2026-08-11.** El enunciado original era *"Comunidad Valenciana devuelve el mismo plan de 0,5 kW a 500 kW"*. Es falso. Al inspeccionar las reglas, C. Valenciana **sí modela los umbrales**: CV-FV-001 (≤10 kW), CV-FV-002 (10–100 kW), CV-FV-003 (100–500 kW) y CV-FV-004 (>500 kW), además de tramos por importe de inversión.
+>
+> El error fue de método: usé el **número de trámites** como indicador de si una comunidad diferencia por potencia. C. Valenciana agrupa cada tramo en un único trámite agregado ("Comunicación de puesta en servicio e inscripción"), así que el contador no varía aunque el trámite emitido sea distinto en cada tramo. Es una diferencia de granularidad de modelado, no una ausencia de umbral.
+>
+> El mismo defecto de método afecta a los "perfiles planos" que citaba el hallazgo (Asturias, Baleares, Canarias, Madrid): antes de concluir que falta un umbral hay que mirar qué trámite se emite, no cuántos.
+>
+> **Lección aplicable al resto del informe:** las métricas agregadas sirven para *localizar* dónde mirar, no para concluir. Todo hallazgo derivado de un conteo debe confirmarse leyendo las reglas.
 
 ---
 

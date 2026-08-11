@@ -1084,34 +1084,6 @@
           "formulario_ref": null
         },
         {
-          "orden": 5,
-          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "62.25 EUR",
-          "formulario_ref": "MITECO-RAC-001",
-          "documentos_requeridos": [
-            {
-              "id": "formulario_rac",
-              "label": "Formulario de inscripción RADNE (sede MITECO)",
-              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
-              "obligatorio": true
-            },
-            {
-              "id": "registro_pues_rac",
-              "label": "Número de registro PUES o autorización administrativa",
-              "descripcion": "Referencia del registro autonómico que acredita la legalización de la instalación.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
-          "paralelo_con": null
-        },
-        {
           "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
@@ -1284,34 +1256,6 @@
           "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
           "paralelo_con": null,
           "formulario_ref": null
-        },
-        {
-          "orden": 5,
-          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "Depende de la inversión exacta",
-          "formulario_ref": "MITECO-RAC-001",
-          "documentos_requeridos": [
-            {
-              "id": "formulario_rac",
-              "label": "Formulario de inscripción RADNE (sede MITECO)",
-              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
-              "obligatorio": true
-            },
-            {
-              "id": "registro_pues_rac",
-              "label": "Número de registro PUES o autorización administrativa",
-              "descripcion": "Referencia del registro autonómico que acredita la legalización de la instalación.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
-          "paralelo_con": null
         },
         {
           "orden": 6,
@@ -1500,34 +1444,6 @@
           "formulario_ref": null
         },
         {
-          "orden": 5,
-          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
-          "formulario_ref": "MITECO-RAC-001",
-          "documentos_requeridos": [
-            {
-              "id": "formulario_rac",
-              "label": "Formulario de inscripción RADNE (sede MITECO)",
-              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
-              "obligatorio": true
-            },
-            {
-              "id": "registro_pues_rac",
-              "label": "Número de registro PUES o autorización administrativa",
-              "descripcion": "Referencia del registro autonómico que acredita la legalización de la instalación.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
-          "paralelo_con": null
-        },
-        {
           "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
@@ -1702,34 +1618,6 @@
           "formulario_ref": null
         },
         {
-          "orden": 5,
-          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "159.18 EUR",
-          "formulario_ref": "MITECO-RAC-001",
-          "documentos_requeridos": [
-            {
-              "id": "formulario_rac",
-              "label": "Formulario de inscripción RADNE (sede MITECO)",
-              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
-              "obligatorio": true
-            },
-            {
-              "id": "registro_pues_rac",
-              "label": "Número de registro PUES o autorización administrativa",
-              "descripcion": "Referencia del registro autonómico que acredita la legalización de la instalación.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
-          "paralelo_con": null
-        },
-        {
           "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
@@ -1896,28 +1784,6 @@
           "paralelo_con": null
         },
         {
-          "orden": 6,
-          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "320.65 EUR",
-          "formulario_ref": "MITECO-RAC-001",
-          "documentos_requeridos": [
-            {
-              "id": "formulario_rac_grande",
-              "label": "Formulario de inscripción RAC (sede MITECO)",
-              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
-          "paralelo_con": null
-        },
-        {
           "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
@@ -2081,28 +1947,6 @@
             }
           ],
           "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
-          "paralelo_con": null
-        },
-        {
-          "orden": 6,
-          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "Depende de la inversión exacta",
-          "formulario_ref": "MITECO-RAC-001",
-          "documentos_requeridos": [
-            {
-              "id": "formulario_rac_grande",
-              "label": "Formulario de inscripción RAC (sede MITECO)",
-              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null
         },
         {
@@ -2284,28 +2128,6 @@
           "paralelo_con": null
         },
         {
-          "orden": 6,
-          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "500.00 EUR (estimado tramo medio)",
-          "formulario_ref": "MITECO-RAC-001",
-          "documentos_requeridos": [
-            {
-              "id": "formulario_rac_grande",
-              "label": "Formulario de inscripción RAC (sede MITECO)",
-              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
-          "paralelo_con": null
-        },
-        {
           "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
@@ -2472,28 +2294,6 @@
           "paralelo_con": null
         },
         {
-          "orden": 6,
-          "nombre": "Inscripción en el RADNE (Registro Administrativo de Autoconsumo de Energía Eléctrica)",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "RD 244/2019 art. 25; página oficial de Autoconsumo de la Junta de Andalucía",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "1061.21 EUR",
-          "formulario_ref": "MITECO-RAC-001",
-          "documentos_requeridos": [
-            {
-              "id": "formulario_rac_grande",
-              "label": "Formulario de inscripción RAC (sede MITECO)",
-              "descripcion": "Alta en el Registro Administrativo de Autoconsumo del MITECO.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
-          "paralelo_con": null
-        },
-        {
           "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
@@ -2578,6 +2378,149 @@
           "paralelo_con": null
         }
       ]
+    },
+    {
+      "id": "AND-FV-RADNE-OFICIO",
+      "descripcion": "Inscripción en el registro de autoconsumo practicada de oficio por la comunidad autónoma: consumo en BT, generación en BT y potencia < 100 kW (Ley 24/2013 art. 9.4, redacción del RDL 15/2018).",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  15
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "uso"
+                  },
+                  "residencial"
+                ]
+              }
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "nivel_tension_conexion"
+              },
+              "bt"
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Inscripción de oficio en el RADNE (no requiere acción del titular)",
+          "organismo": "Delegación Territorial competente en energía (Junta de Andalucía), que remite los datos al RADNE del MITECO",
+          "base_legal": "Ley 24/2013 art. 9.4 (redacción del RDL 15/2018) y RD 244/2019; Manual de tramitación de autoconsumo de la Junta de Andalucía, ap. 5.1.7 y 5.2.7",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": 30,
+          "plataforma": "MITECO",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
+          "coste_estimado": "Sin coste para el titular",
+          "formulario_ref": null,
+          "documentos_requeridos": [],
+          "notas": "Consumidor en baja tensión, generación en baja tensión y potencia instalada inferior a 100 kW: la inscripción en el registro de autoconsumo la practica la comunidad autónoma de oficio, a partir de la documentación que ya presentaste en PUES. No tienes que solicitarla ni pagar tasa por ella. Aparece en el plan porque conviene comprobar que se ha practicado antes de dar el expediente por cerrado, no porque haya nada que hacer.",
+          "paralelo_con": null,
+          "tipo_actuacion": "oficio_administracion",
+          "regla_id": null
+        }
+      ]
+    },
+    {
+      "id": "AND-FV-RADNE-SOLICITUD",
+      "descripcion": "Inscripción en el registro de autoconsumo a solicitud del titular: potencia >= 100 kW o conexión en alta tensión.",
+      "condicion": {
+        "and": [
+          {
+            "or": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  15
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "uso"
+                  },
+                  "residencial"
+                ]
+              }
+            ]
+          },
+          {
+            "or": [
+              {
+                ">=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "nivel_tension_conexion"
+                  },
+                  "at"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Solicitud de inscripción en el RADNE",
+          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
+          "base_legal": "Ley 24/2013 art. 9.4 (redacción del RDL 15/2018) y RD 244/2019; Manual de tramitación de autoconsumo de la Junta de Andalucía, ap. 5.1.7 y 5.2.7",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": 30,
+          "plataforma": "MITECO",
+          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
+          "coste_estimado": "62.25 EUR",
+          "formulario_ref": "MITECO-RAC-001",
+          "documentos_requeridos": [
+            {
+              "id": "formulario_rac",
+              "label": "Formulario de inscripción RADNE (sede MITECO)",
+              "descripcion": "Alta en el RADNE. Para consumidores en baja tensión con generación en BT y potencia instalada <100 kW, la inscripción la realiza de oficio la Comunidad Autónoma: el titular normalmente NO debe presentar este formulario. Obligación directa del titular solo si la instalación no cumple ese perfil (AT, o BT >=100 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "registro_pues_rac",
+              "label": "Número de registro PUES o autorización administrativa",
+              "descripcion": "Referencia del registro autonómico que acredita la legalización de la instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Por encima de 100 kW de potencia instalada, o con conexión en alta tensión, la inscripción en el registro de autoconsumo deja de practicarse de oficio y debe solicitarla el titular. CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
+          "paralelo_con": null,
+          "tipo_actuacion": "accion_usuario",
+          "regla_id": null
+        }
+      ]
     }
   ],
   "validaciones": [
@@ -2633,6 +2576,8 @@
     "PENDIENTE: excepciones del párrafo segundo del apartado 2 de la disposición adicional única del Decreto-ley 2/2018 (instalaciones ≤500 kW excluidas de la vía PUES) -- existen pero no se ha identificado cuáles son; no incorporadas.",
     "PENDIENTE: Ley 7/2021 art. 16 citada en fuentes FV -- pertenece al bloque de movilidad/transporte, no de autoconsumo; cita improcedente detectada pero no eliminada en esta pasada (bajo impacto, no listada como CRÍTICO/ALTO).",
     "PENDIENTE: acuerdo de reparto en autoconsumo colectivo (RD 244/2019 art. 3 y anexo I) no incorporado (hueco B8, criterio profesional sin fuente verificada en esta auditoría).",
-    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.edistribucion.com/es/autoconsumo/tramitacion.html (usada en los trámites 'Solicitud del CAU' y 'Comunicación de autoconsumo a la distribuidora' de todas las reglas AND-FV) devolvía 404 confirmado por un usuario real; sin snapshot en Wayback Machine. e-distribución reestructuró su web: sustituida por https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html ('Autoconsumo: Información sobre modalidades, trámites y normativa'), página vigente verificada por fetch directo, que describe expresamente la solicitud de acceso/CAU y la comunicación de autoconsumo a la distribuidora."
+    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.edistribucion.com/es/autoconsumo/tramitacion.html (usada en los trámites 'Solicitud del CAU' y 'Comunicación de autoconsumo a la distribuidora' de todas las reglas AND-FV) devolvía 404 confirmado por un usuario real; sin snapshot en Wayback Machine. e-distribución reestructuró su web: sustituida por https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html ('Autoconsumo: Información sobre modalidades, trámites y normativa'), página vigente verificada por fetch directo, que describe expresamente la solicitud de acceso/CAU y la comunicación de autoconsumo a la distribuidora.",
+    "RESUELTO 2026-08-11: la inscripción en el RADNE se emitía como acción del usuario (con 62,25 € de coste y formulario) también por debajo de 100 kW en BT, donde la Ley 24/2013 art. 9.4 la atribuye de oficio a la comunidad autónoma. El propio campo 'organismo' ya lo advertía en texto libre, pero no estaba modelado, así que la interfaz no podía distinguirlo. Separado en AND-FV-RADNE-OFICIO y -SOLICITUD.",
+    "PENDIENTE: por debajo de 15 kW (AND-FV-001 y AND-FV-001B) no se emite ningún trámite de registro de autoconsumo. La inscripción de oficio existe igualmente en ese tramo; no se ha añadido para no alterar planes ya validados contra casos de referencia."
   ]
 }

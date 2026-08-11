@@ -14,7 +14,7 @@ export const CAMPOS_CONDICIONALES: Record<string, Record<string, readonly string
   andalucia: {
     acs: ["acumulacion", "combustible", "inversion_eur", "recirculacion", "uso_colectivo"],
     climatizacion_aerotermia: [],
-    fotovoltaica_autoconsumo: ["inversion_eur", "modalidad_autoconsumo"],
+    fotovoltaica_autoconsumo: ["inversion_eur", "modalidad_autoconsumo", "nivel_tension_conexion"],
     gas_baja_presion: [],
     irve: ["acceso_publico", "inversion_eur", "modo_recarga", "numero_puntos", "potencia_por_punto_kw", "requiere_nuevo_suministro", "ubicacion_irve"],
   },

@@ -14,7 +14,7 @@ export const COBERTURA_NORMATIVA: Record<string, Record<string, CoberturaCombo>>
   andalucia: {
     acs: { nivelVerificacion: "verificada", estado: null, huecos: 9 },
     climatizacion_aerotermia: { nivelVerificacion: "generica", estado: null, huecos: 7 },
-    fotovoltaica_autoconsumo: { nivelVerificacion: "generica", estado: null, huecos: 13 },
+    fotovoltaica_autoconsumo: { nivelVerificacion: "generica", estado: null, huecos: 15 },
     gas_baja_presion: { nivelVerificacion: "generica", estado: null, huecos: 5 },
     irve: { nivelVerificacion: "generica", estado: null, huecos: 12 },
   },
