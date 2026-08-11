@@ -34,6 +34,7 @@ from json_logic import jsonLogic
 from pydantic import BaseModel, Field
 
 from motor_normativo.excepciones import NormativaNoEncontradaError
+from motor_normativo.validaciones_transversales import transversales_para
 from schemas.clasificador import ClasificadorInput
 
 logger = logging.getLogger(__name__)
@@ -137,7 +138,12 @@ class Validador:
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        validaciones = data.get("validaciones", [])
+        # Las de base estatal se añaden a las de la comunidad. Sin ellas, 60 de
+        # las 85 combinaciones no comprobaban absolutamente nada (auditoría QA
+        # 2026-08-11, A-05), aunque parte de lo que hay que comprobar no depende
+        # de la comunidad. Ver motor_normativo/validaciones_transversales.py.
+        validaciones = list(data.get("validaciones", []))
+        validaciones.extend(transversales_para(params.tipo_instalacion))
         eval_locals = params.model_dump()
 
         hallazgos: list[Hallazgo] = []

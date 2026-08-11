@@ -2725,24 +2725,6 @@
   ],
   "validaciones": [
     {
-      "id": "AND-FV-VAL-001",
-      "severidad": "aviso",
-      "campos_requeridos": [
-        "potencia_kw"
-      ],
-      "condicion": {
-        ">": [
-          {
-            "var": "potencia_kw"
-          },
-          100
-        ]
-      },
-      "mensaje": "Potencia superior a 100 kW: la instalación no puede acogerse al mecanismo de compensación simplificada de excedentes.",
-      "fuente": "RD 244/2019, art. 4 y 14",
-      "validado_por": null
-    },
-    {
       "id": "AND-FV-VAL-002",
       "severidad": "aviso",
       "campos_requeridos": [
@@ -2778,6 +2760,7 @@
     "PENDIENTE: acuerdo de reparto en autoconsumo colectivo (RD 244/2019 art. 3 y anexo I) no incorporado (hueco B8, criterio profesional sin fuente verificada en esta auditoría).",
     "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.edistribucion.com/es/autoconsumo/tramitacion.html (usada en los trámites 'Solicitud del CAU' y 'Comunicación de autoconsumo a la distribuidora' de todas las reglas AND-FV) devolvía 404 confirmado por un usuario real; sin snapshot en Wayback Machine. e-distribución reestructuró su web: sustituida por https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html ('Autoconsumo: Información sobre modalidades, trámites y normativa'), página vigente verificada por fetch directo, que describe expresamente la solicitud de acceso/CAU y la comunicación de autoconsumo a la distribuidora.",
     "RESUELTO 2026-08-11: la inscripción en el RADNE se emitía como acción del usuario (con 62,25 € de coste y formulario) también por debajo de 100 kW en BT, donde la Ley 24/2013 art. 9.4 la atribuye de oficio a la comunidad autónoma. El propio campo 'organismo' ya lo advertía en texto libre, pero no estaba modelado, así que la interfaz no podía distinguirlo. Separado en AND-FV-RADNE-OFICIO y -SOLICITUD.",
-    "PENDIENTE: por debajo de 15 kW (AND-FV-001 y AND-FV-001B) no se emite ningún trámite de registro de autoconsumo. La inscripción de oficio existe igualmente en ese tramo; no se ha añadido para no alterar planes ya validados contra casos de referencia."
+    "PENDIENTE: por debajo de 15 kW (AND-FV-001 y AND-FV-001B) no se emite ningún trámite de registro de autoconsumo. La inscripción de oficio existe igualmente en ese tramo; no se ha añadido para no alterar planes ya validados contra casos de referencia.",
+    "RESUELTO 2026-08-11: AND-FV-VAL-001 (límite de 100 kW para la compensación simplificada) se retira de aquí porque es normativa estatal (RD 244/2019 art. 4), no una particularidad andaluza. Pasa a motor_normativo/validaciones_transversales.py, donde aplica a las 17 comunidades en vez de solo a esta."
   ]
 }
