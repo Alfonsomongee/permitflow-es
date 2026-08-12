@@ -8,6 +8,35 @@ import type { PlanTramitacion } from "@/types/plan";
 const API_URL =
   process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
+// Traducciones de los mensajes "de fábrica" que Pydantic v2 genera en inglés
+// (Field(gt=0), Field(ge=1)...). En la práctica el backend ya traduce esto en
+// main.py::validation_exception_handler antes de que el detail llegue aquí
+// como string (rama de arriba), así que este bloque es defensa en
+// profundidad para el caso en que `detail` llegue como array sin pasar por
+// ese handler (otro servicio, otra ruta). Misma tabla que en main.py -- no
+// se puede compartir literalmente entre Python y TypeScript, pero debe
+// mantenerse igual si una de las dos cambia (plan de acción consolidado
+// 2026-08-12, P-18).
+function traducirMensajePydantic(msg: string): string {
+  const reglas: Array<[RegExp, (m: RegExpMatchArray) => string]> = [
+    [/^Field required$/, () => "Campo obligatorio."],
+    [/^Input should be greater than or equal to (-?\d+(?:\.\d+)?)$/, (m) => `Debe ser mayor o igual que ${m[1]}.`],
+    [/^Input should be less than or equal to (-?\d+(?:\.\d+)?)$/, (m) => `Debe ser menor o igual que ${m[1]}.`],
+    [/^Input should be greater than (-?\d+(?:\.\d+)?)$/, (m) => `Debe ser mayor que ${m[1]}.`],
+    [/^Input should be less than (-?\d+(?:\.\d+)?)$/, (m) => `Debe ser menor que ${m[1]}.`],
+    [/^Input should be a valid number, unable to parse string as a number$/, () => "Debe ser un número válido."],
+    [/^Input should be a valid integer, unable to parse string as an integer$/, () => "Debe ser un número entero válido."],
+    [/^Input should be a valid string$/, () => "Debe ser un texto válido."],
+    [/^Input should be a valid boolean.*$/, () => "Debe ser verdadero o falso."],
+    [/^Input should be (.+)$/, (m) => `El valor debe ser ${m[1].replace(/ or /g, " o ")}.`],
+  ];
+  for (const [regex, formatear] of reglas) {
+    const match = msg.match(regex);
+    if (match) return formatear(match);
+  }
+  return msg;
+}
+
 /**
  * Convierte el campo `detail` de un error de FastAPI en un string legible,
  * sin importar la forma en la que venga (string ya formateado, lista de errores
@@ -26,7 +55,8 @@ function stringifyErrorDetail(detail: unknown): string | null {
           const loc = Array.isArray((item as { loc?: unknown[] }).loc)
             ? (item as { loc: unknown[] }).loc.filter((p) => p !== "body").join(".")
             : "";
-          const msg = String((item as { msg: unknown }).msg ?? "").replace(/^Value error,\s*/, "");
+          const msgCrudo = String((item as { msg: unknown }).msg ?? "").replace(/^Value error,\s*/, "");
+          const msg = traducirMensajePydantic(msgCrudo);
           return loc ? `${loc}: ${msg}` : msg;
         }
         return null;

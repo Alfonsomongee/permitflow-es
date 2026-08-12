@@ -1,5 +1,24 @@
 import { z } from "zod";
 
+// Estos campos numericos (guardados como string por el formulario, como
+// potencia_kw) no tenian ninguna validacion de signo: un "-50" en
+// superficie_m2 o potencia_resultante_kw pasaba tal cual hasta el backend, que
+// SI lo rechaza (schemas/clasificador.py), pero como un 422 generico tras
+// enviar el formulario en vez de un error inline antes de enviarlo. La
+// presencia obligatoria de cada campo (cuando aplica) ya la exige superRefine
+// mas abajo; esto solo cierra la puerta a valores negativos, cero o no
+// numericos cuando el campo SI tiene contenido. De los ocho campos que
+// listaba el plan de accion, siete son realmente numericos (superficie_m2,
+// numero_puntos, potencia_por_punto_kw, inversion_eur, potencia_resultante_kw,
+// presion_resultante_bar, incremento_potencia_pct); presion_bar no lo es --
+// ver su comentario propio mas abajo (plan de accion consolidado 2026-08-12,
+// P-18).
+function esNumeroPositivoOVacio(val: string | undefined): boolean {
+  if (!val) return true;
+  const num = parseFloat(val);
+  return Number.isFinite(num) && num > 0;
+}
+
 export const nuevaInstalacionSchema = z.object({
   // Step 1
   tipo_instalacion: z.string().min(1, "Selecciona el tipo de instalacion."),
@@ -14,11 +33,17 @@ export const nuevaInstalacionSchema = z.object({
     return !Number.isNaN(num) && num > 0;
   }, { message: "Introduce una potencia valida mayor que 0 kW." }),
   
-  superficie_m2: z.string(),
+  superficie_m2: z.string().refine(esNumeroPositivoOVacio, {
+    message: "La superficie debe ser un numero mayor que 0 (o dejarla vacia).",
+  }),
 
   // IRVE
-  numero_puntos: z.string(),
-  potencia_por_punto_kw: z.string(),
+  numero_puntos: z.string().refine(esNumeroPositivoOVacio, {
+    message: "El numero de puntos de recarga debe ser mayor que 0.",
+  }),
+  potencia_por_punto_kw: z.string().refine(esNumeroPositivoOVacio, {
+    message: "La potencia por punto debe ser mayor que 0 kW.",
+  }),
   modo_recarga: z.string(),
   acceso_publico: z.boolean(),
   ubicacion_irve: z.string(),
@@ -26,6 +51,13 @@ export const nuevaInstalacionSchema = z.object({
 
   // Gas
   combustible: z.string(),
+  // presion_bar NO es un campo numerico: es un selector con dos valores fijos
+  // ("normal" | "5+", ver Step2ParametrosTecnicos.tsx CamposGas), así que no
+  // lleva el refine de positividad de los demas campos numericos de esta
+  // lista -- "normal" fallaria esa comprobacion sin ser un dato invalido.
+  // (Verificado antes de aplicar el refine "de oidas" del plan de accion,
+  // 2026-08-12, P-18: la lista original del plan lo incluía por asunción,
+  // no por inspección del formulario real.)
   presion_bar: z.string(),
 
   // PV
@@ -37,13 +69,21 @@ export const nuevaInstalacionSchema = z.object({
   modalidad_autoconsumo: z.string(),
   ubicacion_suelo: z.string().optional(),
   requiere_acceso_conexion: z.boolean().optional(),
-  inversion_eur: z.string().optional(),
+  inversion_eur: z.string().optional().refine(esNumeroPositivoOVacio, {
+    message: "La inversion debe ser un numero mayor que 0 (o dejarla vacia).",
+  }),
 
   // Gas ampliado (Madrid / Cataluna lo exigen siempre para gas_baja_presion)
-  potencia_resultante_kw: z.string().optional(),
-  presion_resultante_bar: z.string().optional(),
+  potencia_resultante_kw: z.string().optional().refine(esNumeroPositivoOVacio, {
+    message: "La potencia resultante debe ser mayor que 0 kW.",
+  }),
+  presion_resultante_bar: z.string().optional().refine(esNumeroPositivoOVacio, {
+    message: "La presion resultante debe ser mayor que 0 bar.",
+  }),
   es_ampliacion: z.boolean().optional(),
-  incremento_potencia_pct: z.string().optional(),
+  incremento_potencia_pct: z.string().optional().refine(esNumeroPositivoOVacio, {
+    message: "El incremento de potencia debe ser mayor que 0%.",
+  }),
 
   // IRVE garaje comunitario (Cataluna)
   uso_edificio: z.string().optional(),

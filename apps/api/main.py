@@ -1,4 +1,5 @@
 import os
+import re
 import asyncio
 import logging
 from datetime import datetime, timezone, timedelta
@@ -115,6 +116,48 @@ _CAMPOS_LEGIBLES = {
 }
 
 
+# Traducciones de los mensajes que Pydantic v2 genera en inglés para sus
+# validadores de tipo/rango integrados (Field(gt=0), Field(ge=1)...). Los
+# ValueError de los @model_validator personalizados YA vienen en español
+# (ver schemas/clasificador.py) y no pasan por aquí; esto solo cubre los
+# mensajes de "fábrica" que Pydantic no traduce por defecto -- antes llegaban
+# tal cual al frontend, p. ej. "Input should be greater than 0" en un
+# formulario íntegramente en español (plan de acción consolidado
+# 2026-08-12, P-18).
+_TRADUCCIONES_PYDANTIC = [
+    (re.compile(r"^Field required$"), lambda m: "Campo obligatorio."),
+    (re.compile(r"^Input should be greater than or equal to (-?\d+(?:\.\d+)?)$"),
+     lambda m: f"Debe ser mayor o igual que {m.group(1)}."),
+    (re.compile(r"^Input should be less than or equal to (-?\d+(?:\.\d+)?)$"),
+     lambda m: f"Debe ser menor o igual que {m.group(1)}."),
+    (re.compile(r"^Input should be greater than (-?\d+(?:\.\d+)?)$"),
+     lambda m: f"Debe ser mayor que {m.group(1)}."),
+    (re.compile(r"^Input should be less than (-?\d+(?:\.\d+)?)$"),
+     lambda m: f"Debe ser menor que {m.group(1)}."),
+    (re.compile(r"^Input should be a valid number, unable to parse string as a number$"),
+     lambda m: "Debe ser un número válido."),
+    (re.compile(r"^Input should be a valid integer, unable to parse string as an integer$"),
+     lambda m: "Debe ser un número entero válido."),
+    (re.compile(r"^Input should be a valid string$"),
+     lambda m: "Debe ser un texto válido."),
+    (re.compile(r"^Input should be a valid boolean.*$"),
+     lambda m: "Debe ser verdadero o falso."),
+    # Enumerados/Literal: "Input should be 'a', 'b' or 'c'" -- se conserva el
+    # listado de valores (son slugs técnicos, no texto en inglés) y solo se
+    # traduce el conector.
+    (re.compile(r"^Input should be (.+)$"),
+     lambda m: f"El valor debe ser {m.group(1).replace(' or ', ' o ')}."),
+]
+
+
+def _traducir_mensaje_pydantic(msg: str) -> str:
+    for patron, formatear in _TRADUCCIONES_PYDANTIC:
+        coincidencia = patron.match(msg)
+        if coincidencia:
+            return formatear(coincidencia)
+    return msg
+
+
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     """
@@ -134,6 +177,8 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
             msg = msg[len("Value error, "):]
         if msg.strip().lower() == "revision_manual":
             msg = "este caso requiere revisión manual: faltan datos específicos para tu comunidad autónoma"
+        else:
+            msg = _traducir_mensaje_pydantic(msg)
         mensajes.append(f"{etiqueta}: {msg}" if etiqueta else msg)
 
     mensaje_final = "; ".join(dict.fromkeys(mensajes)) or "Los datos enviados no son válidos."
