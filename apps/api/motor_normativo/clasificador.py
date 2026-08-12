@@ -1,4 +1,3 @@
-import json
 import logging
 from pathlib import Path
 from json_logic import jsonLogic
@@ -13,6 +12,7 @@ from schemas.clasificador import (
 )
 from motor_normativo.excepciones import NormativaNoEncontradaError
 from motor_normativo.coherencia import comprobar_coherencia
+from motor_normativo.reglas_cache import cargar_json_reglas
 from servicios.riesgo_normativo import calcular_riesgo_plan
 from servicios.ayudas import simular_ayudas
 
@@ -137,8 +137,7 @@ class Clasificador:
                 f"No se encontró normativa para {params.tipo_instalacion} en {params.comunidad}"
             )
 
-        with open(file_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        data = cargar_json_reglas(file_path)
 
         presion_bar_val = params.presion_bar
         if presion_bar_val == "normal":

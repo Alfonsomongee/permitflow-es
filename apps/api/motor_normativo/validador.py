@@ -25,7 +25,6 @@ como mejor verificadas.
 3. **Dominio de valor** — `{campo, valores_permitidos, obligatorio}`.
    Comprueba que el valor de un campo está dentro de una lista cerrada.
 """
-import json
 import logging
 from pathlib import Path
 from typing import List, Literal, Optional
@@ -34,6 +33,7 @@ from json_logic import jsonLogic
 from pydantic import BaseModel, Field
 
 from motor_normativo.excepciones import NormativaNoEncontradaError
+from motor_normativo.reglas_cache import cargar_json_reglas
 from motor_normativo.validaciones_transversales import transversales_para
 from schemas.clasificador import ClasificadorInput
 
@@ -135,8 +135,7 @@ class Validador:
                 f"No se encontró normativa para {params.tipo_instalacion} en {params.comunidad}"
             )
 
-        with open(file_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        data = cargar_json_reglas(file_path)
 
         # Las de base estatal se añaden a las de la comunidad. Sin ellas, 60 de
         # las 85 combinaciones no comprobaban absolutamente nada (auditoría QA
