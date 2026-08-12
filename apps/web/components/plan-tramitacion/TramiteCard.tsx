@@ -24,7 +24,7 @@ import type {
   TramiteEstado,
   TramiteEstadoInfo,
 } from "@/types/plan";
-import { calcularPlazo } from "@/lib/plazos";
+import { calcularPlazo, type PlazoCalculado } from "@/lib/plazos";
 
 function EstadisticaRealBadge({ estadistica }: { estadistica?: EstadisticaPlazo }) {
   if (!estadistica) return null;
@@ -42,16 +42,15 @@ function EstadisticaRealBadge({ estadistica }: { estadistica?: EstadisticaPlazo 
 function PlazoBadge({
   estimado,
   legal,
-  estadoInfo,
-  comunidad,
+  plazo,
 }: {
   estimado: number | null;
   legal: number | null;
-  estadoInfo?: TramiteEstadoInfo;
-  comunidad: string;
+  /** Calculado una sola vez en TramiteCard: también lo usa el aviso visible
+   * de calendario no verificado, y calcularVencimientoHabil no es gratis
+   * (recorre festivos.ts) como para duplicarlo por componente. */
+  plazo: PlazoCalculado | null;
 }) {
-  const plazo = calcularPlazo(estadoInfo, legal, comunidad);
-
   if (plazo && plazo.diasRestantes !== null && legal) {
     const { diasTranscurridos, diasRestantes, vencido, calendarioVerificado } = plazo;
     const proximo = !vencido && diasRestantes <= 7;
@@ -220,6 +219,16 @@ export function TramiteCard({
   const [open, setOpen] = useState(defaultOpen);
   const estado: TramiteEstado = estadoInfo?.estado ?? "pendiente";
 
+  const plazo = calcularPlazo(estadoInfo, tramite.plazo_legal_dias, comunidad);
+  // Antes este aviso solo vivía en el `title` del badge (invisible en
+  // móvil/touch, donde no hay hover). Misma condición que decide el "*" del
+  // badge, para que el asterisco y su explicación nunca queden
+  // desincronizados (auditoría de coherencia producto/experiencia
+  // 2026-08-12, P-10).
+  const avisoCalendarioNoVerificado = Boolean(
+    plazo && plazo.diasRestantes !== null && tramite.plazo_legal_dias && !plazo.calendarioVerificado
+  );
+
   const obligatorios = tramite.documentos_requeridos.filter((doc) => doc.obligatorio);
   const opcionales = tramite.documentos_requeridos.filter((doc) => !doc.obligatorio);
 
@@ -268,11 +277,17 @@ export function TramiteCard({
               <PlazoBadge
                 estimado={tramite.plazo_estimado_dias}
                 legal={tramite.plazo_legal_dias}
-                estadoInfo={estadoInfo}
-                comunidad={comunidad}
+                plazo={plazo}
               />
               <EstadisticaRealBadge estadistica={estadistica} />
             </div>
+            {avisoCalendarioNoVerificado && (
+              <p className="text-[11px] leading-snug text-text-secondary">
+                * Fecha orientativa: no hay calendario de festivos verificado para
+                este año, solo se excluyen fines de semana (no festivos
+                nacionales, autonómicos ni locales).
+              </p>
+            )}
           </button>
 
           {/* Botonera derecha: Estado y flecha */}
