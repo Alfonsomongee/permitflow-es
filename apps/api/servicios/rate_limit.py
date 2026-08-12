@@ -8,20 +8,16 @@ Comportamiento sin cambios respecto al original.
 from redis.asyncio import Redis
 from fastapi import HTTPException, Request
 
-from config import settings
-
 # ---------------------------------------------------------------------------
-# Redis — instanciar por petición (mejorar a lifespan en el siguiente sprint,
-# ver B-13 de la auditoría 2026-08-06)
+# Redis — conexión de vida larga, creada una vez en el lifespan de la app
+# (main.py) y reutilizada por todas las peticiones, en vez de abrir y cerrar
+# una conexión nueva en cada llamada a /contacto, /newsletter y
+# /simulador/* como se hacía antes (auditoría 2026-08-06, B-13; plan de
+# acción consolidado 2026-08-12, P-14).
 # ---------------------------------------------------------------------------
 
-async def get_redis():
-    redis_url = settings.REDIS_URL or "redis://localhost:6379"
-    redis = Redis.from_url(redis_url, decode_responses=True)
-    try:
-        yield redis
-    finally:
-        await redis.close()
+async def get_redis(request: Request) -> Redis:
+    return request.app.state.redis
 
 
 # ---------------------------------------------------------------------------

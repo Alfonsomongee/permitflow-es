@@ -8,6 +8,7 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+from redis.asyncio import Redis
 from config import settings
 from seguridad import verificar_clave_interna
 from routers.clasificador import router as clasificador_router
@@ -67,6 +68,14 @@ async def _barrido_periodico():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Lifespan de la aplicación."""
+    # Redis: una única conexión de vida larga para todo el proceso, en vez
+    # de abrir y cerrar una conexión nueva en cada petición a /contacto,
+    # /newsletter y /simulador/* (servicios/rate_limit.py la reutiliza vía
+    # request.app.state.redis; auditoría 2026-08-06 B-13, plan de acción
+    # consolidado 2026-08-12 P-14).
+    redis_url = settings.REDIS_URL or "redis://localhost:6379"
+    app.state.redis = Redis.from_url(redis_url, decode_responses=True)
+
     tarea = asyncio.create_task(_barrido_periodico())
     yield
     tarea.cancel()
@@ -74,6 +83,7 @@ async def lifespan(app: FastAPI):
         await tarea
     except asyncio.CancelledError:
         pass
+    await app.state.redis.aclose()
 
 
 app = FastAPI(
