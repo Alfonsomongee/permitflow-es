@@ -57,8 +57,72 @@ def test_pvgis_real_cambia_produccion_especifica_frente_a_estimacion():
 def test_consumo_cero_o_negativo_lanza_error():
     with pytest.raises(ValueError):
         calcular_escenario_fv(consumo_anual_kwh=0)
+
+
+def test_consumo_no_finito_lanza_error_en_vez_de_cotizar_a_ciegas():
+    """`consumo_anual_kwh <= 0` no atrapa NaN (toda comparación con NaN es
+    False en Python), así que antes un NaN pasaba de largo y producía una
+    cotización de 10 kWp / 11.500 EUR con total normalidad -- el resultado
+    con más apariencia de confianza a partir del dato menos fiable posible.
+
+    Encontrado ejecutando la función con datos extremos (auditoría fase 2,
+    2026-08-12, P-05).
+    """
+    with pytest.raises(ValueError):
+        calcular_escenario_fv(consumo_anual_kwh=float("nan"))
+    with pytest.raises(ValueError):
+        calcular_escenario_fv(consumo_anual_kwh=float("inf"))
+    with pytest.raises(ValueError):
+        calcular_escenario_fv(consumo_anual_kwh=4000, precio_kwh=float("nan"))
+    with pytest.raises(ValueError):
+        calcular_escenario_fv(consumo_anual_kwh=4000, precio_kwh=float("inf"))
+
+
+def test_fuente_dato_del_precio_no_esta_invertida():
+    """Sin precio_kwh explícito, el precio es la media nacional estimada de
+    Eurostat -- nunca se ha "leído" nada. El badge "Leído de tu factura" en el
+    frontend depende de este campo; si la condición se invierte, se le dice al
+    cliente que un dato genérico viene de su propia factura.
+
+    Bug real encontrado en auditoría de coherencia producto/experiencia
+    2026-08-12 (P-09): `fuente_dato="leido" if precio_kwh is None else
+    "estimado"` tenía la condición al revés.
+    """
+    sin_precio = calcular_escenario_fv(consumo_anual_kwh=4000)
+    fuentes = {s.parametro: s.fuente_dato for s in sin_precio.supuestos}
+    assert fuentes["precio_kwh_eur"] == "estimado"
+
+    con_precio = calcular_escenario_fv(consumo_anual_kwh=4000, precio_kwh=0.30)
+    fuentes_con_precio = {s.parametro: s.fuente_dato for s in con_precio.supuestos}
+    assert fuentes_con_precio["precio_kwh_eur"] == "leido"
     with pytest.raises(ValueError):
         calcular_escenario_fv(consumo_anual_kwh=-100)
+
+
+def test_avisa_cuando_el_consumo_excede_el_dimensionamiento_maximo():
+    """Con un consumo muy alto, kwp_recomendada se acota en silencio a
+    KWP_MAX_RESIDENCIAL y el resto del escenario (ahorro, factura, payback)
+    se calcula como si esa potencia limitada cubriera todo el consumo. Sin
+    aviso, el cliente recibe una cifra de ahorro y payback que no corresponde
+    a su consumo real sin saber que la instalación mostrada es parcial.
+
+    Auditoría de coherencia producto/experiencia 2026-08-12, hallazgo P-07.
+    """
+    resultado = calcular_escenario_fv(consumo_anual_kwh=50000)
+    assert resultado.potencia_kwp == KWP_MAX_RESIDENCIAL
+
+    parametros = {s.parametro: s for s in resultado.supuestos}
+    assert "aviso_dimensionamiento_maximo" in parametros
+    aviso = parametros["aviso_dimensionamiento_maximo"]
+    assert "no cubre todo el consumo" in aviso.razon.lower()
+
+
+def test_no_avisa_de_dimensionamiento_maximo_dentro_del_rango_normal():
+    resultado = calcular_escenario_fv(consumo_anual_kwh=4000)
+    assert resultado.potencia_kwp < KWP_MAX_RESIDENCIAL
+
+    parametros = {s.parametro for s in resultado.supuestos}
+    assert "aviso_dimensionamiento_maximo" not in parametros
 
 
 def test_coste_inicial_siempre_positivo():

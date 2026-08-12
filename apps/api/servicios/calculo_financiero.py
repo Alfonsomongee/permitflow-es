@@ -13,6 +13,7 @@ entre el simulador de "Orientación" (frontend) y el Simulador AI (backend).
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from typing import Literal, Optional
 
@@ -86,6 +87,27 @@ def _redondear(valor: float, decimales: int = 0) -> float:
     return round(valor, decimales)
 
 
+def _redondear_payback(tiempo_retorno: Optional[float]) -> Optional[float]:
+    """Redondea el payback a 1 decimal salvo que eso lo colapse a 0.0.
+
+    `round(0.003, 1) == 0.0`: un payback real pero muy corto (p.ej. ~1 día,
+    solo alcanzable hoy con un precio_kwh manual fuera de rango realista)
+    volvía a mostrar "0 años" -- la misma lectura de "retorno instantáneo"
+    que ya se corrigió para el caso "sin retorno" (I-02, auditoría integral
+    2026-08-11). El guard de entrada (math.isfinite) ya descarta NaN/Infinity;
+    esto cierra el hueco que quedaba dentro del rango finito pero minúsculo
+    (auditoría fase 2, 2026-08-12, P-06: el propio test de regresión de I-02
+    no cubría este caso, dando una garantía que no era cierta).
+    """
+    if tiempo_retorno is None:
+        return None
+    redondeado = _redondear(tiempo_retorno, 1)
+    if redondeado == 0.0 and tiempo_retorno > 0:
+        mas_fino = _redondear(tiempo_retorno, 3)
+        return mas_fino if mas_fino > 0 else _redondear(tiempo_retorno, 6)
+    return redondeado
+
+
 def calcular_escenario_fv(
     consumo_anual_kwh: float,
     potencia_contratada_kw: Optional[float] = None,
@@ -119,8 +141,21 @@ def calcular_escenario_fv(
          horquilla de mercado).
       6. tiempo_retorno_anios = coste_inicial / ahorro_anual.
     """
-    if consumo_anual_kwh is None or consumo_anual_kwh <= 0:
+    # `consumo_anual_kwh <= 0` no atrapa NaN: en Python toda comparación con
+    # NaN es False, así que un NaN pasaba de largo y producía una cotización
+    # de 10 kWp/11.500 € con total normalidad -- el resultado más confiado
+    # posible a partir del dato menos fiable posible. Encontrado ejecutando la
+    # función con datos extremos (auditoría fase 2, 2026-08-12). Un NaN aquí
+    # es plausible si algún día un parseo de factura falla en silencio.
+    if (
+        consumo_anual_kwh is None
+        or not math.isfinite(consumo_anual_kwh)
+        or consumo_anual_kwh <= 0
+    ):
         raise ValueError("consumo_anual_kwh debe ser mayor que 0 para calcular un escenario.")
+
+    if precio_kwh is not None and not math.isfinite(precio_kwh):
+        raise ValueError("precio_kwh debe ser un número finito.")
 
     precio = precio_kwh if precio_kwh is not None else PRECIO_KWH_EUR
     produccion_especifica = (
@@ -193,8 +228,14 @@ def calcular_escenario_fv(
         SupuestoCalculo(
             parametro="precio_kwh_eur",
             valor_asumido=f"{precio:.3f} €/kWh",
-            razon=PRECIO_KWH_FUENTE,
-            fuente_dato="leido" if precio_kwh is None else "estimado",
+            # Bug encontrado al añadir la fecha de la fuente al supuesto
+            # (auditoría de coherencia producto/experiencia 2026-08-12, P-09):
+            # la condición estaba invertida. Cuando precio_kwh es None NO se ha
+            # leído nada -- es justo el caso en que se usa la media nacional de
+            # Eurostat porque no hay precio real. El badge "Leído de tu factura"
+            # se estaba mostrando exactamente cuando era falso.
+            razon=PRECIO_KWH_FUENTE if precio_kwh is None else "Precio indicado para este cálculo.",
+            fuente_dato="estimado" if precio_kwh is None else "leido",
         ),
         SupuestoCalculo(
             parametro="coste_eur_por_kwp",
@@ -244,6 +285,35 @@ def calcular_escenario_fv(
             )
         )
 
+    # Cuando el consumo bruto exigiría más de KWP_MAX_RESIDENCIAL, kwp_recomendada
+    # se acota en silencio (línea ~168) y el resto del escenario -- ahorro,
+    # factura, payback -- se calcula sobre esa potencia acotada como si cubriera
+    # todo el consumo. Sin este aviso, el informe presenta con total normalidad
+    # una instalación que deja una parte del consumo sin cubrir, sin decírselo
+    # al cliente (auditoría fase 3, coherencia producto/experiencia 2026-08-12,
+    # P-07: "no se avisa cuando el consumo excede el dimensionamiento máximo").
+    if kwp_bruta > KWP_MAX_RESIDENCIAL:
+        supuestos.append(
+            SupuestoCalculo(
+                parametro="aviso_dimensionamiento_maximo",
+                valor_asumido=(
+                    f"Consumo requeriría ~{kwp_bruta:.1f} kWp; instalación "
+                    f"calculada limitada a {KWP_MAX_RESIDENCIAL:.0f} kWp"
+                ),
+                razon=(
+                    "Este consumo anual supera lo que cubre el máximo "
+                    f"residencial de esta calculadora ({KWP_MAX_RESIDENCIAL:.0f} "
+                    "kWp). La instalación de este escenario NO cubre todo el "
+                    "consumo introducido: el ahorro, la factura con "
+                    "instalación y el payback están calculados sobre la "
+                    "potencia limitada, no sobre el consumo real completo. "
+                    "Para un dimensionamiento que cubra el consumo entero, "
+                    "consulta con un instalador."
+                ),
+                fuente_dato="estimado",
+            )
+        )
+
     supuestos.append(
         SupuestoCalculo(
             parametro="factura_actual_anual_eur",
@@ -265,7 +335,7 @@ def calcular_escenario_fv(
         ahorro_anual=_redondear(ahorro_anual, 2),
         ahorro_5_anios=_redondear(ahorro_anual * 5, 2),
         ahorro_10_anios=_redondear(ahorro_anual * 10, 2),
-        tiempo_retorno_anios=_redondear(tiempo_retorno, 1) if tiempo_retorno is not None else None,
+        tiempo_retorno_anios=_redondear_payback(tiempo_retorno),
         potencia_kwp=_redondear(kwp_recomendada, 2),
         produccion_anual_estimada_kwh=_redondear(produccion_anual_kwh, 0),
         factura_actual_anual=_redondear(factura_actual_anual, 2),

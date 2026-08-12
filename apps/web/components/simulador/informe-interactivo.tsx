@@ -29,12 +29,18 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
   // solo tiene sentido si el backend ya manda factura_actual_anual -- lo
   // añadió calculo_financiero.py, pero puede faltar en informes en caché
   // generados antes de ese cambio.
+  // Etiquetas "coste de la energía", no "factura": factura_actual_anual
+  // (calculo_financiero.py) es solo consumo x precio, sin el término fijo de
+  // potencia -- del orden de un 30-40% de una factura doméstica real. Llamar
+  // a esto "factura" invita a comparar con el recibo real, que no va a
+  // cuadrar (auditoría integral 2026-08-11, I-05; auditoría de coherencia
+  // producto/experiencia 2026-08-12, hallazgo P-08).
   const facturaData = informe.escenarios
     .filter((e) => e.factura_actual_anual !== undefined)
     .map((escenario) => ({
       name: escenario.nombre,
-      "Factura actual (sin instalación)": escenario.factura_actual_anual ?? 0,
-      "Factura con instalación": escenario.factura_con_instalacion_anual ?? 0,
+      "Coste de la energía (sin instalación)": escenario.factura_actual_anual ?? 0,
+      "Coste de la energía (con instalación)": escenario.factura_con_instalacion_anual ?? 0,
     }));
 
   // Evolución acumulada a 10 años del escenario principal: cuánto habrías
@@ -53,11 +59,28 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
         }))
       : [];
 
+  // Fecha/fuente del precio de la electricidad, visible junto al resultado y
+  // no solo dentro del acordeón de "Supuestos del cálculo" -- antes solo
+  // constaba ahí, y el precio (Eurostat S1-2025) lleva ya más de un año sin
+  // actualizar sin que nada lo señalara en el resultado principal (auditoría
+  // integral 2026-08-11, I-04; auditoría de coherencia producto/experiencia
+  // 2026-08-12, P-09).
+  const supuestoPrecio = informe.supuestos_utilizados.find(
+    (s) => s.parametro === "precio_kwh_eur"
+  );
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Tu Informe de Ahorro</h2>
         <p className="text-muted-foreground mt-2">{informe.recomendacion_final}</p>
+        {supuestoPrecio && (
+          <p className="text-xs text-muted-foreground mt-1">
+            Calculado con un precio de {supuestoPrecio.valor_asumido}
+            {supuestoPrecio.fuente_dato === "estimado" ? " (estimación de mercado, no tu precio real)" : ""}.{" "}
+            Fuente: {supuestoPrecio.razon}
+          </p>
+        )}
       </div>
 
       {hasPendingIncentive && (
@@ -101,9 +124,10 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
         {facturaData.length > 0 && (
           <Card className="col-span-1 md:col-span-2">
             <CardHeader>
-              <CardTitle>Tu factura: antes y después</CardTitle>
+              <CardTitle>Coste de la energía: antes y después</CardTitle>
               <CardDescription>
-                Coste anual de la electricidad comprada a la red, con y sin la instalación
+                Solo el término de energía (consumo × precio). No incluye el término fijo de
+                potencia de tu factura real, así que esta cifra será menor que tu recibo completo.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -118,8 +142,8 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
                       contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)' }}
                     />
                     <Legend />
-                    <Bar dataKey="Factura actual (sin instalación)" fill="hsl(var(--muted-foreground))" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="Factura con instalación" fill="hsl(var(--success))" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="Coste de la energía (sin instalación)" fill="hsl(var(--muted-foreground))" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="Coste de la energía (con instalación)" fill="hsl(var(--success))" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

@@ -184,6 +184,29 @@ interface TramiteCardProps {
   renderDocumentoExtra?: (doc: DocumentoRequerido) => ReactNode;
 }
 
+// El nombre del trámite es intencionadamente el nombre oficial del
+// procedimiento, sin traducir -- el usuario lo necesita literal para
+// localizarlo en la sede electrónica. En comunidades con lengua cooficial
+// eso a veces significa un nombre en catalán/euskera/gallego dentro de una
+// interfaz en castellano, lo que puede leerse como un error de idioma en vez
+// de la fidelidad deliberada que es. Heurística deliberadamente acotada al
+// caso real encontrado (nombres catalanes tipo "declaració", "instal·lació"):
+// no pretende ser un detector de idioma general.
+// (auditoría de coherencia producto/experiencia 2026-08-12, P-11)
+const COMUNIDADES_CON_LENGUA_COOFICIAL = new Set([
+  "cataluna",
+  "pais_vasco",
+  "galicia",
+  "baleares",
+  "comunidad_valenciana",
+  "navarra",
+]);
+
+function pareceNombreEnLenguaCooficial(nombre: string, comunidad: string): boolean {
+  if (!COMUNIDADES_CON_LENGUA_COOFICIAL.has(comunidad)) return false;
+  return /l·l|\bció\b|\bciós\b|instal·laci/i.test(nombre);
+}
+
 export function TramiteCard({
   tramite,
   defaultOpen = false,
@@ -232,6 +255,11 @@ export function TramiteCard({
               >
                 {tramite.nombre}
               </p>
+              {pareceNombreEnLenguaCooficial(tramite.nombre, comunidad) && (
+                <p className="text-xs italic text-text-secondary">
+                  Nombre oficial, tal como consta en la sede electrónica
+                </p>
+              )}
               <p className="mt-1 line-clamp-2 text-sm leading-snug text-text-secondary">{tramite.organismo}</p>
             </div>
 

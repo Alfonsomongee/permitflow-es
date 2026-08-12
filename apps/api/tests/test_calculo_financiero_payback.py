@@ -45,6 +45,33 @@ def test_el_payback_nunca_es_exactamente_cero():
         )
 
 
+def test_el_payback_no_colapsa_a_cero_ni_en_precios_extremos():
+    """El barrido anterior (hasta 1 EUR/kWh) no llegaba a activar nunca el caso
+    real que sí rompía el motor: un payback positivo pero tan corto que
+    `round(x, 1)` lo redondea a 0.0. La propia auditoría integral de 11/08
+    afirmaba "el payback nunca es exactamente cero" con ese barrido -- una
+    garantía que no era cierta fuera de ese rango.
+
+    `precio_kwh` no es alcanzable hoy desde ningún endpoint (ningún router ni
+    schema lo expone), así que esto no es explotable en producción ahora
+    mismo. Pero si algún día se expone -- por ejemplo, para usar el precio
+    real de una factura -- el bug no debe reaparecer sin que un test lo
+    señale (auditoría fase 2, 2026-08-12, hallazgo P-06).
+    """
+    escenario = calcular_escenario_fv(consumo_anual_kwh=3500, precio_kwh=1000)
+    assert escenario.tiempo_retorno_anios is not None
+    assert escenario.tiempo_retorno_anios > 0
+    assert escenario.tiempo_retorno_anios != 0.0
+
+    # También en el borde exacto que colapsaba antes: coste_inicial / ahorro
+    # cae por debajo de 0.05 (el umbral de redondeo a 1 decimal).
+    for precio in (200, 500, 1000, 10_000):
+        e = calcular_escenario_fv(consumo_anual_kwh=3500, precio_kwh=precio)
+        assert e.tiempo_retorno_anios is not None and e.tiempo_retorno_anios > 0, (
+            f"precio {precio} €/kWh produce un payback nulo o negativo"
+        )
+
+
 @pytest.mark.parametrize("consumo", [500, 3500, 12000, 30000])
 def test_coherencia_interna_del_escenario(consumo):
     """Invariantes que deben cumplirse siempre, sea cual sea el consumo."""
