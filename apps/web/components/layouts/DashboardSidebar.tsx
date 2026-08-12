@@ -18,12 +18,19 @@ import {
 import { SidebarUser } from "./SidebarUser";
 import { useSidebar } from "./SidebarContext";
 
+// Alertas BOE subida de la 5ª a la 3ª posición: es la única función del
+// producto con vigilancia normativa realmente automatizada (pipeline
+// programado que resume cambios del BOE con IA y abre PR para revisión
+// humana antes de tocar ninguna regla -- .github/workflows/boe_pipeline.yml),
+// pero vivía enterrada entre Plantillas y Estadísticas, sin ninguna
+// diferenciación en la posición respecto al resto del nav (auditoría fase 2,
+// 2026-08-12, P-15).
 const NAV_ITEMS = [
   { href: "/expedientes",         label: "Expedientes",   icon: LayoutGrid },
   { href: "/nueva-instalacion",   label: "Nueva",         icon: Plus        },
+  { href: "/alertas",             label: "Alertas BOE",   icon: Bell        },
   { href: "/orientacion",         label: "Orientación",   icon: Compass     },
   { href: "/plantillas",          label: "Plantillas",    icon: FileText    },
-  { href: "/alertas",             label: "Alertas BOE",   icon: Bell        },
   { href: "/estadisticas",        label: "Estadísticas",  icon: BarChart2   },
   { href: "/simulador",           label: "Simulador",     icon: Calculator  },
 ] as const;

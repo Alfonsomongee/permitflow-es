@@ -76,6 +76,23 @@ export function CoberturaNormativaBanda() {
           particularidad autonómica no está verificada, el plan lo indica en vez de
           darla por buena.
         </p>
+
+        {/* Antes esta función solo se mencionaba como una línea más entre ocho
+            en la tabla de precios del plan Pro, y en el sidebar del dashboard
+            vivía en la 5ª posición de 7 sin ninguna señal de que fuera
+            distinta del resto. Es la única vigilancia normativa realmente
+            automatizada del producto (pipeline programado que resume cambios
+            del BOE y abre PR para revisión humana antes de aplicar ningún
+            cambio de regla -- .github/workflows/boe_pipeline.yml), así que
+            aquí, junto a la cobertura normativa, es donde tiene sentido que
+            un visitante la vea por primera vez (auditoría fase 2,
+            2026-08-12, P-15). */}
+        <p className="mt-4 max-w-3xl text-xs leading-relaxed text-text-secondary">
+          Un pipeline programado vigila el Boletín Oficial del Estado y avisa
+          cuando detecta cambios que pueden afectar a tus expedientes activos —
+          cada cambio pasa por revisión humana antes de actualizar cualquier
+          regla del motor.
+        </p>
       </div>
     </section>
   );
