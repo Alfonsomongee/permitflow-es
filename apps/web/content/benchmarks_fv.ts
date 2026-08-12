@@ -1,3 +1,10 @@
+// GENERADO desde apps/api/servicios/constantes_mercado_fv.json — no editar a mano.
+// Regenerar con: python3 scripts/generar_benchmarks_fv.py
+// Fuente única de las constantes de mercado (no normativas) de fotovoltaica
+// residencial, compartida con apps/api/servicios/calculo_financiero.py -- evita que
+// el simulador de "Orientación" (frontend) y el Simulador AI (backend) diverjan
+// en silencio sobre el mismo dato (plan de acción consolidado 2026-08-12, P-17).
+
 export const BENCHMARKS_FV = {
   m2_por_kwp: {
     min: 5,
@@ -10,7 +17,7 @@ export const BENCHMARKS_FV = {
   coste_eur_por_kwp: {
     residencial: {
       min: 900,
-      max: 1400, // horquilla de MERCADO
+      max: 1400,
       fuente: null,
       fecha: "2026-07",
       verificada: false,
@@ -18,7 +25,7 @@ export const BENCHMARKS_FV = {
     },
     industrial_cubierta: {
       min: 600,
-      max: 1000, // horquilla de MERCADO
+      max: 1000,
       fuente: null,
       fecha: "2026-07",
       verificada: false,
@@ -34,8 +41,7 @@ export const BENCHMARKS_FV = {
   },
   precio_kwh_defecto: {
     valor: 0.261,
-    fuente:
-      "Eurostat, nrg_pc_204 (doméstico España, banda DC 2.500-5.000 kWh, impuestos incluidos), S1 2025",
+    fuente: "Eurostat, nrg_pc_204 (doméstico España, banda DC 2.500-5.000 kWh, impuestos incluidos), S1 2025",
     url: "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Electricity_price_statistics",
     fecha: "2025-S1",
     verificada: true,

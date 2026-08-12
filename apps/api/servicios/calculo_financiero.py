@@ -6,37 +6,46 @@ trazables. El LLM, si se usa, queda limitado a texto (incentivos fiscales,
 recomendación final) y nunca decide una cifra de ahorro, coste o payback.
 
 Todas las constantes de mercado (no normativas) están explícitamente marcadas
-como estimadas y traen su fuente cuando existe una verificada. Se han portado
-desde apps/web/content/benchmarks_fv.ts para no duplicar números divergentes
-entre el simulador de "Orientación" (frontend) y el Simulador AI (backend).
+como estimadas y traen su fuente cuando existe una verificada. Se leen de
+servicios/constantes_mercado_fv.json, la fuente única compartida con
+apps/web/content/benchmarks_fv.ts (generado desde el mismo JSON con
+scripts/generar_benchmarks_fv.py), para que el simulador de "Orientación"
+(frontend) y el Simulador AI (backend) no puedan divergir en silencio.
 """
 
 from __future__ import annotations
 
+import json
 import math
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Literal, Optional
 
 
-# ─── Constantes de mercado (portadas de content/benchmarks_fv.ts) ─────────────
-# Mantener ambos ficheros sincronizados si se actualiza uno de los dos.
+# ─── Constantes de mercado ──────────────────────────────────────────────────
+# Antes estos números vivían hardcodeados por duplicado aquí y en
+# apps/web/content/benchmarks_fv.ts, con un comentario en cada fichero
+# pidiendo mantenerlos sincronizados a mano -- sin nada que lo verificara.
+# Ahora servicios/constantes_mercado_fv.json es la fuente única: este módulo
+# la lee directamente (mismo runtime), y benchmarks_fv.ts se regenera desde
+# el mismo JSON con scripts/generar_benchmarks_fv.py (no editar ese .ts a
+# mano). Plan de acción consolidado 2026-08-12, P-17.
+_CONSTANTES_MERCADO_PATH = Path(__file__).parent / "constantes_mercado_fv.json"
+_constantes_mercado = json.loads(_CONSTANTES_MERCADO_PATH.read_text(encoding="utf-8"))
 
-PRECIO_KWH_EUR = 0.261
-PRECIO_KWH_FUENTE = (
-    "Eurostat, nrg_pc_204 (doméstico España, banda DC 2.500-5.000 kWh, "
-    "impuestos incluidos), S1 2025"
-)
+PRECIO_KWH_EUR: float = _constantes_mercado["precio_kwh_defecto"]["valor"]
+PRECIO_KWH_FUENTE: str = _constantes_mercado["precio_kwh_defecto"]["fuente"]
 
-COSTE_EUR_KWP_RESIDENCIAL_MIN = 900.0
-COSTE_EUR_KWP_RESIDENCIAL_MAX = 1400.0
+COSTE_EUR_KWP_RESIDENCIAL_MIN: float = _constantes_mercado["coste_eur_por_kwp"]["residencial"]["min"]
+COSTE_EUR_KWP_RESIDENCIAL_MAX: float = _constantes_mercado["coste_eur_por_kwp"]["residencial"]["max"]
 COSTE_KWP_NOTA = (
     "Horquilla de mercado no verificada con proveedores reales (referencia "
     "administrativa más cercana: RD 477/2021 Anexo III, tope subvencionable "
     "1.188 €/kWp para P<=10 kWp, que NO es un precio de mercado)."
 )
 
-RATIO_AUTOCONSUMO_MIN = 0.2
-RATIO_AUTOCONSUMO_MAX = 0.4
+RATIO_AUTOCONSUMO_MIN: float = _constantes_mercado["ratio_autoconsumo_sin_bateria"]["min"]
+RATIO_AUTOCONSUMO_MAX: float = _constantes_mercado["ratio_autoconsumo_sin_bateria"]["max"]
 RATIO_AUTOCONSUMO_NOTA = (
     "Ratio de autoconsumo directo sin batería, horquilla del sector no "
     "verificada con datos de monitorización reales."
