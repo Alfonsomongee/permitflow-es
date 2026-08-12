@@ -15,6 +15,7 @@ import {
 import { TramiteCard } from "./TramiteCard";
 import { ResumenPanel } from "./ResumenPanel";
 import { ExportPdfButtons } from "./ExportPdfButton";
+import { EliminarExpedienteButton } from "./EliminarExpedienteButton";
 import { DetallesExpediente } from "./DetallesExpediente";
 import { ValidadorPanel } from "./ValidadorPanel";
 import { TimelinePlan } from "./TimelinePlan";
@@ -303,7 +304,12 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
             <ArrowLeft size={15} aria-hidden />
             Expedientes
           </Link>
-          <ExportPdfButtons titulo={titulo} expedienteId={expediente?.id} />
+          <div className="flex items-center gap-2">
+            <ExportPdfButtons titulo={titulo} expedienteId={expediente?.id} />
+            {expediente && (
+              <EliminarExpedienteButton expedienteId={expediente.id} titulo={titulo} />
+            )}
+          </div>
         </div>
       </div>
 

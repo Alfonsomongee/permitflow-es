@@ -2,6 +2,8 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import {
   aplicarPatchExpediente,
+  eliminarExpediente,
+  obtenerExpediente,
   type PatchExpedienteInput,
 } from "@/lib/expedientes";
 
@@ -68,6 +70,39 @@ export async function PATCH(
         { status: 409 }
       );
     }
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
+// eliminarExpediente() en lib/expedientes.ts existía desde hace tiempo pero
+// no tenía ninguna ruta que la llamara: la única forma de borrar un
+// expediente era directamente en Supabase. Acción destructiva e
+// irreversible (no hay papelera ni soft-delete todavía), así que la
+// confirmación vive en el cliente (EliminarExpedienteButton, confirmación en
+// dos pasos) antes de llegar aquí (plan de acción consolidado 2026-08-12,
+// P-19).
+export async function DELETE(
+  _req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { userId, orgId } = await auth();
+  if (!userId || !orgId) {
+    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
+  }
+
+  try {
+    const expediente = await obtenerExpediente(params.id, orgId);
+    if (!expediente) {
+      return NextResponse.json(
+        { error: "Expediente no encontrado" },
+        { status: 404 }
+      );
+    }
+
+    await eliminarExpediente(params.id, orgId);
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Error inesperado";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
