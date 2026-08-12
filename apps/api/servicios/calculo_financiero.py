@@ -68,7 +68,7 @@ class EscenarioCalculado:
     ahorro_anual: float
     ahorro_5_anios: float
     ahorro_10_anios: float
-    tiempo_retorno_anios: float
+    tiempo_retorno_anios: Optional[float]
     potencia_kwp: float
     produccion_anual_estimada_kwh: float
     # Coste de la factura eléctrica anual sin y con la instalación, en euros.
@@ -160,7 +160,12 @@ def calcular_escenario_fv(
     coste_eur_kwp = (COSTE_EUR_KWP_RESIDENCIAL_MIN + COSTE_EUR_KWP_RESIDENCIAL_MAX) / 2
     coste_inicial = kwp_recomendada * coste_eur_kwp
 
-    tiempo_retorno = coste_inicial / ahorro_anual if ahorro_anual > 0 else 0.0
+    # None, no 0. Un payback de "0 años" se lee como retorno instantáneo cuando
+    # significa justo lo contrario: que con estos parámetros no hay retorno.
+    # Es el mismo error que ya se corrigió en el motor normativo con
+    # "~0 días estimados" — confundir ausencia de dato con valor cero
+    # (auditoría integral 2026-08-11, I-02).
+    tiempo_retorno = coste_inicial / ahorro_anual if ahorro_anual > 0 else None
 
     # Factura actual = todo el consumo anual al precio medio; factura con
     # instalación = la misma factura menos lo que deja de comprarse a la red
@@ -260,7 +265,7 @@ def calcular_escenario_fv(
         ahorro_anual=_redondear(ahorro_anual, 2),
         ahorro_5_anios=_redondear(ahorro_anual * 5, 2),
         ahorro_10_anios=_redondear(ahorro_anual * 10, 2),
-        tiempo_retorno_anios=_redondear(tiempo_retorno, 1),
+        tiempo_retorno_anios=_redondear(tiempo_retorno, 1) if tiempo_retorno is not None else None,
         potencia_kwp=_redondear(kwp_recomendada, 2),
         produccion_anual_estimada_kwh=_redondear(produccion_anual_kwh, 0),
         factura_actual_anual=_redondear(factura_actual_anual, 2),

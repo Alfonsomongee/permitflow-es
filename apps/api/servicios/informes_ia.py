@@ -35,7 +35,9 @@ class EscenarioAhorro(BaseModel):
     ahorro_anual: float = Field(ge=0)
     ahorro_5_anios: float = Field(ge=0)
     ahorro_10_anios: float = Field(ge=0)
-    tiempo_retorno_anios: float = Field(ge=0)
+    # Optional: None significa "sin retorno con estos parámetros", que no es
+    # lo mismo que 0 años (auditoría integral 2026-08-11, I-02).
+    tiempo_retorno_anios: Optional[float] = Field(default=None, ge=0)
     potencia_kwp: float = Field(gt=0)
     produccion_anual_estimada_kwh: Optional[float] = None
     factura_actual_anual: float = Field(default=0.0, ge=0)
@@ -148,9 +150,14 @@ async def generar_informe_simulacion(
         recomendacion_final=(
             f"Con un consumo anual de {consumo:.0f} kWh, una instalación de "
             f"{escenario.potencia_kwp:.1f} kWp permitiría un ahorro estimado de "
-            f"{escenario.ahorro_anual:.0f} €/año, con un retorno en "
-            f"{escenario.tiempo_retorno_anios:.1f} años. Cifras orientativas: "
-            f"confirma precios reales con un instalador antes de decidir."
+            f"{escenario.ahorro_anual:.0f} €/año"
+            + (
+                f", con un retorno en {escenario.tiempo_retorno_anios:.1f} años"
+                if escenario.tiempo_retorno_anios is not None
+                else ". Con estos parámetros no se alcanza el retorno de la inversión"
+            )
+            + ". Cifras orientativas: confirma precios reales con un instalador "
+            "antes de decidir."
         )
     )
 
