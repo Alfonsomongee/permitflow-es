@@ -36,8 +36,13 @@ export function NotificationBell() {
       const data = (await res.json()) as { notificaciones: Notificacion[]; noLeidas: number };
       setNotificaciones(data.notificaciones ?? []);
       setNoLeidas(data.noLeidas ?? 0);
-    } catch {
-      // Silencioso: la campana simplemente no muestra novedades si falla la red.
+    } catch (error) {
+      // La campana sigue sin mostrar novedades si falla la red (no rompe el
+      // resto del dashboard por un fallo aquí), pero antes el catch vacío no
+      // dejaba ningún rastro: un fallo persistente de /api/notificaciones era
+      // indistinguible de "no hay plazos próximos" incluso mirando la consola
+      // (auditoría fase 2, 2026-08-12, P-21).
+      console.error("[NOTIFICACIONES] Error al cargar notificaciones:", error);
     } finally {
       setCargando(false);
     }
@@ -64,7 +69,12 @@ export function NotificationBell() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
-    }).catch(() => {});
+    }).catch((error) => {
+      // El estado optimista de arriba ya marcó la notificación como leída en
+      // el cliente; si la petición falla, eso queda desincronizado con el
+      // servidor sin ningún aviso (auditoría fase 2, P-21).
+      console.error("[NOTIFICACIONES] Error al marcar como leída:", error);
+    });
   };
 
   const marcarTodasLeidas = async () => {
@@ -74,7 +84,9 @@ export function NotificationBell() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ todas: true }),
-    }).catch(() => {});
+    }).catch((error) => {
+      console.error("[NOTIFICACIONES] Error al marcar todas como leídas:", error);
+    });
   };
 
   return (

@@ -65,8 +65,13 @@ export async function POST(req: Request) {
         "Connection": "keep-alive",
       },
     });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
+    // Antes el error real (timeout, DNS, conexión rechazada con la API) se
+    // capturaba y se descartaba sin más -- el `err` ni siquiera se usaba
+    // (de ahí el eslint-disable que había aquí). Un fallo persistente de
+    // conexión con la API era indistinguible en los logs de un 502
+    // ocasional cualquiera (auditoría fase 2, 2026-08-12, P-21).
+    console.error("[ASISTENTE] Error al conectar con el servicio de IA:", err);
     return NextResponse.json(
       { error: "No se pudo conectar con el servicio de IA." },
       { status: 502 }
