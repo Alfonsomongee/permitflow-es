@@ -12,7 +12,6 @@
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-07-28 (auditoría normativa): la fecha de la Orden Foral 60/2015 estaba mal transcrita como 'de 20 de marzo' (esa es la fecha de publicación en BON n.º 54); la fecha correcta de la norma es 'de 5 de marzo de 2015'. Corregido en 'fuentes'.",
     "VERIFICADO 2026-07-28: el valor 'via_publica' de 'ubicacion_irve' usado en las condiciones de NAV-IRVE-001/002 SÍ es válido — está en el Literal real de schemas/clasificador.py (línea 40) y ya fue añadido a VALORES_VALIDOS en motor_normativo/validar_reglas.py; no es código muerto. No se ha modificado la condición."
   ],
   "fuentes": [

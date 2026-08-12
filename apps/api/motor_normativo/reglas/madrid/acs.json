@@ -10,8 +10,7 @@
   "huecos_verificacion": [
     "Confirmar el importe vigente de la tasa y la tarifa EICI en cada expediente.",
     "Determinar mediante datos técnicos si la instalación queda incluida en el ámbito del RD 487/2022; el mero uso colectivo no sustituye esa evaluación.",
-    "RESUELTO (2026-07-28): importes de tasa de registro incorporados (memoria técnica 3,12 €/6,24 €; proyecto 15,60 €/31,22 €/52,04 €) según tarifario vigente publicado en sede.comunidad.madrid, sección 'Pago de tasas' del trámite de instalaciones térmicas no industriales.",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "RESUELTO (2026-07-28): importes de tasa de registro incorporados (memoria técnica 3,12 €/6,24 €; proyecto 15,60 €/31,22 €/52,04 €) según tarifario vigente publicado en sede.comunidad.madrid, sección 'Pago de tasas' del trámite de instalaciones térmicas no industriales."
   ],
   "fuentes": [
     {

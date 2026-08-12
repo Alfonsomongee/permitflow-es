@@ -8,8 +8,6 @@
   "revisado_por": null,
   "aviso": "Auditoría 2026-07-28: umbrales de potencia ITC-BT-52 (50kW interior / 10kW exterior, modo 4) confirmados correctos, sin cambios. plataforma_url sustituida por la ficha específica de cada trámite; organismo de RECE0017T01 precisado.",
   "huecos_verificacion": [
-    "RESUELTO 2026-07-28 (MEDIO): plataforma_url genérica (https://sede.asturias.es) sustituida por la ficha dboid específica de RECE0017T01 y RECE0004T01.",
-    "RESUELTO 2026-07-28 (MEDIO): organismo de RECE0017T01 precisado con el Servicio de Gestión Energética (confirmado en ficha oficial).",
     "PENDIENTE (no resuelto, ALTO de la auditoría): no se ha confirmado si las instalaciones IRVE en vivienda están exentas de la tasa modelo 046 (indicio en la ficha de RECE0017T01: 'para tramitar certificados de todas las instalaciones diferentes a las de viviendas y alumbrados festivos temporales'), por lo que 'justificante_tasa_046' se mantiene como obligatorio sin excepción hasta confirmarlo con el Servicio de Gestión Energética o normativa tributaria específica. No se ha tocado por no estar verificado (ver PENDIENTE DE VERIFICAR de la auditoría).",
     "requiere campo de formulario: numero_plazas_garaje / ventilacion_garaje — existen en schemas/clasificador.py y en Step2ParametrosTecnicos.tsx pero CamposIRVE solo los renderiza cuando comunidad=cataluna (mostrarCamposGarajeCataluna); no se ha podido modelar para Asturias el criterio adicional de la guía técnica ITC-BT-52 (proyecto obligatorio en garajes con ventilación forzada, o con ventilación natural y >5 plazas, independientemente de la potencia).",
     "PENDIENTE: órgano gestor exacto de RECE0004T01 no confirmado documentalmente en esta sesión; se mantiene la Consejería genérica.",

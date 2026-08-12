@@ -10,9 +10,7 @@
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica extremeña específica de gas más allá del procedimiento combinado eléctrico/gas de la Resolución 20/06/2022",
     "Tasas y plazos legales no verificados",
-    "No se ha confirmado si Extremadura exige un trámite de comunicación separado del acta de puesta en servicio para instalaciones sin proyecto",
-    "RESUELTO 2026-07-28: plataforma_url sustituida por la ficha específica del trámite juntaex.es/w/5873 ('Autorización de explotación...') en EXT-GAS-001 orden 3 y EXT-GAS-003 orden 3",
-    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
+    "No se ha confirmado si Extremadura exige un trámite de comunicación separado del acta de puesta en servicio para instalaciones sin proyecto"
   ],
   "fuentes": [
     {

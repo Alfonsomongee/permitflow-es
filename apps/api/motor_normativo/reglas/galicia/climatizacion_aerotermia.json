@@ -12,8 +12,6 @@
     "Nombre exacto del trámite/registro de instalaciones térmicas en la sede de Galicia no confirmado en esta revisión — se usa referencia genérica a la sede electrónica",
     "'SIEL (Sistema de Información de Energía de Galicia)' del fichero original no se ha podido confirmar como nombre real de plataforma — sustituido por referencia genérica a sede.xunta.gal",
     "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-07-28: cita a la Ley 9/2004 de seguridad industrial de Galicia (derogada 10/07/2015) sustituida por el Decreto Legislativo 1/2015, de 12 de febrero, confirmado en DOG núm. 128/2015",
-    "RESUELTO 2026-07-28: añadido el tramo ≤5 kW (regla GAL-CLIMA-000), exento de comunicación/registro ante la Jefatura Territorial según el RITE (RD 1027/2007)",
     "plataforma_url de la comunicación de puesta en servicio (GAL-CLIMA-001/002) sigue apuntando a la raíz genérica de sede.xunta.gal: no se ha podido identificar en esta auditoría el código de trámite específico de puesta en servicio de instalaciones térmicas en Galicia, por lo que no hay ficha profunda confirmada a la que enlazar"
   ],
   "fuentes": [

@@ -9,7 +9,6 @@
   "aviso": "Fichero generado desde cero (Cantabria no proporcionó fichero original de climatización). No se ha localizado ningún decreto autonómico cántabro que desarrolle el RITE para climatización; se aplica el RITE nacional directamente, con el umbral general de 70 kW (MTD/proyecto) ya verificado de forma consistente en el resto de comunidades de este proyecto. Auditoría 2026-07-28: localizada la ficha específica del trámite 49 'Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización' en sede.cantabria.es; sustituye la URL genérica usada anteriormente.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica cántabra específica de climatización",
-    "RESUELTO 2026-07-28: localizado el trámite 49 'Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización' (sede.cantabria.es), gestionado por el Servicio de Energía de la Dirección General de Industria, Energía y Minas; sustituye la plataforma_url genérica usada en ambas reglas",
     "Se confirma que el trámite 49 lleva tasa asociada ('justificante de la tasa correspondiente'); el importe exacto sigue sin verificar",
     "Tasas (importe exacto) y plazos legales de resolución no verificados"
   ],

@@ -9,8 +9,7 @@
   "aviso": "Dos reglas principales mutuamente excluyentes. Datos resultantes numéricos. La intervención de organismo de control no se universaliza.",
   "huecos_verificacion": [
     "Pendiente de determinar los supuestos sectoriales expresos de inspección inicial por organismo de control en instalaciones receptoras de gas.",
-    "Una presión resultante >5 bar debe revisarse además respecto del alcance semántico del vertical gas_baja_presion.",
-    "Revisión 2026-07-28: confirmado que el fichero ya diferencia clase_instalacion_gas (individual >70 kW; común/conexión de servicio >2.000 kW), cita Llei 9/2014 + Decret 192/2023, nombra RITSIC y no impone plazo_legal_dias sin respaldo; no se detectaron cambios adicionales necesarios."
+    "Una presión resultante >5 bar debe revisarse además respecto del alcance semántico del vertical gas_baja_presion."
   ],
   "fuentes": [
     {

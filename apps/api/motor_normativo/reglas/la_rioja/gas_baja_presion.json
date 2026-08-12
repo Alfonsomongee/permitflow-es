@@ -11,8 +11,7 @@
     "No se ha localizado normativa autonómica riojana específica de gas más allá del trámite GN-GL",
     "Tasas y plazos legales no verificados",
     "No se ha confirmado si La Rioja distingue trámite entre GL (GLP) y GN (gas natural) más allá del propio nombre del código",
-    "Corregido 2026-07-28: las condiciones de RIO-GAS-001/002/003 comparaban 'presion_bar' contra las cadenas literales \"5+\"/\"normal\", pero motor_normativo/clasificador.py normaliza ese campo a float (\"5+\"->6.0, \"normal\"->0.0) antes de evaluar json-logic, por lo que las tres reglas eran inalcanzables en producción. Se cambiaron a comparaciones numéricas (`presion_bar` > 5 / <= 5) equivalentes al umbral normativo real.",
-    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital)."
+    "Corregido 2026-07-28: las condiciones de RIO-GAS-001/002/003 comparaban 'presion_bar' contra las cadenas literales \"5+\"/\"normal\", pero motor_normativo/clasificador.py normaliza ese campo a float (\"5+\"->6.0, \"normal\"->0.0) antes de evaluar json-logic, por lo que las tres reglas eran inalcanzables en producción. Se cambiaron a comparaciones numéricas (`presion_bar` > 5 / <= 5) equivalentes al umbral normativo real."
   ],
   "fuentes": [
     {

@@ -11,9 +11,7 @@
     "No se ha verificado si Murcia ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
     "Tasas exactas de los subcódigos H00001/H00002/H00003 del código T610 no verificadas con importe concreto (importe remite a simulador en línea, no publicado en estático)",
     "No se ha confirmado en qué casos aplica el procedimiento 0019 frente a PRETOR con precisión — la fuente oficial distingue por modalidad de autoconsumo (con/sin excedentes, con/sin compensación), eje que no tiene campo propio en el schema",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
-    "RESUELTO 2026-07-28: enlace genérico https://sede.carm.es sustituido por ficha del procedimiento 0019 (https://sede.carm.es/web/pagina?IDCONTENIDO=19&IDTIPO=240) en ambos trámites de registro",
-    "RESUELTO 2026-07-28: añadida referencia a tasa H00003 (Ordenación de las instalaciones acogidas a régimen especial), aplicable cuando la instalación se acoge a PRETOR con excedentes sin compensación"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
   ],
   "fuentes": [
     {

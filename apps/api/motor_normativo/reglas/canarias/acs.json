@@ -12,8 +12,7 @@
     "RESUELTO: umbral inferior de 5 kW confirmado en la ficha 3409",
     "RESUELTO: no existe ECA (Entidad Colaboradora) para ACS >70 kW en Canarias; es comunicación directa con proyecto y certificado de dirección de obra, sin resolución administrativa expresa",
     "Tasas: Modelo 700, concepto 200, epígrafe 4; importe exacto no verificado",
-    "La regla de Legionella añadida se activa con el campo 'incluida_ambito_rd_487_2022'; si este dato no se recoge en el formulario de entrada, la regla no disparará aunque la instalación esté en el ámbito de aplicación — revisar que el flujo de captura de datos de ACS colectiva/terciaria solicite este campo",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "La regla de Legionella añadida se activa con el campo 'incluida_ambito_rd_487_2022'; si este dato no se recoge en el formulario de entrada, la regla no disparará aunque la instalación esté en el ámbito de aplicación — revisar que el flujo de captura de datos de ACS colectiva/terciaria solicite este campo"
   ],
   "fuentes": [
     {

@@ -10,7 +10,6 @@
   "huecos_verificacion": [
     "Tasas exactas no verificadas",
     "Plazos legales no verificados",
-    "RESUELTO 2026-07-28: enlace genérico https://sede.carm.es sustituido por ficha del código 61 (https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240) y añadido formulario_ref '61'",
     "RESUELTO PARCIALMENTE 2026-07-28: añadida regla MUR-CL-000 para potencia <5 kW; el régimen exacto aplicable a ese tramo (exención total o trámite simplificado) NO VERIFICADO — la ficha oficial del código 61 solo detalla modelos para '5-70 kW' y '>70 kW', sin especificar qué ocurre por debajo de 5 kW"
   ],
   "fuentes": [

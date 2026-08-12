@@ -8,9 +8,6 @@
   "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. El Decreto 48/2020, de 31 de marzo, está CONFIRMADO real (regula autorización de instalaciones de producción/transporte/distribución eléctrica, incluido autoconsumo). Se corrigieron los id de regla duplicados 'PV-FV-3' (tres veces) renombrándolos a sufijos A/B/C. Se bajó 'nivel_verificacion' de 'verificada' a 'generica': las propias notas del fichero original reconocían importes 'estimados' y dependientes de la inversión, lo que contradice el requisito de verificación total del proyecto. Revisión 2026-07-28: el campo 'inversion_eur' ya se captura en el formulario web y forma parte del ClasificadorInput (auditoría normativa País Vasco), por lo que las reglas PV-FV-003A/B/C dejan de ser huérfanas. Se corrigió 'plataforma_url' (apuntaba a una página genérica de 'Servicios') y se añadió el trámite de acceso y conexión (CAU) con la distribuidora en las reglas con excedentes.",
   "huecos_verificacion": [
-    "RESUELTO 2026-07-28: el campo 'inversion_eur' ya está incluido en ClasificadorInput y se captura en el formulario web de fotovoltaica; las reglas PV-FV-003A/B/C disparan correctamente.",
-    "RESUELTO 2026-07-28: 'plataforma_url' corregida de la página genérica 'servicios/0043312' a la ficha específica del trámite [GE] (https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/).",
-    "RESUELTO 2026-07-28: se añadió el trámite de acceso y conexión (CAU) con la empresa distribuidora en las reglas con excedentes (PV-FV-002, 003A/B/C), hueco no declarado detectado en la auditoría.",
     "Importes de tasa (128,10€ / 204,96€ / 787,77€) no verificados con detalle contra el Decreto Legislativo 1/2025 citado — NO VERIFICABLE en esta revisión (requiere lectura del art. 132 completo).",
     "El umbral de 100 kW de exención de autorización es el umbral GENERAL ESTATAL (RD 1955/2000 / Ley 24/2013 art. 53.2), aplicable en toda España, no una particularidad exclusiva del País Vasco — ver nota corregida en PV-FV-002.",
     "No se ha verificado si el País Vasco ha elevado el umbral de exención de autorización de 100 kW a 500 kW — NO VERIFICABLE en esta revisión."
@@ -152,7 +149,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28.",
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -228,7 +225,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28.",
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -304,7 +301,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28.",
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -380,7 +377,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red). Añadido en revisión 2026-07-28.",
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).",
           "registro_salida": null,
           "medio_presentacion": null
         }

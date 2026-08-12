@@ -10,10 +10,7 @@
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica de Castilla y León específica de climatización; se aplica el RITE nacional directamente vía la aplicación 'RITE' (IAPA1468)",
     "Tasas y plazos legales no verificados con detalle",
-    "El paso de OCA del fichero original no se ha podido confirmar como obligatorio específicamente en Castilla y León más allá de lo que exige el RITE nacional para inspección inicial (art. 15 RITE, instalaciones que requieren proyecto)",
-    "RESUELTO 2026-07-28: organismo corregido a 'Servicio Territorial de Industria, Comercio y Economía' en los 3 trámites de inscripción",
-    "RESUELTO 2026-07-28: añadido el tramo de exención < 5 kW (CYL-AT-000) que faltaba respecto del RITE art. 15",
-    "RESUELTO 2026-07-28: plataforma_url sustituida por la ficha específica del trámite de instalaciones térmicas en vez del portal genérico"
+    "El paso de OCA del fichero original no se ha podido confirmar como obligatorio específicamente en Castilla y León más allá de lo que exige el RITE nacional para inspección inicial (art. 15 RITE, instalaciones que requieren proyecto)"
   ],
   "fuentes": [
     {

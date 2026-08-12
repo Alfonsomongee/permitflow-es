@@ -13,7 +13,6 @@
     "Tasas: Modelo 700, concepto 118, tasa 22 'Inscripción en registros oficiales'; importe exacto no verificado",
     "plazo_legal_dias=30 no confirmado específicamente para Canarias (la ficha 3905 indica 'Plazo de presentación: Todo el año' y 'No cabe recurso', sin confirmar un plazo de 30 días); se mantiene marcado como no verificado",
     "No se distingue en reglas separadas el supuesto de gas envasado frente a canalizado (objeto real de la ficha 3905: 'instalaciones receptoras de gas envasado y canalizado'), por no existir un campo de entrada específico en el schema para esa distinción",
-    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja.",
     "Sin cobertura para presion_bar='5+' ni para uso industrial: solo se verificó el fragmento residencial/terciario a presión normal. (2026-08-11: el uso terciario devolvía 404 porque la regla comparaba uso con 'comercial', valor que no existe en el enum del schema; corregido.)"
   ],
   "fuentes": [

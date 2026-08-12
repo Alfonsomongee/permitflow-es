@@ -71,9 +71,15 @@ export function ComoFuncionaSection() {
               Empieza a tramitar sin fricciones
             </h2>
             <p className="mx-auto mb-8 max-w-md text-sm text-white/70 leading-relaxed">
-              Prueba el clasificador ahora con una instalación real. Sin registro,
-              sin tarjeta. El resultado en segundos.
+              Prueba el clasificador ahora con una instalación real. Cuenta
+              gratuita, sin tarjeta. El resultado en segundos.
             </p>
+            {/* Antes decía "sin registro": /nueva-instalacion exige sesión
+                (middleware.ts la protege con auth.protect()), así que esa
+                promesa se rompía en el primer clic. El plan Free no requiere
+                tarjeta -- eso sí es cierto -- así que el ajuste es acotar la
+                promesa a lo que realmente se cumple, no retirar el CTA
+                (auditoría de coherencia producto/experiencia 2026-08-12). */}
             <Link
               href="/nueva-instalacion"
               className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-primary shadow-sm transition-transform hover:scale-105"

@@ -11,8 +11,7 @@
     "No se ha localizado un decreto autonómico de Castilla-La Mancha específico de autoconsumo/BT distinto de la normativa nacional",
     "Umbral 100 kW vs 500 kW (RD-ley 18/2022): confirmado por fuente agregada (no JCCM de primer nivel) que Castilla-La Mancha NO ha ejercido la potestad de elevarlo a 500 kW; se mantienen los 100 kW. Tratar como indicio fuerte, no como confirmación oficial plena — NO VERIFICADO en fuente primaria JCCM.",
     "Tasas y plazos legales de resolución no verificados con detalle",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
-    "RESUELTO 2026-07-28 (auditoría independiente): el organismo citado en CLM-FV-001 orden 2 y CLM-FV-002 orden 3 era 'Dirección General de Industria, Energía y Minas', que no existe en el organigrama vigente de la Consejería de Desarrollo Sostenible. Corregido a 'Dirección General de Transición Energética', la misma DG citada correctamente en climatización/ACS y competente sobre la Instrucción 1/2020 de autoconsumo."
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
   ],
   "fuentes": [
     {

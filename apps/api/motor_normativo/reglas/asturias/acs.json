@@ -8,14 +8,8 @@
   "revisado_por": null,
   "aviso": "Auditoría 2026-07-28: corregida secuencia de la tasa 046 (posterior al registro, no documento de entrada), añadido contrato de mantenimiento >70kW, excepcionada la inspección OCA para conjuntos de instalaciones individuales <70kW en uso residencial vivienda, y corregido el enumerado inválido de 'uso' en AST-ACS-003.",
   "huecos_verificacion": [
-    "RESUELTO 2026-07-28 (ALTO): 'justificante_tasa_046' retirado de los documentos de ENTRADA de RECE0050T01 (AST-ACS-001/002); la ficha oficial establece que la tasa se liquida DESPUÉS del registro (la Administración emite la carta de pago). Se mantiene como coste posterior en 'notas' y 'coste_estimado'.",
-    "RESUELTO 2026-07-28 (ALTO): añadido documento obligatorio 'contrato_mantenimiento' (art. 26 RITE) en AST-ACS-002 (>70 kW).",
-    "RESUELTO 2026-07-28 (ALTO): excepcionada la exigencia de 'certificado_oca' (inspección inicial) en AST-ACS-002 para conjuntos de instalaciones individuales <70kW cada una en edificios de uso residencial vivienda, conforme a la ficha oficial. Usa el campo 'acs_centralizada' (recogido por el formulario) como proxy de 'instalación individual vs. común de edificio'.",
-    "RESUELTO 2026-07-28 (MEDIO): AST-ACS-003 comparaba 'uso' con los valores inexistentes 'comercial' y 'residencial_colectivo' (el enumerado real es residencial|terciario|industrial, ver apps/web/components/nueva-instalacion/types.ts). Sustituido por 'uso in [terciario, industrial] OR acs_centralizada=true', reutilizando el campo acs_centralizada que sí recoge el formulario para aproximar 'uso residencial colectivo'.",
     "requiere campo de formulario: uso_colectivo — existe en schemas/clasificador.py pero no lo renderiza ningún Step del formulario web; no se ha podido usar como criterio directo y se ha aproximado con acs_centralizada.",
-    "PENDIENTE: no se ha añadido cota inferior de potencia (>5kW) ni 'Solicitud en modelo normalizado' como documento explícito (hallazgos MEDIO de la auditoría), por no ser mecánicos y requerir diseño adicional del itinerario.",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita.",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "PENDIENTE: no se ha añadido cota inferior de potencia (>5kW) ni 'Solicitud en modelo normalizado' como documento explícito (hallazgos MEDIO de la auditoría), por no ser mecánicos y requerir diseño adicional del itinerario."
   ],
   "fuentes": [
     {

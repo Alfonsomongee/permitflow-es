@@ -11,8 +11,7 @@
     "RESUELTO PARCIALMENTE 2026-07-28: la inspección inicial por OCA/OCH ya no se exige de forma incondicional (antes 'obligatorio': true sin condición); se marca como condicional. PENDIENTE: el régimen procedimental exacto (en qué supuestos es preceptiva) deriva del Decreto 125/2012, confirmado real, pero no se ha verificado el detalle exacto.",
     "PENDIENTE: no modelada la bifurcación entre el procedimiento 450 (una única empresa instaladora, usado en esta regla) y el 22742 (varias empresas coordinadas por técnico proyectista), por falta de un campo 'número de empresas instaladoras' en el schema.",
     "PENDIENTE: no modelada la alternativa DECRESTE (declaración responsable de técnicos competentes) al visado colegial del Proyecto Técnico, ni el formulario normalizado MEMISTER para la Memoria Técnica.",
-    "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita. Queda pendiente el otro supuesto del art. 15.1.c (calentadores instantáneos, acumuladores y termos eléctricos <= 70 kW), que sí requiere conocer el tipo de equipo generador."
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     {
@@ -237,7 +236,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "Corregido tras auditoría 2026-07-28: antes se exigía de forma incondicional para toda instalación >70 kW; la ficha oficial la condiciona ('cuando sea preceptivo').",
+          "notas": "La ficha oficial condiciona esta inspección a que sea preceptiva; no se exige de forma incondicional para toda instalación >70 kW.",
           "registro_salida": null,
           "medio_presentacion": null
         },

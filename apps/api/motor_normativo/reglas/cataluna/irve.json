@@ -8,9 +8,7 @@
   "revisado_por": null,
   "aviso": "Proyecto o MTD según ITC-BT-04/52 y criterio más restrictivo del aparcamiento. La puesta en servicio se tramita mediante declaración responsable BT y RITSIC.",
   "huecos_verificacion": [
-    "Confirmar directamente en la ITA 12 oficial los supuestos catalanes adicionales de inspección inicial por organismo de control.",
-    "RESUELTO 2026-08-06 (parcialmente): la advertencia de implantacion en via publica de Barcelona (CAT-IRVE-VIA-PUBLICA-BARCELONA) referenciaba un campo 'municipio' inexistente en el schema y nunca podia dispararse; se ha desactivado explicitamente. Sigue pendiente anadir soporte de municipio al clasificador para que la advertencia llegue realmente al usuario.",
-    "RESUELTO 2026-07-28: la exención de proyecto en garaje_comunitario ahora exige además garaje_existente=true y uso_edificio=residencial (RD 1053/2014, ITC-BT-04 3.1: la exención del párrafo final solo cubre los grupos g) y h) EXISTENTES en edificios de vivienda). Antes solo se comprobaba uso_edificio, dejando sin proyecto garajes nuevos en edificios residenciales que sí lo requieren."
+    "Confirmar directamente en la ITA 12 oficial los supuestos catalanes adicionales de inspección inicial por organismo de control."
   ],
   "fuentes": [
     {

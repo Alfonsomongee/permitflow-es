@@ -8,10 +8,7 @@
   "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'obra_civil_relevante' (no existe en el schema). Se sustituyó el umbral inventado de 50 kW plano por el umbral nacional ya verificado (ITC-BT-04 3.1, RD 1053/2014): interior >50 kW, exterior >10 kW, o modo de carga 4. Revisión 2026-07-28 (auditoría normativa CV): 'Decreto 88/2021, de 2 de julio' es una CITA FALSA por atribución de contenido — se confirmó que ese decreto real regula la provisión de registros de la propiedad vacantes en la CV, sin relación alguna con instalaciones eléctricas o de recarga de vehículos; se elimina de 'fuentes'. Se renombró el trámite inexistente 'DRPS' (Declaración Responsable de Puesta en Servicio) por el trámite real, el registro del Certificado de Instalación Eléctrica de Baja Tensión ante el Servicio Territorial, y se sustituyeron los enlaces genéricos a la raíz de sede.gva.es por los procedimientos reales: id_proc=440 (CV-IRVE-001, con Memoria Técnica de Diseño) e id_proc=436 (CV-IRVE-002, con proyecto e inspección inicial por Organismo de Control Habilitado). Se corrigió también la terminología OCA→OCH (Organismo de Control Habilitado), propia de la CV en baja tensión.",
   "huecos_verificacion": [
-    "RESUELTO 2026-07-28: 'Decreto 88/2021, de 2 de julio' es CITA FALSA — el decreto real (DOGV 2021/7426) regula la provisión de registros de la propiedad vacantes en la CV, sin relación con IRVE ni con instalaciones eléctricas. Eliminado de 'fuentes'. No consta normativa autonómica valenciana específica de IRVE; aplica el REBT/ITC-BT-52 estatal.",
-    "RESUELTO 2026-07-28: trámite 'DRPS' (Declaración Responsable de Puesta en Servicio) renombrado — no existe con ese nombre en la CV para baja tensión; el procedimiento real es el registro del Certificado de Instalación Eléctrica de Baja Tensión ante el Servicio Territorial (sellado en un máximo de 2 días hábiles). Enlaces corregidos: CV-IRVE-001 → id_proc=440 (con Memoria Técnica de Diseño); CV-IRVE-002 → id_proc=436 (con proyecto e inspección inicial por Organismo de Control Habilitado).",
     "PENDIENTE: la CV distingue en realidad TRES procedimientos según documentación técnica (440 con MTD, 434 con proyecto sin inspección inicial, 436 con proyecto e inspección inicial por OCH). CV-IRVE-002 en este fichero modela solo el caso con inspección inicial (id_proc=436); el caso 'con proyecto pero sin inspección inicial' (id_proc=434) no está cubierto por falta de un campo en el schema que indique si la inspección inicial es preceptiva.",
-    "RESUELTO 2026-07-28: terminología OCA sustituida por OCH (Organismo de Control Habilitado) en CV-IRVE-002, propia del ámbito de baja tensión en la CV.",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "Tasas y plazos legales no verificados con detalle"
@@ -157,7 +154,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido tras auditoría 2026-07-28: el trámite 'DRPS' no existe con ese nombre en la CV; el nombre y el enlace (id_proc=440) corresponden al procedimiento real de instalaciones de BT con Memoria Técnica de Diseño.",
+          "notas": "El trámite 'DRPS' no existe con ese nombre en la Comunidad Valenciana; el nombre y el enlace (id_proc=440) corresponden al procedimiento real de instalaciones de BT con Memoria Técnica de Diseño.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -308,7 +305,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido tras auditoría 2026-07-28: el trámite 'DRPS' no existe con ese nombre en la CV; el nombre y el enlace (id_proc=436) corresponden al procedimiento real con proyecto e inspección inicial por Organismo de Control Habilitado. Esta regla no cubre el caso 'con proyecto sin inspección inicial preceptiva' (id_proc=434) por falta de un campo en el schema — ver huecos_verificacion.",
+          "notas": "El trámite 'DRPS' no existe con ese nombre en la Comunidad Valenciana; el nombre y el enlace (id_proc=436) corresponden al procedimiento real con proyecto e inspección inicial por Organismo de Control Habilitado. Esta regla no cubre el caso \"con proyecto sin inspección inicial preceptiva\" (id_proc=434) por falta de un campo en el schema — ver huecos_verificacion.",
           "registro_salida": null,
           "medio_presentacion": null
         }

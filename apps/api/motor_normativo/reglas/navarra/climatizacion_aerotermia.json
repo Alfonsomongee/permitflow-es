@@ -10,8 +10,7 @@
   "huecos_verificacion": [
     "Nombre exacto del trámite de registro de instalaciones térmicas en Navarra no confirmado en esta revisión",
     "Tasas y plazos legales no verificados",
-    "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó la ficha específica de trámite de registro térmico en navarra.es dentro del presupuesto de la auditoría — PENDIENTE",
-    "RESUELTO 2026-07-28 (auditoría normativa): se añaden como base_legal foral la Orden Foral 60/2015 (procedimiento de tramitación/registro; deroga la OF 424/2009 de desarrollo del RITE en Navarra) y la Orden Foral 64/2022, Disp. Ad. Única (umbral 70 kW e inspección inicial OCA). Se retira la afirmación 'no se ha localizado normativa foral'."
+    "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó la ficha específica de trámite de registro térmico en navarra.es dentro del presupuesto de la auditoría — PENDIENTE"
   ],
   "fuentes": [
     {

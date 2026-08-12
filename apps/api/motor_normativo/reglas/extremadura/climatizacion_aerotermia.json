@@ -9,8 +9,7 @@
   "aviso": "Fichero generado desde cero (Extremadura no proporcionó fichero original de climatización). Confirmado real el trámite 'Registro de Instalaciones Térmicas en Edificios' de la Junta de Extremadura, con tramo específico 5-70 kW (memoria técnica) y >70 kW (proyecto visado). No se ha localizado decreto autonómico propio; se aplica el RITE nacional directamente vía el procedimiento general de instalación industrial (Decreto 49/2004, Grupo II). CORRECCIÓN 2026-07-28 (auditoría normativa): el umbral de 70 kW y los operadores <=70/>70 se confirmaron correctos (RITE exige proyecto solo si la potencia térmica nominal es MAYOR que 70 kW); se corrigió la cita de la ficha de referencia en 'fuentes' (ver nota) y se unificó el nombre del organismo.",
   "huecos_verificacion": [
     "No se ha confirmado el nombre ni número de trámite exacto en la sede electrónica de Extremadura para el registro de instalaciones térmicas",
-    "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita. Queda pendiente el otro supuesto del art. 15.1.c (calentadores instantáneos, acumuladores y termos eléctricos <= 70 kW), que sí requiere conocer el tipo de equipo generador."
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     {

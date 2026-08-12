@@ -12,7 +12,6 @@
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-07-28: plataforma_url de los trámites de registro/comunicación BT (formulario_ref IN614A / IN614C) sustituida por el enlace profundo confirmado a IN614C (https://sede.xunta.gal/detalle-procedemento?codtram=IN614C)",
     "NO VERIFICABLE: el código IN614A (citado junto a IN614C en formulario_ref) no se ha podido confirmar como ficha real en sede.xunta.gal; solo IN614C está confirmado con fuente admisible. No se ha retirado IN614A del formulario_ref a falta de confirmación adicional.",
     "NO VERIFICABLE: el código IN429A (GAL-IRVE-002 orden 2, inspección inicial OCA) no se ha podido confirmar como ficha real en sede.xunta.gal; único resultado real para '429A' es SI429A (Programa Emega, ayudas al emprendimiento femenino, sin relación con instalaciones eléctricas). plataforma_url de este trámite se deja sin tocar (sigue apuntando a la raíz genérica) hasta confirmación adicional del código correcto."
   ],

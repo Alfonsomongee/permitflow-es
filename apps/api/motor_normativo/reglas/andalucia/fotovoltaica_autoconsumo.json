@@ -246,7 +246,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -430,7 +430,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -614,7 +614,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -810,7 +810,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -994,7 +994,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1092,7 +1092,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69) -- corregido tras auditoría 2026-07-27: la referencia anterior al 'Decreto-ley 3/2024, de 6 de febrero' no se ha localizado con fuente admisible). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1182,7 +1182,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1280,7 +1280,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69) -- corregido tras auditoría 2026-07-27: la referencia anterior al 'Decreto-ley 3/2024, de 6 de febrero' no se ha localizado con fuente admisible). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1370,7 +1370,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1480,7 +1480,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69) -- corregido tras auditoría 2026-07-27: la referencia anterior al 'Decreto-ley 3/2024, de 6 de febrero' no se ha localizado con fuente admisible). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1570,7 +1570,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1668,7 +1668,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69) -- corregido tras auditoría 2026-07-27: la referencia anterior al 'Decreto-ley 3/2024, de 6 de febrero' no se ha localizado con fuente admisible). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004). CORRIGE la nota anterior, que citaba erróneamente 100 kW como umbral andaluz.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1758,7 +1758,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1940,7 +1940,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2122,7 +2122,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2316,7 +2316,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2498,7 +2498,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Fase de activación posterior (hueco confirmado en auditoría 2026-07-27, no modelada como trámite propio): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2567,7 +2567,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Añadido tras auditoría 2026-07-27 (hueco ALTO confirmado con fuente oficial). Se dispara junto con el resto de trámites de legalización de la potencia correspondiente (AND-FV-001/001B/002/004); no los sustituye.",
+          "notas": "Se dispara junto con el resto de trámites de legalización de la potencia correspondiente (AND-FV-001/001B/002/004); no los sustituye.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2746,21 +2746,10 @@
   "nivel_verificacion": "generica",
   "revisado_por": null,
   "huecos_verificacion": [
-    "RESUELTO 2026-08-09 (bug de duplicación): AND-FV-003 repetía 'Solicitud del CAU' -- ya presente incondicionalmente en AND-FV-001/001B/002/004 -- por lo que un usuario con solicita_ayuda=true veía ese trámite dos veces en el plan. Eliminado de AND-FV-003, que ahora solo aporta el trámite propio de ayudas (PRTR/Next Generation).",
-    "RESUELTO 2026-07-28 (CRÍTICO): faltaba el trámite de solicitud del CAU a la distribuidora y la secuencia estaba invertida (comunicación a la distribuidora en último lugar). Añadido como orden 1 en todas las reglas FV, renumerando el resto.",
-    "RESUELTO 2026-07-28 (ALTO): trámite 'RAC' renombrado a RADNE, URL corregida (apuntaba a la portada genérica de la sede del MITECO) y aclarada la inscripción de oficio en BT <100 kW.",
-    "RESUELTO 2026-07-28 (ALTO): añadida 'Autorización administrativa de explotación' como trámite independiente en AND-FV-004 (>500 kW), ausente en versiones anteriores.",
-    "RESUELTO 2026-07-28 (ALTO): añadida nueva regla AND-FV-005 para el RAIPEE (autoconsumo con excedentes no acogido a compensación), condicionada al campo modalidad_autoconsumo ya soportado por el esquema del clasificador.",
-    "RESUELTO 2026-07-28 (ALTO, documental): incorporada nota sobre la fase de activación/contrato con la comercializadora (A1/D1 01/D1 02/M1) en el trámite final de comunicación a la distribuidora; no se modela como trámite propio por falta de un actor/plataforma estable que modelar.",
-    "RESUELTO 2026-07-28 (MEDIO): plataforma_url genérica del tramitador PUES (.../detalle/6513.html) sustituida por la Oficina Virtual real.",
-    "RESUELTO 2026-07-28 (MEDIO): cita del 'Decreto-ley 3/2024, de 6 de febrero' (no localizado con fuente admisible) sustituida por la Resolución de 28 de septiembre de 2023, que sí está verificada como norma vigente de la ficha técnica PUES de BT.",
     "PENDIENTE (no verificado, no se ha tocado la condición): AND-FV-002 dispara para cualquier instalación no residencial sin cota inferior de potencia (posible falso positivo en comercios de muy baja potencia). No se ha localizado fuente que fije un umbral alternativo -- se deja para una fase posterior con verificación web dedicada.",
     "PENDIENTE: excepciones del párrafo segundo del apartado 2 de la disposición adicional única del Decreto-ley 2/2018 (instalaciones ≤500 kW excluidas de la vía PUES) -- existen pero no se ha identificado cuáles son; no incorporadas.",
     "PENDIENTE: Ley 7/2021 art. 16 citada en fuentes FV -- pertenece al bloque de movilidad/transporte, no de autoconsumo; cita improcedente detectada pero no eliminada en esta pasada (bajo impacto, no listada como CRÍTICO/ALTO).",
     "PENDIENTE: acuerdo de reparto en autoconsumo colectivo (RD 244/2019 art. 3 y anexo I) no incorporado (hueco B8, criterio profesional sin fuente verificada en esta auditoría).",
-    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.edistribucion.com/es/autoconsumo/tramitacion.html (usada en los trámites 'Solicitud del CAU' y 'Comunicación de autoconsumo a la distribuidora' de todas las reglas AND-FV) devolvía 404 confirmado por un usuario real; sin snapshot en Wayback Machine. e-distribución reestructuró su web: sustituida por https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html ('Autoconsumo: Información sobre modalidades, trámites y normativa'), página vigente verificada por fetch directo, que describe expresamente la solicitud de acceso/CAU y la comunicación de autoconsumo a la distribuidora.",
-    "RESUELTO 2026-08-11: la inscripción en el RADNE se emitía como acción del usuario (con 62,25 € de coste y formulario) también por debajo de 100 kW en BT, donde la Ley 24/2013 art. 9.4 la atribuye de oficio a la comunidad autónoma. El propio campo 'organismo' ya lo advertía en texto libre, pero no estaba modelado, así que la interfaz no podía distinguirlo. Separado en AND-FV-RADNE-OFICIO y -SOLICITUD.",
-    "PENDIENTE: por debajo de 15 kW (AND-FV-001 y AND-FV-001B) no se emite ningún trámite de registro de autoconsumo. La inscripción de oficio existe igualmente en ese tramo; no se ha añadido para no alterar planes ya validados contra casos de referencia.",
-    "RESUELTO 2026-08-11: AND-FV-VAL-001 (límite de 100 kW para la compensación simplificada) se retira de aquí porque es normativa estatal (RD 244/2019 art. 4), no una particularidad andaluza. Pasa a motor_normativo/validaciones_transversales.py, donde aplica a las 17 comunidades en vez de solo a esta."
+    "PENDIENTE: por debajo de 15 kW (AND-FV-001 y AND-FV-001B) no se emite ningún trámite de registro de autoconsumo. La inscripción de oficio existe igualmente en ese tramo; no se ha añadido para no alterar planes ya validados contra casos de referencia."
   ]
 }

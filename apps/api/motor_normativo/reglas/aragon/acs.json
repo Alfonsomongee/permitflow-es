@@ -12,8 +12,7 @@
     "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón.",
     "Decreto 136/2005: existe y su número/fecha/objeto son correctos (BOA 20/07/2005), pero desarrolla el RD 865/2003, derogado por el RD 487/2022 (en vigor 02/01/2023). Su vigencia efectiva en lo que remita al RD 865/2003 es dudosa; no se ha localizado norma autonómica de adaptación al RD 487/2022. Se mantiene la cita marcada como 'vigente solo en lo no opuesto al RD 487/2022'.",
     "Normativa autonómica de procedimiento para la comunicación de puesta en servicio de instalación térmica en ACS: no se ha localizado la norma de procedimiento autonómica específica (mismo hueco que en climatizacion_aerotermia.json); 'base_legal' queda solo con el RITE estatal.",
-    "plataforma_url del trámite de comunicación de puesta en servicio: rellenada con la página general de RITE/ACS de aragon.es (número de trámite específico no localizado).",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "plataforma_url del trámite de comunicación de puesta en servicio: rellenada con la página general de RITE/ACS de aragon.es (número de trámite específico no localizado)."
   ],
   "fuentes": [
     {

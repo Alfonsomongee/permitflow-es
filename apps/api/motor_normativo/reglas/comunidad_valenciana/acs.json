@@ -12,9 +12,7 @@
     "PENDIENTE: la exclusión legal de calentadores instantáneos, calentadores acumuladores y termos eléctricos ≤70 kW (documentación técnica ante la Administración no exigible) no está modelada por falta de un campo 'tipo de equipo generador' en el schema; genera trámites falsos para el caso doméstico más común.",
     "RESUELTO PARCIALMENTE 2026-07-28: la inspección inicial por OCA/OCH ya no se exige de forma incondicional. PENDIENTE: el régimen procedimental exacto (en qué supuestos es preceptiva) deriva del Decreto 125/2012, confirmado real, pero no se ha verificado el detalle exacto.",
     "PENDIENTE: no modelada la bifurcación entre el procedimiento 450 (una única empresa instaladora, usado en esta regla) y el 22742 (varias empresas coordinadas por técnico proyectista), por falta de un campo en el schema.",
-    "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita.",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     {
@@ -371,7 +369,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "Corregido tras auditoría 2026-07-28: antes se exigía de forma incondicional para toda instalación >70 kW; la ficha oficial la condiciona ('cuando sea preceptivo').",
+          "notas": "La ficha oficial condiciona esta inspección a que sea preceptiva; no se exige de forma incondicional para toda instalación >70 kW.",
           "registro_salida": null,
           "medio_presentacion": null
         },

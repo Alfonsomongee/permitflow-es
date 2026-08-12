@@ -1375,15 +1375,10 @@
   "nivel_verificacion": "verificada",
   "revisado_por": null,
   "huecos_verificacion": [
-    "RESUELTO 2026-07-28: plataforma_url de AND-ACS-002 (inspección OCA) apuntaba a una página informativa genérica (L7) -- sustituida por la Oficina Virtual real del tramitador PUES.",
-    "RESUELTO 2026-07-28: incoherencia de AND-ACS-003 trámite 2 (plataforma='ayuntamiento' vs organismo/URL de la Junta) -- corregida la etiqueta de plataforma.",
     "PENDIENTE (no verificado, NO se ha tocado la lógica): AND-ACS-002 dispara para toda instalación no residencial sin cota inferior de potencia (falso positivo en terciario de baja potencia). El RITE liga proyecto/inspección a >70 kW, no al uso, pero no se ha localizado fuente primaria que fije un umbral alternativo para uso no residencial -- se deja documentado en notas del trámite en vez de alterar la condición sin verificar.",
     "PENDIENTE: 'Decreto Andalucía de instalaciones de riesgo sanitario' (base legal de AND-ACS-003 trámite 2) citado sin número ni fecha, no identificable -- no se ha tocado.",
     "PENDIENTE: AND-ACS-003 mantiene el criterio de potencia/uso como 'red de seguridad transitoria' hasta que el wizard capture uso_colectivo/acumulacion/recirculacion en producción (Bloque 9B); los campos ya existen en la condición OR pero no se ha retirado el criterio antiguo, tal como el propio fichero documenta.",
     "PENDIENTE: Ley 10/2021 art. 44 (base de tasas 21,94/45,77/66,43/424,48 €) no verificada.",
-    "PENDIENTE: plazo_legal_dias=30 para registro PUES en ACS (otros ficheros usan 45 o 10 días) sin fuente citada -- no unificado en esta pasada.",
-    "RESUELTO 2026-07-28 (enlace roto): plataforma_url de 'Registro de instalación ACS en PUES' (3 ocurrencias) apuntaba a .../procedimientos/detalle/6513.html, que corresponde a TECI (Tramitador Electrónico de Certificados de Instalación de baja tensión, SIA 215668, verificado en andalucia/irve.json), no al registro térmico. Sustituida por .../detalle/6505.html, confirmado con Wayback Machine (200, archivado) y con la página oficial de carnés RITE de la Junta de Andalucía como 'Puesta en servicio de instalaciones industriales que no requieren autorización previa: ... instalaciones térmicas de edificios (climatización, calefacción, ACS)'. Esto resuelve también el conflicto 6513 vs 6505 que quedaba documentado como PENDIENTE en andalucia/irve.json.",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita.",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "PENDIENTE: plazo_legal_dias=30 para registro PUES en ACS (otros ficheros usan 45 o 10 días) sin fuente citada -- no unificado en esta pasada."
   ]
 }

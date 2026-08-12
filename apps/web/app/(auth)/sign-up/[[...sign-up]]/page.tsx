@@ -45,7 +45,13 @@ export default function SignUpPage() {
             
             <ul className="space-y-4">
               {[
-                "Motor normativo automatizado por IA",
+                /* Antes decía "Motor normativo automatizado por IA": el motor
+                   (motor_normativo/clasificador.py) es reglas json-logic
+                   deterministas, sin LLM en la decisión de qué trámite aplica.
+                   El argumento de venta real -- y verificable -- es que cada
+                   trámite cita su base legal (auditoría de coherencia
+                   producto/experiencia 2026-08-12). */
+                "Motor normativo con base legal citada, trámite a trámite",
                 "Plantillas oficiales autocompletadas",
                 "Seguimiento de plazos legales y silencios",
                 "Soporte prioritario y acceso a API",

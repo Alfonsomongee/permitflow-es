@@ -13,10 +13,7 @@
     "Tasas y plazos legales no verificados",
     "La Orden de 22/02/2001 aplica específicamente a aparatos de gas en ACS/calefacción individual; no se ha verificado su aplicabilidad a ACS con otras fuentes de energía",
     "Corregido 2026-07-28: el campo 'organismo' de los trámites CL/CLM usaba la denominación histórica 'Dirección General de Trabajo, Industria y Comercio', desactualizada. Se ha sustituido por 'Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja', denominación vigente confirmada en las fichas oficiales de los trámites IBT (n=24196) y AUTee (n=24593) de la sede electrónica de La Rioja. No se ha localizado ficha oficial propia del trámite CL/CLM que confirme el organismo exacto para ese trámite específico; queda como hueco pendiente si se detecta discrepancia.",
-    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero",
-    "RESUELTO 2026-07-28 (enlace roto): plataforma_url https://www.larioja.org/oficina-electronica/es devolvia pagina vacia (dominio www. sin contenido para esa ruta); el portal de tramites electronicos de La Rioja se sirve ahora desde el subdominio web.larioja.org. Sustituida por https://web.larioja.org/oficina-electronica/, verificada por fetch directo (Oficina electronica, Gobierno de La Rioja, con listado de tramites y acceso con certificado digital).",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita.",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero"
   ],
   "fuentes": [
     {

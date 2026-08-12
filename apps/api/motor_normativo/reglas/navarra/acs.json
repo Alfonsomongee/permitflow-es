@@ -11,10 +11,7 @@
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024) — NO VERIFICABLE, sin tocar en esta revisión",
     "Nombre exacto del trámite de registro de instalaciones térmicas en Navarra no confirmado",
     "Tasas y plazos legales no verificados",
-    "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó la ficha específica de trámite de registro térmico en navarra.es dentro del presupuesto de la auditoría — PENDIENTE",
-    "RESUELTO 2026-07-28 (auditoría normativa): se añaden como base_legal foral la Orden Foral 60/2015 (procedimiento de tramitación/registro; deroga la OF 424/2009 de desarrollo del RITE en Navarra) y la Orden Foral 64/2022, Disp. Ad. Única (umbral 70 kW e inspección inicial OCA). Se retira la afirmación 'no se ha localizado normativa foral'.",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita.",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó la ficha específica de trámite de registro térmico en navarra.es dentro del presupuesto de la auditoría — PENDIENTE"
   ],
   "fuentes": [
     {

@@ -12,8 +12,7 @@
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "El fichero original distinguía IRVE residencial de no residencial (comercial/industrial) con el mismo umbral de potencia — no se ha localizado fuente que confirme que esa distinción, más allá del umbral técnico de proyecto, sea relevante; se ha simplificado a la partición estándar por ubicación/potencia/modo de recarga",
-    "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-07-28: Auditoría normativa Región de Murcia (28/07/2026): confirmado que el procedimiento 0019 de la Sede Electrónica CARM aplica también a IRVE (la ficha oficial cita expresamente RIPREE/vehículo eléctrico). Se sustituyó el enlace genérico https://sede.carm.es por la URL de la ficha específica del procedimiento 0019 en ambos trámites de registro (MUR-IRVE-001 y MUR-IRVE-002). No se detectaron otros hallazgos MEDIO/BAJO específicos de IRVE en la auditoría (semáforo OK)."
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     {

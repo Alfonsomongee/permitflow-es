@@ -11,11 +11,7 @@
     "Se recomienda revisar y corregir los ficheros de gas ya entregados de Asturias, Canarias, Cantabria y Castilla-La Mancha aplicando este mismo hallazgo sobre presion_bar='5+' → proyecto siempre",
     "No se ha localizado normativa autonómica de Castilla y León específica de legalización de gas más allá de la ley general de industria",
     "Tasas y plazos legales no verificados con detalle",
-    "Umbral de 2.000 kW para instalaciones comunes (ITC-ICG-07) no modelado por falta de campo que distinga instalación individual/común en el schema",
-    "RESUELTO 2026-07-28: fuente contaminada de otra comunidad (jccm.es, Castilla-La Mancha) sustituida por la ficha oficial de la JCyL",
-    "RESUELTO 2026-07-28: organismo corregido a 'Servicio Territorial de Industria, Comercio y Economía' en los 3 trámites de inscripción",
-    "RESUELTO 2026-07-28: plataforma_url sustituida por la ficha específica del trámite de gas en vez del portal genérico",
-    "RESUELTO 2026-07-28 (bug transversal detectado durante correccion de La Rioja): las condiciones comparaban presion_bar contra el string literal \"normal\"/\"5+\", pero motor_normativo/clasificador.py normaliza presion_bar a float (0.0/6.0) antes de evaluar json-logic -> ninguna regla de gas disparaba nunca en produccion (planes vacios / 404). Corregido a comparacion numerica (<=5 / >5), igual que el fix aplicado en La Rioja."
+    "Umbral de 2.000 kW para instalaciones comunes (ITC-ICG-07) no modelado por falta de campo que distinga instalación individual/común en el schema"
   ],
   "fuentes": [
     {

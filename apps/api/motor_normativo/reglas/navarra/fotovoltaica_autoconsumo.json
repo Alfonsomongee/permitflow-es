@@ -12,7 +12,6 @@
     "Tasas y plazos legales de resolución no verificados con detalle",
     "No se ha confirmado el nombre exacto del registro de autoconsumo específico de Navarra más allá del trámite genérico 'Tramitación y registro administrativo de instalaciones de autoconsumo de energía eléctrica' confirmado en navarra.es",
     "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
-    "RESUELTO 2026-07-28 (auditoría normativa): la fecha de la Orden Foral 60/2015 estaba mal transcrita como 'de 20 de marzo' (esa es la fecha de publicación en BON n.º 54); la fecha correcta de la norma es 'de 5 de marzo de 2015'. Corregido en 'fuentes'.",
     "plataforma_url 'https://www.navarra.es/sede' (AAP/AAC de FV >100 kW) sigue siendo genérica: no se localizó la ficha específica de trámite en navarra.es dentro del presupuesto de la auditoría — PENDIENTE"
   ],
   "fuentes": [

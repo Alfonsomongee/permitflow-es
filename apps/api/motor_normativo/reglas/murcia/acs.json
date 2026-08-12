@@ -10,10 +10,7 @@
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024) — NO TOCADO, pendiente de implementación funcional",
     "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-07-28: enlace genérico https://sede.carm.es sustituido por ficha del código 61 (https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240) y añadido formulario_ref '61'",
-    "RESUELTO PARCIALMENTE 2026-07-28: añadida regla MUR-ACS-000 para potencia <5 kW; el régimen exacto aplicable a ese tramo NO VERIFICADO — misma incertidumbre documentada en climatizacion_aerotermia.json",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita.",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "RESUELTO PARCIALMENTE 2026-07-28: añadida regla MUR-ACS-000 para potencia <5 kW; el régimen exacto aplicable a ese tramo NO VERIFICADO — misma incertidumbre documentada en climatizacion_aerotermia.json"
   ],
   "fuentes": [
     {

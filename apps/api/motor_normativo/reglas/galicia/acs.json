@@ -12,9 +12,7 @@
     "No se ha localizado normativa autonómica gallega específica de ACS; se aplica el RITE nacional directamente",
     "Nombre exacto del trámite/registro de instalaciones térmicas en la sede de Galicia no confirmado",
     "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-07-28: añadido el tramo ≤5 kW (regla GAL-ACS-000), exento de comunicación/registro ante la Jefatura Territorial según el RITE (RD 1027/2007)",
-    "plataforma_url de la comunicación de puesta en servicio (GAL-ACS-001/002) sigue apuntando a la raíz genérica de sede.xunta.gal: no se ha identificado en esta auditoría el código de trámite específico de puesta en servicio de instalaciones térmicas en Galicia",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "plataforma_url de la comunicación de puesta en servicio (GAL-ACS-001/002) sigue apuntando a la raíz genérica de sede.xunta.gal: no se ha identificado en esta auditoría el código de trámite específico de puesta en servicio de instalaciones térmicas en Galicia"
   ],
   "fuentes": [
     {

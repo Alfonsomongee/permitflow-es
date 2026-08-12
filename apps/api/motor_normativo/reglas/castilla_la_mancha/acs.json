@@ -12,10 +12,7 @@
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de ACS; se aplica el RITE nacional directamente",
     "No se ha modelado la exención de documentación (< 5 kW cualquier equipo; calentadores instantáneos/acumuladores/termos eléctricos ≤70 kW; solares de elemento único prefabricado sin límite expreso) por falta de campo de tipo de equipo en el schema",
     "No se ha confirmado si Castilla-La Mancha exige OCA específicamente para ACS >70 kW",
-    "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-07-28 (auditoría independiente): la nota de exención documental describía el alcance de forma incompleta/imprecisa (solo mencionaba <5kW). Corregido: la exención real de la ficha 1002272 distingue tres supuestos (ver nota del trámite CLM-ACS-001 orden 1).",
-    "RESUELTO 2026-08-11: el umbral de 5 kW del RITE (arts. 15.1.c y 24.2) ya está modelado con una regla de exención explícita.",
-    "RESUELTO 2026-08-11: modelados los tres supuestos de exención del RITE art. 15.1.c — potencia < 5 kW, ACS por calentador/termo hasta 70 kW y sistema solar de un único elemento prefabricado. El segundo y el tercero requieren el campo tipo_generador_acs, que antes no se preguntaba."
+    "Tasas y plazos legales no verificados"
   ],
   "fuentes": [
     {

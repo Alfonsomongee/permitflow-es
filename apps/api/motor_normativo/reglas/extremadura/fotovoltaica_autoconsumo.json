@@ -9,8 +9,7 @@
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 47/2022' como base legal: no se ha localizado ninguna norma de Extremadura con ese número/fecha sobre instalaciones eléctricas; existe un RD 47/2022, de 18 de enero, nacional, pero regula protección de aguas frente a nitratos agrícolas, sin relación alguna. Se sustituyó por la normativa real confirmada: Orden de 31/07/2008 (tramitación telemática BT), Resolución de 24/03/2004 (instrucciones técnicas puesta en servicio BT), Decreto 179/2016 (Registro de instalaciones de producción de energía eléctrica de Extremadura) y Resolución de 22/07/2022, que regula explícitamente el procedimiento de autoconsumo para instalaciones BT ≤100 kW — esta última CONFIRMA de forma específica para Extremadura el umbral de 100 kW que en otras comunidades solo se había aplicado por inferencia del art. 53 Ley 24/2013. Se corrigió el bug de partición base sobre 'uso'. Se confirmó la plataforma real: tbtEX. CORRECCIÓN 2026-07-28 (auditoría normativa): confirmado que Extremadura elevó el umbral de exención de autorización administrativa de 100 a 500 kW mediante la Instrucción 03/2023 de la Dirección General de Industria, Energía y Minas (DOE 27/07/2023). Se introduce el tramo intermedio EXT-FV-002 (>100 y ≤500 kW, exento de autorización previa/de construcción pero con registro/comunicación) y se reserva EXT-FV-003 (autorización administrativa plena) para instalaciones >500 kW.",
   "huecos_verificacion": [
     "Tasas y plazos legales de resolución no verificados con detalle",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
-    "RESUELTO 2026-07-28: se confirmó que Extremadura sí elevó el umbral de exención de autorización de 100 kW a 500 kW mediante Instrucción 03/2023 (DOE 27/07/2023); se corrigieron las reglas EXT-FV-002/EXT-FV-003 y se añadió el trámite de acceso y conexión (CAU) ante la distribuidora en EXT-FV-002 y EXT-FV-003."
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
   ],
   "fuentes": [
     {
@@ -240,7 +239,6 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite añadido en la revisión 2026-07-28 (auditoría normativa): antes solo aparecía como documento opcional 'contrato de acceso' en EXT-FV-001, sin paso propio.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -308,7 +306,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido en la revisión 2026-07-28: Extremadura elevó de 100 a 500 kW el umbral de exención de autorización administrativa previa y de construcción mediante la Instrucción 03/2023 (DOE 27/07/2023). Para este tramo (>100 y ≤500 kW) NO procede autorización administrativa plena, solo comunicación/registro; ver EXT-FV-003 para instalaciones >500 kW.",
+          "notas": "Extremadura elevó de 100 a 500 kW el umbral de exención de autorización administrativa previa y de construcción mediante la Instrucción 03/2023 (DOE 27/07/2023). Para este tramo (>100 y ≤500 kW) NO procede autorización administrativa plena, solo comunicación/registro; ver EXT-FV-003 para instalaciones >500 kW.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -384,7 +382,6 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite añadido en la revisión 2026-07-28 (auditoría normativa).",
           "registro_salida": null,
           "medio_presentacion": null
         },

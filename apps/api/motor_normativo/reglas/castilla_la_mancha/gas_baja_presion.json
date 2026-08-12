@@ -11,8 +11,7 @@
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de legalización de instalaciones de gas (el Decreto 13/2010 real solo regula tarifas)",
     "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar",
     "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso residencial/comercial/colectivo; si esa distinción es normativamente relevante, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw",
-    "Tasas y plazos legales no verificados con detalle",
-    "RESUELTO 2026-07-28 (auditoría independiente): CLM-GBP-002 orden 3 enlazaba al trámite 1002259 ('Registro de una estación de servicio para vehículos a gas', ICG-05), un procedimiento distinto al de legalización de instalaciones receptoras de gas. Corregido a 1002260 ('Registro de una instalación receptora de combustibles gaseosos', ICG-07), coherente con la base_legal ya citada en esa misma regla."
+    "Tasas y plazos legales no verificados con detalle"
   ],
   "fuentes": [
     {

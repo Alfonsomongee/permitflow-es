@@ -25,7 +25,7 @@ const NAV_ITEMS = [
   { href: "/plantillas",          label: "Plantillas",    icon: FileText    },
   { href: "/alertas",             label: "Alertas BOE",   icon: Bell        },
   { href: "/estadisticas",        label: "Estadísticas",  icon: BarChart2   },
-  { href: "/simulador",           label: "Simulador AI",  icon: Calculator  },
+  { href: "/simulador",           label: "Simulador",     icon: Calculator  },
 ] as const;
 
 export function DashboardSidebar() {

@@ -11,7 +11,6 @@
     "Tras corregir el hueco de cobertura, el fichero ya no diferencia trámites por uso doméstico/comercial/industrial; si esa distinción es normativamente relevante en Galicia, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base",
     "No se ha aplicado aquí el hallazgo de Castilla y León sobre presion_bar='5+' porque este fichero no usa el campo presion_bar en absoluto (usa potencia_kw y uso) — revisar si debería incorporarse",
     "Tasas y plazos legales no verificados",
-    "RESUELTO 2026-07-28: plataforma_url de IN625A sustituida por el enlace profundo confirmado (https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN625A)",
     "coste_estimado marcado NO VERIFICADO: una fuente oficial (Oficina Virtual de Industria) indica que el trámite SÍ tiene tasas asociadas a la primera inscripción y a modificaciones; no se ha confirmado el importe exacto en esta revisión, se mantiene como hueco abierto"
   ],
   "fuentes": [

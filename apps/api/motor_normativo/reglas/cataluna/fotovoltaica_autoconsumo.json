@@ -12,7 +12,6 @@
     "Confirmar documentalmente el alcance exacto del trámite 21526 y sus documentos obligatorios.",
     "Confirmar la ruta autonómica concreta de puesta en servicio para instalaciones conectadas en AT.",
     "requiere_acceso_conexion y requiere_registro_produccion son datos técnicos derivados; si faltan cuando son materiales, procede revisión manual.",
-    "RESUELTO 2026-07-28: CAT-FV-COMPENSACION-21526 ahora usa el ámbito verificado del trámite 21526 (>15 y <=100 kW en cualquier suelo, o <=15 kW en suelo no urbanizable, según ubicacion_suelo) en lugar del tramo genérico 10-100 kW, y el enlace se fijó a la ficha canónica /ca/.",
     "Pendiente (no verificable con las herramientas disponibles): si el Decret llei 22/2025 modifica también el régimen de los tramos <=10 kW y 10-100 kW (CAT-FV-BT-RITSIC), más allá de los tramos 100-500 y >500 kW ya citados."
   ],
   "fuentes": [

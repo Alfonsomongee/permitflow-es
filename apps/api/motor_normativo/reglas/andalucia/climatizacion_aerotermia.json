@@ -282,10 +282,6 @@
   "nivel_verificacion": "generica",
   "revisado_por": null,
   "huecos_verificacion": [
-    "RESUELTO 2026-07-28 (CRÍTICO): se citaba 'Decreto 59/2005, de 22 de febrero, por el que se regulan las instalaciones térmicas en los edificios' -- norma inexistente. El Decreto 59/2005 real es de 1 de marzo y regula el procedimiento de establecimientos industriales (norma horizontal), no instalaciones térmicas. base_legal de AND-CLIMA-001/002 reasignada a RITE RD 1027/2007 y Orden de 5 de marzo de 2013 (Andalucía).",
-    "RESUELTO 2026-07-28 (ALTO): trámite renombrado de 'Declaración responsable de puesta en servicio (DRPS)' a 'Comunicación de puesta en funcionamiento (PUES)', denominación oficial de la Orden de 5 de marzo de 2013, Anexo I.",
-    "RESUELTO 2026-07-28: plataforma_url rota (.../servicios/pues.html) sustituida por la Oficina Virtual real del tramitador PUES.",
-    "RESUELTO 2026-07-28: 'Ley 7/2021 de Cambio Climático (Andalucía)' recalificada -- es ley ESTATAL, no autonómica.",
     "PENDIENTE (no verificado en esta pasada): no filtra por uso ni tiene cota inferior de potencia; posible solape con AND-ACS-001/002 sin regla de precedencia declarada.",
     "PENDIENTE: ausencia de bloque validaciones[] (gases fluorados RD 552/2019, contrato de mantenimiento RITE IT3 >70kW, inspecciones periódicas IT4) -- no incorporado en esta pasada, requiere diseño de nuevas validaciones.",
     "PENDIENTE: plazo_legal_dias=10 para la comunicación PUES sin fuente citada."
