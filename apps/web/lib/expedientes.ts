@@ -119,30 +119,6 @@ export async function obtenerExpediente(
   return data;
 }
 
-export async function actualizarEstado(
-  id: string,
-  clerkOrgId: string,
-  estado: DbExpediente["estado"],
-  tramitesCompletados?: number
-): Promise<void> {
-  const orgId = await ensureOrgId(clerkOrgId);
-  const patch: Partial<Pick<DbExpediente, "estado" | "tramites_completados">> = {
-    estado,
-  };
-
-  if (tramitesCompletados !== undefined) {
-    patch.tramites_completados = tramitesCompletados;
-  }
-
-  const { error } = await supabaseAdmin
-    .from("expedientes")
-    .update(patch)
-    .eq("id", id)
-    .eq("org_id", orgId);
-
-  if (error) throw new Error(`Error actualizando estado: ${error.message}`);
-}
-
 export async function eliminarExpediente(
   id: string,
   clerkOrgId: string

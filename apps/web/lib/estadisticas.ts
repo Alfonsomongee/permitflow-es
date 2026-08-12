@@ -72,7 +72,8 @@ export interface EstadisticasReales {
 /**
  * Calcula KPIs, tendencia mensual y distribución por estado a partir de los
  * expedientes reales de la organización (ya cargados por listarExpedientes,
- * sin consulta adicional). Sustituye a los datos de ejemplo de lib/demo-data.ts.
+ * sin consulta adicional). Sustituye a los datos de ejemplo que antes vivían
+ * en lib/demo-data.ts (borrado por código muerto, auditoría fase 2, P-20).
  *
  * Aproximaciones deliberadas, documentadas para no confundirlas con hechos:
  * - "tiempo_medio_dias" usa actualizado_en como fecha de resolución de los
