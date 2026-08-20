@@ -16,7 +16,12 @@ export const FORM_INITIAL: FormState = {
   potencia_por_punto_kw: "7.4",
   modo_recarga: "3",
   acceso_publico: false,
-  ubicacion_irve: "garaje_comunitario",
+  // Vacio a proposito (antes precargaba "garaje_comunitario", la rama con mas
+  // campos derivados): si el usuario no toca el selector, no debe enviarse
+  // como si hubiera elegido la rama mas compleja sin darse cuenta (auditoria
+  // motor normativo 2026-08-19). Ahora el superRefine de nuevaInstalacion.ts
+  // exige que se elija activamente.
+  ubicacion_irve: "",
   requiere_nuevo_suministro: false,
   combustible: "gas_natural",
   presion_bar: "normal",

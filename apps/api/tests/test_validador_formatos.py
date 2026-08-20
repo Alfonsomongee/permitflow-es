@@ -92,6 +92,7 @@ class TestFormatoJsonLogic:
                 numero_puntos=2,
                 potencia_por_punto_kw=7.4,
                 modo_recarga="3",
+                ubicacion_irve="exterior",
                 acceso_publico=False,
             )
         )
@@ -109,6 +110,7 @@ class TestFormatoJsonLogic:
                 potencia_kw=1000.0,
                 uso="residencial",
                 modo_recarga="3",
+                ubicacion_irve="exterior",
                 acceso_publico=False,
                 # sin numero_puntos ni potencia_por_punto_kw
             )

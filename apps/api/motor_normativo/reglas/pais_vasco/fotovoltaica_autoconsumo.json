@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "pais_vasco",
-  "version": "0.9.2",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.3",
+  "ultima_revision": "2026-08-20",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -10,7 +10,8 @@
   "huecos_verificacion": [
     "Importes de tasa (128,10€ / 204,96€ / 787,77€) no verificados con detalle contra el Decreto Legislativo 1/2025 citado — NO VERIFICABLE en esta revisión (requiere lectura del art. 132 completo).",
     "El umbral de 100 kW de exención de autorización es el umbral GENERAL ESTATAL (RD 1955/2000 / Ley 24/2013 art. 53.2), aplicable en toda España, no una particularidad exclusiva del País Vasco — ver nota corregida en PV-FV-002.",
-    "No se ha verificado si el País Vasco ha elevado el umbral de exención de autorización de 100 kW a 500 kW — NO VERIFICABLE en esta revisión."
+    "No se ha verificado si el País Vasco ha elevado el umbral de exención de autorización de 100 kW a 500 kW — NO VERIFICABLE en esta revisión.",
+    "CORREGIDO 2026-08-20: 'paralelo_con' en PV-FV-002/003A/003B/003C apuntaba al 'id' de la propia regla (p.ej. \"PV-FV-002\") en vez de al 'orden' numérico del trámite paralelo dentro de esa regla, que es lo que espera TramiteOutput. El remapeo de motor_normativo/clasificador.py no encontraba coincidencia y lo resolvía en silencio a null, así que el trámite de CAU se mostraba en serie en vez de en paralelo, inflando el plazo total estimado. Corregido a 'paralelo_con: 1' (el trámite de tramitación/autorización administrativa de cada regla)."
   ],
   "fuentes": [
     {
@@ -139,7 +140,7 @@
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
-          "paralelo_con": "PV-FV-002",
+          "paralelo_con": 1,
           "regla_id": "PV-FV-002",
           "documentos_requeridos": [
             {
@@ -215,7 +216,7 @@
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
-          "paralelo_con": "PV-FV-003A",
+          "paralelo_con": 1,
           "regla_id": "PV-FV-003A",
           "documentos_requeridos": [
             {
@@ -291,7 +292,7 @@
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
-          "paralelo_con": "PV-FV-003B",
+          "paralelo_con": 1,
           "regla_id": "PV-FV-003B",
           "documentos_requeridos": [
             {
@@ -367,7 +368,7 @@
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
-          "paralelo_con": "PV-FV-003C",
+          "paralelo_con": 1,
           "regla_id": "PV-FV-003C",
           "documentos_requeridos": [
             {

@@ -395,6 +395,27 @@ class Clasificador:
         # no conoce el proyecto real. Ver motor_normativo/coherencia.py.
         advertencias.extend(comprobar_coherencia(eval_locals))
 
+        # tipo_generador_acs es opcional a propósito (retrocompatibilidad con
+        # expedientes antiguos, test_umbral_rite_5kw.py::
+        # test_sin_informar_el_equipo_el_plan_no_cambia): omitirlo nunca hace
+        # que la instalación reciba una exención que no le corresponde -- el
+        # valor por defecto ya es el itinerario más gravoso, nunca al revés.
+        # Pero si de haberlo indicado el equipo hubiera estado exento del RITE
+        # (art. 15.1.c), el usuario debería saberlo para no pagar de más.
+        if (
+            params.tipo_instalacion == "acs"
+            and eval_locals.get("tipo_generador_acs") is None
+            and matched_any
+        ):
+            advertencias.append(
+                "No has indicado el equipo que produce el agua caliente. El RITE exime "
+                "de memoria técnica y de registro a los calentadores instantáneos, "
+                "calentadores acumuladores y termos eléctricos de hasta 70 kW, y a los "
+                "sistemas solares de un único elemento prefabricado (art. 15.1.c). Si tu "
+                "instalación usa alguno de estos equipos, indícalo para recalcular: "
+                "es posible que este plan incluya trámites de los que en realidad estás exento."
+            )
+
         riesgo_calculado = calcular_riesgo_plan(
             tramites_output,
             nivel_verificacion=data.get("nivel_verificacion", "verificada"),

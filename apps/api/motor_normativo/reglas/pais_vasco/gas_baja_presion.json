@@ -1,15 +1,16 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "pais_vasco",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.2",
+  "ultima_revision": "2026-08-20",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'potencia_total_kw' (no existe; el campo real es 'potencia_kw'). Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminó 'Decreto 213/2012' como base legal: es un decreto real del País Vasco, pero su objeto es la contaminación acústica de la CAPV — no tiene ninguna relación con instalaciones de gas. Sustituido por el RIGLO nacional (RD 919/2006) directo, más el Decreto 229/2012 (simplificación del procedimiento para la puesta en servicio de instalaciones industriales), confirmado real como norma general de puesta en servicio industrial en el País Vasco. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar. Revisión 2026-07-28: 'plataforma_url' (https://www.euskadi.eus/industria-energia-minas/) devolvía página vacía/rota; corregida a la ficha específica 'Instalación receptora de gas'. Se añadió el trámite de acometida/alta de suministro con la distribuidora de gas.",
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica vasca específica de gas más allá del marco general de simplificación industrial (Decreto 229/2012)",
-    "Tasas y plazos legales no verificados con detalle"
+    "Tasas y plazos legales no verificados con detalle",
+    "CORREGIDO 2026-08-20: 'paralelo_con' en PV-GAS-001/002/003 apuntaba al 'id' de la propia regla en vez de al 'orden' numérico del trámite paralelo, que es lo que espera TramiteOutput; se resolvía en silencio a null y el trámite de acometida se mostraba en serie en vez de en paralelo. Corregido a 'paralelo_con: 2' (Certificado de Instalación), tal como ya describía la propia 'descripcion' del documento de cada trámite."
   ],
   "fuentes": [
     {
@@ -108,7 +109,7 @@
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
-          "paralelo_con": "PV-GAS-001",
+          "paralelo_con": 2,
           "regla_id": "PV-GAS-001",
           "documentos_requeridos": [
             {
@@ -220,7 +221,7 @@
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
-          "paralelo_con": "PV-GAS-002",
+          "paralelo_con": 2,
           "regla_id": "PV-GAS-002",
           "documentos_requeridos": [
             {
@@ -326,7 +327,7 @@
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
-          "paralelo_con": "PV-GAS-003",
+          "paralelo_con": 2,
           "regla_id": "PV-GAS-003",
           "documentos_requeridos": [
             {

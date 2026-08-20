@@ -71,6 +71,7 @@ class TestIRVE:
             numero_puntos=2,
             potencia_por_punto_kw=7.4,
             modo_recarga="3",
+            ubicacion_irve="exterior",
         )
         base.update(kwargs)
         return base

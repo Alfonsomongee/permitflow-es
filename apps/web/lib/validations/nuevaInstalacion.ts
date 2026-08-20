@@ -127,6 +127,25 @@ export const nuevaInstalacionSchema = z.object({
         path: ["numero_puntos"],
       });
     }
+    // Espejo de schemas/clasificador.py::validate_inputs_by_ca (auditoria
+    // motor normativo 2026-08-19): sin estos dos datos, json-logic evalua las
+    // condiciones que dependen de ellos como falsy y el plan sale incompleto
+    // sin aviso. A diferencia de tipo_generador_acs, no hay ningun caso
+    // documentado en el que omitirlos sea legitimamente retrocompatible.
+    if (!data.modo_recarga) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Selecciona el modo de recarga.",
+        path: ["modo_recarga"],
+      });
+    }
+    if (!data.ubicacion_irve) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Indica la ubicacion de la instalacion de recarga.",
+        path: ["ubicacion_irve"],
+      });
+    }
   }
 
   // Espejo de las validaciones del backend (schemas/clasificador.py::validate_inputs_by_ca)

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "murcia",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-08-20",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -10,7 +10,8 @@
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024) — NO TOCADO, pendiente de implementación funcional",
     "Tasas y plazos legales no verificados",
-    "RESUELTO PARCIALMENTE 2026-07-28: añadida regla MUR-ACS-000 para potencia <5 kW; el régimen exacto aplicable a ese tramo NO VERIFICADO — misma incertidumbre documentada en climatizacion_aerotermia.json"
+    "RESUELTO PARCIALMENTE 2026-07-28: añadida regla MUR-ACS-000 para potencia <5 kW; el régimen exacto aplicable a ese tramo NO VERIFICADO — misma incertidumbre documentada en climatizacion_aerotermia.json",
+    "CORREGIDO 2026-08-20: MUR-ACS-000 tenía una condición imposible (potencia_kw>=5 AND potencia_kw<5, nunca disparaba). Antes de activarla se detectó que su rango real (potencia_kw<5) coincide con el de MUR-ACS-RITE-EXENTA (exención total, fuente confirmada), así que activarla produciría un plan contradictorio (exenta + memoria técnica a la vez). Se ha desactivado explícitamente (condicion=false) en vez de activarla. PENDIENTE: confirmar con fuente primaria de la CARM si <5 kW es exención total (como ya aplica MUR-ACS-RITE-EXENTA) o si existe un trámite simplificado distinto — mientras no se confirme, MUR-ACS-RITE-EXENTA es la respuesta que da el motor para ese tramo."
   ],
   "fuentes": [
     {
@@ -131,27 +132,8 @@
     },
     {
       "id": "MUR-ACS-000",
-      "descripcion": "Instalación de ACS con potencia < 5 kW: régimen aplicable NO VERIFICADO. La ficha oficial CARM del código 61 diferencia documentalmente los tramos '5-70 kW' y '>70 kW' sin detallar el tratamiento por debajo de 5 kW; se mantiene el mismo trámite que el tramo 5-70 kW hasta confirmar si aplica una exención o simplificación específica",
-      "condicion": {
-        "and": [
-          {
-            ">=": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
-          },
-          {
-            "<": [
-              {
-                "var": "potencia_kw"
-              },
-              5
-            ]
-          }
-        ]
-      },
+      "descripcion": "Instalación de ACS con potencia < 5 kW: régimen aplicable NO VERIFICADO. La ficha oficial CARM del código 61 diferencia documentalmente los tramos '5-70 kW' y '>70 kW' sin detallar el tratamiento por debajo de 5 kW; se mantiene el mismo trámite que el tramo 5-70 kW hasta confirmar si aplica una exención o simplificación específica. [DESACTIVADA 2026-08-20: la condición original tenía cotas invertidas (potencia_kw>=5 AND potencia_kw<5, imposible) y nunca disparaba. Al corregir el operador para cubrir potencia_kw<5, la regla pasaría a solapar exactamente el mismo rango que MUR-ACS-RITE-EXENTA, que ya concede exención total con fuente legal confirmada (RITE art. 15.1.c y 24.2, sin reservas). Activar esta regla haría que el motor devolviera a la vez 'instalación exenta, sin trámite' y 'aporta memoria técnica y regístrala' para la misma instalación. Se fija explícitamente a `false` para documentar la intención hasta que se confirme con fuente primaria si existe un régimen intermedio distinto al de MUR-ACS-RITE-EXENTA para este tramo; no se elimina la regla (AGENTS.md) para conservar el trámite ya redactado por si la verificación legal confirma que sí aplica.]",
+      "condicion": false,
       "tramites": [
         {
           "orden": 1,

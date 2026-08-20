@@ -137,6 +137,20 @@ class ClasificadorInput(BaseModel):
 
     @model_validator(mode='after')
     def validate_inputs_by_ca(self):
+        # Campos transversales IRVE (las 17 CCAA): a diferencia de las
+        # validaciones de más abajo, no dependen de la comunidad porque la
+        # ITC-BT-52 es normativa estatal. Sin modo_recarga/ubicacion_irve,
+        # json-logic evalúa las condiciones que dependen de ellos como falsy y
+        # el plan sale incompleto sin aviso (auditoría motor normativo
+        # 2026-08-19). A diferencia de tipo_generador_acs (ver más abajo), no
+        # existe aquí ningún caso documentado en el que omitirlos sea
+        # legítimamente retrocompatible, así que se bloquean.
+        if self.tipo_instalacion == "irve":
+            if self.modo_recarga is None:
+                raise ValueError("Indica el modo de recarga de la instalación IRVE.")
+            if self.ubicacion_irve is None:
+                raise ValueError("Indica la ubicación de la instalación de recarga (IRVE).")
+
         # Madrid Gas Validation
         # Los mensajes van en castellano como el resto de la aplicación: el proxy
         # los reenvía tal cual al usuario, así que estaban llegando en inglés
