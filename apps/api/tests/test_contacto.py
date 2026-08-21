@@ -98,7 +98,14 @@ def test_mensaje_del_usuario_se_escapa_en_el_html(client):
 
 
 def test_resend_no_configurado_devuelve_503(client, monkeypatch):
+    # routers/contacto.py hace fallback a os.getenv("RESEND_API_KEY") si
+    # settings.RESEND_API_KEY es None -- desde que CI define esa variable de
+    # entorno a nivel de proceso (auditoría de testing, 2026-08-20, para que
+    # test_envio_exitoso_llama_a_resend y compañía puedan simular un envío
+    # correcto), monkeypatchear solo el objeto settings ya no basta para
+    # simular "no configurado": hay que quitar también la variable real.
     monkeypatch.setattr(settings, "RESEND_API_KEY", None)
+    monkeypatch.delenv("RESEND_API_KEY", raising=False)
     resp = client.post("/contacto", json=PAYLOAD_VALIDO, headers=_headers())
     assert resp.status_code == 503
 

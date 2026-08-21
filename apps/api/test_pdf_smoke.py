@@ -54,6 +54,7 @@ def test_acs_fusion():
         "municipio": "Sevilla",
         "potencia_kw": 80,
         "uso": "terciario",
+        "uso_colectivo": False,
     }
     plan = clasificador.clasificar(ClasificadorInput(**params))
     print("Trámites (en orden resultante):")

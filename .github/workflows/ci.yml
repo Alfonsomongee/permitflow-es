@@ -61,6 +61,17 @@ jobs:
       SECRET_KEY: ci-test-secret-not-for-production-use
       ENVIRONMENT: development
       DEEPSEEK_API_KEY: ci-test-key-not-for-production-use
+      # INTERNAL_API_KEY: los tests de routers/contacto.py y routers/
+      # newsletter.py construyen la cabecera X-Internal-Key con
+      # settings.INTERNAL_API_KEY; sin valor, httpx revienta al construir la
+      # petición (TypeError, no un 401 limpio).
+      INTERNAL_API_KEY: ci-test-internal-key-not-for-production-use
+      # RESEND_API_KEY / NOTIFICATION_EMAIL: routers/contacto.py devuelve 503
+      # si faltan (comportamiento correcto), pero los tests que simulan un
+      # envío exitoso mockean resend.Emails.send y necesitan que la
+      # comprobación de configuración pase primero.
+      RESEND_API_KEY: ci-test-resend-key-not-for-production-use
+      NOTIFICATION_EMAIL: ci-test@example.com
     steps:
       - uses: actions/checkout@v4
 
@@ -76,10 +87,15 @@ jobs:
         run: uv sync
 
       - name: Run tests
-        # Nota: los tests que requieren una base de datos real (test_contacto,
-        # test_newsletter, test_simulador, test_validacion_mensajes_espanol)
-        # siguen sin un servicio Postgres/Redis en este job — es la siguiente
-        # pieza pendiente de la estrategia de testing, no resuelta en este
-        # cambio. Se mantienen visibles como fallos reales en vez de
-        # ocultarse tras un job que ni siquiera llegaba a ejecutarlos.
+        # Los tests que parecían necesitar Postgres/Redis reales
+        # (test_contacto, test_newsletter, test_simulador,
+        # test_validacion_mensajes_espanol) en realidad no lo necesitan: ya
+        # sobrescriben get_db/get_redis con fakes propios. Lo que faltaba
+        # eran las variables de entorno de arriba y un bug real en
+        # main.py::_barrer_estudios_expirados (llamaba a AsyncSessionLocal()
+        # sin comprobar que fuera None, y como corre en un
+        # asyncio.create_task de fondo, el TypeError solo se veía al cerrar
+        # el TestClient de cualquier test, tocara o no la base de datos).
+        # Verificado: 1326/1326 tests pasan sin ningún servicio de base de
+        # datos en este job (auditoría de testing, 2026-08-20).
         run: uv run pytest

@@ -36,7 +36,23 @@ async def _barrer_estudios_expirados():
     from database import AsyncSessionLocal
     from models.simulacion import EstudioEnergetico
     from sqlalchemy import update
-    
+
+    if AsyncSessionLocal is None:
+        # Sin DATABASE_URL configurada (p.ej. en tests que solo ejercitan
+        # rutas con get_db sobrescrito, o un despliegue mal configurado), esta
+        # tarea de fondo no tiene nada que barrer. Antes llamaba a
+        # AsyncSessionLocal() sin comprobarlo, y al ser un asyncio.create_task
+        # de "fire and forget", el TypeError resultante no se veía hasta el
+        # teardown del lifespan (await tarea) -- cualquier test con TestClient
+        # fallaba en el cierre aunque no tocara la base de datos en absoluto
+        # (auditoría de testing, 2026-08-20). En un despliegue real sin
+        # DATABASE_URL, esto también evita que el proceso entero se caiga en
+        # segundo plano de forma silenciosa.
+        logger.warning(
+            "Barrido de estudios expirados omitido: DATABASE_URL no está configurada."
+        )
+        return
+
     umbral = datetime.now(timezone.utc) - timedelta(minutes=10)
     async with AsyncSessionLocal() as db:
         try:
