@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 interface EliminarExpedienteButtonProps {
   expedienteId: string;
@@ -51,19 +52,15 @@ export function EliminarExpedienteButton({ expedienteId, titulo }: EliminarExped
         <button
           onClick={eliminar}
           disabled={eliminando}
-          className="flex items-center gap-1 rounded-lg bg-danger px-2.5 py-1 text-xs font-semibold text-white shadow-sm transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="flex items-center gap-1 rounded-lg bg-danger px-2.5 py-1 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-danger-dark disabled:opacity-50"
         >
           {eliminando ? <Loader2 size={12} className="animate-spin" aria-hidden /> : null}
           Sí, eliminar
         </button>
-        <button
-          onClick={() => setConfirmando(false)}
-          disabled={eliminando}
-          className="flex items-center gap-1 rounded-lg border border-border bg-surface px-2.5 py-1 text-xs font-medium text-text-secondary transition-colors hover:text-text-primary disabled:opacity-50"
-        >
+        <Button variant="outline" size="xs" onClick={() => setConfirmando(false)} disabled={eliminando}>
           <X size={12} aria-hidden />
           Cancelar
-        </button>
+        </Button>
       </div>
     );
   }

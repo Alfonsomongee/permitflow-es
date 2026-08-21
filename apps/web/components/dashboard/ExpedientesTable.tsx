@@ -12,6 +12,7 @@ import {
   type ColumnDef,
   type SortingState,
 } from "@tanstack/react-table";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -424,10 +425,7 @@ export function ExpedientesTable({ expedientes, initialQuery = "" }: Expedientes
               : "Genera tu primer plan de tramitación para empezar a organizar documentos, plazos y organismos."}
           </p>
           {!hasFilters && (
-            <Link
-              href="/nueva-instalacion"
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-opacity hover:opacity-90"
-            >
+            <Link href="/nueva-instalacion" className={`${buttonVariants({ variant: "default" })} mt-5 shadow-sm`}>
               <Plus size={15} aria-hidden />
               Nueva instalación
             </Link>

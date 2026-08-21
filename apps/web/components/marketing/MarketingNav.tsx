@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Zap, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { buttonVariants } from "@/components/ui/button";
 
 export function MarketingNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -51,20 +52,14 @@ export function MarketingNav() {
           >
             Acceder
           </Link>
-          <Link
-            href="/nueva-instalacion"
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
-          >
+          <Link href="/nueva-instalacion" className={buttonVariants({ variant: "default" })}>
             Clasificar instalación
           </Link>
         </div>
 
         {/* Botón Menú Móvil */}
         <div className="flex items-center gap-4 md:hidden">
-          <Link
-            href="/nueva-instalacion"
-            className="rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
-          >
+          <Link href="/nueva-instalacion" className={buttonVariants({ variant: "default", size: "sm" })}>
             Clasificar
           </Link>
           <button

@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
 import { ExpedientesTable } from "@/components/dashboard/ExpedientesTable";
 import { KpiCards } from "@/components/dashboard/KpiCards";
 import { listarExpedientes, obtenerKpis } from "@/lib/expedientes";
@@ -101,10 +102,7 @@ export default async function ExpedientesPage({
               : `${expedientesUI.length} expedientes activos.`}
           </p>
         </div>
-        <Link
-          href="/nueva-instalacion"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
+        <Link href="/nueva-instalacion" className={buttonVariants({ variant: "default" })}>
           <Plus size={15} aria-hidden />
           Nueva instalación
         </Link>

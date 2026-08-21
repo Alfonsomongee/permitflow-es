@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { OrganizationProfile, UserProfile } from "@clerk/nextjs";
 import { Building2, Loader2, Users, UserCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { clerkTheme } from "@/lib/clerk-theme";
 import { crearSesionCheckoutPro } from "@/lib/stripe/checkout";
@@ -110,28 +111,20 @@ export function AjustesTabs({ orgInfo }: { orgInfo: OrgInfo }) {
           <div className="mt-6 border-t border-border pt-4">
             {orgInfo.tieneClienteStripe ? (
               <>
-                <button
-                  onClick={gestionarFacturacion}
-                  disabled={gestionandoFacturacion}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-                >
+                <Button onClick={gestionarFacturacion} disabled={gestionandoFacturacion}>
                   {gestionandoFacturacion && <Loader2 size={14} className="animate-spin" />}
                   Gestionar facturación
-                </button>
+                </Button>
                 <p className="mt-2 text-xs text-text-secondary">
                   Cambia de plan, actualiza tu tarjeta o descarga facturas desde el portal seguro de Stripe.
                 </p>
               </>
             ) : (
               <>
-                <button
-                  onClick={actualizarAPro}
-                  disabled={iniciandoUpgrade}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-                >
+                <Button onClick={actualizarAPro} disabled={iniciandoUpgrade}>
                   {iniciandoUpgrade && <Loader2 size={14} className="animate-spin" />}
                   Actualizar a Pro
-                </button>
+                </Button>
                 <p className="mt-2 text-xs text-text-secondary">
                   Tu organización todavía no tiene una suscripción de pago.
                 </p>

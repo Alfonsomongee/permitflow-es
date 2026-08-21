@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { Check, Loader2 } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { crearSesionCheckoutPro } from "@/lib/stripe/checkout";
 
 const PLANES = [
@@ -85,11 +86,7 @@ function PlanCta({ plan }: { plan: (typeof PLANES)[number] }) {
   const [iniciando, setIniciando] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const claseBase = `mb-1 block w-full rounded-lg py-2.5 text-center text-sm font-medium transition-opacity ${
-    plan.destacado
-      ? "bg-primary text-white hover:opacity-90"
-      : "border border-border text-text-primary hover:bg-bg"
-  }`;
+  const variant = plan.destacado ? "default" : "outline";
 
   // Con sesión activa, el plan Pro dispara el checkout de Stripe
   // directamente en vez de reenviar a /sign-up (que para un usuario ya
@@ -107,18 +104,18 @@ function PlanCta({ plan }: { plan: (typeof PLANES)[number] }) {
     };
     return (
       <div className="mb-5">
-        <button onClick={iniciarCheckout} disabled={iniciando} className={`${claseBase} inline-flex items-center justify-center gap-1.5 disabled:opacity-60`}>
+        <Button variant={variant} size="lg" onClick={iniciarCheckout} disabled={iniciando} className="w-full">
           {iniciando && <Loader2 size={14} className="animate-spin" />}
           Actualizar a Pro
-        </button>
+        </Button>
         {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
       </div>
     );
   }
 
   return (
-    <Link href={plan.ctaHref} className="mb-5 block">
-      <span className={claseBase}>{plan.cta}</span>
+    <Link href={plan.ctaHref} className={`${buttonVariants({ variant, size: "lg" })} mb-5 w-full`}>
+      {plan.cta}
     </Link>
   );
 }

@@ -88,7 +88,7 @@ export function DetallesExpediente({
         <button
           onClick={handleGuardar}
           disabled={!dirty || saving}
-          className="flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition-opacity hover:opacity-90 disabled:opacity-40 disabled:shadow-none"
+          className="flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark disabled:opacity-40 disabled:shadow-none"
         >
           {saving && <Loader2 size={12} className="animate-spin" aria-hidden />}
           Guardar
