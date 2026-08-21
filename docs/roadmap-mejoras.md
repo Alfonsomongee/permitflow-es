@@ -22,7 +22,7 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 | ID | Nombre | Estado | Esfuerzo | Descripción |
 |---|---|---|---|---|
 | QW-01 | Plazos reales visibles junto al plazo legal | ✅ Hecho (preexistente) | — | Verificado el 2026-08-21: `EstadisticaRealBadge` en `TramiteCard.tsx` ya muestra "media real: Nd" junto al badge de plazo legal, alimentado por `/api/expedientes/[id]/estadisticas` → `obtenerEstadisticasPlazo()` → tabla `estadisticas_plazos` real, con gate de plan Pro y sin fallback engañoso (sin datos, no muestra nada). Extremo a extremo, ya construido — no había nada que hacer aquí. |
-| QW-02 | Radar normativo personalizado por cartera | 🔄 En progreso | Bajo | Filtrar alertas del BOE por las CCAA/verticales que la organización tiene realmente en cartera + digest semanal por email (Resend ya integrado). |
+| QW-02 | Radar normativo personalizado por cartera | ✅ Hecho | Bajo | Filtro "Solo relevantes para tu cartera" (activado por defecto) en `/alertas`, más digest semanal por email (cron `radar-normativo`, lunes 7:00 UTC) a los miembros de cada organización con alertas nuevas relevantes. No probado con credenciales reales de Resend/Clerk en este entorno (sin acceso a servicios en vivo) — la lógica de selección de alertas y el HTML del email sí están cubiertos por tests; el envío real queda por confirmar en el primer despliegue. |
 | QW-03 | Sello de cobertura verificada en el PDF del plan | ⬜ Pendiente | Bajo | Imprimir `nivel_verificacion`/`huecos_verificacion` en el propio documento descargable, no solo en la UI. |
 | QW-04 | Plazos legales como calendario (.ics) | ⬜ Pendiente | Bajo | Feed .ics por organización con los vencimientos ya calculados por `calcularVencimientoHabil`. |
 | QW-05 | Indicador de riesgo normativo visible | ✅ Hecho (preexistente) | — | `riesgo_normativo` **ya se muestra** en `RiesgoNormativoBanner` dentro de `PlanTramitacionView.tsx` — verificado en código el 2026-08-21. La segunda sesión de discovery lo listó como "invisible, nadie lo ve"; no era correcto en el momento de la verificación. Queda como posible mejora futura llevarlo también al resumen de la lista de expedientes (hoy solo está en el detalle). |
@@ -110,9 +110,8 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 
 ## Resumen de estado
 
-- ✅ Hecho: 2 (QW-01 plazos reales, QW-05 riesgo normativo visible — ambos preexistentes, corrección de premisa)
+- ✅ Hecho: 3 (QW-01 plazos reales y QW-05 riesgo normativo visible — preexistentes, corrección de premisa; QW-02 radar normativo por cartera — construido en esta sesión)
 - 🔶 Parcial: 3 (PREM-01 silencio administrativo, EXP-05 subsanaciones, DATA-06 panel de cartera)
-- 🔄 En progreso: 1 (QW-02 radar normativo personalizado)
-- ⬜ Pendiente: 36
+- ⬜ Pendiente: 35
 
-Última actualización: 2026-08-21. QW-01 resultó ya construido al verificarlo — se pasa a QW-02 (radar normativo por cartera) como siguiente quick win genuinamente pendiente.
+Última actualización: 2026-08-21. QW-01 resultó ya construido al verificarlo. QW-02 (filtro de alertas por cartera + digest semanal por email) construido y con tests; pendiente de verificar el envío real de email en el primer despliegue con credenciales de Resend/Clerk en vivo.

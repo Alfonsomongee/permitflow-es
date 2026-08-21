@@ -8,7 +8,7 @@ export interface ExpedienteAfectado {
 
 const ESTADOS_ACTIVOS = new Set(["borrador", "pendiente", "en_revision"]);
 
-type ExpedienteMatch = Pick<
+export type ExpedienteMatch = Pick<
   DbExpediente,
   "id" | "comunidad" | "tipo_instalacion" | "estado" | "referencia_cliente"
 >;
@@ -25,6 +25,27 @@ export function alertaAfectaExpediente(
     !alerta.verticales_afectados?.length ||
     alerta.verticales_afectados.includes(expediente.tipo_instalacion);
   return ccaaOk && verticalOk;
+}
+
+/**
+ * true si la alerta afecta a alguna CCAA/vertical que la organización
+ * trabaja de verdad (a partir de todo su histórico de expedientes, no solo
+ * los activos: un expediente ya aprobado sigue diciendo "trabajamos en esta
+ * CCAA/vertical" a efectos de qué cambios normativos interesan). Origen:
+ * roadmap de mejoras, QW-02 -- antes todas las alertas se mostraban por
+ * igual a cualquier organización, aunque no tuviera ni un solo expediente
+ * en esa CCAA o vertical.
+ *
+ * Sin cartera todavía (organización nueva, cero expedientes) se considera
+ * relevante por defecto: no hay base real sobre la que filtrar, y ocultar
+ * todo sería peor que mostrar de más.
+ */
+export function alertaRelevanteParaCartera(
+  alerta: DbAlertaBoe,
+  expedientes: ExpedienteMatch[]
+): boolean {
+  if (expedientes.length === 0) return true;
+  return expedientes.some((e) => alertaAfectaExpediente(alerta, e));
 }
 
 export function mapearAlertasAExpedientes(
