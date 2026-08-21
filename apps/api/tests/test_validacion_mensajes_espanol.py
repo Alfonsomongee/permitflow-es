@@ -38,6 +38,25 @@ def test_traduce_listado_de_valores_permitidos():
     assert " or " not in traducido  # el conector se tradujo, no solo se listó tal cual
 
 
+def test_traduce_restricciones_de_longitud_de_string():
+    # routers/contacto.py::ContactoInput (min_length/max_length en nombre y
+    # mensaje) es el único sitio del repo que dispara estos mensajes -- no
+    # tenían traducción hasta la auditoría UX 2026-08-21 y llegaban en
+    # inglés al único formulario público sin sesión Clerk.
+    casos = {
+        "String should have at least 2 characters": "Debe tener al menos 2 caracteres.",
+        "String should have at most 120 characters": "Debe tener como máximo 120 caracteres.",
+        "String should have at least 10 characters": "Debe tener al menos 10 caracteres.",
+    }
+    for original, esperado in casos.items():
+        assert _traducir_mensaje_pydantic(original) == esperado
+
+
+def test_traduce_mensaje_de_email_invalido():
+    original = "value is not a valid email address: An email address must have an @-sign."
+    assert _traducir_mensaje_pydantic(original) == "No es una dirección de correo electrónico válida."
+
+
 def test_mensaje_sin_traduccion_conocida_se_devuelve_igual():
     # Defensa: si aparece un mensaje de Pydantic que no reconocemos, es
     # preferible mostrarlo tal cual (en inglés) a inventarnos una traducción.
@@ -79,3 +98,24 @@ def test_campo_requerido_ausente_devuelve_mensaje_en_espanol():
     detail = resp.json()["detail"]
     assert "Input should be" not in detail
     assert "Debe ser mayor o igual que 1" in detail
+
+
+def test_contacto_con_datos_invalidos_devuelve_mensaje_en_espanol():
+    # /contacto en producción solo es alcanzable a través del proxy de
+    # apps/web (que añade X-Internal-Key server-side, ver app/api/contacto/
+    # route.ts) -- reproduce el bug en vivo encontrado en la auditoría UX
+    # 2026-08-21 (curl directo, con la clave interna, devolvía el texto de
+    # Pydantic sin traducir).
+    with TestClient(app) as client:
+        resp = client.post(
+            "/contacto",
+            json={"nombre": "A", "email": "no-es-un-email", "mensaje": "corto"},
+            headers=_headers(),
+        )
+    assert resp.status_code == 422
+    detail = resp.json()["detail"]
+    assert "String should have" not in detail
+    assert "value is not a valid email" not in detail
+    assert "Debe tener al menos 2 caracteres" in detail
+    assert "No es una dirección de correo electrónico válida" in detail
+    assert "Debe tener al menos 10 caracteres" in detail

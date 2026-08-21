@@ -97,7 +97,7 @@ export default async function ExpedientesPage({
           <h1 className="text-xl font-medium text-text-primary">Expedientes</h1>
           <p className="mt-0.5 text-sm text-text-secondary">
             {expedientesUI.length === 0
-              ? "Aun no has generado ningun plan de tramitacion."
+              ? "Aún no has generado ningún plan de tramitación."
               : `${expedientesUI.length} expedientes activos.`}
           </p>
         </div>

@@ -5,6 +5,7 @@ import { OrganizationProfile, UserProfile } from "@clerk/nextjs";
 import { Building2, Loader2, Users, UserCircle } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { clerkTheme } from "@/lib/clerk-theme";
+import { crearSesionCheckoutPro } from "@/lib/stripe/checkout";
 
 const PLAN_LABEL: Record<string, string> = {
   free: "Gratuito",
@@ -23,6 +24,8 @@ export interface OrgInfo {
 export function AjustesTabs({ orgInfo }: { orgInfo: OrgInfo }) {
   const [gestionandoFacturacion, setGestionandoFacturacion] = useState(false);
   const [errorFacturacion, setErrorFacturacion] = useState<string | null>(null);
+  const [iniciandoUpgrade, setIniciandoUpgrade] = useState(false);
+  const [errorUpgrade, setErrorUpgrade] = useState<string | null>(null);
 
   const gestionarFacturacion = async () => {
     setErrorFacturacion(null);
@@ -37,6 +40,17 @@ export function AjustesTabs({ orgInfo }: { orgInfo: OrgInfo }) {
     } catch (err) {
       setErrorFacturacion(err instanceof Error ? err.message : "No se pudo abrir la gestión de facturación.");
       setGestionandoFacturacion(false);
+    }
+  };
+
+  const actualizarAPro = async () => {
+    setErrorUpgrade(null);
+    setIniciandoUpgrade(true);
+    try {
+      window.location.href = await crearSesionCheckoutPro();
+    } catch (err) {
+      setErrorUpgrade(err instanceof Error ? err.message : "No se pudo iniciar el proceso de pago.");
+      setIniciandoUpgrade(false);
     }
   };
 
@@ -110,12 +124,14 @@ export function AjustesTabs({ orgInfo }: { orgInfo: OrgInfo }) {
               </>
             ) : (
               <>
-                <a
-                  href="/#precios"
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                <button
+                  onClick={actualizarAPro}
+                  disabled={iniciandoUpgrade}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60"
                 >
-                  Ver planes
-                </a>
+                  {iniciandoUpgrade && <Loader2 size={14} className="animate-spin" />}
+                  Actualizar a Pro
+                </button>
                 <p className="mt-2 text-xs text-text-secondary">
                   Tu organización todavía no tiene una suscripción de pago.
                 </p>
@@ -123,6 +139,9 @@ export function AjustesTabs({ orgInfo }: { orgInfo: OrgInfo }) {
             )}
             {errorFacturacion && (
               <p className="mt-2 text-xs text-danger">{errorFacturacion}</p>
+            )}
+            {errorUpgrade && (
+              <p className="mt-2 text-xs text-danger">{errorUpgrade}</p>
             )}
           </div>
         </div>

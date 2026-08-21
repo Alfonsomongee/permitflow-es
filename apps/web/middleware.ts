@@ -12,6 +12,8 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/contacto",            // formulario público de contacto (D-11 auditoría 2026-08-06)
+  "/documentacion",       // guía de uso pública, sin datos de sesión (auditoría UX 2026-08-21)
+  "/producto(.*)",        // páginas de producto públicas (ej. /producto/motor-normativo), sin datos de sesión (auditoría UX 2026-08-21)
   "/api/health",
   "/api/contacto",        // proxy del formulario anterior; protegido por rate limit + honeypot en FastAPI
   "/api/cron(.*)",        // Vercel crons (se protegen a sí mismos con CRON_SECRET)

@@ -158,6 +158,17 @@ _TRADUCCIONES_PYDANTIC = [
      lambda m: "Debe ser un texto válido."),
     (re.compile(r"^Input should be a valid boolean.*$"),
      lambda m: "Debe ser verdadero o falso."),
+    # String should have at least/at most N character(s) -- Field(min_length=,
+    # max_length=). Sin cubrir hasta ahora: routers/contacto.py es el único
+    # sitio que usa estas restricciones y quedaba en inglés en un formulario
+    # público sin autenticación (auditoría UX 2026-08-21).
+    (re.compile(r"^String should have at least (\d+) characters?$"),
+     lambda m: f"Debe tener al menos {m.group(1)} caracteres."),
+    (re.compile(r"^String should have at most (\d+) characters?$"),
+     lambda m: f"Debe tener como máximo {m.group(1)} caracteres."),
+    # EmailStr (email-validator): "value is not a valid email address: <razón>"
+    (re.compile(r"^[Vv]alue is not a valid email address.*$"),
+     lambda m: "No es una dirección de correo electrónico válida."),
     # Enumerados/Literal: "Input should be 'a', 'b' or 'c'" -- se conserva el
     # listado de valores (son slugs técnicos, no texto en inglés) y solo se
     # traduce el conector.

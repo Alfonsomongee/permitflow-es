@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { FileArchive, FileText, FileType2, ListChecks, Loader2 } from "lucide-react";
+import { crearSesionCheckoutPro } from "@/lib/stripe/checkout";
 
 type TipoDocumento = "plan" | "checklist" | "mtd" | "dossier";
 
@@ -34,6 +34,17 @@ export function DocumentosPanel({ expedienteId, tipoInstalacion }: DocumentosPan
   const [descargando, setDescargando] = useState<TipoDocumento | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [requiereUpgrade, setRequiereUpgrade] = useState(false);
+  const [iniciandoUpgrade, setIniciandoUpgrade] = useState(false);
+
+  const actualizarAPro = async () => {
+    setIniciandoUpgrade(true);
+    try {
+      window.location.href = await crearSesionCheckoutPro();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "No se pudo iniciar el proceso de pago.");
+      setIniciandoUpgrade(false);
+    }
+  };
 
   const descargar = async (tipo: TipoDocumento) => {
     if (descargando) return;
@@ -110,9 +121,13 @@ export function DocumentosPanel({ expedienteId, tipoInstalacion }: DocumentosPan
       {requiereUpgrade && (
         <p className="mt-3 rounded-xl border border-warning/30 bg-warning-light px-3.5 py-2.5 text-xs text-warning-dark">
           La descarga de documentos es una función del plan Pro.{" "}
-          <Link href="/#precios" className="font-semibold underline hover:text-warning-dark/80">
-            Ver planes
-          </Link>
+          <button
+            onClick={actualizarAPro}
+            disabled={iniciandoUpgrade}
+            className="font-semibold underline hover:text-warning-dark/80 disabled:opacity-60"
+          >
+            {iniciandoUpgrade ? "Abriendo pago..." : "Actualizar a Pro"}
+          </button>
         </p>
       )}
       {error && <p className="mt-3 text-xs text-danger-dark">{error}</p>}

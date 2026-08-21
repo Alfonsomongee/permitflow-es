@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * apps/web/components/marketing/PreciosSection.tsx
  *
@@ -5,9 +7,12 @@
  * Los price IDs apuntan a productos reales de Stripe —
  * créalos en Stripe Dashboard y ponlos en .env.
  */
+import { useState } from "react";
 import Link from "next/link";
-import { Check } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
+import { Check, Loader2 } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { crearSesionCheckoutPro } from "@/lib/stripe/checkout";
 
 const PLANES = [
   {
@@ -33,7 +38,15 @@ const PLANES = [
     periodo: "/ mes por empresa",
     descripcion: "Para instaladoras y gestorías activas.",
     cta: "Empezar prueba gratis",
-    ctaHref: "/sign-up?plan=pro",
+    // Si ya hay sesión, el botón dispara el checkout de Stripe directamente
+    // (ver PreciosSection() más abajo). Si no, /sign-up?redirect_url=/ajustes
+    // -- Clerk respeta ese query param por defecto y así, tras registrarse,
+    // el usuario aterriza en la pestaña Organización de Ajustes, que ya
+    // tiene el mismo botón de upgrade funcional (auditoría UX 2026-08-21;
+    // antes este enlace llevaba a "/sign-up?plan=pro", un query param que
+    // no se leía en ningún sitio del repo -- no existía ningún camino real
+    // de Free a Pro).
+    ctaHref: "/sign-up?redirect_url=%2Fajustes",
     destacado: true,
     features: [
       "Clasificaciones ilimitadas",
@@ -66,6 +79,49 @@ const PLANES = [
     disabled: [],
   },
 ];
+
+function PlanCta({ plan }: { plan: (typeof PLANES)[number] }) {
+  const { isSignedIn } = useAuth();
+  const [iniciando, setIniciando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const claseBase = `mb-1 block w-full rounded-lg py-2.5 text-center text-sm font-medium transition-opacity ${
+    plan.destacado
+      ? "bg-primary text-white hover:opacity-90"
+      : "border border-border text-text-primary hover:bg-bg"
+  }`;
+
+  // Con sesión activa, el plan Pro dispara el checkout de Stripe
+  // directamente en vez de reenviar a /sign-up (que para un usuario ya
+  // registrado no lleva a ningún sitio útil).
+  if (plan.nombre === "Pro" && isSignedIn) {
+    const iniciarCheckout = async () => {
+      setError(null);
+      setIniciando(true);
+      try {
+        window.location.href = await crearSesionCheckoutPro();
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "No se pudo iniciar el proceso de pago.");
+        setIniciando(false);
+      }
+    };
+    return (
+      <div className="mb-5">
+        <button onClick={iniciarCheckout} disabled={iniciando} className={`${claseBase} inline-flex items-center justify-center gap-1.5 disabled:opacity-60`}>
+          {iniciando && <Loader2 size={14} className="animate-spin" />}
+          Actualizar a Pro
+        </button>
+        {error && <p className="mt-1.5 text-xs text-danger">{error}</p>}
+      </div>
+    );
+  }
+
+  return (
+    <Link href={plan.ctaHref} className="mb-5 block">
+      <span className={claseBase}>{plan.cta}</span>
+    </Link>
+  );
+}
 
 function FeatureItem({ text, available = true }: { text: string; available?: boolean }) {
   return (
@@ -131,16 +187,7 @@ export function PreciosSection() {
                   <p className="mt-1.5 text-xs text-text-secondary">{plan.descripcion}</p>
                 </div>
 
-                <Link
-                  href={plan.ctaHref}
-                  className={`mb-5 block rounded-lg py-2.5 text-center text-sm font-medium transition-opacity ${
-                    plan.destacado
-                      ? "bg-primary text-white hover:opacity-90"
-                      : "border border-border text-text-primary hover:bg-bg"
-                  }`}
-                >
-                  {plan.cta}
-                </Link>
+                <PlanCta plan={plan} />
 
                 <ul className="flex flex-col gap-2.5 mt-auto">
                   {plan.features.map((f) => (
