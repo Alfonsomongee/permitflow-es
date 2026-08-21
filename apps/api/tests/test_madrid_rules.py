@@ -2,15 +2,17 @@ import pytest
 import json
 from json_logic import jsonLogic
 import os
-import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../apps/api')))
 from schemas.clasificador import ClasificadorInput
 from motor_normativo.clasificador import Clasificador
 from pydantic import ValidationError
 
+# Movido de tests/motor_normativo/ (raíz del repo) a apps/api/tests/ el
+# 2026-08-20: pytest no lo descubría desde ahí en CI (working-directory:
+# apps/api). Hereda el sys.path de apps/api/tests/__init__.py.
+
 # Helper to load rules
 def load_madrid_rules(filename):
-    path = os.path.join(os.path.dirname(__file__), '../../apps/api/motor_normativo/reglas/madrid', filename)
+    path = os.path.join(os.path.dirname(__file__), '../motor_normativo/reglas/madrid', filename)
     with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
 

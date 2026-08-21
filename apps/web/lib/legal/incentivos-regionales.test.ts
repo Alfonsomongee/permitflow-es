@@ -37,7 +37,7 @@ describe('slugToIne', () => {
 
 describe('getApplicableAllIncentives — incentivos autonómicos de fotovoltaica', () => {
   it('muestra el incentivo de Baleares (el único que ya existía antes de P-12)', () => {
-    const context = { state: 'ES', autonomousCommunityId: slugToIne('baleares') };
+    const context = { state: 'ES', autonomousCommunityId: slugToIne('baleares') } as const;
     const incentivos = getApplicableAllIncentives('fotovoltaica_autoconsumo', context);
     expect(incentivos.some(i => i.id === 'inc-balears-irpf')).toBe(true);
   });
@@ -56,14 +56,14 @@ describe('getApplicableAllIncentives — incentivos autonómicos de fotovoltaica
     ];
 
     for (const [slug, incentiveId] of casos) {
-      const context = { state: 'ES', autonomousCommunityId: slugToIne(slug) };
+      const context = { state: 'ES', autonomousCommunityId: slugToIne(slug) } as const;
       const incentivos = getApplicableAllIncentives('fotovoltaica_autoconsumo', context);
       expect(incentivos.some(i => i.id === incentiveId), `esperaba ${incentiveId} para ${slug}`).toBe(true);
     }
   });
 
   it('no muestra ningún incentivo autonómico para una comunidad sin deducción propia (Madrid)', () => {
-    const context = { state: 'ES', autonomousCommunityId: slugToIne('madrid') };
+    const context = { state: 'ES', autonomousCommunityId: slugToIne('madrid') } as const;
     const incentivos = getApplicableAllIncentives('fotovoltaica_autoconsumo', context);
     expect(incentivos.every(i => i.scope !== 'autonomous_community')).toBe(true);
   });

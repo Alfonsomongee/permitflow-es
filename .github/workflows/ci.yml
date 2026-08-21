@@ -1,28 +1,44 @@
 name: CI
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  build-frontend:
+  test-frontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 8
-          
+
       - name: Install dependencies
         run: pnpm install
-        
+
+      - name: Typecheck
+        # next build no detecta errores de tipos en ficheros huérfanos que
+        # ningún componente importa (p.ej. *.test.ts) — comprobado de forma
+        # empírica el 2026-08-20: un error de tipos real en un test pasaba
+        # el build en verde. tsc --noEmit sí los detecta.
+        run: pnpm --filter web exec tsc --noEmit
+
+      - name: Test
+        # Antes no existía este paso: el job solo compilaba (`next build`),
+        # así que los 165 tests de apps/web/lib/**/*.test.ts nunca se
+        # ejecutaban en CI pese a existir y pasar en local (auditoría de
+        # testing, 2026-08-20).
+        run: pnpm --filter web test
+
       - name: Build web
         run: pnpm --filter web build
 
@@ -31,19 +47,39 @@ jobs:
     defaults:
       run:
         working-directory: apps/api
+    env:
+      # Mínimo para que pytest pueda siquiera recoger los tests: Settings()
+      # exige SECRET_KEY sin default (config.py) y el cliente de IA
+      # (servicios/ai_client.py) construye AsyncOpenAI a nivel de módulo, así
+      # que sin DEEPSEEK_API_KEY la simple importación fallaba antes de
+      # ejecutar un solo test. No son secretos reales -- son válidos solo
+      # para que el proceso arranque; ningún test debe depender de que
+      # apunten a un servicio real. Antes de este cambio, el job llevaba
+      # 13/13 ejecuciones en fallo en todo el historial del repositorio,
+      # las 13 en el paso "Run tests" en ~4 segundos (fallo de colección, no
+      # de un test real) — auditoría de testing, 2026-08-20.
+      SECRET_KEY: ci-test-secret-not-for-production-use
+      ENVIRONMENT: development
+      DEEPSEEK_API_KEY: ci-test-key-not-for-production-use
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          
+
       - name: Install uv
         run: pip install uv
-        
+
       - name: Install dependencies
-        run: uv pip install --system -r requirements.txt || uv sync
-        
+        run: uv sync
+
       - name: Run tests
+        # Nota: los tests que requieren una base de datos real (test_contacto,
+        # test_newsletter, test_simulador, test_validacion_mensajes_espanol)
+        # siguen sin un servicio Postgres/Redis en este job — es la siguiente
+        # pieza pendiente de la estrategia de testing, no resuelta en este
+        # cambio. Se mantienen visibles como fallos reales en vez de
+        # ocultarse tras un job que ni siquiera llegaba a ejecutarlos.
         run: uv run pytest

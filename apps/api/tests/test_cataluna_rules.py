@@ -8,12 +8,9 @@ Cubre todos los casos de las auditorías v1 y v2, incluyendo:
 """
 import json
 import os
-import sys
 
 import pytest
 from pydantic import ValidationError
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../apps/api")))
 
 from json_logic import jsonLogic
 from motor_normativo.clasificador import Clasificador
@@ -21,11 +18,15 @@ from schemas.clasificador import ClasificadorInput
 
 
 # ─── Helpers ─────────────────────────────────────────────────────────────────
+# Movido de tests/motor_normativo/ (raíz del repo) a apps/api/tests/ el
+# 2026-08-20: pytest no lo descubría desde ahí en CI (working-directory:
+# apps/api). Aquí hereda el sys.path de apps/api/tests/__init__.py sin
+# necesidad de sys.path.insert manual.
 
 def load_rules(filename: str) -> dict:
     path = os.path.join(
         os.path.dirname(__file__),
-        "../../apps/api/motor_normativo/reglas/cataluna",
+        "../motor_normativo/reglas/cataluna",
         filename,
     )
     with open(path, "r", encoding="utf-8") as f:
@@ -519,14 +520,25 @@ def test_cataluna_irve_inspeccion_oc_no_residencial_no_activa():
     assert jsonLogic(r, ctx) is False
 
 
-def test_cataluna_irve_via_publica_barcelona_activa():
-    """Barcelona + via_publica → activa advertencia municipal."""
+def test_cataluna_irve_via_publica_barcelona_desactivada_a_proposito():
+    """CAT-IRVE-VIA-PUBLICA-BARCELONA está desactivada explícitamente
+    (condicion=false) desde 2026-08-06: su condición original referenciaba
+    'municipio', campo inexistente en ClasificadorInput, así que nunca podía
+    dispararse. Se fijó a `false` a propósito para documentar la intención
+    (AGENTS.md: nunca eliminar una regla) en vez de dejarla como un bug
+    silencioso -- ver la nota del propio trámite en el JSON.
+
+    Este test antes afirmaba lo contrario (esperaba `is True`) y llevaba en
+    rojo desde esa fecha sin que nadie lo notara: el fichero vivía fuera del
+    árbol que descubre CI (auditoría de testing, 2026-08-20). Corregido para
+    reflejar la realidad; si algún día se reactiva la regla (añadiendo
+    'municipio' al schema), este test debe volver a esperar `True`.
+    """
     data = load_rules("irve.json")
     r = rule_condition(data, "CAT-IRVE-VIA-PUBLICA-BARCELONA")
 
-    assert jsonLogic(r, {"tipo_instalacion": "irve", "municipio": "barcelona", "ubicacion_irve": "via_publica"}) is True
-    assert jsonLogic(r, {"tipo_instalacion": "irve", "municipio": "barcelona", "ubicacion_irve": "interior"})    is False
-    assert jsonLogic(r, {"tipo_instalacion": "irve", "municipio": "sabadell",  "ubicacion_irve": "via_publica"}) is False
+    assert r is False
+    assert jsonLogic(r, {"tipo_instalacion": "irve", "municipio": "barcelona", "ubicacion_irve": "via_publica"}) is False
 
 
 # ─── 6. Fotovoltaica ─────────────────────────────────────────────────────────
