@@ -62,6 +62,7 @@ BASELINES: dict[str, dict] = {
         ventilacion_garaje="natural",
         numero_plazas_garaje=10,
         garaje_existente=True,
+        numero_suministros_edificio=10,
     ),
     "climatizacion_aerotermia": dict(
         potencia_kw=12.0,

@@ -136,5 +136,5 @@ def test_validador_sin_clave_validaciones(reglas_dir):
 def test_validador_normativa_inexistente(reglas_dir):
     with pytest.raises(NormativaNoEncontradaError):
         Validador(reglas_dir=reglas_dir).validar(
-            _params(tipo_instalacion="acs", potencia_kw=30)
+            _params(tipo_instalacion="acs", potencia_kw=30, uso_colectivo=False)
         )

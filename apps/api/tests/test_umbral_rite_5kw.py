@@ -49,6 +49,12 @@ def clasificar(comunidad: str, vertical: str, potencia: float, uso: str = "resid
             uso=uso,
             acs_centralizada=False,
             incluida_ambito_legionella=False,
+            # Obligatorios desde el cierre de Prioridad 1 (2026-08-20) para
+            # las CCAA cuyas reglas de Legionela los usan; False es el valor
+            # neutro (instalación individual, no colectiva) que no debería
+            # alterar el resultado de estos tests sobre el umbral RITE.
+            uso_colectivo=False,
+            incluida_ambito_rd_487_2022=False,
         )
     )
 
@@ -153,6 +159,8 @@ class TestExencionPorTipoDeEquipo:
             uso="residencial",
             acs_centralizada=False,
             incluida_ambito_legionella=False,
+            uso_colectivo=False,
+            incluida_ambito_rd_487_2022=False,
         )
         if tipo:
             datos["tipo_generador_acs"] = tipo
@@ -202,6 +210,7 @@ class TestExencionPorTipoDeEquipo:
                 comunidad=comunidad, tipo_instalacion="acs", potencia_kw=3.0,
                 uso="residencial", tipo_generador_acs="termo_electrico",
                 acs_centralizada=False, incluida_ambito_legionella=False,
+                uso_colectivo=False, incluida_ambito_rd_487_2022=False,
             )
         )
         informativos = [t for t in plan.tramites if t.tipo_actuacion == "informativa"]

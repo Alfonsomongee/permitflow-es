@@ -78,8 +78,109 @@ describe("nuevaInstalacionSchema — ACS: tipo_generador_acs sigue siendo opcion
       tipo_instalacion: "acs",
       potencia_kw: "60",
       tipo_generador_acs: "",
+      uso_colectivo: false,
     });
     const resultado = nuevaInstalacionSchema.safeParse(datos);
+    expect(resultado.success).toBe(true);
+  });
+});
+
+describe("nuevaInstalacionSchema — ACS: campos de Legionela obligatorios por CCAA (2026-08-20)", () => {
+  it("rechaza ACS en Andalucia sin uso_colectivo", () => {
+    const datos = base({ comunidad: "andalucia", tipo_instalacion: "acs", potencia_kw: "10" });
+    const resultado = nuevaInstalacionSchema.safeParse(datos);
+    expect(resultado.success).toBe(false);
+    if (!resultado.success) {
+      expect(resultado.error.issues.some((i) => i.path.includes("uso_colectivo"))).toBe(true);
+    }
+  });
+
+  it("Andalucia con uso_colectivo=true exige acumulacion y recirculacion", () => {
+    const datos = base({
+      comunidad: "andalucia", tipo_instalacion: "acs", potencia_kw: "10",
+      uso_colectivo: true,
+    });
+    const resultado = nuevaInstalacionSchema.safeParse(datos);
+    expect(resultado.success).toBe(false);
+  });
+
+  it("rechaza ACS en Asturias sin acs_centralizada", () => {
+    const datos = base({ comunidad: "asturias", tipo_instalacion: "acs", potencia_kw: "10" });
+    const resultado = nuevaInstalacionSchema.safeParse(datos);
+    expect(resultado.success).toBe(false);
+    if (!resultado.success) {
+      expect(resultado.error.issues.some((i) => i.path.includes("acs_centralizada"))).toBe(true);
+    }
+  });
+
+  it("rechaza ACS en Madrid/Canarias sin incluida_ambito_rd_487_2022", () => {
+    const datos = base({ comunidad: "madrid", tipo_instalacion: "acs", potencia_kw: "10" });
+    const resultado = nuevaInstalacionSchema.safeParse(datos);
+    expect(resultado.success).toBe(false);
+    if (!resultado.success) {
+      expect(resultado.error.issues.some((i) => i.path.includes("incluida_ambito_rd_487_2022"))).toBe(true);
+    }
+  });
+
+  it("acepta ACS con todos los campos informados", () => {
+    const datos = base({
+      comunidad: "andalucia", tipo_instalacion: "acs", potencia_kw: "10",
+      uso_colectivo: false,
+    });
+    const resultado = nuevaInstalacionSchema.safeParse(datos);
+    expect(resultado.success).toBe(true);
+  });
+});
+
+describe("nuevaInstalacionSchema — FV Canarias: implantacion obligatoria (2026-08-20)", () => {
+  it("rechaza FV en Canarias sin implantacion", () => {
+    const datos = base({
+      comunidad: "canarias", tipo_instalacion: "fotovoltaica_autoconsumo",
+      potencia_kw: "10", tension: "BT", implantacion: "",
+    });
+    const resultado = nuevaInstalacionSchema.safeParse(datos);
+    expect(resultado.success).toBe(false);
+    if (!resultado.success) {
+      expect(resultado.error.issues.some((i) => i.path.includes("implantacion"))).toBe(true);
+    }
+  });
+});
+
+describe("nuevaInstalacionSchema — IRVE Cataluña garaje: numero_suministros_edificio (2026-08-20)", () => {
+  function baseGarajeCataluna(overrides: Partial<typeof FORM_INITIAL> = {}) {
+    return base({
+      comunidad: "cataluna",
+      tipo_instalacion: "irve",
+      potencia_kw: "11",
+      modo_recarga: "3",
+      ubicacion_irve: "garaje_comunitario",
+      uso_edificio: "residencial",
+      ventilacion_garaje: "natural",
+      numero_plazas_garaje: "25",
+      garaje_existente: true,
+      ...overrides,
+    });
+  }
+
+  it("rechaza garaje residencial sin numero_suministros_edificio", () => {
+    const resultado = nuevaInstalacionSchema.safeParse(baseGarajeCataluna());
+    expect(resultado.success).toBe(false);
+    if (!resultado.success) {
+      expect(resultado.error.issues.some((i) => i.path.includes("numero_suministros_edificio"))).toBe(true);
+    }
+  });
+
+  it("no exige numero_suministros_edificio en garaje no residencial", () => {
+    const resultado = nuevaInstalacionSchema.safeParse(
+      baseGarajeCataluna({ uso_edificio: "no_residencial" })
+    );
+    expect(resultado.success).toBe(true);
+  });
+
+  it("acepta garaje residencial con numero_suministros_edificio informado", () => {
+    const resultado = nuevaInstalacionSchema.safeParse(
+      baseGarajeCataluna({ numero_suministros_edificio: "10" })
+    );
     expect(resultado.success).toBe(true);
   });
 });

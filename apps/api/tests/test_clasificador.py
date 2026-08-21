@@ -63,14 +63,14 @@ def test_acs_sin_tipo_generador_no_se_bloquea(clasificador):
     # No debe lanzar ValidationError.
     ClasificadorInput(
         tipo_instalacion="acs", comunidad="andalucia", potencia_kw=60,
-        uso="residencial",
+        uso="residencial", uso_colectivo=False,
     )
 
 
 def test_acs_sin_tipo_generador_incluye_aviso_de_posible_exencion(clasificador):
     params = ClasificadorInput(
         tipo_instalacion="acs", comunidad="andalucia", potencia_kw=60,
-        uso="residencial",
+        uso="residencial", uso_colectivo=False,
     )
     res = clasificador.clasificar(params)
     assert any("no has indicado el equipo" in a.lower() for a in res.advertencias)
@@ -80,6 +80,7 @@ def test_acs_con_tipo_generador_exento_no_incluye_el_aviso(clasificador):
     params = ClasificadorInput(
         tipo_instalacion="acs", comunidad="andalucia", potencia_kw=60,
         uso="residencial", tipo_generador_acs="calentador_instantaneo",
+        uso_colectivo=False,
     )
     res = clasificador.clasificar(params)
     assert not any("no has indicado el equipo" in a.lower() for a in res.advertencias)
@@ -331,3 +332,93 @@ def test_pais_vasco_gas_acometida_es_paralela_a_certificado_instalacion(clasific
     acometida = next(t for t in res.tramites if "acometida" in (t.nombre or "").lower())
     assert acometida.paralelo_con is not None
     assert "certificado de instalación" in (tramites_por_orden[acometida.paralelo_con].nombre or "").lower()
+
+
+# ─── Cierre de Prioridad 1: campos de Legionela/riesgo sanitario y otros
+# campos que AÑADEN un trámite obligatorio (2026-08-20) ─────────────────────
+#
+# A diferencia de tipo_generador_acs, omitir estos campos hace que la
+# instalación se salte en silencio un trámite legalmente exigible (plan de
+# prevención de Legionela, Calificación Territorial, inspección inicial por
+# organismo de control) -- la dirección de riesgo opuesta y más grave. No hay
+# ningún valor "no sé" legítimo: son hechos que el instalador conoce. Se
+# bloquean con 422 en vez de avisar después.
+
+@pytest.mark.parametrize("comunidad", ["aragon", "baleares", "castilla_leon", "pais_vasco"])
+def test_acs_sin_uso_colectivo_se_rechaza(comunidad):
+    with pytest.raises(ValidationError, match="uso colectivo"):
+        ClasificadorInput(
+            tipo_instalacion="acs", comunidad=comunidad, potencia_kw=10, uso="residencial",
+        )
+
+
+def test_acs_andalucia_uso_colectivo_true_exige_acumulacion_y_recirculacion():
+    with pytest.raises(ValidationError, match="acumulación"):
+        ClasificadorInput(
+            tipo_instalacion="acs", comunidad="andalucia", potencia_kw=10,
+            uso="residencial", uso_colectivo=True,
+        )
+
+
+def test_acs_andalucia_uso_colectivo_false_no_exige_acumulacion_ni_recirculacion():
+    ClasificadorInput(
+        tipo_instalacion="acs", comunidad="andalucia", potencia_kw=10,
+        uso="residencial", uso_colectivo=False,
+    )
+
+
+def test_acs_asturias_sin_acs_centralizada_se_rechaza():
+    with pytest.raises(ValidationError, match="centralizado"):
+        ClasificadorInput(
+            tipo_instalacion="acs", comunidad="asturias", potencia_kw=10, uso="residencial",
+        )
+
+
+@pytest.mark.parametrize("comunidad", ["canarias", "madrid"])
+def test_acs_sin_ambito_rd_487_2022_se_rechaza(comunidad):
+    with pytest.raises(ValidationError, match="RD 487/2022"):
+        ClasificadorInput(
+            tipo_instalacion="acs", comunidad=comunidad, potencia_kw=10, uso="residencial",
+        )
+
+
+def test_fv_canarias_sin_implantacion_se_rechaza():
+    with pytest.raises(ValidationError, match="implantación"):
+        ClasificadorInput(
+            tipo_instalacion="fotovoltaica_autoconsumo", comunidad="canarias",
+            potencia_kw=10, uso="residencial", tension="BT",
+        )
+
+
+def test_irve_cataluna_garaje_residencial_sin_numero_suministros_se_rechaza():
+    with pytest.raises(ValidationError, match="número de suministros"):
+        ClasificadorInput(
+            tipo_instalacion="irve", comunidad="cataluna", potencia_kw=11,
+            uso="residencial", modo_recarga="3", ubicacion_irve="garaje_comunitario",
+            uso_edificio="residencial", ventilacion_garaje="natural",
+            numero_plazas_garaje=25, garaje_existente=True,
+        )
+
+
+def test_irve_cataluna_garaje_no_residencial_no_exige_numero_suministros():
+    # El umbral de 20 suministros solo importa en edificios residenciales
+    # (CAT-IRVE-INSPECCION-INICIAL-VERIFICAR); en uso no residencial no hace
+    # falta el dato.
+    ClasificadorInput(
+        tipo_instalacion="irve", comunidad="cataluna", potencia_kw=11,
+        uso="residencial", modo_recarga="3", ubicacion_irve="garaje_comunitario",
+        uso_edificio="no_residencial", ventilacion_garaje="natural",
+        numero_plazas_garaje=25, garaje_existente=True,
+    )
+
+
+def test_gas_madrid_clase_instalacion_sigue_siendo_opcional_con_aviso_del_validador():
+    # A diferencia de los campos anteriores, clase_instalacion_gas NO se
+    # bloquea aquí: ya existe un aviso dedicado en motor_normativo/validador.py
+    # (MAD-GAS-VALIDACION) probado en test_validador_formatos.py. Bloquearlo
+    # aquí también duplicaría/anularía ese mecanismo más matizado.
+    ClasificadorInput(
+        tipo_instalacion="gas_baja_presion", comunidad="madrid", potencia_kw=20,
+        uso="residencial", combustible="gas_natural", presion_bar="normal",
+        potencia_resultante_kw=20, presion_resultante_bar=0.05, es_ampliacion=False,
+    )

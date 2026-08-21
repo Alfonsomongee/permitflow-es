@@ -6,7 +6,8 @@
     "potencia_kw": 30,
     "uso": "residencial", "tension": "BT",
     "municipio": "Sevilla",
-    "inversion_eur": 5000
+    "inversion_eur": 5000,
+    "uso_colectivo": false
   },
   "num_tramites_esperado": 2,
   "tiempo_total_esperado_dias": 22,

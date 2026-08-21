@@ -140,8 +140,12 @@ class TestNingunaValidacionQuedaMuerta:
             "gas_baja_presion": dict(
                 combustible="gas_natural", presion_bar="normal",
                 potencia_resultante_kw=20.0, presion_resultante_bar=0.05, es_ampliacion=False,
+                clase_instalacion_gas="individual",
             ),
-            "acs": dict(acs_centralizada=False, incluida_ambito_legionella=False),
+            "acs": dict(
+                acs_centralizada=False, incluida_ambito_legionella=False,
+                incluida_ambito_rd_487_2022=False,
+            ),
             "fotovoltaica_autoconsumo": dict(
                 tension="BT", modalidad_autoconsumo="con_excedentes_con_compensacion",
                 ubicacion_suelo="urbanizado", requiere_acceso_conexion=False,
@@ -151,6 +155,7 @@ class TestNingunaValidacionQuedaMuerta:
                 acceso_publico=False, ubicacion_irve="garaje_comunitario",
                 uso_edificio="residencial", ventilacion_garaje="natural",
                 numero_plazas_garaje=30, garaje_existente=True,
+                numero_suministros_edificio=10,
             ),
         }[vertical]
 

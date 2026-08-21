@@ -34,6 +34,7 @@ def validar(comunidad: str, **kwargs):
         modalidad_autoconsumo="con_excedentes_con_compensacion",
         ubicacion_suelo="urbanizado",
         requiere_acceso_conexion=False,
+        implantacion="cubierta",
     )
     base.update(kwargs)
     return Validador().validar(ClasificadorInput(**base))

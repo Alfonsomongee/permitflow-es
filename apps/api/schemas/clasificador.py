@@ -151,6 +151,56 @@ class ClasificadorInput(BaseModel):
             if self.ubicacion_irve is None:
                 raise ValueError("Indica la ubicación de la instalación de recarga (IRVE).")
 
+        # Campos de Legionela / riesgo sanitario en ACS, por CCAA (cierre de
+        # Prioridad 1, 2026-08-20). A diferencia de tipo_generador_acs, estos
+        # campos AÑADEN un trámite (plan de prevención de Legionela) cuando
+        # son ciertos: omitirlos hace que json-logic evalúe la condición como
+        # falsy y el trámite sanitario se salte en silencio -- la dirección de
+        # riesgo contraria a tipo_generador_acs, y más grave (prevención de
+        # legionelosis, no solo papeleo administrativo). Ninguno tiene un
+        # valor "no sé" legítimo: es un hecho que el instalador conoce de la
+        # instalación (¿es de uso colectivo?, ¿centralizada?, ¿tiene
+        # acumulación/recirculación?), así que se exige sin excepción.
+        if self.tipo_instalacion == "acs":
+            if self.comunidad in (
+                "aragon", "baleares", "castilla_leon", "pais_vasco",
+            ) and self.uso_colectivo is None:
+                raise ValueError(
+                    "Indica si la instalación de ACS es de uso colectivo: determina si aplica "
+                    "el plan de prevención de Legionela."
+                )
+            if self.comunidad == "andalucia":
+                if self.uso_colectivo is None:
+                    raise ValueError(
+                        "Indica si la instalación de ACS es de uso colectivo: determina si aplica "
+                        "el plan de prevención de Legionela."
+                    )
+                if self.uso_colectivo and (
+                    self.acumulacion is None or self.recirculacion is None
+                ):
+                    raise ValueError(
+                        "Indica si la instalación de ACS dispone de acumulación y de "
+                        "recirculación: junto con el uso colectivo determinan si aplica el "
+                        "plan de prevención de Legionela."
+                    )
+            if self.comunidad == "asturias" and self.acs_centralizada is None:
+                raise ValueError(
+                    "Indica si la instalación de ACS es de uso centralizado: determina si "
+                    "aplica el Plan de Prevención y Control de Legionela."
+                )
+            if self.comunidad in ("canarias", "madrid") and self.incluida_ambito_rd_487_2022 is None:
+                raise ValueError(
+                    "Indica si la instalación está incluida en el ámbito del RD 487/2022 "
+                    "(Legionela): determina si aplica el plan de prevención."
+                )
+
+        if self.comunidad == "canarias" and self.tipo_instalacion == "fotovoltaica_autoconsumo":
+            if self.implantacion is None:
+                raise ValueError(
+                    "Indica la implantación de la instalación (cubierta o suelo): en suelo "
+                    "determina si hace falta Calificación Territorial del Cabildo."
+                )
+
         # Madrid Gas Validation
         # Los mensajes van en castellano como el resto de la aplicación: el proxy
         # los reenvía tal cual al usuario, así que estaban llegando en inglés
@@ -166,6 +216,12 @@ class ClasificadorInput(BaseModel):
                     "Indica la presión resultante de la instalación de gas: en Madrid "
                     "determina el procedimiento aplicable."
                 )
+            # clase_instalacion_gas NO se bloquea aquí a propósito: ya existe
+            # un mecanismo dedicado (motor_normativo/validador.py,
+            # MAD-GAS-VALIDACION/MAD-GAS-VALIDACION-CLASE, con test propio en
+            # test_validador_formatos.py) que avisa de su ausencia como
+            # hallazgo revisable en vez de bloquear el envío. Duplicarlo aquí
+            # como ValueError anularía ese aviso más matizado.
             if self.es_ampliacion:
                 if self.incremento_potencia_pct is None or self.incremento_potencia_pct == 0:
                     raise ValueError(
@@ -186,6 +242,9 @@ class ClasificadorInput(BaseModel):
                         "Indica la presión resultante de la instalación de gas: en Cataluña determina "
                         "el procedimiento aplicable."
                     )
+                # clase_instalacion_gas: mismo motivo que en el bloque de
+                # Madrid — ya hay un aviso dedicado en el Validador
+                # (CAT-GAS-VALIDACION-DATOS/CLASE), no se duplica aquí.
                 if self.es_ampliacion:
                     if self.incremento_potencia_pct is None or self.incremento_potencia_pct == 0:
                         raise ValueError(
@@ -214,7 +273,13 @@ class ClasificadorInput(BaseModel):
                         "Indica si el garaje es existente o de obra nueva: la ITC-BT-04 aplica "
                         "requisitos distintos a cada caso."
                     )
-            
+                if self.uso_edificio == "residencial" and self.numero_suministros_edificio is None:
+                    raise ValueError(
+                        "Indica el número de suministros del edificio: a partir de 20 en "
+                        "edificios residenciales puede exigir inspección inicial por organismo "
+                        "de control."
+                    )
+
             elif self.tipo_instalacion == "fotovoltaica_autoconsumo":
                 if self.modalidad_autoconsumo is None:
                     raise ValueError(

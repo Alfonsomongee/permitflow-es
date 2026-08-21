@@ -148,6 +148,40 @@ export const nuevaInstalacionSchema = z.object({
     }
   }
 
+  // Campos de Legionela / riesgo sanitario en ACS, por CCAA (cierre de
+  // Prioridad 1, 2026-08-20). Espejo exacto de schemas/clasificador.py: a
+  // diferencia de tipo_generador_acs, omitirlos hace que el trámite de
+  // Legionela se salte en silencio -- dirección de riesgo opuesta, así que
+  // se bloquean en vez de solo avisar.
+  if (data.tipo_instalacion === "acs") {
+    if (
+      ["aragon", "baleares", "castilla_leon", "pais_vasco", "andalucia"].includes(data.comunidad) &&
+      data.uso_colectivo === undefined
+    ) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Indica si la instalacion de ACS es de uso colectivo.", path: ["uso_colectivo"] });
+    }
+    if (
+      data.comunidad === "andalucia" &&
+      data.uso_colectivo === true &&
+      (data.acumulacion === undefined || data.recirculacion === undefined)
+    ) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Indica si dispone de acumulacion y de recirculacion.", path: ["acumulacion"] });
+    }
+    if (data.comunidad === "asturias" && data.acs_centralizada === undefined) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Indica si la instalacion de ACS es de uso centralizado.", path: ["acs_centralizada"] });
+    }
+    if (
+      ["canarias", "madrid"].includes(data.comunidad) &&
+      data.incluida_ambito_rd_487_2022 === undefined
+    ) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Indica si la instalacion esta incluida en el ambito del RD 487/2022 (Legionela).", path: ["incluida_ambito_rd_487_2022"] });
+    }
+  }
+
+  if (data.comunidad === "canarias" && data.tipo_instalacion === "fotovoltaica_autoconsumo" && !data.implantacion) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Indica la implantacion de la instalacion (cubierta o suelo).", path: ["implantacion"] });
+  }
+
   // Espejo de las validaciones del backend (schemas/clasificador.py::validate_inputs_by_ca)
   // para que el usuario vea el error ANTES de enviar, no como un 422 generico.
   const esGasConDatosResultantes =
@@ -193,6 +227,9 @@ export const nuevaInstalacionSchema = z.object({
       }
       if (data.garaje_existente === undefined) {
         ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Indica si el garaje es existente.", path: ["garaje_existente"] });
+      }
+      if (data.uso_edificio === "residencial" && !data.numero_suministros_edificio) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Indica el numero de suministros del edificio.", path: ["numero_suministros_edificio"] });
       }
     }
 
