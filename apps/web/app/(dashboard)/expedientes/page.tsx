@@ -11,8 +11,13 @@ import {
   type ExpedienteEstancado,
   type PlazoActivo,
 } from "@/components/dashboard/PlazosActivos";
+import {
+  SilencioAdministrativoResumen,
+  type SilencioResumenItem,
+} from "@/components/dashboard/SilencioAdministrativoResumen";
 import { diasEntre, hoyIso } from "@/lib/plazos";
 import { calcularVencimientoHabil } from "@/lib/festivos";
+import { detectarSilenciosVencidos } from "@/lib/silencioAdministrativo";
 
 export default async function ExpedientesPage({
   searchParams,
@@ -46,11 +51,26 @@ export default async function ExpedientesPage({
   // ── Plazos legales en curso + expedientes sin movimiento ────────────────
   const plazos: PlazoActivo[] = [];
   const estancados: ExpedienteEstancado[] = [];
+  const silencios: SilencioResumenItem[] = [];
   const hoy = hoyIso();
 
   for (const expediente of dbExpedientes) {
     const etiqueta = expediente.referencia_cliente ?? expediente.tipo_instalacion;
     const estadosMap = expediente.tramites_estado ?? {};
+
+    for (const detectado of detectarSilenciosVencidos(
+      expediente.plan_tramitacion?.tramites ?? [],
+      estadosMap,
+      expediente.comunidad
+    )) {
+      silencios.push({
+        expedienteId: expediente.id,
+        etiqueta,
+        nombreTramite: detectado.nombreTramite,
+        efecto: detectado.efecto,
+        diasVencido: detectado.diasVencido,
+      });
+    }
     const enCurso = Object.entries(estadosMap).filter(
       ([, info]) => info.estado === "en_curso" && info.fecha_inicio
     );
@@ -88,8 +108,10 @@ export default async function ExpedientesPage({
 
   plazos.sort((a, b) => a.diasRestantes - b.diasRestantes);
   estancados.sort((a, b) => b.diasSinMovimiento - a.diasSinMovimiento);
+  silencios.sort((a, b) => b.diasVencido - a.diasVencido);
   const plazosTop = plazos.slice(0, 5);
   const estancadosTop = estancados.slice(0, 3);
+  const silenciosTop = silencios.slice(0, 5);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
@@ -108,6 +130,7 @@ export default async function ExpedientesPage({
         </Link>
       </div>
 
+      <SilencioAdministrativoResumen items={silenciosTop} />
       <PlazosActivos plazos={plazosTop} estancados={estancadosTop} />
 
       <div className="mb-6">
