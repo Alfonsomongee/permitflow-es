@@ -18,6 +18,7 @@ import { ExportPdfButtons } from "./ExportPdfButton";
 import { EliminarExpedienteButton } from "./EliminarExpedienteButton";
 import { DetallesExpediente } from "./DetallesExpediente";
 import { ValidadorPanel } from "./ValidadorPanel";
+import { SilencioAdministrativoBanner } from "./SilencioAdministrativoBanner";
 import { TimelinePlan } from "./TimelinePlan";
 import { useTramitesEstado } from "./useTramitesEstado";
 import { useEstadisticasPlazo } from "./useEstadisticasPlazo";
@@ -364,6 +365,13 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
           <div className="min-w-0 space-y-6">
             <VerificacionBanner plan={plan} />
             <RiesgoNormativoBanner plan={plan} />
+            {expediente && (
+              <SilencioAdministrativoBanner
+                tramites={plan.tramites}
+                tramitesEstado={estados}
+                comunidad={params.comunidad}
+              />
+            )}
             <TimelinePlan
               tramites={plan.tramites}
               estados={expediente ? estados : undefined}

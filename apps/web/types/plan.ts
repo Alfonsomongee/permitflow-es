@@ -37,6 +37,11 @@ export interface Tramite {
   medio_presentacion?: string | null;
   paralelo_con?: number | null;
   regla_id?: string | null;
+  /** Efecto del silencio administrativo (Ley 39/2015, art. 24) si el
+   * organismo no resuelve dentro de plazo_legal_dias. null/ausente si no
+   * está verificado para este trámite concreto (no implica que no aplique
+   * -- ver schemas/clasificador.py::SilencioAdministrativo). */
+  silencio_administrativo?: "positivo" | "negativo" | null;
 }
 
 export interface EstadisticaPlazo {
