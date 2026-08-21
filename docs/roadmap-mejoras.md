@@ -21,8 +21,8 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 
 | ID | Nombre | Estado | Esfuerzo | Descripción |
 |---|---|---|---|---|
-| QW-01 | Plazos reales visibles junto al plazo legal | 🔄 En progreso | Bajo | Badge en cada trámite: "Legal: 10 días · Real en tu CCAA: 23 días", usando `estadisticas_plazos`. Primera pieza tras cerrar silencio administrativo. |
-| QW-02 | Radar normativo personalizado por cartera | ⬜ Pendiente | Bajo | Filtrar alertas del BOE por las CCAA/verticales que la organización tiene realmente en cartera + digest semanal por email (Resend ya integrado). |
+| QW-01 | Plazos reales visibles junto al plazo legal | ✅ Hecho (preexistente) | — | Verificado el 2026-08-21: `EstadisticaRealBadge` en `TramiteCard.tsx` ya muestra "media real: Nd" junto al badge de plazo legal, alimentado por `/api/expedientes/[id]/estadisticas` → `obtenerEstadisticasPlazo()` → tabla `estadisticas_plazos` real, con gate de plan Pro y sin fallback engañoso (sin datos, no muestra nada). Extremo a extremo, ya construido — no había nada que hacer aquí. |
+| QW-02 | Radar normativo personalizado por cartera | 🔄 En progreso | Bajo | Filtrar alertas del BOE por las CCAA/verticales que la organización tiene realmente en cartera + digest semanal por email (Resend ya integrado). |
 | QW-03 | Sello de cobertura verificada en el PDF del plan | ⬜ Pendiente | Bajo | Imprimir `nivel_verificacion`/`huecos_verificacion` en el propio documento descargable, no solo en la UI. |
 | QW-04 | Plazos legales como calendario (.ics) | ⬜ Pendiente | Bajo | Feed .ics por organización con los vencimientos ya calculados por `calcularVencimientoHabil`. |
 | QW-05 | Indicador de riesgo normativo visible | ✅ Hecho (preexistente) | — | `riesgo_normativo` **ya se muestra** en `RiesgoNormativoBanner` dentro de `PlanTramitacionView.tsx` — verificado en código el 2026-08-21. La segunda sesión de discovery lo listó como "invisible, nadie lo ve"; no era correcto en el momento de la verificación. Queda como posible mejora futura llevarlo también al resumen de la lista de expedientes (hoy solo está en el detalle). |
@@ -104,15 +104,15 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 | DATA-03 | Informe trimestral/sectorial de inteligencia de mercado | ⬜ Pendiente | Medio-alto | Informe automático personalizado por organización (evolución de tiempos, convocatorias nuevas, cambios normativos del trimestre) + versión sectorial pública como contenido de adquisición. |
 | DATA-04 | Predictor probabilístico de duración | ⬜ Pendiente | Alto | Pasar de media a distribución (P50/P90) para compromisos contractuales con riesgo calculado. Necesita masa crítica de datos en `estadisticas_plazos` — no antes de 12-18 meses de acumulación real. |
 | DATA-05 | Mapa de actividad normativa de España | ⬜ Pendiente | Medio | Visualización pública (lead magnet) del número de cambios normativos por CCAA/vertical en los últimos 12 meses, usando el propio pipeline BOE. |
-| DATA-06 | Panel de cartera propia vs. mercado | ⬜ Pendiente | Medio | Dashboard Pro: distribución de cartera por tecnología/CCAA/uso, evolución mensual, comparativa de tiempos sin revelar datos de terceros. |
+| DATA-06 | Panel de cartera propia vs. mercado | 🔶 Parcial | Medio | `/estadisticas` ya muestra KPIs, tendencia mensual y distribución por estado de la propia organización (`lib/estadisticas.ts::calcularEstadisticasReales`, con umbral de muestra mínima honesto). Falta la comparativa "tú vs. el sector" — hoy es solo autoanálisis, no benchmarking entre organizaciones. |
 
 ---
 
 ## Resumen de estado
 
-- ✅ Hecho: 1 (QW-05, preexistente — corrección de premisa)
-- 🔶 Parcial: 2 (PREM-01 silencio administrativo, EXP-05 subsanaciones)
-- 🔄 En progreso: 1 (QW-01 plazos reales)
-- ⬜ Pendiente: 38
+- ✅ Hecho: 2 (QW-01 plazos reales, QW-05 riesgo normativo visible — ambos preexistentes, corrección de premisa)
+- 🔶 Parcial: 3 (PREM-01 silencio administrativo, EXP-05 subsanaciones, DATA-06 panel de cartera)
+- 🔄 En progreso: 1 (QW-02 radar normativo personalizado)
+- ⬜ Pendiente: 36
 
-Última actualización: 2026-08-21, al iniciar QW-01.
+Última actualización: 2026-08-21. QW-01 resultó ya construido al verificarlo — se pasa a QW-02 (radar normativo por cartera) como siguiente quick win genuinamente pendiente.
