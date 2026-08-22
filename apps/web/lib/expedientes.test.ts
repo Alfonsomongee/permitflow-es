@@ -27,6 +27,7 @@ function expediente(overrides: Partial<DbExpediente> = {}): DbExpediente {
     },
     tiempo_total_dias: 30,
     estado: "aprobado",
+    fase_comercial: "aprobado",
     tramites_completados: 5,
     tramites_estado: { "1": { estado: "completado", fecha_inicio: "2026-01-01", fecha_completado: "2026-01-10" } },
     referencia_cliente: "Cliente Original S.L.",
@@ -59,6 +60,7 @@ describe("payloadDuplicado", () => {
     });
     const payload = payloadDuplicado(original);
     expect(payload.estado).toBe("borrador");
+    expect(payload.fase_comercial).toBe("clasificado");
     expect(payload.tramites_completados).toBe(0);
     expect(payload.tramites_estado).toEqual({});
   });

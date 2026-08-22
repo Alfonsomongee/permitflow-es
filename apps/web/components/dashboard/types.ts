@@ -1,3 +1,5 @@
+import type { FaseComercial } from "@/lib/faseComercial";
+
 export type EstadoExpediente =
   | "borrador"
   | "pendiente"
@@ -11,6 +13,7 @@ export interface Expediente {
   comunidad: string;
   potencia_kw: number;
   estado: EstadoExpediente;
+  fase_comercial: FaseComercial;
   tramites_total: number;
   tramites_completados: number;
   fecha_creacion: string;

@@ -7,6 +7,7 @@ import type {
   TramitesEstadoMap,
 } from "@/types/plan";
 import { hoyIso } from "./plazos";
+import type { FaseComercial } from "./faseComercial";
 
 function fallbackOrgName(clerkOrgId: string): string {
   return `Organizacion ${clerkOrgId.slice(-6)}`;
@@ -80,6 +81,7 @@ export async function crearExpediente({
       plan_tramitacion: plan,
       tiempo_total_dias: plan.tiempo_total_estimado_dias,
       estado: "pendiente",
+      fase_comercial: "clasificado",
       tramites_completados: 0,
     })
     .select()
@@ -132,6 +134,7 @@ export function payloadDuplicado(
     plan_tramitacion: original.plan_tramitacion,
     tiempo_total_dias: original.tiempo_total_dias,
     estado: "borrador",
+    fase_comercial: "clasificado",
     tramites_completados: 0,
     tramites_estado: {},
     referencia_cliente: null,
@@ -207,6 +210,7 @@ export interface PatchExpedienteInput {
   tramite?: { orden: number; estado: TramiteEstado };
   referencia_cliente?: string | null;
   notas?: string | null;
+  fase_comercial?: FaseComercial;
   /** Versión que el cliente leyó antes de mutar. Requerida en la práctica
    * para cambios de trámite: sin ella no hay protección frente a lost update. */
   version?: number;
@@ -217,6 +221,7 @@ export interface PatchExpedienteResult {
   tramites_completados: number;
   referencia_cliente: string | null;
   notas: string | null;
+  fase_comercial: FaseComercial;
   actualizado_en: string;
   version: number;
 }
@@ -282,6 +287,9 @@ export async function aplicarPatchExpediente(
   if (patch.notas !== undefined) {
     update.notas = patch.notas?.trim().slice(0, 4000) || null;
   }
+  if (patch.fase_comercial !== undefined) {
+    update.fase_comercial = patch.fase_comercial;
+  }
 
   let query = supabaseAdmin
     .from("expedientes")
@@ -298,7 +306,7 @@ export async function aplicarPatchExpediente(
 
   const { data, error } = await query
     .select(
-      "tramites_estado, tramites_completados, referencia_cliente, notas, actualizado_en, version"
+      "tramites_estado, tramites_completados, referencia_cliente, notas, fase_comercial, actualizado_en, version"
     )
     .maybeSingle();
 

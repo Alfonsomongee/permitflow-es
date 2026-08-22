@@ -33,7 +33,7 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 | QW-10 | Plantillas de email por cambio de estado de trámite | ⬜ Pendiente | Bajo | Email pre-redactado en lenguaje llano al marcar un trámite como completado, para reenviar al cliente final. |
 | QW-11 | Resumen ejecutivo de una página para el cliente final | ⬜ Pendiente | Bajo-medio | Nuevo tipo de documento (`resumen_cliente`): 1 página, sin base legal ni plataformas telemáticas, con logo del instalador. Nuevo template en el generador de documentos (no existe hoy — se confirmó que solo hay plan/checklist/MTD/dossier/presupuesto). |
 | QW-12 | Notificaciones de vencimiento con umbral configurable | ⬜ Pendiente | Bajo | Hoy avisa a ≤5 días hábiles fijo. Configurar 1-3 umbrales por organización. |
-| QW-13 | Vista Kanban de expedientes por estado | ⬜ Pendiente | Medio | Alternativa a la tabla actual, columnas por fase operativa. Primer paso hacia PREM-02 (cartera de proyectos completa). |
+| QW-13 | Vista Kanban de expedientes por estado | ✅ Hecho | Medio | Construido como parte de PREM-02: toggle Tabla/Kanban en `/expedientes` (`ExpedientesVista.tsx`). |
 
 ---
 
@@ -42,7 +42,7 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 | ID | Nombre | Estado | Esfuerzo | Descripción |
 |---|---|---|---|---|
 | PREM-01 | Silencio administrativo con siguiente paso legal | 🔶 Parcial | Medio | **Rama `feature/silencio-administrativo`.** Infraestructura completa (schema, detección, banner por expediente, resumen de cartera) construida y con tests — commits `7bad06a` y `8f27c1b`. Pendiente: poblar `silencio_administrativo` con datos reales trámite a trámite (checklist ya generado en `apps/api/motor_normativo/SILENCIO_ADMINISTRATIVO_PENDIENTE.md`, 94 trámites) — requiere revisión normativa humana, no se puede completar sin acceso a la norma real. |
-| PREM-02 | Cartera de proyectos / pipeline comercial | ⬜ Pendiente | Alto | Vista tipo kanban con fase comercial (prospección → simulación → clasificado → tramitación → aprobado) sobre los expedientes existentes. Elimina la necesidad de un CRM aparte para muchas instaladoras. |
+| PREM-02 | Cartera de proyectos / pipeline comercial | 🔶 Parcial (MVP) | Alto | Kanban con fase comercial (prospección → simulación enviada → clasificado → en tramitación → aprobado/rechazado), independiente del estado administrativo. Cambio de fase por selector en cada tarjeta, sin arrastrar y soltar (no había ninguna librería de DnD en el proyecto; añadir una solo para esto no se justificaba). Migración `fase_comercial` con backfill desde `estado`. Falta para ser "cartera de proyectos" completa: notas/tareas por fase, filtros del kanban, y drag-and-drop si el uso real lo pide. |
 | PREM-03 | Portal de cliente profesional | ⬜ Pendiente | Medio-alto | Amplía el portal `share_token` ya existente: vista de solo lectura del estado del expediente con cuenta atrás del plazo, autorización de representación firmada digitalmente, confirmación de lectura por hito, chat bidireccional con el instalador. |
 | PREM-04 | Comparador de financiación en el simulador | ⬜ Pendiente | Medio | Leasing / préstamo verde / renting energético junto a la opción de pago al contado que ya existe, sobre los mismos datos de consumo e inversión ya extraídos. |
 | PREM-05 | Informe de viabilidad descargable con marca del instalador | ⬜ Pendiente | Medio | PDF de marca blanca a partir del resultado de "Orientación"/idoneidad, para usar como material de venta antes de comprometerse a un proyecto. |
@@ -110,8 +110,8 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 
 ## Resumen de estado
 
-- ✅ Hecho: 5 (QW-01 plazos reales y QW-05 riesgo normativo visible — preexistentes, corrección de premisa; QW-02 radar normativo por cartera, QW-07 duplicar expediente, QW-08 filtro por tipo de actuación — preexistente/construidos en esta sesión)
-- 🔶 Parcial: 3 (PREM-01 silencio administrativo, EXP-05 subsanaciones, DATA-06 panel de cartera)
-- ⬜ Pendiente: 33
+- ✅ Hecho: 6 (QW-01 plazos reales y QW-05 riesgo normativo visible — preexistentes, corrección de premisa; QW-02 radar normativo por cartera, QW-07 duplicar expediente, QW-08 filtro por tipo de actuación, QW-13 vista kanban — construidos en esta sesión)
+- 🔶 Parcial: 4 (PREM-01 silencio administrativo, PREM-02 cartera de proyectos/kanban, EXP-05 subsanaciones, DATA-06 panel de cartera)
+- ⬜ Pendiente: 31
 
-Última actualización: 2026-08-21. Cerrados todos los quick wins de bajo esfuerzo que no dependían de infraestructura nueva. Nota aparte: se recibió y verificó una auditoría normativa externa de Andalucía cuyos hallazgos más concretos (coste RADNE, referencia F-Gas, "26 reglas muertas", `nivel_verificacion` sin declarar) no se sostuvieron al contrastarlos con los ficheros reales -- ver el hilo de esa verificación, no se ha aplicado ningún cambio a partir de ella salvo pendiente de confirmar la cita de RD 178/2021 en `andalucia/acs.json`.
+Última actualización: 2026-08-22. Construido el MVP de PREM-02 (kanban por fase comercial, primera funcionalidad premium concreta del roadmap). Nota aparte: se recibió y verificó una auditoría normativa externa de Andalucía cuyos hallazgos más concretos (coste RADNE, referencia F-Gas, "26 reglas muertas", `nivel_verificacion` sin declarar) no se sostuvieron al contrastarlos con los ficheros reales -- no se ha aplicado ningún cambio a partir de ella salvo pendiente de confirmar la cita de RD 178/2021 en `andalucia/acs.json`.

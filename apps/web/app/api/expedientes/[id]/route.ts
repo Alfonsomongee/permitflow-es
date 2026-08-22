@@ -6,6 +6,7 @@ import {
   obtenerExpediente,
   type PatchExpedienteInput,
 } from "@/lib/expedientes";
+import { esFaseComercial } from "@/lib/faseComercial";
 
 const ESTADOS_TRAMITE = new Set(["pendiente", "en_curso", "completado"]);
 
@@ -36,10 +37,15 @@ export async function PATCH(
     );
   }
 
+  if (body.fase_comercial !== undefined && !esFaseComercial(body.fase_comercial)) {
+    return NextResponse.json({ error: "Fase comercial inválida" }, { status: 400 });
+  }
+
   if (
     !body.tramite &&
     body.referencia_cliente === undefined &&
-    body.notas === undefined
+    body.notas === undefined &&
+    body.fase_comercial === undefined
   ) {
     return NextResponse.json({ error: "Nada que actualizar" }, { status: 400 });
   }
