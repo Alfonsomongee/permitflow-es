@@ -17,6 +17,19 @@ export interface Incentivo {
   fuente?: string;
 }
 
+// PREM-04 (roadmap de mejoras): comparador de financiación. Ver
+// OpcionFinanciacion en calculo_financiero.py -- toda la matemática vive en
+// el backend, este tipo solo describe lo que ya llega calculado.
+export interface OpcionFinanciacion {
+  tipo: "prestamo" | "renting";
+  nombre: string;
+  cuota_mensual: number;
+  plazo_anios: number;
+  coste_total_financiacion: number;
+  ahorro_mensual_neto: number;
+  nota: string;
+}
+
 export interface EscenarioAhorro {
   nombre: string;
   potencia_kwp: number;
@@ -28,6 +41,7 @@ export interface EscenarioAhorro {
   // para dibujar el ahorro junto a la factura real y no como cifra aislada.
   factura_actual_anual?: number;
   factura_con_instalacion_anual?: number;
+  opciones_financiacion?: OpcionFinanciacion[];
 }
 
 export interface InformeSimulacionIA {

@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Info, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Info, AlertTriangle, CheckCircle2, Wallet } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { LegalDisclaimer } from '@/components/legal/LegalDisclaimer';
 import type { InformeSimulacionIA } from '@/types/simulador';
@@ -68,6 +68,16 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
   const supuestoPrecio = informe.supuestos_utilizados.find(
     (s) => s.parametro === "precio_kwh_eur"
   );
+
+  // PREM-04: lo que suele decidir una venta no es el ahorro anual, es si la
+  // cuota mensual es menor que lo que hoy se paga de energía. Mismo criterio
+  // de honestidad que facturaData más arriba: "coste de la energía", no
+  // "factura" (no incluye el término fijo de potencia).
+  const costeEnergiaMensual =
+    escenarioPrincipal?.factura_actual_anual !== undefined
+      ? escenarioPrincipal.factura_actual_anual / 12
+      : undefined;
+  const opcionesFinanciacion = escenarioPrincipal?.opciones_financiacion ?? [];
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -175,6 +185,55 @@ export function InformeInteractivo({ informe }: InformeInteractivoProps) {
                     <Line type="monotone" dataKey="Con instalación" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
                   </LineChart>
                 </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {opcionesFinanciacion.length > 0 && (
+          <Card className="col-span-1 md:col-span-2">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Wallet className="h-4 w-4 text-muted-foreground" aria-hidden />
+                ¿Financiar o pagar al contado?
+              </CardTitle>
+              <CardDescription>
+                Compara la cuota mensual con lo que hoy pagas de energía. Cifras orientativas
+                (TAE y condiciones estimadas de mercado), no una oferta real de ninguna entidad.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {opcionesFinanciacion.map((opcion) => {
+                  const yaAhorra = opcion.ahorro_mensual_neto > 0;
+                  return (
+                    <div key={opcion.tipo} className="rounded-lg border p-4">
+                      <p className="text-sm font-semibold">{opcion.nombre}</p>
+                      <p className="mt-2 text-2xl font-bold tabular-nums">
+                        {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(opcion.cuota_mensual)}
+                        <span className="text-sm font-normal text-muted-foreground">/mes</span>
+                      </p>
+                      {costeEnergiaMensual !== undefined && (
+                        <div
+                          className={`mt-2 inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${
+                            yaAhorra
+                              ? 'border-green-300 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950/30 dark:text-green-400'
+                              : 'border-yellow-300 bg-yellow-50 text-yellow-700 dark:border-yellow-800 dark:bg-yellow-950/30 dark:text-yellow-400'
+                          }`}
+                        >
+                          {yaAhorra
+                            ? `Pagas ${new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(opcion.ahorro_mensual_neto)} menos al mes desde ya`
+                            : 'La cuota supera tu coste de energía actual durante el plazo'}
+                        </div>
+                      )}
+                      <p className="mt-3 text-xs text-muted-foreground">
+                        {opcion.plazo_anios} años · coste total financiado{' '}
+                        {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(opcion.coste_total_financiacion)}
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">{opcion.nota}</p>
+                    </div>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>

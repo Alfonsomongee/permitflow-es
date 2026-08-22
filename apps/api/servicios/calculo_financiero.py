@@ -51,6 +51,16 @@ RATIO_AUTOCONSUMO_NOTA = (
     "verificada con datos de monitorización reales."
 )
 
+# PREM-04 (roadmap de mejoras): comparador de financiación. Horquillas
+# orientativas, no una cotización real -- ver la nota del propio JSON.
+TAE_PRESTAMO_DEFECTO: float = _constantes_mercado["financiacion"]["prestamo"]["tae_defecto"]
+PLAZO_PRESTAMO_ANIOS_DEFECTO: int = _constantes_mercado["financiacion"]["prestamo"]["plazo_anios_defecto"]
+PRESTAMO_NOTA: str = _constantes_mercado["financiacion"]["prestamo"]["nota"]
+
+RENTING_PCT_ANUAL: float = _constantes_mercado["financiacion"]["renting"]["pct_anual_sobre_inversion"]
+PLAZO_RENTING_ANIOS_DEFECTO: int = _constantes_mercado["financiacion"]["renting"]["plazo_anios_defecto"]
+RENTING_NOTA: str = _constantes_mercado["financiacion"]["renting"]["nota"]
+
 # Producción específica media orientativa para España peninsular cuando no se
 # dispone de coordenadas para consultar PVGIS. PVGIS documenta un rango real de
 # ~1.100 (norte) a ~1.700 (sur) kWh/kWp/año; 1.400 es un punto medio razonable,
@@ -72,6 +82,29 @@ class SupuestoCalculo:
 
 
 @dataclass
+class OpcionFinanciacion:
+    """PREM-04 (roadmap de mejoras): lo que de verdad suele decidir una venta
+    de autoconsumo no es el ahorro anual, es si la cuota mensual de
+    financiación es menor que la factura eléctrica actual -- hoy el
+    simulador no respondía a esa pregunta. cuota_mensual y coste_total_
+    financiacion son matemática de amortización estándar (no una estimación
+    de mercado); tae_estimado/pct_anual_estimado sí lo son -- ver
+    PRESTAMO_NOTA/RENTING_NOTA."""
+
+    tipo: Literal["prestamo", "renting"]
+    nombre: str
+    cuota_mensual: float
+    plazo_anios: int
+    coste_total_financiacion: float
+    # factura mensual actual - cuota_mensual. Positivo = ya se paga menos
+    # desde el primer mes sin desembolso inicial; negativo = la cuota supera
+    # a la factura actual durante el plazo (el ahorro llega al terminar de
+    # pagar, no mes a mes).
+    ahorro_mensual_neto: float
+    nota: str
+
+
+@dataclass
 class EscenarioCalculado:
     nombre: str
     coste_inicial: float
@@ -89,6 +122,7 @@ class EscenarioCalculado:
     # que salgan de la misma fórmula trazable que el resto del escenario.
     factura_actual_anual: float = 0.0
     factura_con_instalacion_anual: float = 0.0
+    opciones_financiacion: list[OpcionFinanciacion] = field(default_factory=list)
     supuestos: list[SupuestoCalculo] = field(default_factory=list)
 
 
@@ -115,6 +149,61 @@ def _redondear_payback(tiempo_retorno: Optional[float]) -> Optional[float]:
         mas_fino = _redondear(tiempo_retorno, 3)
         return mas_fino if mas_fino > 0 else _redondear(tiempo_retorno, 6)
     return redondeado
+
+
+def _cuota_mensual_amortizacion_francesa(principal: float, tae_anual: float, plazo_anios: int) -> float:
+    """Cuota fija mensual de un préstamo a interés fijo, amortización
+    francesa (la habitual en préstamos al consumo/verdes en España).
+    tae_anual se convierte a tipo mensual como tae_anual / 12 -- una
+    simplificación estándar para una comparativa orientativa, no el cálculo
+    exacto de un TAE real (que compone mensualmente y puede incluir
+    comisiones); suficiente para lo que se pide aquí: comparar la cuota
+    frente a la factura eléctrica, no sustituir la oferta de un banco.
+    """
+    n_meses = plazo_anios * 12
+    r_mensual = tae_anual / 12
+    if r_mensual == 0:
+        return principal / n_meses
+    factor = (1 + r_mensual) ** n_meses
+    return principal * r_mensual * factor / (factor - 1)
+
+
+def calcular_opciones_financiacion(
+    coste_inicial: float,
+    factura_actual_anual: float,
+) -> list[OpcionFinanciacion]:
+    """Compara pagar al contado con dos alternativas de financiación,
+    siempre frente a la factura eléctrica ACTUAL (sin instalación) -- es la
+    cifra con la que un cliente real compara mentalmente cualquier cuota
+    nueva, no el ahorro anual agregado.
+    """
+    factura_actual_mensual = factura_actual_anual / 12
+
+    prestamo_cuota = _cuota_mensual_amortizacion_francesa(
+        coste_inicial, TAE_PRESTAMO_DEFECTO, PLAZO_PRESTAMO_ANIOS_DEFECTO
+    )
+    renting_cuota = coste_inicial * RENTING_PCT_ANUAL / 12
+
+    return [
+        OpcionFinanciacion(
+            tipo="prestamo",
+            nombre=f"Préstamo a {PLAZO_PRESTAMO_ANIOS_DEFECTO} años",
+            cuota_mensual=_redondear(prestamo_cuota, 2),
+            plazo_anios=PLAZO_PRESTAMO_ANIOS_DEFECTO,
+            coste_total_financiacion=_redondear(prestamo_cuota * PLAZO_PRESTAMO_ANIOS_DEFECTO * 12, 2),
+            ahorro_mensual_neto=_redondear(factura_actual_mensual - prestamo_cuota, 2),
+            nota=f"TAE estimada {TAE_PRESTAMO_DEFECTO:.1%}. {PRESTAMO_NOTA}",
+        ),
+        OpcionFinanciacion(
+            tipo="renting",
+            nombre=f"Renting a {PLAZO_RENTING_ANIOS_DEFECTO} años",
+            cuota_mensual=_redondear(renting_cuota, 2),
+            plazo_anios=PLAZO_RENTING_ANIOS_DEFECTO,
+            coste_total_financiacion=_redondear(renting_cuota * PLAZO_RENTING_ANIOS_DEFECTO * 12, 2),
+            ahorro_mensual_neto=_redondear(factura_actual_mensual - renting_cuota, 2),
+            nota=RENTING_NOTA,
+        ),
+    ]
 
 
 def calcular_escenario_fv(
@@ -350,4 +439,5 @@ def calcular_escenario_fv(
         factura_actual_anual=_redondear(factura_actual_anual, 2),
         factura_con_instalacion_anual=_redondear(factura_con_instalacion_anual, 2),
         supuestos=supuestos,
+        opciones_financiacion=calcular_opciones_financiacion(coste_inicial, factura_actual_anual),
     )
