@@ -27,8 +27,8 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 | QW-04 | Plazos legales como calendario (.ics) | ⬜ Pendiente | Bajo | Feed .ics por organización con los vencimientos ya calculados por `calcularVencimientoHabil`. |
 | QW-05 | Indicador de riesgo normativo visible | ✅ Hecho (preexistente) | — | `riesgo_normativo` **ya se muestra** en `RiesgoNormativoBanner` dentro de `PlanTramitacionView.tsx` — verificado en código el 2026-08-21. La segunda sesión de discovery lo listó como "invisible, nadie lo ve"; no era correcto en el momento de la verificación. Queda como posible mejora futura llevarlo también al resumen de la lista de expedientes (hoy solo está en el detalle). |
 | QW-06 | Aviso semanal de expedientes parados por email | ⬜ Pendiente | Bajo | El dashboard ya calcula expedientes sin movimiento ≥10 días (`PlazosActivos`); falta el email del lunes. |
-| QW-07 | Duplicar expediente | ⬜ Pendiente | Bajo | Clonar un expediente ya clasificado para proyectos repetidos (misma CCAA/potencia, distinta dirección/cliente). |
-| QW-08 | Filtro "Solo mis tareas" por `tipo_actuacion` | ⬜ Pendiente | Bajo | Toggle que filtra trámites por `accion_usuario` frente a `oficio_administracion`/`informativa`. El campo ya existe en el modelo, no se usa en la UI. |
+| QW-07 | Duplicar expediente | ✅ Hecho | Bajo | Botón "Duplicar" junto a "Eliminar" en el detalle del expediente. Clona el plan de tramitación ya calculado (no reclasifica) y los campos técnicos; vacía cliente/notas y reinicia el progreso a propósito — ver `lib/expedientes.ts::payloadDuplicado`. |
+| QW-08 | Filtro "Solo mis tareas" por `tipo_actuacion` | ✅ Hecho (preexistente) | — | Verificado el 2026-08-21: `PlanTramitacionView.tsx` ya separa los trámites en secciones claramente etiquetadas por `contarTramites()` — "N trámites a realizar" (accionables), "N actuación administrativa de oficio" (colapsada por defecto), informativos y de revisión aparte. La confusión que motivaba este quick win ("¿esto lo hago yo o la administración?") ya está resuelta por diseño; un toggle adicional sería redundante. |
 | QW-09 | Asignar un trámite a una persona del equipo | ⬜ Pendiente | Medio-bajo | Propiedad por trámite sobre el directorio de organización de Clerk (hasta 5 usuarios en plan Pro). Complementa QW-08: uno filtra por naturaleza del trámite, el otro por responsable. |
 | QW-10 | Plantillas de email por cambio de estado de trámite | ⬜ Pendiente | Bajo | Email pre-redactado en lenguaje llano al marcar un trámite como completado, para reenviar al cliente final. |
 | QW-11 | Resumen ejecutivo de una página para el cliente final | ⬜ Pendiente | Bajo-medio | Nuevo tipo de documento (`resumen_cliente`): 1 página, sin base legal ni plataformas telemáticas, con logo del instalador. Nuevo template en el generador de documentos (no existe hoy — se confirmó que solo hay plan/checklist/MTD/dossier/presupuesto). |
@@ -110,8 +110,8 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 
 ## Resumen de estado
 
-- ✅ Hecho: 3 (QW-01 plazos reales y QW-05 riesgo normativo visible — preexistentes, corrección de premisa; QW-02 radar normativo por cartera — construido en esta sesión)
+- ✅ Hecho: 5 (QW-01 plazos reales y QW-05 riesgo normativo visible — preexistentes, corrección de premisa; QW-02 radar normativo por cartera, QW-07 duplicar expediente, QW-08 filtro por tipo de actuación — preexistente/construidos en esta sesión)
 - 🔶 Parcial: 3 (PREM-01 silencio administrativo, EXP-05 subsanaciones, DATA-06 panel de cartera)
-- ⬜ Pendiente: 35
+- ⬜ Pendiente: 33
 
-Última actualización: 2026-08-21. QW-01 resultó ya construido al verificarlo. QW-02 (filtro de alertas por cartera + digest semanal por email) construido y con tests; pendiente de verificar el envío real de email en el primer despliegue con credenciales de Resend/Clerk en vivo.
+Última actualización: 2026-08-21. Cerrados todos los quick wins de bajo esfuerzo que no dependían de infraestructura nueva. Nota aparte: se recibió y verificó una auditoría normativa externa de Andalucía cuyos hallazgos más concretos (coste RADNE, referencia F-Gas, "26 reglas muertas", `nivel_verificacion` sin declarar) no se sostuvieron al contrastarlos con los ficheros reales -- ver el hilo de esa verificación, no se ha aplicado ningún cambio a partir de ella salvo pendiente de confirmar la cita de RD 178/2021 en `andalucia/acs.json`.
