@@ -11,6 +11,7 @@ import {
   Zap,
   Droplets,
   Flame,
+  Download,
 } from "lucide-react";
 import type { FichaTecnologia } from "@/content/tecnologias";
 import { BloqueFiscal } from "@/components/orientacion/BloqueFiscal";
@@ -131,6 +132,8 @@ export function IndiceIdoneidad({ tecnologiaId, onResult }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<IdoneidadResult | null>(null);
+  const [descargando, setDescargando] = useState(false);
+  const [errorDescarga, setErrorDescarga] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,6 +165,41 @@ export function IndiceIdoneidad({ tecnologiaId, onResult }: Props) {
       onResult?.(null);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDescargarInforme = async () => {
+    if (!result) return;
+    setDescargando(true);
+    setErrorDescarga(null);
+    try {
+      const res = await fetch("/api/documentos/informe-viabilidad", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tecnologia_id: tecnologiaId,
+          municipio,
+          provincia,
+          idoneidad: result,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "No se pudo generar el informe.");
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `PermitFlow_Informe_Viabilidad_${municipio.trim()}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err: unknown) {
+      setErrorDescarga(err instanceof Error ? err.message : "Error de conexión");
+    } finally {
+      setDescargando(false);
     }
   };
 
@@ -418,6 +456,26 @@ export function IndiceIdoneidad({ tecnologiaId, onResult }: Props) {
                 </div>
               </div>
             )}
+
+            {/* Descarga del informe */}
+            <div className="mt-4 border-t border-border pt-4">
+              <button
+                type="button"
+                onClick={handleDescargarInforme}
+                disabled={descargando}
+                className="inline-flex items-center gap-2 rounded-md border border-primary/30 bg-primary-light px-3.5 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/15 disabled:opacity-50"
+              >
+                {descargando ? (
+                  <Loader2 size={15} className="animate-spin" />
+                ) : (
+                  <Download size={15} aria-hidden />
+                )}
+                Descargar informe de viabilidad (PDF)
+              </button>
+              {errorDescarga && (
+                <p className="mt-2 text-xs text-danger">{errorDescarga}</p>
+              )}
+            </div>
 
             {/* Aviso legal */}
             <div className="flex items-start gap-2 text-xs text-text-secondary mt-4 border-t border-border pt-4">

@@ -12,7 +12,7 @@ from .contextos import (
     etiqueta_tipo,
     resumen_progreso,
 )
-from .schemas import GenerarDocumentoInput
+from .schemas import GenerarDocumentoInput, GenerarInformeViabilidadInput
 
 BRAND = (15, 76, 58)        # verde corporativo sobrio
 GRIS = (110, 110, 110)
@@ -223,6 +223,119 @@ def generar_presupuesto_pdf(payload: GenerarDocumentoInput) -> bytes:
         pdf.cell(
             0, 5,
             _s("Presupuesto generado automaticamente con PermitFlow ES - permitflow.es"),
+            new_x="LMARGIN", new_y="NEXT", align="C",
+        )
+    pdf.set_text_color(0, 0, 0)
+
+    return bytes(pdf.output())
+
+
+# ── Informe de viabilidad (PREM-05) ────────────────────────────────────────
+
+BANDA_LABEL = {
+    "excelente": "Excelente", "buena": "Buena", "moderada": "Moderada", "baja": "Baja",
+}
+
+
+def generar_informe_viabilidad_pdf(payload: GenerarInformeViabilidadInput) -> bytes:
+    """Informe de una página con el índice de idoneidad geográfica (PVGIS /
+    zona climática CTE) de una ubicación para una tecnología, con la marca
+    del instalador. Se genera sin expediente ni clasificación previa: es el
+    primer documento descargable del embudo, antes de simular o clasificar."""
+    org = payload.organizacion
+    idx = payload.idoneidad
+    pdf = PermitFlowPDF(org.nombre, "Informe de viabilidad geográfica")
+    pdf.add_page()
+
+    pdf.set_font("helvetica", "B", 16)
+    pdf.set_text_color(0, 0, 0)
+    pdf.cell(0, 9, _s(etiqueta_tipo(payload.tecnologia_id)), new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("helvetica", "", 10)
+    pdf.set_text_color(*GRIS)
+    pdf.cell(
+        0, 6,
+        _s(f"{payload.municipio} ({payload.provincia}) - {etiqueta_comunidad(idx.ubicacion.comunidad)}"),
+        new_x="LMARGIN", new_y="NEXT",
+    )
+    pdf.ln(3)
+    pdf.set_text_color(0, 0, 0)
+
+    filas_cabecera: list[tuple[str, str]] = []
+    if payload.referencia_cliente:
+        filas_cabecera.append(("Referencia de cliente", payload.referencia_cliente))
+    filas_cabecera.append(("Ubicación", f"{payload.municipio} ({payload.provincia})"))
+    filas_cabecera.append(("Comunidad autónoma", etiqueta_comunidad(idx.ubicacion.comunidad)))
+    pdf.bloque_datos(filas_cabecera)
+
+    pdf.subtitulo("Índice de idoneidad")
+
+    if payload.tecnologia_id == "fotovoltaica_autoconsumo":
+        fv = idx.idoneidad.fotovoltaica_autoconsumo
+        if fv.disponible:
+            filas = [
+                ("Producción específica",
+                 f"{fv.produccion_especifica_kwh_kwp_year:g} kWh/kWp/año"
+                 if fv.produccion_especifica_kwh_kwp_year is not None else "-"),
+                ("Radiación anual",
+                 f"{fv.radiacion_anual_kwh_m2:g} kWh/m2"
+                 if fv.radiacion_anual_kwh_m2 is not None else "-"),
+                ("Clasificación", BANDA_LABEL.get(fv.banda or "", fv.banda or "-")),
+            ]
+            pdf.bloque_datos(filas)
+        else:
+            pdf.multi_cell(0, 5, _s("Datos de PVGIS no disponibles para esta ubicación."))
+
+    elif payload.tecnologia_id == "climatizacion_aerotermia":
+        cl = idx.idoneidad.climatizacion_aerotermia
+        if cl.disponible:
+            filas = [
+                ("Zona climática CTE", cl.zona_climatica or "-"),
+                ("Clasificación", BANDA_LABEL.get(cl.banda or "", cl.banda or "-")),
+            ]
+            if idx.ubicacion.zona_climatica_aproximada:
+                filas.append(("Origen del dato", "Aproximada a la capital de provincia"))
+            pdf.bloque_datos(filas)
+            if cl.descripcion_zona:
+                pdf.set_font("helvetica", "", 9)
+                pdf.multi_cell(0, 5, _s(cl.descripcion_zona), new_x="LMARGIN", new_y="NEXT")
+                pdf.ln(2)
+        else:
+            pdf.multi_cell(0, 5, _s("Datos climáticos CTE no disponibles para esta ubicación."))
+
+    else:
+        # IRVE, ACS y gas: sin idoneidad geográfica cuantitativa por ahora,
+        # el informe se limita a la ubicación (mismo criterio honesto que la
+        # ficha web: no se inventa una banda que el motor no calcula).
+        pdf.set_font("helvetica", "", 9)
+        pdf.multi_cell(
+            0, 5,
+            _s(
+                "Esta tecnología no dispone todavía de un índice de idoneidad geográfica "
+                "cuantitativo. La normativa aplicable depende de la ubicación exacta y del "
+                "organismo competente; consulta la ficha de tecnología para más detalle."
+            ),
+        )
+
+    # ── Aviso legal ──
+    pdf.ln(3)
+    pdf.set_font("helvetica", "I", 7.5)
+    pdf.set_text_color(*GRIS)
+    pdf.multi_cell(0, 4, _s(f"- {idx.aviso}"), new_x="LMARGIN", new_y="NEXT")
+    pdf.multi_cell(
+        0, 4,
+        _s("- Este informe no evalúa viabilidad económica: no calcula ahorro, "
+           "amortización ni presupuesto. Es un indicador geográfico previo."),
+        new_x="LMARGIN", new_y="NEXT",
+    )
+
+    # ── Marca PermitFlow (plan gratuito) ──
+    if org.marca_permitflow:
+        pdf.ln(4)
+        pdf.set_font("helvetica", "B", 8)
+        pdf.set_text_color(*BRAND)
+        pdf.cell(
+            0, 5,
+            _s("Informe generado automaticamente con PermitFlow ES - permitflow.es"),
             new_x="LMARGIN", new_y="NEXT", align="C",
         )
     pdf.set_text_color(0, 0, 0)
