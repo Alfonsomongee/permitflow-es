@@ -4,6 +4,9 @@ import {
   alertaAfectaExpediente,
   alertaRelevanteParaCartera,
   mapearAlertasAExpedientes,
+  alertaEsPosteriorAExpediente,
+  alertaImpactaRetroactivamente,
+  expedientesConImpactoRetroactivo,
 } from "./alertas";
 import type { DbAlertaBoe, DbExpediente } from "./supabase";
 
@@ -28,7 +31,7 @@ function alerta(overrides: Partial<DbAlertaBoe> = {}): DbAlertaBoe {
 
 function expediente(overrides: Partial<DbExpediente> = {}): Pick<
   DbExpediente,
-  "id" | "comunidad" | "tipo_instalacion" | "estado" | "referencia_cliente"
+  "id" | "comunidad" | "tipo_instalacion" | "estado" | "referencia_cliente" | "creado_en"
 > {
   return {
     id: "e1",
@@ -36,6 +39,7 @@ function expediente(overrides: Partial<DbExpediente> = {}): Pick<
     tipo_instalacion: "fotovoltaica_autoconsumo",
     estado: "pendiente",
     referencia_cliente: null,
+    creado_en: "2026-01-01T00:00:00Z",
     ...overrides,
   };
 }
@@ -123,5 +127,84 @@ describe("alertaRelevanteParaCartera", () => {
     const a = alerta({ ccaa_afectadas: ["madrid"] });
     const cartera = [expediente({ id: "e1", comunidad: "madrid", estado: "aprobado" })];
     expect(alertaRelevanteParaCartera(a, cartera)).toBe(true);
+  });
+});
+
+describe("alertaEsPosteriorAExpediente", () => {
+  it("false si la alerta no está aplicada (sugerencia de IA sin revisar)", () => {
+    const a = alerta({ aplicada: false, aplicada_en: "2026-06-01T00:00:00Z" });
+    const e = expediente({ creado_en: "2026-01-01T00:00:00Z" });
+    expect(alertaEsPosteriorAExpediente(a, e)).toBe(false);
+  });
+
+  it("false si aplicada pero sin fecha de aplicación", () => {
+    const a = alerta({ aplicada: true, aplicada_en: null });
+    const e = expediente({ creado_en: "2026-01-01T00:00:00Z" });
+    expect(alertaEsPosteriorAExpediente(a, e)).toBe(false);
+  });
+
+  it("false si se aplicó ANTES de crear el expediente (ya vigente al crearlo)", () => {
+    const a = alerta({ aplicada: true, aplicada_en: "2026-01-01T00:00:00Z" });
+    const e = expediente({ creado_en: "2026-06-01T00:00:00Z" });
+    expect(alertaEsPosteriorAExpediente(a, e)).toBe(false);
+  });
+
+  it("true si se aplicó DESPUÉS de crear el expediente", () => {
+    const a = alerta({ aplicada: true, aplicada_en: "2026-06-01T00:00:00Z" });
+    const e = expediente({ creado_en: "2026-01-01T00:00:00Z" });
+    expect(alertaEsPosteriorAExpediente(a, e)).toBe(true);
+  });
+});
+
+describe("alertaImpactaRetroactivamente", () => {
+  it("false si es posterior pero no afecta a la CCAA/vertical del expediente", () => {
+    const a = alerta({
+      aplicada: true,
+      aplicada_en: "2026-06-01T00:00:00Z",
+      ccaa_afectadas: ["canarias"],
+    });
+    const e = expediente({ comunidad: "andalucia", creado_en: "2026-01-01T00:00:00Z" });
+    expect(alertaImpactaRetroactivamente(a, e)).toBe(false);
+  });
+
+  it("false si afecta pero es una sugerencia de IA sin verificar", () => {
+    const a = alerta({ aplicada: false, aplicada_en: "2026-06-01T00:00:00Z" });
+    const e = expediente({ creado_en: "2026-01-01T00:00:00Z" });
+    expect(alertaImpactaRetroactivamente(a, e)).toBe(false);
+  });
+
+  it("true solo cuando afecta, está verificada y es posterior a la creación", () => {
+    const a = alerta({
+      aplicada: true,
+      aplicada_en: "2026-06-01T00:00:00Z",
+      ccaa_afectadas: ["andalucia"],
+    });
+    const e = expediente({ comunidad: "andalucia", creado_en: "2026-01-01T00:00:00Z" });
+    expect(alertaImpactaRetroactivamente(a, e)).toBe(true);
+  });
+});
+
+describe("expedientesConImpactoRetroactivo", () => {
+  it("solo incluye expedientes activos", () => {
+    const a = alerta({ aplicada: true, aplicada_en: "2026-06-01T00:00:00Z" });
+    const activo = expediente({ id: "e1", estado: "pendiente", creado_en: "2026-01-01T00:00:00Z" });
+    const aprobado = expediente({ id: "e2", estado: "aprobado", creado_en: "2026-01-01T00:00:00Z" });
+    const resultado = expedientesConImpactoRetroactivo([a], [activo, aprobado]);
+    expect(resultado.map((r) => r.expediente.id)).toEqual(["e1"]);
+  });
+
+  it("agrupa todas las alertas retroactivas del mismo expediente juntas", () => {
+    const a1 = alerta({ id: "a1", aplicada: true, aplicada_en: "2026-06-01T00:00:00Z" });
+    const a2 = alerta({ id: "a2", aplicada: true, aplicada_en: "2026-07-01T00:00:00Z" });
+    const e = expediente({ id: "e1", creado_en: "2026-01-01T00:00:00Z" });
+    const resultado = expedientesConImpactoRetroactivo([a1, a2], [e]);
+    expect(resultado).toHaveLength(1);
+    expect(resultado[0].alertas.map((a) => a.id).sort()).toEqual(["a1", "a2"]);
+  });
+
+  it("no incluye expedientes sin ninguna alerta retroactiva", () => {
+    const a = alerta({ aplicada: false }); // sugerencia sin verificar
+    const e = expediente({ creado_en: "2026-01-01T00:00:00Z" });
+    expect(expedientesConImpactoRetroactivo([a], [e])).toHaveLength(0);
   });
 });

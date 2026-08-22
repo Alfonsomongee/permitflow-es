@@ -15,9 +15,11 @@ import {
   SilencioAdministrativoResumen,
   type SilencioResumenItem,
 } from "@/components/dashboard/SilencioAdministrativoResumen";
+import { ImpactoRetroactivoResumen } from "@/components/dashboard/ImpactoRetroactivoResumen";
 import { diasEntre, hoyIso } from "@/lib/plazos";
 import { calcularVencimientoHabil } from "@/lib/festivos";
 import { detectarSilenciosVencidos } from "@/lib/silencioAdministrativo";
+import { obtenerAlertasOrg, expedientesConImpactoRetroactivo } from "@/lib/alertas";
 
 export default async function ExpedientesPage({
   searchParams,
@@ -32,8 +34,12 @@ export default async function ExpedientesPage({
 
   const { buscar } = searchParams;
 
-  const dbExpedientes = await listarExpedientes(orgId);
+  const [dbExpedientes, alertasOrg] = await Promise.all([
+    listarExpedientes(orgId),
+    obtenerAlertasOrg(orgId),
+  ]);
   const kpis = obtenerKpis(dbExpedientes);
+  const impactoRetroactivo = expedientesConImpactoRetroactivo(alertasOrg, dbExpedientes);
 
   const expedientesUI = dbExpedientes.map((expediente) => ({
     id: expediente.id,
@@ -131,6 +137,7 @@ export default async function ExpedientesPage({
         </Link>
       </div>
 
+      <ImpactoRetroactivoResumen items={impactoRetroactivo} />
       <SilencioAdministrativoResumen items={silenciosTop} />
       <PlazosActivos plazos={plazosTop} estancados={estancadosTop} />
 

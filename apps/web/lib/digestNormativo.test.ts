@@ -30,6 +30,7 @@ function expediente(overrides: Partial<ExpedienteMatch> = {}): ExpedienteMatch {
     tipo_instalacion: "fotovoltaica_autoconsumo",
     estado: "pendiente",
     referencia_cliente: null,
+    creado_en: "2026-01-01T00:00:00Z",
     ...overrides,
   };
 }
