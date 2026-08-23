@@ -17,6 +17,45 @@ No es un documento de referencia pasiva — es el registro de qué está hecho.
 
 ---
 
+## 0. Hallazgos críticos de auditoría (2026-08-23)
+
+Auditoría contra **producción real** (Supabase advisors + `count(*)` + historial
+de GitHub Actions), no contra el código. Todo lo de abajo está verificado con
+evidencia; nada es inferencia.
+
+El patrón de fondo no es ninguno de los bugs por separado: es que **el repo y
+producción han divergido** y no hay nada que lo detecte. Hay migraciones
+commiteadas que nunca se aplicaron y un job crítico lleva casi un mes en rojo
+sin que salte ninguna alarma.
+
+| ID | Hallazgo | Estado | Gravedad | Evidencia y detalle |
+|----|----------|--------|----------|---------------------|
+| AUD-01 | Pipeline BOE lleva **7 ejecuciones seguidas fallando** (desde el 30-jul; última verde el 27-jul) | ✅ Corregido (falta secreto) | **Crítica** | El motor de inteligencia normativa —el diferenciador del producto— lleva ~3,5 semanas sin producir nada. Causa del último run: `boe_pipeline.py:44` importa `config.settings`, cuyo `Settings` exige `SECRET_KEY`, y el bloque `env:` del workflow no lo pasaba → `ValidationError` en el import, exit 1 en ~13s. Los fallos del 30-jul al 9-ago tienen **otra causa distinta** (esa línea se añadió en `fe480dc`, 9-ago): han sido al menos dos roturas encadenadas. Corregido el `env:` + preflight de secretos + aviso por email en `if: failure()`. **Pendiente del usuario**: el log muestra `SUPABASE_SERVICE_ROLE_KEY: ''` — el secreto está vacío en GitHub, así que aunque arranque no podrá escribir en `alertas_boe`. |
+| AUD-02 | `newsletter_suscriptores` sin RLS y con `anon` pudiendo `SELECT/INSERT/UPDATE/DELETE/TRUNCATE` | ✅ Migración escrita | **Crítica** | La anon key viaja en el bundle del navegador (`NEXT_PUBLIC_SUPABASE_ANON_KEY`). Cualquiera podía leer la lista completa de correos (dato personal → RGPD) **y borrarla o truncarla**. Hoy 0 filas: el agujero es real pero aún no se ha filtrado nada. Migración `20260823100000`. |
+| AUD-03 | `organizaciones` sin RLS, con `anon: SELECT` | ✅ Migración escrita | Alta | Exponía `nombre`, `plan`, `suscripcion_activa`, `clerk_org_id` de todos los clientes (lista de clientes + quién paga). **Solo lectura**: no permitía activarse Pro gratis, no hay grant de `UPDATE`. Misma migración. |
+| AUD-04 | `estadisticas_plazos` **no existe en producción** | 🔶 Migración pendiente de aplicar | Alta | La migración `20260712090000_estadisticas_plazos.sql` está en el repo pero la tabla no existe (`to_regclass` → null). Dos rutas la usan: el cron semanal `/api/cron/estadisticas-plazos` (falla en cada ejecución) y `lib/estadisticas.ts`. Es la base de QW-01, EXP-07, DATA-02 y DATA-04. |
+| AUD-05 | `lib/estadisticas.ts` descartaba el `error` de Supabase | ✅ Corregido | Media | Hacía indistinguibles "aún no hay muestra" y "la consulta ha reventado": la UI mostraba el mismo vacío en los dos casos, que es justo por lo que AUD-04 pasó desapercibido. Ahora se registra el error y se sigue degradando a `{}`. |
+| AUD-06 | `marcar_alerta_aplicada` ejecutable por `anon` pese a existir migración que lo revoca | ✅ Migración escrita | Media | `20260808080208_revocar_execute_marcar_alerta_aplicada.sql` está commiteada, pero los advisors (0028/0029) siguen marcándola el 2026-08-23 → **nunca se aplicó**. Segunda prueba independiente de la deriva repo↔producción. Reafirmado de forma idempotente. |
+| AUD-07 | Deriva repo ↔ producción sin detección | ⬜ Pendiente | Alta | Causa común de AUD-04 y AUD-06. Las migraciones se aplican a mano (confirmado: `fase_comercial` se aplicó manualmente el 22-ago). No hay `supabase db push` en CI ni chequeo de drift. Mientras siga así, cualquier migración futura puede quedarse sin aplicar en silencio. |
+
+### Activos construidos y sin usar (verificado con `count(*)`)
+
+No son bugs: es capacidad ya pagada que no está produciendo valor. Con
+**1 organización y 43 expedientes**, el producto está en pre-lanzamiento, así
+que esto reordena prioridades: el cuello de botella no es tener más
+funcionalidades premium, es que las que ya existen no tienen datos dentro.
+
+| Tabla | Filas | Lectura |
+|-------|-------|---------|
+| `alertas_boe` | **0** | Consecuencia directa de AUD-01. QW-02 (digest semanal) y PREM-08 (impacto retroactivo), construidos en esta sesión, operan sobre una tabla vacía: **no pueden disparar nunca**. |
+| `asistente_conversaciones` / `asistente_mensajes` | **0** / **0** | Pero `asistente_uso` tiene 4 filas: el chat **se usa y se contabiliza, pero no se persiste**. `/api/v1/asistente/conversacion` siempre devolverá vacío → el asistente no tiene memoria y no hay bucle de calidad (`asistente_reportes` también a 0). |
+| `catalogo_componentes` | **0** | Esquema completo con `coste`, `fuente_url`, `fecha_verificacion`, `nivel_verificacion`: es una base de datos de precios verificados ya diseñada y nunca poblada. El activo latente más valioso del repo (ver DATA-01). |
+| `analisis_facturas` / `estudios_energeticos` | **0** / **0** | Subsistema de estudios energéticos con endpoints vivos y llamados desde el frontend, sin una sola fila. |
+| `notificaciones` | **0** | El cron diario `/api/cron/notificaciones-plazos` no ha generado nunca una notificación. |
+| `documentos_cliente` / `subsanaciones` | **0** / **0** | Portal de cliente y workflow de subsanaciones construidos y sin estrenar. |
+
+---
+
 ## 1. Quick wins
 
 | ID | Nombre | Estado | Esfuerzo | Descripción |

@@ -13,7 +13,7 @@ export async function obtenerEstadisticasPlazo(
 
   const claves = Array.from(new Set(tramites.map(claveTramite)));
 
-  const { data } = await supabaseAdmin
+  const { data, error } = await supabaseAdmin
     .from("estadisticas_plazos")
     .select(
       "clave_tramite, nombre_tramite, plazo_legal_dias, muestra_n, media_real_dias, mediana_real_dias"
@@ -21,6 +21,20 @@ export async function obtenerEstadisticasPlazo(
     .eq("comunidad", comunidad)
     .eq("tipo_instalacion", tipoInstalacion)
     .in("clave_tramite", claves);
+
+  // Descartar el error hacía indistinguibles "aún no hay muestra suficiente" y
+  // "la consulta ha fallado": la UI mostraba el mismo vacío en ambos casos. De
+  // hecho la tabla NO existe en producción (la migración
+  // 20260712090000_estadisticas_plazos.sql nunca se aplicó, verificado el
+  // 2026-08-23), así que esta rama llevaba fallando en silencio desde siempre.
+  // Se sigue degradando a {} -- los plazos reales son un extra, no deben tumbar
+  // la página -- pero ahora deja rastro.
+  if (error) {
+    console.error(
+      `[estadisticas_plazos] consulta fallida (${comunidad}/${tipoInstalacion}): ${error.message}`
+    );
+    return {};
+  }
 
   const resultado: Record<string, EstadisticaPlazo> = {};
   for (const fila of data ?? []) {

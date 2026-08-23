@@ -23,9 +23,35 @@ jobs:
           # supabase-python para guardar alertas en base de datos
           uv add supabase
 
+      # El pipeline lleva fallando desde el 30/07/2026 sin que nadie lo note:
+      # importa `config.settings`, cuyo Settings exige SECRET_KEY, y el bloque
+      # env: no lo pasaba -> ValidationError en el import, exit 1 en ~13s.
+      # Este paso convierte ese fallo mudo en un mensaje explícito y ANTES de
+      # gastar cuota de DeepSeek.
+      - name: Comprobar secretos obligatorios
+        env:
+          SECRET_KEY:                ${{ secrets.SECRET_KEY }}
+          DEEPSEEK_API_KEY:          ${{ secrets.DEEPSEEK_API_KEY }}
+          SUPABASE_URL:              ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          faltan=""
+          for s in SECRET_KEY DEEPSEEK_API_KEY SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY; do
+            if [ -z "${!s}" ]; then faltan="$faltan $s"; fi
+          done
+          if [ -n "$faltan" ]; then
+            echo "::error::Secretos vacíos o no configurados:$faltan"
+            echo "Configúralos en Settings > Secrets and variables > Actions."
+            echo "Sin SUPABASE_SERVICE_ROLE_KEY el pipeline se ejecuta pero NO"
+            echo "puede escribir en alertas_boe: las alertas se pierden."
+            exit 1
+          fi
+          echo "Todos los secretos obligatorios están presentes."
+
       - name: Ejecutar pipeline BOE v2
         working-directory: apps/api
         env:
+          SECRET_KEY:             ${{ secrets.SECRET_KEY }}
           DEEPSEEK_API_KEY:       ${{ secrets.DEEPSEEK_API_KEY }}
           RESEND_API_KEY:         ${{ secrets.RESEND_API_KEY }}
           NOTIFICATION_EMAIL:     ${{ secrets.NOTIFICATION_EMAIL }}
@@ -43,6 +69,30 @@ jobs:
           path: apps/api/motor_normativo/borradores/
           if-no-files-found: ignore
           retention-days: 30
+
+      # Sin esto el pipeline es un punto único de fallo silencioso: es la
+      # única fuente que alimenta alertas_boe, y de ella dependen el radar
+      # normativo, el digest semanal y el impacto retroactivo (PREM-08).
+      - name: Avisar por email si el pipeline ha fallado
+        if: failure()
+        env:
+          RESEND_API_KEY:     ${{ secrets.RESEND_API_KEY }}
+          NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
+          RESEND_FROM_DOMAIN: ${{ secrets.RESEND_FROM_DOMAIN }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ] || [ -z "$NOTIFICATION_EMAIL" ]; then
+            echo "Sin credenciales de Resend: no se envía aviso."
+            exit 0
+          fi
+          curl -sS -X POST "https://api.resend.com/emails" \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"from\": \"PermitFlow <alertas@${RESEND_FROM_DOMAIN:-permitflow.es}>\",
+              \"to\": [\"$NOTIFICATION_EMAIL\"],
+              \"subject\": \"[PermitFlow] El pipeline BOE ha fallado\",
+              \"html\": \"<p>La ejecucion del pipeline normativo ha fallado. Mientras siga rojo no entran alertas nuevas en <code>alertas_boe</code> y el radar normativo queda congelado.</p><p><a href='https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'>Ver el run</a></p>\"
+            }" || echo "No se pudo enviar el aviso (no se bloquea el workflow)."
 
       - name: Abrir PR si hay borradores con diff aplicable
         if: success()
