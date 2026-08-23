@@ -1,0 +1,44 @@
+# Línea base de deriva de migraciones — AUD-07, 2026-08-23
+#
+# Deriva YA EXISTENTE entre supabase/migrations/ y
+# supabase_migrations.schema_migrations en producción, verificada el
+# 2026-08-23. check_migration_drift.py la informa pero no rompe el build por
+# ella; sí falla ante cualquier deriva NUEVA.
+#
+# Esto es deuda declarada, no una lista de excepciones permanente. Cada línea
+# debería acabar borrándose según se reconcilie. Si este fichero se queda
+# quieto durante meses, el problema no es el fichero.
+#
+# Causa común: las migraciones se han venido aplicando a mano desde el editor
+# SQL del panel de Supabase, que NO escribe en schema_migrations. Los objetos
+# existen en la base de datos, pero el registro no se entera.
+
+# ── En el repo, sin registrar; los objetos SÍ existen en producción ──────────
+# (aplicadas a mano en su día; verificado que las tablas están creadas)
+20260710120000   # tramites_estado
+20260723100000   # sync_esquema_manual
+20260723100001   # pipeline_boe_v2
+20260723100002   # alertas_leidas
+20260729120000   # notificaciones_y_portal_cliente
+20260822090000   # fase_comercial — aplicada a mano el 2026-08-22
+
+# ── Misma migración con dos números de versión distintos ────────────────────
+# El repo la tiene como 20260806120000_rls_aislamiento_multi_tenant.sql y
+# producción la registró como 20260808075847 con idéntico nombre. Es la misma
+# migración renumerada, no dos migraciones.
+20260806120000   # rls_aislamiento_multi_tenant (aplicada como 20260808075847)
+20260808075847   # rls_aislamiento_multi_tenant (fichero: 20260806120000)
+
+# ── Aplicadas en producción y SIN fichero en el repo ─────────────────────────
+# El esquema real no es reproducible desde git mientras estas dos sigan así.
+# Para reconciliar: volcar su DDL a un fichero de migración y borrar la línea.
+20260809090457   # add_newsletter_suscriptores
+20260809115540   # add_consumo_mensual_kwh
+
+# ── NO se añaden a la línea base, a propósito ────────────────────────────────
+# 20260712090000_estadisticas_plazos      -> la tabla NO existe (AUD-04). Es un
+#                                            fallo real y debe romper el build
+#                                            hasta que se aplique.
+# 20260823100000_rls_organizaciones_...   -> pendiente de aplicar (AUD-02/03).
+#                                            Debe romper el build hasta que se
+#                                            aplique: son dos agujeros de RLS.
