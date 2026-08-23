@@ -29,11 +29,25 @@
 20260806120000   # rls_aislamiento_multi_tenant (aplicada como 20260808075847)
 20260808075847   # rls_aislamiento_multi_tenant (fichero: 20260806120000)
 
-# ── Aplicadas en producción y SIN fichero en el repo ─────────────────────────
-# El esquema real no es reproducible desde git mientras estas dos sigan así.
-# Para reconciliar: volcar su DDL a un fichero de migración y borrar la línea.
-20260809090457   # add_newsletter_suscriptores
-20260809115540   # add_consumo_mensual_kwh
+# ── Registradas por Supabase, pero gobernadas por Alembic ───────────────────
+# CORRECCIÓN (2026-08-23, misma jornada): en la primera versión de este fichero
+# se dieron por "huérfanas, sin fichero en el repo", concluyendo que el esquema
+# no era reproducible desde git. Era FALSO. Ambas son revisiones de Alembic y
+# sí están versionadas:
+#
+#   20260809090457 add_newsletter_suscriptores -> apps/api/alembic/versions/
+#                                                 c4d8e91a2b3f_add_newsletter_suscriptores.py
+#   20260809115540 add_consumo_mensual_kwh     -> apps/api/alembic/versions/
+#                                                 d7e2f4a9c1b6_add_consumo_mensual_kwh.py
+#
+# Aparecen aquí porque quedaron anotadas ADEMÁS en el registro de Supabase, que
+# no es quien las gobierna. Son contabilidad duplicada, no DDL perdido. Se
+# quedan en la línea base de forma permanente: borrarlas del registro de
+# Supabase tocaría metadatos de producción sin ganar nada.
+#
+# Ver docs/migraciones-dos-sistemas.md para la frontera entre ambos sistemas.
+20260809090457   # add_newsletter_suscriptores  (la gobierna Alembic c4d8e91a2b3f)
+20260809115540   # add_consumo_mensual_kwh      (la gobierna Alembic d7e2f4a9c1b6)
 
 # ── NO se añaden a la línea base, a propósito ────────────────────────────────
 # 20260712090000_estadisticas_plazos      -> la tabla NO existe (AUD-04). Es un
