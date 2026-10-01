@@ -9,8 +9,9 @@ import { esRespuesta, requerirAdminOrg, requerirSesionOrg } from "@/lib/server/r
  */
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
+  const params = await ctx.params;
   const body = (await req.json().catch(() => ({}))) as { regenerar?: boolean };
 
   // Ver/crear el enlace: cualquier miembro. Rotarlo (invalida el enlace ya

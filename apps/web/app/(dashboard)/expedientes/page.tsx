@@ -14,11 +14,10 @@ import {
 import { diasEntre, hoyIso } from "@/lib/plazos";
 import { calcularVencimientoHabil } from "@/lib/festivos";
 
-export default async function ExpedientesPage({
-  searchParams,
-}: {
-  searchParams: { buscar?: string };
+export default async function ExpedientesPage(props: {
+  searchParams: Promise<{ buscar?: string }>;
 }) {
+  const searchParams = await props.searchParams;
   const { orgId } = await auth();
 
   if (!orgId) {

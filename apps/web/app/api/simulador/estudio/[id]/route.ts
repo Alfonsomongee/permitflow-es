@@ -3,8 +3,9 @@ import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
+  const params = await ctx.params;
   // `params.id` se interpola en la ruta de FastAPI: solo UUID (evita `..%2F` y
   // otras inyecciones de ruta hacia endpoints internos).
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(params.id)) {

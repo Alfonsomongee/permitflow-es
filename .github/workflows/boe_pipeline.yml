@@ -6,6 +6,11 @@ on:
     - cron: '0 7 * * 4'   # Jueves 9:00 España — mitad de semana
   workflow_dispatch:        # Ejecución manual desde GitHub Actions
 
+permissions:
+  contents: write        # push de la rama con los borradores
+  pull-requests: write   # abrir el PR de revisión humana
+  issues: write          # avisar si el pipeline falla
+
 jobs:
   pipeline:
     runs-on: ubuntu-latest
@@ -18,10 +23,9 @@ jobs:
 
       - name: Instalar dependencias
         working-directory: apps/api
-        run: |
-          uv sync
-          # supabase-python para guardar alertas en base de datos
-          uv add supabase
+        # `supabase` ya es dependencia de apps/api: no se modifica pyproject/uv.lock
+        # en el runner (antes se ejecutaba `uv add supabase`).
+        run: uv sync --frozen
 
       - name: Ejecutar pipeline BOE v2
         working-directory: apps/api
@@ -33,6 +37,10 @@ jobs:
           SUPABASE_URL:           ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           ENVIRONMENT: production
+          # config.Settings exige SECRET_KEY sin valor por defecto. Sin ella el
+          # script moría en ~1 s al importar `config` y TODAS las ejecuciones
+          # programadas (#18-#28) fallaban. El pipeline no firma nada con ella.
+          SECRET_KEY: ${{ secrets.SECRET_KEY || 'pipeline-boe-no-usa-esta-clave' }}
         run: uv run python scripts/boe_pipeline.py
 
       - name: Subir borradores como artefacto
@@ -61,3 +69,13 @@ jobs:
           branch: "normativa/pipeline-${{ github.run_id }}"
           delete-branch: true
           labels: "normativa,automated"
+
+      - name: Avisar si el pipeline ha fallado
+        if: failure() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Pipeline BOE fallido ($(date -u +%Y-%m-%d))" \
+            --body "La ejecución programada del pipeline BOE ha fallado. Revisa el log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --label "normativa,automated" || true

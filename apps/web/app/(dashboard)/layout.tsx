@@ -7,18 +7,12 @@
  * La sidebar es sticky y persiste entre navegaciones gracias al App Router.
  */
 
-import dynamic from "next/dynamic";
 import { DashboardSidebar } from "@/components/layouts/DashboardSidebar";
 import { DashboardTopbar } from "@/components/layouts/DashboardTopbar";
 import { SidebarProvider } from "@/components/layouts/SidebarContext";
+import { ChatWidgetLazy } from "@/components/chat/ChatWidgetLazy";
 import { CommandPalette } from "@/components/layouts/CommandPalette";
 import type { ReactNode } from "react";
-
-// Lazy load the chat widget to improve initial bundle size
-const ChatWidget = dynamic(
-  () => import("@/components/chat/ChatWidget").then((mod) => mod.ChatWidget),
-  { ssr: false }
-);
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
@@ -34,7 +28,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </main>
         </div>
 
-        <ChatWidget />
+        <ChatWidgetLazy />
         <CommandPalette />
       </div>
     </SidebarProvider>

@@ -8,7 +8,6 @@
  *   URL: https://tudominio.com/api/webhooks/clerk
  *   Eventos: organization.created, organization.updated, organization.deleted
  */
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 import { supabaseAdmin } from "@/lib/supabase";
@@ -25,10 +24,9 @@ interface ClerkOrgEvent {
 }
 
 export async function POST(req: Request) {
-  const headersList = headers();
-  const svix_id = headersList.get("svix-id");
-  const svix_timestamp = headersList.get("svix-timestamp");
-  const svix_signature = headersList.get("svix-signature");
+  const svix_id = req.headers.get("svix-id");
+  const svix_timestamp = req.headers.get("svix-timestamp");
+  const svix_signature = req.headers.get("svix-signature");
 
   if (!svix_id || !svix_timestamp || !svix_signature) {
     return NextResponse.json({ error: "Missing svix headers" }, { status: 400 });

@@ -20,7 +20,9 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 8
+          # pnpm 10: el lockfile es v9 y pnpm-workspace.yaml usa `overrides` y
+          # `allowBuilds`, que pnpm 8 ignora.
+          version: 10
 
       - name: Install dependencies
         run: pnpm install
@@ -96,6 +98,34 @@ jobs:
         # sin comprobar que fuera None, y como corre en un
         # asyncio.create_task de fondo, el TypeError solo se veía al cerrar
         # el TestClient de cualquier test, tocara o no la base de datos).
-        # Verificado: 1326/1326 tests pasan sin ningún servicio de base de
+        # Verificado: toda la suite pasa sin ningún servicio de base de
         # datos en este job (auditoría de testing, 2026-08-20).
         run: uv run pytest
+
+  audit-dependencias:
+    # Avisos de seguridad de dependencias en producción. Falla el job ante
+    # cualquier vulnerabilidad alta o crítica (auditoría 2026-10-01: Next 14,
+    # pypdf y shadcn arrastraban decenas sin que nada lo señalara).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: pnpm audit (producción)
+        run: pnpm install --frozen-lockfile --ignore-scripts && pnpm audit --prod --audit-level=high
+
+      - name: Instalar uv
+        run: pip install uv
+
+      - name: pip-audit (lockfile de Python)
+        working-directory: apps/api
+        run: |
+          uv export --frozen --no-hashes --no-emit-project > /tmp/requirements.txt
+          uvx pip-audit -r /tmp/requirements.txt --no-deps --disable-pip

@@ -12,8 +12,9 @@ const ESTADOS_TRAMITE = new Set(["pendiente", "en_curso", "completado"]);
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
+  const params = await ctx.params;
   const { userId, orgId } = await auth();
   if (!userId || !orgId) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });
@@ -84,8 +85,9 @@ export async function PATCH(
 // P-19).
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
+  const params = await ctx.params;
   // Borrado irreversible: solo administradores de la organización.
   const sesion = await requerirAdminOrg();
   if (esRespuesta(sesion)) return sesion;

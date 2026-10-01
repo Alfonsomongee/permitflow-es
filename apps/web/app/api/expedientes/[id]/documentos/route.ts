@@ -9,8 +9,9 @@ const TIPOS_VALIDOS = new Set(["plan", "checklist", "mtd", "dossier"]);
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
+  const params = await ctx.params;
   const { userId, orgId } = await auth();
   if (!userId || !orgId) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });

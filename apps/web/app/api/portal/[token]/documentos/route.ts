@@ -36,8 +36,9 @@ async function resolverExpedientePorToken(token: string) {
 
 export async function GET(
   _req: Request,
-  { params }: { params: { token: string } }
+  ctx: { params: Promise<{ token: string }> }
 ) {
+  const params = await ctx.params;
   const expediente = await resolverExpedientePorToken(params.token);
   if (!expediente) {
     return NextResponse.json({ error: "Enlace no válido" }, { status: 404 });
@@ -58,8 +59,9 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params }: { params: { token: string } }
+  ctx: { params: Promise<{ token: string }> }
 ) {
+  const params = await ctx.params;
   const expediente = await resolverExpedientePorToken(params.token);
   if (!expediente) {
     return NextResponse.json({ error: "Enlace no válido" }, { status: 404 });

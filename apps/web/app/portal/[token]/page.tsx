@@ -64,11 +64,10 @@ async function obtenerDocumentosSubidos(expedienteId: string): Promise<Documento
   return data ?? [];
 }
 
-export default async function PortalClientePage({
-  params,
-}: {
-  params: { token: string };
+export default async function PortalClientePage(props: {
+  params: Promise<{ token: string }>;
 }) {
+  const params = await props.params;
   const expediente = await obtenerExpedientePorToken(params.token);
   if (!expediente) notFound();
 
