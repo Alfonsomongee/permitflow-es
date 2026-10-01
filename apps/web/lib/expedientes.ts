@@ -7,6 +7,7 @@ import type {
   TramitesEstadoMap,
 } from "@/types/plan";
 import { hoyIso } from "./plazos";
+import { BUCKET_DOCUMENTOS_CLIENTE } from "./documentos-cliente";
 import { construirPayloadClasificador } from "./clasificador-payload";
 
 function fallbackOrgName(clerkOrgId: string): string {
@@ -34,6 +35,17 @@ async function ensureOrgId(clerkOrgId: string): Promise<string> {
     })
     .select("id")
     .single();
+
+  // Carrera con el webhook de Clerk (organization.created): si otro proceso ya
+  // insertó la fila, la clave única falla -- se relee en vez de devolver un 500.
+  if (createError?.code === "23505") {
+    const { data: existente } = await supabaseAdmin
+      .from("organizaciones")
+      .select("id")
+      .eq("clerk_org_id", clerkOrgId)
+      .maybeSingle();
+    if (existente?.id) return existente.id;
+  }
 
   if (createError || !created?.id) {
     throw new Error(
@@ -119,6 +131,36 @@ export async function listarExpedientes(clerkOrgId: string): Promise<DbExpedient
   return data ?? [];
 }
 
+export interface ExpedienteResumen {
+  id: string;
+  referencia_cliente: string | null;
+  comunidad: string;
+  tipo_instalacion: string;
+  estado: DbExpediente["estado"];
+}
+
+/**
+ * Listado ligero para el Command Palette (Cmd+K): solo las columnas que se
+ * muestran y un tope, en vez de descargar `select("*")` -- con el
+ * `plan_tramitacion` JSONB de TODOS los expedientes -- para quedarse con 50.
+ */
+export async function listarResumenExpedientes(
+  clerkOrgId: string,
+  limite = 50
+): Promise<ExpedienteResumen[]> {
+  const orgId = await ensureOrgId(clerkOrgId);
+
+  const { data, error } = await supabaseAdmin
+    .from("expedientes")
+    .select("id, referencia_cliente, comunidad, tipo_instalacion, estado")
+    .eq("org_id", orgId)
+    .order("actualizado_en", { ascending: false })
+    .limit(limite);
+
+  if (error) throw new Error(`Error listando expedientes: ${error.message}`);
+  return (data ?? []) as ExpedienteResumen[];
+}
+
 export async function obtenerExpediente(
   id: string,
   clerkOrgId: string
@@ -141,6 +183,33 @@ export async function eliminarExpediente(
   clerkOrgId: string
 ): Promise<void> {
   const orgId = await ensureOrgId(clerkOrgId);
+
+  // Los archivos que subió el cliente final viven en Storage: el DELETE en cascada
+  // borra las filas de `documentos_cliente` pero NO los objetos, que quedarían
+  // huérfanos con datos personales (derecho de supresión, RGPD).
+  const { data: expediente } = await supabaseAdmin
+    .from("expedientes")
+    .select("id")
+    .eq("id", id)
+    .eq("org_id", orgId)
+    .maybeSingle();
+  if (!expediente) return;
+
+  const { data: documentos } = await supabaseAdmin
+    .from("documentos_cliente")
+    .select("storage_path")
+    .eq("expediente_id", id);
+  const rutas = (documentos ?? []).map((d) => d.storage_path as string).filter(Boolean);
+  if (rutas.length > 0) {
+    const { error: storageError } = await supabaseAdmin.storage
+      .from(BUCKET_DOCUMENTOS_CLIENTE)
+      .remove(rutas);
+    if (storageError) {
+      // No se borra la fila si no se pudieron borrar los archivos: así el
+      // reintento del usuario sigue encontrando las rutas.
+      throw new Error(`Error eliminando los documentos del cliente: ${storageError.message}`);
+    }
+  }
 
   const { error } = await supabaseAdmin
     .from("expedientes")

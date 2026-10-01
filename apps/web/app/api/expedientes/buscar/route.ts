@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { listarExpedientes } from "@/lib/expedientes";
+import { listarResumenExpedientes } from "@/lib/expedientes";
 
 /**
  * apps/web/app/api/expedientes/buscar/route.ts
@@ -16,9 +16,9 @@ export async function GET() {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });
   }
 
-  const expedientes = await listarExpedientes(orgId);
+  const expedientes = await listarResumenExpedientes(orgId, 50);
 
-  const resultados = expedientes.slice(0, 50).map((e) => ({
+  const resultados = expedientes.map((e) => ({
     id: e.id,
     cliente: e.referencia_cliente,
     comunidad: e.comunidad,

@@ -79,9 +79,15 @@ export default async function PortalClientePage(props: {
   const tramitesAccionables = tramites.filter(
     (t) => t.tipo_actuacion === "accion_usuario" || t.tipo_actuacion === undefined
   );
+  // Se cuentan solo los trámites accionables completados: el contador de BD
+  // incluye cualquier trámite completado (también los de oficio) y el cociente
+  // podía superar el 100 %.
+  const completadosAccionables = tramitesAccionables.filter(
+    (t) => estados[String(t.orden)]?.estado === "completado"
+  ).length;
   const progreso =
     tramitesAccionables.length > 0
-      ? Math.round((expediente.tramites_completados / tramitesAccionables.length) * 100)
+      ? Math.min(100, Math.round((completadosAccionables / tramitesAccionables.length) * 100))
       : 0;
 
   const titulo = TIPO_LABEL[expediente.tipo_instalacion] ?? expediente.tipo_instalacion;
@@ -124,7 +130,7 @@ export default async function PortalClientePage(props: {
             <span className="flex-shrink-0 text-sm font-semibold text-text-primary">{progreso}%</span>
           </div>
           <p className="mt-1 text-xs text-text-secondary">
-            {expediente.tramites_completados} de {tramitesAccionables.length} trámites completados
+            {completadosAccionables} de {tramitesAccionables.length} trámites completados
           </p>
         </div>
 
