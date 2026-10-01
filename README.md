@@ -5,7 +5,7 @@ necesarios para instalaciones técnicas en España (fotovoltaica, climatización
 ACS, gas, BT), genera la documentación requerida y gestiona el seguimiento
 de expedientes.
 
-**Stack:** Next.js 14 · FastAPI · PostgreSQL (Supabase) · Clerk · Stripe · Claude API
+**Stack:** Next.js 15 · FastAPI · PostgreSQL (Supabase) · Clerk · Stripe · DeepSeek (IA, intercambiable por Claude)
 
 ---
 
@@ -35,4 +35,4 @@ cd apps/api && uv run uvicorn main:app --reload
 
 ## Estado actual
 
-Fase 0 — Inicialización. Ver `AGENTS.md` sección "Estado actual" para detalle.
+Fase 1 — funcionalidades y endurecimiento previo al lanzamiento. Ver `AGENTS.md` ("Estado actual del proyecto"), `docs/normativa/` y `docs/decisiones/`.

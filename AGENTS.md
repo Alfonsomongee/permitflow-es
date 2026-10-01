@@ -21,7 +21,7 @@ Objetivo a medio plazo: adquisición por empresa grande del sector energético.
 ## Stack — decisiones cerradas, no cambiar sin consultar
 
 ```
-Frontend:        Next.js 14 (App Router) + TypeScript estricto
+Frontend:        Next.js 15 (App Router) + React 19 + TypeScript estricto
 Estilos:         Tailwind CSS + shadcn/ui
 Backend:         FastAPI (Python 3.11+)
 Base de datos:   PostgreSQL vía Supabase
@@ -78,7 +78,7 @@ async def resolver_comunidad_autonoma(
 ```
 permitflow-es/
 ├── apps/
-│   ├── web/                        # Next.js 14
+│   ├── web/                        # Next.js 15
 │   │   ├── app/
 │   │   │   ├── (auth)/             # /login, /registro
 │   │   │   ├── (dashboard)/        # App principal autenticada
@@ -124,7 +124,7 @@ permitflow-es/
 │       │       │   └── acs.json
 │       │       └── _schema.json    # Schema de validación de los JSONs de reglas
 │       ├── servicios/
-│       │   ├── claude_client.py    # Wrapper Claude API
+│       │   ├── ai_client.py        # Cliente de IA (DeepSeek hoy; interfaz lista para Claude)
 │       │   ├── pdf_generator.py    # Generación de documentos
 │       │   └── notificaciones.py   # Emails vía Resend
 │       ├── schemas/                # Pydantic schemas (request/response)
@@ -388,22 +388,22 @@ uv add openai
 **Fase:** 1 — Desarrollo de funcionalidades y UX
 
 **Completado:**
-- [x] Monorepo inicializado
-- [x] Next.js configurado con Tailwind + shadcn/ui + Base UI
-- [x] FastAPI con estructura base y endpoints de expedientes/clasificador
-- [x] Supabase conectado + esquema de base de datos aplicado
-- [x] Clerk configurado (auth multi-tenant)
-- [x] Motor normativo y verificación de fuentes por CCAA (17/17 comunidades)
-- [x] Mejoras UX B2B (Sidebar animado, Base UI Select, Command Palette `Cmd+K`, atajo `/` en tabla, autocompletado de dirección con Google Places y dynamic imports)
+- [x] Monorepo, Next.js 15 + Tailwind + shadcn/ui + Base UI, FastAPI, Supabase, Clerk
+- [x] Motor normativo: 85 ficheros (17 CCAA × 5 verticales). Nivel real: 1 verificada, 19 parciales, 65 borrador; **0 con revisor humano** (ver `docs/normativa/verificacion-2026-10-01.md`)
+- [x] Auditoría integral 2026-10-01 aplicada: seguridad (gate de clave interna sin excepciones, IP real para rate limit, crons fail-closed, Stripe idempotente, roles de admin), dependencias sin vulnerabilidades conocidas, copy veraz derivado de los datos, textos legales, formulario accesible, cuota Free aplicada
+- [x] El expediente guarda el payload completo del clasificador (`expedientes.parametros`, ADR 0001)
 
-**En curso:**
-- Validación final y optimización pre-despliegue
+**En curso / pendiente de una persona:**
+- Completar `apps/web/content/titular.ts` (razón social, NIF, domicilio, correos) y revisión jurídica de `/aviso-legal`, `/privacidad`, `/terminos`
+- Verificación humana de la normativa contra fuentes primarias (necesita acceso a boe.es y sedes; ver el log de verificación)
+- Aplicar las migraciones nuevas en Supabase (`20261001090000_stripe_eventos.sql`, `20261001090100_expedientes_parametros.sql`) y en Alembic (`e9a1b2c3d4f5`)
+- Variables nuevas a configurar: `CRON_SECRET`, `SECRET_KEY` en el workflow BOE (opcional), `STRIPE_PRICE_PRO`
 
 **Próxima tarea:**
-- Probar `pnpm build` en entorno de despliegue con la clave `GOOGLE_MAPS_API_KEY` configurada
+- Botón «Editar datos / recalcular» sobre `expedientes.parametros`; decidir precios definitivos (la web muestra Pro 49 €; `docs/foundation.md` plantea 79/149/299 €)
 
 **Bloqueado:**
-- Nada actualmente
+- Verificación de enlaces y normas contra fuentes primarias: el entorno de la sesión no tiene salida a boe.es ni a las sedes
 
 ---
 

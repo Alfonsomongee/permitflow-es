@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "baleares",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
@@ -12,7 +12,7 @@
     "El 'Certificado de Eficiencia Energética (CEE) del edificio' del fichero original (RD 235/2013) no es un trámite de legalización de la instalación térmica sino de certificación energética de edificios; se ha retirado de esta regla por no ser parte del circuito de puesta en servicio salvo que se verifique lo contrario",
     "Tasas exactas del trámite UDIT-021 no verificadas con detalle (confirmado que la ficha oficial permite pagar tasa telemáticamente, pero no se ha consignado el importe)",
     "No se ha confirmado si Baleares exige una Entidad Colaboradora de la Administración (ECA) para la puesta en servicio de climatización, o si es un trámite directo ante la UDIT",
-    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007) y el requisito de instalador con certificación de gases fluorados (Reglamento (UE) 517/2014, trámite balear UDIT-049) para equipos de aerotermia"
+    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007) y el requisito de instalador con certificación de gases fluorados (Reglamento (UE) 2024/573, que derogó el 517/2014 el 11/03/2024; trámite balear UDIT-049) para equipos de aerotermia"
   ],
   "fuentes": [
     {
