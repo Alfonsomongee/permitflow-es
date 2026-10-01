@@ -1,17 +1,19 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "aragon",
-  "version": "0.9.2",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.3",
+  "ultima_revision": "2026-10-01",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
-  "aviso": "Reglas de potencia base verificadas y exención <5kW introducida. Auditoría 2026-07-28: se retiró la cita 'Decreto 108/1992 de Aragón' (norma no localizada en BOA), se corrigió el umbral de proyecto RITE (>70 -> >=70 kW, el caso exacto de 70 kW pasa a proyecto) y se rellenó plataforma_url con la ficha oficial confirmada. Persisten huecos abiertos (ver huecos_verificacion); por eso 'estado' se mantiene en verificado_parcialmente, no verificado.",
+  "aviso": "Comunicación RITE. Verificación Prompt B (2026-10-01): las condiciones coinciden con el RITE (memoria técnica de 5 a 70 kW incluidos; proyecto por encima de 70 kW; menos de 5 kW exento). Se añadieron la Orden de 27/04/2009 como base legal, el formulario y los certificados de la ficha Nº 39 y la tasa; se retiraron los plazos legales sin respaldo. Persisten huecos (ver huecos_verificacion).",
   "huecos_verificacion": [
     "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
-    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón.",
-    "Normativa autonómica de procedimiento para la comunicación de puesta en servicio de instalaciones térmicas: 'Decreto 108/1992 de Aragón' retirado de 'fuentes' por no localizarse en BOA (auditoría 2026-07-28, búsqueda sin resultado). No se ha identificado la norma autonómica de procedimiento realmente aplicable al RITE en Aragón (a diferencia de BT y gas, donde sí se localizó la Orden EIE/1731/2017 y la Orden de 30/03/2007 respectivamente); 'base_legal' de la comunicación de puesta en servicio queda solo con el RITE estatal.",
-    "plataforma_url del trámite de comunicación de puesta en servicio de instalación térmica: se ha rellenado con la página general de RITE/ACS de aragon.es (no se ha localizado el número de trámite específico del tramitador, a diferencia de BT/Nº26 y gas/Nº33)."
+    "Verificación Prompt B Aragón (2026-10-01): La Orden de 27/04/2009 (mod. 20/08/2013) es la norma autonómica de procedimiento del RITE (confianza alta). Se corrigieron las plataforma_url al slug del Nº 39 publicado por aragon.es (también la de ARA-CLIM-002, que estaba a null) y se sustituyó el RD 2200/1995 como base legal del paso del organismo de control. El paso «Certificado de instalación por OCA» corresponde en realidad al certificado de inspección inicial (C0010a); no se renombró el trámite para no romper las claves de estadísticas de plazos.",
+    "Verificación Prompt B Aragón (2026-10-01): Se quitaron los plazo_legal_dias (15 y 20): la comunicación no tiene plazo de resolución (silencio positivo) y los 20 días del organismo de control no constan en ninguna fuente.",
+    "Verificación Prompt B Aragón (2026-10-01): Los importes de la Tasa 14 (Modelo 514) proceden de las guías de servicios de aragon.es; no se localizó la tarifa en el texto de la Ley 2/2016 (cap. XIV) y pueden variar con la actualización anual. No se verificó qué epígrafe aplica a cada vertical (el de IRVE y FV en BT se asimiló a la tarifa general de BT). Tarifa 2.1 (memoria ≤ 70 kW) 86,35 € + (N-1)×5,65 €; tarifa 2.2 (proyecto > 70 kW) 129,50 € + (N-1)×5,65 €.",
+    "Verificación Prompt B Aragón (2026-10-01): AESSIA y DIGITA están confirmados como canales, pero sigue sin aclararse si cubren supuestos distintos o son alternativas. La Resolución de 23/06/2021 de la DG de Industria (incorporación de trámites a las plataformas telemáticas) debería consultarse en el BOA.",
+    "Verificación Prompt B Aragón (2026-10-01): Omisión: inspección periódica de eficiencia energética (comunicación del resultado, Modelo C0008, Tabla 2 de la Orden de 27/04/2009 mod. 2013). Tampoco se modelan las obligaciones de gases fluorados de las bombas de calor.",
+    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado."
   ],
   "fuentes": [
     {
@@ -33,6 +35,11 @@
       "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
       "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=845932645757&type=pdf",
       "fecha_consulta": "2026-08-08"
+    },
+    {
+      "norma": "Orden de 27 de abril de 2009, del Departamento de Industria, Comercio y Turismo (Aragón), de procedimiento de acreditación del cumplimiento de condiciones de seguridad industrial en instalaciones térmicas, modificada por la Orden de 20 de agosto de 2013",
+      "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VERDOC&BASE=BOLE&PIECE=BOLE&DOCS=1-31&DOCR=2&SEC=FIRMA&RNG=200&SEPARADOR=&PUBL=20130911",
+      "fecha_consulta": "2026-10-01"
     }
   ],
   "reglas": [
@@ -70,7 +77,7 @@
     },
     {
       "id": "ARA-CLIM-001",
-      "descripcion": "Instalacion termica >= 5 kW y <70 kW: memoria tecnica (corregido 2026-07-28: el RITE, RD 1027/2007 IT 1, exige proyecto desde potencia >70 kW; el caso exacto de 70 kW pasa a ARA-CLIM-002)",
+      "descripcion": "Instalación térmica de 5 a 70 kW (ambos incluidos): memoria técnica y comunicación de puesta en servicio. El proyecto solo se exige por encima de 70 kW",
       "condicion": {
         "and": [
           {
@@ -108,8 +115,8 @@
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
-              "label": "MTD instalacion termica",
-              "descripcion": "Segun RITE.",
+              "label": "Memoria técnica de diseño (Modelo C0006)",
+              "descripcion": "Modelo C0006, para potencia térmica nominal entre 5 y 70 kW (ambos incluidos).",
               "obligatorio": true
             }
           ],
@@ -121,24 +128,54 @@
           "orden": 2,
           "nombre": "Comunicacion de puesta en servicio de instalacion termica en edificios",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RITE RD 1027/2007; normativa autonomica de procedimiento (vigencia no comprobada)",
+          "base_legal": "RITE RD 1027/2007; Orden de 27/04/2009 (Industria, Comercio y Turismo), modificada por la Orden de 20/08/2013",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
-          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-termicas-en-edificios-comunicacion-de-puesta-en-servicio-reforma-y-baja",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-termicas-edificios-comunicacion-puesta-servicio-baja",
+          "coste_estimado": "Tasa 14 (autoliquidación Modelo 514), tarifa con memoria técnica: 86,35 € + (N-1)×5,65 €. Importes de la guía de servicios de aragon.es; pueden actualizarse cada año. No se exige si se tramita a través de entidad colaboradora u organismo de control.",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "mtd_termica",
-              "label": "MTD",
-              "descripcion": "Del paso 1.",
+              "label": "Memoria técnica de diseño (Modelo C0006)",
+              "descripcion": "Modelo C0006, para potencia térmica nominal entre 5 y 70 kW. Es la del paso 1.",
               "obligatorio": true
+            },
+            {
+              "id": "formulario_e0002a",
+              "label": "Formulario de comunicación (Modelo E0002a)",
+              "descripcion": "Formulario oficial de la comunicación de puesta en servicio.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_c0009a",
+              "label": "Certificado de la instalación térmica (Modelo C0009a)",
+              "descripcion": "Lo emite la empresa instaladora.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_514",
+              "label": "Justificante de la tasa (autoliquidación Modelo 514)",
+              "descripcion": "Tasa 14 del Gobierno de Aragón. No se exige si se tramita por entidad colaboradora u organismo de control.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_c0007",
+              "label": "Certificado de dirección de obra (Modelo C0007)",
+              "descripcion": "Cuando proceda (instalaciones con proyecto o dirección de obra).",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_une_60670_13",
+              "label": "Certificado UNE 60670-13",
+              "descripcion": "Cuando proceda; depende de la instalación de gas asociada.",
+              "obligatorio": false
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la página oficial de RITE/ACS de aragon.es (número de trámite específico no localizado, a diferencia de BT/gas). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial.",
+          "notas": "Trámite Nº 39 de aragon.es (comunicación de puesta en servicio, reforma y baja de instalaciones térmicas en edificios). Es una comunicación: no hay plazo máximo de resolución y, presentada la documentación (y pagada la tasa), se entiende practicada válidamente (silencio positivo, según la guía de servicios de Aragón). Se presenta por DIGITA (plataforma del Gobierno de Aragón) o a través de una entidad colaboradora como AESSIA (Decreto 38/2015).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -146,7 +183,7 @@
     },
     {
       "id": "ARA-CLIM-002",
-      "descripcion": "Instalacion termica >70 kW: proyecto tecnico y certificado OCA (corregido 2026-07-28: umbral RITE es >70 kW, no >70 kW)",
+      "descripcion": "Instalación térmica de más de 70 kW: proyecto técnico, certificado de inspección inicial por organismo de control y comunicación de puesta en servicio",
       "condicion": {
         ">": [
           {
@@ -185,9 +222,9 @@
           "orden": 2,
           "nombre": "Certificado de instalacion por Organismo de Control Autorizado (OCA)",
           "organismo": "OCA habilitada",
-          "base_legal": "RITE RD 1027/2007; RD 2200/1995",
+          "base_legal": "RITE RD 1027/2007; Orden de 27/04/2009 (Industria, Comercio y Turismo), modificada por la Orden de 20/08/2013",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO -- variable segun OCA",
@@ -200,9 +237,15 @@
               "label": "Proyecto",
               "descripcion": "Del paso 1.",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_inspeccion_inicial_c0010a",
+              "label": "Certificado de inspección inicial (Modelo C0010a)",
+              "descripcion": "Para potencia térmica nominal superior a 70 kW. Lo sella y suscribe un organismo de control autorizado.",
+              "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "Para más de 70 kW la ficha Nº 39 exige el certificado de inspección inicial (Modelo C0010a), emitido por un organismo de control autorizado. El certificado de instalación (C0009a) lo emite la empresa instaladora y se presenta en la comunicación.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -210,12 +253,12 @@
           "orden": 3,
           "nombre": "Comunicacion de puesta en servicio de instalacion termica en edificios",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RITE RD 1027/2007; normativa autonomica de procedimiento (vigencia no comprobada)",
+          "base_legal": "RITE RD 1027/2007; Orden de 27/04/2009 (Industria, Comercio y Turismo), modificada por la Orden de 20/08/2013",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-termicas-en-edificios-comunicacion-de-puesta-en-servicio-reforma-y-baja",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-termicas-edificios-comunicacion-puesta-servicio-baja",
+          "coste_estimado": "Tasa 14 (autoliquidación Modelo 514), tarifa con proyecto: 129,50 € + (N-1)×5,65 €. Importes de la guía de servicios de aragon.es; pueden actualizarse cada año. No se exige si se tramita a través de entidad colaboradora u organismo de control.",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": null,
@@ -225,9 +268,45 @@
               "label": "Proyecto",
               "descripcion": "Del paso 1.",
               "obligatorio": true
+            },
+            {
+              "id": "formulario_e0002a",
+              "label": "Formulario de comunicación (Modelo E0002a)",
+              "descripcion": "Formulario oficial de la comunicación de puesta en servicio.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_c0009a",
+              "label": "Certificado de la instalación térmica (Modelo C0009a)",
+              "descripcion": "Lo emite la empresa instaladora.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_514",
+              "label": "Justificante de la tasa (autoliquidación Modelo 514)",
+              "descripcion": "Tasa 14 del Gobierno de Aragón. No se exige si se tramita por entidad colaboradora u organismo de control.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_c0007",
+              "label": "Certificado de dirección de obra (Modelo C0007)",
+              "descripcion": "Cuando proceda (instalaciones con proyecto o dirección de obra).",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_une_60670_13",
+              "label": "Certificado UNE 60670-13",
+              "descripcion": "Cuando proceda; depende de la instalación de gas asociada.",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_inspeccion_inicial_c0010a",
+              "label": "Certificado de inspección inicial (Modelo C0010a)",
+              "descripcion": "Del paso 2, emitido por organismo de control autorizado.",
+              "obligatorio": true
             }
           ],
-          "notas": "CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración) como los canales reales para comunicaciones de seguridad industrial. plataforma_url se deja a null: no se ha visitado ni confirmado una URL directa de DIGITA para este trámite concreto.",
+          "notas": "Trámite Nº 39 de aragon.es (comunicación de puesta en servicio, reforma y baja de instalaciones térmicas en edificios). Es una comunicación: no hay plazo máximo de resolución y, presentada la documentación (y pagada la tasa), se entiende practicada válidamente (silencio positivo, según la guía de servicios de Aragón). Se presenta por DIGITA (plataforma del Gobierno de Aragón) o a través de una entidad colaboradora como AESSIA (Decreto 38/2015). Con proyecto, la comunicación incluye también el certificado de inspección inicial (C0010a) del paso anterior.",
           "registro_salida": null,
           "medio_presentacion": null
         }

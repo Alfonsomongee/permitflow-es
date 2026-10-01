@@ -140,3 +140,35 @@ Misma salvedad que Madrid: herramienta externa, no re-comprobado, JSON íntegro 
 
 ### Siguiente paso concreto
 Alguien con acceso debe abrir a mano las fichas **11419, 11420 y 21526**, el FAQ de Canal Empresa y el Decret 192/2023 (ITA 9 e ITA 12). Con eso se cierran de golpe los puntos 1, 2, 3 y 4.
+
+---
+
+## Resultado del Prompt B — Aragón (2026-10-01)
+
+Misma salvedad: herramienta externa, no re-comprobado, JSON íntegro no archivado. **`aragon.es/tramitador` bloqueó la lectura (robots.txt)** en los cuatro trámites (Nº 26 BT, Nº 33 gas, Nº 39 RITE y la página de energía fotovoltaica); existencia, plazos, silencio, tasas y documentos se confirmaron con el texto que aragon.es publica en buscadores, y solo hay una cita literal por fuente. Fuentes literales leídas: BOA (Orden de 27/04/2009 y su modificación de 2013; Orden ICD/302/2020), BOE (RD 919/2006; Ley 5/2024 de Aragón, BOE-A-2025-1392). Los cinco ficheros siguen en `verificada_parcialmente` (FV en `borrador_no_verificado`); `revisado_por` sigue vacío; `ultima_revision` pasa a 2026-10-01.
+
+### Aplicado
+| Hallazgo | Cambio |
+|---|---|
+| **Frontera de 70 kW confirmada por la ficha del Nº 39** (memoria C0006 de 5 a 70 kW; proyecto > 70 kW). Las condiciones ya eran correctas, pero el `aviso` y varias descripciones/notas decían «70 kW pasa a proyecto» | Textos corregidos en ACS y climatización (refuerza ADR 0002) |
+| La norma autonómica de procedimiento del RITE es la **Orden de 27/04/2009, mod. 20/08/2013** (el fichero decía «sin norma autonómica») | `base_legal` y `fuentes` |
+| `plataforma_url` del RITE apuntaba a un slug que no coincide con el publicado (y una estaba a `null`); ARA-FV-003 apuntaba a una página inexistente | Corregidas a los slugs publicados por aragon.es |
+| Los `plazo_legal_dias` (15/20/30) de las comunicaciones no tienen respaldo: sin plazo de resolución, silencio positivo | Puestos a `null` y explicados en notas (RITE, BT de FV/IRVE, gas); `plazo_estimado_dias` intacto |
+| Tasa 14 (Modelo 514): memoria 86,35 € + (N-1)×5,65 €; proyecto 129,50 € + (N-1)×5,65 €; solo certificado 15,35 € (BT); gas con proyecto 129,50 €. El «0 € por exención del art. 53» de FV no tenía respaldo | `coste_estimado` y nota; importes marcados como de la guía de servicios |
+| Documentos de las fichas: E0002a, C0009a, C0007/UNE 60670-13 (cuando proceda), C0010a (> 70 kW, organismo de control), E0001, C0001, C0004, E0003a, justificante 514, proyecto de gas visado | Añadidos; los condicionales como opcionales (`condicion_documento` no se evalúa); «Declaración responsable» de FV pasa a opcional (no figura en la ficha) |
+| ARA-FV-003: el organismo no es el Ministerio sino el Gobierno de Aragón; **umbral de 500 kW respaldado por la Ley 5/2024** (BOE-A-2025-1392) | Organismo, base legal, fuente, descripción y nota |
+| ARA-GAS-003: base legal genérica y URL a `null` | Igualada con 001/002 y rellenada |
+| Base legal de BT: Orden EIE/1731/2017 modificada por EIE/1132/2018 e ICD/302/2020 | FV e IRVE |
+
+### Registrado en `huecos_verificacion` (decisión o fuente primaria pendiente)
+1. **Gas, bloqueante (decisión):** ARA-GAS-001 (≤ 70 kW, ≤ 5 bar) incluye la comunicación del Nº 33, pero el RD 919/2006 dice «Salvo en el caso de las instalaciones que requieren proyecto, no es precisa ninguna comunicación» (confianza alta). **La regla no se cambia** porque altera la clasificación (el caso de referencia `aragon_gas_40kw` espera 4 trámites); se añadió un aviso en las notas del trámite. Misma situación que Cataluña.
+2. **FV:** autorización de explotación para 100-500 kW sin modelar (Ley 5/2024, fuente secundaria); acceso y conexión / CAU ante la distribuidora (la ficha 2459 lo exige antes del RADNE); admisión a trámite del RDL 23/2020 para > 500 kW; certificado de OCA entre 10 y 500 kW (ITC-BT-05, Tabla 1 de BT no abierta); plazo y silencio de la autorización > 500 kW (los 90 días son supletorios estatales); reparto entre Servicio Provincial (hasta 1 MW) y DG de energía.
+3. **RITE:** exención de calentadores/termos ≤ 70 kW «sumando todos los equipos» (fichero) frente a «cada uno de ellos» (guía antigua de Aragón); omisión de la inspección periódica de eficiencia energética (Modelo C0008).
+4. **Legionelosis:** el Decreto 136/2005 existe pero su vigencia tras el RD 487/2022 solo consta en fuentes secundarias; el RD 487/2022 habla de PPCL/PSL, no de «PMHS» (no se renombra el trámite por las estadísticas de plazos).
+5. **Gas:** faltan instalaciones comunes y acometidas > 2.000 kW; visado del proyecto frente al RD 1000/2010; justificante de titularidad en baja; inspección periódica (Tabla 1a).
+6. **IRVE:** faltan inscripción en el listado de puntos de recarga, Trámite 606 (> 3.000 kW), remisión de información al Ministerio y el trámite con la distribuidora; hueco lógico con `ubicacion_irve` fuera de las cuatro cadenas. **RD 88/2026** no altera ningún trámite autonómico del fichero.
+7. **Tasas y canales:** tarifas de la Tasa 14 tomadas de guías de aragon.es, no de la Ley 2/2016; DIGITA y AESSIA confirmados como canales sin aclarar si son alternativos; licencia municipal y trámites ambientales de FV sin contrastar.
+
+### Siguiente paso concreto
+Abrir a mano las fichas **Nº 26, Nº 33, Nº 39**, la página de energía fotovoltaica y la ficha 2459, y cotejar el art. 15.1.c del RITE y el art. 5.7 / ITC-ICG 07 del RD 919/2006. Con eso se cierran los puntos 1, 2 y 3.
+

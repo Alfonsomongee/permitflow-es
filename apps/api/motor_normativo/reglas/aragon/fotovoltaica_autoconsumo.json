@@ -1,19 +1,25 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "aragon",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-01",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
-  "aviso": "BORRADOR NO VERIFICADO. Auditoría 2026-07-28: se retiró la cita a 'Ley 1/2024 de Aragón' (norma no localizada) y se rellenaron las plataforma_url confirmadas del trámite Nº 26. Persisten huecos: el umbral de 500 kW de ARA-FV-003 no tiene respaldo normativo autonómico confirmado, y falta el trámite de acceso y conexión/CAU ante distribuidora.",
+  "aviso": "BORRADOR NO VERIFICADO. Verificación Prompt B (2026-10-01): el umbral de 500 kW de ARA-FV-003 queda respaldado por la Ley 5/2024 de Aragón (BOE-A-2025-1392) y el RADNE (procedimiento 2459) está confirmado. Se corrigieron el organismo y la plataforma de ARA-FV-003, la tasa, los plazos y la documentación del Trámite Nº 26. Faltan la autorización de explotación para 100-500 kW y los trámites de acceso y conexión (ver huecos_verificacion).",
   "huecos_verificacion": [
-    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original. Auditoría 2026-07-28: confirmada la existencia de la Orden y su modificación por Orden EIE/1132/2018 y Orden ICD/302/2020, no reflejadas aquí por falta de verificación de su alcance exacto sobre este trámite.",
-    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO. Auditoría 2026-07-28: confirmado el marco (Decreto Legislativo 1/2004, mod. Ley 7/2021) y el trámite de autoliquidación, pero el importe/epígrafe exacto sigue NO VERIFICABLE (páginas dinámicas del tramitador sin contenido estático accesible).",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón. Se mantiene sin verificar si tramitan supuestos distintos o son canales alternativos para el mismo trámite.",
-    "Umbral de 500 kW en ARA-FV-003: se retiró la cita a 'Ley 1/2024 de Aragón' por ser una norma no localizada. No se ha podido confirmar en fuente primaria (BOA) el precepto exacto que fija ese umbral de 500 kW para el régimen de autorización administrativa en Aragón; las normas candidatas (Ley 1/2021 de simplificación administrativa, Ley 5/2024 de comunidades energéticas y autoconsumo industrial) no han sido cotejadas artículo por artículo. Cifra mantenida por continuidad operativa, pendiente de verificación primaria.",
     "Falta el trámite de acceso y conexión a red / obtención del CAU ante la distribuidora (RD 1183/2020, citado en 'fuentes' sin trámite asociado). No se ha añadido como trámite mecánico porque su exigibilidad depende de la modalidad de autoconsumo (con/sin excedentes): requiere campo de formulario 'modalidad_autoconsumo' con lógica condicional dedicada (no incluida en esta corrección quirúrgica para no alterar la condición de las reglas existentes sin verificación previa del supuesto exacto).",
     "ARA-FV-002, trámite 'Certificado de la OCA (EICI)': el REBT no exige certificado OCA con carácter general en BT (10-500 kW); solo procede en los supuestos tasados de la ITC-BT-05. Requiere campo de formulario 'tension' (existe en el schema y en el formulario web) para distinguir BT de AT y condicionar el paso OCA; no implementado en esta corrección para no inventar lógica de clasificación no verificada.",
-    "Tramo 100-500 kW: el umbral de exención de inscripción RAIPEE (100 kW) y el umbral de autorización administrativa (500 kW) son magnitudes distintas; el fichero no cubre explícitamente si las instalaciones entre 100 y 500 kW requieren inscripción RAIPEE pese a no requerir autorización administrativa. Pendiente de verificación primaria."
+    "Tramo 100-500 kW: el umbral de exención de inscripción RAIPEE (100 kW) y el umbral de autorización administrativa (500 kW) son magnitudes distintas; el fichero no cubre explícitamente si las instalaciones entre 100 y 500 kW requieren inscripción RAIPEE pese a no requerir autorización administrativa. Pendiente de verificación primaria.",
+    "Verificación Prompt B Aragón (2026-10-01): Umbral de 500 kW de ARA-FV-003 CONFIRMADO con la Ley 5/2024 de Aragón (BOE-A-2025-1392): autorización previa, de construcción y de explotación para renovables no eólicas de más de 500 kW y hasta 50 MW (cita literal, confianza alta). Queda pendiente el plazo y el sentido del silencio en Aragón (los 90 días son los supletorios estatales).",
+    "Verificación Prompt B Aragón (2026-10-01): Organismo de ARA-FV-003 corregido: no es el Ministerio sino el Gobierno de Aragón (Servicio Provincial hasta 1 MW; DG de energía en el resto hasta 50 MW). El reparto exacto entre 500 kW y 1 MW es confianza media; abrir la página de energía fotovoltaica. La plataforma_url anterior no coincidía con la página publicada y se sustituyó.",
+    "Verificación Prompt B Aragón (2026-10-01): Plazos: se quitaron los plazo_legal_dias de la comunicación de BT (ARA-FV-001 y ARA-FV-002 paso 3) y del paso del OCA (ARA-FV-002 paso 2): no hay resolución expresa y se entiende practicada al presentarla. Tasa: el «0 €» no tenía respaldo (el art. 53 de la Ley 24/2013 trata de la autorización, no de tasas). El trámite Nº 26 aplica la Tasa 14: memoria técnica 86,35 € + (N-1)×5,65 €; proyecto 129,50 € + (N-1)×5,65 €; solo certificado 15,35 €. No se localizó exención específica para autoconsumo. Los importes de la Tasa 14 (Modelo 514) proceden de las guías de servicios de aragon.es; no se localizó la tarifa en el texto de la Ley 2/2016 (cap. XIV) y pueden variar con la actualización anual. No se verificó qué epígrafe aplica a cada vertical (el de IRVE y FV en BT se asimiló a la tarifa general de BT).",
+    "Verificación Prompt B Aragón (2026-10-01): «Declaración responsable» (dr_fv): no figura en la ficha del Trámite Nº 26; se dejó como opcional. Modelos confirmados: E0001 (comunicación), C0001 (memoria) y justificante Modelo 514.",
+    "Verificación Prompt B Aragón (2026-10-01): OMISIÓN: autorización de explotación para generación de más de 100 kW y hasta 500 kW (excluida de la previa y de la de construcción, pero no de la de explotación según el epígrafe de la Ley 5/2024, fuente secundaria: derecholocal.es). Es requisito de la inscripción RADNE por encima de 100 kW y ARA-FV-002 no la contempla. No se leyó el artículo íntegro; existe además un acuerdo de la Comisión Bilateral y una «Guía breve» de Aragón (fecha dudosa) que fija la exención en 100 kW.",
+    "Verificación Prompt B Aragón (2026-10-01): OMISIÓN: acceso y conexión / obtención del CAU ante la distribuidora (RD 1183/2020; RD 244/2019), previo a la inscripción RADNE según la ficha 2459. Tampoco se modela la admisión a trámite del RDL 23/2020 para fotovoltaicas de más de 500 kW y hasta 50 MW, incluido el autoconsumo con excedentes.",
+    "Verificación Prompt B Aragón (2026-10-01): Sin verificar: el certificado de OCA entre 10 y 500 kW de ARA-FV-002 depende de la ITC-BT-05 y de la Tabla 1 de BT de Aragón (documentación por uso y potencia), que no se pudieron abrir. La referencia a los «arts. 19 y 20» del RD 244/2019 de los trámites RADNE no consta en la ficha 2459 (cita el art. 4). La ficha 2459 solo trae el texto genérico «si el trámite requiere de pago de tasas».",
+    "Verificación Prompt B Aragón (2026-10-01): AESSIA y DIGITA están confirmados como canales, pero sigue sin aclararse si cubren supuestos distintos o son alternativas. La Resolución de 23/06/2021 de la DG de Industria (incorporación de trámites a las plataformas telemáticas) debería consultarse en el BOA.",
+    "Verificación Prompt B Aragón (2026-10-01): No se contrastaron la licencia o comunicación municipal ni los trámites ambientales de las instalaciones fotovoltaicas.",
+    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado."
   ],
   "fuentes": [
     {
@@ -55,12 +61,22 @@
       "norma": "Ficha del procedimiento 2459 'Registro administrativo de autoconsumo de energía eléctrica' del Gobierno de Aragón: exige la inscripción a todos los autoconsumidores con independencia de modalidad, potencia y tensión",
       "url": "https://www.aragon.es/tramitador/-/tramite/registro-administrativo-autoconsumo-energia-electrica",
       "fecha_consulta": "2026-08-11"
+    },
+    {
+      "norma": "Ley 5/2024 de Aragón (comunidades energéticas y autoconsumo; autorización de renovables de más de 500 kW y hasta 50 MW)",
+      "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-1392",
+      "fecha_consulta": "2026-10-01"
+    },
+    {
+      "norma": "Orden EIE/1132/2018 y Orden ICD/302/2020 (Aragón), modificaciones de la Orden EIE/1731/2017",
+      "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VERDOC&BASE=BOLE&SEC=BUSQUEDA_AVANZADA&DOCN=000234436",
+      "fecha_consulta": "2026-10-01"
     }
   ],
   "reglas": [
     {
       "id": "ARA-FV-001",
-      "descripcion": "Autoconsumo <=10 kW: memoria tecnica de diseno, sin proyecto",
+      "descripcion": "Autoconsumo de hasta 10 kW: memoria técnica de diseño, sin proyecto",
       "condicion": {
         "<=": [
           {
@@ -86,8 +102,8 @@
           "documentos_requeridos": [
             {
               "id": "mtd_fv",
-              "label": "MTD",
-              "descripcion": "Instalador habilitado.",
+              "label": "Memoria técnica de diseño (Modelo C0001)",
+              "descripcion": "Modelo C0001, firmada por la empresa instaladora habilitada.",
               "obligatorio": true
             },
             {
@@ -99,8 +115,8 @@
             {
               "id": "dr_fv",
               "label": "Declaracion Responsable",
-              "descripcion": "Titular.",
-              "obligatorio": true
+              "descripcion": "Titular. La ficha del Trámite Nº 26 no la lista como documento de la comunicación; confirmar si Aragón la exige para autoconsumo.",
+              "obligatorio": false
             }
           ],
           "notas": null,
@@ -111,20 +127,20 @@
           "orden": 2,
           "nombre": "Trámite Nº 26: Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio, modificación y baja",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RD 842/2002; Orden EIE/1731/2017",
+          "base_legal": "RD 842/2002; Orden EIE/1731/2017, modificada por la Orden EIE/1132/2018 y la Orden ICD/302/2020; RD 244/2019 art. 9",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
           "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
-          "coste_estimado": "0 EUR -- exencion estatal de autoconsumo <=100 kW (Ley 24/2013 art. 53); epigrafe autonomico especifico NO VERIFICADO",
+          "coste_estimado": "Tasa 14 (autoliquidación Modelo 514), tarifa con memoria técnica: 86,35 € + (N-1)×5,65 € (15,35 € si solo se presenta certificado). Importes de la guía de servicios de aragon.es; pueden actualizarse cada año. No se exige si se tramita a través de entidad colaboradora u organismo de control.",
           "formulario_ref": "Modelo C0004",
           "paralelo_con": null,
           "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "mtd_fv",
-              "label": "MTD",
-              "descripcion": "Del paso 1.",
+              "label": "Memoria técnica de diseño (Modelo C0001)",
+              "descripcion": "Modelo C0001. Es la del paso 1.",
               "obligatorio": true
             },
             {
@@ -136,11 +152,23 @@
             {
               "id": "dr_fv",
               "label": "DR",
-              "descripcion": "Del paso 1.",
+              "descripcion": "Del paso 1. La ficha del Trámite Nº 26 no la lista como documento de la comunicación; confirmar si Aragón la exige para autoconsumo.",
+              "obligatorio": false
+            },
+            {
+              "id": "formulario_e0001",
+              "label": "Formulario de comunicación (Modelo E0001)",
+              "descripcion": "Necesario en todas las comunicaciones de instalaciones de baja tensión.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_514",
+              "label": "Justificante de la tasa (autoliquidación Modelo 514)",
+              "descripcion": "Tasa 14 del Gobierno de Aragón. No se exige si se tramita por entidad colaboradora u organismo de control.",
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 26; denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa.",
+          "notas": "Trámite Nº 26 de aragon.es (comunicación de puesta en servicio, modificación y baja de instalaciones eléctricas de baja tensión). Es una comunicación: no hay plazo máximo de resolución y, presentada la documentación (y pagada la tasa), se entiende practicada válidamente (silencio positivo, según la guía de servicios de Aragón). Se presenta por DIGITA (plataforma del Gobierno de Aragón) o a través de una entidad colaboradora como AESSIA (Decreto 38/2015).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -201,7 +229,7 @@
           "organismo": "Organismo de Control Autorizado habilitado en Aragon",
           "base_legal": "RD 2200/1995",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO -- variable segun OCA",
@@ -230,12 +258,12 @@
           "orden": 3,
           "nombre": "Trámite Nº 26: Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio, modificación y baja",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RD 842/2002; Orden EIE/1731/2017",
+          "base_legal": "RD 842/2002; Orden EIE/1731/2017, modificada por la Orden EIE/1132/2018 y la Orden ICD/302/2020; RD 244/2019 art. 9",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
           "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
-          "coste_estimado": "0 EUR -- exencion estatal de autoconsumo <=100 kW (Ley 24/2013 art. 53); epigrafe autonomico especifico NO VERIFICADO",
+          "coste_estimado": "Tasa 14 (autoliquidación Modelo 514), tarifa con proyecto: 129,50 € + (N-1)×5,65 €. Importes de la guía de servicios de aragon.es; pueden actualizarse cada año. No se exige si se tramita a través de entidad colaboradora u organismo de control.",
           "formulario_ref": "Modelo C0004",
           "paralelo_con": null,
           "regla_id": null,
@@ -251,9 +279,21 @@
               "label": "CI",
               "descripcion": "Del paso 2.",
               "obligatorio": true
+            },
+            {
+              "id": "formulario_e0001",
+              "label": "Formulario de comunicación (Modelo E0001)",
+              "descripcion": "Necesario en todas las comunicaciones de instalaciones de baja tensión.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_514",
+              "label": "Justificante de la tasa (autoliquidación Modelo 514)",
+              "descripcion": "Tasa 14 del Gobierno de Aragón. No se exige si se tramita por entidad colaboradora u organismo de control.",
+              "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 26). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial.",
+          "notas": "Trámite Nº 26 de aragon.es (comunicación de puesta en servicio, modificación y baja de instalaciones eléctricas de baja tensión). Es una comunicación: no hay plazo máximo de resolución y, presentada la documentación (y pagada la tasa), se entiende practicada válidamente (silencio positivo, según la guía de servicios de Aragón). Se presenta por DIGITA (plataforma del Gobierno de Aragón) o a través de una entidad colaboradora como AESSIA (Decreto 38/2015).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -261,7 +301,7 @@
     },
     {
       "id": "ARA-FV-003",
-      "descripcion": "Autoconsumo >500 kW: regimen de autorizacion administrativa. Umbral mantenido por continuidad operativa; la cita previa a 'Ley 1/2024 de Aragón' se retiró por no localizarse esa norma en BOA (auditoría 2026-07-28). Candidatas no cotejadas artículo por artículo: Ley 1/2021 de simplificación administrativa y Ley 5/2024 de comunidades energéticas y autoconsumo industrial. Ver huecos_verificacion.",
+      "descripcion": "Autoconsumo de más de 500 kW: autorización administrativa (Ley 5/2024 de Aragón)",
       "condicion": {
         ">": [
           {
@@ -299,12 +339,12 @@
         {
           "orden": 2,
           "nombre": "Autorizacion administrativa (RAIPEE, seccion segunda) y Registro Administrativo de Autoconsumo de Energía Eléctrica (RADNE)",
-          "organismo": "Ministerio competente en energia (RAIPEE) / Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "Ley 24/2013 art. 53; RD 1955/2000",
+          "organismo": "Gobierno de Aragón: Servicio Provincial de Industria (fotovoltaicas hasta 1 MW) o Dirección General competente en energía (resto, hasta 50 MW cuando afecta solo a Aragón)",
+          "base_legal": "Ley 24/2013 art. 53; Ley 5/2024 de Aragón (más de 500 kW y hasta 50 MW); RD 1955/2000",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
-          "plataforma_url": "https://www.aragon.es/-/energia-fotovoltaica-y-otras-tecnologias-no-eolicas-",
+          "plataforma_url": "https://www.aragon.es/-/energia-fotovoltaica-en-aragon",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
           "paralelo_con": null,
@@ -317,7 +357,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: nota reconciliada. Las instalaciones de produccion no superiores a 100 kW asociadas a autoconsumo con excedentes estan exentas de inscripcion en el RAIPEE (confirmado en fuente oficial aragon.es); ese umbral de exencion (100 kW) es DISTINTO del umbral de autorizacion administrativa (500 kW) que activa esta regla ARA-FV-003. El tramo 100-500 kW no queda cubierto por ninguna regla de este fichero en materia de inscripcion RAIPEE (ver huecos_verificacion). Plazo y silencio (90 dias, desestimatorio) tomados de la aplicacion supletoria estatal (RD 1955/2000), no confirmados especificamente para Aragon. plataforma_url rellenada con la ficha oficial del Trámite Nº 26 por continuidad con el resto del fichero; pendiente confirmar si el procedimiento de autorización administrativa (RAIPEE) usa un canal de tramitación distinto al de la mera comunicación de BT.",
+          "notas": "En Aragón, las instalaciones renovables no eólicas de más de 500 kW y hasta 50 MW necesitan autorización previa, de construcción y de explotación (Ley 5/2024). Entre 100 y 500 kW quedan excluidas de la previa y de la de construcción. El Ministerio solo interviene si el aprovechamiento afecta a otra comunidad o supera 50 MW. El plazo de 90 días y el silencio desestimatorio son los supletorios estatales (RD 1955/2000); no constan específicamente para Aragón. Además hay que inscribirse en el registro de autoconsumo (RADNE, procedimiento 2459).",
           "registro_salida": null,
           "medio_presentacion": null
         }

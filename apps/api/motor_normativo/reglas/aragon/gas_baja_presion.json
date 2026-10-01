@@ -1,19 +1,23 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "aragon",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-01",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
-  "aviso": "Reglas de presión y potencias base actualizadas para Aragón. Auditoría 2026-07-28 (CRÍTICO corregido): se retiró la cita a la 'Orden de 28 de febrero de 2003, del Departamento de Industria, Comercio y Turismo', que está DEROGADA desde 2007 y además atribuida a un departamento con nombre erróneo (en 2003 era 'Industria, Comercio y Desarrollo', no 'Turismo'). Sustituida por la Orden de 30 de marzo de 2007, del Departamento de Industria, Comercio y Turismo (nombre correcto en esa fecha), que regula hoy el mismo procedimiento. Rellenada plataforma_url del trámite Nº 33 y añadido el trámite de alta de suministro ante distribuidora. 'estado' se mantiene en verificado_parcialmente por los huecos restantes.",
+  "aviso": "Reglas de presión y potencias base para Aragón. Verificación Prompt B (2026-10-01): la Orden de 30/03/2007 está confirmada en el BOA y el Trámite Nº 33 existe. BLOQUEANTE a cotejar: la comunicación de ARA-GAS-001 (≤ 70 kW y ≤ 5 bar) contradice el RD 919/2006 (ver huecos_verificacion). Se corrigieron plazos, tasa y documentación del Nº 33. 'estado' se mantiene en verificado_parcialmente.",
   "huecos_verificacion": [
-    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
-    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón.",
-    "Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo): localizada en BOA como sucesora de la Orden de 28/02/2003, pero no se ha leído su texto íntegro ni comprobado si ha sido modificada por norma posterior.",
     "formulario_ref del trámite Nº 33 (los tres casos): queda en null. No se ha localizado el código/referencia exacta del certificado de instalación de gas en la ficha de 'Formularios, impresos y tablas' de combustibles gaseosos de aragon.es dentro de esta corrección.",
     "Nombre de la vertical 'gas_baja_presion': ARA-GAS-003 cubre expresamente MOP > 5 bar (alta presión), lo que es inconsistente con el nombre del fichero/tipo_instalacion. No se ha renombrado 'tipo_instalacion' porque es un valor fijo del Literal en schemas/clasificador.py (TipoInstalacion) y cambiarlo rompería la clasificación; queda documentado como incoherencia de nomenclatura pendiente de decisión de producto.",
-    "Trámite de alta de suministro / puesta en gas ante la distribuidora: añadido como paso final de cada regla (orden 4) por ser mecánicamente análogo al resto de trámites de la vertical; el organismo/plataforma exactos (Nedgia u otro operador según zona) no se han verificado en fuente primaria."
+    "Trámite de alta de suministro / puesta en gas ante la distribuidora: añadido como paso final de cada regla (orden 4) por ser mecánicamente análogo al resto de trámites de la vertical; el organismo/plataforma exactos (Nedgia u otro operador según zona) no se han verificado en fuente primaria.",
+    "Verificación Prompt B Aragón (2026-10-01): BLOQUEANTE a cotejar: ARA-GAS-001 (≤ 70 kW y ≤ 5 bar) incluye la comunicación del Trámite Nº 33 como paso 3, pero el RD 919/2006 dice «Salvo en el caso de las instalaciones que requieren proyecto, no es precisa ninguna comunicación» (BOE-A-2006-15345, confianza alta) y la Tabla 1 de Aragón deja fuera del procedimiento las instalaciones por debajo de sus umbrales. Los pasos 1 y 2 (memoria técnica y certificado del instalador) se mantienen; el alta con la distribuidora sí procede. No se modificó la regla porque cambia la clasificación (hay un caso de referencia con 4 trámites, aragon_gas_40kw): decisión pendiente de una persona; se dejó un aviso en las notas del trámite.",
+    "Verificación Prompt B Aragón (2026-10-01): La Orden de 30/03/2007 (Industria, Comercio y Turismo) está confirmada en el BOA y se cita como marco de la guía del procedimiento (confianza alta); no se encontró modificación posterior, pero no se verificó. El slug del Nº 33 aparece publicado por aragon.es; no se pudo abrir.",
+    "Verificación Prompt B Aragón (2026-10-01): Plazo: se quitó plazo_legal_dias (15). El titular debe comunicar antes de que transcurran 30 días DESDE la puesta en servicio (comunicación posterior, no previa), con toda la documentación junta (cita literal, confianza alta). Tasa: con proyecto técnico 129,50 € (guía de servicios; el trámite exige el justificante del Modelo 514 apartado 1). Los importes de la Tasa 14 (Modelo 514) proceden de las guías de servicios de aragon.es; no se localizó la tarifa en el texto de la Ley 2/2016 (cap. XIV) y pueden variar con la actualización anual. No se verificó qué epígrafe aplica a cada vertical (el de IRVE y FV en BT se asimiló a la tarifa general de BT).",
+    "Verificación Prompt B Aragón (2026-10-01): Documentos: la ficha pide proyecto técnico suscrito por técnico competente y visado por el colegio oficial (por duplicado en papel, confianza media), formulario E0003a, justificante de la tasa y, si procede, certificados de instalación común y de acometida interior de agua; en baja, justificante de titularidad. Falta contrastar el visado con la normativa sobre visado obligatorio (RD 1000/2010). No se añadió el justificante de titularidad.",
+    "Verificación Prompt B Aragón (2026-10-01): Confirmado (Tabla 1 de Aragón y ITC-ICG 07 §3.2): proyecto si individual > 70 kW. Faltan los otros supuestos de proyecto: instalaciones comunes > 2.000 kW y acometidas interiores > 2.000 kW (potencia_kw no distingue instalación común o individual).",
+    "Verificación Prompt B Aragón (2026-10-01): ARA-GAS-003 (> 5 bar): se igualó la base legal con ARA-GAS-001/002 y se rellenó la plataforma_url del Nº 33. OMISIÓN: inspección periódica de instalaciones receptoras de gas (Tabla 1a de Aragón; RD 919/2006 ITC-ICG 07; Orden de 30/03/2007). El alta de suministro ante la distribuidora (paso 4) no es verificable en fuente autonómica.",
+    "Verificación Prompt B Aragón (2026-10-01): AESSIA y DIGITA están confirmados como canales, pero sigue sin aclararse si cubren supuestos distintos o son alternativas. La Resolución de 23/06/2021 de la DG de Industria (incorporación de trámites a las plataformas telemáticas) debería consultarse en el BOA.",
+    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado."
   ],
   "fuentes": [
     {
@@ -35,7 +39,7 @@
   "reglas": [
     {
       "id": "ARA-GAS-001",
-      "descripcion": "Instalacion receptora de gas en presion estandar (MOP <= 5 bar, equivalente al literal 'normal' del campo presion_bar del schema), potencia <=70 kW: memoria tecnica",
+      "descripcion": "Instalación receptora de gas en presión estándar (hasta 5 bar) y potencia de hasta 70 kW: memoria técnica",
       "condicion": {
         "and": [
           {
@@ -113,7 +117,7 @@
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
           "base_legal": "RD 919/2006; Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo, Aragón)",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
           "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-receptoras-combustibles-gaseosos-comunicacion-puesta-servicio-baja",
           "coste_estimado": "NO VERIFICADO",
@@ -134,7 +138,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28 (CRÍTICO): base_legal actualizada. La Orden de 28/02/2003 citada previamente está derogada desde 2007 y venía con el departamento mal atribuido; sustituida por la Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo). plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 33; denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial.",
+          "notas": "AVISO: el RD 919/2006 (ITC-ICG 07) indica que, salvo las instalaciones que requieren proyecto (individuales de más de 70 kW, comunes y acometidas de más de 2.000 kW, o presión superior a 5 bar), no es precisa ninguna comunicación a la Administración. Para esta potencia confirma con el Servicio Provincial de Industria si Aragón exige igualmente este trámite. En cualquier caso se conservan la memoria técnica y el certificado de instalación, y sí procede el alta con la distribuidora. Cuando se presenta, la comunicación debe hacerse antes de que pasen 30 días desde la puesta en servicio.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -159,7 +163,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "AÑADIDO 2026-07-28: faltaba este trámite, imprescindible tras la comunicación de puesta en servicio para que el suministro quede operativo. Organismo y plataforma exactos no verificados en fuente primaria; ver huecos_verificacion.",
+          "notas": "Una vez en servicio, la distribuidora tramita el alta de suministro. El organismo, la plataforma y el plazo exactos dependen de la zona y del operador (no verificados en fuente autonómica).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -206,7 +210,7 @@
             {
               "id": "proyecto_gas",
               "label": "Proyecto tecnico",
-              "descripcion": "Visado si procede.",
+              "descripcion": "Suscrito por técnico titulado competente; se visa por el colegio oficial (ver paso de comunicación).",
               "obligatorio": true
             }
           ],
@@ -251,18 +255,18 @@
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
           "base_legal": "RD 919/2006; Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo, Aragón)",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
           "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-receptoras-combustibles-gaseosos-comunicacion-puesta-servicio-baja",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa 14 (autoliquidación Modelo 514), instalaciones con proyecto técnico: 129,50 €. Importe de la guía de servicios de aragon.es; puede actualizarse cada año.",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "proyecto_gas",
-              "label": "Proyecto",
-              "descripcion": "Del paso 1.",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Suscrito por técnico titulado competente y visado por el colegio oficial; la guía de Aragón lo pide por duplicado en papel.",
               "obligatorio": true
             },
             {
@@ -276,9 +280,27 @@
               "label": "Certificado direccion obra",
               "descripcion": "Del paso 2.",
               "obligatorio": true
+            },
+            {
+              "id": "formulario_e0003a",
+              "label": "Formulario de comunicación (Modelo E0003a)",
+              "descripcion": "Formulario oficial de la comunicación de puesta en servicio de gas.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_514",
+              "label": "Justificante de la tasa (autoliquidación Modelo 514)",
+              "descripcion": "Tasa 14 del Gobierno de Aragón, apartado 1 del Modelo 514.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_comun_acometida",
+              "label": "Certificados de instalación común y de acometida interior",
+              "descripcion": "Cuando proceda.",
+              "obligatorio": false
             }
           ],
-          "notas": "CORRECCION 2026-07-28 (CRÍTICO): base_legal actualizada (Orden de 28/02/2003 derogada, sustituida por Orden de 30/03/2007). plataforma_url rellenada con la ficha oficial confirmada del Trámite Nº 33.",
+          "notas": "Trámite Nº 33 de aragon.es (comunicación de puesta en servicio, modificación, ampliación y baja de instalaciones receptoras de combustibles gaseosos). La comunicación debe presentarse antes de que pasen 30 días desde la puesta en servicio, con toda la documentación junta. No hay plazo máximo de resolución. Se presenta por DIGITA (plataforma del Gobierno de Aragón) o a través de una entidad colaboradora como AESSIA (Decreto 38/2015).",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -303,7 +325,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "AÑADIDO 2026-07-28: faltaba este trámite, imprescindible tras la comunicación de puesta en servicio para que el suministro quede operativo. Organismo y plataforma exactos no verificados en fuente primaria; ver huecos_verificacion.",
+          "notas": "Una vez en servicio, la distribuidora tramita el alta de suministro. El organismo, la plataforma y el plazo exactos dependen de la zona y del operador (no verificados en fuente autonómica).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -338,7 +360,7 @@
             {
               "id": "proyecto_gas",
               "label": "Proyecto tecnico",
-              "descripcion": "Visado si procede.",
+              "descripcion": "Suscrito por técnico titulado competente; se visa por el colegio oficial (ver paso de comunicación).",
               "obligatorio": true
             }
           ],
@@ -381,20 +403,20 @@
           "orden": 3,
           "nombre": "Trámite Nº 33: Instalaciones receptoras de combustibles gaseosos: comunicación de puesta en servicio, modificación, ampliación y baja",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RD 919/2006; normativa autonomica",
+          "base_legal": "RD 919/2006; Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo, Aragón)",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "DIGITA / AESSIA (Entidad Colaboradora)",
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-receptoras-combustibles-gaseosos-comunicacion-puesta-servicio-baja",
+          "coste_estimado": "Tasa 14 (autoliquidación Modelo 514), instalaciones con proyecto técnico: 129,50 €. Importe de la guía de servicios de aragon.es; puede actualizarse cada año.",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "proyecto_gas",
-              "label": "Proyecto",
-              "descripcion": "Del paso 1.",
+              "label": "Proyecto técnico visado",
+              "descripcion": "Suscrito por técnico titulado competente y visado por el colegio oficial; la guía de Aragón lo pide por duplicado en papel.",
               "obligatorio": true
             },
             {
@@ -408,9 +430,27 @@
               "label": "Certificado direccion obra",
               "descripcion": "Del paso 2.",
               "obligatorio": true
+            },
+            {
+              "id": "formulario_e0003a",
+              "label": "Formulario de comunicación (Modelo E0003a)",
+              "descripcion": "Formulario oficial de la comunicación de puesta en servicio de gas.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_514",
+              "label": "Justificante de la tasa (autoliquidación Modelo 514)",
+              "descripcion": "Tasa 14 del Gobierno de Aragón, apartado 1 del Modelo 514.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_comun_acometida",
+              "label": "Certificados de instalación común y de acometida interior",
+              "descripcion": "Cuando proceda.",
+              "obligatorio": false
             }
           ],
-          "notas": null,
+          "notas": "Trámite Nº 33 de aragon.es (comunicación de puesta en servicio, modificación, ampliación y baja de instalaciones receptoras de combustibles gaseosos). La comunicación debe presentarse antes de que pasen 30 días desde la puesta en servicio, con toda la documentación junta. No hay plazo máximo de resolución. Se presenta por DIGITA (plataforma del Gobierno de Aragón) o a través de una entidad colaboradora como AESSIA (Decreto 38/2015).",
           "registro_salida": null,
           "medio_presentacion": null
         }

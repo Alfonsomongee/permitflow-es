@@ -28,3 +28,8 @@ La herramienta leyó directamente el art. 15.1 en el BOE («sea mayor que 70 kW,
 ## Adenda 2026-10-01 (Prompt B Cataluña)
 
 La FAQ de Canal Empresa (Generalitat), que la herramienta pudo leer, dice: «Fins als 70 kW (tèrmics), inclòs: la memòria i la certificació de la instal·lació» y «Amb una potència superior als 70 kW: el projecte». Es la **segunda administración autonómica** (tras la lectura directa del BOE) que respalda `> 70` / `<= 70`. Queda Madrid como único caso con una ficha oficial que dice «igual o superior a 70 kW».
+
+## Adenda 2026-10-01 (Prompt B Aragón)
+
+La ficha oficial del Trámite Nº 39 de aragon.es indica «Memoria técnica de la instalación (modelo C0006) para instalaciones con potencia térmica nominal: 5 kW ≤ Potencia ≤ 70 kW» y el certificado de inspección inicial (C0010a) «para potencia > 70 kW». Es la **tercera administración autonómica** (tras Cataluña y la lectura del BOE) que respalda `> 70` / `<= 70`. Las condiciones de Aragón ya eran correctas; se corrigieron el `aviso` y las descripciones que seguían diciendo que 70 kW pasaba a proyecto. Queda Madrid como único caso con una ficha que dice «igual o superior a 70 kW».
+
