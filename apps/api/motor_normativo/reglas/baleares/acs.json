@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "baleares",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
@@ -199,7 +199,7 @@
                 ]
               },
               {
-                "<": [
+                "<=": [
                   {
                     "var": "potencia_kw"
                   },
@@ -277,7 +277,7 @@
     },
     {
       "id": "BAL-ACS-002",
-      "descripcion": "Instalación de ACS con potencia >= 70 kW (requiere proyecto técnico)",
+      "descripcion": "Instalación de ACS con potencia > 70 kW (requiere proyecto técnico)",
       "condicion": {
         "and": [
           {
@@ -319,7 +319,7 @@
             }
           },
           {
-            ">=": [
+            ">": [
               {
                 "var": "potencia_kw"
               },

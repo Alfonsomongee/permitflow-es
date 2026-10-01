@@ -339,9 +339,13 @@ class Clasificador:
                     nombre="Ayudas a la inversión disponibles para esta instalación",
                     tipo_actuacion="informativa",
                     organismo=organismo_ayuda,
+                    # Antes citaba el RD 477/2021 como «marco estatal» vigente, pero sus
+                    # programas cerraron solicitudes el 31/12/2023 (IDAE) y MOVES III el
+                    # 31/12/2025; presentar eso como base legal vigente confundía al usuario.
                     base_legal=(
-                        "RD 477/2021 (marco estatal de ayudas Next Generation EU al "
-                        "autoconsumo) y normativa autonómica de desarrollo"
+                        "Convocatorias estatales y autonómicas de ayudas (consulta el estado de cada "
+                        "programa en el detalle): el RD 477/2021 cerró solicitudes el 31/12/2023 y MOVES III "
+                        "el 31/12/2025"
                     ),
                     documentos_requeridos=[],
                     notas=notas_ayuda,

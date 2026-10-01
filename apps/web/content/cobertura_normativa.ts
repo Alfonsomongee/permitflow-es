@@ -18,7 +18,7 @@ export const COBERTURA_NORMATIVA: Record<string, Record<string, CoberturaCombo>>
   andalucia: {
     acs: { nivelVerificacion: "verificada", estado: null, huecos: 5, ultimaRevision: "2026-07-28", revisadoPor: null },
     climatizacion_aerotermia: { nivelVerificacion: "generica", estado: null, huecos: 3, ultimaRevision: "2026-07-28", revisadoPor: null },
-    fotovoltaica_autoconsumo: { nivelVerificacion: "generica", estado: null, huecos: 5, ultimaRevision: "2026-08-09", revisadoPor: null },
+    fotovoltaica_autoconsumo: { nivelVerificacion: "generica", estado: null, huecos: 6, ultimaRevision: "2026-08-09", revisadoPor: null },
     gas_baja_presion: { nivelVerificacion: "generica", estado: null, huecos: 2, ultimaRevision: "2026-07-28", revisadoPor: null },
     irve: { nivelVerificacion: "generica", estado: null, huecos: 3, ultimaRevision: "2026-07-28", revisadoPor: null },
   },
@@ -32,7 +32,7 @@ export const COBERTURA_NORMATIVA: Record<string, Record<string, CoberturaCombo>>
   asturias: {
     acs: { nivelVerificacion: "generica", estado: "verificado_parcialmente", huecos: 2, ultimaRevision: "2026-07-28", revisadoPor: null },
     climatizacion_aerotermia: { nivelVerificacion: "generica", estado: "verificado_parcialmente", huecos: 1, ultimaRevision: "2026-07-28", revisadoPor: null },
-    fotovoltaica_autoconsumo: { nivelVerificacion: "generica", estado: "verificado_parcialmente", huecos: 3, ultimaRevision: "2026-07-28", revisadoPor: null },
+    fotovoltaica_autoconsumo: { nivelVerificacion: "generica", estado: "verificado_parcialmente", huecos: 4, ultimaRevision: "2026-07-28", revisadoPor: null },
     gas_baja_presion: { nivelVerificacion: "generica", estado: "verificado_parcialmente", huecos: 2, ultimaRevision: "2026-07-28", revisadoPor: null },
     irve: { nivelVerificacion: "generica", estado: "verificado_parcialmente", huecos: 4, ultimaRevision: "2026-07-28", revisadoPor: null },
   },

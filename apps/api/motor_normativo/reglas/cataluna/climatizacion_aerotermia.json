@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "cataluna",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
@@ -109,7 +109,7 @@
             ]
           },
           {
-            "<": [
+            "<=": [
               {
                 "var": "potencia_kw"
               },
@@ -181,7 +181,7 @@
     },
     {
       "id": "CAT-AERO-PROYECTO",
-      "descripcion": "Aerotermia >=70 kW",
+      "descripcion": "Aerotermia >70 kW",
       "condicion": {
         "and": [
           {
@@ -193,7 +193,7 @@
             ]
           },
           {
-            ">=": [
+            ">": [
               {
                 "var": "potencia_kw"
               },

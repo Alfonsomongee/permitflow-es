@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "madrid",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
@@ -110,7 +110,7 @@
             ]
           },
           {
-            "<": [
+            "<=": [
               {
                 "var": "potencia_kw"
               },
@@ -182,7 +182,7 @@
     },
     {
       "id": "MAD-AERO-PROYECTO",
-      "descripcion": "Aerotermia >=70 kW",
+      "descripcion": "Aerotermia >70 kW",
       "condicion": {
         "and": [
           {
@@ -194,7 +194,7 @@
             ]
           },
           {
-            ">=": [
+            ">": [
               {
                 "var": "potencia_kw"
               },

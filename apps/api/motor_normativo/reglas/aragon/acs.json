@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "aragon",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "ultima_revision": "2026-07-28",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
@@ -195,7 +195,7 @@
                 ]
               },
               {
-                "<": [
+                "<=": [
                   {
                     "var": "potencia_kw"
                   },
@@ -261,7 +261,7 @@
     },
     {
       "id": "ARA-ACS-002",
-      "descripcion": "ACS >=70 kW: proyecto tecnico, certificado OCA y comunicacion de puesta en servicio (corregido 2026-07-28: umbral RITE es >=70 kW; añadido el tramite de comunicacion de puesta en servicio que faltaba, presente en ARA-ACS-001 y en climatizacion_aerotermia.json ARA-CLIM-002 para el mismo umbral)",
+      "descripcion": "ACS >70 kW: proyecto tecnico, certificado OCA y comunicacion de puesta en servicio (corregido 2026-07-28: umbral RITE es >70 kW; añadido el tramite de comunicacion de puesta en servicio que faltaba, presente en ARA-ACS-001 y en climatizacion_aerotermia.json ARA-CLIM-002 para el mismo umbral)",
       "condicion": {
         "and": [
           {
@@ -303,7 +303,7 @@
             }
           },
           {
-            ">=": [
+            ">": [
               {
                 "var": "potencia_kw"
               },

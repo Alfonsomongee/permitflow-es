@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "madrid",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
@@ -233,7 +233,7 @@
                 ]
               },
               {
-                "<": [
+                "<=": [
                   {
                     "var": "potencia_kw"
                   },
@@ -307,7 +307,7 @@
     },
     {
       "id": "MAD-ACS-PROYECTO",
-      "descripcion": "ACS >=70 kW: proyecto y registro EICI",
+      "descripcion": "ACS >70 kW: proyecto y registro EICI",
       "condicion": {
         "and": [
           {
@@ -359,7 +359,7 @@
                 ]
               },
               {
-                ">=": [
+                ">": [
                   {
                     "var": "potencia_kw"
                   },

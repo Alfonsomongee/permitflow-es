@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cataluna",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "ultima_revision": "2026-07-28",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
@@ -264,7 +264,7 @@
                 ]
               },
               {
-                "<": [
+                "<=": [
                   {
                     "var": "potencia_kw"
                   },
@@ -338,7 +338,7 @@
     },
     {
       "id": "CAT-ACS-PROYECTO",
-      "descripcion": "ACS >=70 kW: proyecto técnico",
+      "descripcion": "ACS >70 kW: proyecto técnico",
       "condicion": {
         "and": [
           {
@@ -390,7 +390,7 @@
                 ]
               },
               {
-                ">=": [
+                ">": [
                   {
                     "var": "potencia_kw"
                   },

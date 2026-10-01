@@ -167,9 +167,15 @@ def test_cataluna_acs_potencia_fronteras():
     assert jsonLogic(r_mtd,  ctx69) is True
     assert jsonLogic(r_proy, ctx69) is False
 
+    # RITE art. 15.1: proyecto si la potencia es MAYOR que 70 kW; de 5 a 70 kW
+    # (ambos incluidos) basta la memoria técnica. A 70,0 exacto es MTD.
     ctx70 = {**base, "potencia_kw": 70.0}
-    assert jsonLogic(r_mtd,  ctx70) is False
-    assert jsonLogic(r_proy, ctx70) is True
+    assert jsonLogic(r_mtd,  ctx70) is True
+    assert jsonLogic(r_proy, ctx70) is False
+
+    ctx70_01 = {**base, "potencia_kw": 70.01}
+    assert jsonLogic(r_mtd,  ctx70_01) is False
+    assert jsonLogic(r_proy, ctx70_01) is True
 
 
 def test_cataluna_acs_legionella_condicion():
@@ -260,9 +266,14 @@ def test_cataluna_aerotermia_potencia_fronteras():
     assert jsonLogic(r_mtd,  ctx5) is True
     assert jsonLogic(r_proy, ctx5) is False
 
+    # RITE art. 15.1: proyecto si la potencia es MAYOR que 70 kW (a 70 exacto, MTD).
     ctx70 = {**base, "potencia_kw": 70}
-    assert jsonLogic(r_mtd,  ctx70) is False
-    assert jsonLogic(r_proy, ctx70) is True
+    assert jsonLogic(r_mtd,  ctx70) is True
+    assert jsonLogic(r_proy, ctx70) is False
+
+    ctx70_01 = {**base, "potencia_kw": 70.01}
+    assert jsonLogic(r_mtd,  ctx70_01) is False
+    assert jsonLogic(r_proy, ctx70_01) is True
 
     assert data.get("nivel_verificacion") == "verificada_parcialmente"
 
