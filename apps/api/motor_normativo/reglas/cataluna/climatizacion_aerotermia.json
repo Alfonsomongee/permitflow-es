@@ -1,14 +1,18 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "cataluna",
-  "version": "1.2.2",
-  "ultima_revision": "2026-07-28",
+  "version": "1.2.3",
+  "ultima_revision": "2026-10-01",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
   "aviso": "Fronteras RITE corregidas. Declaración responsable electrónica y RITSIC. No se infiere inspección por organismo de control solo por potencia o proyecto.",
   "huecos_verificacion": [
-    "Pendiente de determinar los supuestos sectoriales expresos de inspección por organismo de control conforme al Decret 192/2023 y su ITA 9."
+    "Pendiente de determinar los supuestos sectoriales expresos de inspección por organismo de control conforme al Decret 192/2023 y su ITA 9.",
+    "Verificación Prompt B Cataluña (2026-10-01): Canal Empresa indica declaración responsable en el RITSIC para potencia «igual o superior a 20 kW en calor, o superior a 12 kW en frío»; el fichero la exige desde 5 kW. No se localizó la norma que fija ese umbral ni si aplica a ACS/aerotermia. Se mantiene 5 kW hasta contar con la cita.",
+    "Verificación Prompt B Cataluña (2026-10-01): La ficha 11419 describe la memoria técnica y el certificado de instalación como documentación que el titular debe tener a disposición, junto a la declaración responsable; no consta que se adjunten. Revisar el modelo documental (documentos_requeridos).",
+    "Verificación Prompt B Cataluña (2026-10-01): Casi todas las fichas de Canal Empresa y tramits.gencat.cat bloquearon la lectura automatizada: plazos, silencio, tasas y documentos de la ficha 11419/11420/21526 deben abrirse a mano.",
+    "Verificación Prompt B Cataluña (2026-10-01): No se verificaron las obligaciones de gases fluorados de las bombas de calor en Cataluña (RSIF, certificado del instalador, declaración responsable de instalaciones frigoríficas, comunicación de fugas); el fichero no las modela."
   ],
   "fuentes": [
     {
@@ -89,7 +93,7 @@
     },
     {
       "id": "CAT-AERO-MTD",
-      "descripcion": "Aerotermia de 5 a <70 kW",
+      "descripcion": "Aerotermia de 5 a 70 kW (ambos incluidos)",
       "condicion": {
         "and": [
           {

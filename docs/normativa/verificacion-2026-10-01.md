@@ -114,3 +114,29 @@ Resultado de una herramienta de investigación externa que abrió las fichas de 
 
 ### RD 88/2026
 En Madrid lo aplica la distribuidora al contratar; no altera ningún trámite autonómico. Puede exigir verificación y boletín en aumentos de potencia (IRVE, autoconsumo con nueva potencia contratada). Fuente del artículo: Iberley (secundaria).
+
+---
+
+## Resultado del Prompt B — Cataluña (2026-10-01)
+
+Misma salvedad que Madrid: herramienta externa, no re-comprobado, JSON íntegro no archivado. **Calidad de la evidencia notablemente menor:** `canalempresa.gencat.cat`, `web.gencat.cat` y casi todo `tramits.gencat.cat` bloquearon la lectura automática; buena parte viene de fragmentos de buscador, de la FAQ de Canal Empresa y de fuentes secundarias. Por eso se aplicó poco y se anotó mucho. Niveles sin cambios; FV sigue en `en_revision`.
+
+### Aplicado
+| Hallazgo | Cambio |
+|---|---|
+| **Frontera de 70 kW confirmada por la propia Generalitat** (FAQ de Canal Empresa: «Fins als 70 kW, inclòs: la memòria»; «superior als 70 kW: el projecte») | Refuerza ADR 0002; descripciones de ACS y aerotermia corregidas de «5 a <70 kW» a «5 a 70 kW (ambos incluidos)» |
+| URL de RD 614/2024 apuntaba al RD 487/2022 (mismo fallo que en Madrid) | Corregida en `acs.json` |
+| Ficha 21526 gratuita; proyecto firmado solo para > 10 kW; DR de BT antes de la autorización de explotación | `coste_estimado`, documento opcional «proyecto_instalacion» (`condicion_documento` no se evalúa en ejecución, por eso va como opcional con aviso) y nota |
+| Gas sin proyecto: la ficha dice que no presentan DR ni se inscriben en el RITSIC | Aviso con la cita literal en la nota del trámite; **la regla no se cambia** |
+
+### Registrado en `huecos_verificacion` (decisión o fuente primaria pendiente)
+1. **Umbral de registro RITSIC:** Canal Empresa indica DR desde 20 kW en calor o > 12 kW en frío; el fichero la exige desde 5 kW (ACS y aerotermia). Importante; falta la norma.
+2. **Gas sin proyecto (bloqueante):** ver arriba; la ficha leída es de 2016, hay que comprobar el Decret 192/2023.
+3. **FV:** el alcance de la ficha 21526 es contradictorio entre dos redacciones oficiales (¿incluye ≤ 15 kW en suelo urbanizado?); faltan reglas para autoconsumo sin excedentes hasta 500 kW, con excedentes sin compensación y la autorización de explotación de 100-500 kW; licencia de obras exenta (fuente secundaria); base legal de AAP/AAC > 500 kW (Decret llei 16/2019 mod. 22/2025).
+4. **IRVE:** alcance de la inspección inicial por organismo de control; excepción de garaje residencial; regla de Barcelona desactivada.
+5. **Documentos «elec1»/ELEC2/ELEC3:** no aparecen con ese nombre en fuentes catalanas.
+6. **Gases fluorados** en aerotermia no modelados.
+7. **Nombres y URLs:** el nombre oficial del trámite 11419 lleva el sufijo «(posada en servei, modificacions i baixa)»; no se cambia `nombre` porque las estadísticas de plazos se clavan por nombre. Las `plataforma_url` usan `canalempresa.gencat.cat`; no se pudieron abrir.
+
+### Siguiente paso concreto
+Alguien con acceso debe abrir a mano las fichas **11419, 11420 y 21526**, el FAQ de Canal Empresa y el Decret 192/2023 (ITA 9 e ITA 12). Con eso se cierran de golpe los puntos 1, 2, 3 y 4.

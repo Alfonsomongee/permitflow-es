@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cataluna",
-  "version": "1.3.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.3.1",
+  "ultima_revision": "2026-10-01",
   "nivel_verificacion": "en_revision",
   "estado": "borrador_verificado_parcialmente",
   "revisado_por": null,
@@ -12,7 +12,12 @@
     "Confirmar documentalmente el alcance exacto del trámite 21526 y sus documentos obligatorios.",
     "Confirmar la ruta autonómica concreta de puesta en servicio para instalaciones conectadas en AT.",
     "requiere_acceso_conexion y requiere_registro_produccion son datos técnicos derivados; si faltan cuando son materiales, procede revisión manual.",
-    "Pendiente (no verificable con las herramientas disponibles): si el Decret llei 22/2025 modifica también el régimen de los tramos <=10 kW y 10-100 kW (CAT-FV-BT-RITSIC), más allá de los tramos 100-500 y >500 kW ya citados."
+    "Pendiente (no verificable con las herramientas disponibles): si el Decret llei 22/2025 modifica también el régimen de los tramos <=10 kW y 10-100 kW (CAT-FV-BT-RITSIC), más allá de los tramos 100-500 y >500 kW ya citados.",
+    "Verificación Prompt B Cataluña (2026-10-01): ALCANCE de la ficha 21526 dudoso: la fuente oficial da dos redacciones. Una indica «entre 15 kW i 100 kW en qualsevol mena de sòl o de fins a 15 kW en sòl no urbanitzat» (como el fichero); otra, «fins a 15 kW ubicada en sòl urbanitzat amb les dotacions i serveis». Si la segunda aplica al mismo trámite, la condición debe ampliarse. Confianza media; abrir la ficha a mano.",
+    "Verificación Prompt B Cataluña (2026-10-01): OMISIONES: no hay reglas para autoconsumo sin excedentes hasta 500 kW ni con excedentes sin compensación (Canal Empresa lista «Instalación generadora de autoconsumo sin excedentes hasta 500 kW»); el Decret llei 22/2025 podría requerir solo la autorización de explotación para 100-500 kW (fuente secundaria); y exime de licencia de obras a paneles en cubierta (art. 9 bis según ACM; fuente secundaria), sin trámite municipal modelado.",
+    "Verificación Prompt B Cataluña (2026-10-01): Base legal de CAT-FV-AAP-AAC-MAS-500: la fuente parlamentaria sitúa el régimen de AAP/AAC en > 500 kW hasta 50 MW en el Decret llei 16/2019 modificado por el Decret llei 22/2025; falta el artículo exacto. No se confirmó la convalidación parlamentaria del Decret llei 22/2025 ni que modifique los tramos ≤ 10 kW y 10-100 kW.",
+    "Verificación Prompt B Cataluña (2026-10-01): El documento «elec1» (certificado ELEC1) no aparece con ese nombre en las fuentes catalanas, que hablan de «certificat d'instal·lació elèctrica de baixa tensió»; confirmar la denominación del modelo oficial. Inscripción en el RIPRE sin verificar. Las plataforma_url usan canalempresa.gencat.cat; la herramienta solo pudo ver fichas en tramits.gencat.cat (host canónico probable).",
+    "Verificación Prompt B Cataluña (2026-10-01): Casi todas las fichas de Canal Empresa y tramits.gencat.cat bloquearon la lectura automatizada: plazos, silencio, tasas y documentos de la ficha 11419/11420/21526 deben abrirse a mano."
   ],
   "fuentes": [
     {
@@ -323,7 +328,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Canal Empresa (OGE)",
           "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/21526-installacio-generadora-autoconsum-compensacio",
-          "coste_estimado": null,
+          "coste_estimado": "Trámite gratuito (ficha 21526 de la Generalitat)",
           "formulario_ref": "21526",
           "paralelo_con": null,
           "regla_id": "CAT-FV-COMPENSACION-21526",
@@ -334,9 +339,15 @@
               "label": "Solicitud del trámite 21526",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "proyecto_instalacion",
+              "label": "Proyecto de la instalación firmado por facultativo competente",
+              "descripcion": "Obligatorio solo para instalaciones de más de 10 kW (ficha 21526). Por debajo de 10 kW no se exige.",
+              "obligatorio": false
             }
           ],
-          "notas": "Ámbito verificado: >15 y <=100 kW en cualquier tipo de suelo, o <=15 kW en suelo no urbanizable. No se presume automático ni de oficio; la documentación exacta debe confirmarse en la ficha vigente.",
+          "notas": "Ámbito verificado: >15 y <=100 kW en cualquier tipo de suelo, o <=15 kW en suelo no urbanizable. No se presume automático ni de oficio; la documentación exacta debe confirmarse en la ficha vigente.\nLa declaración responsable de baja tensión (RITSIC) debe presentarse antes de solicitar la autorización de explotación. Proyecto firmado por facultativo competente: solo para potencias superiores a 10 kW.",
           "registro_salida": null,
           "medio_presentacion": null
         }

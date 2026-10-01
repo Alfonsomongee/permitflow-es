@@ -24,3 +24,7 @@ Proyecto si `potencia_kw > 70`; memoria técnica si `5 <= potencia_kw <= 70`. Ve
 ## Adenda 2026-10-01 (Prompt B Madrid)
 
 La herramienta leyó directamente el art. 15.1 en el BOE («sea mayor que 70 kW, se requerirá la realización de un proyecto»; «mayor o igual que 5 kW y menor o igual que 70 kW» para la memoria), lo que refuerza la decisión. Pero la **ficha oficial de la sede de Madrid** describe el proyecto como «igual o superior a 70 kW». La norma estatal manda, pero en la práctica la EICI de Madrid podría exigir proyecto a 70,0 kW exactos. Se deja como hueco de verificación en `madrid/acs.json` y `madrid/climatizacion_aerotermia.json`; si la Dirección General confirma el criterio de la sede, Madrid debería volver a `>= 70` con su cita y quedar fuera del test `test_umbral_rite_70kw.py` por excepción documentada.
+
+## Adenda 2026-10-01 (Prompt B Cataluña)
+
+La FAQ de Canal Empresa (Generalitat), que la herramienta pudo leer, dice: «Fins als 70 kW (tèrmics), inclòs: la memòria i la certificació de la instal·lació» y «Amb una potència superior als 70 kW: el projecte». Es la **segunda administración autonómica** (tras la lectura directa del BOE) que respalda `> 70` / `<= 70`. Queda Madrid como único caso con una ficha oficial que dice «igual o superior a 70 kW».

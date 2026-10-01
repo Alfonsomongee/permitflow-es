@@ -1,14 +1,19 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cataluna",
-  "version": "1.2.2",
-  "ultima_revision": "2026-07-28",
+  "version": "1.2.3",
+  "ultima_revision": "2026-10-01",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
   "aviso": "Reglas RITE y sanitarias revisadas. Los plazos y tasas no se automatizan. La inspección periódica de ACS centralizada se mantiene con verificación parcial hasta confirmar literalmente la ITA 9 completa.",
   "huecos_verificacion": [
-    "Confirmar directamente en el texto oficial completo de la ITA 9 el alcance y periodicidad de la inspección de ACS centralizada >70 kW con acumulación o retorno."
+    "Confirmar directamente en el texto oficial completo de la ITA 9 el alcance y periodicidad de la inspección de ACS centralizada >70 kW con acumulación o retorno.",
+    "Verificación Prompt B Cataluña (2026-10-01): Canal Empresa indica declaración responsable en el RITSIC para potencia «igual o superior a 20 kW en calor, o superior a 12 kW en frío»; el fichero la exige desde 5 kW. No se localizó la norma que fija ese umbral ni si aplica a ACS/aerotermia. Se mantiene 5 kW hasta contar con la cita.",
+    "Verificación Prompt B Cataluña (2026-10-01): La ficha 11419 describe la memoria técnica y el certificado de instalación como documentación que el titular debe tener a disposición, junto a la declaración responsable; no consta que se adjunten. Revisar el modelo documental (documentos_requeridos).",
+    "Verificación Prompt B Cataluña (2026-10-01): Casi todas las fichas de Canal Empresa y tramits.gencat.cat bloquearon la lectura automatizada: plazos, silencio, tasas y documentos de la ficha 11419/11420/21526 deben abrirse a mano.",
+    "Verificación Prompt B Cataluña (2026-10-01): La inspección periódica de ACS centralizada > 70 kW con acumulación o retorno (CAT-ACS-INSPECCION-PERIODICA, cada 4 años) solo se apoya en una fuente secundaria; no se leyó el texto de la ITA 9 del Decret 192/2023. No se verificó si el ACS está sujeto a algún registro sanitario en Cataluña bajo el Decret 352/2004 (vigente según ASPCAT).",
+    "Verificación Prompt B Cataluña (2026-10-01): Canal Empresa (FAQ de instalaciones térmicas) confirma la frontera: «Fins als 70 kW (tèrmics), inclòs: la memòria i la certificació» y «Amb una potència superior als 70 kW: el projecte» (coherente con ADR 0002). El nombre oficial del trámite 11419 añade «(posada en servei, modificacions i baixa)»; no se cambia `nombre` para no romper las claves de estadísticas de plazos."
   ],
   "fuentes": [
     {
@@ -43,8 +48,8 @@
     },
     {
       "norma": "RD 614/2024",
-      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-10297",
-      "fecha_consulta": "2026-08-08"
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2024-13422",
+      "fecha_consulta": "2026-10-01"
     }
   ],
   "validaciones": [
@@ -204,7 +209,7 @@
     },
     {
       "id": "CAT-ACS-MTD",
-      "descripcion": "ACS de 5 a <70 kW: memoria técnica",
+      "descripcion": "ACS de 5 a 70 kW (ambos incluidos): memoria técnica",
       "condicion": {
         "and": [
           {
