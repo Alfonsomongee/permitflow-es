@@ -107,11 +107,11 @@ export const COBERTURA_NORMATIVA: Record<string, Record<string, CoberturaCombo>>
     irve: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 4, ultimaRevision: "2026-07-27", revisadoPor: null },
   },
   madrid: {
-    acs: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 3, ultimaRevision: "2026-07-28", revisadoPor: null },
-    climatizacion_aerotermia: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 2, ultimaRevision: "2026-07-28", revisadoPor: null },
-    fotovoltaica_autoconsumo: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 3, ultimaRevision: "2026-07-27", revisadoPor: null },
-    gas_baja_presion: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 3, ultimaRevision: "2026-07-28", revisadoPor: null },
-    irve: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 2, ultimaRevision: "2026-07-27", revisadoPor: null },
+    acs: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 6, ultimaRevision: "2026-10-01", revisadoPor: null },
+    climatizacion_aerotermia: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 4, ultimaRevision: "2026-10-01", revisadoPor: null },
+    fotovoltaica_autoconsumo: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 6, ultimaRevision: "2026-10-01", revisadoPor: null },
+    gas_baja_presion: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 5, ultimaRevision: "2026-10-01", revisadoPor: null },
+    irve: { nivelVerificacion: "verificada_parcialmente", estado: "verificado_con_observaciones", huecos: 5, ultimaRevision: "2026-10-01", revisadoPor: null },
   },
   murcia: {
     acs: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 4, ultimaRevision: "2026-08-20", revisadoPor: null },

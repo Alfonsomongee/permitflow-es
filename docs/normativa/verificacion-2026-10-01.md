@@ -85,3 +85,32 @@ Salida íntegra archivada en `investigacion-marco-estatal-2026-10-01.md`. **Proc
 - Norma que modificó el RD 1183/2020 el 12/02/2026 y la que modificó el RD 919/2006 el 04/04/2025.
 - Si el texto «gestor de autoconsumo» (fuentes secundarias) existe y en qué norma.
 - Siguiente paso: **Prompt B por comunidad** (17 ejecuciones).
+
+---
+
+## Resultado del Prompt B — Madrid (2026-10-01)
+
+Resultado de una herramienta de investigación externa que abrió las fichas de `sede.comunidad.madrid`, el BOE (RITE) y el BOCM (Decreto 86/2025). **No he podido re-comprobarlo** (sin acceso a esas webs) y el JSON íntegro no está archivado en el repositorio. Los cinco ficheros siguen en `verificada_parcialmente`; `revisado_por` sigue vacío; `ultima_revision` pasa a 2026-10-01.
+
+### Aplicado
+
+| Hallazgo (fuente primaria, confianza alta) | Cambio |
+|---|---|
+| La solicitud de registro térmico (ACS, climatización), BT de FV e IRVE se presenta **ante la EICI**; la sede solo aloja la ficha y el pago de la tasa | `plataforma` corregida en 6 trámites |
+| Faltaban documentos de la ficha: solicitud (IT 3.1.5 / 3.1.9), certificado de montaje (IT 3.1.6), justificante de tasa; el certificado de dirección de obra no figura | Añadidos; el de dirección de obra queda como opcional con aviso |
+| Tasas publicadas (térmicas 3,12 / 6,24 / 15,60 / 31,22 / 52,04 €; AT por tramos; registro de producción 35,93 €; gas por tramos, ya correctas) | `coste_estimado` rellenado donde decía «consultar» |
+| Gas: `plazo_legal_dias = 15` es el plazo del **titular** para presentar la documentación (15 días hábiles), no un plazo de resolución | Puesto a `null` y explicado en notas; añadido certificado de dirección de obra (con proyecto) y justificante de tasa |
+| D50: no se adjunta documentación; la DG verifica y remite a la AGE | Nota |
+| AT: autorización previa 3 meses (silencio desestimatorio), explotación 15 días; sin excedentes en AT solo comunicación previa | Nota (el plazo en días no se rellena: son meses y no sabemos si hábiles) |
+| URL de RD 614/2024 apuntaba al RD 487/2022; URL de la Instrucción de autoconsumo desactualizada | Corregidas |
+
+### Registrado en `huecos_verificacion` (no cambia la lógica; requiere decisión)
+
+1. **FV en BT (bloqueante):** el fichero manda a la EICI toda generación BT. Según la sede, el autoconsumo con excedentes va a la EICI solo si es ≤ 500 kW y se conecta a una instalación consumidora en BT; si no, autorización de la Dirección General (Decreto 86/2025, grupo quinto). La Instrucción de 24/11/2025 no se pudo leer.
+2. **FV en AT:** un único trámite; el Decreto 86/2025 distingue grupo tercero (comunicación previa) y quinto (autorización). Faltan garantía de desmantelamiento y transmisión/modificación/cierre.
+3. **IRVE:** Acta XII condicionada a garaje comunitario, la ficha no lo limita; faltan IRVE en AT (grupo tercero) y de más de 3.000 kW (grupo quinto).
+4. **Gas:** mapeo de «conexión de servicio» frente a «acometidas interiores»; 15 días hábiles (sede) frente a 30 días (RD 919/2006 art. 5.7); ITC-ICG 07 sin leer.
+5. **70 kW exactos:** la ficha de la sede dice «igual o superior a 70 kW» para proyecto; el BOE (art. 15.1, leído directamente por la herramienta) dice «mayor que 70 kW». El fichero sigue el BOE (ADR 0002). Hay que preguntar a la DG cómo lo trata la EICI.
+
+### RD 88/2026
+En Madrid lo aplica la distribuidora al contratar; no altera ningún trámite autonómico. Puede exigir verificación y boletín en aumentos de potencia (IRVE, autoconsumo con nueva potencia contratada). Fuente del artículo: Iberley (secundaria).

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "madrid",
-  "version": "1.1.1",
-  "ultima_revision": "2026-07-28",
+  "version": "1.1.2",
+  "ultima_revision": "2026-10-01",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
@@ -10,7 +10,10 @@
   "huecos_verificacion": [
     "Confirmar el importe vigente de la tasa y la tarifa EICI en cada expediente.",
     "Determinar mediante datos técnicos si la instalación queda incluida en el ámbito del RD 487/2022; el mero uso colectivo no sustituye esa evaluación.",
-    "RESUELTO (2026-07-28): importes de tasa de registro incorporados (memoria técnica 3,12 €/6,24 €; proyecto 15,60 €/31,22 €/52,04 €) según tarifario vigente publicado en sede.comunidad.madrid, sección 'Pago de tasas' del trámite de instalaciones térmicas no industriales."
+    "RESUELTO (2026-07-28): importes de tasa de registro incorporados (memoria técnica 3,12 €/6,24 €; proyecto 15,60 €/31,22 €/52,04 €) según tarifario vigente publicado en sede.comunidad.madrid, sección 'Pago de tasas' del trámite de instalaciones térmicas no industriales.",
+    "Verificación Prompt B Madrid (2026-10-01): la ficha de la sede describe el proyecto como «igual o superior a 70 kW» y la memoria como «entre 5 y 70 kW», mientras el art. 15.1 del RITE en el BOE exige proyecto solo por encima de 70 kW (ADR 0002). Para 70,0 kW exactos, confirmar con la DG de Transición Energética y Economía Circular cómo lo trata la EICI.",
+    "No se leyeron la Orden 9343/2003 (art. 13), la Resolución de 15/01/2020 (porcentajes de inspección) ni el texto de la Orden 163/2024; la inspección en la vía de memoria técnica se describe solo según la ficha de la sede. Ninguna ficha cita la norma que fija las tasas (probablemente el D. Legislativo 1/2002).",
+    "No se verificó si la Comunidad de Madrid exige un registro u obligación autonómica adicional de legionela para instalaciones de riesgo (RD 487/2022)."
   ],
   "fuentes": [
     {
@@ -40,8 +43,8 @@
     },
     {
       "norma": "RD 614/2024",
-      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-10297",
-      "fecha_consulta": "2026-08-08"
+      "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2024-13422",
+      "fecha_consulta": "2026-10-01"
     }
   ],
   "validaciones": [
@@ -278,7 +281,7 @@
           "base_legal": "Orden 9343/2003; Decreto 38/2002",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma": "Entidad de Inspección y Control Industrial (EICI) autorizada; la sede de la Comunidad de Madrid solo aloja la ficha y el pago de la tasa",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
           "coste_estimado": "Tasa de registro: 3,12 € (memoria técnica en vivienda) / 6,24 € (memoria técnica en uso no residencial), según tarifario vigente de la Comunidad de Madrid",
           "formulario_ref": "55186",
@@ -297,9 +300,21 @@
               "label": "Certificado de instalación térmica",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "solicitud_registro_mtd",
+              "label": "Solicitud de registro con memoria técnica",
+              "descripcion": "Modelo oficial (IT 3.1.5). Se presenta ante la EICI.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Lo exige la ficha de la sede de la Comunidad de Madrid.",
+              "obligatorio": true
             }
           ],
-          "notas": "Requiere tasa; consultar importe y tarifa vigentes.",
+          "notas": "La solicitud se presenta ante la EICI (no en la sede). Tasa: consulta el importe en la ficha de la sede. La EICI podrá inspeccionar la instalación en la vía de memoria técnica. Para el registro el RITE (art. 24.1.c) exige, cuando sea preceptivo, el certificado de inspección inicial con calificación aceptable.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -404,7 +419,7 @@
           "base_legal": "Orden 9343/2003; Decreto 38/2002",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma": "Entidad de Inspección y Control Industrial (EICI) autorizada; la sede de la Comunidad de Madrid solo aloja la ficha y el pago de la tasa",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-termicas-no-industriales",
           "coste_estimado": "Tasa de registro por tramos de presupuesto: 15,60 € (hasta 6.000 €); 31,22 € (de 6.000,01 a 60.000 €); 52,04 € (más de 60.000 €), según tarifario vigente de la Comunidad de Madrid",
           "formulario_ref": "55186",
@@ -421,17 +436,35 @@
             {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación térmica",
-              "descripcion": "",
+              "descripcion": "Modelo oficial (IT 3.1.7).",
               "obligatorio": true
             },
             {
               "id": "certificado_direccion_obra",
               "label": "Certificado de dirección de obra",
-              "descripcion": "",
+              "descripcion": "No figura en la lista de documentos de la ficha de la sede; solo si el proyecto lo requiere.",
               "obligatorio": false
+            },
+            {
+              "id": "solicitud_registro_proyecto",
+              "label": "Solicitud de registro con proyecto",
+              "descripcion": "Modelo oficial (IT 3.1.9). Se presenta ante la EICI.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_montaje",
+              "label": "Certificado de montaje",
+              "descripcion": "Modelo oficial (IT 3.1.6), firmado por la empresa instaladora.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Lo exige la ficha de la sede de la Comunidad de Madrid.",
+              "obligatorio": true
             }
           ],
-          "notas": "La intervención inspectora se rige por la normativa y el procedimiento EICI; no se afirma una inspección universal adicional solo por potencia.",
+          "notas": "La solicitud se presenta ante la EICI (no en la sede). Tasa por tramos de presupuesto: consulta la ficha de la sede. En la vía de proyecto, la EICI realiza una inspección de la instalación y emite el documento final de registro.",
           "registro_salida": null,
           "medio_presentacion": null
         }

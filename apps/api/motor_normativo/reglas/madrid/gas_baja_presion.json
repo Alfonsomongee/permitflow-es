@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "madrid",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.1.1",
+  "ultima_revision": "2026-10-01",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
@@ -10,7 +10,9 @@
   "huecos_verificacion": [
     "La ficha oficial no permite automatizar el importe exacto de la tasa sin datos económicos del expediente.",
     "Una presión resultante superior a 5 bar debe revisarse también respecto del alcance semántico del vertical gas_baja_presion.",
-    "RESUELTO (2026-07-28): importes de tasa por tramos de inversión incorporados (51,32 €/91,67 €/164,95 €/238,23 €/256,11 € y tramo superior) y plazo legal de 15 días hábiles fijado, según ficha oficial de sede.comunidad.madrid, secciones 'Pago de tasas' y 'Tramitación' del trámite de instalaciones receptoras de gas natural/GLP."
+    "RESUELTO (2026-07-28): importes de tasa por tramos de inversión incorporados (51,32 €/91,67 €/164,95 €/238,23 €/256,11 € y tramo superior) y plazo legal de 15 días hábiles fijado, según ficha oficial de sede.comunidad.madrid, secciones 'Pago de tasas' y 'Tramitación' del trámite de instalaciones receptoras de gas natural/GLP.",
+    "Verificación Prompt B Madrid (2026-10-01): la sede fija 15 días hábiles desde la puesta en servicio para presentar la documentación; el art. 5.7 del RD 919/2006 dice 30 días «exceptuando los casos contemplados en las ITC». No se leyó la ITC-ICG 07. El RD 919/2006 tiene modificaciones publicadas el 04/04/2025 y el 03/09/2025 cuyo contenido no se revisó.",
+    "La ficha habla de «acometidas interiores» (> 2.000 kW), no de «conexión de servicio»: revisar el mapeo de clase_instalacion_gas. La ampliación se formula como instalación resultante > 30 % de la potencia de diseño, con redacción ambigua frente a incremento_potencia_pct. El RD 1085/1992 que cita la sede está derogado en lo que se opone al RD 919/2006."
   ],
   "fuentes": [
     {
@@ -172,7 +174,7 @@
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "RD 919/2006",
           "plazo_estimado_dias": null,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-receptoras-gas-natural-glp",
           "coste_estimado": "Tasa por tramos de inversión: 51,32 € (hasta 3.005,06 €); 91,67 € (3.005,07-6.010,12 €); 164,95 € (6.010,13-30.050,61 €); 238,23 € (30.050,62-60.101,21 €); 256,11 € (60.101,22-120.202,42 €); tramo superior según tarifario vigente",
@@ -192,9 +194,15 @@
               "label": "Certificado de pruebas previas y puesta en servicio",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Lo exige la ficha de la sede de la Comunidad de Madrid.",
+              "obligatorio": true
             }
           ],
-          "notas": "Requiere pago de tasa; importe según expediente.",
+          "notas": "Requiere pago de tasa; importe según expediente.\nPlazo del titular: presentar la documentación en un máximo de 15 días hábiles desde la puesta en servicio (ficha de la sede). No es un plazo de resolución: es una comunicación y la Dirección General emite un documento de recepción; no hay plazo de resolución ni silencio publicados.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -323,7 +331,7 @@
           "organismo": "Dirección General de Transición Energética y Economía Circular",
           "base_legal": "RD 919/2006",
           "plazo_estimado_dias": null,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/instalaciones-receptoras-gas-natural-glp",
           "coste_estimado": "Tasa por tramos de inversión: 51,32 € (hasta 3.005,06 €); 91,67 € (3.005,07-6.010,12 €); 164,95 € (6.010,13-30.050,61 €); 238,23 € (30.050,62-60.101,21 €); 256,11 € (60.101,22-120.202,42 €); tramo superior según tarifario vigente",
@@ -349,9 +357,21 @@
               "label": "Certificado de pruebas previas y puesta en servicio",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Lo exige la ficha de la sede de la Comunidad de Madrid.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "En las instalaciones que necesitan proyecto, el director de obra lo emite y se comunica a la Administración (RD 919/2006, arts. 5.5.b y 5.7.d).",
+              "obligatorio": true
             }
           ],
-          "notas": "Requiere pago de tasa; importe según expediente.",
+          "notas": "Requiere pago de tasa; importe según expediente.\nPlazo del titular: presentar la documentación en un máximo de 15 días hábiles desde la puesta en servicio (ficha de la sede). No es un plazo de resolución: es una comunicación y la Dirección General emite un documento de recepción; no hay plazo de resolución ni silencio publicados.",
           "registro_salida": null,
           "medio_presentacion": null
         }

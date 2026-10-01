@@ -20,3 +20,7 @@ Proyecto si `potencia_kw > 70`; memoria técnica si `5 <= potencia_kw <= 70`. Ve
 - Solo cambia el resultado para una potencia de **exactamente 70 kW**. Es un cambio revertible con `git revert`.
 - Si una norma autonómica fijara legítimamente un umbral más estricto (≥ 70 kW), habría que documentarlo en la regla con su cita y excluir ese fichero del test. No se ha encontrado ninguna.
 - Cotejar el art. 15.1 en el consolidado de `boe.es` sigue pendiente (ver `docs/normativa/verificacion-2026-10-01.md`).
+
+## Adenda 2026-10-01 (Prompt B Madrid)
+
+La herramienta leyó directamente el art. 15.1 en el BOE («sea mayor que 70 kW, se requerirá la realización de un proyecto»; «mayor o igual que 5 kW y menor o igual que 70 kW» para la memoria), lo que refuerza la decisión. Pero la **ficha oficial de la sede de Madrid** describe el proyecto como «igual o superior a 70 kW». La norma estatal manda, pero en la práctica la EICI de Madrid podría exigir proyecto a 70,0 kW exactos. Se deja como hueco de verificación en `madrid/acs.json` y `madrid/climatizacion_aerotermia.json`; si la Dirección General confirma el criterio de la sede, Madrid debería volver a `>= 70` con su cita y quedar fuera del test `test_umbral_rite_70kw.py` por excepción documentada.

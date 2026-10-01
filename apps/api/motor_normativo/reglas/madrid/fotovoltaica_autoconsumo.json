@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "madrid",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-27",
+  "version": "1.1.1",
+  "ultima_revision": "2026-10-01",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
@@ -10,7 +10,10 @@
   "huecos_verificacion": [
     "La aplicación del Registro de Producción se determina mediante requiere_registro_produccion conforme al RD 413/2014.",
     "La documentación concreta de puesta en servicio BT depende de la modalidad y de la Instrucción autonómica vigente.",
-    "Los importes de tasas no se automatizan salvo que la ficha oficial declare expresamente ausencia de tasa."
+    "Los importes de tasas no se automatizan salvo que la ficha oficial declare expresamente ausencia de tasa.",
+    "Verificación Prompt B Madrid (2026-10-01) — BLOQUEANTE a cotejar: la ruta BT envía a la EICI toda generación en baja tensión. Según la sede (Decreto 86/2025, grupo quinto), el autoconsumo CON excedentes va a la EICI solo si la potencia es ≤ 500 kW y se conecta a una instalación consumidora conectada a la red de distribución en baja tensión; en otro caso requiere autorización de la Dirección General. No se pudo leer la Instrucción de 24/11/2025 (PDF sin texto extraíble) que fija la documentación BT.",
+    "La ruta de alta tensión es un único trámite de autorización. El Decreto 86/2025 distingue autoconsumo con excedentes (grupo quinto: autorización previa y de construcción más autorización de explotación) y sin excedentes en AT o con generación BT y medida en AT (grupo tercero: solo comunicación previa). Faltan además la garantía económica de desmantelamiento (art. 38) y los trámites de transmisión, modificación y cierre (caps. VI-VII).",
+    "El importe de las tasas procede de las fichas de la sede (ninguna cita la norma que las fija) y del tramo superior a 120.202,43 € no hay importe publicado. Aparamenta con gases fluorados en AT: desde 01/01/2026 debe tener en cuenta el Reglamento (UE) 2024/573 (aviso de la ficha AT); no se modela."
   ],
   "fuentes": [
     {
@@ -88,9 +91,9 @@
           "base_legal": "Instrucción de 24/11/2025; RD 842/2002; RD 244/2019",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma": "Entidad de Inspección y Control Industrial (EICI) autorizada; la sede de la Comunidad de Madrid solo aloja la ficha y el pago de la tasa",
           "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
-          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
+          "coste_estimado": "Tasa de la Comunidad (ficha de la sede, 2026-10): memoria técnica en vivienda 3,12 € por vivienda; en uso no residencial 6,24 €; proyecto 15,60 € (hasta 6.000 €), 31,22 € (6.000,01 a 60.000 €) y 52,04 € (más de 60.000 €). La tarifa de la EICI es aparte.",
           "formulario_ref": "2722",
           "paralelo_con": null,
           "regla_id": "MAD-FV-BT-PUESTA-SERVICIO",
@@ -107,9 +110,21 @@
               "label": "Certificado de Instalación Eléctrica",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "solicitud_registro_bt",
+              "label": "Solicitud de registro (modelo oficial)",
+              "descripcion": "Se presenta ante la EICI por la empresa instaladora habilitada en baja tensión.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Lo exige la ficha de la sede de la Comunidad de Madrid.",
+              "obligatorio": true
             }
           ],
-          "notas": "La documentación exacta depende de la modalidad y de la Instrucción vigente.",
+          "notas": "La documentación exacta depende de la modalidad y de la Instrucción vigente.\nLa presentación se hace ante la EICI. Para autoconsumo, la ficha de la sede remite a la Instrucción vigente (24/11/2025), que no se ha podido leer: comprueba la documentación exacta y si tu instalación (autoconsumo con excedentes de más de 500 kW o no conectada a una instalación consumidora en baja tensión) requiere en cambio autorización de la Dirección General.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -148,7 +163,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/autorizacion-instalaciones-electricas",
-          "coste_estimado": "Sujeto a tasas vigentes",
+          "coste_estimado": "Tasa por tramo de presupuesto (ficha de la sede, 2026-10): 51,32 € (hasta 3.005,06 €), 91,67 €, 164,95 €, 238,23 € y 256,11 € (hasta 120.202,42 €); sin importe publicado a partir de 120.202,43 €. Transmisión o cierre: 91,67 €; cada inspección: 51,32 €.",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "MAD-FV-AT-AUTORIZACION",
@@ -161,7 +176,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Las fases concretas dependen de las características del expediente.",
+          "notas": "Las fases concretas dependen de las características del expediente.\nDecreto 86/2025: en autoconsumo CON excedentes, la autorización previa y de construcción se resuelve en 3 meses (silencio desestimatorio) y la de explotación en 15 días. El autoconsumo SIN excedentes en alta tensión (grupo tercero) no requiere autorización administrativa: solo comunicación previa a la puesta en servicio. Para la explotación se exige, entre otros, el certificado de inspección inicial favorable del Organismo de Control.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -312,7 +327,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La ficha oficial indica que no requiere pago de tasa.",
+          "notas": "La ficha oficial indica que no requiere pago de tasa.\nNo hay que adjuntar documentación: el formulario D50 es la solicitud. La Dirección General verifica los requisitos (autorización de explotación o puesta en servicio, y declaración de que los servicios auxiliares son inferiores al 1 % de la energía neta generada) y remite la información a la Administración General del Estado, que practica la inscripción. Plazo de subsanación: 10 días.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -351,7 +366,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Comunidad de Madrid",
           "plataforma_url": "https://sede.comunidad.madrid/inscripciones-registro/reg-inst-produccion-energia-electrica",
-          "coste_estimado": "Consultar tasa vigente",
+          "coste_estimado": "35,93 € (inscripción previa, definitiva, modificación o cambio de titularidad), según la ficha de la sede (2026-10)",
           "formulario_ref": "2237",
           "paralelo_con": null,
           "regla_id": "MAD-FV-REGISTRO-PRODUCCION",
@@ -362,9 +377,45 @@
               "label": "Solicitud de inscripción",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Lo exige la ficha de la sede de la Comunidad de Madrid.",
+              "obligatorio": true
+            },
+            {
+              "id": "autorizacion_explotacion",
+              "label": "Autorización de explotación",
+              "descripcion": "Resolución de la Dirección General.",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_tecnico_conexion",
+              "label": "Contrato técnico de conexión",
+              "descripcion": "Con la empresa distribuidora.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_lectura",
+              "label": "Certificado del encargado de la lectura",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "informe_gestor_red",
+              "label": "Informe del gestor de la red",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "poder_representacion",
+              "label": "Poder de representación",
+              "descripcion": "Solo si presenta un representante.",
+              "obligatorio": false
             }
           ],
-          "notas": "Solo aplica cuando requiere_registro_produccion es verdadero.",
+          "notas": "Solo aplica cuando requiere_registro_produccion es verdadero.\nExiste la inscripción previa (P01, solo para pruebas) y la definitiva (D01). En fotovoltaica se aportan además las especificaciones de los módulos.",
           "registro_salida": null,
           "medio_presentacion": null
         }
