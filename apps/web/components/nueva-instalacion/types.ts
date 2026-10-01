@@ -84,7 +84,7 @@ export const STEPS: StepMeta[] = [
   {
     id: 3,
     label: "Ayudas y subvenciones",
-    description: () => "MOVES III, Next Gen EU",
+    description: () => "Ayudas estatales y autonómicas",
   },
 ];
 

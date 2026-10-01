@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { construirPayloadClasificador } from "@/lib/clasificador-payload";
 import type { FormState } from "@/components/nueva-instalacion/types";
 import type { PlanTramitacion } from "@/types/plan";
 import { API_URL, cabecerasInternas } from "@/lib/server/api";
@@ -20,7 +21,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });
   }
 
-  const formState = (await req.json()) as FormState;
+  let formState: FormState;
+  try {
+    formState = (await req.json()) as FormState;
+  } catch {
+    return NextResponse.json({ error: "La petición no contiene un JSON válido." }, { status: 400 });
+  }
   if (!formState?.tipo_instalacion || !formState?.comunidad) {
     return NextResponse.json(
       { error: "Faltan datos de la instalación." },
@@ -64,7 +70,10 @@ export async function POST(req: Request) {
         "Content-Type": "application/json",
         ...cabecerasInternas(),
       },
-      body: JSON.stringify(paramsInstalacion),
+      // Payload COMPLETO del formulario (no la lista manual de 12 campos de
+      // `paramsInstalacion`, que omitía tensión, modalidad, etc. y daba un plan
+      // distinto al de /api/clasificar para el mismo caso).
+      body: JSON.stringify(construirPayloadClasificador(formState)),
       signal: AbortSignal.timeout(15_000),
     });
   } catch {

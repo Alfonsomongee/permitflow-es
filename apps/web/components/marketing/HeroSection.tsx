@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, FileText, CheckCircle2, Clock } from "lucide-react";
+import { ArrowRight, FileText, Clock } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { mesYAnio, resumenCobertura } from "@/lib/cobertura-resumen";
 
 /**
  * Cifras de cobertura del motor normativo.
@@ -15,10 +16,25 @@ import { FadeIn } from "@/components/ui/fade-in";
  * compra esto le importa cuándo se revisó por última vez la normativa que va a
  * usar para presentar un expediente (auditoría UX/UI 2026-08-11, D-10).
  */
+const RESUMEN = resumenCobertura();
+
+// Cifras DERIVADAS de los JSON del motor (lib/cobertura-resumen.ts), no escritas a
+// mano: la fecha de "última revisión" era un literal ("Ago. 2026") que no tenía
+// por qué coincidir con el contenido real.
 const COBERTURA = [
-  { valor: "17", label: "comunidades autónomas cubiertas" },
-  { valor: "5", label: "tecnologías: fotovoltaica, IRVE, aerotermia, ACS y gas" },
-  { valor: "Ago. 2026", label: "última revisión del motor normativo" },
+  { valor: String(RESUMEN.comunidades), label: "comunidades autónomas con motor activo" },
+  { valor: String(RESUMEN.verticales), label: "tecnologías: fotovoltaica, IRVE, aerotermia, ACS y gas" },
+  { valor: mesYAnio(RESUMEN.ultimaRevision), label: "última revisión del contenido normativo" },
+];
+
+// Ejemplo ILUSTRATIVO: es la salida real del motor para una fotovoltaica
+// residencial de 8 kW en Andalucía (tests/casos_referencia/andalucia_fotovoltaica_8kw.json).
+// Antes la tarjeta mostraba trámites que el motor no devuelve ("Licencia de obras
+// exenta", PUES en 15 días) y un estado "Aprobado" inventado.
+const EJEMPLO_TRAMITES = [
+  { nombre: "Solicitud del CAU a la distribuidora", dias: 15 },
+  { nombre: "Memoria Técnica de Diseño (MTD)", dias: 2 },
+  { nombre: "Certificado de Instalación Eléctrica (CIE)", dias: 1 },
 ];
 
 export function HeroSection() {
@@ -65,42 +81,38 @@ export function HeroSection() {
             </FadeIn>
           </div>
 
-          {/* Columna Derecha: ejemplo real de plan de tramitación */}
+          {/* Columna Derecha: ejemplo ilustrativo de plan de tramitación */}
           <div className="hidden lg:block">
             <FadeIn className="mx-auto w-full max-w-md rounded-2xl border border-border bg-surface p-6 shadow-card">
               <div className="mb-4 flex items-center justify-between border-b border-border pb-4">
                 <div>
-                  <h3 className="font-medium text-text-primary">Autoconsumo Residencial</h3>
-                  <p className="text-xs text-text-secondary">Sevilla, Andalucía · &lt; 10kW</p>
+                  <h3 className="font-medium text-text-primary">Autoconsumo residencial</h3>
+                  <p className="text-xs text-text-secondary">Andalucía · 8 kW · baja tensión</p>
                 </div>
-                <div className="rounded-md bg-success/10 px-2 py-1 text-xs font-medium text-success">
-                  Aprobado
+                <div className="rounded-md bg-warning/10 px-2 py-1 text-xs font-medium text-warning-dark">
+                  Ejemplo ilustrativo
                 </div>
               </div>
-              
-              <div className="space-y-4">
-                <div className="flex gap-3 rounded-lg border border-border bg-surface p-3 shadow-sm">
-                  <div className="mt-0.5 text-primary"><FileText size={16} /></div>
-                  <div>
-                    <p className="text-sm font-medium text-text-primary">Comunicación previa (PUES)</p>
-                    <div className="mt-1 flex items-center gap-2 text-xs text-text-secondary">
-                      <Clock size={12} /> 15 días estimados
-                    </div>
-                  </div>
-                  <div className="ml-auto mt-0.5 text-success"><CheckCircle2 size={16} /></div>
-                </div>
 
-                <div className="flex gap-3 rounded-lg border border-border bg-surface p-3 shadow-sm opacity-60">
-                  <div className="mt-0.5 text-text-secondary"><FileText size={16} /></div>
-                  <div>
-                    <p className="text-sm font-medium text-text-primary">Licencia de obras</p>
-                    <div className="mt-1 flex items-center gap-2 text-xs text-text-secondary">
-                      Exento por Decreto 141/2012
+              <ol className="space-y-3">
+                {EJEMPLO_TRAMITES.map((tramite, i) => (
+                  <li key={tramite.nombre} className="flex gap-3 rounded-lg border border-border bg-surface p-3 shadow-sm">
+                    <div className="mt-0.5 text-primary"><FileText size={16} aria-hidden /></div>
+                    <div>
+                      <p className="text-sm font-medium text-text-primary">
+                        {i + 1}. {tramite.nombre}
+                      </p>
+                      <div className="mt-1 flex items-center gap-2 text-xs text-text-secondary">
+                        <Clock size={12} aria-hidden /> {tramite.dias} {tramite.dias === 1 ? "día" : "días"} estimados
+                      </div>
                     </div>
-                  </div>
-                  <div className="ml-auto mt-0.5 text-border"><CheckCircle2 size={16} /></div>
-                </div>
-              </div>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-3 text-xs text-text-secondary">
+                + 2 trámites más (registro y comunicación a la distribuidora). El plan real indica la base legal de
+                cada paso y el nivel de verificación de la normativa de tu comunidad.
+              </p>
             </FadeIn>
           </div>
 

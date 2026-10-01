@@ -49,43 +49,19 @@ export function NuevaInstalacionForm() {
     handleSubmit,
     trigger,
     watch,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = methods;
 
   // Needed for the StepIndicator which receives formState
   const currentFormValues = watch();
 
   const handleNext = async () => {
-    // Determine fields to validate based on current step
-    let fieldsToValidate: (keyof FormState)[] = [];
-    if (step === 1) {
-      fieldsToValidate = ["tipo_instalacion", "comunidad", "uso"];
-    } else if (step === 2) {
-      fieldsToValidate = [
-        "potencia_kw",
-        "superficie_m2",
-        "numero_puntos",
-        "potencia_por_punto_kw",
-        "modo_recarga",
-        "acceso_publico",
-        "ubicacion_irve",
-        "requiere_nuevo_suministro",
-        "combustible",
-        "presion_bar",
-        "tension",
-        "modalidad_autoconsumo",
-        "ubicacion_suelo",
-        "requiere_acceso_conexion",
-        "potencia_resultante_kw",
-        "presion_resultante_bar",
-        "incremento_potencia_pct",
-        "uso_edificio",
-        "ventilacion_garaje",
-        "numero_plazas_garaje",
-        "garaje_existente",
-        "incluida_ambito_legionella",
-      ];
-    }
+    // Paso 2: se validan TODOS los campos (antes una lista manual omitía los de
+    // ACS/Legionela, implantación, etc. y el error solo aparecía en el paso 3 como
+    // un botón deshabilitado sin explicación). Los superRefine solo generan error
+    // para los campos que aplican a la combinación elegida.
+    const fieldsToValidate: (keyof FormState)[] | undefined =
+      step === 1 ? ["tipo_instalacion", "comunidad", "uso"] : undefined;
 
     const isStepValid = await trigger(fieldsToValidate);
     
@@ -100,6 +76,7 @@ export function NuevaInstalacionForm() {
   };
 
   const onSubmit = async (data: FormState) => {
+    if (loading) return; // evita expedientes duplicados por doble clic / Enter repetido
     setLoading(true);
     setServerError(null);
 
@@ -141,23 +118,18 @@ export function NuevaInstalacionForm() {
 
   return (
     <FormProvider {...methods}>
-      <div className="min-h-screen bg-bg">
-        <header className="flex items-center justify-between border-b border-border bg-surface px-6 py-3">
-          <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
-              <Zap size={14} className="text-white" aria-hidden />
-            </div>
-            <span className="text-sm font-medium text-text-primary">
-              PermitFlow <span className="text-text-secondary font-normal">- Nueva instalación</span>
-            </span>
-          </div>
+      <div className="bg-bg">
+        {/* Antes había aquí una segunda cabecera con logo (la app ya tiene Sidebar y
+            Topbar): duplicaba la marca y desperdiciaba altura. */}
+        <div className="mx-auto flex max-w-4xl justify-end px-4 pt-4 md:px-6">
           <button
+            type="button"
             onClick={() => router.push("/expedientes")}
             className="text-sm text-text-secondary transition-colors hover:text-text-primary"
           >
             Cancelar
           </button>
-        </header>
+        </div>
 
         <main className="mx-auto grid max-w-4xl grid-cols-1 gap-6 px-4 py-8 md:grid-cols-[260px_1fr] md:gap-0 md:px-6 md:py-10">
           <aside className="pt-1 md:pr-10">
@@ -167,7 +139,15 @@ export function NuevaInstalacionForm() {
             <StepIndicator steps={STEPS} currentStep={step} formState={currentFormValues} />
           </aside>
 
-          <div className="flex flex-col gap-6">
+          <form
+            noValidate
+            className="flex flex-col gap-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (step < 3) void handleNext();
+              else void handleSubmit(onSubmit)();
+            }}
+          >
             <div>
               <h1 className="text-xl font-medium text-text-primary">
                 {STEPS[step - 1].label}
@@ -196,6 +176,27 @@ export function NuevaInstalacionForm() {
               </AnimatePresence>
             </div>
 
+            {step === 3 && !isValid && Object.keys(errors).length > 0 && (
+              <div
+                role="alert"
+                className="rounded-lg border border-warning/30 bg-warning-light px-4 py-3 text-sm text-warning-dark"
+              >
+                <p className="font-medium">Faltan datos por completar antes de generar el plan:</p>
+                <ul className="mt-1 list-disc pl-5">
+                  {Object.entries(errors).map(([campo, err]) => (
+                    <li key={campo}>{(err as { message?: string })?.message ?? campo}</li>
+                  ))}
+                </ul>
+                <button
+                  type="button"
+                  onClick={() => setStep(2)}
+                  className="mt-2 text-sm font-medium underline underline-offset-2"
+                >
+                  Volver a los parámetros técnicos
+                </button>
+              </div>
+            )}
+
             {serverError && (
               <p className="rounded-lg border border-danger/30 bg-danger-light px-4 py-3 text-sm text-danger-dark font-medium" aria-live="polite">
                 {serverError}
@@ -204,6 +205,7 @@ export function NuevaInstalacionForm() {
 
             <div className="flex items-center justify-between">
               <button
+                type="button"
                 onClick={handleBack}
                 disabled={step === 1}
                 className="flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:bg-bg disabled:cursor-not-allowed disabled:opacity-30"
@@ -214,7 +216,7 @@ export function NuevaInstalacionForm() {
 
               {step < 3 ? (
                 <button
-                  onClick={handleNext}
+                  type="submit"
                   className="flex items-center gap-1.5 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-primary-dark focus:ring-4 focus:ring-primary/20 active:scale-95"
                 >
                   Siguiente
@@ -227,7 +229,7 @@ export function NuevaInstalacionForm() {
                     disabled={loading || !isValid} 
                   />
                   <button
-                    onClick={handleSubmit(onSubmit)}
+                    type="submit"
                     disabled={loading || !isValid}
                     className="flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-primary-dark focus:ring-4 focus:ring-primary/20 disabled:opacity-60 active:scale-[0.98]"
                   >
@@ -241,7 +243,7 @@ export function NuevaInstalacionForm() {
                 </div>
               )}
             </div>
-          </div>
+          </form>
         </main>
       </div>
     </FormProvider>

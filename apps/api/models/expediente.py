@@ -35,6 +35,8 @@ class Expediente(Base):
     tiempo_total_dias: Mapped[int] = mapped_column(Integer, nullable=False)
     estado: Mapped[str] = mapped_column(String, default="pendiente", nullable=False)
     tramites_completados: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    # Payload completo del clasificador (ver migración e9a1b2c3d4f5).
+    parametros: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
     referencia_cliente: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     notas: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     

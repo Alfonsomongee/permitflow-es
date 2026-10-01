@@ -21,7 +21,7 @@ const SECCIONES = [
   {
     titulo: "1. Clasificar una instalación",
     cuerpo:
-      "Desde \"Nueva instalación\" indicas el tipo de instalación (fotovoltaica, IRVE, climatización, ACS o gas), la comunidad autónoma y el uso (residencial, terciario o industrial). El asistente pide después los parámetros técnicos (potencia, superficie, número de puntos de recarga, etc.) según el tipo elegido, y si vas a solicitar ayudas públicas (MOVES III, Next Generation EU). Con eso, el motor normativo genera el plan de tramitación.",
+      "Desde \"Nueva instalación\" indicas el tipo de instalación (fotovoltaica, IRVE, climatización, ACS o gas), la comunidad autónoma y el uso (residencial, terciario o industrial). El asistente pide después los parámetros técnicos (potencia, superficie, número de puntos de recarga, etc.) según el tipo elegido, y si vas a solicitar ayudas públicas (el asistente consulta el catálogo vigente de tu comunidad). Con eso, el motor normativo genera el plan de tramitación.",
   },
   {
     titulo: "2. El plan de tramitación",

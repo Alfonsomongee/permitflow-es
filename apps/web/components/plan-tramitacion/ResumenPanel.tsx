@@ -152,7 +152,7 @@ export function ResumenPanel({ params, plan }: ResumenPanelProps) {
           {isVisible("acceso_publico") && params.acceso_publico !== undefined && (
             <ParamRow label="Acceso" value={params.acceso_publico ? "Público (TECI)" : "Privado (PUES)"} />
           )}
-          {isVisible("solicita_ayuda") && params.solicita_ayuda && <ParamRow label="Solicita ayuda" value="Sí (MOVES/NextGen)" />}
+          {isVisible("solicita_ayuda") && params.solicita_ayuda && <ParamRow label="Solicita ayuda" value="Sí" />}
         </div>
       </div>
 

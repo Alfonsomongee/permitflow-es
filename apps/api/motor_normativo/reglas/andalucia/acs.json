@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "andalucia",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "ultima_revision": "2026-07-28",
   "fuentes": [
     {
@@ -30,12 +30,12 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "RD 487/2022, de 21 de junio, art. 3.1, 7, 8 y 9 — verificado gap 5.2, criterio corregido (Fase 0 investigación)",
+      "norma": "RD 487/2022, de 21 de junio, art. 3.1, 7, 8 y 9",
       "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-10297",
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Ley 10/2021, art. 44, tarifas 7.2.3.1/7.2.3.2 -- tasas verificadas (Fase 1, bloque 2.3)",
+      "norma": "Ley 10/2021, art. 44, tarifas 7.2.3.1/7.2.3.2 — tasas verificadas",
       "url": "https://www.juntadeandalucia.es/boja/2021/250/3",
       "fecha_consulta": "2026-08-08"
     }
@@ -417,7 +417,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Las instalaciones de ACS deben mantener el agua a ≥60°C en el acumulador y ≥50°C en los puntos de consumo para prevenir la legionelosis.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Las instalaciones de ACS deben mantener el agua a ≥60°C en el acumulador y ≥50°C en los puntos de consumo para prevenir la legionelosis.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -453,7 +453,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": "6505",
           "registro_salida": null,
@@ -757,7 +757,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
+          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -873,7 +873,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -903,7 +903,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.\nPENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.\nAviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1061,7 +1061,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
+          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1207,7 +1207,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "PENDIENTE DE VERIFICAR (no se modifica el disparador): el RITE liga proyecto/inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso; esta condición dispara también para instalaciones terciarias de baja potencia. Corrección pendiente de fuente primaria que fije el umbral exacto para uso no residencial antes de introducir una cota inferior.",
+          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,

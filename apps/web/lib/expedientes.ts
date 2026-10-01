@@ -7,6 +7,7 @@ import type {
   TramitesEstadoMap,
 } from "@/types/plan";
 import { hoyIso } from "./plazos";
+import { construirPayloadClasificador } from "./clasificador-payload";
 
 function fallbackOrgName(clerkOrgId: string): string {
   return `Organizacion ${clerkOrgId.slice(-6)}`;
@@ -78,6 +79,8 @@ export async function crearExpediente({
       presion_bar: formState.presion_bar || null,
       solicita_ayuda: formState.solicita_ayuda,
       plan_tramitacion: plan,
+      // Payload completo: lo necesitan /validar, el asistente y cualquier recálculo.
+      parametros: construirPayloadClasificador(formState),
       tiempo_total_dias: plan.tiempo_total_estimado_dias,
       estado: "pendiente",
       tramites_completados: 0,
@@ -87,6 +90,20 @@ export async function crearExpediente({
 
   if (error) throw new Error(`Error creando expediente: ${error.message}`);
   return data;
+}
+
+/** Expedientes creados por la organización desde `desdeIso` (cuota mensual del plan Free). */
+export async function contarExpedientesDesde(clerkOrgId: string, desdeIso: string): Promise<number> {
+  const orgId = await ensureOrgId(clerkOrgId);
+
+  const { count, error } = await supabaseAdmin
+    .from("expedientes")
+    .select("id", { count: "exact", head: true })
+    .eq("org_id", orgId)
+    .gte("creado_en", desdeIso);
+
+  if (error) throw new Error(`Error contando expedientes: ${error.message}`);
+  return count ?? 0;
 }
 
 export async function listarExpedientes(clerkOrgId: string): Promise<DbExpediente[]> {

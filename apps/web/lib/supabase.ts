@@ -54,6 +54,8 @@ export interface DbExpediente {
   presion_bar: string | null;
   solicita_ayuda: boolean;
   plan_tramitacion: PlanTramitacion | null;
+  /** Payload completo enviado al clasificador. null en expedientes anteriores a 2026-10. */
+  parametros: Record<string, string | number | boolean> | null;
   tiempo_total_dias: number | null;
   estado: "borrador" | "pendiente" | "en_revision" | "aprobado" | "rechazado";
   tramites_completados: number;

@@ -34,7 +34,11 @@ export async function GET(
     );
   }
 
-  const payload = {
+  // Payload completo con el que se generó el plan. Los expedientes anteriores a
+  // 2026-10 solo conservan 12 campos (`parametros` null): con ellos el motor
+  // rechaza o evalúa a medias muchas combinaciones (Madrid, Cataluña, ACS...).
+  const esLegado = expediente.parametros == null;
+  const payload = expediente.parametros ?? {
     tipo_instalacion: expediente.tipo_instalacion,
     comunidad: expediente.comunidad,
     potencia_kw: expediente.potencia_kw,
@@ -69,6 +73,18 @@ export async function GET(
 
   const data = await motorRes.json().catch(() => null);
   if (!motorRes.ok) {
+    if (esLegado && motorRes.status === 422) {
+      return NextResponse.json(
+        {
+          error:
+            "Este expediente se creó antes de guardar todos los datos del formulario, " +
+            "así que no se puede validar. Crea un expediente nuevo con los mismos datos " +
+            "para usar el validador.",
+          legado: true,
+        },
+        { status: 409 }
+      );
+    }
     return NextResponse.json(
       { error: data?.detail ?? `Error del validador (${motorRes.status})` },
       { status: motorRes.status }

@@ -17,7 +17,7 @@ import type { ReactNode } from "react";
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="flex h-screen overflow-hidden bg-bg">
+      <div className="flex h-dvh overflow-hidden bg-bg">
         {/* Sidebar */}
         <DashboardSidebar />
 

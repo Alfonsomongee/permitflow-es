@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "andalucia",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "ultima_revision": "2026-08-09",
   "fuentes": [
     {
@@ -40,7 +40,7 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Decreto-ley 2/2018, de 26 de junio (Andalucía), disposición adicional única — verificado gap 5.3 (Fase 0 investigación)",
+      "norma": "Decreto-ley 2/2018, de 26 de junio (Andalucía), disposición adicional única",
       "url": "https://www.juntadeandalucia.es/boja/2018/127/2",
       "fecha_consulta": "2026-08-08"
     },
@@ -50,12 +50,12 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Resolucion de 13 de octubre de 2023, Secretaria General de Energia -- VEAJA/9588 confirmado (Fase 1, bloque 2.2)",
+      "norma": "Resolucion de 13 de octubre de 2023, Secretaria General de Energia — VEAJA/9588 confirmado",
       "url": "https://www.juntadeandalucia.es/boja/2023/206/75.html",
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "RD 477/2021 y cierre de convocatoria -- verificado (Fase 1, bloque 2.4)",
+      "norma": "RD 477/2021 y cierre de convocatoria — verificado",
       "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2021-10824",
       "fecha_consulta": "2026-08-08"
     },
@@ -108,7 +108,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -316,7 +316,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -500,7 +500,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -524,7 +524,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Este tramo (10-15 kW residencial) se tramita a menudo erróneamente con MTD por confusión con el umbral de 15 kW del RD 244/2019. La ITC-FV-03 exige proyecto técnico a partir de 10 kW sin excepción.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Este tramo (10-15 kW residencial) se tramita a menudo erróneamente con MTD por confusión con el umbral de 15 kW del RD 244/2019. La ITC-FV-03 exige proyecto técnico a partir de 10 kW sin excepción.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -548,7 +548,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -584,7 +584,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -614,7 +614,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -696,7 +696,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -880,7 +880,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1068,7 +1068,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1158,7 +1158,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
+          "notas": "El umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1256,7 +1256,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1280,7 +1280,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Hasta 500 kW en Andalucía, este es el procedimiento simplificado vigente (Decreto-ley 2/2018, de 26 de junio, disposición adicional única; aplicativo PUES conforme a la ficha técnica descriptiva de BT aprobada por Resolución de 28 de septiembre de 2023 de la Secretaría General de Energía (BOJA 2023/193/69). Por encima de 500 kW aplica autorización administrativa previa y de construcción (ver regla AND-FV-004).\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1304,7 +1304,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1346,7 +1346,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "El umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1370,7 +1370,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1456,7 +1456,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1546,7 +1546,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
+          "notas": "El umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1644,7 +1644,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1734,7 +1734,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "CORRIGE nota anterior: el umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
+          "notas": "El umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1808,7 +1808,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1863,7 +1863,7 @@
             }
           ],
           "formulario_ref": "9588",
-          "notas": "CIERRA lo pendiente de la Fase 0: plataforma confirmada VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
+          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -1990,7 +1990,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2014,7 +2014,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2045,7 +2045,7 @@
             }
           ],
           "formulario_ref": "9588",
-          "notas": "CIERRA lo pendiente de la Fase 0: plataforma confirmada VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2098,7 +2098,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2122,7 +2122,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2184,7 +2184,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2239,7 +2239,7 @@
             }
           ],
           "formulario_ref": "9588",
-          "notas": "CIERRA lo pendiente de la Fase 0: plataforma confirmada VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
+          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2366,7 +2366,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "CORRIGE la secuencia anterior, que omitía este trámite y colocaba la comunicación a la distribuidora en último lugar. Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
+          "notas": "Según la Junta de Andalucía: 'para la legalización de una instalación de autoconsumo, el primer paso es dirigirse a la empresa distribuidora... para solicitar el CAU. Una vez obtenido dicho código... se podrá proceder a la legalización de la instalación ante la Junta de Andalucía'.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2421,7 +2421,7 @@
             }
           ],
           "formulario_ref": "9588",
-          "notas": "CIERRA lo pendiente de la Fase 0: plataforma confirmada VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
+          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2713,7 +2713,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Por encima de 100 kW de potencia instalada, o con conexión en alta tensión, la inscripción en el registro de autoconsumo deja de practicarse de oficio y debe solicitarla el titular. CORRIGE denominación anterior ('RAC', inexistente) y obligatoriedad: para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
+          "notas": "Por encima de 100 kW de potencia instalada, o con conexión en alta tensión, la inscripción en el registro de autoconsumo deja de practicarse de oficio y debe solicitarla el titular. El registro se denomina RADNE (no «RAC»). Para sujetos consumidores en BT con generación en BT y potencia <100 kW, la inscripción en el RADNE la realiza de oficio la comunidad autónoma (no es un trámite a cargo del titular). Fuera de ese perfil (AT o BT >=100 kW), es obligación del titular. Fuente: página oficial de Autoconsumo de la Junta de Andalucía.",
           "paralelo_con": null,
           "tipo_actuacion": "accion_usuario",
           "regla_id": null,

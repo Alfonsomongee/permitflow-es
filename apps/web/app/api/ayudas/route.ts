@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     const { userId, orgId } = await auth();
 
     if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Inicia sesión para consultar las ayudas." }, { status: 401 });
     }
 
     const { searchParams } = new URL(req.url);

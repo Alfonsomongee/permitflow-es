@@ -160,7 +160,7 @@ function DocumentoItem({
         </div>
         <ChevronDown
           size={13}
-          className={`mt-1 flex-shrink-0 text-text-secondary/50 transition-transform ${expanded ? "rotate-180" : ""}`}
+          className={`mt-1 flex-shrink-0 text-text-secondary transition-transform ${expanded ? "rotate-180" : ""}`}
           aria-hidden
         />
       </button>

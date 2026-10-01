@@ -26,16 +26,16 @@ const FOOTER_LINKS = {
     { name: "Soporte", href: "/contacto" },
   ],
   legal: [
-    { name: "Aviso Legal", href: null },
-    { name: "Política de Privacidad", href: null },
-    { name: "Términos de Servicio", href: null },
+    { name: "Aviso Legal", href: "/aviso-legal" },
+    { name: "Política de Privacidad", href: "/privacidad" },
+    { name: "Términos de Servicio", href: "/terminos" },
   ],
 };
 
 function FooterLink({ href, children }: { href: string | null; children: ReactNode }) {
   if (!href) {
     return (
-      <span className="inline-flex items-center gap-1.5 text-sm text-text-secondary/50">
+      <span className="inline-flex items-center gap-1.5 text-sm text-text-secondary">
         {children}
         <span className="rounded-full border border-border px-1.5 py-0.5 text-[10px] leading-none">
           Próximamente
@@ -114,19 +114,11 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="text-xs text-text-secondary">
-            © {new Date().getFullYear()} PermitFlow ES — Prototipo SaaS. Todos los derechos reservados.
+            © {new Date().getFullYear()} PermitFlow ES. Todos los derechos reservados.
           </p>
-          <div className="flex items-center gap-4 text-xs text-text-secondary">
-            <span>Motor normativo v1.0</span>
-            <span className="h-1 w-1 rounded-full bg-border" aria-hidden />
-            <span className="flex items-center gap-1.5 text-success">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-success"></span>
-              </span>
-              Sistemas operativos
-            </span>
-          </div>
+          <p className="text-xs text-text-secondary">
+            Información orientativa: contrasta siempre los trámites con el organismo competente antes de presentar.
+          </p>
         </div>
       </div>
     </footer>

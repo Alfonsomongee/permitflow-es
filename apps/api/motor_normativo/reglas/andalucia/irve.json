@@ -1,7 +1,7 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "andalucia",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "ultima_revision": "2026-07-28",
   "fuentes": [
     {
@@ -65,17 +65,17 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Orden de 24 de octubre de 2005 (BOJA 217/2005) — procedimiento TECI, verificado gap 5.1 (Fase 0 investigación)",
+      "norma": "Orden de 24 de octubre de 2005 (BOJA 217/2005) — procedimiento TECI",
       "url": "https://www.juntadeandalucia.es/boja/2005/217/4",
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "RD 184/2022 art. 10; Orden TED/445/2023 -- correccion RIPREE (Fase 1, bloque 2.5)",
+      "norma": "RD 184/2022 art. 10; Orden TED/445/2023 — corrección RIPREE",
       "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2022-4361",
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "RD 609/2026, de 22 de julio (BOE-A-2026-16010) -- cierre MOVES III / Programa Auto+ (Fase 1, bloque 2.4)",
+      "norma": "RD 609/2026, de 22 de julio (BOE-A-2026-16010) — cierre MOVES III / Programa Auto+",
       "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-16010",
       "fecha_consulta": "2026-08-08"
     }
@@ -271,7 +271,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Procedimiento TECI: registro declarativo simplificado (sin proyecto), no consta plazo legal de resolución fijado por norma — por eso plazo_legal_dias es null. Código de procedimiento 6513 (SIA 215668), verificado con fuente primaria oficial (juntadeandalucía.es). URL directa de la sede pendiente de verificar en próxima fase. CORRIGE el enrutamiento anterior: esta instalación se dirigía a PUES; el PUES queda reservado para modo 4, exterior >10 kW o interior >50 kW (regla AND-IRVE-005).",
+          "notas": "Procedimiento TECI: registro declarativo simplificado (sin proyecto), no consta plazo legal de resolución fijado por norma — por eso plazo_legal_dias es null. Código de procedimiento 6513 (SIA 215668), verificado con fuente primaria oficial (juntadeandalucía.es). La URL directa de la sede está pendiente de verificar. El PUES queda reservado para modo 4, exterior >10 kW o interior >50 kW (regla AND-IRVE-005).",
           "formulario_ref": "6513",
           "paralelo_con": null,
           "registro_salida": null,
@@ -595,7 +595,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Requiere proyecto por superar los umbrales TECI (Modo 4, exterior >10 kW o interior >50 kW).\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Requiere proyecto por superar los umbrales TECI (Modo 4, exterior >10 kW o interior >50 kW).\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -619,7 +619,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "El CIE se presenta junto con el proyecto visado en el registro PUES.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "El CIE se presenta junto con el proyecto visado en el registro PUES.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -662,7 +662,7 @@
             }
           ],
           "formulario_ref": "6505",
-          "notas": "Plazo legal de resolución: 45 días hábiles. Silencio administrativo positivo.\nImporte exacto dependiente de la inversión. Introduzca la inversión para calcular las tasas.",
+          "notas": "Plazo legal de resolución: 45 días hábiles. Silencio administrativo positivo.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -1107,7 +1107,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "CORRIGE una confusion heredada: no existe un 'registro TECI' a nivel nacional; el nombre 'TECI' es exclusivo del sistema regional andaluz de baja tension sin proyecto (ver regla AND-IRVE-001). El registro estatal para operadores de puntos de recarga de acceso publico (CPO) es RIPREE, gestionado por MITECO. Es una obligacion del operador (CPO), no del titular de una instalacion privada: registra al operador para el reporte de informacion (protocolo OCPI hacia el Sistema de Gestion y Visualizacion de Red Electrica y el mapa REVE), no es una autorizacion de puesta en servicio de la instalacion (esa sigue via PUES, regla AND-IRVE-002 orden 3).",
+          "notas": "No existe un 'registro TECI' a nivel nacional; el nombre 'TECI' es exclusivo del sistema regional andaluz de baja tension sin proyecto (ver regla AND-IRVE-001). El registro estatal para operadores de puntos de recarga de acceso publico (CPO) es RIPREE, gestionado por MITECO. Es una obligacion del operador (CPO), no del titular de una instalacion privada: registra al operador para el reporte de informacion (protocolo OCPI hacia el Sistema de Gestion y Visualizacion de Red Electrica y el mapa REVE), no es una autorizacion de puesta en servicio de la instalacion (esa sigue via PUES, regla AND-IRVE-002 orden 3).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1139,7 +1139,7 @@
             {
               "id": "certificado_teci",
               "label": "Justificante de inscripción en RIPREE",
-              "descripcion": "Resguardo de la inscripción del operador (CPO) en el Registro de Infraestructuras de Puntos de Recarga de Energía Eléctrica (RIPREE, MITECO). CORRIGE una confusión heredada: no existe un 'registro TECI' estatal; el registro estatal para acceso público es RIPREE (ver nota del trámite anterior).",
+              "descripcion": "Resguardo de la inscripción del operador (CPO) en el Registro de Infraestructuras de Puntos de Recarga de Energía Eléctrica (RIPREE, MITECO). No existe un 'registro TECI' estatal: el registro estatal para acceso público es RIPREE (ver nota del trámite anterior).",
               "obligatorio": true
             },
             {

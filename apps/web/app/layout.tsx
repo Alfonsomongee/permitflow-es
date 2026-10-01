@@ -12,10 +12,25 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_URL ?? "http://localhost:3007";
+
 export const metadata: Metadata = {
-  title: "PermitFlow — Tramitación de instalaciones técnicas",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "PermitFlow — Tramitación de instalaciones técnicas",
+    template: "%s",
+  },
   description:
-    "Clasifica la instalación y obtén el plan de tramitación exacto para cada comunidad autónoma, con la base legal de cada trámite citada.",
+    "Clasifica la instalación y obtén el plan de tramitación para cada comunidad autónoma, con la base legal de cada trámite y el nivel de verificación de la normativa a la vista.",
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    siteName: "PermitFlow ES",
+    title: "PermitFlow — Tramitación de instalaciones técnicas",
+    description:
+      "Plan de tramitación por comunidad autónoma para fotovoltaica, recarga de vehículo eléctrico, climatización, ACS y gas.",
+  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {

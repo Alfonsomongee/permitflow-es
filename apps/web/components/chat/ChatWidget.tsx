@@ -104,7 +104,7 @@ function MessageBubble({
         {!isUser && id && onReport && !reportado && (
           <button
             onClick={() => setReportando((v) => !v)}
-            className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center self-start rounded text-text-secondary/40 opacity-0 transition-opacity hover:text-danger group-hover/bubble:opacity-100"
+            className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center self-start rounded text-text-secondary opacity-0 transition-opacity hover:text-danger group-hover/bubble:opacity-100"
             title="Reportar respuesta incorrecta"
             aria-label="Reportar respuesta incorrecta"
           >
@@ -209,9 +209,14 @@ export function ChatWidget() {
       {/* Panel de chat */}
       {open && (
         <div
-          className="fixed bottom-20 right-5 z-50 flex h-[520px] w-[360px] flex-col rounded-2xl border border-border bg-bg shadow-xl"
+          // Responsive: en móvil ocupa el ancho disponible (antes 360 px fijos se
+          // salían de pantallas de 320-375 px) y la altura se limita al viewport.
+          className="fixed inset-x-3 bottom-20 z-50 flex h-[min(520px,calc(100dvh-6rem))] flex-col rounded-2xl border border-border bg-bg shadow-xl sm:inset-x-auto sm:right-5 sm:w-[360px]"
           role="dialog"
           aria-label="Asistente normativo PermitFlow"
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setOpen(false);
+          }}
         >
           {/* Cabecera */}
           <div className="flex items-center justify-between rounded-t-2xl border-b border-border bg-surface px-4 py-3">
@@ -236,6 +241,7 @@ export function ChatWidget() {
                   onClick={clearChat}
                   className="flex h-7 w-7 items-center justify-center rounded-lg text-text-secondary hover:bg-bg hover:text-danger transition-colors"
                   title="Limpiar conversación"
+                  aria-label="Limpiar conversación"
                 >
                   <Trash2 size={14} aria-hidden />
                 </button>
@@ -251,7 +257,13 @@ export function ChatWidget() {
           </div>
 
           {/* Mensajes */}
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+          <div
+            className="flex-1 overflow-y-auto px-4 py-3 space-y-3"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions text"
+            aria-busy={loading}
+          >
             {messages.length === 0 ? (
               <div className="flex flex-col gap-3">
                 <p className="text-xs text-text-secondary text-center pt-2">
@@ -340,7 +352,7 @@ export function ChatWidget() {
                 )}
               </button>
             </div>
-            <p className="mt-1.5 text-center text-[10px] text-text-secondary/50">
+            <p className="mt-1.5 text-center text-[10px] text-text-secondary">
               Enter para enviar · Shift+Enter nueva línea · DeepSeek
             </p>
           </div>

@@ -21,7 +21,7 @@ export const metadata = {
 
 const VERTICALES = [
   { nombre: "Fotovoltaica autoconsumo", detalle: "Régimen de autorizaciones vs. PUES, umbral de 100 kW." },
-  { nombre: "Recarga de vehículo eléctrico (IRVE)", detalle: "Diferenciación PUES / TECI, registro MITECO, MOVES III." },
+  { nombre: "Recarga de vehículo eléctrico (IRVE)", detalle: "Diferenciación PUES / TECI, registro MITECO, ayudas autonómicas." },
   { nombre: "Climatización y aerotermia", detalle: "RITE, RSIF y F-Gas, inspecciones periódicas OCA." },
   { nombre: "Agua caliente sanitaria (ACS)", detalle: "RITE, prevención de legionella, mantenimiento y registros." },
   { nombre: "Gas baja presión", detalle: "Norma UNE, certificados IRG, presión normal y 5+ bar." },

@@ -4,7 +4,7 @@
  */
 
 import { AlertTriangle, Info } from "lucide-react";
-import type { ReactNode } from "react";
+import { createContext, useContext, useId, type ReactNode } from "react";
 
 // ─── Field wrapper ────────────────────────────────────────────────────────────
 
@@ -16,20 +16,50 @@ interface FieldProps {
   className?: string;
 }
 
+/**
+ * Contexto que Field comparte con el control que envuelve: así el <label> queda
+ * asociado al control (htmlFor/id), los errores y la ayuda se anuncian
+ * (aria-describedby) y el estado inválido se expone (aria-invalid). Antes el
+ * <label> no estaba vinculado a ningún control en todo el formulario
+ * (WCAG 1.3.1, 3.3.1, 4.1.2).
+ */
+interface FieldContextValue {
+  id: string;
+  labelId: string;
+  describedBy?: string;
+  invalid: boolean;
+}
+
+const FieldContext = createContext<FieldContextValue | null>(null);
+
+function useFieldContext(): FieldContextValue | null {
+  return useContext(FieldContext);
+}
+
 export function Field({ label, hint, error, children, className = "" }: FieldProps) {
+  const id = useId();
+  const labelId = `${id}-label`;
+  const mensajeId = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
+
   return (
-    <div className={`flex flex-col gap-1.5 ${className}`}>
-      <label className="text-xs font-medium text-text-secondary">{label}</label>
-      {children}
-      {error && (
-        <p className="text-xs text-danger-dark font-medium leading-relaxed" aria-live="polite">
-          {error}
-        </p>
-      )}
-      {hint && !error && (
-        <p className="text-xs text-text-secondary/70 leading-relaxed">{hint}</p>
-      )}
-    </div>
+    <FieldContext.Provider value={{ id, labelId, describedBy: mensajeId, invalid: Boolean(error) }}>
+      <div className={`flex flex-col gap-1.5 ${className}`}>
+        <label id={labelId} htmlFor={id} className="text-xs font-medium text-text-secondary">
+          {label}
+        </label>
+        {children}
+        {error && (
+          <p id={`${id}-error`} role="alert" className="text-xs text-danger-dark font-medium leading-relaxed">
+            {error}
+          </p>
+        )}
+        {hint && !error && (
+          <p id={`${id}-hint`} className="text-xs text-text-secondary leading-relaxed">
+            {hint}
+          </p>
+        )}
+      </div>
+    </FieldContext.Provider>
   );
 }
 
@@ -43,8 +73,12 @@ interface SelectProps {
 }
 
 export function Select({ value, onChange, options, placeholder }: SelectProps) {
+  const campo = useFieldContext();
   return (
     <select
+      id={campo?.id}
+      aria-invalid={campo?.invalid || undefined}
+      aria-describedby={campo?.describedBy}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-text-primary outline-none transition-colors hover:border-neutral focus:border-primary focus:ring-1 focus:ring-primary/20"
@@ -84,9 +118,13 @@ export function NumberInput({
   step = 0.1,
   suffix,
 }: NumberInputProps) {
+  const campo = useFieldContext();
   return (
     <div className="relative flex items-center">
       <input
+        id={campo?.id}
+        aria-invalid={campo?.invalid || undefined}
+        aria-describedby={campo?.describedBy}
         type="number"
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -126,14 +164,22 @@ export function ToggleGroup<T extends string>({
     4: "grid-cols-2 sm:grid-cols-4",
   }[cols];
 
+  const campo = useFieldContext();
   return (
-    <div className={`grid gap-2 ${gridCols}`}>
+    <div
+      id={campo?.id}
+      role="group"
+      aria-labelledby={campo?.labelId}
+      aria-describedby={campo?.describedBy}
+      className={`grid gap-2 ${gridCols}`}
+    >
       {options.map((o) => {
         const isActive = value === o.value;
         return (
           <button
             key={o.value}
             type="button"
+            aria-pressed={isActive}
             onClick={() => onChange(o.value as T)}
             className={`
               flex flex-col items-start rounded-lg border px-3 py-2.5 text-left
@@ -171,12 +217,20 @@ export function BoolToggle({
   labelTrue = "Sí",
   labelFalse = "No",
 }: BoolToggleProps) {
+  const campo = useFieldContext();
   return (
-    <div className="flex gap-2">
+    <div
+      id={campo?.id}
+      role="group"
+      aria-labelledby={campo?.labelId}
+      aria-describedby={campo?.describedBy}
+      className="flex gap-2"
+    >
       {[false, true].map((v) => (
         <button
           key={String(v)}
           type="button"
+          aria-pressed={value === v}
           onClick={() => onChange(v)}
           className={`
             flex-1 rounded-lg border px-4 py-2.5 text-sm transition-colors
@@ -200,7 +254,7 @@ export function SectionDivider({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-3 py-1">
       <div className="h-px flex-1 bg-border" />
-      <span className="text-[11px] font-medium uppercase tracking-wider text-text-secondary/60">
+      <span className="text-[11px] font-medium uppercase tracking-wider text-text-secondary">
         {label}
       </span>
       <div className="h-px flex-1 bg-border" />

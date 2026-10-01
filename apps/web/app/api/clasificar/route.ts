@@ -1,6 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { crearExpediente } from "@/lib/expedientes";
+import { contarExpedientesDesde, crearExpediente } from "@/lib/expedientes";
+import { supabaseAdmin } from "@/lib/supabase";
+import { evaluarCuotaClasificaciones, inicioDeMes, LIMITE_CLASIFICACIONES_FREE_MES } from "@/lib/planes";
 import { construirPayloadClasificador } from "@/lib/clasificador-payload";
 import type { FormState } from "@/components/nueva-instalacion/types";
 import type { PlanTramitacion } from "@/types/plan";
@@ -83,7 +85,7 @@ function validateFormState(formState: FormState): string | null {
 
   const potencia = parseFloat(formState.potencia_kw);
   if (!formState.potencia_kw || Number.isNaN(potencia) || potencia <= 0) {
-    return "Introduce una potencia valida mayor que 0 kW.";
+    return "Introduce una potencia válida mayor que 0 kW.";
   }
 
   return null;
@@ -94,23 +96,52 @@ export async function POST(req: Request) {
 
   if (!userId) {
     return NextResponse.json(
-      { error: "Inicia sesion para generar un expediente." },
+      { error: "Inicia sesión para generar un expediente." },
       { status: 401 }
     );
   }
 
   if (!orgId) {
     return NextResponse.json(
-      { error: "Selecciona o crea una organizacion antes de generar expedientes." },
+      { error: "Selecciona o crea una organización antes de generar expedientes." },
       { status: 403 }
     );
   }
 
-  const formState = (await req.json()) as FormState;
+  let formState: FormState;
+  try {
+    formState = (await req.json()) as FormState;
+  } catch {
+    return NextResponse.json({ error: "La petición no contiene un JSON válido." }, { status: 400 });
+  }
   const validationError = validateFormState(formState);
 
   if (validationError) {
     return NextResponse.json({ error: validationError }, { status: 400 });
+  }
+
+  // Cuota del plan Free (la tabla de precios promete 5 clasificaciones al mes).
+  try {
+    const { data: org } = await supabaseAdmin
+      .from("organizaciones")
+      .select("plan, suscripcion_activa")
+      .eq("clerk_org_id", orgId)
+      .maybeSingle();
+    const usadas = await contarExpedientesDesde(orgId, inicioDeMes());
+    if (evaluarCuotaClasificaciones(org, usadas).limitado) {
+      return NextResponse.json(
+        {
+          error:
+            `Has alcanzado el límite de ${LIMITE_CLASIFICACIONES_FREE_MES} clasificaciones al mes del plan Free. ` +
+            "Pasa a Pro desde Ajustes para clasificar sin límite.",
+          upgrade: "/ajustes",
+        },
+        { status: 402 }
+      );
+    }
+  } catch (err) {
+    // Si no se puede comprobar la cuota, no se bloquea al usuario: se registra y se continúa.
+    console.error("[clasificar] no se pudo comprobar la cuota del plan:", err);
   }
 
   let motorRes: Response;
@@ -129,7 +160,7 @@ export async function POST(req: Request) {
     });
   } catch {
     return NextResponse.json(
-      { error: "No se pudo conectar con el motor normativo. Revisa que FastAPI este activo." },
+      { error: "No se pudo conectar con el motor normativo. Inténtalo de nuevo en unos minutos." },
       { status: 502 }
     );
   }
@@ -154,10 +185,11 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ expedienteId: expediente.id, plan });
   } catch (err) {
-    const message =
-      err instanceof Error
-        ? err.message
-        : "El plan se genero, pero no se pudo guardar el expediente.";
-    return NextResponse.json({ error: message }, { status: 500 });
+    // El detalle (mensajes de Postgres/PostgREST) va a los logs, no al navegador.
+    console.error("[clasificar] el plan se generó pero no se pudo guardar el expediente:", err);
+    return NextResponse.json(
+      { error: "El plan se generó, pero no se pudo guardar el expediente. Inténtalo de nuevo." },
+      { status: 500 }
+    );
   }
 }

@@ -16,6 +16,7 @@ misma clase de error sin que la suite lo note.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -131,6 +132,44 @@ def _lint_fichero(rel: str, data: dict) -> list[Hallazgo]:
         hallazgos.append(Hallazgo(rel, "Campo legacy 'notes' encontrado; usar 'notas'"))
 
     hallazgos.extend(_lint_valores_de_enum(rel, data))
+    hallazgos.extend(_lint_lenguaje_interno(rel, data))
+    return hallazgos
+
+
+# Texto de trabajo que NO debe llegar al cliente: las notas, descripciones y
+# fuentes se muestran tal cual en el plan y en los documentos. La auditoría
+# 2026-10-01 encontró 44 textos así en Andalucía ("CIERRA lo pendiente de la
+# Fase 0", "CORRIGE la secuencia anterior", "PENDIENTE DE VERIFICAR (no se
+# modifica el disparador)"...), igual que ya ocurrió en Cataluña. Los campos de
+# auditoría (`huecos_verificacion`, `aviso`) quedan fuera: ahí el lenguaje de
+# revisión es intencionado y se muestra como tal.
+_PATRON_LENGUAJE_INTERNO = re.compile(
+    r"\b(CIERRA|CORRIGE|TODO|FIXME|XXX)\b|\bFase \d\b|\bgap \d|"
+    r"no se modifica el disparador|Introduzca la inversi|pr[oó]xima fase",
+)
+_CAMPOS_DE_AUDITORIA = {"huecos_verificacion", "aviso", "estado"}
+
+
+def _lint_lenguaje_interno(rel: str, data: dict) -> list[Hallazgo]:
+    hallazgos: list[Hallazgo] = []
+
+    def recorre(nodo: Any, ruta: str) -> None:
+        if isinstance(nodo, dict):
+            for clave, valor in nodo.items():
+                if clave in _CAMPOS_DE_AUDITORIA:
+                    continue
+                recorre(valor, f"{ruta}/{clave}")
+        elif isinstance(nodo, list):
+            for i, valor in enumerate(nodo):
+                recorre(valor, f"{ruta}[{i}]")
+        elif isinstance(nodo, str):
+            m = _PATRON_LENGUAJE_INTERNO.search(nodo)
+            if m:
+                hallazgos.append(Hallazgo(
+                    rel, f"Lenguaje de trabajo interno «{m.group(0)}» en {ruta}"
+                ))
+
+    recorre(data, "")
     return hallazgos
 
 
