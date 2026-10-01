@@ -2,53 +2,67 @@
  * apps/web/app/api/stripe/checkout/route.ts
  *
  * Crea una Stripe Checkout Session para el plan Pro.
- * El usuario debe estar autenticado (Clerk) para acceder.
+ * Solo administradores de la organización; una única suscripción por organización.
  */
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
 import { supabaseAdmin } from "@/lib/supabase";
+import { getStripe } from "@/lib/stripe/client";
+import { esRespuesta, requerirAdminOrg } from "@/lib/server/roles";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_placeholder", {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  apiVersion: "2026-06-24.dahlia" as any,
-});
-
-const PRICE_IDS: Record<string, string> = {
-  pro: process.env.STRIPE_PRICE_PRO!,
+const PRICE_IDS: Record<string, string | undefined> = {
+  pro: process.env.STRIPE_PRICE_PRO,
 };
 
 export async function POST(req: Request) {
-  const { userId, orgId } = await auth();
-  if (!userId || !orgId) {
-    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-  }
+  const sesion = await requerirAdminOrg();
+  if (esRespuesta(sesion)) return sesion;
+  const { userId, orgId } = sesion;
 
-  const { plan = "pro" } = await req.json();
+  const cuerpo = (await req.json().catch(() => ({}))) as { plan?: unknown };
+  const plan = typeof cuerpo.plan === "string" ? cuerpo.plan : "pro";
   const priceId = PRICE_IDS[plan];
-  if (!priceId) {
+  if (!(plan in PRICE_IDS)) {
     return NextResponse.json({ error: "Plan no válido" }, { status: 400 });
   }
+  if (!priceId) {
+    console.error("[stripe checkout] STRIPE_PRICE_PRO no está configurada");
+    return NextResponse.json(
+      { error: "El pago no está disponible en este momento. Contacta con soporte." },
+      { status: 503 }
+    );
+  }
 
-  // Buscar o crear el customer de Stripe para esta organización
+  const stripe = getStripe();
+
   const { data: org } = await supabaseAdmin
     .from("organizaciones")
-    .select("stripe_customer_id, nombre")
+    .select("stripe_customer_id, nombre, suscripcion_activa")
     .eq("clerk_org_id", orgId)
     .single();
+
+  if (org?.suscripcion_activa) {
+    return NextResponse.json(
+      { error: "Tu organización ya tiene una suscripción activa. Gestiónala desde Ajustes." },
+      { status: 409 }
+    );
+  }
 
   let customerId = org?.stripe_customer_id;
 
   if (!customerId) {
     const user = await currentUser();
-    const customer = await stripe.customers.create({
-      email: user?.primaryEmailAddress?.emailAddress,
-      name: org?.nombre ?? undefined,
-      metadata: { clerk_org_id: orgId, clerk_user_id: userId },
-    });
+    // idempotencyKey: dos clics (o dos pestañas) no crean dos clientes de Stripe.
+    const customer = await stripe.customers.create(
+      {
+        email: user?.primaryEmailAddress?.emailAddress,
+        name: org?.nombre ?? undefined,
+        metadata: { clerk_org_id: orgId, clerk_user_id: userId },
+      },
+      { idempotencyKey: `customer-${orgId}` }
+    );
     customerId = customer.id;
 
-    // Guardar en Supabase para futuras sesiones
     await supabaseAdmin
       .from("organizaciones")
       .update({ stripe_customer_id: customerId })
@@ -61,15 +75,15 @@ export async function POST(req: Request) {
     customer: customerId,
     mode: "subscription",
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${baseUrl}/expedientes?upgraded=1`,
-    cancel_url: `${baseUrl}/#precios`,
+    success_url: `${baseUrl}/ajustes?upgraded=1`,
+    cancel_url: `${baseUrl}/ajustes`,
     metadata: { clerk_org_id: orgId },
     subscription_data: {
       metadata: { clerk_org_id: orgId },
     },
     allow_promotion_codes: true,
     billing_address_collection: "required",
-    tax_id_collection: { enabled: true },   // CIF/NIF para facturación B2B
+    tax_id_collection: { enabled: true }, // CIF/NIF para facturación B2B
   });
 
   return NextResponse.json({ url: session.url });

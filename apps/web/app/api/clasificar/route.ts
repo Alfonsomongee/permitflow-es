@@ -4,9 +4,8 @@ import { crearExpediente } from "@/lib/expedientes";
 import { construirPayloadClasificador } from "@/lib/clasificador-payload";
 import type { FormState } from "@/components/nueva-instalacion/types";
 import type { PlanTramitacion } from "@/types/plan";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
-const API_URL =
-  process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 // Traducciones de los mensajes "de fábrica" que Pydantic v2 genera en inglés
 // (Field(gt=0), Field(ge=1)...). En la práctica el backend ya traduce esto en
@@ -120,7 +119,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+        ...cabecerasInternas(),
       },
       signal: AbortSignal.timeout(15000),
       // El payload se construye de forma declarativa en lib/clasificador-payload.ts.

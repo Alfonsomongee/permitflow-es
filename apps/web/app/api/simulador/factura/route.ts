@@ -1,21 +1,13 @@
 import { NextResponse } from "next/server";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
 export async function POST(request: Request) {
-  const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-  const INTERNAL_KEY = process.env.INTERNAL_API_KEY || "";
-
-  if (!API_URL) {
-    return NextResponse.json({ detail: "Servicio no configurado" }, { status: 503 });
-  }
-
   try {
     const formData = await request.formData();
 
     const response = await fetch(`${API_URL}/simulador/factura`, {
       method: "POST",
-      headers: {
-        "X-Internal-Key": INTERNAL_KEY,
-      },
+      headers: cabecerasInternas(request),
       body: formData,
       cache: "no-store",
     });

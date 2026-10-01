@@ -171,7 +171,11 @@ def client(fake_redis):
 
     app.dependency_overrides[get_redis] = _override_get_redis
     app.dependency_overrides[get_db] = _override_get_db
-    with TestClient(app) as c:
+    # El simulador ya NO está exento del gate de X-Internal-Key (antes cualquiera
+    # con la URL pública de FastAPI podía subir PDFs y disparar el LLM).
+    from config import settings
+
+    with TestClient(app, headers={"X-Internal-Key": settings.INTERNAL_API_KEY}) as c:
         yield c
     app.dependency_overrides.clear()
 

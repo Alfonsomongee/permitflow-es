@@ -31,8 +31,21 @@ import posthog from "posthog-js";
 
 let inicializado = false;
 
+/** Rutas cuya URL es una credencial (enlace del portal de cliente, token en la
+ * ruta): nunca deben llegar a un proveedor de analítica. */
+const RUTAS_SENSIBLES = ["/portal"];
+
+function enRutaSensible(): boolean {
+  if (typeof window === "undefined") return false;
+  const ruta = window.location.pathname;
+  return RUTAS_SENSIBLES.some((prefijo) => ruta === prefijo || ruta.startsWith(`${prefijo}/`));
+}
+
 export function initPostHog(): void {
   if (typeof window === "undefined" || inicializado) return;
+  // El portal de cliente se identifica solo por el token de la URL: ni se
+  // inicializa PostHog ahí (el cliente final no es usuario de la aplicación).
+  if (enRutaSensible()) return;
 
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
   if (!key) return;
@@ -43,6 +56,9 @@ export function initPostHog(): void {
     autocapture: false,
     capture_pageview: false,
     disable_session_recording: true,
+    // Defensa en profundidad: si por navegación en cliente se llegara a una ruta
+    // sensible con PostHog ya iniciado, el evento se descarta antes de salir.
+    before_send: (evento) => (enRutaSensible() ? null : evento),
   });
   inicializado = true;
 }
@@ -51,7 +67,7 @@ export function initPostHog(): void {
  * (sin key configurada) -- seguro de llamar desde cualquier sitio sin
  * comprobar antes si el proveedor está activo. */
 export function capturar(evento: string, propiedades?: Record<string, unknown>): void {
-  if (typeof window === "undefined" || !inicializado) return;
+  if (typeof window === "undefined" || !inicializado || enRutaSensible()) return;
   posthog.capture(evento, propiedades);
 }
 

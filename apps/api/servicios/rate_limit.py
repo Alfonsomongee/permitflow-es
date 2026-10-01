@@ -5,6 +5,8 @@ reutilizarlo en routers/contacto.py sin copiar la lógica de nuevo.
 Comportamiento sin cambios respecto al original.
 """
 
+import ipaddress
+
 from redis.asyncio import Redis
 from fastapi import HTTPException, Request
 
@@ -46,14 +48,20 @@ async def rate_limit(redis: Redis, ip: str, key_prefix: str, max_req: int, ttl: 
 
 
 def get_real_ip(request: Request) -> str:
-    """Obtener la IP real del cliente.
+    """Obtiene la IP del visitante final para el rate limiting.
 
-    NOTA: ProxyHeadersMiddleware de uvicorn debe estar configurado con
-    --proxy-headers y --forwarded-allow-ips en Railway/Vercel.
-    Con ese middleware activo, request.client.host ya contiene la IP real.
-    Sin él, request.client.host es la IP del balanceador (todos comparten cuota).
-
-    Verificar tras el deploy que la IP logueada en las primeras peticiones
-    es la del cliente real, no 10.x.x.x o 172.x.x.x.
+    Todo el tráfico llega desde el proxy de Next.js (Vercel), así que
+    `request.client.host` es la IP de salida de Vercel y compartiría cuota entre
+    TODOS los usuarios. Next.js reenvía la IP real del visitante en
+    `X-Client-IP`. Esa cabecera solo se acepta porque la petición ya ha superado
+    el gate de `X-Internal-Key` (seguridad.py): un cliente externo no puede
+    falsificarla sin conocer la clave. Si falta o no es una IP válida, se cae a
+    la IP del socket.
     """
+    candidata = request.headers.get("x-client-ip", "").strip()
+    if candidata:
+        try:
+            return str(ipaddress.ip_address(candidata))
+        except ValueError:
+            pass
     return request.client.host if request.client else "unknown"

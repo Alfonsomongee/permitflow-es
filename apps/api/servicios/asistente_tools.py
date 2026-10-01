@@ -120,6 +120,6 @@ async def ejecutar_tool(nombre: str, argumentos: dict, expediente: Optional[Any]
         if nombre == "consultar_ayudas_disponibles":
             return _formatear_ayudas_disponibles(expediente)
     except Exception as exc:  # noqa: BLE001 — nunca debe tumbar el turno del chat
-        return f"Error interno consultando esta información: {exc}"
+        return "Error interno consultando esta información. No inventes el dato; indica al usuario que no está disponible."
 
     return f"Herramienta desconocida: {nombre}"

@@ -260,7 +260,7 @@ async def completar_con_tools_stream(
                 resultado = await ejecutar_tool(tc.function.name, args)
             except Exception as exc:  # noqa: BLE001 — un fallo de tool no debe tumbar el chat
                 logger.exception(f"Error ejecutando tool '{tc.function.name}'")
-                resultado = f"Error interno consultando esta información: {exc}"
+                resultado = "Error interno consultando esta información. No inventes el dato; indica al usuario que no está disponible."
             msgs.append({
                 "role": "tool",
                 "tool_call_id": tc.id,

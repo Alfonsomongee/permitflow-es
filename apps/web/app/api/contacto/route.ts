@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
 // Proxy público (sin Clerk auth: /contacto vive en la landing, antes de
 // cualquier registro) hacia apps/api/routers/contacto.py. INTERNAL_API_KEY
@@ -6,9 +7,6 @@ import { NextResponse } from "next/server";
 // gate global de seguridad.py) solo sea alcanzable a través de este proxy,
 // nunca directamente desde el navegador.
 export async function POST(request: Request) {
-  const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-  const INTERNAL_KEY = process.env.INTERNAL_API_KEY || "";
-
   let body: unknown;
   try {
     body = await request.json();
@@ -19,10 +17,7 @@ export async function POST(request: Request) {
   try {
     const response = await fetch(`${API_URL}/contacto`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Internal-Key": INTERNAL_KEY,
-      },
+      headers: cabecerasInternas(request, { "Content-Type": "application/json" }),
       body: JSON.stringify(body),
       cache: "no-store",
     });

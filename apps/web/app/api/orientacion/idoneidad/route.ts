@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
-const rawUrl =
-  process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-const API_URL = rawUrl.replace(/\/+$/, "");
 
 export async function POST(req: Request) {
   try {
@@ -21,7 +19,7 @@ export async function POST(req: Request) {
       headers: {
         "Content-Type": "application/json",
         "x-org-id": orgId || userId, // Fallback al userId si no hay orgId
-        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+        ...cabecerasInternas(),
       },
       body: JSON.stringify(body),
     });

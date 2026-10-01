@@ -12,6 +12,7 @@
  * sin exponer notas internas, historial de auditoría ni validación
  * normativa -- eso sigue siendo exclusivo de PlanTramitacionView.
  */
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Building2, CalendarClock, MapPin, ShieldCheck, Zap } from "lucide-react";
 import { supabaseAdmin } from "@/lib/supabase";
@@ -21,6 +22,13 @@ import { PortalTramitesList } from "@/components/plan-tramitacion/PortalTramites
 import type { DocumentoSubidoResumen } from "@/components/plan-tramitacion/DocumentoUploadControl";
 
 export const dynamic = "force-dynamic";
+
+// El enlace es una credencial: ni indexable ni con Referer hacia terceros.
+export const metadata: Metadata = {
+  title: "Seguimiento de instalación — PermitFlow",
+  robots: { index: false, follow: false, nocache: true },
+  referrer: "no-referrer",
+};
 
 const ESTADO_LABEL: Record<string, string> = {
   borrador: "Borrador",

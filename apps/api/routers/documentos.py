@@ -1,7 +1,11 @@
+import logging
+
 from fastapi import APIRouter, HTTPException, Response
 
 from documentos import VerticalNoSoportadoError, generar_documento
 from documentos.schemas import GenerarDocumentoInput
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/documentos", tags=["documentos"])
 
@@ -14,8 +18,9 @@ def generar(payload: GenerarDocumentoInput) -> Response:
         contenido, media_type, filename = generar_documento(payload)
     except VerticalNoSoportadoError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
-    except Exception as exc:  # noqa: BLE001 — error de render → 500 con detalle
-        raise HTTPException(status_code=500, detail=f"Error generando documento: {exc}")
+    except Exception:  # noqa: BLE001 — error de render → 500 genérico (detalle solo en logs)
+        logger.exception("Error generando documento")
+        raise HTTPException(status_code=500, detail="No se pudo generar el documento. Inténtalo de nuevo.")
 
     return Response(
         content=contenido,

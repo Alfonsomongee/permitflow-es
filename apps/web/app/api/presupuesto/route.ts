@@ -3,9 +3,8 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 import type { FormState } from "@/components/nueva-instalacion/types";
 import type { PlanTramitacion } from "@/types/plan";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
-const API_URL =
-  process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 /**
  * Presupuesto comercial: clasifica sin persistir expediente y devuelve un PDF
@@ -63,7 +62,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+        ...cabecerasInternas(),
       },
       body: JSON.stringify(paramsInstalacion),
       signal: AbortSignal.timeout(15_000),
@@ -99,7 +98,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+        ...cabecerasInternas(),
       },
       body: JSON.stringify({
         tipo: "presupuesto",

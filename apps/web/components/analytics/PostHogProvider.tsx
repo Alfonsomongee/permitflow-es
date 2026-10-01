@@ -54,7 +54,9 @@ function PostHogIdentify() {
 
   useEffect(() => {
     if (organization) {
-      identificarOrganizacion(organization.id, { name: organization.name });
+      // Solo el id: el nombre de la organización es un dato de empresa que no
+      // hace falta en analítica de producto (minimización, RGPD).
+      identificarOrganizacion(organization.id);
     }
   }, [organization]);
 

@@ -1,4 +1,5 @@
 import json
+import re
 from typing import Optional, Dict, Any, List
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.expediente import Expediente
@@ -8,8 +9,22 @@ from servicios.riesgo_normativo import _severidad_normativa
 
 REGLAS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "motor_normativo", "reglas")
 
+_SLUG_RE = re.compile(r"^[a-z0-9_]+$")
+
+
 def _cargar_normativa(comunidad: str, tipo_instalacion: str) -> Optional[Dict[str, Any]]:
-    ruta = os.path.join(REGLAS_DIR, comunidad, f"{tipo_instalacion}.json")
+    # `comunidad` y `tipo_instalacion` pueden venir del cliente (params/comunidad/
+    # tecnologia del chat): solo se aceptan slugs, nunca separadores de ruta.
+    if not (
+        isinstance(comunidad, str)
+        and isinstance(tipo_instalacion, str)
+        and _SLUG_RE.match(comunidad)
+        and _SLUG_RE.match(tipo_instalacion)
+    ):
+        return None
+    ruta = os.path.realpath(os.path.join(REGLAS_DIR, comunidad, f"{tipo_instalacion}.json"))
+    if not ruta.startswith(os.path.realpath(REGLAS_DIR) + os.sep):
+        return None
     if not os.path.exists(ruta):
         return None
     try:

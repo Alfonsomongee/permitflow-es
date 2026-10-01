@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-  const INTERNAL_KEY = process.env.INTERNAL_API_KEY || "";
-
-  if (!API_URL) {
-    return NextResponse.json({ detail: "Servicio no configurado" }, { status: 503 });
+  // `params.id` se interpola en la ruta de FastAPI: solo UUID (evita `..%2F` y
+  // otras inyecciones de ruta hacia endpoints internos).
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(params.id)) {
+    return NextResponse.json({ detail: "Identificador de estudio inválido" }, { status: 400 });
   }
 
   // Extraer token del header que envía el cliente
@@ -16,10 +16,7 @@ export async function GET(
 
   try {
     const response = await fetch(`${API_URL}/simulador/estudio/${params.id}`, {
-      headers: {
-        "X-Internal-Key": INTERNAL_KEY,
-        "X-Estudio-Token": token,
-      },
+      headers: cabecerasInternas(request, { "X-Estudio-Token": token }),
       cache: "no-store",
     });
 

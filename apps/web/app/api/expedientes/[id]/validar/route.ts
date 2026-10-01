@@ -2,9 +2,8 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { obtenerExpediente } from "@/lib/expedientes";
 import { supabaseAdmin } from "@/lib/supabase";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
-const API_URL =
-  process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 export async function GET(
   _req: Request,
@@ -55,7 +54,7 @@ export async function GET(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+        ...cabecerasInternas(),
       },
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(15_000),

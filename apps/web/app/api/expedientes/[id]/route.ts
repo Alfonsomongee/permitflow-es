@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { esRespuesta, requerirAdminOrg } from "@/lib/server/roles";
 import {
   aplicarPatchExpediente,
   eliminarExpediente,
@@ -85,10 +86,10 @@ export async function DELETE(
   _req: Request,
   { params }: { params: { id: string } }
 ) {
-  const { userId, orgId } = await auth();
-  if (!userId || !orgId) {
-    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-  }
+  // Borrado irreversible: solo administradores de la organización.
+  const sesion = await requerirAdminOrg();
+  if (esRespuesta(sesion)) return sesion;
+  const { orgId } = sesion;
 
   try {
     const expediente = await obtenerExpediente(params.id, orgId);
