@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cataluna",
-  "version": "1.3.1",
-  "ultima_revision": "2026-10-01",
+  "version": "1.3.2",
+  "ultima_revision": "2026-10-02",
   "nivel_verificacion": "en_revision",
   "estado": "borrador_verificado_parcialmente",
   "revisado_por": null,
@@ -12,12 +12,13 @@
     "Confirmar documentalmente el alcance exacto del trámite 21526 y sus documentos obligatorios.",
     "Confirmar la ruta autonómica concreta de puesta en servicio para instalaciones conectadas en AT.",
     "requiere_acceso_conexion y requiere_registro_produccion son datos técnicos derivados; si faltan cuando son materiales, procede revisión manual.",
-    "Pendiente (no verificable con las herramientas disponibles): si el Decret llei 22/2025 modifica también el régimen de los tramos <=10 kW y 10-100 kW (CAT-FV-BT-RITSIC), más allá de los tramos 100-500 y >500 kW ya citados.",
     "Verificación Prompt B Cataluña (2026-10-01): ALCANCE de la ficha 21526 dudoso: la fuente oficial da dos redacciones. Una indica «entre 15 kW i 100 kW en qualsevol mena de sòl o de fins a 15 kW en sòl no urbanitzat» (como el fichero); otra, «fins a 15 kW ubicada en sòl urbanitzat amb les dotacions i serveis». Si la segunda aplica al mismo trámite, la condición debe ampliarse. Confianza media; abrir la ficha a mano.",
     "Verificación Prompt B Cataluña (2026-10-01): OMISIONES: no hay reglas para autoconsumo sin excedentes hasta 500 kW ni con excedentes sin compensación (Canal Empresa lista «Instalación generadora de autoconsumo sin excedentes hasta 500 kW»); el Decret llei 22/2025 podría requerir solo la autorización de explotación para 100-500 kW (fuente secundaria); y exime de licencia de obras a paneles en cubierta (art. 9 bis según ACM; fuente secundaria), sin trámite municipal modelado.",
-    "Verificación Prompt B Cataluña (2026-10-01): Base legal de CAT-FV-AAP-AAC-MAS-500: la fuente parlamentaria sitúa el régimen de AAP/AAC en > 500 kW hasta 50 MW en el Decret llei 16/2019 modificado por el Decret llei 22/2025; falta el artículo exacto. No se confirmó la convalidación parlamentaria del Decret llei 22/2025 ni que modifique los tramos ≤ 10 kW y 10-100 kW.",
     "Verificación Prompt B Cataluña (2026-10-01): El documento «elec1» (certificado ELEC1) no aparece con ese nombre en las fuentes catalanas, que hablan de «certificat d'instal·lació elèctrica de baixa tensió»; confirmar la denominación del modelo oficial. Inscripción en el RIPRE sin verificar. Las plataforma_url usan canalempresa.gencat.cat; la herramienta solo pudo ver fichas en tramits.gencat.cat (host canónico probable).",
-    "Verificación Prompt B Cataluña (2026-10-01): Casi todas las fichas de Canal Empresa y tramits.gencat.cat bloquearon la lectura automatizada: plazos, silencio, tasas y documentos de la ficha 11419/11420/21526 deben abrirse a mano."
+    "Verificación Prompt B Cataluña (2026-10-01): Casi todas las fichas de Canal Empresa y tramits.gencat.cat bloquearon la lectura automatizada: plazos, silencio, tasas y documentos de la ficha 11419/11420/21526 deben abrirse a mano.",
+    "Verificación Prompt C (2026-10-02): C4: el Decret llei 22/2025 se publicó en el DOGC núm. 9531 (30/10/2025) y fue convalidado por el Pleno del Parlament el 19/11/2025 (Resolució 462/XV, DOGC núm. 9549, 25/11/2025; fuente secundaria fmc.cat). Según el expediente parlamentario (primaria) elimina la autorización previa y la de construcción entre 100 y 500 kW (queda la de explotación) y mantiene el régimen de AAP/AAC para más de 500 kW y hasta 50 MW. Sin verificar: número de artículo del Decret llei 16/2019 modificado, si cambia los tramos ≤ 10 kW y 10-100 kW, y la exención de licencia de obras. El tramo 100-500 kW sigue sin regla propia (decisión pendiente).",
+    "Verificación Prompt C (2026-10-02): C3: sin abrir la ficha 21526. Una fuente secundaria (oficina de transición energética del Ripollès) enumera «autoconsum amb compensació d'excedents fins a 15 kW en sòl urbanitzat» como supuesto propio de Canal Empresa, lo que apunta a que el tramo ≤ 15 kW en suelo urbanizado se tramita por el mismo canal; confianza baja.",
+    "Verificación Prompt C (2026-10-02): C6: Canal Empresa denomina el documento «Certificat d'instal·lació elèctrica de Baixa Tensió» y lista el «justificant d'inscripció al RITSIC de la instal·lació» (primaria, extracto de buscador). Se cambió la etiqueta; el id interno «elec1» se mantiene. Inscripción en el RIPRE sin verificar."
   ],
   "fuentes": [
     {
@@ -137,8 +138,8 @@
             },
             {
               "id": "elec1",
-              "label": "Certificado ELEC1",
-              "descripcion": "",
+              "label": "Certificat d'instal·lació elèctrica de baixa tensió (CIEBT)",
+              "descripcion": "Modelo oficial de la Generalitat; en versiones anteriores del fichero se llamaba «ELEC1».",
               "obligatorio": true
             }
           ],

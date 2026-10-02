@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cataluna",
-  "version": "1.2.3",
-  "ultima_revision": "2026-10-01",
+  "version": "1.2.4",
+  "ultima_revision": "2026-10-02",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
@@ -13,7 +13,8 @@
     "Verificación Prompt B Cataluña (2026-10-01): La ficha 11419 describe la memoria técnica y el certificado de instalación como documentación que el titular debe tener a disposición, junto a la declaración responsable; no consta que se adjunten. Revisar el modelo documental (documentos_requeridos).",
     "Verificación Prompt B Cataluña (2026-10-01): Casi todas las fichas de Canal Empresa y tramits.gencat.cat bloquearon la lectura automatizada: plazos, silencio, tasas y documentos de la ficha 11419/11420/21526 deben abrirse a mano.",
     "Verificación Prompt B Cataluña (2026-10-01): La inspección periódica de ACS centralizada > 70 kW con acumulación o retorno (CAT-ACS-INSPECCION-PERIODICA, cada 4 años) solo se apoya en una fuente secundaria; no se leyó el texto de la ITA 9 del Decret 192/2023. No se verificó si el ACS está sujeto a algún registro sanitario en Cataluña bajo el Decret 352/2004 (vigente según ASPCAT).",
-    "Verificación Prompt B Cataluña (2026-10-01): Canal Empresa (FAQ de instalaciones térmicas) confirma la frontera: «Fins als 70 kW (tèrmics), inclòs: la memòria i la certificació» y «Amb una potència superior als 70 kW: el projecte» (coherente con ADR 0002). El nombre oficial del trámite 11419 añade «(posada en servei, modificacions i baixa)»; no se cambia `nombre` para no romper las claves de estadísticas de plazos."
+    "Verificación Prompt B Cataluña (2026-10-01): Canal Empresa (FAQ de instalaciones térmicas) confirma la frontera: «Fins als 70 kW (tèrmics), inclòs: la memòria i la certificació» y «Amb una potència superior als 70 kW: el projecte» (coherente con ADR 0002). El nombre oficial del trámite 11419 añade «(posada en servei, modificacions i baixa)»; no se cambia `nombre` para no romper las claves de estadísticas de plazos.",
+    "Verificación Prompt C (2026-10-02): C1 sin cerrar (confianza baja): no se pudo leer la ITA 9 (Annex 2 del Decret 192/2023; el PDF del DOGC se truncó antes del anexo). Una fuente secundaria sitúa el tramo «igual o superior a 5 kW e inferior a 20 kW en calor o igual o inferior a 12 kW en frío» en la antigua «Subclasse 1.1» del régimen anterior al Decret 192/2023. Ninguna fuente primaria accesible confirma que ese tramo esté exento de DR; se mantiene la DR desde 5 kW. C7: una presentación técnica (secundaria) indica que a la DR se adjuntan un anexo de datos técnicos y la declaración firmada, y que la memoria y el certificado quedan en poder del titular."
   ],
   "fuentes": [
     {

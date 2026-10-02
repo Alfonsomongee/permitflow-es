@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "aragon",
-  "version": "0.9.3",
-  "ultima_revision": "2026-10-01",
+  "version": "0.9.4",
+  "ultima_revision": "2026-10-02",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
   "aviso": "Comunicación RITE y legionelosis. Verificación Prompt B (2026-10-01): umbrales de potencia coherentes con el RITE (memoria técnica de 5 a 70 kW incluidos; proyecto por encima de 70 kW). Se añadieron la Orden de 27/04/2009 como base legal, el formulario y los certificados de la ficha Nº 39 y la tasa; se retiraron los plazos legales sin respaldo. Persisten huecos (ver huecos_verificacion).",
@@ -13,10 +13,11 @@
     "Verificación Prompt B Aragón (2026-10-01): Se quitaron los plazo_legal_dias (15 y 30): una comunicación no tiene plazo de resolución y el de 30 días del OCA no consta en ninguna fuente. plazo_estimado_dias se conserva como estimación operativa.",
     "Verificación Prompt B Aragón (2026-10-01): Los importes de la Tasa 14 (Modelo 514) proceden de las guías de servicios de aragon.es; no se localizó la tarifa en el texto de la Ley 2/2016 (cap. XIV) y pueden variar con la actualización anual. No se verificó qué epígrafe aplica a cada vertical (el de IRVE y FV en BT se asimiló a la tarifa general de BT). Tarifa 2.1 (memoria ≤ 70 kW) 86,35 € + (N-1)×5,65 €; tarifa 2.2 (proyecto > 70 kW) 129,50 € + (N-1)×5,65 €.",
     "Verificación Prompt B Aragón (2026-10-01): AESSIA y DIGITA están confirmados como canales, pero sigue sin aclararse si cubren supuestos distintos o son alternativas. La Resolución de 23/06/2021 de la DG de Industria (incorporación de trámites a las plataformas telemáticas) debería consultarse en el BOA.",
-    "Verificación Prompt B Aragón (2026-10-01): ARA-ACS-RITE-EXENTA-EQUIPO: la guía antigua de Aragón dice «cuando la potencia de cada uno de ellos sea igual o menor que 70 kW» (por equipo), mientras que el fichero dice «sumando todos los equipos». No se leyó el texto de los arts. 15.1.c y 24.2 del RITE; confianza baja. Revisar a mano.",
-    "Verificación Prompt B Aragón (2026-10-01): ARA-ACS-003: el RD 487/2022 usa la terminología de Plan de Prevención y Control de Legionella (PPCL) y Plan Sanitario frente a Legionella (PSL), no «PMHS»; no se renombró el trámite para no romper las claves de estadísticas de plazos. El Decreto 136/2005 existe (BOA nº 87, 20/07/2005) y no se encontró derogación expresa, pero su vigencia efectiva tras el RD 487/2022 solo se apoya en fuentes secundarias; falta consultar la normativa sanitaria autonómica. La nota «exigido imperativamente antes de la puesta en marcha» no se pudo contrastar con el texto del RD 487/2022 (confianza baja).",
     "Verificación Prompt B Aragón (2026-10-01): Omisión: la inspección periódica de eficiencia energética (comunicación del resultado, Modelo C0008, Tabla 2 de inspecciones periódicas de la Orden de 27/04/2009 mod. 2013) no está modelada.",
-    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado."
+    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado.",
+    "Verificación Prompt C (2026-10-02): ARA-ACS-RITE-EXENTA-EQUIPO (T1): el art. 15.1.c del RITE (consolidado BOE, 02/08/2022) dice «cuando la potencia térmica nominal de cada uno de ellos por separado o su suma sea menor o igual que 70 kW»; la Orden de 20/08/2013 de Aragón (BOA 11/09/2013) repite la misma disyuntiva. Lógicamente «cada uno» ≤ 70 kW o «la suma» ≤ 70 kW se reduce a que cada equipo sea ≤ 70 kW (si la suma lo es, cada uno también), que es la lectura de la guía antigua de Aragón; el fichero aplica la lectura prudente (suma). No se cambia la regla. Art. 24.2 no leído.",
+    "Verificación Prompt C (2026-10-02): ARA-ACS-003 (A7): el RD 487/2022 (consolidado BOE) llama «Plan de Prevención y Control de Legionella (PPCL)» al plan del art. 8, del que es responsable el titular, y «Plan Sanitario frente a Legionella (PSL)» al del art. 9; el RD 614/2024 (en vigor desde 04/07/2024) obliga a actualizarlos antes del 01/07/2025. «PMHS» es terminología del RD 865/2003 (derogado). El trámite conserva el nombre «(PMHS)» para no romper las claves de estadísticas de plazos. Vigencia del Decreto 136/2005 sin verificar (solo fuentes secundarias).",
+    "Verificación Prompt C (2026-10-02): A6: la Orden de 20/08/2013 (BOA 11/09/2013) dice «no será necesaria la comunicación de reforma de instalación existente» en los supuestos de sustitución de generadores similares de hasta 70 kW; no se modela. Modelo C0008 y listado documental de la ficha Nº 39 sin verificar."
   ],
   "fuentes": [
     {
@@ -500,11 +501,11 @@
             {
               "id": "er_pmhs_acs",
               "label": "ER y PMHS",
-              "descripcion": "Documentación técnica sanitaria.",
+              "descripcion": "Documentación técnica sanitaria exigida por el RD 487/2022: Plan de Prevención y Control de Legionella (PPCL).",
               "obligatorio": true
             }
           ],
-          "notas": "Exigido imperativamente para instalaciones de uso colectivo (hoteles, residencias, gimnasios, etc.) de forma previa a su puesta en marcha.",
+          "notas": "Exigido imperativamente para instalaciones de uso colectivo (hoteles, residencias, gimnasios, etc.) de forma previa a su puesta en marcha.\nEl RD 487/2022 obliga al titular a elaborar e implantar un Plan de Prevención y Control de Legionella (PPCL, art. 8); el Plan Sanitario frente a Legionella (PSL) se regula en el art. 9.",
           "registro_salida": null,
           "medio_presentacion": null
         }

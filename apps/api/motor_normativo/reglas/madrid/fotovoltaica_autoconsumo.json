@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "madrid",
-  "version": "1.1.1",
-  "ultima_revision": "2026-10-01",
+  "version": "1.1.2",
+  "ultima_revision": "2026-10-02",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
@@ -11,9 +11,9 @@
     "La aplicación del Registro de Producción se determina mediante requiere_registro_produccion conforme al RD 413/2014.",
     "La documentación concreta de puesta en servicio BT depende de la modalidad y de la Instrucción autonómica vigente.",
     "Los importes de tasas no se automatizan salvo que la ficha oficial declare expresamente ausencia de tasa.",
-    "Verificación Prompt B Madrid (2026-10-01) — BLOQUEANTE a cotejar: la ruta BT envía a la EICI toda generación en baja tensión. Según la sede (Decreto 86/2025, grupo quinto), el autoconsumo CON excedentes va a la EICI solo si la potencia es ≤ 500 kW y se conecta a una instalación consumidora conectada a la red de distribución en baja tensión; en otro caso requiere autorización de la Dirección General. No se pudo leer la Instrucción de 24/11/2025 (PDF sin texto extraíble) que fija la documentación BT.",
-    "La ruta de alta tensión es un único trámite de autorización. El Decreto 86/2025 distingue autoconsumo con excedentes (grupo quinto: autorización previa y de construcción más autorización de explotación) y sin excedentes en AT o con generación BT y medida en AT (grupo tercero: solo comunicación previa). Faltan además la garantía económica de desmantelamiento (art. 38) y los trámites de transmisión, modificación y cierre (caps. VI-VII).",
-    "El importe de las tasas procede de las fichas de la sede (ninguna cita la norma que las fija) y del tramo superior a 120.202,43 € no hay importe publicado. Aparamenta con gases fluorados en AT: desde 01/01/2026 debe tener en cuenta el Reglamento (UE) 2024/573 (aviso de la ficha AT); no se modela."
+    "El importe de las tasas procede de las fichas de la sede (ninguna cita la norma que las fija) y del tramo superior a 120.202,43 € no hay importe publicado. Aparamenta con gases fluorados en AT: desde 01/01/2026 debe tener en cuenta el Reglamento (UE) 2024/573 (aviso de la ficha AT); no se modela.",
+    "Verificación Prompt C (2026-10-02): M2 CONFIRMADO con el texto del Decreto 86/2025 (BOCM 31/10/2025, confianza alta; el PDF se leyó). Art. 2.3: quedan fuera las instalaciones ≤ 1 kV y el autoconsumo sin excedentes en BT, salvo que la medida del sistema antivertido esté en el lado de AT o haya más de un transformador. Grupo tercero (art. 3.3, art. 4.4, art. 21.1): autoconsumo sin excedentes que genera en AT, o en BT con medida en AT o varios transformadores: basta comunicación previa a la puesta en servicio ante la DG de Energía, con certificado de inspección inicial favorable. Grupo quinto (art. 3.5): producción y autoconsumo con excedentes de más de 500 kW (autorización previa 3 meses, de construcción 3 meses y de explotación 15 días; silencio desestimatorio, art. 4.10) y el resto con excedentes que solo requiera autorización de explotación. DECISIÓN PENDIENTE: la ruta actual «todo BT va a la EICI, todo AT es un único trámite» no distingue estos casos; hace falta un campo de entrada (excedentes, punto de medida) y varias reglas nuevas.",
+    "Verificación Prompt C (2026-10-02): M4: la garantía de desmantelamiento (art. 38) se exige con la solicitud de autorización de explotación a producción, almacenamiento y autoconsumo con excedentes que no estén sobre cubiertas y hayan pasado evaluación ambiental ordinaria o simplificada; se actualiza cada cinco años con el IPC. Cuantía exacta no leída. Norma de las tasas y tramo superior a 120.202,43 € siguen sin verificar. M3 (Instrucción de 24/11/2025) y M5 (ficha de gas) siguen sin localizar."
   ],
   "fuentes": [
     {

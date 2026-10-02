@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "madrid",
-  "version": "1.1.2",
-  "ultima_revision": "2026-10-01",
+  "version": "1.1.3",
+  "ultima_revision": "2026-10-02",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
@@ -10,8 +10,9 @@
   "huecos_verificacion": [
     "Confirmar el importe vigente de la tasa y la tarifa EICI en cada expediente.",
     "RESUELTO (2026-07-28): importes de tasa de registro incorporados (memoria técnica 3,12 €/6,24 €; proyecto 15,60 €/31,22 €/52,04 €) según tarifario vigente publicado en sede.comunidad.madrid, sección 'Pago de tasas' del trámite de instalaciones térmicas no industriales.",
-    "Verificación Prompt B Madrid (2026-10-01): la ficha de la sede describe el proyecto como «igual o superior a 70 kW» y la memoria como «entre 5 y 70 kW», mientras el art. 15.1 del RITE en el BOE exige proyecto solo por encima de 70 kW (ADR 0002). Para 70,0 kW exactos, confirmar con la DG de Transición Energética y Economía Circular cómo lo trata la EICI.",
-    "No se leyeron la Orden 9343/2003 (art. 13), la Resolución de 15/01/2020 (porcentajes de inspección) ni el texto de la Orden 163/2024; la inspección en la vía de memoria técnica se describe solo según la ficha de la sede. Ninguna ficha cita la norma que fija las tasas (probablemente el D. Legislativo 1/2002)."
+    "No se leyeron la Orden 9343/2003 (art. 13), la Resolución de 15/01/2020 (porcentajes de inspección) ni el texto de la Orden 163/2024; la inspección en la vía de memoria técnica se describe solo según la ficha de la sede. Ninguna ficha cita la norma que fija las tasas (probablemente el D. Legislativo 1/2002).",
+    "Verificación Prompt C (2026-10-02): M1 RESUELTO (confianza alta): a 70,0 kW exactos se presenta memoria técnica. La ficha 55186 (versión inglesa) dice «equal to or greater than 70 kW» para el proyecto, pero la Resolución de 05/03/2025 de la DG de Transición Energética (BOCM 31/03/2025) aprueba el modelo IT 3.1.5 para potencia «mayor o igual a 5 kW y menor o igual a 70 kW» y el IT 3.1.9 para «superior a 70 kw». Prevalece la resolución (boletín oficial, posterior, coherente con el art. 15.1 del RITE y con ADR 0002). Esa resolución sustituye a la de 03/02/2021.",
+    "Verificación Prompt C (2026-10-02): La resolución del BOCM de 31/03/2025 numera el certificado de instalación de 5 a 70 kW como IT 3.1.8; el fichero cita el «certificado de montaje (IT 3.1.6)». Comprobar la numeración vigente de los modelos."
   ],
   "fuentes": [
     {

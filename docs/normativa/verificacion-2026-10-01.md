@@ -172,3 +172,31 @@ Misma salvedad: herramienta externa, no re-comprobado, JSON íntegro no archivad
 ### Siguiente paso concreto
 Abrir a mano las fichas **Nº 26, Nº 33, Nº 39**, la página de energía fotovoltaica y la ficha 2459, y cotejar el art. 15.1.c del RITE y el art. 5.7 / ITC-ICG 07 del RD 919/2006. Con eso se cierran los puntos 1, 2 y 3.
 
+---
+
+## Resultado del Prompt C — subsanación conjunta Madrid · Cataluña · Aragón (2026-10-02)
+
+27 preguntas abiertas de los Prompts B. Misma salvedad: herramienta externa, no re-comprobado, JSON íntegro no archivado; varias citas de `aragon.es`, `tramits.gencat.cat` y Canal Empresa vienen de extractos de buscador (robots.txt) y no se probó `web.archive.org`. Niveles y `revisado_por` sin cambios; `ultima_revision` pasa a 2026-10-02 en los ficheros tocados.
+
+### Resuelto y aplicado
+| Id | Hallazgo | Cambio |
+|---|---|---|
+| A1 | Aragón: gas individual ≤ 70 kW y ≤ 5 bar **no comunica** (Tabla 1 de la Orden de 30/03/2007; RD 919/2006) | Paso del Trámite Nº 33 fuera de `ARA-GAS-001` (v0.10.0), caso de referencia actualizado, **ADR 0003** |
+| C2 | Cataluña: gas sin proyecto no presenta DR ni se inscribe en el RITSIC (ficha 11420) | `CAT-GAS-SIN-PROYECTO` pasa a trámite informativo (v1.3.0), **ADR 0003** |
+| M1 | Madrid: a 70,0 kW se presenta memoria; la Resolución de 05/03/2025 (BOCM 31/03/2025) prevalece sobre la ficha 55186 | Hueco de Madrid resuelto; adenda a ADR 0002 (Madrid ya no es excepción) |
+| A2 | Aragón 100-500 kW: solo autorización de explotación (DF 4.ª Ley 5/2024; recurso del TC contra otros artículos, suspensión levantada por el Auto 14/2026) | Regla nueva `ARA-FV-EXPLOTACION-100-500` (plazo, tasa y documentos sin verificar) |
+| M2 | Madrid, Decreto 86/2025 leído en el BOCM: grupo tercero (sin excedentes en AT o BT con medida en AT) = comunicación previa con inspección inicial; grupo quinto (excedentes > 500 kW) = AAP + AAC + explotación | **Solo registrado** en `huecos_verificacion`: modelarlo exige un campo nuevo (excedentes, punto de medida) |
+| C4 | Cataluña: Decret llei 22/2025 convalidado el 19/11/2025 (Resolució 462/XV, DOGC 9549; fuente secundaria) | Hueco actualizado; 100-500 kW sigue sin regla |
+| C6 | Cataluña: «Certificat d'instal·lació elèctrica de baixa tensió» (no «ELEC1») | Etiqueta cambiada en FV e IRVE (id interno intacto) |
+| A7 | RD 487/2022: PPCL (art. 8, titular) y PSL (art. 9); RD 614/2024 obliga a actualizarlos antes del 01/07/2025 | Nota y descripción del documento de ARA-ACS-003 (nombre del trámite intacto) |
+| T4 | RD 88/2026 art. 38.7: la verifica la distribuidora; criterio = antigüedad del **contrato** BT (> 20 años), no de la instalación | Sin trámite autonómico nuevo; ya estaba anotado |
+| T1 | RITE 15.1.c: «cada uno de ellos por separado o su suma ≤ 70 kW» | Observación en ADR 0002: lógicamente equivale a «cada equipo»; el fichero aplica la suma (más restrictivo); regla sin cambios |
+
+### Sin cerrar (sigue haciendo falta una persona o el texto oficial)
+- **C1** (umbral RITSIC, ITA 9) sigue abierto: el PDF del DOGC se truncó antes del Annex 2. Una fuente secundaria sitúa el doble umbral 20 kW (calor) / 12 kW (frío) en la antigua «Subclasse 1.1». **Se mantiene la DR desde 5 kW.**
+- C3 (alcance de la ficha 21526), C5 (ITA 12), C7 (documentos de la 11419), C8 (gases fluorados), A3-A5, A8, M3, M5, T3, T5: sin fuente primaria o sin investigar.
+- M4: garantía de desmantelamiento solo para instalaciones fuera de cubierta con evaluación ambiental; tasas sin verificar.
+
+### Siguiente paso concreto
+Leer el Annex 2 del Decret 192/2023 (ITA 9, 11 y 12) en el DOGC; abrir a mano las fichas 11420, 21526, Nº 33 y la Tabla 1 de Aragón para confirmar las fechas de actualización; decidir si se modela el grupo tercero/quinto de Madrid y el tramo 100-500 kW de Cataluña.
+

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "aragon",
-  "version": "0.9.2",
-  "ultima_revision": "2026-10-01",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-02",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
   "aviso": "BORRADOR NO VERIFICADO. Verificación Prompt B (2026-10-01): el umbral de 500 kW de ARA-FV-003 queda respaldado por la Ley 5/2024 de Aragón (BOE-A-2025-1392) y el RADNE (procedimiento 2459) está confirmado. Se corrigieron el organismo y la plataforma de ARA-FV-003, la tasa, los plazos y la documentación del Trámite Nº 26. Faltan la autorización de explotación para 100-500 kW y los trámites de acceso y conexión (ver huecos_verificacion).",
@@ -14,12 +14,13 @@
     "Verificación Prompt B Aragón (2026-10-01): Organismo de ARA-FV-003 corregido: no es el Ministerio sino el Gobierno de Aragón (Servicio Provincial hasta 1 MW; DG de energía en el resto hasta 50 MW). El reparto exacto entre 500 kW y 1 MW es confianza media; abrir la página de energía fotovoltaica. La plataforma_url anterior no coincidía con la página publicada y se sustituyó.",
     "Verificación Prompt B Aragón (2026-10-01): Plazos: se quitaron los plazo_legal_dias de la comunicación de BT (ARA-FV-001 y ARA-FV-002 paso 3) y del paso del OCA (ARA-FV-002 paso 2): no hay resolución expresa y se entiende practicada al presentarla. Tasa: el «0 €» no tenía respaldo (el art. 53 de la Ley 24/2013 trata de la autorización, no de tasas). El trámite Nº 26 aplica la Tasa 14: memoria técnica 86,35 € + (N-1)×5,65 €; proyecto 129,50 € + (N-1)×5,65 €; solo certificado 15,35 €. No se localizó exención específica para autoconsumo. Los importes de la Tasa 14 (Modelo 514) proceden de las guías de servicios de aragon.es; no se localizó la tarifa en el texto de la Ley 2/2016 (cap. XIV) y pueden variar con la actualización anual. No se verificó qué epígrafe aplica a cada vertical (el de IRVE y FV en BT se asimiló a la tarifa general de BT).",
     "Verificación Prompt B Aragón (2026-10-01): «Declaración responsable» (dr_fv): no figura en la ficha del Trámite Nº 26; se dejó como opcional. Modelos confirmados: E0001 (comunicación), C0001 (memoria) y justificante Modelo 514.",
-    "Verificación Prompt B Aragón (2026-10-01): OMISIÓN: autorización de explotación para generación de más de 100 kW y hasta 500 kW (excluida de la previa y de la de construcción, pero no de la de explotación según el epígrafe de la Ley 5/2024, fuente secundaria: derecholocal.es). Es requisito de la inscripción RADNE por encima de 100 kW y ARA-FV-002 no la contempla. No se leyó el artículo íntegro; existe además un acuerdo de la Comisión Bilateral y una «Guía breve» de Aragón (fecha dudosa) que fija la exención en 100 kW.",
     "Verificación Prompt B Aragón (2026-10-01): OMISIÓN: acceso y conexión / obtención del CAU ante la distribuidora (RD 1183/2020; RD 244/2019), previo a la inscripción RADNE según la ficha 2459. Tampoco se modela la admisión a trámite del RDL 23/2020 para fotovoltaicas de más de 500 kW y hasta 50 MW, incluido el autoconsumo con excedentes.",
     "Verificación Prompt B Aragón (2026-10-01): Sin verificar: el certificado de OCA entre 10 y 500 kW de ARA-FV-002 depende de la ITC-BT-05 y de la Tabla 1 de BT de Aragón (documentación por uso y potencia), que no se pudieron abrir. La referencia a los «arts. 19 y 20» del RD 244/2019 de los trámites RADNE no consta en la ficha 2459 (cita el art. 4). La ficha 2459 solo trae el texto genérico «si el trámite requiere de pago de tasas».",
     "Verificación Prompt B Aragón (2026-10-01): AESSIA y DIGITA están confirmados como canales, pero sigue sin aclararse si cubren supuestos distintos o son alternativas. La Resolución de 23/06/2021 de la DG de Industria (incorporación de trámites a las plataformas telemáticas) debería consultarse en el BOA.",
     "Verificación Prompt B Aragón (2026-10-01): No se contrastaron la licencia o comunicación municipal ni los trámites ambientales de las instalaciones fotovoltaicas.",
-    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado."
+    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado.",
+    "Verificación Prompt C (2026-10-02): A2 CONFIRMADO (BOE, confianza alta): la disposición final cuarta de la Ley 5/2024 añade la disposición adicional cuarta al Decreto-ley 2/2016; las renovables de más de 100 kW y hasta 500 kW «quedan excluidas del régimen de autorización administrativa previa y de autorización administrativa de construcción» y solo necesitan autorización de explotación, que se pide al Servicio Provincial (fuente secundaria: derecholocal.es). El recurso de inconstitucionalidad n.º 6697-2025 (BOE-A-2025-23825) impugna los arts. 4.3, 11, 58, 59, 60 (parcialmente), 61, 62 y la DA 3.ª, no la DF 4.ª; el Auto TC 14/2026 (BOE-A-2026-6481) levantó la suspensión. Se añadió la regla ARA-FV-EXPLOTACION-100-500. Plazo, silencio, tasa y documentos de esa autorización sin verificar; el acuerdo de la Comisión Bilateral de 2025 citado en la ficha jurídica no se localizó.",
+    "Verificación Prompt C (2026-10-02): A3/A4/A5 sin cerrar: reparto entre Servicio Provincial y DG de energía por encima de 1 MW, plazo y silencio de la autorización > 500 kW, requisitos previos de la ficha 2459 (CAU), norma que fija hoy las tarifas de la Tasa 14 (Ley 2/2016, cap. XIV, según aragon.es) y el significado de N."
   ],
   "fuentes": [
     {
@@ -360,6 +361,50 @@
           "notas": "En Aragón, las instalaciones renovables no eólicas de más de 500 kW y hasta 50 MW necesitan autorización previa, de construcción y de explotación (Ley 5/2024). Entre 100 y 500 kW quedan excluidas de la previa y de la de construcción. El Ministerio solo interviene si el aprovechamiento afecta a otra comunidad o supera 50 MW. El plazo de 90 días y el silencio desestimatorio son los supletorios estatales (RD 1955/2000); no constan específicamente para Aragón. Además hay que inscribirse en el registro de autoconsumo (RADNE, procedimiento 2459).",
           "registro_salida": null,
           "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "ARA-FV-EXPLOTACION-100-500",
+      "descripcion": "Autoconsumo o generación de más de 100 kW y hasta 500 kW: solo autorización administrativa de explotación (sin autorización previa ni de construcción)",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              500
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Autorización administrativa de explotación (más de 100 kW y hasta 500 kW)",
+          "organismo": "Servicio Provincial de Industria (Gobierno de Aragón)",
+          "base_legal": "Disposición adicional cuarta del Decreto-ley 2/2016 (añadida por la disposición final cuarta de la Ley 5/2024 de Aragón); arts. 18, 19, 20, 22 y 24 del Decreto-ley 2/2016",
+          "tipo_actuacion": "accion_usuario",
+          "plazo_estimado_dias": null,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede electrónica del Gobierno de Aragón",
+          "plataforma_url": null,
+          "coste_estimado": "No verificado (consultar Tasa 14 en aragon.es)",
+          "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [],
+          "notas": "Entre 100 y 500 kW la ley aragonesa excluye la autorización previa y la de construcción, pero no la de explotación. Esta autorización es la que se aporta después para inscribirse en el registro de autoconsumo (RADNE). Plazo, silencio, tasa y documentos exactos no verificados: abre la ficha del Gobierno de Aragón antes de presentarla."
         }
       ]
     },

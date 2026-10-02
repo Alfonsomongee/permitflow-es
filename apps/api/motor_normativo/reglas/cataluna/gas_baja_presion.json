@@ -1,17 +1,17 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "cataluna",
-  "version": "1.2.2",
-  "ultima_revision": "2026-10-01",
+  "version": "1.3.0",
+  "ultima_revision": "2026-10-02",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
-  "aviso": "Dos reglas principales mutuamente excluyentes. Datos resultantes numéricos. La intervención de organismo de control no se universaliza.",
+  "aviso": "Dos reglas principales mutuamente excluyentes. Datos resultantes numéricos. La intervención de organismo de control no se universaliza. Desde la versión 1.3.0, las instalaciones sin proyecto no presentan declaración responsable ni se inscriben en el RITSIC (ficha 11420; ver ADR 0003).",
   "huecos_verificacion": [
     "Pendiente de determinar los supuestos sectoriales expresos de inspección inicial por organismo de control en instalaciones receptoras de gas.",
     "Una presión resultante >5 bar debe revisarse además respecto del alcance semántico del vertical gas_baja_presion.",
-    "Verificación Prompt B Cataluña (2026-10-01): BLOQUEANTE a cotejar: CAT-GAS-SIN-PROYECTO modela una declaración responsable + alta en el RITSIC también para instalaciones sin proyecto, y la ficha oficial dice lo contrario (cita literal en la nota del trámite). La versión de la ficha leída tiene fecha de actualización 2016: hay que comprobar si el Decret 192/2023 lo cambió. Si no, la rama debería ser informativa. Además la ficha habla de «instalaciones con certificados y croquis», no de memoria técnica (documento memoria_tecnica_gas).",
-    "Verificación Prompt B Cataluña (2026-10-01): Confirmados con Canal Empresa los umbrales de proyecto de la ITC-ICG 07: individual > 70 kW, común o acometida > 2.000 kW, presión > 5 bar, ampliación > 30 %. Sin verificar plazos, silencio ni tasas."
+    "Verificación Prompt B Cataluña (2026-10-01): Confirmados con Canal Empresa los umbrales de proyecto de la ITC-ICG 07: individual > 70 kW, común o acometida > 2.000 kW, presión > 5 bar, ampliación > 30 %. Sin verificar plazos, silencio ni tasas.",
+    "Verificación Prompt C (2026-10-02): C2 RESUELTO (confianza alta; ficha 11420 y Canal Empresa leídas en extractos de buscador, robots.txt bloqueó la lectura directa y no se vio la fecha de actualización): las instalaciones de gas que «no requereixin projecte, no han de presentar la declaració responsable i no s'inscriuen al Registre d'Instal·lacions Tècniques de Seguretat Industrial de Catalunya»; «només s'han d'inscriure al RITSIC quan, per les seves característiques tècniques requereixin projecte». Corroborado por fichas oficiales de Asturias y la Generalitat Valenciana sobre la ITC-ICG 07 y por una alegación de Nedgia al borrador del Decret 192/2023 (secundaria). La regla CAT-GAS-SIN-PROYECTO pasó a trámite informativo. El documento «memoria técnica» desapareció de ese supuesto: la ficha habla de certificados y croquis. Falta comprobar el artículo de la ITA 11 del Decret 192/2023."
   ],
   "fuentes": [
     {
@@ -222,7 +222,7 @@
     },
     {
       "id": "CAT-GAS-SIN-PROYECTO",
-      "descripcion": "Instalación receptora de gas que no requiere proyecto",
+      "descripcion": "Instalación receptora de gas que no requiere proyecto: sin declaración responsable ni inscripción en el RITSIC",
       "condicion": {
         "and": [
           {
@@ -315,35 +315,34 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Presentació de la declaració responsable per a instal·lacions de gasos combustibles (posada en servei, modificacions i baixa)",
-          "organismo": "Departament d’Empresa i Treball - Servei de Seguretat d’Instal·lacions",
-          "base_legal": "RD 919/2006; Llei 9/2014; Decret 192/2023",
+          "nombre": "Sin trámite ante la Administración: instalación de gas que no requiere proyecto",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RD 919/2006, ITC-ICG 07; ficha 11420 de la Generalitat (Canal Empresa)",
+          "tipo_actuacion": "informativa",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "Canal Empresa (OGE)",
-          "plataforma_url": "https://canalempresa.gencat.cat/ca/integraciodepartamentaltramit/tramit/PerTemes/Presentacio-de-la-declaracio-responsable-per-a-installacions-de-gasos-combustibles-posada-en-servei-modificacions-i-baixa",
-          "coste_estimado": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste administrativo",
           "formulario_ref": null,
+          "registro_salida": null,
+          "medio_presentacion": null,
           "paralelo_con": null,
-          "regla_id": "CAT-GAS-SIN-PROYECTO",
-          "tipo_actuacion": "accion_usuario",
           "documentos_requeridos": [
             {
               "id": "certificado_instalacion_gas",
               "label": "Certificado de instalación de gas",
-              "descripcion": "",
+              "descripcion": "Lo emite la empresa instaladora y lo conserva el titular; no se presenta ante la Administración.",
               "obligatorio": true
             },
             {
-              "id": "memoria_tecnica_gas",
-              "label": "Memoria técnica, cuando proceda",
-              "descripcion": "",
-              "obligatorio": true
+              "id": "croquis_instalacion_gas",
+              "label": "Croquis de la instalación",
+              "descripcion": "Lo conserva el titular a disposición de la Administración.",
+              "obligatorio": false
             }
           ],
-          "notas": "Presentación electrónica obligatoria y alta o actualización en RITSIC.\nAVISO: la ficha oficial de Canal Empresa indica que las instalaciones que no requieren proyecto «no han de presentar la declaració responsable i no s'inscriuen al Registre d'Instal·lacions Tècniques de Seguretat Industrial de Catalunya» (se conservan certificados y croquis a disposición del titular). Comprueba con el Servei de Seguretat d'Instal·lacions antes de presentar este trámite.",
-          "registro_salida": "RITSIC",
-          "medio_presentacion": "electronico_obligatorio"
+          "notas": "Según la Generalitat, las instalaciones de gas que no requieren proyecto no han de presentar la declaración responsable ni se inscriben en el Registre d'Instal·lacions Tècniques de Seguretat Industrial de Catalunya (RITSIC): solo se inscriben cuando, por sus características técnicas, requieren proyecto (individual de más de 70 kW, común o acometida de más de 2.000 kW, más de 5 bar o ampliación de más del 30 %). El titular conserva el certificado de instalación y el croquis."
         }
       ]
     }

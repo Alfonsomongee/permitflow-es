@@ -1,23 +1,25 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "aragon",
-  "version": "0.9.2",
-  "ultima_revision": "2026-10-01",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-02",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
-  "aviso": "Reglas de presión y potencias base para Aragón. Verificación Prompt B (2026-10-01): la Orden de 30/03/2007 está confirmada en el BOA y el Trámite Nº 33 existe. BLOQUEANTE a cotejar: la comunicación de ARA-GAS-001 (≤ 70 kW y ≤ 5 bar) contradice el RD 919/2006 (ver huecos_verificacion). Se corrigieron plazos, tasa y documentación del Nº 33. 'estado' se mantiene en verificado_parcialmente.",
+  "aviso": "Reglas de presión y potencias base para Aragón. Verificación Prompts B y C (2026-10-01 / 2026-10-02): la Orden de 30/03/2007 está confirmada en el BOA y el Trámite Nº 33 existe. Desde la versión 0.10.0, las instalaciones individuales de hasta 70 kW y 5 bar ya no incluyen la comunicación del Nº 33 (Tabla 1 de Aragón; RD 919/2006). Persisten huecos (ver huecos_verificacion). 'estado' se mantiene en verificado_parcialmente.",
   "huecos_verificacion": [
     "formulario_ref del trámite Nº 33 (los tres casos): queda en null. No se ha localizado el código/referencia exacta del certificado de instalación de gas en la ficha de 'Formularios, impresos y tablas' de combustibles gaseosos de aragon.es dentro de esta corrección.",
     "Nombre de la vertical 'gas_baja_presion': ARA-GAS-003 cubre expresamente MOP > 5 bar (alta presión), lo que es inconsistente con el nombre del fichero/tipo_instalacion. No se ha renombrado 'tipo_instalacion' porque es un valor fijo del Literal en schemas/clasificador.py (TipoInstalacion) y cambiarlo rompería la clasificación; queda documentado como incoherencia de nomenclatura pendiente de decisión de producto.",
     "Trámite de alta de suministro / puesta en gas ante la distribuidora: añadido como paso final de cada regla (orden 4) por ser mecánicamente análogo al resto de trámites de la vertical; el organismo/plataforma exactos (Nedgia u otro operador según zona) no se han verificado en fuente primaria.",
-    "Verificación Prompt B Aragón (2026-10-01): BLOQUEANTE a cotejar: ARA-GAS-001 (≤ 70 kW y ≤ 5 bar) incluye la comunicación del Trámite Nº 33 como paso 3, pero el RD 919/2006 dice «Salvo en el caso de las instalaciones que requieren proyecto, no es precisa ninguna comunicación» (BOE-A-2006-15345, confianza alta) y la Tabla 1 de Aragón deja fuera del procedimiento las instalaciones por debajo de sus umbrales. Los pasos 1 y 2 (memoria técnica y certificado del instalador) se mantienen; el alta con la distribuidora sí procede. No se modificó la regla porque cambia la clasificación (hay un caso de referencia con 4 trámites, aragon_gas_40kw): decisión pendiente de una persona; se dejó un aviso en las notas del trámite.",
     "Verificación Prompt B Aragón (2026-10-01): La Orden de 30/03/2007 (Industria, Comercio y Turismo) está confirmada en el BOA y se cita como marco de la guía del procedimiento (confianza alta); no se encontró modificación posterior, pero no se verificó. El slug del Nº 33 aparece publicado por aragon.es; no se pudo abrir.",
     "Verificación Prompt B Aragón (2026-10-01): Plazo: se quitó plazo_legal_dias (15). El titular debe comunicar antes de que transcurran 30 días DESDE la puesta en servicio (comunicación posterior, no previa), con toda la documentación junta (cita literal, confianza alta). Tasa: con proyecto técnico 129,50 € (guía de servicios; el trámite exige el justificante del Modelo 514 apartado 1). Los importes de la Tasa 14 (Modelo 514) proceden de las guías de servicios de aragon.es; no se localizó la tarifa en el texto de la Ley 2/2016 (cap. XIV) y pueden variar con la actualización anual. No se verificó qué epígrafe aplica a cada vertical (el de IRVE y FV en BT se asimiló a la tarifa general de BT).",
     "Verificación Prompt B Aragón (2026-10-01): Documentos: la ficha pide proyecto técnico suscrito por técnico competente y visado por el colegio oficial (por duplicado en papel, confianza media), formulario E0003a, justificante de la tasa y, si procede, certificados de instalación común y de acometida interior de agua; en baja, justificante de titularidad. Falta contrastar el visado con la normativa sobre visado obligatorio (RD 1000/2010). No se añadió el justificante de titularidad.",
     "Verificación Prompt B Aragón (2026-10-01): Confirmado (Tabla 1 de Aragón y ITC-ICG 07 §3.2): proyecto si individual > 70 kW. Faltan los otros supuestos de proyecto: instalaciones comunes > 2.000 kW y acometidas interiores > 2.000 kW (potencia_kw no distingue instalación común o individual).",
     "Verificación Prompt B Aragón (2026-10-01): ARA-GAS-003 (> 5 bar): se igualó la base legal con ARA-GAS-001/002 y se rellenó la plataforma_url del Nº 33. OMISIÓN: inspección periódica de instalaciones receptoras de gas (Tabla 1a de Aragón; RD 919/2006 ITC-ICG 07; Orden de 30/03/2007). El alta de suministro ante la distribuidora (paso 4) no es verificable en fuente autonómica.",
     "Verificación Prompt B Aragón (2026-10-01): AESSIA y DIGITA están confirmados como canales, pero sigue sin aclararse si cubren supuestos distintos o son alternativas. La Resolución de 23/06/2021 de la DG de Industria (incorporación de trámites a las plataformas telemáticas) debería consultarse en el BOA.",
-    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado."
+    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado.",
+    "Verificación Prompt C (2026-10-02): RESUELTO ARA-GAS-001 (confianza alta, fichas oficiales de aragon.es leídas en extractos de buscador; el PDF y la ficha bloquearon la lectura directa): la Tabla 1 de la Orden de 30/03/2007 solo obliga a comunicar las instalaciones individuales de más de 70 kW, las comunes y acometidas interiores de más de 2.000 kW y las alimentadas a más de 5 bar; las «no recogidas en esta tabla no son objeto de comunicación a la Administración». Se quitó el paso del Trámite Nº 33 (ver ADR 0003) y se actualizó el caso de referencia aragon_gas_40kw.",
+    "Verificación Prompt C (2026-10-02): Sin modelar: instalaciones comunes y acometidas interiores de más de 2.000 kW (potencia_kw no distingue clase de instalación) y ampliaciones que superen un 30 % la potencia de diseño inicial (art. 6 de la Orden: comunicación del titular, formulario E0003a, antes de 30 días desde la puesta en servicio). Tabla 1 consultada en un PDF de 2019 (marca t=1568018083882); comprobar que sigue vigente.",
+    "Verificación Prompt C (2026-10-02): Modelos de certificado publicados por Aragón: IRG-1 (acometida interior, ITC-ICG 07 apdo. 3.4 a)) e IRG-2 (instalación común, apdo. 3.4 b)); el certificado de la individual no se localizó con nombre de modelo. Tabla 1a: la revisión periódica de gas se coordina con la inspección del RITE y no se comunica a la Administración. Periodicidad y justificante de titularidad sin verificar."
   ],
   "fuentes": [
     {
@@ -39,7 +41,7 @@
   "reglas": [
     {
       "id": "ARA-GAS-001",
-      "descripcion": "Instalación receptora de gas en presión estándar (hasta 5 bar) y potencia de hasta 70 kW: memoria técnica",
+      "descripcion": "Instalación receptora de gas en presión estándar (hasta 5 bar) y potencia individual de hasta 70 kW: memoria técnica y certificado de instalación, sin comunicación a la Administración",
       "condicion": {
         "and": [
           {
@@ -107,43 +109,12 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "Esta instalación (individual de hasta 70 kW y hasta 5 bar) no es objeto de comunicación a la Administración en Aragón (Tabla 1 de la Orden de 30/03/2007; RD 919/2006, ITC-ICG 07). El titular conserva la memoria técnica y el certificado de instalación. Solo comunican las individuales de más de 70 kW, las comunes y acometidas interiores de más de 2.000 kW, las de más de 5 bar y las ampliaciones que superen en un 30 % la potencia de diseño.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Trámite Nº 33: Instalaciones receptoras de combustibles gaseosos: comunicación de puesta en servicio, modificación, ampliación y baja",
-          "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RD 919/2006; Orden de 30 de marzo de 2007 (Industria, Comercio y Turismo, Aragón)",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
-          "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-receptoras-combustibles-gaseosos-comunicacion-puesta-servicio-baja",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": null,
-          "documentos_requeridos": [
-            {
-              "id": "mtd_gas",
-              "label": "MTD",
-              "descripcion": "Del paso 1.",
-              "obligatorio": true
-            },
-            {
-              "id": "cert_gas",
-              "label": "Certificado",
-              "descripcion": "Del paso 2.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "AVISO: el RD 919/2006 (ITC-ICG 07) indica que, salvo las instalaciones que requieren proyecto (individuales de más de 70 kW, comunes y acometidas de más de 2.000 kW, o presión superior a 5 bar), no es precisa ninguna comunicación a la Administración. Para esta potencia confirma con el Servicio Provincial de Industria si Aragón exige igualmente este trámite. En cualquier caso se conservan la memoria técnica y el certificado de instalación, y sí procede el alta con la distribuidora. Cuando se presenta, la comunicación debe hacerse antes de que pasen 30 días desde la puesta en servicio.",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 4,
           "nombre": "Alta de suministro / puesta en gas ante la distribuidora",
           "organismo": "Empresa distribuidora de gas (p. ej. Nedgia u operador correspondiente en la zona)",
           "base_legal": "RD 919/2006; contrato de suministro con la distribuidora (NO VERIFICADO en fuente primaria autonómica)",
@@ -296,7 +267,7 @@
             {
               "id": "certificado_instalacion_comun_acometida",
               "label": "Certificados de instalación común y de acometida interior",
-              "descripcion": "Cuando proceda.",
+              "descripcion": "Cuando proceda: modelo IRG-1 (acometida interior) o IRG-2 (instalación común) publicados por aragon.es.",
               "obligatorio": false
             }
           ],
@@ -446,7 +417,7 @@
             {
               "id": "certificado_instalacion_comun_acometida",
               "label": "Certificados de instalación común y de acometida interior",
-              "descripcion": "Cuando proceda.",
+              "descripcion": "Cuando proceda: modelo IRG-1 (acometida interior) o IRG-2 (instalación común) publicados por aragon.es.",
               "obligatorio": false
             }
           ],

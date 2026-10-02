@@ -33,3 +33,9 @@ La FAQ de Canal Empresa (Generalitat), que la herramienta pudo leer, dice: «Fin
 
 La ficha oficial del Trámite Nº 39 de aragon.es indica «Memoria técnica de la instalación (modelo C0006) para instalaciones con potencia térmica nominal: 5 kW ≤ Potencia ≤ 70 kW» y el certificado de inspección inicial (C0010a) «para potencia > 70 kW». Es la **tercera administración autonómica** (tras Cataluña y la lectura del BOE) que respalda `> 70` / `<= 70`. Las condiciones de Aragón ya eran correctas; se corrigieron el `aviso` y las descripciones que seguían diciendo que 70 kW pasaba a proyecto. Queda Madrid como único caso con una ficha que dice «igual o superior a 70 kW».
 
+## Adenda 2026-10-02 (Prompt C, Madrid resuelto)
+
+La Resolución de 05/03/2025 de la DG de Transición Energética (BOCM 31/03/2025) aprueba el modelo IT 3.1.5 para potencia «mayor o igual a 5 kW y menor o igual a 70 kW» y el IT 3.1.9 para «superior a 70 kw», y sustituye a la de 03/02/2021. Es una norma publicada en boletín, posterior a la ficha 55186 y coherente con el art. 15.1 del RITE, así que prevalece sobre la redacción «igual o superior a 70 kW» de la ficha: **Madrid mantiene `> 70` / `<= 70`** y deja de ser una excepción. Queda como hueco la numeración de modelos (la resolución llama IT 3.1.8 al certificado de instalación de 5 a 70 kW).
+
+Observación sobre las exenciones de ACS (art. 15.1.c): el texto dice «cada uno de ellos por separado o su suma sea menor o igual que 70 kW». Lógicamente la disyunción equivale a «cada equipo ≤ 70 kW» (si la suma lo es, cada uno también), mientras que el fichero de Aragón aplica la suma, que es más restrictiva. No se cambia la regla (el error por exceso de cautela solo añade documentación); queda como hueco.
+
