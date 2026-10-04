@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "comunidad_valenciana",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "PENDIENTE: la CV distingue en realidad TRES procedimientos según documentación técnica (440 con MTD, 434 con proyecto sin inspección inicial, 436 con proyecto e inspección inicial por OCH). CV-IRVE-002 en este fichero modela solo el caso con inspección inicial (id_proc=436); el caso 'con proyecto pero sin inspección inicial' (id_proc=434) no está cubierto por falta de un campo en el schema que indique si la inspección inicial es preceptiva.",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados con detalle"
+    "Tasas y plazos legales no verificados con detalle",
+    "Verificación Prompt B (2026-10-04): Prompt B: confirmadas las fichas 440 (MTD) y 436 (proyecto e inspección inicial por OCH) y los umbrales de la ITC-BT-04; la ITC-BT-05 somete a inspección inicial toda estación de recarga que requiere proyecto (secundaria), así que el hueco sobre la ficha 434 puede cerrarse. Sin respaldo: plazo de 2 días, categoría «especialista en IRVE» del instalador y trámite municipal."
   ],
   "fuentes": [
     {

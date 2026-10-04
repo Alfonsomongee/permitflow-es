@@ -389,7 +389,7 @@ uv add openai
 
 **Completado:**
 - [x] Monorepo, Next.js 15 + Tailwind + shadcn/ui + Base UI, FastAPI, Supabase, Clerk
-- [x] Motor normativo: 85 ficheros (17 CCAA × 5 verticales). Nivel real: 1 verificada, 19 parciales, 65 borrador; **0 con revisor humano** (ver `docs/normativa/verificacion-2026-10-01.md`)
+- [x] Motor normativo: 85 ficheros (17 CCAA × 5 verticales). Nivel real: 0 verificadas, 20 parciales, 65 borrador; **0 con revisor humano** (ver `docs/normativa/verificacion-2026-10-01.md`)
 - [x] Auditoría integral 2026-10-01 aplicada: seguridad (gate de clave interna sin excepciones, IP real para rate limit, crons fail-closed, Stripe idempotente, roles de admin), dependencias sin vulnerabilidades conocidas, copy veraz derivado de los datos, textos legales, formulario accesible, cuota Free aplicada
 - [x] El expediente guarda el payload completo del clasificador (`expedientes.parametros`, ADR 0001)
 

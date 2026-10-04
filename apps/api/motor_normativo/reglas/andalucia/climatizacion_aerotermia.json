@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "andalucia",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.1.1",
+  "ultima_revision": "2026-10-04",
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007 (modificado por RD 238/2013 y RD 178/2021)",
@@ -126,13 +126,13 @@
         {
           "orden": 2,
           "nombre": "Comunicación de puesta en funcionamiento (PUES)",
-          "organismo": "Junta de Andalucía - Consejería de Industria, Energía y Minas (Ventanilla Electrónica PUES)",
-          "base_legal": "Orden de 5 de marzo de 2013 (Andalucía), Anexo I",
+          "organismo": "Junta de Andalucía - Consejería de Universidad, Industria, Energía e Innovación (Ventanilla Electrónica PUES)",
+          "base_legal": "RITE RD 1027/2007; Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 10,
+          "plazo_legal_dias": null,
           "plataforma": "PUES (tramitador de la Consejería de Industria, Energía y Minas)",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "0 € (tasa administrativa exenta)",
+          "coste_estimado": "Tasa 046: epígrafe 7.2.3.1 con memoria técnica (21,94 € individual / 45,77 € otros usos, cuantías 2026) o 7.2.3.2 con proyecto (escala por presupuesto). Su aplicación depende de la orden que declare operativas las herramientas informáticas (no localizada).",
           "documentos_requeridos": [
             {
               "id": "drps_termica",
@@ -150,15 +150,27 @@
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado de instalador habilitado",
+              "label": "Certificado de instalación suscrito por instalador habilitado",
               "descripcion": "Mismo documento que en el paso anterior.",
               "formato": "PDF",
               "obligatorio": true
+            },
+            {
+              "id": "ficha_tecnica_termicas",
+              "label": "Ficha técnica descriptiva de instalaciones térmicas en edificios",
+              "descripcion": "Anexo II de la Orden de 5/03/2013, modificada por la Resolución de 24/05/2024.",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_iii_autorizacion",
+              "label": "Anexo III (autorización al instalador)",
+              "descripcion": "Solo si presenta la comunicación el instalador en lugar del titular.",
+              "obligatorio": false
             }
           ],
           "paralelo_con": null,
           "formulario_ref": null,
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -184,7 +196,7 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación térmica",
           "organismo": "Técnico titulado competente (ingeniero o arquitecto)",
-          "base_legal": "RITE RD 1027/2007 art. 11; Orden de 5 de marzo de 2013 (Andalucía)",
+          "base_legal": "RITE RD 1027/2007, art. 15.1.a); Orden de 5/03/2013",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -209,12 +221,12 @@
           "orden": 2,
           "nombre": "Certificado de instalación por OCA (Organismo de Control Autorizado)",
           "organismo": "OCA acreditada en Andalucía (ej: TÜV Rheinland, Applus, Bureau Veritas)",
-          "base_legal": "RITE RD 1027/2007 art. 12; Orden de 5 de marzo de 2013 (Andalucía)",
+          "base_legal": "RITE RD 1027/2007, art. 24",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "300-600 € según OCA",
+          "coste_estimado": "Variable según el organismo (no verificado)",
           "documentos_requeridos": [
             {
               "id": "certificado_oca_termica",
@@ -233,20 +245,20 @@
           ],
           "paralelo_con": null,
           "formulario_ref": null,
-          "notas": null,
+          "notas": "AVISO: la ficha andaluza de térmicas (BOJA 105/2024) no pide certificado de organismo de control para una instalación nueva de más de 70 kW; el RITE (art. 24) dice que la inspección inicial la dispone el órgano competente o «cuando sea preceptiva». Lo que sí se presenta es el certificado de instalación firmado por el instalador y el director de la instalación. Consulta con la Delegación Territorial.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
           "nombre": "Comunicación de puesta en funcionamiento (PUES)",
-          "organismo": "Junta de Andalucía - Consejería de Industria, Energía y Minas (Ventanilla Electrónica PUES)",
-          "base_legal": "Orden de 5 de marzo de 2013 (Andalucía), Anexo I",
+          "organismo": "Junta de Andalucía - Consejería de Universidad, Industria, Energía e Innovación (Ventanilla Electrónica PUES)",
+          "base_legal": "RITE RD 1027/2007; Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 5,
-          "plazo_legal_dias": 10,
+          "plazo_legal_dias": null,
           "plataforma": "PUES (tramitador de la Consejería de Industria, Energía y Minas)",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "0 € (tasa administrativa exenta)",
+          "coste_estimado": "Tasa 046: epígrafe 7.2.3.1 con memoria técnica (21,94 € individual / 45,77 € otros usos, cuantías 2026) o 7.2.3.2 con proyecto (escala por presupuesto). Su aplicación depende de la orden que declare operativas las herramientas informáticas (no localizada).",
           "documentos_requeridos": [
             {
               "id": "drps_termica",
@@ -268,11 +280,29 @@
               "descripcion": "Mismo documento que en el paso anterior.",
               "formato": "PDF",
               "obligatorio": true
+            },
+            {
+              "id": "ficha_tecnica_termicas",
+              "label": "Ficha técnica descriptiva de instalaciones térmicas en edificios",
+              "descripcion": "Anexo II de la Orden de 5/03/2013, modificada por la Resolución de 24/05/2024.",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_iii_autorizacion",
+              "label": "Anexo III (autorización al instalador)",
+              "descripcion": "Solo si presenta la comunicación el instalador en lugar del titular.",
+              "obligatorio": false
+            },
+            {
+              "id": "contrato_mantenimiento_termica",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Con empresa mantenedora habilitada (más de 70 kW).",
+              "obligatorio": true
             }
           ],
           "paralelo_con": null,
           "formulario_ref": null,
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -284,6 +314,7 @@
   "huecos_verificacion": [
     "PENDIENTE (no verificado en esta pasada): no filtra por uso ni tiene cota inferior de potencia; posible solape con AND-ACS-001/002 sin regla de precedencia declarada.",
     "PENDIENTE: ausencia de bloque validaciones[] (gases fluorados RD 552/2019, contrato de mantenimiento RITE IT3 >70kW, inspecciones periódicas IT4) -- no incorporado en esta pasada, requiere diseño de nuevas validaciones.",
-    "PENDIENTE: plazo_legal_dias=10 para la comunicación PUES sin fuente citada."
+    "PENDIENTE: plazo_legal_dias=10 para la comunicación PUES sin fuente citada.",
+    "Verificación Prompt B (2026-10-04): Andalucía climatización (Prompt B parte 2): plazos legales de PUES a null (comunicación sin resolución); tasa «0 € exenta» sustituida por las tarifas 7.2.3.1 / 7.2.3.2 de la Ley 10/2021 (cuantías 2026), con la salvedad de que su aplicación depende de una orden de entrada en operación no localizada; documentos de la ficha técnica de térmicas añadidos; carné del instalador sustituido por el certificado de instalación. El paso del OCA > 70 kW se conserva con aviso (la ficha no lo pide para instalaciones nuevas; media). Nivel sin cambios («generica»): pendiente leer el art. 24 del RITE en el BOE y la tarifa 7.2.3.2."
   ]
 }

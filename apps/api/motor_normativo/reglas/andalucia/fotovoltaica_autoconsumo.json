@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "andalucia",
-  "version": "1.3.3",
-  "ultima_revision": "2026-08-09",
+  "version": "1.4.0",
+  "ultima_revision": "2026-10-04",
   "fuentes": [
     {
       "norma": "RD 244/2019 autoconsumo eléctrico",
@@ -35,8 +35,8 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Autoconsumo -- Junta de Andalucía (Consejería de Industria, Energía y Minas): https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/energia/autoconsumo.html -- fuente primaria verificada 2026-07-27 para CAU, RADNE, RAIPEE, autorización de explotación y fase de activación/contrato",
-      "url": "https://www.juntadeandalucia.es/organismos/industriaenergiayminas/areas/energia/autoconsumo.html",
+      "norma": "Autoconsumo -- Junta de Andalucía (Consejería de Industria, Energía y Minas): https://www.juntadeandalucia.es/organismos/universidadindustriaenergiaeinnovacion/areas/energia/autoconsumo.html -- fuente primaria verificada 2026-07-27 para CAU, RADNE, RAIPEE, autorización de explotación y fase de activación/contrato",
+      "url": "https://www.juntadeandalucia.es/organismos/universidadindustriaenergiaeinnovacion/areas/energia/autoconsumo.html",
       "fecha_consulta": "2026-08-08"
     },
     {
@@ -45,7 +45,7 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Resolución de 28 de septiembre de 2023, Secretaría General de Energía (BOJA 2023/193/69) -- aprueba la ficha técnica descriptiva de BT del aplicativo PUES vigente; sustituye a la cita anterior 'Decreto-ley 3/2024, de 6 de febrero', no localizada con fuente admisible tras auditoría 2026-07-27",
+      "norma": "Resolución de 28 de septiembre de 2023, Secretaría General de Energía (BOJA 2023/193/69) -- aprueba la ficha técnica descriptiva de BT del aplicativo PUES vigente; distinta del Decreto-ley 3/2024, de 6 de febrero, que sí existe y modifica la Orden de 5/03/2013 y el Decreto-ley 2/2018",
       "url": "https://www.juntadeandalucia.es/boja/2023/193/69",
       "fecha_consulta": "2026-08-08"
     },
@@ -68,32 +68,20 @@
   "reglas": [
     {
       "id": "AND-FV-001",
-      "descripcion": "Autoconsumo sin excedentes o con excedentes ≤10 kW en uso residencial (memoria técnica de diseño, sin proyecto)",
+      "descripcion": "Autoconsumo de hasta 10 kW (cualquier uso): memoria técnica de diseño, sin proyecto",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              10
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          10
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -123,7 +111,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador (0 € tasa administrativa)",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "mtd_fotovoltaica",
@@ -144,7 +132,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para instalaciones ≤10 kW nominales de inversor, la MTD sustituye al proyecto técnico (ITC-FV-03, BOJA núm. 98 de 18/05/2007). No confundir con el umbral de 15 kW del RD 244/2019 art. 15, que exime de permisos de acceso y conexión con la distribuidora — son dos límites distintos que no coinciden.",
+          "notas": "Para instalaciones ≤10 kW nominales de inversor, la MTD sustituye al proyecto técnico (ITC-FV-03, BOJA núm. 98 de 18/05/2007). No confundir con el umbral de 15 kW del RD 244/2019 art. 7.1.b).ii, que exime de permisos de acceso y conexión con la distribuidora — son dos límites distintos que no coinciden.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -159,7 +147,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Incluido en honorarios del instalador",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora",
@@ -177,13 +165,13 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Autoconsumo",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
-          "base_legal": "RD 244/2019 art. 11; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "Tasa Modelo 046: ~30–80 € según potencia instalada (epígrafe generación BT)",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.1.1 (BT con memoria técnica de diseño): 13,37 € vivienda individual; 38,41 € otros usos (cuantías 2026). Su aplicación depende de la orden que declare operativas las herramientas informáticas (no localizada).",
           "documentos_requeridos": [
             {
               "id": "mtd_firmada_fv",
@@ -206,17 +194,17 @@
             {
               "id": "dni_titular_fv",
               "label": "DNI/NIE del titular",
-              "descripcion": "Documento de identidad del propietario de la instalación.",
-              "obligatorio": true
+              "descripcion": "Documento de identidad del propietario de la instalación. (no consta en la ficha técnica descriptiva consultada; confirmar).",
+              "obligatorio": false
             },
             {
               "id": "referencia_catastral",
               "label": "Referencia catastral del inmueble",
-              "descripcion": "Número de referencia catastral del edificio donde se instala el sistema fotovoltaico. Disponible en el recibo del IBI.",
-              "obligatorio": true
+              "descripcion": "Número de referencia catastral del edificio donde se instala el sistema fotovoltaico. Disponible en el recibo del IBI. (no consta en la ficha técnica descriptiva consultada; confirmar).",
+              "obligatorio": false
             }
           ],
-          "notas": "Plazo legal: 45 días hábiles, silencio positivo. Presentación telemática disponible con certificado digital en la sede de la Junta de Andalucía.",
+          "notas": "Presentación telemática disponible con certificado digital en la sede de la Junta de Andalucía. Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -226,12 +214,12 @@
           "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 7,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": 10,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "Sin coste (tramitación telemática gratuita)",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "comunicacion_autoconsumo_dist",
@@ -246,7 +234,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Para autoconsumo CON excedentes, la distribuidora activará el contador bidireccional. Plazo de la distribuidora: 15 días hábiles desde la comunicación. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -256,7 +244,7 @@
     },
     {
       "id": "AND-FV-001B-1",
-      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto <= 6k)",
+      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 7.1.b).ii (suelo urbanizado) (presupuesto <= 6k)",
       "condicion": {
         "and": [
           {
@@ -301,7 +289,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -331,7 +319,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv_medio",
@@ -355,12 +343,18 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico_medio",
               "label": "CIE firmado por técnico competente",
               "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW y hasta 500 kW, Manual de tramitación de autoconsumo, nov-2025).",
               "obligatorio": true
             }
           ],
@@ -373,18 +367,18 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
-          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.1.2 (BT con proyecto): escala por presupuesto del proyecto; 62,25 € hasta 6.000 € y 159,18 € por encima de 60.000 € (cuantías 2026); la tabla completa no se pudo leer.",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv_medio",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor.",
               "obligatorio": true
             },
             {
@@ -400,7 +394,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLas cuantías de la tabla 7.2.1.2 no se leyeron completas; la tasa se paga una sola vez, en esta comunicación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -410,17 +404,17 @@
           "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
-          "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 7,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": 10,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "comunicacion_autoconsumo_dist_medio",
               "label": "Formulario de comunicación de autoconsumo a la distribuidora",
-              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 15 exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
+              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 7.1.b).ii exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
               "obligatorio": true
             },
             {
@@ -430,7 +424,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 7.1.b).ii). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -440,7 +434,7 @@
     },
     {
       "id": "AND-FV-001B-2",
-      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto <= 6k) (Sin inversión informada)",
+      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 7.1.b).ii (suelo urbanizado) (presupuesto <= 6k) (Sin inversión informada)",
       "condicion": {
         "and": [
           {
@@ -485,7 +479,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -515,7 +509,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv_medio",
@@ -539,12 +533,18 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico_medio",
               "label": "CIE firmado por técnico competente",
               "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW y hasta 500 kW, Manual de tramitación de autoconsumo, nov-2025).",
               "obligatorio": true
             }
           ],
@@ -557,18 +557,18 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
-          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv_medio",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor.",
               "obligatorio": true
             },
             {
@@ -584,7 +584,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
+          "notas": "El importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLas cuantías de la tabla 7.2.1.2 no se leyeron completas; la tasa se paga una sola vez, en esta comunicación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -594,17 +594,17 @@
           "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
-          "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 7,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": 10,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "comunicacion_autoconsumo_dist_medio",
               "label": "Formulario de comunicación de autoconsumo a la distribuidora",
-              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 15 exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
+              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 7.1.b).ii exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
               "obligatorio": true
             },
             {
@@ -614,7 +614,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 7.1.b).ii). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -624,7 +624,7 @@
     },
     {
       "id": "AND-FV-001B-3",
-      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto 6k-60k)",
+      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 7.1.b).ii (suelo urbanizado) (presupuesto 6k-60k)",
       "condicion": {
         "and": [
           {
@@ -681,7 +681,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -711,7 +711,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv_medio",
@@ -735,12 +735,18 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico_medio",
               "label": "CIE firmado por técnico competente",
               "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW y hasta 500 kW, Manual de tramitación de autoconsumo, nov-2025).",
               "obligatorio": true
             }
           ],
@@ -753,18 +759,18 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
-          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.1.2 (BT con proyecto): escala por presupuesto del proyecto; 62,25 € hasta 6.000 € y 159,18 € por encima de 60.000 € (cuantías 2026); la tabla completa no se pudo leer.",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv_medio",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor.",
               "obligatorio": true
             },
             {
@@ -780,7 +786,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLas cuantías de la tabla 7.2.1.2 no se leyeron completas; la tasa se paga una sola vez, en esta comunicación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -790,17 +796,17 @@
           "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
-          "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 7,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": 10,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "comunicacion_autoconsumo_dist_medio",
               "label": "Formulario de comunicación de autoconsumo a la distribuidora",
-              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 15 exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
+              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 7.1.b).ii exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
               "obligatorio": true
             },
             {
@@ -810,7 +816,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 7.1.b).ii). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -820,7 +826,7 @@
     },
     {
       "id": "AND-FV-001B-4",
-      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 15 (suelo urbanizado) (presupuesto > 60k)",
+      "descripcion": "Autoconsumo residencial entre 10 kW y 15 kW: requiere proyecto técnico (ITC-FV-03), pero conserva la exención de permisos de acceso y conexión del RD 244/2019 art. 7.1.b).ii (suelo urbanizado) (presupuesto > 60k)",
       "condicion": {
         "and": [
           {
@@ -865,7 +871,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -895,7 +901,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "159.18 EUR",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv_medio",
@@ -919,12 +925,18 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "159.18 EUR",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico_medio",
               "label": "CIE firmado por técnico competente",
               "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW y hasta 500 kW, Manual de tramitación de autoconsumo, nov-2025).",
               "obligatorio": true
             }
           ],
@@ -937,18 +949,18 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
-          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "159.18 EUR",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.1.2 (BT con proyecto): escala por presupuesto del proyecto; 62,25 € hasta 6.000 € y 159,18 € por encima de 60.000 € (cuantías 2026); la tabla completa no se pudo leer.",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv_medio",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor.",
               "obligatorio": true
             },
             {
@@ -964,7 +976,7 @@
               "obligatorio": true
             }
           ],
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLas cuantías de la tabla 7.2.1.2 no se leyeron completas; la tasa se paga una sola vez, en esta comunicación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -974,17 +986,17 @@
           "orden": 5,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
-          "base_legal": "RD 244/2019 art. 13 y 15; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 7,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": 10,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "159.18 EUR",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "comunicacion_autoconsumo_dist_medio",
               "label": "Formulario de comunicación de autoconsumo a la distribuidora",
-              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 15 exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
+              "descripcion": "Al estar en suelo urbanizado y no superar los 15 kW, el RD 244/2019 art. 7.1.b).ii exime de solicitar permiso de acceso y conexión: basta con esta comunicación simple.",
               "obligatorio": true
             },
             {
@@ -994,7 +1006,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 15). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Válido solo si la instalación está en suelo urbanizado (RD 244/2019 art. 7.1.b).ii). En suelo no urbanizable aplica el proceso completo de acceso y conexión de AND-FV-002, con independencia de la potencia. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1009,6 +1021,14 @@
         "and": [
           {
             "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              },
               {
                 "<=": [
                   {
@@ -1053,7 +1073,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -1083,7 +1103,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv",
@@ -1107,12 +1127,18 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico",
               "label": "CIE firmado por técnico competente",
               "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW y hasta 500 kW, Manual de tramitación de autoconsumo, nov-2025).",
               "obligatorio": true
             }
           ],
@@ -1125,18 +1151,18 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
-          "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
-          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.1.2 (BT con proyecto): escala por presupuesto del proyecto; 62,25 € hasta 6.000 € y 159,18 € por encima de 60.000 € (cuantías 2026); la tabla completa no se pudo leer.",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor.",
               "obligatorio": true
             },
             {
@@ -1158,7 +1184,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "El umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
+          "notas": "Hasta 500 kW la instalación no necesita autorización administrativa previa ni de construcción (art. 53.3 de la Ley 24/2013 y art. 115.5 del RD 1955/2000; el umbral de 100 kW es el del art. 9 de la Ley 24/2013), y en Andalucía se tramita por PUES (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004). Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLas cuantías de la tabla 7.2.1.2 no se leyeron completas; la tasa se paga una sola vez, en esta comunicación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1168,12 +1194,12 @@
           "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "62.25 EUR",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "solicitud_contador_bidireccional",
@@ -1182,7 +1208,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1197,6 +1223,14 @@
         "and": [
           {
             "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              },
               {
                 "<=": [
                   {
@@ -1241,7 +1275,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -1271,7 +1305,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv",
@@ -1295,12 +1329,18 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico",
               "label": "CIE firmado por técnico competente",
               "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW y hasta 500 kW, Manual de tramitación de autoconsumo, nov-2025).",
               "obligatorio": true
             }
           ],
@@ -1313,18 +1353,18 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
-          "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
-          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
           "coste_estimado": "Depende de la inversión exacta",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor.",
               "obligatorio": true
             },
             {
@@ -1346,7 +1386,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "El umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
+          "notas": "Hasta 500 kW la instalación no necesita autorización administrativa previa ni de construcción (art. 53.3 de la Ley 24/2013 y art. 115.5 del RD 1955/2000; el umbral de 100 kW es el del art. 9 de la Ley 24/2013), y en Andalucía se tramita por PUES (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004). El importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLas cuantías de la tabla 7.2.1.2 no se leyeron completas; la tasa se paga una sola vez, en esta comunicación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1356,12 +1396,12 @@
           "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "solicitud_contador_bidireccional",
@@ -1370,7 +1410,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1385,6 +1425,14 @@
         "and": [
           {
             "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              },
               {
                 "<=": [
                   {
@@ -1441,7 +1489,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -1471,7 +1519,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv",
@@ -1495,12 +1543,18 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico",
               "label": "CIE firmado por técnico competente",
               "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW y hasta 500 kW, Manual de tramitación de autoconsumo, nov-2025).",
               "obligatorio": true
             }
           ],
@@ -1513,18 +1567,18 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
-          "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
-          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.1.2 (BT con proyecto): escala por presupuesto del proyecto; 62,25 € hasta 6.000 € y 159,18 € por encima de 60.000 € (cuantías 2026); la tabla completa no se pudo leer.",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor.",
               "obligatorio": true
             },
             {
@@ -1546,7 +1600,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "El umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
+          "notas": "Hasta 500 kW la instalación no necesita autorización administrativa previa ni de construcción (art. 53.3 de la Ley 24/2013 y art. 115.5 del RD 1955/2000; el umbral de 100 kW es el del art. 9 de la Ley 24/2013), y en Andalucía se tramita por PUES (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004). Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLas cuantías de la tabla 7.2.1.2 no se leyeron completas; la tasa se paga una sola vez, en esta comunicación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1556,12 +1610,12 @@
           "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "100.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "solicitud_contador_bidireccional",
@@ -1570,7 +1624,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1585,6 +1639,14 @@
         "and": [
           {
             "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              },
               {
                 "<=": [
                   {
@@ -1629,7 +1691,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -1659,7 +1721,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "159.18 EUR",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv",
@@ -1683,12 +1745,18 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "159.18 EUR",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico",
               "label": "CIE firmado por técnico competente",
               "descripcion": "Certificado de Instalación Eléctrica de la instalación generadora firmado por el técnico redactor del proyecto.",
+              "obligatorio": true
+            },
+            {
+              "id": "cert_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW y hasta 500 kW, Manual de tramitación de autoconsumo, nov-2025).",
               "obligatorio": true
             }
           ],
@@ -1701,18 +1769,18 @@
         {
           "orden": 4,
           "nombre": "Registro en PUES — Generación BT",
-          "organismo": "Delegación Territorial de Industria (Junta de Andalucía)",
-          "base_legal": "RD 244/2019; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 30,
-          "plazo_legal_dias": 45,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "159.18 EUR",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.1.2 (BT con proyecto): escala por presupuesto del proyecto; 62,25 € hasta 6.000 € y 159,18 € por encima de 60.000 € (cuantías 2026); la tabla completa no se pudo leer.",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado_pues_fv",
-              "label": "Proyecto técnico visado",
-              "descripcion": "Copia del proyecto técnico con sello de visado colegial.",
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor.",
               "obligatorio": true
             },
             {
@@ -1734,7 +1802,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "El umbral estatal (Ley 24/2013, art. 53.3) exime de autorización hasta 100 kW, pero Andalucía extiende la vía simplificada PUES hasta 500 kW (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004).",
+          "notas": "Hasta 500 kW la instalación no necesita autorización administrativa previa ni de construcción (art. 53.3 de la Ley 24/2013 y art. 115.5 del RD 1955/2000; el umbral de 100 kW es el del art. 9 de la Ley 24/2013), y en Andalucía se tramita por PUES (Decreto-ley 2/2018, de 26 de junio, disposición adicional única). Solo por encima de 500 kW se exige autorización administrativa previa (ver regla AND-FV-004). Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLas cuantías de la tabla 7.2.1.2 no se leyeron completas; la tasa se paga una sola vez, en esta comunicación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1744,12 +1812,12 @@
           "orden": 6,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "159.18 EUR",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "solicitud_contador_bidireccional",
@@ -1758,7 +1826,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "La distribuidora tiene 30 días para instalar el contador bidireccional. Hasta entonces, la instalación puede operar pero no se compensa la energía excedente. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1793,7 +1861,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -1823,7 +1891,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "320.65 EUR",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv_grande",
@@ -1841,13 +1909,13 @@
         {
           "orden": 3,
           "nombre": "Autorización administrativa previa y de construcción",
-          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "organismo": "Consejería de Universidad, Industria, Energía e Innovación: Secretaría General de Industria y Energía y Delegación Territorial de la provincia (Junta de Andalucía)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
-          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
-          "coste_estimado": "320.65 EUR",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/9588.html",
+          "coste_estimado": "Tasa 046 (cuantías 2026): autorización previa 320,65 € + 14,86 € por cada 10.000 € adicionales de inversión; construcción 272,53 € + 15,92 €; explotación 253,62 € + 16,24 € (tope 1.061,21 € por encima de 500.000 €). Si se piden la previa y la de construcción a la vez, la tasa de construcción se incrementa un 10 %.",
           "documentos_requeridos": [
             {
               "id": "proyecto_ejecucion_fv_grande",
@@ -1858,12 +1926,12 @@
             {
               "id": "declaracion_responsable_53_4",
               "label": "Declaración responsable (art. 53.4 Ley 24/2013)",
-              "descripcion": "Declaración responsable exigida por la Ley del Sector Eléctrico para instalaciones que superan el umbral de exención.",
+              "descripcion": "Declaración responsable que acompaña al proyecto de ejecución (art. 53.1.b de la Ley 24/2013). El DL 2/2018, DA única ap. 4, exige además otra si el proyecto no necesita informe de incidencia territorial.",
               "obligatorio": true
             }
           ],
           "formulario_ref": "9588",
-          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
+          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.\nSon dos procedimientos de la Junta con el mismo formulario VEAJA: autorización previa (código 9588) y de construcción (código 11944).",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -1871,13 +1939,13 @@
         {
           "orden": 4,
           "nombre": "Autorización administrativa de explotación",
-          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "organismo": "Consejería de Universidad, Industria, Energía e Innovación: Secretaría General de Industria y Energía y Delegación Territorial de la provincia (Junta de Andalucía)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
-          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
-          "coste_estimado": "320.65 EUR",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11954.html",
+          "coste_estimado": "Tasa 046, explotación: 253,62 € + 16,24 € por cada 10.000 € adicionales (cuantías 2026)",
           "documentos_requeridos": [
             {
               "id": "certificado_fin_obra_fv_grande",
@@ -1892,8 +1960,8 @@
               "obligatorio": true
             }
           ],
-          "formulario_ref": "9588",
-          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.",
+          "formulario_ref": "11954",
+          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.\nProcedimiento 11954 de la Junta (autorización de explotación de instalaciones de producción, sin líneas de evacuación).",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -1907,7 +1975,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "320.65 EUR",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico_grande",
@@ -1926,12 +1994,12 @@
           "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "320.65 EUR",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "solicitud_contador_bidireccional_grande",
@@ -1940,7 +2008,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1975,7 +2043,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -2005,7 +2073,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv_grande",
@@ -2023,13 +2091,13 @@
         {
           "orden": 3,
           "nombre": "Autorización administrativa previa y de construcción",
-          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "organismo": "Consejería de Universidad, Industria, Energía e Innovación: Secretaría General de Industria y Energía y Delegación Territorial de la provincia (Junta de Andalucía)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
-          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
-          "coste_estimado": "Depende de la inversión exacta",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/9588.html",
+          "coste_estimado": "Tasa 046 (cuantías 2026): autorización previa 320,65 € + 14,86 € por cada 10.000 € adicionales de inversión; construcción 272,53 € + 15,92 €; explotación 253,62 € + 16,24 € (tope 1.061,21 € por encima de 500.000 €). Si se piden la previa y la de construcción a la vez, la tasa de construcción se incrementa un 10 %.",
           "documentos_requeridos": [
             {
               "id": "proyecto_ejecucion_fv_grande",
@@ -2040,12 +2108,12 @@
             {
               "id": "declaracion_responsable_53_4",
               "label": "Declaración responsable (art. 53.4 Ley 24/2013)",
-              "descripcion": "Declaración responsable exigida por la Ley del Sector Eléctrico para instalaciones que superan el umbral de exención.",
+              "descripcion": "Declaración responsable que acompaña al proyecto de ejecución (art. 53.1.b de la Ley 24/2013). El DL 2/2018, DA única ap. 4, exige además otra si el proyecto no necesita informe de incidencia territorial.",
               "obligatorio": true
             }
           ],
           "formulario_ref": "9588",
-          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
+          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.\nSon dos procedimientos de la Junta con el mismo formulario VEAJA: autorización previa (código 9588) y de construcción (código 11944).",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2053,13 +2121,13 @@
         {
           "orden": 4,
           "nombre": "Autorización administrativa de explotación",
-          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "organismo": "Consejería de Universidad, Industria, Energía e Innovación: Secretaría General de Industria y Energía y Delegación Territorial de la provincia (Junta de Andalucía)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
-          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
-          "coste_estimado": "Depende de la inversión exacta",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11954.html",
+          "coste_estimado": "Tasa 046, explotación: 253,62 € + 16,24 € por cada 10.000 € adicionales (cuantías 2026)",
           "documentos_requeridos": [
             {
               "id": "certificado_fin_obra_fv_grande",
@@ -2074,8 +2142,8 @@
               "obligatorio": true
             }
           ],
-          "formulario_ref": "9588",
-          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.",
+          "formulario_ref": "11954",
+          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.\nProcedimiento 11954 de la Junta (autorización de explotación de instalaciones de producción, sin líneas de evacuación).",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2089,7 +2157,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico_grande",
@@ -2108,12 +2176,12 @@
           "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "solicitud_contador_bidireccional_grande",
@@ -2122,7 +2190,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "El importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2169,7 +2237,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -2199,7 +2267,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "500.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv_grande",
@@ -2217,13 +2285,13 @@
         {
           "orden": 3,
           "nombre": "Autorización administrativa previa y de construcción",
-          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "organismo": "Consejería de Universidad, Industria, Energía e Innovación: Secretaría General de Industria y Energía y Delegación Territorial de la provincia (Junta de Andalucía)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
-          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
-          "coste_estimado": "500.00 EUR (estimado tramo medio)",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/9588.html",
+          "coste_estimado": "Tasa 046 (cuantías 2026): autorización previa 320,65 € + 14,86 € por cada 10.000 € adicionales de inversión; construcción 272,53 € + 15,92 €; explotación 253,62 € + 16,24 € (tope 1.061,21 € por encima de 500.000 €). Si se piden la previa y la de construcción a la vez, la tasa de construcción se incrementa un 10 %.",
           "documentos_requeridos": [
             {
               "id": "proyecto_ejecucion_fv_grande",
@@ -2234,12 +2302,12 @@
             {
               "id": "declaracion_responsable_53_4",
               "label": "Declaración responsable (art. 53.4 Ley 24/2013)",
-              "descripcion": "Declaración responsable exigida por la Ley del Sector Eléctrico para instalaciones que superan el umbral de exención.",
+              "descripcion": "Declaración responsable que acompaña al proyecto de ejecución (art. 53.1.b de la Ley 24/2013). El DL 2/2018, DA única ap. 4, exige además otra si el proyecto no necesita informe de incidencia territorial.",
               "obligatorio": true
             }
           ],
           "formulario_ref": "9588",
-          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
+          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.\nSon dos procedimientos de la Junta con el mismo formulario VEAJA: autorización previa (código 9588) y de construcción (código 11944).",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2247,13 +2315,13 @@
         {
           "orden": 4,
           "nombre": "Autorización administrativa de explotación",
-          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "organismo": "Consejería de Universidad, Industria, Energía e Innovación: Secretaría General de Industria y Energía y Delegación Territorial de la provincia (Junta de Andalucía)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
-          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
-          "coste_estimado": "500.00 EUR (estimado tramo medio)",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11954.html",
+          "coste_estimado": "Tasa 046, explotación: 253,62 € + 16,24 € por cada 10.000 € adicionales (cuantías 2026)",
           "documentos_requeridos": [
             {
               "id": "certificado_fin_obra_fv_grande",
@@ -2268,8 +2336,8 @@
               "obligatorio": true
             }
           ],
-          "formulario_ref": "9588",
-          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.",
+          "formulario_ref": "11954",
+          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.\nProcedimiento 11954 de la Junta (autorización de explotación de instalaciones de producción, sin líneas de evacuación).",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2283,7 +2351,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "500.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico_grande",
@@ -2302,12 +2370,12 @@
           "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "500.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "solicitud_contador_bidireccional_grande",
@@ -2316,7 +2384,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2351,7 +2419,7 @@
         {
           "orden": 1,
           "nombre": "Solicitud del CAU (Código de Autoconsumo) a la distribuidora",
-          "organismo": "Endesa / E-Distribución (distribuidora de Andalucía)",
+          "organismo": "Empresa distribuidora titular de la red del punto de suministro (p. ej. E-Distribución/Endesa)",
           "base_legal": "RD 244/2019; página oficial de Autoconsumo de la Junta de Andalucía",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -2381,7 +2449,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "1061.21 EUR",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico_fv_grande",
@@ -2399,13 +2467,13 @@
         {
           "orden": 3,
           "nombre": "Autorización administrativa previa y de construcción",
-          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "organismo": "Consejería de Universidad, Industria, Energía e Innovación: Secretaría General de Industria y Energía y Delegación Territorial de la provincia (Junta de Andalucía)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
-          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
-          "coste_estimado": "1061.21 EUR",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/9588.html",
+          "coste_estimado": "Tasa 046 (cuantías 2026): autorización previa 320,65 € + 14,86 € por cada 10.000 € adicionales de inversión; construcción 272,53 € + 15,92 €; explotación 253,62 € + 16,24 € (tope 1.061,21 € por encima de 500.000 €). Si se piden la previa y la de construcción a la vez, la tasa de construcción se incrementa un 10 %.",
           "documentos_requeridos": [
             {
               "id": "proyecto_ejecucion_fv_grande",
@@ -2416,12 +2484,12 @@
             {
               "id": "declaracion_responsable_53_4",
               "label": "Declaración responsable (art. 53.4 Ley 24/2013)",
-              "descripcion": "Declaración responsable exigida por la Ley del Sector Eléctrico para instalaciones que superan el umbral de exención.",
+              "descripcion": "Declaración responsable que acompaña al proyecto de ejecución (art. 53.1.b de la Ley 24/2013). El DL 2/2018, DA única ap. 4, exige además otra si el proyecto no necesita informe de incidencia territorial.",
               "obligatorio": true
             }
           ],
           "formulario_ref": "9588",
-          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.",
+          "notas": "Plataforma: VEAJA (no PUES; PUES es solo para instalaciones NO sometidas a autorizacion, hasta 500 kW). Denominacion oficial del procedimiento 9588: 'Autorizacion administrativa previa para instalaciones de produccion, distribucion y transporte y lineas directas de energia electrica' (Resolucion de 13 de octubre de 2023, Secretaria General de Energia). Plazo de resolucion: 3 meses (90 dias); efecto del silencio administrativo: NEGATIVO (desestimatorio) -- a diferencia de otros tramites de este motor, aqui el silencio NO favorece al solicitante. Base: art. 53 Ley 24/2013 y RD 1955/2000.\nSon dos procedimientos de la Junta con el mismo formulario VEAJA: autorización previa (código 9588) y de construcción (código 11944).",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2429,13 +2497,13 @@
         {
           "orden": 4,
           "nombre": "Autorización administrativa de explotación",
-          "organismo": "Secretaria General de Energia / Delegacion Territorial de Economia, Hacienda, Fondos Europeos y de Industria, Energia y Minas (Junta de Andalucia)",
+          "organismo": "Consejería de Universidad, Industria, Energía e Innovación: Secretaría General de Industria y Energía y Delegación Territorial de la provincia (Junta de Andalucía)",
           "base_legal": "Ley 24/2013, de 26 de diciembre, art. 53; RD 1955/2000, de 1 de diciembre",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": 90,
           "plataforma": "VEAJA (Ventanilla Electronica de la Administracion de la Junta de Andalucia)",
-          "plataforma_url": "https://juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11944.html",
-          "coste_estimado": "1061.21 EUR",
+          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/11954.html",
+          "coste_estimado": "Tasa 046, explotación: 253,62 € + 16,24 € por cada 10.000 € adicionales (cuantías 2026)",
           "documentos_requeridos": [
             {
               "id": "certificado_fin_obra_fv_grande",
@@ -2450,8 +2518,8 @@
               "obligatorio": true
             }
           ],
-          "formulario_ref": "9588",
-          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.",
+          "formulario_ref": "11954",
+          "notas": "Trámite independiente omitido en versiones anteriores. La Junta de Andalucía enumera las tres autorizaciones del art. 53 Ley 24/2013 (previa, de construcción y de explotación); sin la de explotación la instalación no puede entrar en funcionamiento.\nProcedimiento 11954 de la Junta (autorización de explotación de instalaciones de producción, sin líneas de evacuación).",
           "paralelo_con": null,
           "registro_salida": null,
           "medio_presentacion": null
@@ -2465,7 +2533,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "1061.21 EUR",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador o técnico)",
           "documentos_requeridos": [
             {
               "id": "cie_generadora_tecnico_grande",
@@ -2484,12 +2552,12 @@
           "orden": 7,
           "nombre": "Comunicación de autoconsumo a la distribuidora",
           "organismo": "Endesa / E-Distribución",
-          "base_legal": "RD 244/2019 art. 13; RD 1183/2020",
+          "base_legal": "RD 244/2019, arts. 8 y 9.3 y art. 16 bis; RD 1183/2020 solo si hay permisos de acceso y conexión",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "distribuidora",
           "plataforma_url": "https://www.edistribucion.com/es/red-electrica/autoconsumo-electrico.html",
-          "coste_estimado": "1061.21 EUR",
+          "coste_estimado": "Sin tasa de la Junta",
           "documentos_requeridos": [
             {
               "id": "solicitud_contador_bidireccional_grande",
@@ -2498,7 +2566,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.",
+          "notas": "Fase de activación posterior (no modelada como trámite propio en este plan): tras la comunicación, la Junta de Andalucía envía a la distribuidora la comunicación A1 (envíos semanales, los viernes); la distribuidora notifica D1 01 a la comercializadora, que responde D1 02; el titular debe firmar o adaptar el contrato de suministro con la comercializadora reflejando la modalidad de autoconsumo (M1 final). Sin ese contrato no se aplica la compensación de excedentes.\nEn baja tensión y con menos de 100 kW, la Junta envía la comunicación a la distribuidora al legalizar en PUES; el titular solo firma o adapta el contrato con su comercializadora. El RD 244/2019 (art. 8.1) da 10 días a la distribuidora para modificar el contrato de acceso y el art. 16 bis fija un máximo de 2 meses de activación.",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -2552,12 +2620,12 @@
         {
           "orden": 1,
           "nombre": "Inscripción en el RAIPEE (Registro administrativo de instalaciones de producción de energía eléctrica)",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
           "base_legal": "Página oficial de Autoconsumo -- Junta de Andalucía; procedimiento 12083",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "plataforma": "sede electrónica",
-          "plataforma_url": "https://www.juntadeandalucia.es/organismos/industriaenergiayminas/servicios/procedimientos/detalle/12083.html",
+          "plataforma_url": "https://www.juntadeandalucia.es/organismos/universidadindustriaenergiaeinnovacion/servicios/procedimientos/detalle/12083.html",
           "coste_estimado": "Pendiente de verificar tasa aplicable",
           "documentos_requeridos": [
             {
@@ -2623,7 +2691,7 @@
           "orden": 1,
           "nombre": "Inscripción de oficio en el RADNE (no requiere acción del titular)",
           "organismo": "Delegación Territorial competente en energía (Junta de Andalucía), que remite los datos al RADNE del MITECO",
-          "base_legal": "Ley 24/2013 art. 9.4 (redacción del RDL 15/2018) y RD 244/2019; Manual de tramitación de autoconsumo de la Junta de Andalucía, ap. 5.1.7 y 5.2.7",
+          "base_legal": "Ley 24/2013 art. 9.4 (redacción del RDL 15/2018) y RD 244/2019; Manual de tramitación de autoconsumo de la Junta de Andalucía, apartado 6.1 (nov-2025); RD 244/2019 art. 20.1",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": 30,
           "plataforma": "MITECO",
@@ -2691,14 +2759,14 @@
         {
           "orden": 1,
           "nombre": "Solicitud de inscripción en el RADNE",
-          "organismo": "Ministerio para la Transición Ecológica (MITECO) -- Sede electrónica / Delegación Territorial (inscripción de oficio en BT <100 kW)",
-          "base_legal": "Ley 24/2013 art. 9.4 (redacción del RDL 15/2018) y RD 244/2019; Manual de tramitación de autoconsumo de la Junta de Andalucía, ap. 5.1.7 y 5.2.7",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación de la provincia (Junta de Andalucía); el MITECO solo toma razón de los datos que remite la comunidad",
+          "base_legal": "Ley 24/2013 art. 9.4; RD 244/2019 art. 20; Manual de tramitación de autoconsumo de la Junta (nov-2025), apartado 6.1",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "MITECO",
-          "plataforma_url": "https://sede.miteco.gob.es/portal/site/seMITECO/ficha-servicio?accionClass=informacionServicioAction&idServicioListado=36&idSubOrgano=197",
-          "coste_estimado": "62.25 EUR",
-          "formulario_ref": "MITECO-RAC-001",
+          "plazo_legal_dias": null,
+          "plataforma": "Procedimiento 18494 de la Junta de Andalucía",
+          "plataforma_url": "https://www.juntadeandalucia.es/organismos/universidadindustriaenergiaeinnovacion/servicios/procedimientos/detalle/18494.html",
+          "coste_estimado": "Existe tasa específica de inscripción en el Registro de autoconsumo (salvo BT con menos de 100 kW); importe 2026 no verificado",
+          "formulario_ref": null,
           "documentos_requeridos": [
             {
               "id": "formulario_rac",
@@ -2751,6 +2819,9 @@
     "PENDIENTE: Ley 7/2021 art. 16 citada en fuentes FV -- pertenece al bloque de movilidad/transporte, no de autoconsumo; cita improcedente detectada pero no eliminada en esta pasada (bajo impacto, no listada como CRÍTICO/ALTO).",
     "PENDIENTE: acuerdo de reparto en autoconsumo colectivo (RD 244/2019 art. 3 y anexo I) no incorporado (hueco B8, criterio profesional sin fuente verificada en esta auditoría).",
     "PENDIENTE: por debajo de 15 kW (AND-FV-001 y AND-FV-001B) no se emite ningún trámite de registro de autoconsumo. La inscripción de oficio existe igualmente en ese tramo; no se ha añadido para no alterar planes ya validados contra casos de referencia.",
-    "Verificación 2026-10-01 (investigación externa, fuente secundaria Iberley): el art. 53.3 de la Ley 24/2013 habilita al reglamento a eximir de autorización previa y de construcción hasta 500 kW (redacción RDL 18/2022); el umbral legal de 100 kW está en el art. 9 (inscripción y sometimiento a reglamentos técnicos). La nota de las reglas AND-FV-002 atribuye al art. 53.3 un umbral estatal de 100 kW. Cotejar el texto en boe.es y el precepto reglamentario que materializa la exención (RD 1955/2000 / DA 5.ª RD 900/2015) y corregir la cita si procede."
+    "Verificación 2026-10-01 (investigación externa, fuente secundaria Iberley): el art. 53.3 de la Ley 24/2013 habilita al reglamento a eximir de autorización previa y de construcción hasta 500 kW (redacción RDL 18/2022); el umbral legal de 100 kW está en el art. 9 (inscripción y sometimiento a reglamentos técnicos). La nota de las reglas AND-FV-002 atribuye al art. 53.3 un umbral estatal de 100 kW. Cotejar el texto en boe.es y el precepto reglamentario que materializa la exención (RD 1955/2000 / DA 5.ª RD 900/2015) y corregir la cita si procede.",
+    "Verificación Prompt B (2026-10-04): Andalucía FV (Prompt B parte 1): se cambió AND-FV-001 a «hasta 10 kW, cualquier uso» y AND-FV-002 pasa a exigir más de 10 kW (el Manual de la Junta fija MTD/proyecto solo por potencia: «si potencia instalada ≤ 10 kW»). Se quitaron los plazos legales y el silencio positivo de PUES (comunicación sin resolución; Orden 5/03/2013 arts. 12-13), se corrigieron tasas 2026 (BT con MTD 13,37 € vivienda / 38,41 € otros; previa 320,65 €, construcción 272,53 €, explotación 253,62 €, más incrementos), los códigos VEAJA (9588 previa, 11944 construcción, 11954 explotación), el RADNE (procedimiento 18494, Delegación Territorial, no MITECO), las citas del RD 244/2019 (exención de 15 kW: art. 7.1.b).ii; contratos: arts. 8 y 9.3; activación: art. 16 bis) y el visado (solo si lo exige un Real Decreto).",
+    "Verificación Prompt B (2026-10-04): Sin cerrar (Andalucía FV): las fichas del catálogo (9588, 11944, 11954, 12083, 18494, 24726) son JavaScript y no se leyeron; plazo y silencio de la autorización > 500 kW (los 90 días son supletorios estatales); importe de la tasa del registro de autoconsumo y de la escala 7.2.1.2 completa; documentos DNI y referencia catastral de PUES (la Orden remite al Decreto 68/2008, que suprime fotocopias de documentos identificativos); excepción del DL 2/2018 (suma > 500 kW con evacuación común o a menos de 3.000 m: autorización previa y de construcción para cada una) sin variable de agrupación; omisiones: garantía económica RD 1183/2020, permisos de acceso y conexión y CTA para excedentes, verificación de medida (RD 1110/2007), inspección inicial por OC en locales mojados > 25 kW (ITC-BT-05), declaración de no necesitar informe de incidencia territorial, documentación ambiental y autoconsumo colectivo (acuerdo de reparto). INEA: convocatoria 2026 de la Agencia Andaluza de la Energía (solo fuente secundaria) como sucesor del RD 477/2021.",
+    "Verificación Prompt B (2026-10-04): Denominación orgánica: Decreto 198/2026 y Decreto 190/2026 (BOJA extraordinario núm. 15, 31/07/2026): Consejería de Universidad, Industria, Energía e Innovación con Delegaciones Territoriales por provincia. Los ficheros usan ahora «Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación»; confirmar el nombre exacto de cada oficina. Las webs de PUES y TECI aún citan la Consejería anterior."
   ]
 }

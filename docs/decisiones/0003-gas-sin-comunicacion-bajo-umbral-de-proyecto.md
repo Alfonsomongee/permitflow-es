@@ -30,3 +30,8 @@ El Prompt B ya había señalado el conflicto y lo dejamos como hueco bloqueante 
 - No se modelan aún las comunes y acometidas > 2.000 kW ni las ampliaciones > 30 % (ver `huecos_verificacion`).
 - Revertible con `git revert`.
 - Pendiente: cotejar a mano la ficha 11420, la Tabla 1 y el art. de la ITA 11 del Decret 192/2023 (ver `docs/normativa/verificacion-2026-10-01.md`).
+
+## Adenda 2026-10-04 (Prompt B Comunitat Valenciana)
+
+La ficha 3192 de la Generalitat reproduce la ITC-ICG 07 («no es precisa ninguna comunicación» salvo instalaciones con proyecto): `CV-GAS-002` pierde el paso de comunicación (ver ADR 0004). **Andalucía y Canarias quedan sin cambiar**: la ficha de Canarias (3905) no distingue instalaciones con y sin proyecto y la Junta de Andalucía lista el gas entre las comunicables por PUES; ninguna fuente autonómica permite descartar el trámite todavía.
+

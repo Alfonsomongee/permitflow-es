@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "asturias",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.1.1",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
@@ -29,7 +29,7 @@
     },
     {
       "norma": "RD 487/2022 y RD 614/2024 (prevención de legionelosis)",
-      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-10297",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2024-13422",
       "fecha_consulta": "2026-08-08"
     },
     {

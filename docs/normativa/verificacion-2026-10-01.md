@@ -200,3 +200,38 @@ Abrir a mano las fichas **Nº 26, Nº 33, Nº 39**, la página de energía fotov
 ### Siguiente paso concreto
 Leer el Annex 2 del Decret 192/2023 (ITA 9, 11 y 12) en el DOGC; abrir a mano las fichas 11420, 21526, Nº 33 y la Tabla 1 de Aragón para confirmar las fechas de actualización; decidir si se modela el grupo tercero/quinto de Madrid y el tramo 100-500 kW de Cataluña.
 
+---
+
+## Resultado del Prompt B — Andalucía, Comunitat Valenciana y Canarias (2026-10-04)
+
+Cuatro resultados de herramienta externa (Canarias; Andalucía FV; Andalucía ACS, climatización, gas e IRVE; Comunitat Valenciana). Misma salvedad: no re-comprobado, JSON íntegro no archivado, y varias fichas (`sede.gva.es`, `juntadeandalucia.es/servicios/procedimientos`, `aragon.es`) son JavaScript o están bloqueadas, así que se leyeron por extracto de buscador. Cambios de clasificación en **ADR 0004** (y adenda del ADR 0003). Ningún nivel sube; `revisado_por` sigue vacío.
+
+### Aplicado
+| Comunidad | Hallazgo (confianza) | Cambio |
+|---|---|---|
+| Canarias | **FV: proyecto por encima de 10 kW**, no 100 (alta; BOC 230/2009 y guía de la sede) | Reglas `ICAN-FV-001/001B` ≤ 10 kW y nuevas `001P/001BP` (10-100 kW) |
+| Canarias | Mod. IT_INS es la comunicación previa, no la memoria; IT_CI el certificado (alta; ficha 3409) | Paso y documentos renombrados, poder y autoliquidación 700-200 añadidos (clima y ACS) |
+| Canarias | ERR no pertenece a la solicitud 2721; faltaban sus documentos (alta) | Documentos corregidos |
+| Canarias | Gas: 30 días es plazo del titular (alta; RD 919/2006) | `plazo_legal_dias` a null; categorías A/B/C |
+| Andalucía | Documentación por potencia, no por uso (alta; ficha de térmicas y Manual SGE) | ACS, FV y gas reclasificados (ADR 0004) |
+| Andalucía | Sin plazo de resolución ni silencio en PUES (alta; Orden 5/03/2013) | Plazos a null, notas reescritas |
+| Andalucía | Notificación sanitaria de ACS inexistente (alta; BOJA 2002 y RD 487/2022) | Trámite quitado; PPCL |
+| Andalucía | Tasas 2026 (13,37 / 38,41 / 21,94 / 45,77 €; previa 320,65, construcción 272,53, explotación 253,62) y cifras sin base eliminadas (62,25 repetido, 100 y 500 estimados) | `coste_estimado` |
+| Andalucía | Códigos VEAJA 9588 / 11944 / 11954, RADNE por Delegación Territorial (proc. 18494), citas del RD 244/2019 (exención 15 kW = art. 7.1.b).ii), visado solo si lo exige un Real Decreto, nueva denominación orgánica (Decretos 198 y 190/2026) | Aplicado |
+| Andalucía | `andalucia/acs`: único fichero «verificada» con errores de fondo | Baja a `verificada_parcialmente` |
+| C. Valenciana | Gas ≤ 70 kW sin comunicación (alta; ficha 3192 e ITC-ICG 07); 30 días = plazo del titular | Paso quitado de `CV-GAS-002`, ADR 0003/0004 |
+| C. Valenciana | Umbral 500 kW = art. 123 de la Ley 6/2024 (alta); organismo = Servicio Territorial de Industria, Energía y Minas; Decreto 173/2000 regula torres y condensadores, no el ACS (alta) | Textos, fuentes y huecos |
+| Varias | URL de RD 614/2024 apuntaba al RD 487/2022 | Corregida en Aragón, Asturias, Baleares, Canarias, Castilla y León y País Vasco (`acs`) |
+
+### Registrado en `huecos_verificacion` (decisión o fuente pendiente)
+- **Gas de Andalucía y Canarias:** ¿comunicación por debajo de los umbrales de proyecto? Evidencia en conflicto (ITC-ICG 07 frente a la lista de la Junta y la ficha 3905). No se quitó el paso.
+- **Andalucía IRVE (alta, Guía de 2022):** falta la inspección inicial por organismo de control para recarga con proyecto, el certificado de dirección de obra, la regla de local de pública concurrencia y las ampliaciones en PUES. Decisión pendiente (requiere variables nuevas).
+- **OCA > 70 kW en Andalucía (media):** la ficha de térmicas no la pide para instalaciones nuevas; se conserva el paso con aviso.
+- **C. Valenciana FV:** el plazo de 180 días y el expediente ATREGI de CV-FV-004 son de la ficha 15300 (AT), no de la 20714; hay que separar por tensión de conexión.
+- **Canarias:** SICAC 2713 (puesta en servicio > 100 kW; el Decreto dice 40 días con silencio estimatorio y la ficha 3 días con silencio desestimatorio), Anexo VII del Decreto 141/2009 sin leer, SICAC 6703, Orden TED/624/2026 sin efecto sobre los trámites (solo fusiona Tenerife y La Gomera).
+- **Andalucía FV:** excepción de agrupación > 500 kW (DL 2/2018), garantía RD 1183/2020, permisos de acceso y conexión, tabla de tasas 7.2.1.2 completa, INEA (solo prensa).
+- **Tasas de Andalucía:** su aplicación depende de una orden de entrada en operación no localizada.
+
+### Siguiente paso concreto
+Abrir a mano la ficha técnica de gas de PUES (Anexo II de la Orden de 5/03/2013) y la ficha 3905; el Anexo VII del Decreto 141/2009 en el BOC; las fichas 9588, 11944, 11954, 18494 de la Junta y la 20714 / 15300 de la Generalitat; y leer en el BOE el art. 24 del RITE. Con eso se cierran los huecos de clasificación.
+

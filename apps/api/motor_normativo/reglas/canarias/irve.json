@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "canarias",
-  "version": "0.10.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.1",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "El tratamiento de 'garaje_comunitario' respecto al umbral 50/10 kW se ha asimilado a 'interior' — no verificado específicamente para Canarias",
     "RESUELTO parcialmente: instalaciones en vía pública requieren además título habilitante municipal de ocupación del dominio público — no modelado como trámite porque depende de la ordenanza municipal concreta; se deja constancia en notas del trámite condicionado a 'ubicacion_irve == via_publica'",
     "Tasas: se ha registrado el concepto (118)/(12) de la ficha 3158, aplicable por asimilación; importe exacto no verificado",
-    "Verificar en el schema que 'modo_recarga' se compara siempre como cadena ('3'/'4'), no como entero, para que la condición dispare correctamente"
+    "Verificar en el schema que 'modo_recarga' se compara siempre como cadena ('3'/'4'), no como entero, para que la condición dispare correctamente",
+    "Verificación Prompt B (2026-10-04): Canarias IRVE (Prompt B): confirmada la bifurcación 3158 (receptora nueva) / 6782 (existente), el organismo y la tasa (concepto 118, epígrafe 12). La declaración responsable del instalador no figura en ninguna ficha (opcional). Sin cerrar: fila de infraestructura de recarga de la tabla 2.1 del Anexo VII del Decreto 141/2009 (una web comercial sugiere proyecto en toda estación de ubicación pública, lo que contradiría el caso vía pública ≤ 10 kW; baja), categoría «especialista en IRVE» (la ficha solo pide empresa instaladora en BT), SICAC 6703 para receptoras sin antecedentes."
   ],
   "fuentes": [
     {
@@ -144,8 +145,8 @@
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable del instalador",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "Ni la ficha 3158 ni la 6782 piden una declaración responsable del instalador; en 6782 existe una del titular solo si no se aporta el número de expediente o el certificado de la receptora.",
+              "obligatorio": false
             }
           ],
           "notas": "",
@@ -307,8 +308,8 @@
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable del instalador",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "Ni la ficha 3158 ni la 6782 piden una declaración responsable del instalador; en 6782 existe una del titular solo si no se aporta el número de expediente o el certificado de la receptora.",
+              "obligatorio": false
             }
           ],
           "notas": "",
@@ -364,6 +365,12 @@
               "id": "certificado_instalacion",
               "label": "Certificado de instalación",
               "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "antecedentes_receptora",
+              "label": "Acreditación de los antecedentes administrativos de la instalación receptora",
+              "descripcion": "Número de expediente BT o certificado original; si no se tiene, declaración responsable (6782) o, si es antigua sin antecedentes, procedimiento 6703.",
               "obligatorio": true
             }
           ],
@@ -476,7 +483,7 @@
           "orden": 2,
           "nombre": "Certificado de instalación (instalador) e inspección inicial (OCA/EICI, cuando sea preceptiva)",
           "organismo": "Empresa instaladora en baja tensión habilitada; Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) cuando la inspección inicial sea preceptiva",
-          "base_legal": "Decreto 141/2009 art. 12-14; REBT RD 842/2002 ITC-BT-05",
+          "base_legal": "Decreto 141/2009 art. 15.2.d; REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -645,7 +652,7 @@
           "orden": 2,
           "nombre": "Certificado de instalación (instalador) e inspección inicial (OCA/EICI, cuando sea preceptiva)",
           "organismo": "Empresa instaladora en baja tensión habilitada; Organismo de Control Autorizado (OCA) o Entidad de Inspección y Control Industrial (EICI) cuando la inspección inicial sea preceptiva",
-          "base_legal": "Decreto 141/2009 art. 12-14; REBT RD 842/2002 ITC-BT-05",
+          "base_legal": "Decreto 141/2009 art. 15.2.d; REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,

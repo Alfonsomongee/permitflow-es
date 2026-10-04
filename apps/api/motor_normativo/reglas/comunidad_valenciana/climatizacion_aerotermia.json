@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "comunidad_valenciana",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "RESUELTO PARCIALMENTE 2026-07-28: la inspección inicial por OCA/OCH ya no se exige de forma incondicional (antes 'obligatorio': true sin condición); se marca como condicional. PENDIENTE: el régimen procedimental exacto (en qué supuestos es preceptiva) deriva del Decreto 125/2012, confirmado real, pero no se ha verificado el detalle exacto.",
     "PENDIENTE: no modelada la bifurcación entre el procedimiento 450 (una única empresa instaladora, usado en esta regla) y el 22742 (varias empresas coordinadas por técnico proyectista), por falta de un campo 'número de empresas instaladoras' en el schema.",
     "PENDIENTE: no modelada la alternativa DECRESTE (declaración responsable de técnicos competentes) al visado colegial del Proyecto Técnico, ni el formulario normalizado MEMISTER para la Memoria Técnica.",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-04): Prompt B: confirmadas las fichas G19316 (5-70 kW; comunicación sin plazo de resolución) y 450 (> 70 kW, una empresa instaladora) y la exención < 5 kW. Documentación según la ficha: proyecto o memoria de la instalación ejecutada, certificado de la instalación y certificado de inspección inicial «cuando sea preceptivo». Omisiones: alta múltiple en viviendas de obra nueva (ficha 94685), comunicación con varias empresas (22742) y exención de registro por sustitución de generadores ≤ 70 kW con variación de potencia ≤ 25 %. Sin verificar: tasas, arts. 15-24 del RITE, URL 450 frente a G450."
   ],
   "fuentes": [
     {
@@ -124,8 +125,8 @@
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador (carné profesional)",
-              "descripcion": "",
+              "label": "Certificado de la instalación térmica",
+              "descripcion": "Certificado de la instalación (ficha G19316); «carné profesional» no es documento del trámite.",
               "obligatorio": true
             }
           ],
@@ -155,8 +156,8 @@
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "descripcion": "",
+              "label": "Certificado de la instalación térmica",
+              "descripcion": "Certificado de la instalación (ficha G19316); «carné profesional» no es documento del trámite.",
               "obligatorio": true
             }
           ],
@@ -200,8 +201,8 @@
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "descripcion": "",
+              "label": "Certificado de la instalación térmica",
+              "descripcion": "Certificado de la instalación (ficha G19316); «carné profesional» no es documento del trámite.",
               "obligatorio": true
             }
           ],

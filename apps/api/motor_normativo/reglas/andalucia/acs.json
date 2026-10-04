@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "andalucia",
-  "version": "1.3.1",
-  "ultima_revision": "2026-07-28",
+  "version": "1.4.0",
+  "ultima_revision": "2026-10-04",
   "fuentes": [
     {
       "norma": "RITE RD 1027/2007 (modificado RD 238/2013)",
@@ -147,7 +147,7 @@
     },
     {
       "id": "AND-ACS-001-1",
-      "descripcion": "Instalación ACS residencial ≤70 kW — régimen simplificado (presupuesto <= 10k)",
+      "descripcion": "Instalación ACS de 5 a 70 kW (cualquier uso) — régimen simplificado (presupuesto <= 10k)",
       "condicion": {
         "and": [
           {
@@ -201,23 +201,11 @@
               {
                 "and": [
                   {
-                    "and": [
+                    "<=": [
                       {
-                        "<=": [
-                          {
-                            "var": "potencia_kw"
-                          },
-                          70
-                        ]
+                        "var": "potencia_kw"
                       },
-                      {
-                        "==": [
-                          {
-                            "var": "uso"
-                          },
-                          "residencial"
-                        ]
-                      }
+                      70
                     ]
                   },
                   {
@@ -244,7 +232,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "21.94 EUR",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador)",
           "documentos_requeridos": [
             {
               "id": "cert_instalacion_acs",
@@ -268,13 +256,13 @@
         {
           "orden": 2,
           "nombre": "Registro de instalación ACS en PUES",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
-          "base_legal": "RITE RD 1027/2007; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "RITE RD 1027/2007 (art. 24); Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6505.html",
-          "coste_estimado": "21.94 EUR",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.3.1 (memoria técnica de diseño): 21,94 € instalación individual; 45,77 € otros usos (cuantías 2026), independiente de la inversión. Su aplicación depende de la orden que declare operativas las herramientas informáticas (no localizada).",
           "documentos_requeridos": [
             {
               "id": "cert_rite_acs_firmado",
@@ -291,11 +279,23 @@
             {
               "id": "dni_titular_acs",
               "label": "DNI/NIE o CIF del titular",
-              "descripcion": "Documento de identidad del propietario de la instalación.",
+              "descripcion": "No figura en la ficha técnica descriptiva consultada; confirmar.",
+              "obligatorio": false
+            },
+            {
+              "id": "memoria_tecnica_ejecutada_acs",
+              "label": "Memoria técnica realmente ejecutada",
+              "descripcion": "Suscrita por instalador habilitado o técnico competente (ficha técnica descriptiva de térmicas, BOJA 105/2024).",
               "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_otros_reglamentos",
+              "label": "Declaración responsable de otros reglamentos",
+              "descripcion": "En su caso, cumplimiento de otros reglamentos de seguridad que afecten a la instalación.",
+              "obligatorio": false
             }
           ],
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLa ficha técnica de térmicas (Resolución 24/05/2024) pide, de 5 a 70 kW cualquiera que sea el uso: memoria técnica ejecutada, certificado de instalación y, en su caso, declaración responsable de otros reglamentos.",
           "paralelo_con": null,
           "formulario_ref": "6505",
           "registro_salida": null,
@@ -305,7 +305,7 @@
     },
     {
       "id": "AND-ACS-001-2",
-      "descripcion": "Instalación ACS residencial ≤70 kW — régimen simplificado (presupuesto <= 10k) (Sin inversión informada)",
+      "descripcion": "Instalación ACS de 5 a 70 kW (cualquier uso) — régimen simplificado (presupuesto <= 10k) (Sin inversión informada)",
       "condicion": {
         "and": [
           {
@@ -359,23 +359,11 @@
               {
                 "and": [
                   {
-                    "and": [
+                    "<=": [
                       {
-                        "<=": [
-                          {
-                            "var": "potencia_kw"
-                          },
-                          70
-                        ]
+                        "var": "potencia_kw"
                       },
-                      {
-                        "==": [
-                          {
-                            "var": "uso"
-                          },
-                          "residencial"
-                        ]
-                      }
+                      70
                     ]
                   },
                   {
@@ -402,7 +390,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador)",
           "documentos_requeridos": [
             {
               "id": "cert_instalacion_acs",
@@ -426,13 +414,13 @@
         {
           "orden": 2,
           "nombre": "Registro de instalación ACS en PUES",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
-          "base_legal": "RITE RD 1027/2007; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "RITE RD 1027/2007 (art. 24); Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6505.html",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.3.1 (memoria técnica de diseño): 21,94 € instalación individual; 45,77 € otros usos (cuantías 2026), independiente de la inversión. Su aplicación depende de la orden que declare operativas las herramientas informáticas (no localizada).",
           "documentos_requeridos": [
             {
               "id": "cert_rite_acs_firmado",
@@ -449,11 +437,23 @@
             {
               "id": "dni_titular_acs",
               "label": "DNI/NIE o CIF del titular",
-              "descripcion": "Documento de identidad del propietario de la instalación.",
+              "descripcion": "No figura en la ficha técnica descriptiva consultada; confirmar.",
+              "obligatorio": false
+            },
+            {
+              "id": "memoria_tecnica_ejecutada_acs",
+              "label": "Memoria técnica realmente ejecutada",
+              "descripcion": "Suscrita por instalador habilitado o técnico competente (ficha técnica descriptiva de térmicas, BOJA 105/2024).",
               "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_otros_reglamentos",
+              "label": "Declaración responsable de otros reglamentos",
+              "descripcion": "En su caso, cumplimiento de otros reglamentos de seguridad que afecten a la instalación.",
+              "obligatorio": false
             }
           ],
-          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.",
+          "notas": "El importe de la tasa depende de la inversión: consúltalo en la sede del organismo. Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLa ficha técnica de térmicas (Resolución 24/05/2024) pide, de 5 a 70 kW cualquiera que sea el uso: memoria técnica ejecutada, certificado de instalación y, en su caso, declaración responsable de otros reglamentos.",
           "paralelo_con": null,
           "formulario_ref": "6505",
           "registro_salida": null,
@@ -463,7 +463,7 @@
     },
     {
       "id": "AND-ACS-001-3",
-      "descripcion": "Instalación ACS residencial ≤70 kW — régimen simplificado (presupuesto > 10k)",
+      "descripcion": "Instalación ACS de 5 a 70 kW (cualquier uso) — régimen simplificado (presupuesto > 10k)",
       "condicion": {
         "and": [
           {
@@ -517,23 +517,11 @@
               {
                 "and": [
                   {
-                    "and": [
+                    "<=": [
                       {
-                        "<=": [
-                          {
-                            "var": "potencia_kw"
-                          },
-                          70
-                        ]
+                        "var": "potencia_kw"
                       },
-                      {
-                        "==": [
-                          {
-                            "var": "uso"
-                          },
-                          "residencial"
-                        ]
-                      }
+                      70
                     ]
                   },
                   {
@@ -560,7 +548,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "45.77 EUR",
+          "coste_estimado": "Sin tasa de la Junta (honorarios del instalador)",
           "documentos_requeridos": [
             {
               "id": "cert_instalacion_acs",
@@ -584,13 +572,13 @@
         {
           "orden": 2,
           "nombre": "Registro de instalación ACS en PUES",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía)",
-          "base_legal": "RITE RD 1027/2007; Decreto 59/2005 Junta de Andalucía",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía)",
+          "base_legal": "RITE RD 1027/2007 (art. 24); Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/6505.html",
-          "coste_estimado": "45.77 EUR",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.3.1 (memoria técnica de diseño): 21,94 € instalación individual; 45,77 € otros usos (cuantías 2026), independiente de la inversión. Su aplicación depende de la orden que declare operativas las herramientas informáticas (no localizada).",
           "documentos_requeridos": [
             {
               "id": "cert_rite_acs_firmado",
@@ -607,11 +595,23 @@
             {
               "id": "dni_titular_acs",
               "label": "DNI/NIE o CIF del titular",
-              "descripcion": "Documento de identidad del propietario de la instalación.",
+              "descripcion": "No figura en la ficha técnica descriptiva consultada; confirmar.",
+              "obligatorio": false
+            },
+            {
+              "id": "memoria_tecnica_ejecutada_acs",
+              "label": "Memoria técnica realmente ejecutada",
+              "descripcion": "Suscrita por instalador habilitado o técnico competente (ficha técnica descriptiva de térmicas, BOJA 105/2024).",
               "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_otros_reglamentos",
+              "label": "Declaración responsable de otros reglamentos",
+              "descripcion": "En su caso, cumplimiento de otros reglamentos de seguridad que afecten a la instalación.",
+              "obligatorio": false
             }
           ],
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).\nLa ficha técnica de térmicas (Resolución 24/05/2024) pide, de 5 a 70 kW cualquiera que sea el uso: memoria técnica ejecutada, certificado de instalación y, en su caso, declaración responsable de otros reglamentos.",
           "paralelo_con": null,
           "formulario_ref": "6505",
           "registro_salida": null,
@@ -621,7 +621,7 @@
     },
     {
       "id": "AND-ACS-002-1",
-      "descripcion": "Instalación ACS en uso terciario o potencia >70 kW: proyecto técnico RITE e inspección OCA (umbral RITE, no ligado a Legionella) (presupuesto <= 5k)",
+      "descripcion": "Instalación ACS de más de 70 kW: proyecto técnico RITE, certificado de instalación y comunicación por PUES (presupuesto <= 5k)",
       "condicion": {
         "and": [
           {
@@ -675,23 +675,11 @@
               {
                 "and": [
                   {
-                    "or": [
+                    ">": [
                       {
-                        "!=": [
-                          {
-                            "var": "uso"
-                          },
-                          "residencial"
-                        ]
+                        "var": "potencia_kw"
                       },
-                      {
-                        ">": [
-                          {
-                            "var": "potencia_kw"
-                          },
-                          70
-                        ]
-                      }
+                      70
                     ]
                   },
                   {
@@ -718,7 +706,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "66.43 EUR",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_acs_visado",
@@ -737,12 +725,12 @@
           "orden": 2,
           "nombre": "Registro e inspección OCA (instalaciones >70 kW)",
           "organismo": "OCA acreditada + Delegación Territorial de Industria",
-          "base_legal": "RITE RD 1027/2007 IT 4.3",
+          "base_legal": "RITE RD 1027/2007 (arts. 15.1 y 24); Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "66.43 EUR",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.3.2 (con proyecto): escala por presupuesto del proyecto; tabla 2026 no leída.",
           "documentos_requeridos": [
             {
               "id": "acta_oca_acs",
@@ -755,9 +743,21 @@
               "label": "Proyecto técnico visado",
               "descripcion": "Proyecto completo con visado colegial para presentar en PUES.",
               "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento_acs",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Con empresa mantenedora habilitada (ficha técnica descriptiva de térmicas, BOJA 105/2024).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_director_acs",
+              "label": "Certificado de instalación firmado por el instalador y el director de la instalación",
+              "descripcion": "Documento 3 de la ficha técnica descriptiva.",
+              "obligatorio": true
             }
           ],
-          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.",
+          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.\nAVISO: la ficha andaluza de térmicas (BOJA 105/2024) no pide certificado de organismo de control para una instalación nueva de más de 70 kW; solo lo cita para regularizar instalaciones existentes, y el RITE (art. 24) dice que la inspección inicial la dispone el órgano competente o «cuando sea preceptiva». Consulta con la Delegación Territorial si te la exigen. Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -767,7 +767,7 @@
     },
     {
       "id": "AND-ACS-002-2",
-      "descripcion": "Instalación ACS en uso terciario o potencia >70 kW: proyecto técnico RITE e inspección OCA (umbral RITE, no ligado a Legionella) (presupuesto <= 5k) (Sin inversión informada)",
+      "descripcion": "Instalación ACS de más de 70 kW: proyecto técnico RITE, certificado de instalación y comunicación por PUES (presupuesto <= 5k) (Sin inversión informada)",
       "condicion": {
         "and": [
           {
@@ -821,23 +821,11 @@
               {
                 "and": [
                   {
-                    "or": [
+                    ">": [
                       {
-                        "!=": [
-                          {
-                            "var": "uso"
-                          },
-                          "residencial"
-                        ]
+                        "var": "potencia_kw"
                       },
-                      {
-                        ">": [
-                          {
-                            "var": "potencia_kw"
-                          },
-                          70
-                        ]
-                      }
+                      70
                     ]
                   },
                   {
@@ -864,7 +852,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_acs_visado",
@@ -883,12 +871,12 @@
           "orden": 2,
           "nombre": "Registro e inspección OCA (instalaciones >70 kW)",
           "organismo": "OCA acreditada + Delegación Territorial de Industria",
-          "base_legal": "RITE RD 1027/2007 IT 4.3",
+          "base_legal": "RITE RD 1027/2007 (arts. 15.1 y 24); Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "Depende de la inversión exacta",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.3.2 (con proyecto): escala por presupuesto del proyecto; tabla 2026 no leída.",
           "documentos_requeridos": [
             {
               "id": "acta_oca_acs",
@@ -901,9 +889,21 @@
               "label": "Proyecto técnico visado",
               "descripcion": "Proyecto completo con visado colegial para presentar en PUES.",
               "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento_acs",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Con empresa mantenedora habilitada (ficha técnica descriptiva de térmicas, BOJA 105/2024).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_director_acs",
+              "label": "Certificado de instalación firmado por el instalador y el director de la instalación",
+              "descripcion": "Documento 3 de la ficha técnica descriptiva.",
+              "obligatorio": true
             }
           ],
-          "notas": "\nEl importe de la tasa depende de la inversión: consúltalo en la sede del organismo.\nAviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.",
+          "notas": "El importe de la tasa depende de la inversión: consúltalo en la sede del organismo.\nAviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.\nAVISO: la ficha andaluza de térmicas (BOJA 105/2024) no pide certificado de organismo de control para una instalación nueva de más de 70 kW; solo lo cita para regularizar instalaciones existentes, y el RITE (art. 24) dice que la inspección inicial la dispone el órgano competente o «cuando sea preceptiva». Consulta con la Delegación Territorial si te la exigen. Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -913,7 +913,7 @@
     },
     {
       "id": "AND-ACS-002-3",
-      "descripcion": "Instalación ACS en uso terciario o potencia >70 kW: proyecto técnico RITE e inspección OCA (umbral RITE, no ligado a Legionella) (presupuesto 5k-300k)",
+      "descripcion": "Instalación ACS de más de 70 kW: proyecto técnico RITE, certificado de instalación y comunicación por PUES (presupuesto 5k-300k)",
       "condicion": {
         "and": [
           {
@@ -967,23 +967,11 @@
               {
                 "and": [
                   {
-                    "or": [
+                    ">": [
                       {
-                        "!=": [
-                          {
-                            "var": "uso"
-                          },
-                          "residencial"
-                        ]
+                        "var": "potencia_kw"
                       },
-                      {
-                        ">": [
-                          {
-                            "var": "potencia_kw"
-                          },
-                          70
-                        ]
-                      }
+                      70
                     ]
                   },
                   {
@@ -1022,7 +1010,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "200.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_acs_visado",
@@ -1041,12 +1029,12 @@
           "orden": 2,
           "nombre": "Registro e inspección OCA (instalaciones >70 kW)",
           "organismo": "OCA acreditada + Delegación Territorial de Industria",
-          "base_legal": "RITE RD 1027/2007 IT 4.3",
+          "base_legal": "RITE RD 1027/2007 (arts. 15.1 y 24); Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "200.00 EUR (estimado tramo medio)",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.3.2 (con proyecto): escala por presupuesto del proyecto; tabla 2026 no leída.",
           "documentos_requeridos": [
             {
               "id": "acta_oca_acs",
@@ -1059,9 +1047,21 @@
               "label": "Proyecto técnico visado",
               "descripcion": "Proyecto completo con visado colegial para presentar en PUES.",
               "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento_acs",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Con empresa mantenedora habilitada (ficha técnica descriptiva de térmicas, BOJA 105/2024).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_director_acs",
+              "label": "Certificado de instalación firmado por el instalador y el director de la instalación",
+              "descripcion": "Documento 3 de la ficha técnica descriptiva.",
+              "obligatorio": true
             }
           ],
-          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.",
+          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.\nAVISO: la ficha andaluza de térmicas (BOJA 105/2024) no pide certificado de organismo de control para una instalación nueva de más de 70 kW; solo lo cita para regularizar instalaciones existentes, y el RITE (art. 24) dice que la inspección inicial la dispone el órgano competente o «cuando sea preceptiva». Consulta con la Delegación Territorial si te la exigen. Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1071,7 +1071,7 @@
     },
     {
       "id": "AND-ACS-002-4",
-      "descripcion": "Instalación ACS en uso terciario o potencia >70 kW: proyecto técnico RITE e inspección OCA (umbral RITE, no ligado a Legionella) (presupuesto > 300k)",
+      "descripcion": "Instalación ACS de más de 70 kW: proyecto técnico RITE, certificado de instalación y comunicación por PUES (presupuesto > 300k)",
       "condicion": {
         "and": [
           {
@@ -1125,23 +1125,11 @@
               {
                 "and": [
                   {
-                    "or": [
+                    ">": [
                       {
-                        "!=": [
-                          {
-                            "var": "uso"
-                          },
-                          "residencial"
-                        ]
+                        "var": "potencia_kw"
                       },
-                      {
-                        ">": [
-                          {
-                            "var": "potencia_kw"
-                          },
-                          70
-                        ]
-                      }
+                      70
                     ]
                   },
                   {
@@ -1168,7 +1156,7 @@
           "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
-          "coste_estimado": "424.48 EUR",
+          "coste_estimado": "Honorarios profesionales (no es tasa de la Junta)",
           "documentos_requeridos": [
             {
               "id": "proyecto_acs_visado",
@@ -1187,12 +1175,12 @@
           "orden": 2,
           "nombre": "Registro e inspección OCA (instalaciones >70 kW)",
           "organismo": "OCA acreditada + Delegación Territorial de Industria",
-          "base_legal": "RITE RD 1027/2007 IT 4.3",
+          "base_legal": "RITE RD 1027/2007 (arts. 15.1 y 24); Decreto 59/2005 (Grupo II, modificado por el Decreto 9/2011 y el Decreto-ley 3/2024); Orden de 5/03/2013 (arts. 5 a 13; Anexos I y II)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "424.48 EUR",
+          "coste_estimado": "Tasa 046, epígrafe 7.2.3.2 (con proyecto): escala por presupuesto del proyecto; tabla 2026 no leída.",
           "documentos_requeridos": [
             {
               "id": "acta_oca_acs",
@@ -1205,9 +1193,21 @@
               "label": "Proyecto técnico visado",
               "descripcion": "Proyecto completo con visado colegial para presentar en PUES.",
               "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento_acs",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Con empresa mantenedora habilitada (ficha técnica descriptiva de térmicas, BOJA 105/2024).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_director_acs",
+              "label": "Certificado de instalación firmado por el instalador y el director de la instalación",
+              "descripcion": "Documento 3 de la ficha técnica descriptiva.",
+              "obligatorio": true
             }
           ],
-          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.",
+          "notas": "Aviso: el RITE vincula el proyecto y la inspección OCA al umbral de potencia (>70 kW, IT 4), no al uso del edificio; este trámite también puede aparecer en instalaciones terciarias de baja potencia. Confirma con el órgano competente el umbral aplicable a uso no residencial.\nAVISO: la ficha andaluza de térmicas (BOJA 105/2024) no pide certificado de organismo de control para una instalación nueva de más de 70 kW; solo lo cita para regularizar instalaciones existentes, y el RITE (art. 24) dice que la inspección inicial la dispone el órgano competente o «cuando sea preceptiva». Consulta con la Delegación Territorial si te la exigen. Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "paralelo_con": null,
           "formulario_ref": null,
           "registro_salida": null,
@@ -1269,8 +1269,8 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Elaboración del Plan de Autoprotección frente a Legionelosis",
-          "organismo": "Empresa de control de legionella acreditada por la autoridad sanitaria de Andalucía",
+          "nombre": "Elaboración e implantación del Plan de Prevención y Control de Legionella (PPCL)",
+          "organismo": "Titular de la instalación, con empresa de servicios biocidas inscrita en el Registro Oficial de Establecimientos y Servicios Biocidas de Andalucía (Decreto 287/2002) y personal con la formación del art. 18 del RD 487/2022",
           "base_legal": "RD 487/2022 Prevención de Legionelosis; Anexo 2 instalaciones de riesgo",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
@@ -1291,39 +1291,9 @@
               "obligatorio": true
             }
           ],
-          "notas": "El RD 487/2022 (en vigor desde 2023) amplía las instalaciones sujetas a control de legionella. Hoteles, hospitales, gimnasios y cualquier instalación con acumuladores >2.000 L están obligados.",
+          "notas": "El RD 487/2022 (en vigor desde 2023) amplía las instalaciones sujetas a control de legionella. Hoteles, hospitales, gimnasios y cualquier instalación con acumuladores >2.000 L están obligados.\nSegún el RD 487/2022 (arts. 8 y 9) el titular puede optar entre un Plan de Prevención y Control de Legionella (PPCL) y un Plan Sanitario frente a Legionella (PSL). «Plan de Autoprotección» es otro instrumento (protección civil).",
           "paralelo_con": null,
           "formulario_ref": null,
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Notificación sanitaria a la Consejería de Salud de Andalucía",
-          "organismo": "Delegación Territorial de Salud y Consumo (Junta de Andalucía)",
-          "base_legal": "RD 487/2022 art. 10; Decreto Andalucía de instalaciones de riesgo sanitario",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
-          "plataforma": "Junta de Andalucía -- Delegación Territorial de Salud y Consumo (incoherencia corregida: plataforma decía 'ayuntamiento' pero organismo y URL apuntan a la Junta)",
-          "plataforma_url": "https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/10527.html",
-          "coste_estimado": "Sin coste (comunicación informativa)",
-          "documentos_requeridos": [
-            {
-              "id": "notificacion_sanitaria_legionella",
-              "label": "Formulario de notificación sanitaria de instalación de riesgo",
-              "descripcion": "Comunicación a la autoridad sanitaria autonómica de la puesta en marcha de una instalación sujeta al RD 487/2022, con descripción del sistema y plan de prevención.",
-              "obligatorio": true
-            },
-            {
-              "id": "plan_legionella_notificacion",
-              "label": "Plan de Prevención y Control (copia)",
-              "descripcion": "Copia del plan elaborado para adjuntar a la notificación sanitaria.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La notificación debe realizarse antes de la puesta en marcha de la instalación. Las inspecciones de Salud Pública son periódicas y no anunciadas. NOTA DE CRITERIO: el disparador legal correcto de esta obligación es el ámbito del art. 3.1 del RD 487/2022 (uso colectivo con posible aerosolización, típicamente ACS con acumulación y recirculación), NO la potencia. Mientras el wizard no capture uso_colectivo/acumulacion/recirculacion (Bloque 9B pendiente), esta regla usa el criterio de potencia/uso como red de seguridad transitoria para no perder cobertura; en cuanto existan esos campos, sustituir por el criterio legal correcto.",
-          "paralelo_con": null,
-          "formulario_ref": "10527",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -1372,13 +1342,17 @@
       "validado_por": null
     }
   ],
-  "nivel_verificacion": "verificada",
+  "nivel_verificacion": "verificada_parcialmente",
   "revisado_por": null,
   "huecos_verificacion": [
     "PENDIENTE (no verificado, NO se ha tocado la lógica): AND-ACS-002 dispara para toda instalación no residencial sin cota inferior de potencia (falso positivo en terciario de baja potencia). El RITE liga proyecto/inspección a >70 kW, no al uso, pero no se ha localizado fuente primaria que fije un umbral alternativo para uso no residencial -- se deja documentado en notas del trámite en vez de alterar la condición sin verificar.",
     "PENDIENTE: 'Decreto Andalucía de instalaciones de riesgo sanitario' (base legal de AND-ACS-003 trámite 2) citado sin número ni fecha, no identificable -- no se ha tocado.",
     "PENDIENTE: AND-ACS-003 mantiene el criterio de potencia/uso como 'red de seguridad transitoria' hasta que el wizard capture uso_colectivo/acumulacion/recirculacion en producción (Bloque 9B); los campos ya existen en la condición OR pero no se ha retirado el criterio antiguo, tal como el propio fichero documenta.",
     "PENDIENTE: Ley 10/2021 art. 44 (base de tasas 21,94/45,77/66,43/424,48 €) no verificada.",
-    "PENDIENTE: plazo_legal_dias=30 para registro PUES en ACS (otros ficheros usan 45 o 10 días) sin fuente citada -- no unificado en esta pasada."
+    "PENDIENTE: plazo_legal_dias=30 para registro PUES en ACS (otros ficheros usan 45 o 10 días) sin fuente citada -- no unificado en esta pasada.",
+    "Verificación Prompt B (2026-10-04): Andalucía ACS (Prompt B parte 2). BAJADA DE NIVEL de 'verificada' a 'verificada_parcialmente': aparecen errores de fondo. Cambios: (1) AND-ACS-001-x pasa a «de 5 a 70 kW, cualquier uso» y AND-ACS-002-x a «más de 70 kW» (la ficha de la Junta clasifica solo por potencia; el RITE art. 15.1 igual); (2) quitados los plazos legales de PUES (comunicación sin resolución; Orden 5/03/2013 arts. 12-13); (3) tasas 2026 de la tarifa 7.2.3.1 (21,94 € individual / 45,77 € otros usos) en lugar de tramos por inversión, y eliminadas las cifras sin base (66,43; 200 estimado; 424,48); (4) documentos de la ficha técnica de térmicas (memoria ejecutada, certificado de instalación, contrato de mantenimiento >70 kW, declaración responsable de otros reglamentos); el visado solo si lo exige un Real Decreto (Orden art. 5.1).",
+    "Verificación Prompt B (2026-10-04): BLOQUEANTE resuelto (alta, BOJA 2002 y RD 487/2022 consolidado): se quitó el trámite 2 de AND-ACS-003 (notificación sanitaria a Salud). El art. 10 del RD 487/2022 regula actuaciones de la autoridad sanitaria, no una notificación; la notificación del art. 5.3 y Anexo II solo obliga a torres de refrigeración y condensadores evaporativos, un mes DESPUÉS de la puesta en funcionamiento, y en Andalucía va al Ayuntamiento (Decreto 287/2002, art. 3). El trámite 1 se renombró a PPCL (el nombre anterior «Plan de Autoprotección» es otro instrumento) y pierde las estadísticas de plazos del nombre antiguo. Pendiente: la nota de «acumuladores > 2.000 L» no tiene base en el RD 487/2022 (solo hay umbral de 750 L para boca de registro) y el disparador «uso colectivo + acumulación + recirculación» no es criterio del ámbito (art. 3: instalaciones susceptibles de ser foco de exposición; excluidas las de uso exclusivo de vivienda).",
+    "Verificación Prompt B (2026-10-04): OCA > 70 kW (media): la ficha andaluza de térmicas no la pide para instalación nueva (sí para regularizar existentes, DL 3/2024 DA 22.ª); no se retiró el paso, se dejó un aviso en la nota. Sin verificar: tarifa 7.2.3.2 completa, orden de entrada en operación de las tasas de Industria en PUES/TECI, art. 24 del RITE (el consolidado del BOE no abrió) y omisión de la regularización de instalaciones anteriores al 11/04/2013.",
+    "Verificación Prompt B (2026-10-04): Denominación orgánica: ver el hueco de fotovoltaica (Decretos 198/2026 y 190/2026)."
   ]
 }

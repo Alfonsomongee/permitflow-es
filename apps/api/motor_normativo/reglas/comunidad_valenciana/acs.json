@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "comunidad_valenciana",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "PENDIENTE: la exclusión legal de calentadores instantáneos, calentadores acumuladores y termos eléctricos ≤70 kW (documentación técnica ante la Administración no exigible) no está modelada por falta de un campo 'tipo de equipo generador' en el schema; genera trámites falsos para el caso doméstico más común.",
     "RESUELTO PARCIALMENTE 2026-07-28: la inspección inicial por OCA/OCH ya no se exige de forma incondicional. PENDIENTE: el régimen procedimental exacto (en qué supuestos es preceptiva) deriva del Decreto 125/2012, confirmado real, pero no se ha verificado el detalle exacto.",
     "PENDIENTE: no modelada la bifurcación entre el procedimiento 450 (una única empresa instaladora, usado en esta regla) y el 22742 (varias empresas coordinadas por técnico proyectista), por falta de un campo en el schema.",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-04): Prompt B: el Decreto 173/2000 de la Comunitat Valenciana regula equipos de transferencia de masa de agua con aerosoles (torres y condensadores evaporativos), no el ACS; el ACS cae bajo el RD 487/2022 estatal. El Decreto 201/2002 son medidas especiales ante brotes comunitarios, no un trámite de legalización. La regla de Legionella sigue sin modelar. Exenciones (< 5 kW; calentadores/termos ≤ 70 kW «cada uno por separado o su suma»; solar prefabricado) confirmadas en las fichas 19316 y 451. Omisiones: alta múltiple en viviendas de obra nueva (ficha 94685) y comunicación con varias empresas (22742). URL 450 frente a G450 sin poder comprobarse."
   ],
   "fuentes": [
     {
@@ -21,7 +22,7 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Decreto 173/2000, de 5 de diciembre, del Gobierno Valenciano (condiciones higiénico-sanitarias para prevención de legionelosis) — confirmado real",
+      "norma": "Decreto 173/2000, de 5 de diciembre, del Gobierno Valenciano: regula los equipos de transferencia de masa de agua en corriente de aire con producción de aerosoles (torres de refrigeración y condensadores evaporativos); no regula el ACS",
       "url": "https://dogv.gva.es/portal/ficha_disposicion.jsp?id=26&sig=4008/2000&L=1",
       "fecha_consulta": "2026-08-08"
     },
@@ -44,6 +45,11 @@
       "norma": "Ficha de trámite G19316 'Comunicación de instalaciones térmicas con potencia nominal entre 5 y 70 kW' y 450 'Comunicación de instalaciones térmicas con potencia nominal mayor a 70 kW' - sede.gva.es",
       "url": "https://sede.gva.es/es/detall-tramit?id_proc=G19316",
       "fecha_consulta": "2026-08-08"
+    },
+    {
+      "norma": "Orden 14/2022, de 5 de diciembre, de la Conselleria de Economía Sostenible (tramitación electrónica obligatoria; DOGV 9492, 19/12/2022)",
+      "url": "https://www.gva.es/es/inicio/procedimientos?id_proc=19572&version=red",
+      "fecha_consulta": "2026-10-04"
     }
   ],
   "reglas": [
@@ -238,7 +244,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (RD 487/2022 + Decreto 173/2000 CV) — no incluido todavía como trámite en este fichero.",
+          "notas": "Si el edificio es de uso colectivo/terciario, revisar el hueco de Legionella (RD 487/2022) — no incluido todavía como trámite en este fichero.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -344,7 +350,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Revisar hueco de Legionella (RD 487/2022 + Decreto 173/2000 CV) si el edificio es de uso colectivo.",
+          "notas": "Revisar hueco de Legionella (RD 487/2022) si el edificio es de uso colectivo.",
           "registro_salida": null,
           "medio_presentacion": null
         },

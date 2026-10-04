@@ -1,16 +1,17 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "comunidad_valenciana",
-  "version": "2.0.1",
-  "ultima_revision": "2026-07-28",
+  "version": "2.1.0",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
   "aviso": "Corregido a partir de la versión 2.0.0 anterior, que ya estaba en un nivel notablemente mejor que el resto de comunidades de este proyecto: el Decreto 88/2005 (y sus modificaciones por Decreto-ley 14/2020 y Ley 6/2024) están CONFIRMADOS como reales. Se corrigieron dos problemas: (1) 'nivel_verificacion: verificada' estaba contradicho por las propias notas del fichero, que reconocían incertidumbre ('verificar artículo exacto contra el DOGV', 'importe NO verificado') — bajado a 'generica' según la regla del propio proyecto; (2) los id de regla 'CV-FV-3' y 'CV-FV-4' estaban duplicados tres veces cada uno (partición correcta por inversion_eur, pero rompía regla_id como clave única) — renombrados a CV-FV-3A/3B/3C y CV-FV-4A/4B/4C. Revisión 2026-07-28 (auditoría normativa CV): 'inversion_eur' ya NO es una variable fantasma — el formulario web captura ahora la inversión en euros para fotovoltaica y `apps/web/app/api/clasificar/route.ts` la reenvía al motor; se confirmó contra sede.gva.es (id_proc=15300, apartado 'Tasa o pago') que el umbral de 6.600 € usado en las condiciones de CV-FV-003A/B/C y CV-FV-004A/B/C es el tramo real de la tasa (109,54 € fijos + 45,55 € por los primeros 6.600 € + 12,02 € por cada 6.600 € adicionales o fracción), por lo que las condiciones quedan correctamente calibradas y no solo alcanzables. Se corrigió además el enlace erróneo a id_proc=15300 (alta tensión) en el tramo >100 kW: se sustituye por id_proc=20714, el trámite real de autoconsumo en baja tensión (sin tope superior de 100 kW según la propia ficha), ya que no existe en el schema un campo de tensión de conexión que permita distinguir BT/AT — ver huecos_verificacion. Se corrigieron los importes de tasa (109,54 €→155,09 € y 121,56 €→fórmula con mínimo de 167,11 €) contra la tabla 'Tasas 2025' de la ficha sede.gva.es id_proc=15300.",
   "huecos_verificacion": [
-    "Confirmar el artículo exacto de la Ley 6/2024 que extiende la exención de autorización previa hasta 500 kW (el propio fichero original ya señalaba esto como pendiente) — NO LOCALIZADO en fuente admisible, se mantiene como pendiente de verificar; sostiene las reglas CV-FV-003A/B/C.",
     "Confirmar la existencia y contenido de 'Resolución 24/02/2026 IVACE (DOGV nº 10315)': CONFIRMADA su existencia (DOGV 10315 de 04/03/2026) pero es una resolución de bases reguladoras de AYUDAS/subvenciones en energías renovables, no una norma de tramitación — reetiquetada en 'fuentes', fuera del alcance del motor de tramitación.",
-    "Ampliar el ámbito de CV-FV-002 a todo autoconsumo en BT >10 kW (sin tope de 100 kW) y separar por tensión de conexión, no por potencia: pendiente de un campo de tensión de conexión en el schema; no aplicado en esta revisión para no introducir otra condición sobre una variable inexistente."
+    "Ampliar el ámbito de CV-FV-002 a todo autoconsumo en BT >10 kW (sin tope de 100 kW) y separar por tensión de conexión, no por potencia: pendiente de un campo de tensión de conexión en el schema; no aplicado en esta revisión para no introducir otra condición sobre una variable inexistente.",
+    "Verificación Prompt B (2026-10-04): Umbral de 500 kW CONFIRMADO: art. 123 de la Ley 6/2024 (DOGV 10001, 09/12/2024; BOE 01/01/2025; vigente desde 10/12/2024) reescribe el art. 2 bis.2 del Decreto 88/2005 («las de producción de energía eléctrica con potencia instalada no superior a 500 kW», alta). El texto consolidado del BOE registra modificaciones posteriores (16/04/2025, 29/12/2025, 02/07/2026, 10/08/2026) cuyo contenido no se leyó.",
+    "Verificación Prompt B (2026-10-04): Prompt B: la ficha 20714 no tiene tope de 100 kW (cubre todo BT > 10 kW); CV-FV-002 se queda como está porque 003 solo cubre con excedentes. Organismo corregido a «Servicio Territorial de Industria, Energía y Minas». Documentos añadidos: formulario de comunicación y certificado de instalación BT (media, extractos de la ficha). Tasas: 109,54 / 45,55 / 12,02 € son de la ficha 15300 (alta tensión, «tasas 2025»); en 003 se marcan como no verificadas y en 004 se mantienen sin confirmar. PROBLEMA ESTRUCTURAL: el plazo de 180 días y el expediente ATREGI de CV-FV-004 corresponden a la ficha 15300 (producción conectada en AT), no a la 20714; hace falta separar por tensión de conexión. Sin verificar: sentido del silencio (art. 6.3), tasas 2026, lista completa de documentos de 20714 y si exige inspección inicial por OCH para generación a la intemperie > 25 kW (ITC-BT-05; omisión modelada solo en fichas 434/436)."
   ],
   "fuentes": [
     {
@@ -65,7 +66,7 @@
         {
           "orden": 1,
           "nombre": "Comunicación de puesta en servicio e inscripción",
-          "organismo": "Servicio Territorial competente en materia de energía",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "RD 244/2019; Decreto 88/2005",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
@@ -80,6 +81,18 @@
               "id": "mtd",
               "label": "Memoria Técnica de Diseño",
               "descripcion": "MTD ≤10 kW.",
+              "obligatorio": true
+            },
+            {
+              "id": "formulario_comunicacion_alta",
+              "label": "Formulario de comunicación de alta",
+              "descripcion": "Comunicación de alta (puesta en servicio) de la ficha 18168.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_bt",
+              "label": "Certificado de instalación eléctrica de BT",
+              "descripcion": "Modelo normalizado (formulario web), emitido por empresa instaladora habilitada en baja tensión de categoría especialista (IBTE).",
               "obligatorio": true
             }
           ],
@@ -116,7 +129,7 @@
         {
           "orden": 1,
           "nombre": "Comunicación de puesta en servicio e inscripción en registro",
-          "organismo": "Servicio Territorial competente en materia de energía",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "RD 244/2019; Decreto 88/2005",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
@@ -132,9 +145,21 @@
               "label": "Proyecto y Certificado de Dirección de Obra (CDO)",
               "descripcion": "Para instalaciones >10 kW.",
               "obligatorio": true
+            },
+            {
+              "id": "formulario_comunicacion_alta",
+              "label": "Formulario de comunicación de alta",
+              "descripcion": "Comunicación de alta (puesta en servicio) de la ficha 20714.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_bt",
+              "label": "Certificado de instalación eléctrica de BT",
+              "descripcion": "Emitido por empresa instaladora habilitada en baja tensión (formulario web).",
+              "obligatorio": true
             }
           ],
-          "notas": "Con excedentes ≤100 kW: inscripción de oficio en el Registro de producción.",
+          "notas": "Con excedentes ≤100 kW: inscripción de oficio en el Registro de producción.\nLa ficha 20714 cubre todo autoconsumo en BT de más de 10 kW, sin tope de 100 kW; por encima de 100 kW (o con consumidor en AT) la persona consumidora comunica ella misma a la distribuidora.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -175,13 +200,13 @@
         {
           "orden": 1,
           "nombre": "Autorización de explotación e inscripción en Registro de producción",
-          "organismo": "Servicio Territorial competente en materia de energía",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "Ley 6/2024 (modifica Decreto 88/2005); Ley 24/2013 art. 53",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
-          "coste_estimado": "155,09 € (109,54 € fijos + 45,55 € por los primeros 6.600 € de presupuesto; tabla Tasas 2025 de sede.gva.es, pendiente de contrastar con ejercicio 2026)",
+          "coste_estimado": "No verificado: las cifras de 109,54 € + 45,55 € por tramo pertenecen a la ficha 15300 (alta tensión, tasas 2025), no a la 20714",
           "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-003A",
@@ -193,7 +218,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).\nCon conexión en BT y hasta 500 kW, el certificado de instalación diligenciado vale como autorización de explotación (Decreto 88/2005; fuente secundaria): el trámite real de la ficha 20714 es la comunicación de alta, sin resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -234,13 +259,13 @@
         {
           "orden": 1,
           "nombre": "Autorización de explotación e inscripción en Registro de producción",
-          "organismo": "Servicio Territorial competente en materia de energía",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "Ley 6/2024 (modifica Decreto 88/2005); Ley 24/2013 art. 53",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
-          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa (fórmula: 109,54 € + 45,55 € por los primeros 6.600 € + 12,02 € por cada 6.600 € adicionales o fracción)",
+          "coste_estimado": "No verificado: las cifras de 109,54 € + 45,55 € por tramo pertenecen a la ficha 15300 (alta tensión, tasas 2025), no a la 20714",
           "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-003B",
@@ -252,7 +277,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).\nCon conexión en BT y hasta 500 kW, el certificado de instalación diligenciado vale como autorización de explotación (Decreto 88/2005; fuente secundaria): el trámite real de la ficha 20714 es la comunicación de alta, sin resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -293,13 +318,13 @@
         {
           "orden": 1,
           "nombre": "Autorización de explotación e inscripción en Registro de producción",
-          "organismo": "Servicio Territorial competente en materia de energía",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "Ley 6/2024 (modifica Decreto 88/2005); Ley 24/2013 art. 53",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es), expediente ATREGI",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=20714",
-          "coste_estimado": "Mínimo 167,11 € (109,54 € + 45,55 € por los primeros 6.600 € + 12,02 € por cada 6.600 € adicionales o fracción de presupuesto; tabla Tasas 2025 de sede.gva.es, pendiente de contrastar con ejercicio 2026)",
+          "coste_estimado": "No verificado: las cifras de 109,54 € + 45,55 € por tramo pertenecen a la ficha 15300 (alta tensión, tasas 2025), no a la 20714",
           "formulario_ref": "20714",
           "paralelo_con": null,
           "regla_id": "CV-FV-003C",
@@ -311,7 +336,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).",
+          "notas": "La Ley 6/2024 extiende la exención de autorización previa y de construcción hasta 500 kW. Verificar artículo exacto contra el DOGV antes de producción. Enlace corregido a id_proc=20714 (autoconsumo en BT); si la conexión es en alta tensión correspondería id_proc=15300 (campo de tensión de conexión no disponible en el schema).\nCon conexión en BT y hasta 500 kW, el certificado de instalación diligenciado vale como autorización de explotación (Decreto 88/2005; fuente secundaria): el trámite real de la ficha 20714 es la comunicación de alta, sin resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -344,7 +369,7 @@
         {
           "orden": 1,
           "nombre": "Autorización administrativa e inscripción en Registro de producción",
-          "organismo": "Servicio Territorial competente en materia de energía",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "Decreto 88/2005 art. 6; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
@@ -395,7 +420,7 @@
         {
           "orden": 1,
           "nombre": "Autorización administrativa e inscripción en Registro de producción",
-          "organismo": "Servicio Territorial competente en materia de energía",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "Decreto 88/2005 art. 6; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,
@@ -446,7 +471,7 @@
         {
           "orden": 1,
           "nombre": "Autorización administrativa e inscripción en Registro de producción",
-          "organismo": "Servicio Territorial competente en materia de energía",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "Decreto 88/2005 art. 6; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
           "plazo_legal_dias": 180,

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "aragon",
-  "version": "0.9.4",
-  "ultima_revision": "2026-10-02",
+  "version": "0.9.5",
+  "ultima_revision": "2026-10-04",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
   "aviso": "Comunicación RITE y legionelosis. Verificación Prompt B (2026-10-01): umbrales de potencia coherentes con el RITE (memoria técnica de 5 a 70 kW incluidos; proyecto por encima de 70 kW). Se añadieron la Orden de 27/04/2009 como base legal, el formulario y los certificados de la ficha Nº 39 y la tasa; se retiraron los plazos legales sin respaldo. Persisten huecos (ver huecos_verificacion).",
@@ -32,7 +32,7 @@
     },
     {
       "norma": "RD 487/2022 modificado por RD 614/2024 (legionelosis)",
-      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-10297",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2024-13422",
       "fecha_consulta": "2026-08-08"
     },
     {

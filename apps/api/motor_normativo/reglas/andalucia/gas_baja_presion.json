@@ -1,11 +1,11 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "andalucia",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.2.0",
+  "ultima_revision": "2026-10-04",
   "fuentes": [
     {
-      "norma": "RD 919/2006 (Reglamento técnico de distribución y utilización de combustibles gaseosos, denominado RIGLO/RICG)",
+      "norma": "RD 919/2006 (Reglamento técnico de distribución y utilización de combustibles gaseosos, denominado RD 919/2006 (ITC-ICG 07)/RICG)",
       "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
       "fecha_consulta": "2026-08-08"
     },
@@ -23,33 +23,21 @@
   "reglas": [
     {
       "id": "AND-GAS-001",
-      "descripcion": "Instalación de gas baja presión ≤ 70 kW en uso residencial (sin proyecto, con memoria técnica)",
+      "descripcion": "Instalación receptora de gas individual de hasta 70 kW (cualquier uso): memoria técnica y certificado de instalación",
       "condicion": {
-        "and": [
+        "<=": [
           {
-            "<=": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          70
         ]
       },
       "tramites": [
         {
           "orden": 1,
           "nombre": "Memoria Técnica de Instalación (MTI) de gas",
-          "organismo": "Instalador habilitado (categoría IG-I o IG-II)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 59/2005",
+          "organismo": "Instalador habilitado (categoría A, B o C, ITC-ICG 09)",
+          "base_legal": "RD 919/2006 (ITC-ICG 07) RD 919/2006; Decreto 59/2005",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -64,7 +52,7 @@
             {
               "id": "certificado_instalador",
               "label": "Certificado de instalador habilitado",
-              "descripcion": "Acreditación de la categoría del instalador (IG-I o IG-II) según RIGLO."
+              "descripcion": "Acreditación de la categoría del instalador (IG-I o IG-II) según RD 919/2006 (ITC-ICG 07)."
             }
           ],
           "paralelo_con": null,
@@ -76,18 +64,18 @@
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) y puesta en servicio",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía) -- comunicación PUES; NO requiere visado de OCA salvo instalación >70 kW con proyecto",
-          "base_legal": "Orden de 5 de marzo de 2013 (Andalucía), Anexo I (instalaciones de gas); RD 919/2006",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía) -- comunicación PUES; NO requiere visado de OCA salvo instalación >70 kW con proyecto",
+          "base_legal": "RD 919/2006 (ITC-ICG 07); Orden de 5/03/2013 (Anexos I y II)",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "Tasa Modelo 046 (comunicación PUES): sin tasa específica de OCA verificada -- corregido tras auditoria (organismo anterior improcedente)",
+          "coste_estimado": "Existe tasa 046 para «instalaciones de gas» (sin proyecto: 42,59 € en 2026, epígrafe por confirmar; con proyecto, escala por presupuesto). Importe no verificado.",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
-              "descripcion": "Documento oficial firmado por instalador y visado por OCA, según modelo de la Orden 5 marzo 2013."
+              "label": "Certificado de instalación (IRG-1 acometida interior, IRG-2 común o IRG-3 individual)",
+              "descripcion": "Lo firma la empresa instaladora; no se visa por organismo de control."
             },
             {
               "id": "mti_gas_firmada",
@@ -97,7 +85,7 @@
           ],
           "paralelo_con": null,
           "formulario_ref": null,
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -105,25 +93,13 @@
     },
     {
       "id": "AND-GAS-002",
-      "descripcion": "Instalación de gas baja presión > 70 kW o en uso no residencial (con proyecto técnico)",
+      "descripcion": "Instalación receptora de gas de más de 70 kW: proyecto técnico, certificado de instalación y certificado de dirección de obra",
       "condicion": {
-        "or": [
+        ">": [
           {
-            ">": [
-              {
-                "var": "potencia_kw"
-              },
-              70
-            ]
+            "var": "potencia_kw"
           },
-          {
-            "!=": [
-              {
-                "var": "uso"
-              },
-              "residencial"
-            ]
-          }
+          70
         ]
       },
       "tramites": [
@@ -131,7 +107,7 @@
           "orden": 1,
           "nombre": "Proyecto Técnico de instalación de gas",
           "organismo": "Técnico titulado competente (ingeniero industrial, químico, etc.)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 59/2005",
+          "base_legal": "RD 919/2006 (ITC-ICG 07) RD 919/2006; Decreto 59/2005",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -153,28 +129,34 @@
         {
           "orden": 2,
           "nombre": "Certificado de Instalación (CI) y puesta en servicio",
-          "organismo": "Delegación Territorial de Industria, Energía y Minas (Junta de Andalucía) -- comunicación PUES; NO requiere visado de OCA salvo instalación >70 kW con proyecto",
-          "base_legal": "Orden de 5 de marzo de 2013 (Andalucía), Anexo I (instalaciones de gas); RD 919/2006",
+          "organismo": "Delegación Territorial de la Consejería de Universidad, Industria, Energía e Innovación (Junta de Andalucía) -- comunicación PUES; NO requiere visado de OCA salvo instalación >70 kW con proyecto",
+          "base_legal": "RD 919/2006 (ITC-ICG 07); Orden de 5/03/2013 (Anexos I y II)",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": "PUES",
           "plataforma_url": "https://www.juntadeandalucia.es/empleoempresaycomercio/oficinavirtual/bienvenida.do",
-          "coste_estimado": "Tasa Modelo 046 (registro PUES) + visado de proyecto si aplica: 100-200 € (estimado, sin tasa de OCA)",
+          "coste_estimado": "Existe tasa 046 para «instalaciones de gas» (sin proyecto: 42,59 € en 2026, epígrafe por confirmar; con proyecto, escala por presupuesto). Importe no verificado.",
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
-              "descripcion": "Documento oficial firmado por instalador y visado por OCA."
+              "label": "Certificado de instalación (IRG-1 acometida interior, IRG-2 común o IRG-3 individual)",
+              "descripcion": "Lo firma la empresa instaladora; no se visa por organismo de control."
             },
             {
               "id": "proyecto_gas_visado",
-              "label": "Proyecto visado por colegio profesional (si aplica)",
-              "descripcion": "Visado del proyecto por el colegio profesional correspondiente."
+              "label": "Proyecto técnico firmado por técnico competente",
+              "descripcion": "El visado colegial solo es exigible cuando lo imponga un Real Decreto (Orden de 5/03/2013, art. 5.1); sin visado se aporta certificado del colegio o declaración responsable del técnico autor."
+            },
+            {
+              "id": "cert_direccion_obra_gas",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Instalaciones con proyecto (ITC-ICG 07).",
+              "obligatorio": true
             }
           ],
           "paralelo_con": null,
           "formulario_ref": null,
-          "notas": null,
+          "notas": "Es una comunicación de puesta en funcionamiento por PUES: no tiene plazo de resolución ni silencio; la plataforma emite un justificante de presentación y solo hay un requerimiento de subsanación de 10 días (Orden de 5/03/2013, arts. 12 y 13).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -185,6 +167,8 @@
   "revisado_por": null,
   "huecos_verificacion": [
     "PENDIENTE (no verificado en esta pasada): importes exactos de tasa Modelo 046 para instalaciones de gas; base legal Ley 10/2021 art. 44.",
-    "PENDIENTE: distinguir gas natural canalizado (con distribuidora, ej. Nedgia Andalucía) de GLP y su trámite de alta de suministro (hueco B7 de la auditoría, no verificado con fuente)."
+    "PENDIENTE: distinguir gas natural canalizado (con distribuidora, ej. Nedgia Andalucía) de GLP y su trámite de alta de suministro (hueco B7 de la auditoría, no verificado con fuente).",
+    "Verificación Prompt B (2026-10-04): Andalucía gas (Prompt B parte 2): condiciones por potencia únicamente (individual ≤ 70 kW memoria; > 70 kW proyecto), sin la rama «uso ≠ residencial» (la ITC-ICG 07 liga el proyecto a potencia, presión y ampliación, no al uso; media: la ITC no se pudo abrir completa). Plazos legales de PUES a null; certificado IRG-1/2/3 (no «visado por OCA»); categorías A/B/C (ITC-ICG 09).",
+    "Verificación Prompt B (2026-10-04): PRIORITARIO sin cerrar (gas Andalucía): no se pudo abrir la ficha técnica de gas (Anexo II de la Orden 5/03/2013) ni las FAQ de PUES v1.2. La ITC-ICG 07 dice «Salvo en el caso de las instalaciones que requieren proyecto, no es precisa ninguna comunicación», pero la Junta lista «Instalaciones de gas» entre las comunicables por PUES y la tasa 2026 recoge «gas sin proyecto». No se quitó el paso de PUES (a diferencia de Aragón, Cataluña y la Comunitat Valenciana, donde la ficha oficial lo confirma). Faltan además presión > 5 bar, comunes y acometidas > 2.000 kW y ampliaciones > 30 %, el alta con la distribuidora (RD 1434/2002 art. 34) y el certificado de dirección de obra / de organismo de control."
   ]
 }
