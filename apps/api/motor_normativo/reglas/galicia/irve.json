@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "galicia",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,7 +13,8 @@
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "Tasas y plazos legales no verificados",
     "NO VERIFICABLE: el código IN614A (citado junto a IN614C en formulario_ref) no se ha podido confirmar como ficha real en sede.xunta.gal; solo IN614C está confirmado con fuente admisible. No se ha retirado IN614A del formulario_ref a falta de confirmación adicional.",
-    "NO VERIFICABLE: el código IN429A (GAL-IRVE-002 orden 2, inspección inicial OCA) no se ha podido confirmar como ficha real en sede.xunta.gal; único resultado real para '429A' es SI429A (Programa Emega, ayudas al emprendimiento femenino, sin relación con instalaciones eléctricas). plataforma_url de este trámite se deja sin tocar (sigue apuntando a la raíz genérica) hasta confirmación adicional del código correcto."
+    "NO VERIFICABLE: el código IN429A (GAL-IRVE-002 orden 2, inspección inicial OCA) no se ha podido confirmar como ficha real en sede.xunta.gal; único resultado real para '429A' es SI429A (Programa Emega, ayudas al emprendimiento femenino, sin relación con instalaciones eléctricas). plataforma_url de este trámite se deja sin tocar (sigue apuntando a la raíz genérica) hasta confirmación adicional del código correcto.",
+    "Verificación Prompt B (2026-10-05): Galicia IRVE (Prompt B): umbrales de la ITC-BT-04 y OCA con proyecto confirmados; IN614A no existe en las fichas (se dejó IN614C); la norma reguladora es la Orden de 23/07/2003 y la Resolución de 22/07/2014 solo regula la tramitación electrónica. Sin verificar: importes de tasas, plazo de la ficha y permisos municipales de vía pública."
   ],
   "fuentes": [
     {
@@ -142,15 +143,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro/comunicación de instalación de baja tensión (IN614A/IN614C)",
+          "nombre": "Registro/comunicación de instalación de baja tensión (IN614C)",
           "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
-          "base_legal": "Resolución de 22 de julio de 2014",
+          "base_legal": "Orde do 23/07/2003 (DOG 152, 07/08/2003) y Orden de 02/02/2005 (modelos); Resolución de 22/07/2014 (tramitación electrónica)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
           "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?codtram=IN614C",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "IN614A / IN614C",
+          "coste_estimado": "Existen tasas (32.19.04 inscripción; 32.19.32 modificación; 30.02.00 registros oficiales); importe no verificado",
+          "formulario_ref": "IN614C",
           "paralelo_con": null,
           "regla_id": "GAL-IRVE-001",
           "documentos_requeridos": [
@@ -293,15 +294,15 @@
         },
         {
           "orden": 3,
-          "nombre": "Registro/comunicación de instalación con certificado de OCA favorable (IN614A/IN614C)",
+          "nombre": "Registro/comunicación de instalación con certificado de OCA favorable (IN614C)",
           "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
-          "base_legal": "Resolución de 22 de julio de 2014",
+          "base_legal": "Orde do 23/07/2003 (DOG 152, 07/08/2003) y Orden de 02/02/2005 (modelos); Resolución de 22/07/2014 (tramitación electrónica)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
           "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?codtram=IN614C",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "IN614A / IN614C",
+          "coste_estimado": "Existen tasas (32.19.04 inscripción; 32.19.32 modificación; 30.02.00 registros oficiales); importe no verificado",
+          "formulario_ref": "IN614C",
           "paralelo_con": null,
           "regla_id": "GAL-IRVE-002",
           "documentos_requeridos": [

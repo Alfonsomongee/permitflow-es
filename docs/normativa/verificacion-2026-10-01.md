@@ -235,3 +235,33 @@ Cuatro resultados de herramienta externa (Canarias; Andalucía FV; Andalucía AC
 ### Siguiente paso concreto
 Abrir a mano la ficha técnica de gas de PUES (Anexo II de la Orden de 5/03/2013) y la ficha 3905; el Anexo VII del Decreto 141/2009 en el BOC; las fichas 9588, 11944, 11954, 18494 de la Junta y la 20714 / 15300 de la Generalitat; y leer en el BOE el art. 24 del RITE. Con eso se cierran los huecos de clasificación.
 
+---
+
+## Resultado del Prompt B — Galicia, Castilla y León y País Vasco (2026-10-05)
+
+Tres resultados de herramienta externa (consultados el 2026-10-04). Misma salvedad: no re-comprobado, JSON íntegro no archivado, y casi todas las fichas de `sede.xunta.gal` y `euskadi.eus` se leyeron por extracto de buscador; las de Castilla y León se leyeron directamente. Cambios de clasificación en **ADR 0005** (y adenda del ADR 0003). Ningún nivel sube; `revisado_por` sigue vacío.
+
+### Aplicado
+| Comunidad | Hallazgo (confianza) | Cambio |
+|---|---|---|
+| Galicia, Castilla y León | **FV: proyecto por encima de 10 kW** (alta; ficha IN614C / ITC-BT-04 §3.1) | `001` a ≤ 10 kW y reglas nuevas `GAL-FV-001P`, `CYL-FV-001P` (10-100 kW) |
+| Galicia | Falta el registro IN614C; IN407B gratuito y para menos de 100 kW; resuelve la DX de Planificación Enerxética (alta/media) | Paso IN614C añadido, textos y organismo corregidos |
+| Galicia, Castilla y León, País Vasco | Gas ≤ 70 kW sin registro/declaración (alta; fichas IN625A, IAPA1496 y IG) | Pasos quitados; ADR 0003/0005 |
+| País Vasco | IRVE por BT-A, no GE; no hay autorización previa (alta) | Plataforma, nombre y base legal |
+| País Vasco | Organismo = Delegación Territorial; RD 614/2024 es de 2 de julio; PSL = Plan Sanitario frente a Legionella; Decreto 229/2012 derogado; Nortegas (media) | Textos |
+| País Vasco | Grupo segundo (≤ 1 MW) a 3 meses; tasa por el art. 132 del DLeg 1/2025 (media) | Plazo legal a null y tasa |
+| Castilla y León | RISE en lugar de BOEL/«RITE»; sin «voluntario»; sin notificación sanitaria (alta) | Plataforma, nombres y notas |
+| Galicia | Orden de 24/02/2010 (norma autonómica del RITE); IN622B (alta) | Base legal y nombre |
+| Castilla y León, País Vasco, Galicia | La ficha no pide certificado de OCA en instalaciones nuevas (media) | Paso conservado con aviso |
+
+### Registrado en `huecos_verificacion` (decisión o fuente pendiente)
+- **Excedentes (Galicia, País Vasco; alta):** el autoconsumo sin excedentes no requiere autorización (solo registro); falta la variable.
+- **Castilla y León, Decreto 25/2026 (media):** hasta 500 kW solo autorización de explotación; no se leyó el texto.
+- **Galicia gas:** la ficha IN625A exige proyecto también por GLP y presión > 4 bar (el marco dice 5 bar).
+- **Inspección inicial por OCA entre 25 y 100 kW (Galicia, alta)** y **OCA > 25 kW en el País Vasco** sin modelar.
+- **Tasas** sin importe localizado (Galicia 32.xx; Castilla y León 308.1; País Vasco, el art. 132 solo da la tarifa básica).
+- **Reorganización orgánica 2026** de Castilla y León sin confirmar.
+
+### Siguiente paso concreto
+Abrir a mano las fichas IN614C, IN407B, IN625A, la IAPA13 / IAPA1496 y el procedimiento IG del País Vasco; leer el texto íntegro del Decreto 25/2026 y las Instrucciones 2/2021 y 1/2022.
+

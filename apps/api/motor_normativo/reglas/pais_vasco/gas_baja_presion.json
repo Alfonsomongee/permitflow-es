@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "pais_vasco",
-  "version": "0.9.2",
-  "ultima_revision": "2026-08-20",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -10,11 +10,12 @@
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica vasca específica de gas más allá del marco general de simplificación industrial (Decreto 229/2012)",
     "Tasas y plazos legales no verificados con detalle",
-    "CORREGIDO 2026-08-20: 'paralelo_con' en PV-GAS-001/002/003 apuntaba al 'id' de la propia regla en vez de al 'orden' numérico del trámite paralelo, que es lo que espera TramiteOutput; se resolvía en silencio a null y el trámite de acometida se mostraba en serie en vez de en paralelo. Corregido a 'paralelo_con: 2' (Certificado de Instalación), tal como ya describía la propia 'descripcion' del documento de cada trámite."
+    "CORREGIDO 2026-08-20: 'paralelo_con' en PV-GAS-001/002/003 apuntaba al 'id' de la propia regla en vez de al 'orden' numérico del trámite paralelo, que es lo que espera TramiteOutput; se resolvía en silencio a null y el trámite de acometida se mostraba en serie en vez de en paralelo. Corregido a 'paralelo_con: 2' (Certificado de Instalación), tal como ya describía la propia 'descripcion' del documento de cada trámite.",
+    "Verificación Prompt B (2026-10-05): País Vasco gas (Prompt B): BLOQUEANTE resuelto (alta, ficha de la sede «puesta en servicio de una instalación receptora de gas con proyecto»): se quitó el certificado y puesta en servicio de PV-GAS-002 (≤ 5 bar y ≤ 70 kW); ver ADR 0003. ECA sustituida por la Delegación Territorial (declaración responsable); plazos legales a null; Decreto 229/2012 derogado por el Decreto 81/2020; distribuidora Nortegas (media, web corporativa). Omisiones: modificación y baja. Umbral de 70 kW y 5 bar solo en fuentes secundarias."
   ],
   "fuentes": [
     {
-      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
+      "norma": "RD 919/2006 RD 919/2006 (ITC-ICG 07) (Reglamento técnico de distribución y utilización de combustibles gaseosos), ITC-ICG-07",
       "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
       "fecha_consulta": "2026-08-08"
     },
@@ -46,7 +47,7 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación de gas",
           "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "base_legal": "RD 919/2006 (ITC-ICG 07) RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -70,10 +71,10 @@
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) y puesta en servicio con ECA",
-          "organismo": "Entidad Colaboradora de la Administración (ECA) autorizada en País Vasco",
-          "base_legal": "RIGLO RD 919/2006; Decreto 229/2012",
+          "organismo": "Delegación Territorial de Administración Industrial (Araba, Bizkaia o Gipuzkoa) del Gobierno Vasco",
+          "base_legal": "RD 919/2006 (ITC-ICG 07); Decreto 81/2020 (el Decreto 229/2012 está derogado)",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Euskadi.eus - Ventanilla de Industria",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
@@ -90,22 +91,22 @@
             {
               "id": "boletin_gas",
               "label": "Boletín de instalación de gas (modelo oficial)",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "No figura en la documentación de la sede (declaración responsable, proyecto, certificados de dirección de obra e instalación).",
+              "obligatorio": false
             }
           ],
-          "notas": "",
+          "notas": "Es una declaración responsable ante la Delegación Territorial (Decreto 81/2020, art. 8): no tiene plazo de resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
           "nombre": "Acometida y alta de suministro con la distribuidora de gas",
-          "organismo": "Empresa distribuidora de gas (Nedgia Naturgy u otra según zona)",
-          "base_legal": "RIGLO RD 919/2006",
+          "organismo": "Empresa distribuidora de gas de la zona (p. ej. Nortegas)",
+          "base_legal": "RD 919/2006 (ITC-ICG 07) RD 919/2006",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
-          "plataforma": "Distribuidora (Nedgia Naturgy u otra)",
+          "plataforma": "Empresa distribuidora de la zona (p. ej. Nortegas)",
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
@@ -126,7 +127,7 @@
     },
     {
       "id": "PV-GAS-002",
-      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
+      "descripcion": "Instalación receptora de gas individual de hasta 70 kW y hasta 5 bar: memoria técnica y alta con la distribuidora; sin declaración responsable ante la Delegación",
       "condicion": {
         "and": [
           {
@@ -151,8 +152,8 @@
         {
           "orden": 1,
           "nombre": "Memoria técnica de instalación de gas (MTI-Gas)",
-          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "organismo": "Instalador de gas habilitado (carné de categoría A, B o C, ITC-ICG 09)",
+          "base_legal": "RD 919/2006 (ITC-ICG 07) RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -175,53 +176,22 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "El procedimiento de gas de euskadi.eus cubre solo la puesta en servicio de instalaciones receptoras CON proyecto; sin proyecto no hay comunicación en la sede (Decreto 81/2020, art. 10.2; ITC-ICG 07).",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (CI) y puesta en servicio",
-          "organismo": "Órgano competente del País Vasco o entidad colaboradora (ECA)",
-          "base_legal": "RIGLO RD 919/2006; Decreto 229/2012",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
-          "plataforma": "Euskadi.eus - Ventanilla de Industria",
-          "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "IG",
-          "paralelo_con": null,
-          "regla_id": "PV-GAS-002",
-          "documentos_requeridos": [
-            {
-              "id": "ci_gas",
-              "label": "Certificado de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "boletin_gas",
-              "label": "Boletín de instalación de gas (modelo oficial)",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 3,
           "nombre": "Acometida y alta de suministro con la distribuidora de gas",
-          "organismo": "Empresa distribuidora de gas (Nedgia Naturgy u otra según zona)",
-          "base_legal": "RIGLO RD 919/2006",
+          "organismo": "Empresa distribuidora de gas de la zona (p. ej. Nortegas)",
+          "base_legal": "RD 919/2006 (ITC-ICG 07) RD 919/2006",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
-          "plataforma": "Distribuidora (Nedgia Naturgy u otra)",
+          "plataforma": "Empresa distribuidora de la zona (p. ej. Nortegas)",
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,
-          "paralelo_con": 2,
+          "paralelo_con": null,
           "regla_id": "PV-GAS-002",
           "documentos_requeridos": [
             {
@@ -264,7 +234,7 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación de gas",
           "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
+          "base_legal": "RD 919/2006 (ITC-ICG 07) RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -288,10 +258,10 @@
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) y puesta en servicio con ECA",
-          "organismo": "Entidad Colaboradora de la Administración (ECA) autorizada en País Vasco",
-          "base_legal": "RIGLO RD 919/2006; Decreto 229/2012",
+          "organismo": "Delegación Territorial de Administración Industrial (Araba, Bizkaia o Gipuzkoa) del Gobierno Vasco",
+          "base_legal": "RD 919/2006 (ITC-ICG 07); Decreto 81/2020 (el Decreto 229/2012 está derogado)",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Euskadi.eus - Ventanilla de Industria",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/instalacion-receptora-gas/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
@@ -308,22 +278,22 @@
             {
               "id": "boletin_gas",
               "label": "Boletín de instalación de gas (modelo oficial)",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "No figura en la documentación de la sede (declaración responsable, proyecto, certificados de dirección de obra e instalación).",
+              "obligatorio": false
             }
           ],
-          "notas": "",
+          "notas": "Es una declaración responsable ante la Delegación Territorial (Decreto 81/2020, art. 8): no tiene plazo de resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
           "nombre": "Acometida y alta de suministro con la distribuidora de gas",
-          "organismo": "Empresa distribuidora de gas (Nedgia Naturgy u otra según zona)",
-          "base_legal": "RIGLO RD 919/2006",
+          "organismo": "Empresa distribuidora de gas de la zona (p. ej. Nortegas)",
+          "base_legal": "RD 919/2006 (ITC-ICG 07) RD 919/2006",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
-          "plataforma": "Distribuidora (Nedgia Naturgy u otra)",
+          "plataforma": "Empresa distribuidora de la zona (p. ej. Nortegas)",
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": null,

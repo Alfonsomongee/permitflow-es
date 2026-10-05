@@ -35,3 +35,7 @@ El Prompt B ya había señalado el conflicto y lo dejamos como hueco bloqueante 
 
 La ficha 3192 de la Generalitat reproduce la ITC-ICG 07 («no es precisa ninguna comunicación» salvo instalaciones con proyecto): `CV-GAS-002` pierde el paso de comunicación (ver ADR 0004). **Andalucía y Canarias quedan sin cambiar**: la ficha de Canarias (3905) no distingue instalaciones con y sin proyecto y la Junta de Andalucía lista el gas entre las comunicables por PUES; ninguna fuente autonómica permite descartar el trámite todavía.
 
+## Adenda 2026-10-05 (Prompt B Galicia, Castilla y León y País Vasco)
+
+Tres comunidades más lo confirman con la ficha oficial: IN625A (Galicia), IAPA1496 (Castilla y León) y el procedimiento IG de euskadi.eus (País Vasco) cubren solo instalaciones **con proyecto**. Se quitan los pasos de registro/declaración para el tramo ≤ 70 kW (ver ADR 0005). Ya son **siete** las comunidades corregidas (Aragón, Cataluña, Comunitat Valenciana, Galicia, Castilla y León y País Vasco, más Madrid con otra redacción); siguen sin cambio Andalucía y Canarias.
+

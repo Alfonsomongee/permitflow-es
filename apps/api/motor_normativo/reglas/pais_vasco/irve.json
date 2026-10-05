@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "pais_vasco",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "No se ha localizado normativa autonómica vasca específica de IRVE; se aplica el Decreto 48/2020 general de instalaciones eléctricas más ITC-BT-52 nacional",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido — NO VERIFICABLE, se mantiene sin tocar",
-    "Tasas y plazos legales no verificados con detalle"
+    "Tasas y plazos legales no verificados con detalle",
+    "Verificación Prompt B (2026-10-05): País Vasco IRVE (Prompt B): BLOQUEANTE resuelto (alta, ficha BT de euskadi.eus): la IRVE en baja tensión se tramita por el procedimiento BT-A (declaración responsable de puesta en servicio), no por el de generación (GE); se corrigieron plataforma_url, base legal (el Decreto 48/2020 no regula la IRVE de BT) y el paso de «autorización administrativa previa», que no existe (el trámite se renombró: pierde las estadísticas de plazos del nombre antiguo). Umbrales de 50/10 kW confirmados con el PDF oficial «Recarga-VE». Omisiones: informe de organismo de control y garaje desclasificado / comunidad de propietarios. Sin verificar: tasa (art. 132 DLeg 1/2025), modo 4 e instalador especialista."
   ],
   "fuentes": [
     {
@@ -135,13 +136,13 @@
         },
         {
           "orden": 2,
-          "nombre": "Tramitación de puesta en servicio (procedimiento GE)",
-          "organismo": "Delegación Territorial de Administración Industrial del Gobierno Vasco",
-          "base_legal": "Decreto 48/2020",
+          "nombre": "Declaración responsable de puesta en servicio de baja tensión (procedimiento BT-A)",
+          "organismo": "Delegación Territorial de Administración Industrial (Araba, Bizkaia o Gipuzkoa) del Gobierno Vasco",
+          "base_legal": "REBT RD 842/2002; ITC-BT-52 (RD 1053/2014, modificada por los RD 542/2020 y 450/2022); Decreto 81/2020 (declaración responsable)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
+          "plataforma": "Sede de euskadi.eus: procedimiento BT",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/bt/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GE",
           "paralelo_con": null,
@@ -160,7 +161,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha BT-A es una declaración responsable para la puesta en servicio de instalaciones nuevas de baja tensión; no existe autorización administrativa previa para la IRVE en baja tensión. Se adjunta, en su caso, el informe de inspección de un organismo de control en vigor.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -255,13 +256,13 @@
         },
         {
           "orden": 2,
-          "nombre": "Solicitud de autorización administrativa previa (si procede) y puesta en servicio (procedimiento GE)",
-          "organismo": "Dirección competente en materia de energía del Gobierno Vasco",
-          "base_legal": "Decreto 48/2020",
+          "nombre": "Declaración responsable BT-A con proyecto (puesta en servicio)",
+          "organismo": "Delegación Territorial de Administración Industrial (Araba, Bizkaia o Gipuzkoa) del Gobierno Vasco",
+          "base_legal": "REBT RD 842/2002; ITC-BT-52 (RD 1053/2014, modificada por los RD 542/2020 y 450/2022); Decreto 81/2020 (declaración responsable)",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
-          "plataforma": "euskadi.eus (procedimiento GE)",
-          "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
+          "plataforma": "Sede de euskadi.eus: procedimiento BT",
+          "plataforma_url": "https://www.euskadi.eus/procedimiento/bt/web01-tramite/es/",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GE",
           "paralelo_con": null,
@@ -286,7 +287,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha BT-A es una declaración responsable para la puesta en servicio de instalaciones nuevas de baja tensión; no existe autorización administrativa previa para la IRVE en baja tensión. Se adjunta, en su caso, el informe de inspección de un organismo de control en vigor.",
           "registro_salida": null,
           "medio_presentacion": null
         }

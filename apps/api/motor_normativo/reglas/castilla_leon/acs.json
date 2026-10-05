@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "castilla_leon",
-  "version": "0.9.1",
-  "ultima_revision": "2026-10-04",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "No se ha localizado normativa autonómica de Castilla y León específica de ACS; se aplica el RITE nacional directamente",
     "No se ha confirmado si Castilla y León exige OCA específicamente para ACS >70 kW más allá de lo que exige el RITE nacional",
     "Tasas y plazos legales no verificados",
-    "NO VERIFICADO: procedimiento/plataforma exacto de censo de instalaciones de riesgo de legionelosis ante la Consejería de Sanidad de Castilla y León (trámite de la regla CYL-ACS-003, orden 2)"
+    "NO VERIFICADO: procedimiento/plataforma exacto de censo de instalaciones de riesgo de legionelosis ante la Consejería de Sanidad de Castilla y León (trámite de la regla CYL-ACS-003, orden 2)",
+    "Verificación Prompt B (2026-10-05): Castilla y León (Prompt B): umbrales RITE confirmados en el consolidado del BOE (alta). RISE sustituye a la aplicación «RITE» (solo consulta desde mayo de 2021); se quitó la nota de «procedimiento voluntario» (la inscripción es preceptiva: sin registro del certificado no hay puesta en servicio) y la frase «fuera del ámbito del RITE». El paso de OCA para > 70 kW se conserva con aviso (media). Documentos de la ficha IAPA1468 añadidos. Tasa 308.1 sin importe localizado. Se quitó la «notificación/censo ante la autoridad sanitaria» de CYL-ACS-003: el art. 10 del RD 487/2022 regula actuaciones de la autoridad sanitaria y no se localizó ninguna ampliación autonómica de la notificación al ACS (art. 5.6); el campo uso_colectivo debería excluir el uso exclusivo de vivienda (art. 3.2)."
   ],
   "fuentes": [
     {
@@ -134,7 +135,7 @@
           "paralelo_con": null,
           "regla_id": "CYL-ACS-000",
           "documentos_requeridos": [],
-          "notas": "Instalaciones de potencia inferior a 5 kW quedan fuera del ámbito de aplicación del RITE y no requieren memoria técnica, proyecto ni inscripción en el Registro de instalaciones térmicas (aplicación 'RITE', IAPA1468). Si el edificio es de uso colectivo, revisar igualmente la regla CYL-ACS-003 de Legionella, que no depende de la potencia.",
+          "notas": "Instalaciones de potencia inferior a 5 kW quedan exentas de presentar documentación ante la Comunidad Autónoma (art. 15.1.c del RITE; la instalación sigue sujeta al RITE) y no requieren memoria técnica, proyecto ni inscripción en el Registro de instalaciones térmicas (aplicación 'RITE', IAPA1468). Si el edificio es de uso colectivo, revisar igualmente la regla CYL-ACS-003 de Legionella, que no depende de la potencia.",
           "tipo_actuacion": "informativa",
           "registro_salida": null,
           "medio_presentacion": null
@@ -240,12 +241,12 @@
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro de instalaciones térmicas (aplicación 'RITE')",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
-          "base_legal": "RITE RD 1027/2007 art. 24; Orden EYE/912/2012",
+          "nombre": "Inscripción en el Registro de instalaciones térmicas (RISE)",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden EYE/912/2012 (aplicación hoy solo de consulta); Orden EEI/1036/2021",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
-          "plataforma": "Aplicación 'RITE' (Sede Electrónica de la Junta de Castilla y León)",
+          "plataforma": "RISE (Registro de Instalaciones de Seguridad Industrial) de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/21/1273563627347/Tramite",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "IAPA1468",
@@ -263,9 +264,21 @@
               "label": "Certificado del instalador",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "hoja_inscripcion_termicas",
+              "label": "Carpeta de instalaciones térmicas en edificios: hoja de inscripción",
+              "descripcion": "Ficha IAPA1468.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_308_1",
+              "label": "Justificante de la tasa 308.1",
+              "descripcion": "Autoliquidación (modelo 046).",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La inscripción se tramita en RISE (https://servicios3.jcyl.es/tras/rise); las aplicaciones BOEL y RITE solo permiten consultar instalaciones anteriores a mayo de 2021. Resolución inmediata (máximo 3 días desde la recepción en el Servicio Territorial) y silencio estimatorio, según la ficha.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -377,18 +390,18 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "AVISO: la ficha oficial no incluye certificado de organismo de control entre los documentos de inscripción para una instalación nueva; el RITE solo prevé que el órgano autonómico «podrá disponer» una inspección inicial (art. 30.1) o que se aporte el certificado «cuando sea preceptivo» (art. 24.1.c). Consulta con el Servicio Territorial/Delegación si te la exigen.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Inscripción en el Registro de instalaciones térmicas (aplicación 'RITE')",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
-          "base_legal": "RITE RD 1027/2007 art. 24; Orden EYE/912/2012",
+          "nombre": "Inscripción en el Registro de instalaciones térmicas (RISE)",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden EYE/912/2012 (aplicación hoy solo de consulta); Orden EEI/1036/2021",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Aplicación 'RITE' (Sede Electrónica de la Junta de Castilla y León)",
+          "plataforma": "RISE (Registro de Instalaciones de Seguridad Industrial) de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/21/1273563627347/Tramite",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "IAPA1468",
@@ -406,9 +419,33 @@
               "label": "Certificado de OCA",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "hoja_inscripcion_termicas",
+              "label": "Carpeta de instalaciones térmicas en edificios: hoja de inscripción",
+              "descripcion": "Ficha IAPA1468.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_308_1",
+              "label": "Justificante de la tasa 308.1",
+              "descripcion": "Autoliquidación (modelo 046).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Triplicado (ficha IAPA1468).",
+              "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Ficha IAPA1468.",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La inscripción se tramita en RISE (https://servicios3.jcyl.es/tras/rise); las aplicaciones BOEL y RITE solo permiten consultar instalaciones anteriores a mayo de 2021. Resolución inmediata (máximo 3 días desde la recepción en el Servicio Territorial) y silencio estimatorio, según la ficha.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -453,32 +490,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "No se ha localizado normativa autonómica de Castilla y León específica de censo/registro de instalaciones de riesgo de legionelosis; se aplica el régimen estatal.",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Notificación/censo ante la autoridad sanitaria",
-          "organismo": "Consejería de Sanidad de la Junta de Castilla y León",
-          "base_legal": "RD 487/2022 art. 10",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "CYL-ACS-003",
-          "documentos_requeridos": [
-            {
-              "id": "notificacion_sanitaria_legionella",
-              "label": "Formulario de notificación/censo de instalación de riesgo",
-              "descripcion": "Comunicación a la autoridad sanitaria autonómica de la puesta en marcha de una instalación sujeta al RD 487/2022.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "NO VERIFICADO: no se ha confirmado el procedimiento/plataforma específico de censo de instalaciones de riesgo de la Consejería de Sanidad de Castilla y León; se deja el organismo competente sin ficha de trámite hasta verificar.",
+          "notas": "No se ha localizado normativa autonómica de Castilla y León específica de censo/registro de instalaciones de riesgo de legionelosis; se aplica el régimen estatal.\nEl titular elabora e implanta un Plan de Prevención y Control de Legionella (PPCL) o un Plan Sanitario frente a Legionella (PSL) (RD 487/2022, arts. 7-9). La notificación del art. 5.3 solo obliga a torres de refrigeración y condensadores evaporativos.",
           "registro_salida": null,
           "medio_presentacion": null
         }

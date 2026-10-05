@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "castilla_leon",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "Se recomienda revisar y corregir los ficheros de gas ya entregados de Asturias, Canarias, Cantabria y Castilla-La Mancha aplicando este mismo hallazgo sobre presion_bar='5+' → proyecto siempre",
     "No se ha localizado normativa autonómica de Castilla y León específica de legalización de gas más allá de la ley general de industria",
     "Tasas y plazos legales no verificados con detalle",
-    "Umbral de 2.000 kW para instalaciones comunes (ITC-ICG-07) no modelado por falta de campo que distinga instalación individual/común en el schema"
+    "Umbral de 2.000 kW para instalaciones comunes (ITC-ICG-07) no modelado por falta de campo que distinga instalación individual/común en el schema",
+    "Verificación Prompt B (2026-10-05): BLOQUEANTE resuelto (alta, ficha IAPA1496 leída directamente): se quitó la inscripción y la MTG ante la Junta de CYL-GBP-002 (≤ 5 bar y ≤ 70 kW sin proyecto); ver ADR 0003. Documentos de la ficha para instalaciones con proyecto añadidos. Sin modelar: comunes y acometidas > 2.000 kW (el fichero exige proyecto > 70 kW sin distinguir clase). El tipo de presion_bar es una cadena («normal»/«5+») que el clasificador convierte, no un error. Tasa 308.1 sin importe localizado."
   ],
   "fuentes": [
     {
@@ -101,7 +102,7 @@
         {
           "orden": 3,
           "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
           "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -123,9 +124,33 @@
               "label": "Certificado de Instalación de gas",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "carpeta_gases",
+              "label": "Carpeta de gases combustibles: identificación de la instalación",
+              "descripcion": "Ficha IAPA1496.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Triplicado.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_chimenea",
+              "label": "Certificado de ejecución de chimenea",
+              "descripcion": "Cuando proceda.",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_pruebas_previas",
+              "label": "Certificado de pruebas previas de la empresa suministradora",
+              "descripcion": "Ficha IAPA1496.",
+              "obligatorio": true
             }
           ],
-          "notas": "Inscripción inmediata a partir de la solicitud (confirmado en ficha oficial).",
+          "notas": "Inscripción inmediata a partir de la solicitud (confirmado en ficha oficial).\nPresentar la documentación antes de 30 días desde la puesta en servicio (ficha IAPA1496); resolución inmediata y silencio estimatorio.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -133,7 +158,7 @@
     },
     {
       "id": "CYL-GBP-002",
-      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: memoria técnica, sin proyecto",
+      "descripcion": "Instalación receptora de gas individual de hasta 70 kW y hasta 5 bar: memoria técnica; sin inscripción ni comunicación a la Junta",
       "condicion": {
         "and": [
           {
@@ -158,7 +183,7 @@
         {
           "orden": 1,
           "nombre": "Memoria técnica de instalación de gas (MTG)",
-          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
+          "organismo": "Instalador de gas habilitado (carné de categoría A, B o C, ITC-ICG 09)",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
@@ -182,32 +207,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
-          "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Castilla y León",
-          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/91/1276063928213/Tramite",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "IAPA1496",
-          "paralelo_con": null,
-          "regla_id": "CYL-GBP-002",
-          "documentos_requeridos": [
-            {
-              "id": "mtg_firmada",
-              "label": "Memoria Técnica de Gas firmada",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "",
+          "notas": "La ficha IAPA1496 solo describe la inscripción para instalaciones receptoras ICG 07 con proyecto. Para esta potencia el instalador entrega el certificado de instalación al titular y a la suministradora, sin trámite ante la Junta.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -290,7 +290,7 @@
         {
           "orden": 3,
           "nombre": "Inscripción en el Registro de instalaciones receptoras de gas",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
           "base_legal": "Ley 6/2014 de Industria de Castilla y León; RD 919/2006",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -312,9 +312,33 @@
               "label": "Certificado de Instalación de gas",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "carpeta_gases",
+              "label": "Carpeta de gases combustibles: identificación de la instalación",
+              "descripcion": "Ficha IAPA1496.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Triplicado.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_chimenea",
+              "label": "Certificado de ejecución de chimenea",
+              "descripcion": "Cuando proceda.",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_pruebas_previas",
+              "label": "Certificado de pruebas previas de la empresa suministradora",
+              "descripcion": "Ficha IAPA1496.",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Presentar la documentación antes de 30 días desde la puesta en servicio (ficha IAPA1496); resolución inmediata y silencio estimatorio.",
           "registro_salida": null,
           "medio_presentacion": null
         }

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "castilla_leon",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "No se ha localizado normativa autonómica de Castilla y León específica de IRVE; se aplica el régimen general de BT (BOEL) más ITC-BT-52 nacional",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente (mantenido NO VERIFICADO en esta revisión)",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido (mantenido NO VERIFICADO en esta revisión, depende de ordenanzas municipales caso por caso)",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Castilla y León IRVE (Prompt B): umbrales de la ITC-BT-04 §3.1 confirmados (alta). BOEL → RISE; la inspección inicial por OCA se regula en la ITC-BT-05 §4.1.h), no en la ITC-BT-04; la declaración responsable del instalador no figura en la ficha IAPA13 (opcional). ITC-BT-52 modificada por los RD 542/2020 y 450/2022 (umbrales sin reabrir). Garajes: la nota de la ITC-BT-04 §3.1 exime de proyecto la recarga en aparcamientos de edificios de viviendas existentes (grupos g y h); el fichero asimila garaje_comunitario a interior (media). Sin verificar: autorización municipal en vía pública."
   ],
   "fuentes": [
     {
@@ -30,7 +31,7 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Aplicación BOEL (Boletines Eléctricos) - tramitacastillayleon.jcyl.es",
+      "norma": "Aplicación RISE (antes BOEL, solo consulta) - tramitacastillayleon.jcyl.es",
       "url": "https://economia.jcyl.es/web/es/industria/boletin-instalaciones-electricas-boel.html",
       "fecha_consulta": "2026-08-08"
     },
@@ -130,8 +131,8 @@
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable del instalador",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "La ficha IAPA13 no la lista entre los documentos de inscripción.",
+              "obligatorio": false
             }
           ],
           "notas": "",
@@ -140,12 +141,12 @@
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (BOEL)",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (RISE)",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
           "base_legal": "Ley 6/2014 de Industria de Castilla y León",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
-          "plataforma": "BOEL (Boletines Eléctricos)",
+          "plataforma": "RISE (Registro de Instalaciones de Seguridad Industrial) de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/1/1240837594471/Tramite",
           "coste_estimado": "Tasa código 308.1 — importe NO VERIFICADO",
           "formulario_ref": "IAPA13",
@@ -165,7 +166,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La inscripción se tramita en RISE (https://servicios3.jcyl.es/tras/rise); las aplicaciones BOEL y RITE solo permiten consultar instalaciones anteriores a mayo de 2021. Resolución inmediata (máximo 3 días desde la recepción en el Servicio Territorial) y silencio estimatorio, según la ficha.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -262,7 +263,7 @@
           "orden": 2,
           "nombre": "Certificado de dirección de obra e inspección inicial (OCA, cuando proceda)",
           "organismo": "Técnico director de obra / Organismo de Control Autorizado (OCA) en Castilla y León",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05 §4.1.h)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -291,12 +292,12 @@
         },
         {
           "orden": 3,
-          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (BOEL)",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (RISE)",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
           "base_legal": "Ley 6/2014 de Industria de Castilla y León",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "BOEL (Boletines Eléctricos)",
+          "plataforma": "RISE (Registro de Instalaciones de Seguridad Industrial) de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/1/1240837594471/Tramite",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "IAPA13",
@@ -322,7 +323,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La inscripción se tramita en RISE (https://servicios3.jcyl.es/tras/rise); las aplicaciones BOEL y RITE solo permiten consultar instalaciones anteriores a mayo de 2021. Resolución inmediata (máximo 3 días desde la recepción en el Servicio Territorial) y silencio estimatorio, según la ficha.",
           "registro_salida": null,
           "medio_presentacion": null
         }

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "pais_vasco",
-  "version": "0.9.3",
-  "ultima_revision": "2026-08-20",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "Importes de tasa (128,10€ / 204,96€ / 787,77€) no verificados con detalle contra el Decreto Legislativo 1/2025 citado — NO VERIFICABLE en esta revisión (requiere lectura del art. 132 completo).",
     "El umbral de 100 kW de exención de autorización es el umbral GENERAL ESTATAL (RD 1955/2000 / Ley 24/2013 art. 53.2), aplicable en toda España, no una particularidad exclusiva del País Vasco — ver nota corregida en PV-FV-002.",
     "No se ha verificado si el País Vasco ha elevado el umbral de exención de autorización de 100 kW a 500 kW — NO VERIFICABLE en esta revisión.",
-    "CORREGIDO 2026-08-20: 'paralelo_con' en PV-FV-002/003A/003B/003C apuntaba al 'id' de la propia regla (p.ej. \"PV-FV-002\") en vez de al 'orden' numérico del trámite paralelo dentro de esa regla, que es lo que espera TramiteOutput. El remapeo de motor_normativo/clasificador.py no encontraba coincidencia y lo resolvía en silencio a null, así que el trámite de CAU se mostraba en serie en vez de en paralelo, inflando el plazo total estimado. Corregido a 'paralelo_con: 1' (el trámite de tramitación/autorización administrativa de cada regla)."
+    "CORREGIDO 2026-08-20: 'paralelo_con' en PV-FV-002/003A/003B/003C apuntaba al 'id' de la propia regla (p.ej. \"PV-FV-002\") en vez de al 'orden' numérico del trámite paralelo dentro de esa regla, que es lo que espera TramiteOutput. El remapeo de motor_normativo/clasificador.py no encontraba coincidencia y lo resolvía en silencio a null, así que el trámite de CAU se mostraba en serie en vez de en paralelo, inflando el plazo total estimado. Corregido a 'paralelo_con: 1' (el trámite de tramitación/autorización administrativa de cada regla).",
+    "Verificación Prompt B (2026-10-05): País Vasco FV (Prompt B): PENDIENTE (alta): el autoconsumo SIN excedentes de cualquier potencia queda fuera de la autorización del Decreto 48/2020 y se tramita por el procedimiento GE-A; con excedentes hasta 100 kW (BT) sigue la vía de pequeña potencia. Falta una variable de excedentes. El Decreto 48/2020 distingue grupo primero (> 1 MW) y segundo (≤ 1 MW) y 3 meses para el segundo (art. 17); el fichero llamaba «grupo primero» a todo > 100 kW con 180 días: plazo legal a null y nombre corregido (media; el texto sobre el plazo del grupo primero y la exclusión de instalaciones ≤ 1 kV está en conflicto). Se añadieron RD 1699/2011 y Decreto 81/2020 a la base legal de PV-FV-001/002 sin quitar el Decreto 48/2020. Tasa: art. 132 DLeg 1/2025. Omisiones: garantía económica (RD 1183/2020, art. 23), acta de puesta en servicio / autorización de explotación (art. 18), inscripción en registros (art. 19; GE-R) e inspección por organismo de control en BT > 25 kW. El PDF «Aclaraciones sobre tramitación de autoconsumo» no tiene fecha."
   ],
   "fuentes": [
     {
@@ -57,7 +58,7 @@
           "orden": 1,
           "nombre": "Tramitación de generación (puesta en servicio) e inscripción",
           "organismo": "Delegación Territorial de Administración Industrial del Gobierno Vasco",
-          "base_legal": "Decreto 48/2020; RD 244/2019",
+          "base_legal": "Decreto 48/2020; RD 244/2019; RD 1699/2011 (DA 1.ª); Decreto 81/2020 (declaración responsable)",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
@@ -108,7 +109,7 @@
           "orden": 1,
           "nombre": "Tramitación de generación e inscripción registro",
           "organismo": "Delegación Territorial de Administración Industrial del Gobierno Vasco",
-          "base_legal": "Decreto 48/2020; RD 244/2019",
+          "base_legal": "Decreto 48/2020; RD 244/2019; RD 1699/2011 (DA 1.ª); Decreto 81/2020 (declaración responsable)",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
@@ -182,14 +183,14 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Autorización administrativa previa (grupo primero)",
+          "nombre": "Autorización administrativa previa (grupo segundo hasta 1 MW; grupo primero por encima)",
           "organismo": "Dirección competente en materia de energía del Gobierno Vasco",
           "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
-          "plazo_legal_dias": 180,
+          "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
-          "coste_estimado": "128,10 € (NO VERIFICADO importe exacto)",
+          "coste_estimado": "Tarifa básica del art. 132 del Decreto Legislativo 1/2025: 125,59 € hasta 600.000 € de presupuesto + 75,35 € por cada 100.000 € adicionales o fracción (media; importes anteriores sin origen localizado)",
           "formulario_ref": "GE",
           "paralelo_con": null,
           "regla_id": "PV-FV-003A",
@@ -201,7 +202,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53).",
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53).\nPlazo máximo de resolución: 3 meses para el grupo segundo (hasta 1 MW; Decreto 48/2020, art. 17); para más de 1 MW (grupo primero) se indica 6 meses, a confirmar.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -226,7 +227,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).",
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).\nEl CAU lo asigna la distribuidora; el acceso y conexión solo se solicita si hay excedentes de más de 15 kW o fuera de suelo urbanizado (RD 244/2019 y RD 1183/2020), y la autorización exige el justificante de los permisos de acceso y conexión.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -258,14 +259,14 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Autorización administrativa previa (grupo primero)",
+          "nombre": "Autorización administrativa previa (grupo segundo hasta 1 MW; grupo primero por encima)",
           "organismo": "Dirección competente en materia de energía del Gobierno Vasco",
           "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
-          "plazo_legal_dias": 180,
+          "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
-          "coste_estimado": "Depende de la inversión — introducir el dato para calcular la tasa",
+          "coste_estimado": "Tarifa básica del art. 132 del Decreto Legislativo 1/2025: 125,59 € hasta 600.000 € de presupuesto + 75,35 € por cada 100.000 € adicionales o fracción (media; importes anteriores sin origen localizado)",
           "formulario_ref": "GE",
           "paralelo_con": null,
           "regla_id": "PV-FV-003B",
@@ -277,7 +278,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53).",
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53).\nPlazo máximo de resolución: 3 meses para el grupo segundo (hasta 1 MW; Decreto 48/2020, art. 17); para más de 1 MW (grupo primero) se indica 6 meses, a confirmar.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -302,7 +303,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).",
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).\nEl CAU lo asigna la distribuidora; el acceso y conexión solo se solicita si hay excedentes de más de 15 kW o fuera de suelo urbanizado (RD 244/2019 y RD 1183/2020), y la autorización exige el justificante de los permisos de acceso y conexión.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -334,14 +335,14 @@
       "tramites": [
         {
           "orden": 1,
-          "nombre": "Autorización administrativa previa (grupo primero)",
+          "nombre": "Autorización administrativa previa (grupo segundo hasta 1 MW; grupo primero por encima)",
           "organismo": "Dirección competente en materia de energía del Gobierno Vasco",
           "base_legal": "Decreto 48/2020; Ley 24/2013 art. 53",
           "plazo_estimado_dias": 180,
-          "plazo_legal_dias": 180,
+          "plazo_legal_dias": null,
           "plataforma": "euskadi.eus (procedimiento GE)",
           "plataforma_url": "https://www.euskadi.eus/procedimiento/ge/web01-tramite/es/",
-          "coste_estimado": "204,96 € a 787,77 € según tramo (NO VERIFICADO importe exacto)",
+          "coste_estimado": "Tarifa básica del art. 132 del Decreto Legislativo 1/2025: 125,59 € hasta 600.000 € de presupuesto + 75,35 € por cada 100.000 € adicionales o fracción (media; importes anteriores sin origen localizado)",
           "formulario_ref": "GE",
           "paralelo_con": null,
           "regla_id": "PV-FV-003C",
@@ -353,7 +354,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53). El fichero original distinguía tramos 600k-1.5M€ y >1.5M€ con tasas de 204,96€ y 787,77€ respectivamente — no verificados con detalle, fusionados aquí en una sola regla hasta confirmar.",
+          "notas": "Plazo 6 meses; silencio negativo (Ley 24/2013 art. 53). El fichero original distinguía tramos 600k-1.5M€ y >1.5M€ con tasas de 204,96€ y 787,77€ respectivamente — no verificados con detalle, fusionados aquí en una sola regla hasta confirmar.\nPlazo máximo de resolución: 3 meses para el grupo segundo (hasta 1 MW; Decreto 48/2020, art. 17); para más de 1 MW (grupo primero) se indica 6 meses, a confirmar.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -378,7 +379,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).",
+          "notas": "Necesario cuando la instalación tiene excedentes (inyección a red).\nEl CAU lo asigna la distribuidora; el acceso y conexión solo se solicita si hay excedentes de más de 15 kW o fuera de suelo urbanizado (RD 244/2019 y RD 1183/2020), y la autorización exige el justificante de los permisos de acceso y conexión.",
           "registro_salida": null,
           "medio_presentacion": null
         }

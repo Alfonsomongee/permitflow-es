@@ -1,15 +1,16 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "pais_vasco",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó la variable fantasma 'tipo_edificio' (no existe; se usa 'potencia_kw' como único eje de partición, ya presente correctamente en el fichero original). Se eliminó 'Decreto 47/2009' como base legal: no se ha localizado. La ficha oficial de Euskadi.eus para instalaciones térmicas cita como normativa reguladora el Decreto 81/2020, de 30 de junio, de seguridad industrial, aplicando el RITE nacional directamente, con el umbral de 70 kW confirmado textualmente ('Instalación que no requiere proyecto (P≤70kW)'). Se sustituyó el umbral inventado de 12 kW por el de 70 kW en consecuencia.",
   "huecos_verificacion": [
     "Tasas y plazos legales no verificados con detalle",
-    "No se ha confirmado si el País Vasco exige ECA específicamente para instalaciones >70 kW más allá de lo que exige el RITE nacional para inspección inicial"
+    "No se ha confirmado si el País Vasco exige ECA específicamente para instalaciones >70 kW más allá de lo que exige el RITE nacional para inspección inicial",
+    "Verificación Prompt B (2026-10-05): País Vasco (Prompt B): organismo corregido a la Delegación Territorial de Administración Industrial (ficha IT de euskadi.eus, alta); umbrales 5/70 kW y plataforma IT confirmados; el paso de inspección inicial por OCA se conserva con aviso (RITE arts. 24.1.c y 30.1). Documentos de la ficha IT (declaración responsable, contrato de mantenimiento, libro de instrucciones, pruebas IT2) a confirmar contra el modelo de la sede (media). Omisiones: modificación y baja de la instalación térmica (Decreto 81/2020, art. 9); documentación RSIF con refrigerante. Tasas: art. 132 del DLeg 1/2025 sin aplicar."
   ],
   "fuentes": [
     {
@@ -124,7 +125,7 @@
         {
           "orden": 2,
           "nombre": "Declaración Responsable previa a la puesta en servicio (instalación sin proyecto)",
-          "organismo": "Órgano Territorial de Industria del Gobierno Vasco",
+          "organismo": "Delegación Territorial de Administración Industrial (Araba, Bizkaia o Gipuzkoa) del Gobierno Vasco",
           "base_legal": "RITE RD 1027/2007; Decreto 81/2020",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
@@ -212,14 +213,14 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "AVISO: la inspección inicial no es un trámite obligatorio ni figura en la sede de Euskadi; el RITE solo prevé que el órgano autonómico «podrá disponer» una inspección inicial (arts. 24.1.c y 30.1).",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
           "nombre": "Declaración Responsable previa a la puesta en servicio (instalación con proyecto)",
-          "organismo": "Órgano Territorial de Industria del Gobierno Vasco",
+          "organismo": "Delegación Territorial de Administración Industrial (Araba, Bizkaia o Gipuzkoa) del Gobierno Vasco",
           "base_legal": "RITE RD 1027/2007; Decreto 81/2020",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "galicia",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "Tras corregir el hueco de cobertura, el fichero ya no diferencia trámites por uso doméstico/comercial/industrial; si esa distinción es normativamente relevante en Galicia, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base",
     "No se ha aplicado aquí el hallazgo de Castilla y León sobre presion_bar='5+' porque este fichero no usa el campo presion_bar en absoluto (usa potencia_kw y uso) — revisar si debería incorporarse",
     "Tasas y plazos legales no verificados",
-    "coste_estimado marcado NO VERIFICADO: una fuente oficial (Oficina Virtual de Industria) indica que el trámite SÍ tiene tasas asociadas a la primera inscripción y a modificaciones; no se ha confirmado el importe exacto en esta revisión, se mantiene como hueco abierto"
+    "coste_estimado marcado NO VERIFICADO: una fuente oficial (Oficina Virtual de Industria) indica que el trámite SÍ tiene tasas asociadas a la primera inscripción y a modificaciones; no se ha confirmado el importe exacto en esta revisión, se mantiene como hueco abierto",
+    "Verificación Prompt B (2026-10-05): BLOQUEANTE resuelto (alta, ficha IN625A en extracto de buscador): se quitaron el certificado por OCA y el registro de GAL-GBP-001 (≤ 70 kW sin otros supuestos); ver ADR 0003. La ficha IN625A exige proyecto y registro también por presión de servicio superior a 4 BAR (no 5, como el marco de la ITC-ICG 07: contrastar) y por GLP en botellas (más de 350 kg totales, o más de 200 kg con envases de menos de 15 kg); esos supuestos no están modelados, de modo que una instalación de ≤ 70 kW con GLP o más de 4 bar queda sin registro en el fichero. Omisión: IN623A (depósitos fijos de GLP). La Orden de 28/04/2008 está confirmada (media)."
   ],
   "fuentes": [
     {
@@ -33,7 +34,7 @@
   "reglas": [
     {
       "id": "GAL-GBP-001",
-      "descripcion": "Instalación de gas con potencia ≤ 70 kW",
+      "descripcion": "Instalación receptora de gas individual de hasta 70 kW: memoria técnica; sin registro ni comunicación a la Administración",
       "condicion": {
         "<=": [
           {
@@ -70,69 +71,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "El uso doméstico/comercial/industrial puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no se usa como condición de disparo (bug de cobertura ya corregido respecto al fichero original).",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Certificado de instalación (CI) por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA) acreditado en Galicia",
-          "base_legal": "RIGLO RD 919/2006 art. 7",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "GAL-GBP-001",
-          "documentos_requeridos": [
-            {
-              "id": "ci_oca",
-              "label": "Certificado de instalación emitido por OCA",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "mtd_gas",
-              "label": "Memoria técnica de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro de instalación receptora de gases combustibles (IN625A)",
-          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
-          "base_legal": "Orden de 28 de abril de 2008",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Xunta de Galicia",
-          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN625A",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "IN625A",
-          "paralelo_con": null,
-          "regla_id": "GAL-GBP-001",
-          "documentos_requeridos": [
-            {
-              "id": "ci_oca",
-              "label": "Certificado de instalación emitido por OCA",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
-              "id": "mtd_gas",
-              "label": "Memoria técnica de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "",
+          "notas": "El uso doméstico/comercial/industrial puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no se usa como condición de disparo (bug de cobertura ya corregido respecto al fichero original).\nSegún la ficha IN625A de la Xunta, el registro solo se pide a las instalaciones que requieren proyecto (individuales de más de 70 kW, GLP en botellas por encima de ciertas cantidades o presión de servicio superior a 4 bar). Por debajo de esos supuestos no hay registro ni comunicación (ITC-ICG 07): el instalador entrega el certificado al titular y a la suministradora.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -208,20 +147,20 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "AVISO: la ficha IN625A pide solicitud, proyecto constructivo por duplicado y certificado de dirección de obra; no incluye certificado de organismo de control.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Registro de instalación receptora de gases combustibles (IN625A)",
-          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "nombre": "Inscripción en el Registro de instalaciones receptoras de gases combustibles (IN625A)",
+          "organismo": "Xefatura Territorial de la Consellería de Economía e Industria",
           "base_legal": "Orden de 28 de abril de 2008",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
           "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN625A",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Existen tasas (32.19.12 inscripción; 32.19.38 modificación); importe no verificado",
           "formulario_ref": "IN625A",
           "paralelo_con": null,
           "regla_id": "GAL-GBP-002",
@@ -236,6 +175,18 @@
               "id": "proyecto_tecnico_gas",
               "label": "Proyecto técnico",
               "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "solicitud_in625a",
+              "label": "Solicitud (ficha IN625A)",
+              "descripcion": "Modelo normalizado de la sede.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Instalaciones con proyecto.",
               "obligatorio": true
             }
           ],
