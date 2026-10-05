@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "asturias",
-  "version": "1.1.1",
-  "ultima_revision": "2026-07-28",
+  "version": "1.2.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "PENDIENTE: órgano gestor exacto de RECE0004T01 no confirmado documentalmente en esta sesión (por analogía se mantiene la Consejería genérica); no se ha abierto la ficha completa del trámite.",
     "requiere campo de formulario: ubicacion_suelo / requiere_acceso_conexion — Step2ParametrosTecnicos.tsx solo los muestra cuando comunidad=cataluna, por lo que el trámite AST-FV-CAU no puede excepcionar aquí el caso de autoconsumo con excedentes ≤15 kW en suelo urbanizado (exento de permiso de acceso y conexión según RD 1183/2020); se modela como paso universal para todas las instalaciones asturianas hasta que el formulario recoja ese dato para todas las comunidades.",
     "PENDIENTE: cita de 'Resolución de 20 de mayo de 2015' en AST-FV-RIPRE sigue incompleta (falta fecha BOPA 02/06/2015 y órgano emisor 'Consejería de Economía y Empleo'); se corrige el texto pero no se ha ampliado el campo base_legal más allá de lo verificado.",
-    "Verificación 2026-10-01 (investigación externa, fuente secundaria Iberley): el umbral de 100 kW de las reglas de autoconsumo exento de AAP se cita como «Ley 24/2013 art. 53.3», pero ese artículo habilita la exención hasta 500 kW por vía reglamentaria; el 100 kW figura en el art. 9. Cotejar en boe.es y corregir la cita si procede."
+    "Verificación 2026-10-01 (investigación externa, fuente secundaria Iberley): el umbral de 100 kW de las reglas de autoconsumo exento de AAP se cita como «Ley 24/2013 art. 53.3», pero ese artículo habilita la exención hasta 500 kW por vía reglamentaria; el 100 kW figura en el art. 9. Cotejar en boe.es y corregir la cita si procede.",
+    "Verificación Prompt B (2026-10-05): Asturias FV (Prompt B): BLOQUEANTE resuelto (media; ficha oficial en PDF de asturias.es leída por resumen, REV-02 de 14/06/2022 y ITC-BT-04 §3.1): las reglas 001-A y 001-B pasan a «hasta 10 kW» (memoria) y se añaden 001-A-P / 001-B-P (10-25 kW) y 001-A-Q / 001-B-Q (más de 25 kW, con inspección inicial por organismo de control favorable según la ficha; base normativa interpretativa) con proyecto técnico visado o con declaración responsable y certificado final de obra. Plataforma de baja tensión: aplicación de www70.asturias.es. Organismo: Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria), según el Decreto 49/2025, de 29/04/2025, modificado por los Decretos 73/2025 y 35/2026 (resúmenes de INAP/iustel, fuente secundaria; adscripción exacta del Servicio de Fluidos y Metrología sin confirmar en el BOPA). AUTO0301T01 se llama «Autorización de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables» (alta).",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Asturias FV): fichas RECE0017T01, RECE0004T01, RECE0049T01 y AUTO0301T01 sin leer (robots.txt): plazos, silencio y tasa 046 (¿exención en vivienda?) sin verificar; el umbral de 100 kW de autorización solo se apoya en la ficha PDF (no consta el de 500 kW); permiso de acceso y conexión como paso diferenciado del CAU (más de 15 kW con excedentes en suelo no urbanizado); la URL de la ficha FV en `fuentes` es la de AUTO0301T01; la versión vigente de la ficha PDF (REV-02 o REV-03) sin confirmar."
   ],
   "fuentes": [
     {
@@ -92,31 +94,43 @@
       "condicion": {
         "and": [
           {
-            "or": [
+            "<=": [
               {
-                "<=": [
-                  {
-                    "var": "potencia_kw"
-                  },
-                  100
-                ]
+                "var": "potencia_kw"
               },
-              {
-                "==": [
-                  {
-                    "var": "modalidad_autoconsumo"
-                  },
-                  "sin_excedentes"
-                ]
-              }
+              10
             ]
           },
           {
-            "!=": [
+            "and": [
               {
-                "var": "uso"
+                "or": [
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      100
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "modalidad_autoconsumo"
+                      },
+                      "sin_excedentes"
+                    ]
+                  }
+                ]
               },
-              "industrial"
+              {
+                "!=": [
+                  {
+                    "var": "uso"
+                  },
+                  "industrial"
+                ]
+              }
             ]
           }
         ]
@@ -175,11 +189,11 @@
         {
           "orden": 3,
           "nombre": "Inscripción en el registro de instalaciones eléctricas de baja tensión (RECE0017T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Gestión Energética",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Gestión Energética",
           "base_legal": "RD 244/2019",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005718311607573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998 (porcentaje del PEM)",
           "formulario_ref": "RECE0017T01",
@@ -203,9 +217,364 @@
               "label": "Justificante de pago de tasa (Modelo 046)",
               "descripcion": "Abonado según PEM.",
               "obligatorio": true
+            },
+            {
+              "id": "anexo_autoconsumo",
+              "label": "Anexo de autoconsumo (modelo oficial)",
+              "descripcion": "Con CAU, CUPS y modalidad.",
+              "obligatorio": true
+            },
+            {
+              "id": "evaluacion_antivertido",
+              "label": "Evaluación de conformidad del sistema antivertido",
+              "descripcion": "Solo en autoconsumo sin excedentes.",
+              "obligatorio": false
             }
           ],
-          "notas": "Trámite de seguridad industrial para uso no industrial.",
+          "notas": "Trámite de seguridad industrial para uso no industrial.\nLa tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "AST-FV-001-A-Q",
+      "descripcion": "Autoconsumo FV en baja tensión de más de 10 kW con certificado favorable de organismo de control: proyecto técnico (visado o con declaración responsable) y certificado final de obra",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              25
+            ]
+          },
+          {
+            "and": [
+              {
+                "or": [
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      100
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "modalidad_autoconsumo"
+                      },
+                      "sin_excedentes"
+                    ]
+                  }
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "uso"
+                  },
+                  "industrial"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico (visado o con declaración responsable del técnico) y certificado final de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-A",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Visado por el colegio profesional o con declaración responsable del técnico.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_final_obra",
+              "label": "Certificado final de obra",
+              "descripcion": "Visado o con declaración responsable (más de 10 kW).",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ficha oficial de Asturias pide MTD solo si el receptor no requiere proyecto y la generación es de hasta 10 kW; por encima, proyecto técnico.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador habilitado",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-A",
+          "documentos_requeridos": [
+            {
+              "id": "cie_fv",
+              "label": "Certificado de Instalación (CIE)",
+              "descripcion": "Firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Inspección inicial por Organismo de Control Autorizado (certificado favorable)",
+          "organismo": "Organismo de Control Autorizado habilitado en baja tensión",
+          "base_legal": "REBT ITC-BT-05 apdo. 4.1; ficha oficial de Asturias (más de 25 kW)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según tarifa del organismo de control",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-A",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca",
+              "label": "Certificado de inspección inicial favorable",
+              "descripcion": "Del organismo de control.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ficha oficial pide el certificado favorable para generación superior a 25 kW; la base normativa es interpretativa (criterio de local mojado, ITC-BT-05 §4.1) y no consta en el texto literal leído.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Inscripción en el registro de instalaciones eléctricas de baja tensión (RECE0017T01)",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Gestión Energética",
+          "base_legal": "RD 244/2019",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005718311607573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998 (porcentaje del PEM)",
+          "formulario_ref": "RECE0017T01",
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-A",
+          "documentos_requeridos": [
+            {
+              "id": "cie_fv",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "Abonado según PEM.",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_autoconsumo",
+              "label": "Anexo de autoconsumo (modelo oficial)",
+              "descripcion": "Con CAU, CUPS y modalidad.",
+              "obligatorio": true
+            },
+            {
+              "id": "evaluacion_antivertido",
+              "label": "Evaluación de conformidad del sistema antivertido",
+              "descripcion": "Solo en autoconsumo sin excedentes.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Trámite de seguridad industrial para uso no industrial.\nLa tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "AST-FV-001-A-P",
+      "descripcion": "Autoconsumo FV en baja tensión de más de 10 kW y hasta 25 kW: proyecto técnico (visado o con declaración responsable) y certificado final de obra",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              25
+            ]
+          },
+          {
+            "and": [
+              {
+                "or": [
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      100
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "modalidad_autoconsumo"
+                      },
+                      "sin_excedentes"
+                    ]
+                  }
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "uso"
+                  },
+                  "industrial"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico (visado o con declaración responsable del técnico) y certificado final de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-A",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Visado por el colegio profesional o con declaración responsable del técnico.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_final_obra",
+              "label": "Certificado final de obra",
+              "descripcion": "Visado o con declaración responsable (más de 10 kW).",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ficha oficial de Asturias pide MTD solo si el receptor no requiere proyecto y la generación es de hasta 10 kW; por encima, proyecto técnico.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador habilitado",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-A",
+          "documentos_requeridos": [
+            {
+              "id": "cie_fv",
+              "label": "Certificado de Instalación (CIE)",
+              "descripcion": "Firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Inscripción en el registro de instalaciones eléctricas de baja tensión (RECE0017T01)",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Gestión Energética",
+          "base_legal": "RD 244/2019",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005718311607573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998 (porcentaje del PEM)",
+          "formulario_ref": "RECE0017T01",
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-A",
+          "documentos_requeridos": [
+            {
+              "id": "cie_fv",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "Abonado según PEM.",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_autoconsumo",
+              "label": "Anexo de autoconsumo (modelo oficial)",
+              "descripcion": "Con CAU, CUPS y modalidad.",
+              "obligatorio": true
+            },
+            {
+              "id": "evaluacion_antivertido",
+              "label": "Evaluación de conformidad del sistema antivertido",
+              "descripcion": "Solo en autoconsumo sin excedentes.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Trámite de seguridad industrial para uso no industrial.\nLa tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -217,31 +586,43 @@
       "condicion": {
         "and": [
           {
-            "or": [
+            "<=": [
               {
-                "<=": [
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "and": [
+              {
+                "or": [
                   {
-                    "var": "potencia_kw"
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      100
+                    ]
                   },
-                  100
+                  {
+                    "==": [
+                      {
+                        "var": "modalidad_autoconsumo"
+                      },
+                      "sin_excedentes"
+                    ]
+                  }
                 ]
               },
               {
                 "==": [
                   {
-                    "var": "modalidad_autoconsumo"
+                    "var": "uso"
                   },
-                  "sin_excedentes"
+                  "industrial"
                 ]
               }
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "industrial"
             ]
           }
         ]
@@ -300,11 +681,11 @@
         {
           "orden": 3,
           "nombre": "Comunicación de actividades en División A del RII (RECE0004T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias",
           "base_legal": "RD 559/2010 Reglamento del Registro Integrado Industrial",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005765118807573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "RECE0004T01",
@@ -322,9 +703,352 @@
               "label": "Justificante de pago de tasa (Modelo 046)",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "anexo_autoconsumo",
+              "label": "Anexo de autoconsumo (modelo oficial)",
+              "descripcion": "Con CAU, CUPS y modalidad.",
+              "obligatorio": true
+            },
+            {
+              "id": "evaluacion_antivertido",
+              "label": "Evaluación de conformidad del sistema antivertido",
+              "descripcion": "Solo en autoconsumo sin excedentes.",
+              "obligatorio": false
             }
           ],
-          "notas": "Trámite específico para recintos industriales.",
+          "notas": "Trámite específico para recintos industriales.\nLa tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "AST-FV-001-B-Q",
+      "descripcion": "Autoconsumo FV en baja tensión de más de 10 kW con certificado favorable de organismo de control: proyecto técnico (visado o con declaración responsable) y certificado final de obra",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              25
+            ]
+          },
+          {
+            "and": [
+              {
+                "or": [
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      100
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "modalidad_autoconsumo"
+                      },
+                      "sin_excedentes"
+                    ]
+                  }
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "uso"
+                  },
+                  "industrial"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico (visado o con declaración responsable del técnico) y certificado final de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-B",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Visado por el colegio profesional o con declaración responsable del técnico.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_final_obra",
+              "label": "Certificado final de obra",
+              "descripcion": "Visado o con declaración responsable (más de 10 kW).",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ficha oficial de Asturias pide MTD solo si el receptor no requiere proyecto y la generación es de hasta 10 kW; por encima, proyecto técnico.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador habilitado",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-B",
+          "documentos_requeridos": [
+            {
+              "id": "cie_fv",
+              "label": "Certificado de Instalación (CIE)",
+              "descripcion": "Firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Inspección inicial por Organismo de Control Autorizado (certificado favorable)",
+          "organismo": "Organismo de Control Autorizado habilitado en baja tensión",
+          "base_legal": "REBT ITC-BT-05 apdo. 4.1; ficha oficial de Asturias (más de 25 kW)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según tarifa del organismo de control",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-B",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_oca",
+              "label": "Certificado de inspección inicial favorable",
+              "descripcion": "Del organismo de control.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ficha oficial pide el certificado favorable para generación superior a 25 kW; la base normativa es interpretativa (criterio de local mojado, ITC-BT-05 §4.1) y no consta en el texto literal leído.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Comunicación de actividades en División A del RII (RECE0004T01)",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias",
+          "base_legal": "RD 559/2010 Reglamento del Registro Integrado Industrial",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005765118807573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "formulario_ref": "RECE0004T01",
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-B",
+          "documentos_requeridos": [
+            {
+              "id": "cie_fv",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_autoconsumo",
+              "label": "Anexo de autoconsumo (modelo oficial)",
+              "descripcion": "Con CAU, CUPS y modalidad.",
+              "obligatorio": true
+            },
+            {
+              "id": "evaluacion_antivertido",
+              "label": "Evaluación de conformidad del sistema antivertido",
+              "descripcion": "Solo en autoconsumo sin excedentes.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Trámite específico para recintos industriales.\nLa tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "AST-FV-001-B-P",
+      "descripcion": "Autoconsumo FV en baja tensión de más de 10 kW y hasta 25 kW: proyecto técnico (visado o con declaración responsable) y certificado final de obra",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              25
+            ]
+          },
+          {
+            "and": [
+              {
+                "or": [
+                  {
+                    "<=": [
+                      {
+                        "var": "potencia_kw"
+                      },
+                      100
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "modalidad_autoconsumo"
+                      },
+                      "sin_excedentes"
+                    ]
+                  }
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "uso"
+                  },
+                  "industrial"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico (visado o con declaración responsable del técnico) y certificado final de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-B",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Visado por el colegio profesional o con declaración responsable del técnico.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_final_obra",
+              "label": "Certificado final de obra",
+              "descripcion": "Visado o con declaración responsable (más de 10 kW).",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ficha oficial de Asturias pide MTD solo si el receptor no requiere proyecto y la generación es de hasta 10 kW; por encima, proyecto técnico.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE)",
+          "organismo": "Instalador habilitado",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-B",
+          "documentos_requeridos": [
+            {
+              "id": "cie_fv",
+              "label": "Certificado de Instalación (CIE)",
+              "descripcion": "Firmado por instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Comunicación de actividades en División A del RII (RECE0004T01)",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias",
+          "base_legal": "RD 559/2010 Reglamento del Registro Integrado Industrial",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
+          "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005765118807573",
+          "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
+          "formulario_ref": "RECE0004T01",
+          "paralelo_con": null,
+          "regla_id": "AST-FV-001-B",
+          "documentos_requeridos": [
+            {
+              "id": "cie_fv",
+              "label": "Certificado de Instalación Eléctrica (CIE)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de tasa (Modelo 046)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_autoconsumo",
+              "label": "Anexo de autoconsumo (modelo oficial)",
+              "descripcion": "Con CAU, CUPS y modalidad.",
+              "obligatorio": true
+            },
+            {
+              "id": "evaluacion_antivertido",
+              "label": "Evaluación de conformidad del sistema antivertido",
+              "descripcion": "Solo en autoconsumo sin excedentes.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Trámite específico para recintos industriales.\nLa tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -379,7 +1103,7 @@
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Visado.",
+              "descripcion": "Visado o con declaración responsable del técnico.",
               "obligatorio": true
             }
           ],
@@ -389,8 +1113,8 @@
         },
         {
           "orden": 2,
-          "nombre": "Autorización Administrativa Previa y de Construcción de instalación de producción de energía eléctrica (AUTO0301T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Energías Renovables y Eficiencia Energética",
+          "nombre": "Autorización de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables (AUTO0301T01)",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Energías Renovables y Eficiencia Energética",
           "base_legal": "Ley 24/2013 art. 53 (exención AAP hasta 100kW BT / sin excedentes); RD 244/2019",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": null,
@@ -421,11 +1145,11 @@
         {
           "orden": 3,
           "nombre": "Inscripción BT (RECE0017T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Gestión Energética",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Gestión Energética",
           "base_legal": "RD 244/2019",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005718311607573",
           "coste_estimado": "Tasa correspondiente",
           "formulario_ref": "RECE0017T01",
@@ -439,7 +1163,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -494,7 +1218,7 @@
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico",
-              "descripcion": "Visado.",
+              "descripcion": "Visado o con declaración responsable del técnico.",
               "obligatorio": true
             }
           ],
@@ -504,8 +1228,8 @@
         },
         {
           "orden": 2,
-          "nombre": "Autorización Administrativa Previa y de Construcción de instalación de producción de energía eléctrica (AUTO0301T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias – Servicio de Energías Renovables y Eficiencia Energética",
+          "nombre": "Autorización de instalaciones de producción de energía eléctrica a partir de fuentes de energía renovables (AUTO0301T01)",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Energías Renovables y Eficiencia Energética",
           "base_legal": "Ley 24/2013 art. 53 (exención AAP hasta 100kW BT / sin excedentes); RD 244/2019",
           "plazo_estimado_dias": 90,
           "plazo_legal_dias": null,
@@ -536,11 +1260,11 @@
         {
           "orden": 3,
           "nombre": "Comunicación RII (RECE0004T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias",
           "base_legal": "RD 559/2010",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005765118807573",
           "coste_estimado": "Tasa correspondiente",
           "formulario_ref": "RECE0004T01",
@@ -554,7 +1278,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -578,7 +1302,7 @@
         {
           "orden": 99,
           "nombre": "Inscripción en el RIPRE (RECE0049T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico del Principado de Asturias",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias",
           "base_legal": "Resolución de 20 de mayo de 2015, de la Consejería de Economía y Empleo, por la que se habilita el Registro de Instalaciones de Producción de Energía Eléctrica en el Principado de Asturias (RIPRE) (BOPA 02/06/2015, ref. 2015-09530)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,

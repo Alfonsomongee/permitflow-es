@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "baleares",
-  "version": "0.9.2",
-  "ultima_revision": "2026-10-04",
+  "version": "0.9.3",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "No se ha verificado si Baleares exige una Entidad Colaboradora de la Administración (ECA) específicamente para ACS >=70 kW, o si es un trámite directo ante la UDIT — el fichero original lo daba por hecho sin fuente verificable",
     "Tasas exactas del trámite UDIT-021 no verificadas con detalle (confirmado que la ficha oficial permite pagar tasa telemáticamente, pero no se ha consignado el importe)",
     "Nombre y competencia exacta de la Dirección General actual no confirmados: contradicción entre fuentes oficiales de caib.es (ver fotovoltaica_autoconsumo.json de este mismo lote); se usa redacción neutra",
-    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007)"
+    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007)",
+    "Verificación Prompt B (2026-10-05): Baleares ACS (Prompt B): quitado el paso de notificación a Salut de BAL-ACS-003 (alta, ficha 1298691: solo torres y condensadores evaporativos). Plan de prevención de legionelosis sin norma balear localizada.",
+    "Verificación Prompt B (2026-10-05): Baleares (Prompt B): UDIT-021 (guía GT.021_02/26): plazo 6 meses con silencio negativo, tasas 2024 y documentos 02.128 / 02.130 / 02.132 (media; guía leída por resumen). Organismo = Dirección General de Industria y Polígonos Industriales; la UDIT es solo la unidad de información. La guía no incluye inspección inicial por organismo de control: paso conservado con aviso (RITE arts. 24.1.c y 30.1)."
   ],
   "fuentes": [
     {
@@ -245,13 +247,13 @@
         {
           "orden": 2,
           "nombre": "Instalaciones térmicas en los edificios (UDIT-021)",
-          "organismo": "UDIT (Unitat d'Informació i Tràmit) / Direcció General d'Indústria - Govern de les Illes Balears",
+          "organismo": "Dirección General de Industria y Polígonos Industriales (Conselleria d'Empresa, Autònoms i Energia), Govern de les Illes Balears",
           "base_legal": "RITE RD 1027/2007 art. 23-24; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 180,
           "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-021",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/225272",
-          "coste_estimado": "NO VERIFICADO (la ficha oficial permite pagar la tasa correspondiente de forma telemática; importe no consignado)",
+          "coste_estimado": "Tasa 021: uso doméstico 46,76 € (automático) o 75,35 € (no automático); otros usos 55,32 € o 92,53 €. Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
           "formulario_ref": "UDIT-021",
           "paralelo_con": null,
           "regla_id": "BAL-ACS-001",
@@ -265,11 +267,17 @@
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable",
-              "descripcion": "",
+              "descripcion": "La guía GT.021_02/26 no la lista; solo pide solicitud y certificado de instalación térmica (02.128).",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_instalacion_termica_02128",
+              "label": "Certificado de instalación térmica (modelo 02.128)",
+              "descripcion": "Modelo oficial de la guía GT.021_02/26.",
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha UDIT-021 fija 6 meses de plazo máximo de resolución con silencio negativo.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -362,14 +370,14 @@
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial y certificado de instalación — Instalaciones térmicas en los edificios (UDIT-021)",
-          "organismo": "UDIT (Unitat d'Informació i Tràmit) / Direcció General d'Indústria - Govern de les Illes Balears",
+          "nombre": "Puesta en servicio — Instalaciones térmicas en los edificios (UDIT-021)",
+          "organismo": "Dirección General de Industria y Polígonos Industriales (Conselleria d'Empresa, Autònoms i Energia), Govern de les Illes Balears",
           "base_legal": "RITE RD 1027/2007 art. 15, 23-24; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 180,
           "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-021",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/225272",
-          "coste_estimado": "NO VERIFICADO (la ficha oficial permite pagar la tasa correspondiente de forma telemática; importe no consignado)",
+          "coste_estimado": "Tasa 021: uso doméstico 46,76 € (automático) o 75,35 € (no automático); otros usos 55,32 € o 92,53 €. Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
           "formulario_ref": "UDIT-021",
           "paralelo_con": null,
           "regla_id": "BAL-ACS-002",
@@ -385,9 +393,27 @@
               "label": "Certificado del instalador",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica_02128",
+              "label": "Certificado de instalación térmica (modelo 02.128)",
+              "descripcion": "Modelo oficial de la guía GT.021_02/26.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_02130",
+              "label": "Certificado de dirección de obra (modelo 02.130)",
+              "descripcion": "Solo para más de 70 kW.",
+              "obligatorio": true
+            },
+            {
+              "id": "memoria_tecnica_rite_02132",
+              "label": "Memoria técnica RITE 2007 (modelo 02.132) con planos",
+              "descripcion": "Solo para más de 70 kW.",
+              "obligatorio": true
             }
           ],
-          "notas": "No confirmado si Baleares exige ECA para este trámite; el fichero original lo daba por hecho sin fuente verificable.",
+          "notas": "No confirmado si Baleares exige ECA para este trámite; el fichero original lo daba por hecho sin fuente verificable. La ficha UDIT-021 fija 6 meses de plazo máximo de resolución con silencio negativo.\nAVISO: la ficha oficial no incluye certificado de organismo de control entre los documentos de inscripción para una instalación nueva; el RITE solo prevé que el órgano autonómico «podrá disponer» una inspección inicial (art. 30.1) o que se aporte el certificado «cuando sea preceptivo» (art. 24.1.c). Consulta con el Dirección General de Industria y Polígonos Industriales si te la exigen.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -432,32 +458,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "No se ha localizado normativa autonómica balear específica de censo/registro de instalaciones de riesgo; se aplica el régimen estatal.",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 2,
-          "nombre": "Notificación/censo ante la autoridad sanitaria (Conselleria de Salut i Consum)",
-          "organismo": "Conselleria de Salut i Consum del Govern de les Illes Balears",
-          "base_legal": "RD 487/2022 art. 10",
-          "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
-          "plataforma": null,
-          "plataforma_url": null,
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
-          "paralelo_con": null,
-          "regla_id": "BAL-ACS-003",
-          "documentos_requeridos": [
-            {
-              "id": "notificacion_sanitaria_legionella",
-              "label": "Formulario de notificación/censo de instalación de riesgo",
-              "descripcion": "Comunicación a la autoridad sanitaria autonómica de la puesta en marcha de una instalación sujeta al RD 487/2022.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "NO VERIFICADO: no se ha confirmado el procedimiento/plataforma específico de censo de instalaciones de riesgo de la Conselleria de Salut i Consum de Illes Balears; se deja el organismo competente sin ficha de trámite hasta verificar.",
+          "notas": "No se ha localizado normativa autonómica balear específica de censo/registro de instalaciones de riesgo; se aplica el régimen estatal.\nEn Baleares solo se notifican a la Dirección General de Salud Pública (Servicio de Salud Ambiental) las torres de refrigeración y los condensadores evaporativos (RD 487/2022, art. 5.3); el ACS de uso colectivo no se notifica (ficha 1298691).",
           "registro_salida": null,
           "medio_presentacion": null
         }

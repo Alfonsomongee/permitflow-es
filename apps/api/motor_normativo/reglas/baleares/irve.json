@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "baleares",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "El tratamiento de 'garaje_comunitario' respecto al umbral 50/10 kW se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal de ocupación de vía pública, no incluido (hueco declarado; el propio disparador de las reglas incluye 'via_publica' sin trámite municipal asociado)",
     "Tasas exactas del trámite UDIT-045 no verificadas con detalle",
-    "PENDIENTE (no aplicado en esta revisión, severidad ALTO/MEDIO no mecánica): no se ha ramificado por el campo 'acceso_publico' del schema (eje real que usa la CAIB, 'zonas de acceso privado' vs. resto), que sigue sin usarse; las reglas continúan ramificando por 'ubicacion_irve'/potencia para decidir proyecto vs. memoria"
+    "PENDIENTE (no aplicado en esta revisión, severidad ALTO/MEDIO no mecánica): no se ha ramificado por el campo 'acceso_publico' del schema (eje real que usa la CAIB, 'zonas de acceso privado' vs. resto), que sigue sin usarse; las reglas continúan ramificando por 'ubicacion_irve'/potencia para decidir proyecto vs. memoria",
+    "Verificación Prompt B (2026-10-05): Baleares IRVE (Prompt B): UDIT-045 organismo = Dirección General de Industria y Polígonos Industriales (alta); plazo 6 meses con silencio positivo y tasa de otros usos 92,53 € (tarifas 2024; media, ficha leída por resumen). La 045 cubre solo zonas de acceso privado (alta).",
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (Baleares IRVE, alta): falta el registro de instalaciones de recarga en zonas de acceso al público (SIA 2306622: memoria técnica, certificado de instalación y certificado de dirección de obra; tasa 55,32 €; 6 meses; telemático) a cargo de la Dirección General de Economía Circular, Transición Energética y Cambio Climático; se necesita una variable de acceso público. Permiso municipal de ocupación de vía pública sin verificar."
   ],
   "fuentes": [
     {
@@ -136,13 +138,13 @@
         {
           "orden": 2,
           "nombre": "Instalaciones en baja tensión. Recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045)",
-          "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
+          "organismo": "Dirección General de Industria y Polígonos Industriales (Conselleria d'Empresa, Autònoms i Energia), Govern de les Illes Balears",
           "base_legal": "REBT RD 842/2002; ITC-BT-52 (RD 1053/2014)",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 180,
           "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-045",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/2293744",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Otros usos, tramitación no automática: 92,53 € (importe para uso doméstico no localizado). Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
           "formulario_ref": "UDIT-045",
           "paralelo_con": null,
           "regla_id": "BAL-IRVE-001",
@@ -154,7 +156,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Corregido 2026-07-28: se sustituyó el trámite genérico de baja tensión (UDIT-001) por el trámite específico de recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045). Para IRVE de acceso público, verificar si aplica un trámite distinto (no confirmado).",
+          "notas": "Corregido 2026-07-28: se sustituyó el trámite genérico de baja tensión (UDIT-001) por el trámite específico de recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045). Para IRVE de acceso público, verificar si aplica un trámite distinto (no confirmado).\nLa ficha UDIT-045 registra las instalaciones de recarga en zonas de acceso privado (esquemas 1, 2 y 3 y aparcamientos existentes de edificios residenciales); plazo de resolución de 6 meses con silencio positivo. Las de acceso público se registran en otro procedimiento (SIA 2306622).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -293,20 +295,20 @@
               "obligatorio": false
             }
           ],
-          "notas": "La inspección inicial por OCA solo es obligatoria en los supuestos previstos en la ITC-BT-05 (no en todos los casos con proyecto técnico); no se marca como documento obligatorio de forma incondicional.",
+          "notas": "La inspección inicial por OCA solo es obligatoria en los supuestos previstos en la ITC-BT-05 (no en todos los casos con proyecto técnico); no se marca como documento obligatorio de forma incondicional.\nAVISO: la ficha UDIT-045 no menciona en el extracto inspección inicial por organismo de control; consulta con la Dirección General si te la exigen (ITC-BT-05 §4.1).",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 4,
           "nombre": "Instalaciones en baja tensión. Recarga de vehículos eléctricos en zonas de acceso privado (UDIT-045)",
-          "organismo": "Dirección General competente en industria del Govern de les Illes Balears",
+          "organismo": "Dirección General de Industria y Polígonos Industriales (Conselleria d'Empresa, Autònoms i Energia), Govern de les Illes Balears",
           "base_legal": "REBT RD 842/2002; ITC-BT-52 (RD 1053/2014)",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 180,
           "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-045",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/2293744",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Otros usos, tramitación no automática: 92,53 € (importe para uso doméstico no localizado). Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
           "formulario_ref": "UDIT-045",
           "paralelo_con": null,
           "regla_id": "BAL-IRVE-002",
@@ -330,7 +332,7 @@
               "obligatorio": false
             }
           ],
-          "notas": "",
+          "notas": "La ficha UDIT-045 registra las instalaciones de recarga en zonas de acceso privado (esquemas 1, 2 y 3 y aparcamientos existentes de edificios residenciales); plazo de resolución de 6 meses con silencio positivo. Las de acceso público se registran en otro procedimiento (SIA 2306622).",
           "registro_salida": null,
           "medio_presentacion": null
         }

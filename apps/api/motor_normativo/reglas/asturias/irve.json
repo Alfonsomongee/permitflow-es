@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "asturias",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.1.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "PENDIENTE (no resuelto, ALTO de la auditoría): no se ha confirmado si las instalaciones IRVE en vivienda están exentas de la tasa modelo 046 (indicio en la ficha de RECE0017T01: 'para tramitar certificados de todas las instalaciones diferentes a las de viviendas y alumbrados festivos temporales'), por lo que 'justificante_tasa_046' se mantiene como obligatorio sin excepción hasta confirmarlo con el Servicio de Gestión Energética o normativa tributaria específica. No se ha tocado por no estar verificado (ver PENDIENTE DE VERIFICAR de la auditoría).",
     "requiere campo de formulario: numero_plazas_garaje / ventilacion_garaje — existen en schemas/clasificador.py y en Step2ParametrosTecnicos.tsx pero CamposIRVE solo los renderiza cuando comunidad=cataluna (mostrarCamposGarajeCataluna); no se ha podido modelar para Asturias el criterio adicional de la guía técnica ITC-BT-52 (proyecto obligatorio en garajes con ventilación forzada, o con ventilación natural y >5 plazas, independientemente de la potencia).",
     "PENDIENTE: órgano gestor exacto de RECE0004T01 no confirmado documentalmente en esta sesión; se mantiene la Consejería genérica.",
-    "PENDIENTE (BAJO, no aplicado): 'direccion_obra' sigue marcado obligatorio:false en AST-IRVE-002-A/B; la ficha lo exige junto con el proyecto técnico."
+    "PENDIENTE (BAJO, no aplicado): 'direccion_obra' sigue marcado obligatorio:false en AST-IRVE-002-A/B; la ficha lo exige junto con el proyecto técnico.",
+    "Verificación Prompt B (2026-10-05): Asturias IRVE (Prompt B): umbrales de proyecto e inspección inicial por OCA con proyecto confirmados por la ficha de puntos de recarga y el RD 1053/2014 (media). Certificado final de obra obligatorio cuando hay proyecto; proyecto visado o con declaración responsable; plataforma de baja tensión. Organismo: Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria), según el Decreto 49/2025, de 29/04/2025, modificado por los Decretos 73/2025 y 35/2026 (resúmenes de INAP/iustel, fuente secundaria; adscripción exacta del Servicio de Fluidos y Metrología sin confirmar en el BOPA).",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Asturias IRVE): ficha RECE0017T01 sin leer (tasa 046 y su posible exención en vivienda, plazos); inscripción de puntos de recarga de acceso público (Orden TED/445/2023) sin verificar."
   ],
   "fuentes": [
     {
@@ -168,11 +170,11 @@
         {
           "orden": 3,
           "nombre": "Registro de la instalación (RECE0017T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Gestión Energética",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Gestión Energética",
           "base_legal": "RD 842/2002",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005718311607573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "RECE0017T01",
@@ -198,7 +200,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -331,11 +333,11 @@
         {
           "orden": 3,
           "nombre": "Registro RII (RECE0004T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias",
           "base_legal": "RD 559/2010",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005765118807573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "RECE0004T01",
@@ -361,7 +363,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -458,7 +460,7 @@
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico IRVE",
-              "descripcion": "Visado.",
+              "descripcion": "Visado o con declaración responsable del técnico.",
               "obligatorio": true
             }
           ],
@@ -488,9 +490,9 @@
             },
             {
               "id": "direccion_obra",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "",
-              "obligatorio": false
+              "label": "Certificado final de obra",
+              "descripcion": "Visado o con declaración responsable; obligatorio cuando hay proyecto.",
+              "obligatorio": true
             }
           ],
           "notas": "",
@@ -525,11 +527,11 @@
         {
           "orden": 4,
           "nombre": "Registro de la instalación (RECE0017T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Gestión Energética",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Gestión Energética",
           "base_legal": "RD 842/2002",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005718311607573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "RECE0017T01",
@@ -561,7 +563,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -658,7 +660,7 @@
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico IRVE",
-              "descripcion": "Visado.",
+              "descripcion": "Visado o con declaración responsable del técnico.",
               "obligatorio": true
             }
           ],
@@ -688,9 +690,9 @@
             },
             {
               "id": "direccion_obra",
-              "label": "Certificado de Dirección de Obra",
-              "descripcion": "",
-              "obligatorio": false
+              "label": "Certificado final de obra",
+              "descripcion": "Visado o con declaración responsable; obligatorio cuando hay proyecto.",
+              "obligatorio": true
             }
           ],
           "notas": "",
@@ -725,11 +727,11 @@
         {
           "orden": 4,
           "nombre": "Registro RII (RECE0004T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias",
           "base_legal": "RD 559/2010",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica del Principado de Asturias",
+          "plataforma": "Aplicación «Tramitación de Instalación Eléctrica de Baja Tensión» (www70.asturias.es/electricas)",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000005765118807573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998",
           "formulario_ref": "RECE0004T01",
@@ -761,7 +763,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La tramitación de baja tensión es exclusivamente telemática por esa aplicación; las empresas instaladoras necesitan acceso a la Plataforma CIE (RECE0017T02).",
           "registro_salida": null,
           "medio_presentacion": null
         }

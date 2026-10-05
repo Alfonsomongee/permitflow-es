@@ -291,3 +291,32 @@ Tres resultados de herramienta externa. Misma salvedad: no re-comprobado, JSON �
 
 ### Siguiente paso concreto
 Abrir a mano las fichas 60, 61 y 27 de la CARM, el modelo IRG-3 y la OF 60/2015 de Navarra, y las fichas 1002260, 1002270 y 1002272 de Castilla-La Mancha.
+
+---
+
+## Resultado del Prompt B — Baleares, Cantabria y Asturias (2026-10-05)
+
+Tres resultados de herramienta externa. Misma salvedad: no re-comprobado, JSON íntegro no archivado. Casi todas las fichas (CAIB, sede.cantabria.es, sede.asturias.es) se leyeron por resumen o extracto y las citas están marcadas «paráfrasis»; ninguna ficha de Cantabria ni las de la sede de Asturias fueron legibles (robots.txt). Cambios de clasificación en **ADR 0007**. Ningún nivel sube; `revisado_por` sigue vacío.
+
+### Aplicado
+| Comunidad | Hallazgo (confianza) | Cambio |
+|---|---|---|
+| Baleares, Cantabria, Asturias | **FV: proyecto por encima de 10 kW** (media; ITC-BT-04 §3.1 y ficha de Asturias) | `001` a ≤ 10 kW y reglas nuevas `…-001P` (Asturias: `-P` y `-Q`) |
+| Baleares | Autorización > 500 kW = SIA 216287 (ficha 2807998), no la 034 (alta) | Nombre, URL, organismo y base legal |
+| Baleares | Plazos 6 meses (silencios positivo/negativo), tasas 2024, documentos 02.128/02.130/02.132 (media) | UDIT-021, UDIT-045, UDIT-013 y ficha 034 |
+| Baleares | ACS colectivo no se notifica a Salud Pública (alta) | Paso quitado |
+| Cantabria | Gas: el 599 exige proyecto; partición por potencia y no por uso (media) | `CANT-GBP-001` sin comunicación; nueva `CANT-GBP-003` |
+| Cantabria | Art. 9 del RD 244/2019 no regula la documentación (alta) | Base legal corregida |
+| Asturias | Organismo renombrado (media, fuente secundaria), plataforma BT, certificado final de obra, nombres oficiales (alta) | Textos y documentos |
+| Cantabria, Asturias | Comunicación de gas sin plazo de resolución | `plazo_legal_dias` a null |
+
+### Registrado en `huecos_verificacion`
+- **Registro de IRVE en acceso público** (Baleares SIA 2306622; Cantabria 5845): falta variable.
+- **RSIF en aerotermia** (Asturias, Cantabria).
+- **Gas:** comunes/acometidas > 2.000 kW y ampliaciones ≥ 30 % sin modelar en las tres.
+- **Baleares FV:** pasos 8-13 de la ventanilla, duplicado del orden 8 y garantía económica sin leer.
+- **Asturias FV:** AAP > 100 kW solo apoyada en la ficha PDF; versión REV-02/REV-03 sin confirmar.
+- **Cantabria:** umbral de autorización > 100 kW sin base autonómica; tasas 2026.
+
+### Siguiente paso concreto
+Abrir a mano las fichas 034, UDIT-013/021/045 y 2807998 de la CAIB, las fichas 599, 438, 3482 y 49 de Cantabria y las RECE0017T01, RECE0050T01, DECO0011T01 y AUTO0301T01 de Asturias.

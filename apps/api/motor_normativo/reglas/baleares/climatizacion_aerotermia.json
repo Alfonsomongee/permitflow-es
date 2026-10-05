@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "baleares",
-  "version": "0.9.2",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.3",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "El 'Certificado de Eficiencia Energética (CEE) del edificio' del fichero original (RD 235/2013) no es un trámite de legalización de la instalación térmica sino de certificación energética de edificios; se ha retirado de esta regla por no ser parte del circuito de puesta en servicio salvo que se verifique lo contrario",
     "Tasas exactas del trámite UDIT-021 no verificadas con detalle (confirmado que la ficha oficial permite pagar tasa telemáticamente, pero no se ha consignado el importe)",
     "No se ha confirmado si Baleares exige una Entidad Colaboradora de la Administración (ECA) para la puesta en servicio de climatización, o si es un trámite directo ante la UDIT",
-    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007) y el requisito de instalador con certificación de gases fluorados (Reglamento (UE) 2024/573, que derogó el 517/2014 el 11/03/2024; trámite balear UDIT-049) para equipos de aerotermia"
+    "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta modelar el suelo de aplicación del RITE (< 5 kW, art. 2 RD 1027/2007) y el requisito de instalador con certificación de gases fluorados (Reglamento (UE) 2024/573, que derogó el 517/2014 el 11/03/2024; trámite balear UDIT-049) para equipos de aerotermia",
+    "Verificación Prompt B (2026-10-05): Baleares (Prompt B): UDIT-021 (guía GT.021_02/26): plazo 6 meses con silencio negativo, tasas 2024 y documentos 02.128 / 02.130 / 02.132 (media; guía leída por resumen). Organismo = Dirección General de Industria y Polígonos Industriales; la UDIT es solo la unidad de información. La guía no incluye inspección inicial por organismo de control: paso conservado con aviso (RITE arts. 24.1.c y 30.1)."
   ],
   "fuentes": [
     {
@@ -132,13 +133,13 @@
         {
           "orden": 2,
           "nombre": "Instalaciones térmicas en los edificios (UDIT-021)",
-          "organismo": "UDIT (Unitat d'Informació i Tràmit) / Direcció General d'Indústria - Govern de les Illes Balears",
+          "organismo": "Dirección General de Industria y Polígonos Industriales (Conselleria d'Empresa, Autònoms i Energia), Govern de les Illes Balears",
           "base_legal": "RITE RD 1027/2007 art. 23-24; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 180,
           "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-021",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/225272",
-          "coste_estimado": "NO VERIFICADO (la ficha oficial permite pagar la tasa correspondiente de forma telemática; importe no consignado)",
+          "coste_estimado": "Tasa 021: uso doméstico 46,76 € (automático) o 75,35 € (no automático); otros usos 55,32 € o 92,53 €. Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
           "formulario_ref": "UDIT-021",
           "paralelo_con": null,
           "regla_id": "BAL-CLIMA-001",
@@ -152,11 +153,17 @@
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable del titular/instalador",
-              "descripcion": "",
+              "descripcion": "La guía GT.021_02/26 no la lista; solo pide solicitud y certificado de instalación térmica (02.128).",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_instalacion_termica_02128",
+              "label": "Certificado de instalación térmica (modelo 02.128)",
+              "descripcion": "Modelo oficial de la guía GT.021_02/26.",
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha UDIT-021 fija 6 meses de plazo máximo de resolución con silencio negativo.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -201,14 +208,14 @@
         },
         {
           "orden": 2,
-          "nombre": "Inspección inicial y certificado de instalación — Instalaciones térmicas en los edificios (UDIT-021)",
-          "organismo": "UDIT (Unitat d'Informació i Tràmit) / Direcció General d'Indústria - Govern de les Illes Balears",
+          "nombre": "Puesta en servicio — Instalaciones térmicas en los edificios (UDIT-021)",
+          "organismo": "Dirección General de Industria y Polígonos Industriales (Conselleria d'Empresa, Autònoms i Energia), Govern de les Illes Balears",
           "base_legal": "RITE RD 1027/2007 art. 15, 23-24; Decreto 25/2003, de 28 de marzo (CAIB)",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 180,
           "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-021",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/225272",
-          "coste_estimado": "NO VERIFICADO (la ficha oficial permite pagar la tasa correspondiente de forma telemática; importe no consignado)",
+          "coste_estimado": "Tasa 021: uso doméstico 46,76 € (automático) o 75,35 € (no automático); otros usos 55,32 € o 92,53 €. Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
           "formulario_ref": "UDIT-021",
           "paralelo_con": null,
           "regla_id": "BAL-CLIMA-002",
@@ -224,9 +231,27 @@
               "label": "Certificado del instalador",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion_termica_02128",
+              "label": "Certificado de instalación térmica (modelo 02.128)",
+              "descripcion": "Modelo oficial de la guía GT.021_02/26.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_02130",
+              "label": "Certificado de dirección de obra (modelo 02.130)",
+              "descripcion": "Solo para más de 70 kW.",
+              "obligatorio": true
+            },
+            {
+              "id": "memoria_tecnica_rite_02132",
+              "label": "Memoria técnica RITE 2007 (modelo 02.132) con planos",
+              "descripcion": "Solo para más de 70 kW.",
+              "obligatorio": true
             }
           ],
-          "notas": "Sujeto a inspección inicial por requerir proyecto (art. 15 RITE). No confirmado si Baleares exige ECA para este trámite.",
+          "notas": "15 RITE). No confirmado si Baleares exige ECA para este trámite. La ficha UDIT-021 fija 6 meses de plazo máximo de resolución con silencio negativo.\nAVISO: la ficha oficial no incluye certificado de organismo de control entre los documentos de inscripción para una instalación nueva; el RITE solo prevé que el órgano autonómico «podrá disponer» una inspección inicial (art. 30.1) o que se aporte el certificado «cuando sea preceptivo» (art. 24.1.c). Consulta con el Dirección General de Industria y Polígonos Industriales si te la exigen.",
           "registro_salida": null,
           "medio_presentacion": null
         }

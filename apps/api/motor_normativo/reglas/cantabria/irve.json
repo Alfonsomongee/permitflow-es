@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "cantabria",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-26",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,9 @@
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente para Cantabria",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "Igual que en fotovoltaica, la disponibilidad real de OCA/EICI en Cantabria para inspección inicial de instalaciones que requieren proyecto no está confirmada — la ficha oficial consultada para BT general indica que actualmente no hay entidades colaboradoras acreditadas para el procedimiento equivalente",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Cantabria IRVE (Prompt B): umbrales de proyecto (interior > 50 kW, exterior > 10 kW, modo 4) confirmados en la ITC-BT-04 (alta). Paso 2 de IRVE-002 separado: certificado de instalación (instaladora) frente a inspección por OCA (media). Tarifa 2.2 de la Ley 9/1992.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Cantabria IRVE): fichas 3446 y 3158 sin leer (robots.txt; el 3158 no apareció en el catálogo); falta la comunicación de puntos de recarga de acceso público (trámite 5845, base legal sin verificar) y la autorización municipal de IRVE en vía pública; plazo legal y vigencia de la Orden de 17/10/2003 sin localizar."
   ],
   "fuentes": [
     {
@@ -147,7 +149,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
           "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tarifa 2.2 de la Ley 9/1992 («Instalaciones eléctricas en baja tensión»); importe 2026 no localizado.",
           "formulario_ref": "3446",
           "paralelo_con": null,
           "regla_id": "CANT-IRVE-001",
@@ -260,9 +262,9 @@
         },
         {
           "orden": 2,
-          "nombre": "Certificado de instalación (inspección inicial por OCA cuando proceda)",
-          "organismo": "Organismo de Control Autorizado (OCA) habilitado en Cantabria",
-          "base_legal": "REBT RD 842/2002",
+          "nombre": "Certificado de instalación (CI-BT) e inspección inicial por OCA cuando proceda",
+          "organismo": "Empresa instaladora (certificado de instalación) y Organismo de Control Autorizado (inspección inicial, cuando la exija la ITC-BT-05 §4.1)",
+          "base_legal": "REBT RD 842/2002, ITC-BT-04 apdo. 3.1 e ITC-BT-05 apdo. 4.1; ITC-BT-52 (RD 1053/2014)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -279,7 +281,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Disponibilidad real de OCA en Cantabria para este trámite no confirmada — ver aviso.",
+          "notas": "Disponibilidad real de OCA en Cantabria para este trámite no confirmada — ver aviso.\nEl certificado de instalación de baja tensión lo emite la empresa instaladora; el organismo de control interviene solo en la inspección inicial cuando la norma la exige. No se verificó en Cantabria.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -292,7 +294,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
           "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tarifa 2.2 de la Ley 9/1992 («Instalaciones eléctricas en baja tensión»); importe 2026 no localizado.",
           "formulario_ref": "3446",
           "paralelo_con": null,
           "regla_id": "CANT-IRVE-002",
