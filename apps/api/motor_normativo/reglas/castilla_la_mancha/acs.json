@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "castilla_la_mancha",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de ACS; se aplica el RITE nacional directamente",
     "No se ha modelado la exención de documentación (< 5 kW cualquier equipo; calentadores instantáneos/acumuladores/termos eléctricos ≤70 kW; solares de elemento único prefabricado sin límite expreso) por falta de campo de tipo de equipo en el schema",
     "No se ha confirmado si Castilla-La Mancha exige OCA específicamente para ACS >70 kW",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Castilla-La Mancha térmicas (Prompt B): umbrales 5-70 kW y > 70 kW y exenciones confirmados con la ficha 1002272 y el BOE; la presentación sin proyecto es eDice-Térmicas y con proyecto la ventanilla SJE6; tasas 6.1/6.2 de 2026; la ficha no exige inspección inicial por OCA (potestativa, RITE art. 30.1): paso conservado con aviso. Sin verificar: trámite de instalaciones frigoríficas (RSIF, tarifa 12 de la Ley 7/2008) para aerotermia y obligación de Legionela para ACS colectiva. Ley 1/2026 de medidas administrativas y tributarias de Castilla-La Mancha: no se comprobó si afecta a tarifas de industria."
   ],
   "fuentes": [
     {
@@ -229,9 +230,9 @@
           "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
-          "plataforma_url": "https://www.jccm.es/tramites/1002272",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma": "eDice-Térmicas (certificado sin proyecto)",
+          "plataforma_url": "https://edice.castillalamancha.es/eDice-Termicas/",
+          "coste_estimado": "Tarifa 6.1 de la Ley 7/2008 (2026): sin proyecto 11,97 €",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CLM-ACS-001",
@@ -244,12 +245,18 @@
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado de habilitación del instalador",
-              "descripcion": "",
+              "label": "Certificado de instalación (modelo de la Junta)",
+              "descripcion": "Lo firman el instalador y el técnico competente; la ficha no pide certificado de habilitación del instalador.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de la tasa (modelo 046)",
+              "descripcion": "Tarifa 6 de la Ley 7/2008.",
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 1002272 indica 3 meses con silencio estimatorio; no se modela como plazo de resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -356,12 +363,12 @@
             },
             {
               "id": "certificado_instalador",
-              "label": "Certificado de instalador",
-              "descripcion": "",
+              "label": "Certificado de instalación (modelo de la Junta)",
+              "descripcion": "Lo firman el instalador y el técnico competente; la ficha no pide certificado de habilitación del instalador.",
               "obligatorio": true
             }
           ],
-          "notas": "No confirmado si Castilla-La Mancha exige OCA específica para este trámite.",
+          "notas": "No confirmado si Castilla-La Mancha exige OCA específica para este trámite.\nAVISO: la ficha oficial no incluye certificado de organismo de control entre los documentos de inscripción para una instalación nueva; el RITE solo prevé que el órgano autonómico «podrá disponer» una inspección inicial (art. 30.1) o que se aporte el certificado «cuando sea preceptivo» (art. 24.1.c). Consulta con el Delegación Provincial si te la exigen.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -372,10 +379,10 @@
           "base_legal": "RITE RD 1027/2007",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
+          "plataforma": "Ventanilla SJE6 (certificados con proyecto)",
           "plataforma_url": "https://www.jccm.es/tramites/1002272",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": null,
+          "coste_estimado": "Tarifa 6.2 de la Ley 7/2008 (2026): con proyecto 41,03 € hasta 10.000 € + 6,14 € por cada 10.000 € adicionales (máximo 3.000 €)",
+          "formulario_ref": "SJE6",
           "paralelo_con": null,
           "regla_id": "CLM-ACS-002",
           "documentos_requeridos": [
@@ -384,9 +391,15 @@
               "label": "Proyecto técnico",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de la tasa (modelo 046)",
+              "descripcion": "Tarifa 6 de la Ley 7/2008.",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Con proyecto, el diligenciado se hace en la ventanilla SJE6 (https://ventanillaelectronica.jccm.es/administracion_electronica/formularios/SJE6.phtml?SER_ID=JE6&PROC=IRISI&FIRMA=S).\nLa ficha 1002272 indica 3 meses con silencio estimatorio; no se modela como plazo de resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }

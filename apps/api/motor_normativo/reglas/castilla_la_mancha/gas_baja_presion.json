@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "castilla_la_mancha",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de legalización de instalaciones de gas (el Decreto 13/2010 real solo regula tarifas)",
     "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar",
     "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso residencial/comercial/colectivo; si esa distinción es normativamente relevante, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw",
-    "Tasas y plazos legales no verificados con detalle"
+    "Tasas y plazos legales no verificados con detalle",
+    "Verificación Prompt B (2026-10-05): Castilla-La Mancha gas (Prompt B): ficha 1002260 CONFIRMA que sin proyecto no hay comunicación («no es precisa ninguna comunicación», alta). Los 30 días son el plazo de presentación del titular, no de resolución; documentos y tasa 8.2 de 2026 añadidos. La corrección de 1002259 a 1002260 es correcta. Organismo: la ficha solo dice «órgano competente de la Comunidad Autónoma». PENDIENTE: el umbral de 70 kW es solo para individuales; comunes y acometidas interiores requieren proyecto por encima de 2.000 kW, además de más de 5 bar y ampliaciones de más del 30 %, por lo que una instalación común de 70 a 2.000 kW recibe hoy proyecto y comunicación sin necesitarlos."
   ],
   "fuentes": [
     {
@@ -162,10 +163,10 @@
           "organismo": "Dirección General de Industria, Energía y Minas (Consejería de Desarrollo Sostenible)",
           "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
           "plataforma_url": "https://www.jccm.es/tramites/1002260",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tarifa 8.2 de la Ley 7/2008 (2026): con proyecto 49,03 € hasta 10.000 € de inversión + 6,14 € por cada 10.000 € adicionales (máximo 3.000 €)",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CLM-GBP-002",
@@ -181,9 +182,45 @@
               "label": "Certificado de Instalación de gas",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Tarifa 8.2 de la Ley 7/2008.",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_proyectista",
+              "label": "Declaración responsable del proyectista",
+              "descripcion": "Ficha 1002260.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Ficha 1002260.",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_director_ejecucion",
+              "label": "Declaración responsable del director de ejecución",
+              "descripcion": "Ficha 1002260.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_chimeneas",
+              "label": "Certificado de chimeneas",
+              "descripcion": "Si hay evacuación de productos de combustión.",
+              "obligatorio": false
+            },
+            {
+              "id": "certificado_pruebas_previas",
+              "label": "Certificado de pruebas previas y puesta en servicio",
+              "descripcion": "Lo emite la empresa distribuidora (ficha 1002260).",
+              "obligatorio": true
             }
           ],
-          "notas": "Plazo de 30 días desde puesta en servicio (régimen general ITC-ICG-07 3.6, consistente con lo confirmado en Asturias); no verificado el plazo exacto específico de Castilla-La Mancha. CORREGIDO 2026-07-28: plataforma_url apuntaba al trámite 1002259 ('Registro de una estación de servicio para vehículos a gas', objeto distinto); se sustituye por 1002260 ('Registro de una instalación receptora de combustibles gaseosos'), el trámite real de legalización.",
+          "notas": "Plazo de 30 días desde puesta en servicio (régimen general ITC-ICG-07 3.6, consistente con lo confirmado en Asturias); no verificado el plazo exacto específico de Castilla-La Mancha. CORREGIDO 2026-07-28: plataforma_url apuntaba al trámite 1002259 ('Registro de una estación de servicio para vehículos a gas', objeto distinto); se sustituye por 1002260 ('Registro de una instalación receptora de combustibles gaseosos'), el trámite real de legalización.\nEl titular debe presentar la documentación antes de 30 días desde la puesta en servicio; la ficha 1002260 indica 3 meses con silencio estimatorio, que no se modela como plazo de resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }

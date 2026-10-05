@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "navarra",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,9 @@
     "Tasas y plazos legales de resolución no verificados con detalle",
     "No se ha confirmado el nombre exacto del registro de autoconsumo específico de Navarra más allá del trámite genérico 'Tramitación y registro administrativo de instalaciones de autoconsumo de energía eléctrica' confirmado en navarra.es",
     "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
-    "plataforma_url 'https://www.navarra.es/sede' (AAP/AAC de FV >100 kW) sigue siendo genérica: no se localizó la ficha específica de trámite en navarra.es dentro del presupuesto de la auditoría — PENDIENTE"
+    "plataforma_url 'https://www.navarra.es/sede' (AAP/AAC de FV >100 kW) sigue siendo genérica: no se localizó la ficha específica de trámite en navarra.es dentro del presupuesto de la auditoría — PENDIENTE",
+    "Verificación Prompt B (2026-10-05): Navarra FV (Prompt B): proyecto por encima de 10 kW (media; no se halló norma foral que cambie el corte, la OF 60/2015 solo regula procedimiento): NAV-FV-001 pasa a «hasta 10 kW» y se añade NAV-FV-001P (10-100 kW). Confirmados DLF 1/2022 art. 11.1 (≤ 100 kW sin autorización previa ni de construcción) y OF 60/2015 (deroga la OF 181/2003, la 424/2009 y la 425/2009). Organismo: Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas. URL de NAV-FV-002 corregida al procedimiento de producción. El CIE lo emite la empresa instaladora, no un OCA; la OF 64/2022 no regula el registro de autoconsumo (es de fomento de comunidades de energía); base legal del registro: RD 244/2019, Resolución 81/2019, RD 413/2014.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Navarra FV): el paso de OCA de las dos reglas se sustituyó por un aviso (la ITC-BT-05 §4.1 no incluye generadoras; fuente secundaria, media); plazo y silencio de la autorización > 100 kW (el catálogo SIA da 3 meses con silencio positivo a instancia de parte; norma no localizada); si el autoconsumo SIN excedentes de más de 100 kW necesita autorización (la ficha distingue sección primera y segunda; falta la variable); corte de 500 kW; Decreto Foral 56/2019 (parques eólicos) sin confirmar para FV; nombre vigente de la dirección general. OMISIONES: declaración responsable o comunicación previa municipal (Ley Foral 4/2021, art. 192.1.g del TRLFOTU), inscripción en el registro de producción (RD 413/2014) y garantía del RD 1183/2020 art. 23. Importes de tasas sin localizar."
   ],
   "fuentes": [
     {
@@ -59,13 +61,13 @@
   "reglas": [
     {
       "id": "NAV-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW conectada a red ≤1 kV: régimen exento de autorización administrativa previa y de construcción, Memoria Técnica de Diseño",
+      "descripcion": "Autoconsumo de hasta 10 kW en baja tensión: memoria técnica y registro",
       "condicion": {
         "<=": [
           {
             "var": "potencia_kw"
           },
-          100
+          10
         ]
       },
       "tramites": [
@@ -97,8 +99,8 @@
         {
           "orden": 2,
           "nombre": "Certificado de Instalación Eléctrica (CIE) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) en Navarra",
-          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "organismo": "Empresa instaladora autorizada (el certificado de instalación no lo emite un organismo de control)",
+          "base_legal": "REBT RD 842/2002; OF 60/2015 (art. 4)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -115,15 +117,15 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Según el apartado 4.1 de la ITC-BT-05, las instalaciones generadoras de baja tensión no figuran entre las sujetas a inspección inicial por organismo de control, salvo que otra característica de la instalación lo exija; no se halló exigencia foral distinta.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
           "nombre": "Registro de la instalación de autoconsumo",
-          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
-          "base_legal": "Orden Foral 64/2022; RD 244/2019",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
+          "base_legal": "RD 244/2019; Resolución 81/2019 de la DG de Industria (BON 29/07/2019); RD 1955/2000; RD 413/2014",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",
@@ -140,7 +142,126 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Para instalaciones de baja tensión de hasta 100 kW la inscripción en el Registro de autoconsumo se hace de oficio a partir del registro BT (el texto de la Resolución 81/2019 dice «menor de 100 kW»; confirmar el borde). Memorias, proyectos y certificados de dirección de obra se presentan en el Repositorio de Proyectos (CONSIGNA).",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "NAV-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW en baja tensión: proyecto técnico, certificado de dirección de obra y registro",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ITC-BT-04 §3.1 exige proyecto para «generadores y convertidores» de más de 10 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación Eléctrica (CIE) y puesta en servicio",
+          "organismo": "Empresa instaladora autorizada (el certificado de instalación no lo emite un organismo de control)",
+          "base_legal": "REBT RD 842/2002; OF 60/2015 (art. 4)",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Según el apartado 4.1 de la ITC-BT-05, las instalaciones generadoras de baja tensión no figuran entre las sujetas a inspección inicial por organismo de control, salvo que otra característica de la instalación lo exija; no se halló exigencia foral distinta.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de la instalación de autoconsumo",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
+          "base_legal": "RD 244/2019; Resolución 81/2019 de la DG de Industria (BON 29/07/2019); RD 1955/2000; RD 413/2014",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Navarra",
+          "plataforma_url": "https://www.navarra.es/es/tramites/on/-/line/Tramitacion-y-registro-administrativo-de-instalaciones-de-autoconsumo-de-energia-electrica",
+          "coste_estimado": "NO VERIFICADO",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "NAV-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Para instalaciones de baja tensión de hasta 100 kW la inscripción en el Registro de autoconsumo se hace de oficio a partir del registro BT (el texto de la Resolución 81/2019 dice «menor de 100 kW»; confirmar el borde). Memorias, proyectos y certificados de dirección de obra se presentan en el Repositorio de Proyectos (CONSIGNA).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -187,12 +308,12 @@
           "orden": 2,
           "nombre": "Solicitud de Autorización Administrativa Previa (AAP) y de Construcción (AAC)",
           "organismo": "Dirección General de Industria, Energía y Proyectos Estratégicos del Gobierno de Navarra",
-          "base_legal": "Decreto-ley Foral 1/2022; Ley 24/2013 art. 53",
+          "base_legal": "Decreto-ley Foral 1/2022; Ley 24/2013 art. 53; RD 1955/2000 (arts. 115 y ss.); Decreto Foral 56/2019 (procedimiento; aplicación a FV no confirmada)",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",
-          "plataforma_url": "https://www.navarra.es/es/tramites/on/-/line/Autorizacion-de-instalaciones-de-energia-electrica-de-alta-tension",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma_url": "https://www.navarra.es/es/tramites/on/-/line/autorizacion-administrativa-de-instalaciones-de-produccion-de-energia-electrica",
+          "coste_estimado": "Ley Foral 2/2021: 100 € por autorización administrativa en materia de seguridad industrial (150 € con declaración de utilidad pública); importe exacto de la ficha de producción sin confirmar",
           "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "NAV-FV-002",
@@ -204,14 +325,14 @@
               "obligatorio": true
             }
           ],
-          "notas": "Para instalaciones ≤5 ha aplica el procedimiento simplificado del Decreto-ley Foral 1/2022, con especialidades en materia ambiental (Ley Foral 17/2020).",
+          "notas": "El procedimiento simplificado del Decreto-ley Foral 1/2022 (≤ 5 ha) exigía solicitar antes del 31/12/2024 y no consta prórroga: hoy puede no ser aplicable, con especialidades en materia ambiental (Ley Foral 17/2020).",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
           "nombre": "Certificado de Instalación Eléctrica (CIE) y puesta en servicio",
-          "organismo": "Organismo de Control Autorizado (OCA) en Navarra",
+          "organismo": "Empresa instaladora autorizada (el certificado de instalación no lo emite un organismo de control)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -229,15 +350,15 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Las instalaciones generadoras de baja tensión no figuran entre las sujetas a inspección inicial por la ITC-BT-05 §4.1, salvo que otra característica lo exija.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 4,
           "nombre": "Registro de la instalación de autoconsumo",
-          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
-          "base_legal": "Orden Foral 64/2022; RD 244/2019",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
+          "base_legal": "RD 244/2019; Resolución 81/2019 de la DG de Industria (BON 29/07/2019); RD 1955/2000; RD 413/2014",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",

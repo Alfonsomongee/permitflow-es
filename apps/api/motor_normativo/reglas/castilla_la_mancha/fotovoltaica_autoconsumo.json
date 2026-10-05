@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "castilla_la_mancha",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "No se ha localizado un decreto autonómico de Castilla-La Mancha específico de autoconsumo/BT distinto de la normativa nacional",
     "Umbral 100 kW vs 500 kW (RD-ley 18/2022): confirmado por fuente agregada (no JCCM de primer nivel) que Castilla-La Mancha NO ha ejercido la potestad de elevarlo a 500 kW; se mantienen los 100 kW. Tratar como indicio fuerte, no como confirmación oficial plena — NO VERIFICADO en fuente primaria JCCM.",
     "Tasas y plazos legales de resolución no verificados con detalle",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "Verificación Prompt B (2026-10-05): Castilla-La Mancha FV (Prompt B): BLOQUEANTE resuelto (ficha 1002270, ITC-BT-04 apdo. 3; media): CLM-FV-001 pasa a «hasta 10 kW» y se añade CLM-FV-001P (10-100 kW, ventanilla SJE4). Organismo de registro: Delegación Provincial (la DGTE gestiona eDice-bt y el Registro de Autoconsumo). Tasa 2026 (Resolución 20/04/2026): 36,48 € y fórmula con proyecto. El formulario 020048 no existe: el código de procedimiento es 1002270 y la ventanilla SJE4.",
+    "Verificación Prompt B (2026-10-05): BLOQUEANTE sin modelar (alta, ficha 1002270): CLM-FV-002 no contiene ningún trámite de autorización. Faltan, solo para autoconsumo CON excedentes de más de 100 kW: SJ9M (autorización previa y de construcción) y SJ9T (autorización de explotación), y la variable con/sin excedentes. Faltan también MLG8 (registro de autoconsumo: obligatorio con P ≥ 100 kW o AT; en BT con menos de 100 kW, de oficio), CAU, permisos de acceso y garantías (SLG0), evaluación ambiental (condicional) y la documentación del sistema antivertido. El «Decreto 80/2017» eliminado era una errata del Decreto 80/2007. Umbral de 100 frente a 500 kW sin cerrar: la Instrucción 1/2020 es anterior al RDL 18/2022 y los DOCM de 2025 siguen dando AAP y AAC a FV de 500 kW, lo que apunta a que CLM no aplica la exención de 500 kW (art. 53.3 de la Ley 24/2013); confirmar con la DGTE."
   ],
   "fuentes": [
     {
@@ -58,13 +60,13 @@
   "reglas": [
     {
       "id": "CLM-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
+      "descripcion": "Autoconsumo de hasta 10 kW en baja tensión: memoria técnica y registro",
       "condicion": {
         "<=": [
           {
             "var": "potencia_kw"
           },
-          100
+          10
         ]
       },
       "tramites": [
@@ -102,14 +104,14 @@
         {
           "orden": 2,
           "nombre": "Diligenciado del certificado y registro de la instalación (eDice-bt)",
-          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "organismo": "Delegación Provincial de la Consejería de Desarrollo Sostenible (Servicio de Industria y Energía); la DG de Transición Energética gestiona la herramienta eDice",
           "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "eDice-bt (Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha)",
           "plataforma_url": "https://edice.castillalamancha.es/eDice-bt/",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "020048",
+          "coste_estimado": "Tasa (modelo 046, tarifa 3.1 de la Ley 7/2008, 2026): sin proyecto 36,48 €; con proyecto 36,48 € hasta 10.000 € de inversión + 6,14 € por cada 10.000 € adicionales (máximo 3.000 €).",
+          "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CLM-FV-001",
           "documentos_requeridos": [
@@ -124,9 +126,121 @@
               "label": "Certificado de Instalación",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de la tasa (modelo 046)",
+              "descripcion": "Tarifa 3.1 de la Ley 7/2008.",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_informacion_usuario",
+              "label": "Anexo de información al usuario",
+              "descripcion": "Se presenta con el certificado de instalación.",
+              "obligatorio": true
             }
           ],
-          "notas": "Para instalaciones sin proyecto, el diligenciado se realiza directamente en eDice-bt; con proyecto, en un portal externo (confirmado en la propia herramienta oficial).",
+          "notas": "Para instalaciones sin proyecto, el diligenciado se realiza directamente en eDice-bt; con proyecto, en un portal externo (confirmado en la propia herramienta oficial).\nLa ficha 1002270 indica 3 meses con silencio estimatorio; no se modela como plazo de resolución (registro de un certificado). El certificado de instalación se presenta por quintuplicado con su anexo de información al usuario.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "CLM-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW en baja tensión: proyecto técnico, certificado de dirección de obra y registro",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CLM-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ITC-BT-04 §3.1 exige proyecto para «generadores y convertidores» de más de 10 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Diligenciado del certificado y registro de la instalación (eDice-bt)",
+          "organismo": "Delegación Provincial de la Consejería de Desarrollo Sostenible (Servicio de Industria y Energía); la DG de Transición Energética gestiona la herramienta eDice",
+          "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Ventanilla SJE4 de la sede electrónica (certificados con proyecto)",
+          "plataforma_url": "https://www.jccm.es/tramites/1002270",
+          "coste_estimado": "Tasa (modelo 046, tarifa 3.1 de la Ley 7/2008, 2026): sin proyecto 36,48 €; con proyecto 36,48 € hasta 10.000 € de inversión + 6,14 € por cada 10.000 € adicionales (máximo 3.000 €).",
+          "formulario_ref": "SJE4",
+          "paralelo_con": null,
+          "regla_id": "CLM-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del instalador.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_046",
+              "label": "Justificante de pago de la tasa (modelo 046)",
+              "descripcion": "Tarifa 3.1 de la Ley 7/2008.",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_informacion_usuario",
+              "label": "Anexo de información al usuario",
+              "descripcion": "Se presenta con el certificado de instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Para instalaciones sin proyecto, el diligenciado se realiza directamente en eDice-bt; con proyecto, en un portal externo (confirmado en la propia herramienta oficial).\nLa ficha 1002270 indica 3 meses con silencio estimatorio; no se modela como plazo de resolución (registro de un certificado). El certificado de instalación se presenta por quintuplicado con su anexo de información al usuario.\nEl diligenciado de certificados con proyecto se hace en la ventanilla SJE4 (https://ventanillaelectronica.jccm.es/administracion_electronica/formularios/SJE4.phtml?SER_ID=JE4&PROC=IRISI&FIRMA=S), fuera de eDice-bt.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -190,21 +304,21 @@
               "obligatorio": true
             }
           ],
-          "notas": "El umbral de 100 kW para exigencia de inspección inicial en instalaciones industriales está confirmado directamente en la ficha oficial de la JCCM (ITC-BT-04).",
+          "notas": "El umbral de 100 kW para exigencia de inspección inicial en instalaciones industriales está confirmado directamente en la ficha oficial de la JCCM (ITC-BT-04).\nAVISO: la inspección inicial por organismo de control de más de 100 kW se aplica a instalaciones industriales que precisen proyecto (ITC-BT-05 §4.1), no a toda FV; el paso solo procede si la instalación entra en ese supuesto.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
           "nombre": "Diligenciado del certificado y registro de la instalación (portal con proyecto)",
-          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "organismo": "Delegación Provincial de la Consejería de Desarrollo Sostenible (Servicio de Industria y Energía); la DG de Transición Energética gestiona la herramienta eDice",
           "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
           "plataforma_url": "https://www.jccm.es/tramites/1002270",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "020048",
+          "coste_estimado": "Tasa (modelo 046, tarifa 3.1 de la Ley 7/2008, 2026): sin proyecto 36,48 €; con proyecto 36,48 € hasta 10.000 € de inversión + 6,14 € por cada 10.000 € adicionales (máximo 3.000 €).",
+          "formulario_ref": "SJE4",
           "paralelo_con": null,
           "regla_id": "CLM-FV-002",
           "documentos_requeridos": [
@@ -221,7 +335,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "AVISO: este paso solo registra el certificado BT. El autoconsumo CON excedentes de más de 100 kW necesita además autorización administrativa previa y de construcción (SJ9M) y autorización de explotación (SJ9T), Decreto 80/2007 (mod. Decreto 34/2017 y Ley 7/2022); el SIN excedentes de cualquier potencia solo necesita registro.",
           "registro_salida": null,
           "medio_presentacion": null
         }

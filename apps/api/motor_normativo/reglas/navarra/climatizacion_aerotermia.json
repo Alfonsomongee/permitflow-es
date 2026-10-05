@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "navarra",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -10,7 +10,8 @@
   "huecos_verificacion": [
     "Nombre exacto del trámite de registro de instalaciones térmicas en Navarra no confirmado en esta revisión",
     "Tasas y plazos legales no verificados",
-    "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó la ficha específica de trámite de registro térmico en navarra.es dentro del presupuesto de la auditoría — PENDIENTE"
+    "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó la ficha específica de trámite de registro térmico en navarra.es dentro del presupuesto de la auditoría — PENDIENTE",
+    "Verificación Prompt B (2026-10-05): Navarra (Prompt B): confirmado que la OF 60/2015 deroga la OF 424/2009 y que la OF 64/2022 (disposición adicional única; numeración a confirmar en el BON 226, 15/11/2022) exige inspección inicial por organismo de control para más de 70 kW. Trámite renombrado a «Registro de instalaciones térmicas en edificios» (pierde las estadísticas de plazos del nombre antiguo); organismo corregido. Sin verificar: documentos oficiales por potencia, tasas (no se localizó tasa propia) y el visado."
   ],
   "fuentes": [
     {
@@ -24,7 +25,7 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente en instalaciones industriales/energéticas",
+      "norma": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra — confirmado real como órgano competente en instalaciones industriales/energéticas",
       "url": null,
       "fecha_consulta": null
     },
@@ -129,8 +130,8 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro/comunicación de puesta en servicio de instalación térmica",
-          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "nombre": "Registro de instalaciones térmicas en edificios",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
           "base_legal": "RITE RD 1027/2007 art. 24; Orden Foral 60/2015 (procedimiento foral de tramitación/registro)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -154,7 +155,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Nombre exacto del trámite en Navarra no localizado en esta revisión.",
+          "notas": "Nombre exacto del trámite en Navarra no localizado en esta revisión.\nTramitación electrónica obligatoria (OF 60/2015, DT 1.ª) por la aplicación del Gobierno de Navarra o por una entidad colaboradora (organismos de control y colegios profesionales); memorias y proyectos van al Repositorio de Proyectos. La tarifa de los organismos de control como entidades colaboradoras es libre (DT 2.ª.3).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -230,14 +231,14 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "En Navarra la inspección inicial para más de 70 kW es obligatoria por norma foral (OF 64/2022, disposición adicional única), elegida libremente por el titular entre los organismos de control autorizados; también se exige en instalaciones solares sin generadores de apoyo con apertura de captadores superior a 100 m².",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Registro/comunicación de puesta en servicio de instalación térmica",
-          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "nombre": "Registro de instalaciones térmicas en edificios",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
           "base_legal": "RITE RD 1027/2007 art. 24; Orden Foral 60/2015 (procedimiento foral de tramitación/registro)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -261,7 +262,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Tramitación electrónica obligatoria (OF 60/2015, DT 1.ª) por la aplicación del Gobierno de Navarra o por una entidad colaboradora (organismos de control y colegios profesionales); memorias y proyectos van al Repositorio de Proyectos. La tarifa de los organismos de control como entidades colaboradoras es libre (DT 2.ª.3).",
           "registro_salida": null,
           "medio_presentacion": null
         }

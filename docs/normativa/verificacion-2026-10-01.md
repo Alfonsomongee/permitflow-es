@@ -265,3 +265,29 @@ Tres resultados de herramienta externa (consultados el 2026-10-04). Misma salved
 ### Siguiente paso concreto
 Abrir a mano las fichas IN614C, IN407B, IN625A, la IAPA13 / IAPA1496 y el procedimiento IG del País Vasco; leer el texto íntegro del Decreto 25/2026 y las Instrucciones 2/2021 y 1/2022.
 
+
+---
+
+## Resultado del Prompt B — Murcia, Navarra y Castilla-La Mancha (2026-10-05)
+
+Tres resultados de herramienta externa. Misma salvedad: no re-comprobado, JSON íntegro no archivado, y muchas fichas de `sede.carm.es` y `navarra.es` se leyeron por extracto de buscador (robots.txt). Cambios de clasificación en **ADR 0006**. Ningún nivel sube; `revisado_por` sigue vacío.
+
+### Aplicado
+| Comunidad | Hallazgo (confianza) | Cambio |
+|---|---|---|
+| Murcia, Navarra, Castilla-La Mancha | **FV: proyecto por encima de 10 kW** (alta en MUR/CLM por ITC-BT-04 §3.1; media en NAV) | `001` a ≤ 10 kW y reglas nuevas `…-FV-001P` (10-100 kW) |
+| Murcia | Organismo, ficha 61 (declaración responsable) y procedimiento 19 (alta) | Nombres y organismo |
+| Murcia | Certificado de gas lo emite la instaladora, no un OCA (alta) | Organismo de tres reglas |
+| Navarra | Organismo actual; OF 64/2022 solo para térmicas (alta) | Organismo, nombres y base legal del gas |
+| Castilla-La Mancha | Delegación Provincial, eDice y ventanillas SJE4/SJE6; gas sin proyecto sin comunicación (alta) | Plataformas, organismo y `plazo_legal_dias` a null |
+| Murcia, Navarra, Castilla-La Mancha | La ficha no pide certificado de OCA en instalaciones nuevas (media) | Paso conservado con aviso |
+
+### Registrado en `huecos_verificacion` (decisión o fuente pendiente)
+- **Gas ≤ 70 kW individual (Murcia ficha 60, Navarra IRG-3):** registro previsto en la ficha pero en conflicto con la ITC-ICG 07 §3.6; no se añadió (decisión pendiente).
+- **Castilla-La Mancha `CLM-FV-002`:** faltan SJ9M, SJ9T y MLG8 (necesita variable de excedentes).
+- **Murcia FV:** CAU, permiso de acceso y conexión y notificación del proyecto sin modelar.
+- **Navarra:** plazo y silencio de la autorización > 100 kW; Resolución 63/2025 sobre IRVE.
+- **Comunes/acometidas > 2.000 kW y ampliaciones > 30 %** en gas.
+
+### Siguiente paso concreto
+Abrir a mano las fichas 60, 61 y 27 de la CARM, el modelo IRG-3 y la OF 60/2015 de Navarra, y las fichas 1002260, 1002270 y 1002272 de Castilla-La Mancha.

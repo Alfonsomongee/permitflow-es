@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "navarra",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "Tasas y plazos legales no verificados",
-    "VERIFICADO 2026-07-28: el valor 'via_publica' de 'ubicacion_irve' usado en las condiciones de NAV-IRVE-001/002 SÍ es válido — está en el Literal real de schemas/clasificador.py (línea 40) y ya fue añadido a VALORES_VALIDOS en motor_normativo/validar_reglas.py; no es código muerto. No se ha modificado la condición."
+    "VERIFICADO 2026-07-28: el valor 'via_publica' de 'ubicacion_irve' usado en las condiciones de NAV-IRVE-001/002 SÍ es válido — está en el Literal real de schemas/clasificador.py (línea 40) y ya fue añadido a VALORES_VALIDOS en motor_normativo/validar_reglas.py; no es código muerto. No se ha modificado la condición.",
+    "Verificación Prompt B (2026-10-05): Navarra IRVE (Prompt B): el aviso de que no hay normativa foral específica de IRVE ya no es cierto: la ficha de registro BT cita la Resolución 63/2025 (pautas para la tramitación de instalaciones de recarga en aparcamientos colectivos), sin leer su texto (puede cambiar umbrales y documentos). Confirmados OF 60/2015, la URL del registro BT y la inspección inicial por OCA con proyecto (ITC-BT-05, secundaria). Organismo corregido. OMISIONES: autorización previa para más de 3.000 kW (Ley 24/2013, según la ficha), documentación de desclasificación de garajes y declaración responsable municipal para puntos de recarga en el interior de edificaciones (Ley Foral 4/2021, art. 192.1.h; la guía del IDAE recuerda que el art. 48 de la Ley 24/2013 impide exigir licencia previa)."
   ],
   "fuentes": [
     {
@@ -126,8 +127,8 @@
             {
               "id": "declaracion_responsable",
               "label": "Declaración responsable del instalador",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "No figura como documento oficial en la ficha de registro BT (carpeta de BT, certificado, proyecto o memoria, croquis y unifilar).",
+              "obligatorio": false
             }
           ],
           "notas": "",
@@ -137,7 +138,7 @@
         {
           "orden": 2,
           "nombre": "Registro de la instalación eléctrica de baja tensión",
-          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
           "base_legal": "Orden Foral 60/2015",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -161,7 +162,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Proyecto y dirección de obra se presentan a través de CONSIGNA (Repositorio de Proyectos). Si la instalación supera los 3.000 kW hace falta autorización previa al registro. Para garajes comunitarios la ficha pide documentación justificativa de la desclasificación (Resolución 63/2025).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -282,7 +283,7 @@
         {
           "orden": 3,
           "nombre": "Registro de la instalación eléctrica de baja tensión",
-          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
           "base_legal": "Orden Foral 60/2015",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -306,7 +307,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Proyecto y dirección de obra se presentan a través de CONSIGNA (Repositorio de Proyectos). Si la instalación supera los 3.000 kW hace falta autorización previa al registro. Para garajes comunitarios la ficha pide documentación justificativa de la desclasificación (Resolución 63/2025).",
           "registro_salida": null,
           "medio_presentacion": null
         }

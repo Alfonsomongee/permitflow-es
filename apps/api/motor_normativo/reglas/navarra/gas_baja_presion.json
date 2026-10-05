@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "navarra",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "Auditoría 2026-07-28: se confirmó y añadió como base_legal foral la Orden Foral 60/2015, de 5 de marzo (BON n.º 54, de 20 de marzo de 2015), que regula el procedimiento de tramitación/registro y deroga la Orden Foral 425/2009 (desarrollo RIGLO en Navarra), y la Orden Foral 64/2022, de 21 de octubre (Disp. Adicional Única), que confirma el umbral de 70 kW e inspección inicial OCA en instalaciones térmicas",
     "Nombre exacto del trámite de registro de instalaciones de gas en Navarra no confirmado",
     "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó ficha específica de trámite de registro de instalación de gas en el catálogo de navarra.es dentro del presupuesto de la auditoría",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Navarra gas (Prompt B): la OF 64/2022 solo regula inspecciones de instalaciones térmicas (RITE); se quitó de la base legal del gas (alta). Confirmado que la OF 60/2015 deroga la OF 425/2009. Certificados oficiales IRG-1/2/3 y certificado de dirección de obra con proyecto añadidos. Organismo: Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas.",
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (media): la ficha «Registro de instalaciones de gas» de Navarra lista «Registro de documentación de instalaciones receptoras de gas» con el modelo IRG-3 (instalación individual) y la OF 60/2015 (art. 6) exige comunicación para las instalaciones no sometidas a autorización; eso podría alcanzar a las instalaciones sin proyecto, en contra de la ITC-ICG 07 §3.6. Las fichas de navarra.es solo se leyeron por extracto. NO se añadió el registro a NAV-GAS-002. Sin modelar: comunes y acometidas > 2.000 kW y ampliaciones > 30 %. Ley Foral 4/2022 (art. 38.1): desde el 30/06/2027 no se instalarán sistemas térmicos con combustibles fósiles en edificios nuevos (desarrollo sin verificar)."
   ],
   "fuentes": [
     {
@@ -20,7 +22,7 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra — confirmado real como órgano competente",
+      "norma": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra — confirmado real como órgano competente",
       "url": null,
       "fecha_consulta": null
     },
@@ -89,8 +91,14 @@
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
+              "label": "Certificado de instalación (IRG-1 acometida interior, IRG-2 común o IRG-3 individual)",
               "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Lo emite el técnico competente en las instalaciones que precisan proyecto (RD 919/2006).",
               "obligatorio": true
             }
           ],
@@ -100,8 +108,8 @@
         },
         {
           "orden": 3,
-          "nombre": "Registro/comunicación de instalación receptora de gas",
-          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
+          "nombre": "Registro de instalaciones de gas",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
           "base_legal": "RIGLO RD 919/2006 ITC-ICG-07; Orden Foral 60/2015, de 5 de marzo (Navarra), procedimiento de tramitación y registro",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -158,7 +166,7 @@
         {
           "orden": 1,
           "nombre": "Memoria técnica de instalación de gas",
-          "organismo": "Instalador de gas habilitado (categoría IG-I o IG-II)",
+          "organismo": "Instalador de gas habilitado (carné de categoría A, B o C, ITC-ICG 09)",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
@@ -202,7 +210,7 @@
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
+              "label": "Certificado de instalación (IRG-1 acometida interior, IRG-2 común o IRG-3 individual)",
               "descripcion": "",
               "obligatorio": true
             }
@@ -241,7 +249,7 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación de gas",
           "organismo": "Técnico titulado competente (ingeniero industrial o similar)",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07; Orden Foral 64/2022, de 21 de octubre (Navarra), Disp. Adicional Única — umbral >70 kW e inspección inicial OCA",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -278,8 +286,14 @@
           "documentos_requeridos": [
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación de gas",
+              "label": "Certificado de instalación (IRG-1 acometida interior, IRG-2 común o IRG-3 individual)",
               "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Lo emite el técnico competente en las instalaciones que precisan proyecto (RD 919/2006).",
               "obligatorio": true
             }
           ],
@@ -289,9 +303,9 @@
         },
         {
           "orden": 3,
-          "nombre": "Registro/comunicación de instalación receptora de gas",
-          "organismo": "Servicio de Energía, Minas y Seguridad Industrial del Gobierno de Navarra",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07; Orden Foral 60/2015, de 5 de marzo (Navarra), procedimiento de tramitación y registro; Orden Foral 64/2022, de 21 de octubre (Navarra), Disp. Adicional Única — umbral >70 kW e inspección inicial OCA",
+          "nombre": "Registro de instalaciones de gas",
+          "organismo": "Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas del Gobierno de Navarra",
+          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07; Orden Foral 60/2015, de 5 de marzo (Navarra), procedimiento de tramitación y registro",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Navarra",

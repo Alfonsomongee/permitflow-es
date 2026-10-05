@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "murcia",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "El fichero original distinguía IRVE residencial de no residencial (comercial/industrial) con el mismo umbral de potencia — no se ha localizado fuente que confirme que esa distinción, más allá del umbral técnico de proyecto, sea relevante; se ha simplificado a la partición estándar por ubicación/potencia/modo de recarga",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Murcia IRVE (Prompt B): umbrales de la ITC-BT-04 y OCA con proyecto confirmados (alta); registro por el procedimiento 19 (declaración responsable; modelos «Memoria Técnica de Diseño IEBT» y «Certificado de IEBT»); el CIE no lo emite el OCA; plazo legal de 20 días eliminado. Pendiente: grupos g y h de aparcamientos (proyecto con ventilación forzada, o natural con más de 5 plazas, salvo garajes de viviendas existentes) y remisión RIPREE (Orden TED/445/2023) que ofrece la ficha 19. Vía pública y garaje comunitario sin norma murciana."
   ],
   "fuentes": [
     {
@@ -136,14 +137,14 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de la instalación (procedimiento 0019)",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "nombre": "Registro de instalaciones eléctricas de baja tensión (procedimiento 19)",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
           "base_legal": "Decreto 20/2003",
-          "plazo_estimado_dias": 10,
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=19&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa T610 H00001 (sin proyecto) / H00002 (con proyecto) y T630 H00001 (diligencia de certificados); importes 2026 no verificados",
           "formulario_ref": "0019",
           "paralelo_con": null,
           "regla_id": "MUR-IRVE-001",
@@ -257,10 +258,10 @@
         {
           "orden": 2,
           "nombre": "Inspección inicial por Organismo de Control (OCA) y emisión de CIE",
-          "organismo": "Organismo de Control Autorizado (OCA) habilitado en la Región de Murcia",
+          "organismo": "Organismo de Control Autorizado (inspección inicial) y empresa instaladora (certificado de instalación)",
           "base_legal": "REBT RD 842/2002",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": null,
           "plataforma_url": null,
           "coste_estimado": "NO VERIFICADO",
@@ -281,20 +282,20 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "El certificado de instalación (CIE) lo emite la empresa instaladora; el organismo de control emite su certificado de inspección (ITC-BT-05 §4.1.h).",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Registro de la instalación (procedimiento 0019)",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "nombre": "Registro de instalaciones eléctricas de baja tensión (procedimiento 19)",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
           "base_legal": "Decreto 20/2003",
-          "plazo_estimado_dias": 10,
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=19&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa T610 H00001 (sin proyecto) / H00002 (con proyecto) y T630 H00001 (diligencia de certificados); importes 2026 no verificados",
           "formulario_ref": "0019",
           "paralelo_con": null,
           "regla_id": "MUR-IRVE-002",
