@@ -325,7 +325,7 @@ Abrir a mano las fichas 034, UDIT-013/021/045 y 2807998 de la CAIB, las fichas 5
 
 ## Resultado del Prompt B — La Rioja y Extremadura (2026-10-06)
 
-Dos resultados de herramienta externa; el de Extremadura llegó **cortado** (faltan el final de climatización, ACS y gas), así que solo se aplicaron sus ficheros FV e IRVE. La Rioja completa, pero todas sus fichas se leyeron por extracto (robots.txt); las de Extremadura (juntaex.es) se leyeron directamente. Cambios en **ADR 0008**. Ningún nivel sube; `revisado_por` sigue vacío.
+Dos resultados de herramienta externa; el de Extremadura llegó cortado y se volvió a pasar completo, de modo que se aplicaron sus cinco ficheros. La Rioja completa, pero todas sus fichas se leyeron por extracto (robots.txt); las de Extremadura (juntaex.es) se leyeron directamente. Cambios en **ADR 0008**. Ningún nivel sube; `revisado_por` sigue vacío.
 
 ### Aplicado
 - **FV (las dos):** proyecto por encima de 10 kW (`…-001P`).
@@ -334,4 +334,6 @@ Dos resultados de herramienta externa; el de Extremadura llegó **cortado** (fal
 - **Extremadura IRVE:** CIP 5625, tasa Modelo 050, plataforma AsistenteAGILE.
 
 ### Siguiente paso concreto
-Abrir a mano las fichas CL y CLM, GN-GL, IBT (n=24196) y AUTee (n=24593) de La Rioja; y volver a pasar el resultado completo de Extremadura (climatización, ACS y gas).
+Abrir a mano las fichas CL y CLM, GN-GL, IBT (n=24196) y AUTee (n=24593) de La Rioja, y las fichas 5625, 5873 y 5083 (legionela ACS) de Extremadura. Con esto, las 17 comunidades han pasado el Prompt B.
+
+- **Extremadura (completo):** térmicas y gas con proyecto por el CIP 5625 (no 5873); nueva `EXT-ACS-003` de notificación de legionela en ACS con acumulación y retorno (Orden de 01/12/2017).

@@ -86,10 +86,10 @@ export const COBERTURA_NORMATIVA: Record<string, Record<string, CoberturaCombo>>
     irve: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 5, ultimaRevision: "2026-10-04", revisadoPor: null },
   },
   extremadura: {
-    acs: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 3, ultimaRevision: "2026-07-28", revisadoPor: null },
-    climatizacion_aerotermia: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 2, ultimaRevision: "2026-07-28", revisadoPor: null },
+    acs: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 4, ultimaRevision: "2026-10-05", revisadoPor: null },
+    climatizacion_aerotermia: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 4, ultimaRevision: "2026-10-05", revisadoPor: null },
     fotovoltaica_autoconsumo: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 4, ultimaRevision: "2026-10-05", revisadoPor: null },
-    gas_baja_presion: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 3, ultimaRevision: "2026-07-28", revisadoPor: null },
+    gas_baja_presion: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 5, ultimaRevision: "2026-10-05", revisadoPor: null },
     irve: { nivelVerificacion: "generica", estado: "borrador_no_verificado", huecos: 6, ultimaRevision: "2026-10-05", revisadoPor: null },
   },
   galicia: {

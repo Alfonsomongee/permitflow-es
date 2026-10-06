@@ -82,7 +82,7 @@ export const CAMPOS_CONDICIONALES: Record<string, Record<string, readonly string
     irve: ["modo_recarga", "ubicacion_irve"],
   },
   extremadura: {
-    acs: ["tipo_generador_acs"],
+    acs: ["acumulacion", "recirculacion", "tipo_generador_acs", "uso_colectivo"],
     climatizacion_aerotermia: [],
     fotovoltaica_autoconsumo: [],
     gas_baja_presion: ["presion_bar"],
