@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "la_rioja",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "No se ha localizado normativa autonómica riojana específica de IRVE",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): La Rioja IRVE (Prompt B): IBT confirmado (alta); plazo 3 meses con silencio estimatorio (media) y tasas 29,45 € / 57,25 € (alta), organismo de control = cualquier habilitado (alta). Umbrales de proyecto del marco, sin norma riojana contraria.",
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (La Rioja IRVE, media): el trámite n=24641 (infraestructura de recarga de terceros o acceso público: autorización solo si > 3.000 kW, 6 meses; inscripción en 1 mes; certificado IRVET y datos del prestador, Orden TED/445/2023) es distinto del IBT de particulares; «via_publica» no debería ir por el IBT. Necesita variable de acceso público."
   ],
   "fuentes": [
     {
@@ -139,10 +141,10 @@
           "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
           "base_legal": "REBT RD 842/2002",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 90,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
           "plataforma_url": "https://web.larioja.org/oficina-electronica/tramite?n=24196",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa de Industria 4.21.3.1: 29,45 € (instalación sin proyecto, memoria técnica). Se paga con pasarela en el propio trámite.",
           "formulario_ref": "IBT",
           "paralelo_con": null,
           "regla_id": "RIO-IRVE-001",
@@ -160,7 +162,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha IBT fija un plazo máximo de resolución de 3 meses con silencio estimatorio (confirmar con el Servicio si aplica también a la inscripción sin proyecto). Impresos oficiales: «Certificado de Instalación BT20» y «Memoria Técnica de Diseño BT21».",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -256,7 +258,7 @@
         {
           "orden": 2,
           "nombre": "Inspección inicial por Organismo de Control (OCA)",
-          "organismo": "OCA acreditada en La Rioja",
+          "organismo": "Organismo de control habilitado (en La Rioja no se exige autorización para actuar)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -280,7 +282,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "AVISO: en La Rioja la obligatoriedad de la inspección inicial solo puede venir de la Resolución de 10/11/2010 (apartado «Obligatoriedad de la inspección inicial»), cuyo texto no se pudo leer; el RITE la deja como potestativa (arts. 24.1.c y 30.1). Umbral de 70 kW y excepción de generadores de aire caliente y tubos radiantes a gas sin confirmar.\nAVISO: la ficha IBT no menciona en el extracto la inspección inicial por organismo de control; consulta con el Servicio de Industria si te la exigen (ITC-BT-05 §4.1).",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -290,10 +292,10 @@
           "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
           "base_legal": "REBT RD 842/2002",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 90,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
           "plataforma_url": "https://web.larioja.org/oficina-electronica/tramite?n=24196",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa de Industria 4.21.2.1.1: 57,25 € (instalación con proyecto). Se paga con pasarela en el propio trámite.",
           "formulario_ref": "IBT",
           "paralelo_con": null,
           "regla_id": "RIO-IRVE-002",
@@ -311,7 +313,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha IBT fija un plazo máximo de resolución de 3 meses con silencio estimatorio (confirmar con el Servicio si aplica también a la inscripción sin proyecto). Impresos oficiales: «Certificado de Instalación BT20» y «Memoria Técnica de Diseño BT21».",
           "registro_salida": null,
           "medio_presentacion": null
         }

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "la_rioja",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-27",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "No se ha verificado si La Rioja ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
     "Tasas y plazos legales de resolución no verificados con detalle más allá del plazo de 6 meses confirmado para autorización administrativa",
     "No se ha confirmado el nombre exacto ni la existencia de un registro de autoconsumo diferenciado; La Rioja tramita a través del Servicio de Industria (Registro Integrado Industrial / Registro de instalaciones de producción) según fuente oficial",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "Verificación Prompt B (2026-10-05): La Rioja FV (Prompt B): BLOQUEANTE resuelto (media, ITC-BT-04 §3.1; fuente IDAE secundaria, sin norma riojana contraria): RIO-FV-001 pasa a «hasta 10 kW» (MTD, tasa 29,45 €) y se añade RIO-FV-001P (10-100 kW, proyecto, tasa 57,25 €). Tasas de la ficha AUTee (alta, extracto del buscador). Cita del art. 9 del RD 244/2019 sustituida por ITC-BT-04 y art. 19 (registro).",
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (La Rioja FV, media): la ficha AUTee exige que la instalación de BT esté INSCRITA antes de legalizar el autoconsumo (trámite IBT, n=24196; 29,45 € sin proyecto / 57,25 € con proyecto; 3 meses, silencio estimatorio; RD 842/2002 y RD 2135/1980): paso previo no modelado. Tampoco: conexión en alta tensión (certificado de AT; trámite n=25324), garantías de acceso y conexión (n=24457, 57,25 €; exentas ≤ 100 kW; RD 1183/2020 art. 23), Resolución de 11/10/2017 (NO 2017/02, autoconsumo BT; cita el RD 900/2015, derogado), umbral de 500 kW (no hay evidencia de que La Rioja lo haya elevado), silencio de la autorización y OCA > 100 kW. Resolución 128/2025 (regularización BT anterior a 18/09/2003, vigente hasta el 30/12/2026) no aplica a instalaciones nuevas."
   ],
   "fuentes": [
     {
@@ -53,13 +55,13 @@
   "reglas": [
     {
       "id": "RIO-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
+      "descripcion": "Autoconsumo de hasta 10 kW en baja tensión: memoria técnica y registro",
       "condicion": {
         "<=": [
           {
             "var": "potencia_kw"
           },
-          100
+          10
         ]
       },
       "tramites": [
@@ -67,7 +69,7 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
           "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; REBT ITC-BT-04 apdo. 3.1; RD 244/2019, art. 19",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -103,7 +105,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
           "plataforma_url": "https://web.larioja.org/oficina-electronica/tramite?n=24593",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa de Industria 4.21.3.1: 29,45 € (instalación sin proyecto, memoria técnica). Se paga con pasarela en el propio trámite.",
           "formulario_ref": "AUTee",
           "paralelo_con": null,
           "regla_id": "RIO-FV-001",
@@ -121,7 +123,95 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial).",
+          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial).\nFicha AUTee (n=24593): inscripción de puesta en servicio en 1 mes, sin norma ni silencio citados. Impresos oficiales: «Certificado de Instalación BT20» y «Memoria Técnica de Diseño BT21».",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "RIO-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW en baja tensión: proyecto técnico, certificado de dirección de obra y registro",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "RIO-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ITC-BT-04 §3.1 exige proyecto para «generadores y convertidores» de más de 10 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalación y comunicación de puesta en servicio (modelo AUTee)",
+          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
+          "base_legal": "RD 244/2019 art. 19; REBT RD 842/2002",
+          "plazo_estimado_dias": 30,
+          "plazo_legal_dias": null,
+          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
+          "plataforma_url": "https://web.larioja.org/oficina-electronica/tramite?n=24593",
+          "coste_estimado": "Tasa de Industria 4.21.2.1.1: 57,25 € (instalación con proyecto). Se paga con pasarela en el propio trámite.",
+          "formulario_ref": "AUTee",
+          "paralelo_con": null,
+          "regla_id": "RIO-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial).\nFicha AUTee (n=24593): inscripción de puesta en servicio en 1 mes, sin norma ni silencio citados. Impresos oficiales: «Certificado de Instalación BT20» y «Memoria Técnica de Diseño BT21».",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -143,7 +233,7 @@
           "orden": 1,
           "nombre": "Proyecto Técnico (PT) fotovoltaico",
           "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; REBT ITC-BT-04 apdo. 3.1; RD 244/2019, art. 19",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -167,7 +257,7 @@
         {
           "orden": 2,
           "nombre": "Inspección inicial por OCA",
-          "organismo": "Organismo de Control Autorizado (OCA) en La Rioja",
+          "organismo": "Organismo de control habilitado (en La Rioja no se exige autorización para actuar)",
           "base_legal": "REBT RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
@@ -191,7 +281,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "AVISO: en La Rioja la obligatoriedad de la inspección inicial solo puede venir de la Resolución de 10/11/2010 (apartado «Obligatoriedad de la inspección inicial»), cuyo texto no se pudo leer; el RITE la deja como potestativa (arts. 24.1.c y 30.1). Umbral de 70 kW y excepción de generadores de aire caliente y tubos radiantes a gas sin confirmar.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -204,7 +294,7 @@
           "plazo_legal_dias": 180,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
           "plataforma_url": "https://web.larioja.org/oficina-electronica/tramite?n=24593",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa de Industria 4.21.2.1.1: 57,25 € (instalación con proyecto).",
           "formulario_ref": "AUTee",
           "paralelo_con": null,
           "regla_id": "RIO-FV-002",
@@ -222,7 +312,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo de 6 meses para la autorización administrativa confirmado en ficha oficial de La Rioja; puede suspenderse si se requieren informes preceptivos de otros organismos.",
+          "notas": "Plazo de 6 meses para la autorización administrativa confirmado en ficha oficial de La Rioja; puede suspenderse si se requieren informes preceptivos de otros organismos.\nPlazo de 6 meses para la autorización administrativa, suspendible si hacen falta condicionados e informes (ficha AUTee); sentido del silencio sin confirmar.",
           "registro_salida": null,
           "medio_presentacion": null
         }

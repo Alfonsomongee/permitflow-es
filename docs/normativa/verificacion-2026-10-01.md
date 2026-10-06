@@ -320,3 +320,18 @@ Tres resultados de herramienta externa. Misma salvedad: no re-comprobado, JSON �
 
 ### Siguiente paso concreto
 Abrir a mano las fichas 034, UDIT-013/021/045 y 2807998 de la CAIB, las fichas 599, 438, 3482 y 49 de Cantabria y las RECE0017T01, RECE0050T01, DECO0011T01 y AUTO0301T01 de Asturias.
+
+---
+
+## Resultado del Prompt B — La Rioja y Extremadura (2026-10-06)
+
+Dos resultados de herramienta externa; el de Extremadura llegó **cortado** (faltan el final de climatización, ACS y gas), así que solo se aplicaron sus ficheros FV e IRVE. La Rioja completa, pero todas sus fichas se leyeron por extracto (robots.txt); las de Extremadura (juntaex.es) se leyeron directamente. Cambios en **ADR 0008**. Ningún nivel sube; `revisado_por` sigue vacío.
+
+### Aplicado
+- **FV (las dos):** proyecto por encima de 10 kW (`…-001P`).
+- **Extremadura FV:** registro por CIP 5625 (no 5695), autorización de explotación 100-500 kW (CIP 5873), dos fases > 500 kW.
+- **La Rioja:** tasas AUTee/IBT, plazo IBT, organismo de control habilitado, Resolución de 10/11/2010, gas ≤ 70 kW sin GN-GL.
+- **Extremadura IRVE:** CIP 5625, tasa Modelo 050, plataforma AsistenteAGILE.
+
+### Siguiente paso concreto
+Abrir a mano las fichas CL y CLM, GN-GL, IBT (n=24196) y AUTee (n=24593) de La Rioja; y volver a pasar el resultado completo de Extremadura (climatización, ACS y gas).

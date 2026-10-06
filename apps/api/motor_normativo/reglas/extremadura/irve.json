@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "extremadura",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "No se ha localizado normativa autonómica extremeña específica de IRVE",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido (NO VERIFICABLE/PENDIENTE, no tocado en esta revisión)",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Extremadura IRVE (Prompt B): CIP 5625 y tasa Modelo 050 (12049-5) confirmados (media/alta); plataforma real = AsistenteAGILE + Sede (tbtEX no figura). Orden de 31/07/2008 no aparece en la ficha vigente (baja). La sede no fija umbrales propios de IRVE.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Extremadura IRVE): falta la comunicación previa municipal (Ley 11/2018, art. 162) y el registro de puntos de acceso público (Resolución de 14/06/2024, DOE 09/07/2024; ficha https://www.juntaex.es/w/0679523; necesita variable de acceso público); la URL w/6795 da 404."
   ],
   "fuentes": [
     {
@@ -145,9 +147,9 @@
           "base_legal": "Orden de 31 de julio de 2008",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva) y Sede Electrónica (CIP 5625)",
           "plataforma_url": "https://www.juntaex.es/w/5625",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Modelo 050, código de tasa 12049-5 («inscripción de instalaciones eléctricas de baja tensión»); importe 2026 no localizado.",
           "formulario_ref": "CIP 5625",
           "paralelo_con": null,
           "regla_id": "EXT-IRVE-001",
@@ -165,7 +167,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 5625 publica plazo de 3 meses con silencio desestimatorio (decisión pendiente sobre si se refleja como plazo legal).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -250,7 +252,7 @@
             {
               "id": "proyecto_tecnico_irve",
               "label": "Proyecto técnico IRVE",
-              "descripcion": "Firmado por técnico competente.",
+              "descripcion": "El visado no siempre es exigible: para trabajos no visados se acompaña declaración responsable de habilitación profesional.",
               "obligatorio": true
             }
           ],
@@ -285,7 +287,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 5625 solo exige el certificado de inspección inicial «cuando sean preceptivos».",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -296,9 +298,9 @@
           "base_legal": "Orden de 31 de julio de 2008",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva) y Sede Electrónica (CIP 5625)",
           "plataforma_url": "https://www.juntaex.es/w/5625",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Modelo 050, código de tasa 12049-5 («inscripción de instalaciones eléctricas de baja tensión»); importe 2026 no localizado.",
           "formulario_ref": "CIP 5625",
           "paralelo_con": null,
           "regla_id": "EXT-IRVE-002",
@@ -316,7 +318,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 5625 publica plazo de 3 meses con silencio desestimatorio (decisión pendiente sobre si se refleja como plazo legal).",
           "registro_salida": null,
           "medio_presentacion": null
         }

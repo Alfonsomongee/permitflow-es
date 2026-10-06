@@ -1,15 +1,17 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "extremadura",
-  "version": "0.10.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.11.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se eliminó 'Decreto 47/2022' como base legal: no se ha localizado ninguna norma de Extremadura con ese número/fecha sobre instalaciones eléctricas; existe un RD 47/2022, de 18 de enero, nacional, pero regula protección de aguas frente a nitratos agrícolas, sin relación alguna. Se sustituyó por la normativa real confirmada: Orden de 31/07/2008 (tramitación telemática BT), Resolución de 24/03/2004 (instrucciones técnicas puesta en servicio BT), Decreto 179/2016 (Registro de instalaciones de producción de energía eléctrica de Extremadura) y Resolución de 22/07/2022, que regula explícitamente el procedimiento de autoconsumo para instalaciones BT ≤100 kW — esta última CONFIRMA de forma específica para Extremadura el umbral de 100 kW que en otras comunidades solo se había aplicado por inferencia del art. 53 Ley 24/2013. Se corrigió el bug de partición base sobre 'uso'. Se confirmó la plataforma real: tbtEX. CORRECCIÓN 2026-07-28 (auditoría normativa): confirmado que Extremadura elevó el umbral de exención de autorización administrativa de 100 a 500 kW mediante la Instrucción 03/2023 de la Dirección General de Industria, Energía y Minas (DOE 27/07/2023). Se introduce el tramo intermedio EXT-FV-002 (>100 y ≤500 kW, exento de autorización previa/de construcción pero con registro/comunicación) y se reserva EXT-FV-003 (autorización administrativa plena) para instalaciones >500 kW.",
   "huecos_verificacion": [
     "Tasas y plazos legales de resolución no verificados con detalle",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "Verificación Prompt B (2026-10-05): Extremadura FV (Prompt B): BLOQUEANTE resuelto (alta, Instrucción 03/2023, anexo 2): EXT-FV-001 pasa a «hasta 10 kW» y se añade EXT-FV-001P (10-100 kW, proyecto). BLOQUEANTE resuelto (alta): el registro de autoconsumo hasta 100 kW es de oficio dentro del CIP 5625 (FTD 16, AsistenteAGILE), no el CIP 5695 (registro de producción ≤ 50 MW). Tramo 100-500 kW: autorización de explotación (CIP 5873, 3 meses, silencio desestimatorio), no mera comunicación. Umbrales de 100 y 500 kW confirmados. tbtEX no figura en la ficha vigente.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Extremadura FV): plazo del CIP 5625 (3 meses, silencio desestimatorio) frente al criterio de comunicaciones: decisión editorial pendiente; omisiones no modeladas: comunicación previa municipal (Ley 11/2018, art. 162; sigue el ICIO), CIP 6043 (RADNE tras autorización de explotación en AT o > 100 kW), CIP 5695 para excedentes > 100 kW, evaluación ambiental / Red Natura; tasa 2026 del Modelo 050; Decreto 179/2016 no es base del autoconsumo ≤ 100 kW; URL industriaextremadura servicios.php?id=221 caída."
   ],
   "fuentes": [
     {
@@ -71,13 +73,13 @@
   "reglas": [
     {
       "id": "EXT-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
+      "descripcion": "Autoconsumo de hasta 10 kW en baja tensión: memoria técnica y registro",
       "condicion": {
         "<=": [
           {
             "var": "potencia_kw"
           },
-          100
+          10
         ]
       },
       "tramites": [
@@ -102,33 +104,27 @@
               "obligatorio": true
             },
             {
-              "id": "declaracion_responsable",
-              "label": "Declaración responsable del instalador",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
               "id": "certificado_instalacion",
               "label": "Certificado de instalación (modelo normalizado)",
               "descripcion": "",
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La declaración responsable de habilitación profesional solo se aporta para trabajos no visados; no es un documento oficial del instalador.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 2,
-          "nombre": "Comunicación de inscripción al registro administrativo de autoconsumo (tbtEX)",
-          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
-          "base_legal": "Resolución de 22 de julio de 2022; Decreto 179/2016",
+          "nombre": "Comunicación de documentación acreditativa del cumplimiento de normas de seguridad industrial (Grupo II), con registro de autoconsumo de oficio (CIP 5625)",
+          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura. Servicio gestor: Servicio de Ordenación Industrial, Energética y Minera (Decreto 162/2026 lo denomina «Servicio de Ordenación Industrial y Energética»; la sede conserva el nombre antiguo).",
+          "base_legal": "Decreto 49/2004, art. 5 (mod. Decreto 66/2016); Orden de 20/07/2017; Resolución de 31/10/2017 (anexo 16, mod. Resolución de 22/07/2022); Instrucción 03/2023; RD 244/2019, art. 20",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "https://www.juntaex.es/w/5695",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "CIP 5695",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva FTD 16) y Sede Electrónica (CIP 5625)",
+          "plataforma_url": "https://www.juntaex.es/w/5625",
+          "coste_estimado": "Modelo 050, código de tasa 12049-5 («inscripción de instalaciones eléctricas de baja tensión»); importe 2026 no localizado.",
+          "formulario_ref": "FTD 16",
           "paralelo_con": null,
           "regla_id": "EXT-FV-001",
           "documentos_requeridos": [
@@ -145,13 +141,119 @@
               "obligatorio": true
             },
             {
-              "id": "contrato_acceso",
-              "label": "Contrato de acceso y conexión (si hay excedentes)",
-              "descripcion": "",
-              "obligatorio": false
+              "id": "ftd_16",
+              "label": "Ficha técnica descriptiva FTD 16",
+              "descripcion": "Autoconsumo hasta 100 kW (AsistenteAGILE).",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_050",
+              "label": "Justificante de tasa (Modelo 050)",
+              "descripcion": "Código 12049-5.",
+              "obligatorio": true
             }
           ],
-          "notas": "Umbral de 100 kW confirmado específicamente por el propio título del procedimiento de Extremadura (Resolución 22/07/2022).",
+          "notas": "Umbral de 100 kW confirmado específicamente por el propio título del procedimiento de Extremadura (Resolución 22/07/2022).\nLa inscripción en el registro de autoconsumo se hace de oficio dentro de esta comunicación (Instrucción 03/2023, anexo 4): no hay que pedirla aparte. La ficha publica plazo de 3 meses con silencio desestimatorio; se deja plazo_legal_dias sin valor porque una comunicación habilita desde su presentación (decisión pendiente).\nLos permisos de acceso y conexión solo se aportan con excedentes: cuando la potencia supera 15 kW, o hasta 15 kW fuera de suelo urbanizado.\nLa inspección inicial por organismo de control solo se exige «cuando proceda» según la clasificación del emplazamiento.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "EXT-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW en baja tensión: proyecto técnico, certificado de dirección de obra y registro",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ITC-BT-04 §3.1 exige proyecto para «generadores y convertidores» de más de 10 kW.\nLa declaración responsable de habilitación profesional solo se aporta para trabajos no visados; no es un documento oficial del instalador.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Comunicación de documentación acreditativa del cumplimiento de normas de seguridad industrial (Grupo II), con registro de autoconsumo de oficio (CIP 5625)",
+          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura. Servicio gestor: Servicio de Ordenación Industrial, Energética y Minera (Decreto 162/2026 lo denomina «Servicio de Ordenación Industrial y Energética»; la sede conserva el nombre antiguo).",
+          "base_legal": "Decreto 49/2004, art. 5 (mod. Decreto 66/2016); Orden de 20/07/2017; Resolución de 31/10/2017 (anexo 16, mod. Resolución de 22/07/2022); Instrucción 03/2023; RD 244/2019, art. 20",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva FTD 16) y Sede Electrónica (CIP 5625)",
+          "plataforma_url": "https://www.juntaex.es/w/5625",
+          "coste_estimado": "Modelo 050, código de tasa 12049-5 («inscripción de instalaciones eléctricas de baja tensión»); importe 2026 no localizado.",
+          "formulario_ref": "FTD 16",
+          "paralelo_con": null,
+          "regla_id": "EXT-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del instalador.",
+              "obligatorio": true
+            },
+            {
+              "id": "ftd_16",
+              "label": "Ficha técnica descriptiva FTD 16",
+              "descripcion": "Autoconsumo hasta 100 kW (AsistenteAGILE).",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_050",
+              "label": "Justificante de tasa (Modelo 050)",
+              "descripcion": "Código 12049-5.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Umbral de 100 kW confirmado específicamente por el propio título del procedimiento de Extremadura (Resolución 22/07/2022).\nLa inscripción en el registro de autoconsumo se hace de oficio dentro de esta comunicación (Instrucción 03/2023, anexo 4): no hay que pedirla aparte. La ficha publica plazo de 3 meses con silencio desestimatorio; se deja plazo_legal_dias sin valor porque una comunicación habilita desde su presentación (decisión pendiente).\nLos permisos de acceso y conexión solo se aportan con excedentes: cuando la potencia supera 15 kW, o hasta 15 kW fuera de suelo urbanizado.\nLa inspección inicial por organismo de control solo se exige «cuando proceda» según la clasificación del emplazamiento.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -240,7 +342,8 @@
             }
           ],
           "registro_salida": null,
-          "medio_presentacion": null
+          "medio_presentacion": null,
+          "notas": "Los permisos de acceso y conexión solo se aportan en autoconsumo con excedentes (el CAU sí se necesita después)."
         },
         {
           "orden": 3,
@@ -275,11 +378,11 @@
         },
         {
           "orden": 4,
-          "nombre": "Comunicación de puesta en servicio e inscripción en el registro de autoconsumo (tbtEX) — régimen simplificado, exento de autorización administrativa previa y de construcción",
+          "nombre": "Autorización de explotación para la emisión del acta de puesta en servicio (CIP 5873)",
           "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
-          "base_legal": "Instrucción 03/2023, de la Dirección General de Industria, Energía y Minas (DOE 27/07/2023); Decreto 179/2016",
+          "base_legal": "Ley 24/2013, art. 53.1.c; RD 1955/2000, art. 132; Instrucción 03/2023; Resolución de 20/06/2022 (mod. Resolución de 09/04/2024)",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": null,
+          "plazo_legal_dias": 90,
           "plataforma": "tbtEX / Sede Electrónica de la Junta de Extremadura",
           "plataforma_url": "https://www.juntaex.es/w/5873",
           "coste_estimado": "NO VERIFICADO",
@@ -304,9 +407,21 @@
               "label": "Informe favorable del OCA",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_final_obra",
+              "label": "Certificado de final de obra",
+              "descripcion": "Modelo oficial, art. 132 RD 1955/2000.",
+              "obligatorio": true
+            },
+            {
+              "id": "cartografia_kml",
+              "label": "Archivos cartográficos (kml/kmz/shp)",
+              "descripcion": "Exigidos por la ficha 5873.",
+              "obligatorio": true
             }
           ],
-          "notas": "Extremadura elevó de 100 a 500 kW el umbral de exención de autorización administrativa previa y de construcción mediante la Instrucción 03/2023 (DOE 27/07/2023). Para este tramo (>100 y ≤500 kW) NO procede autorización administrativa plena, solo comunicación/registro; ver EXT-FV-003 para instalaciones >500 kW.",
+          "notas": "Extremadura elevó de 100 a 500 kW el umbral de exención de autorización administrativa previa y de construcción mediante la Instrucción 03/2023 (DOE 27/07/2023). Para este tramo (>100 y ≤500 kW) NO procede autorización administrativa plena, solo comunicación/registro; ver EXT-FV-003 para instalaciones >500 kW.\nEs una solicitud, no una comunicación: la ficha 5873 fija 3 meses con silencio desestimatorio. Solo se exime la autorización administrativa previa y de construcción. Documentos: certificado final de obra (art. 132 RD 1955/2000), certificados de seguridad industrial, archivos cartográficos (kml/kmz/shp), FTA01, tasa Modelo 050.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -383,7 +498,8 @@
             }
           ],
           "registro_salida": null,
-          "medio_presentacion": null
+          "medio_presentacion": null,
+          "notas": "Los permisos de acceso y conexión solo se aportan en autoconsumo con excedentes (el CAU sí se necesita después)."
         },
         {
           "orden": 3,
@@ -418,7 +534,7 @@
         },
         {
           "orden": 4,
-          "nombre": "Autorización administrativa previa y de construcción, autorización de explotación / acta de puesta en servicio e inscripción en registro (tbtEX)",
+          "nombre": "Autorización administrativa previa y de construcción y, ejecutada la obra, autorización de explotación (CIP 5873)",
           "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
           "base_legal": "Ley 24/2013, art. 53; Instrucción 03/2023 (DOE 27/07/2023); Resolución de 20 de junio de 2022 (autorización de explotación, acta de puesta en servicio); Decreto 179/2016",
           "plazo_estimado_dias": 15,
@@ -449,7 +565,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Solo para instalaciones >500 kW tras la Instrucción 03/2023 (antes el umbral de autorización plena era >100 kW). El mismo procedimiento de autorización de explotación de Extremadura cubre tanto sector eléctrico como gas canalizado (Resolución 20/06/2022) — confirmado real.",
+          "notas": "Solo para instalaciones >500 kW tras la Instrucción 03/2023 (antes el umbral de autorización plena era >100 kW). El mismo procedimiento de autorización de explotación de Extremadura cubre tanto sector eléctrico como gas canalizado (Resolución 20/06/2022) — confirmado real.\nDos fases: (1) autorización previa y de construcción antes de ejecutar (RD 1955/2000, título VII, cap. II; proyecto, separatas, trámite ambiental, tasa Modelo 050), sin ficha CIP propia localizada; (2) autorización de explotación por el CIP 5873 (3 meses, silencio desestimatorio).",
           "registro_salida": null,
           "medio_presentacion": null
         }
