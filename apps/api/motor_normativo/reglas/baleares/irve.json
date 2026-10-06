@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "baleares",
-  "version": "0.9.1",
-  "ultima_revision": "2026-10-05",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,7 +13,8 @@
     "Tasas exactas del trámite UDIT-045 no verificadas con detalle",
     "PENDIENTE (no aplicado en esta revisión, severidad ALTO/MEDIO no mecánica): no se ha ramificado por el campo 'acceso_publico' del schema (eje real que usa la CAIB, 'zonas de acceso privado' vs. resto), que sigue sin usarse; las reglas continúan ramificando por 'ubicacion_irve'/potencia para decidir proyecto vs. memoria",
     "Verificación Prompt B (2026-10-05): Baleares IRVE (Prompt B): UDIT-045 organismo = Dirección General de Industria y Polígonos Industriales (alta); plazo 6 meses con silencio positivo y tasa de otros usos 92,53 € (tarifas 2024; media, ficha leída por resumen). La 045 cubre solo zonas de acceso privado (alta).",
-    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (Baleares IRVE, alta): falta el registro de instalaciones de recarga en zonas de acceso al público (SIA 2306622: memoria técnica, certificado de instalación y certificado de dirección de obra; tasa 55,32 €; 6 meses; telemático) a cargo de la Dirección General de Economía Circular, Transición Energética y Cambio Climático; se necesita una variable de acceso público. Permiso municipal de ocupación de vía pública sin verificar."
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (Baleares IRVE, alta): falta el registro de instalaciones de recarga en zonas de acceso al público (SIA 2306622: memoria técnica, certificado de instalación y certificado de dirección de obra; tasa 55,32 €; 6 meses; telemático) a cargo de la Dirección General de Economía Circular, Transición Energética y Cambio Climático; se necesita una variable de acceso público. Permiso municipal de ocupación de vía pública sin verificar.",
+    "Verificación humana asistida (2026-10-06): ficha UDIT-045 (leída directamente): 6 meses con silencio positivo y alcance (esquemas 1, 2 y 3 y aparcamientos existentes de edificios de viviendas) confirmados (alta); el resto de casos va por el procedimiento general (trámite 001), y los puntos de zonas de acceso público por la Dirección General de «Energía y Cambio Climático» (nombre antiguo; confirmar el vigente)."
   ],
   "fuentes": [
     {

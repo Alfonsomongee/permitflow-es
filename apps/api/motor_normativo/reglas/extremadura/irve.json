@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "extremadura",
-  "version": "0.9.2",
-  "ultima_revision": "2026-10-05",
+  "version": "0.9.3",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,7 +13,8 @@
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido (NO VERIFICABLE/PENDIENTE, no tocado en esta revisión)",
     "Tasas y plazos legales no verificados",
     "Verificación Prompt B (2026-10-05): Extremadura IRVE (Prompt B): CIP 5625 y tasa Modelo 050 (12049-5) confirmados (media/alta); plataforma real = AsistenteAGILE + Sede (tbtEX no figura). Orden de 31/07/2008 no aparece en la ficha vigente (baja). La sede no fija umbrales propios de IRVE.",
-    "Verificación Prompt B (2026-10-05): Sin cerrar (Extremadura IRVE): falta la comunicación previa municipal (Ley 11/2018, art. 162) y el registro de puntos de acceso público (Resolución de 14/06/2024, DOE 09/07/2024; ficha https://www.juntaex.es/w/0679523; necesita variable de acceso público); la URL w/6795 da 404."
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Extremadura IRVE): falta la comunicación previa municipal (Ley 11/2018, art. 162) y el registro de puntos de acceso público (Resolución de 14/06/2024, DOE 09/07/2024; ficha https://www.juntaex.es/w/0679523; necesita variable de acceso público); la URL w/6795 da 404.",
+    "Verificación humana asistida (2026-10-06): registro de acceso público (ficha https://www.juntaex.es/w/0679523, leída directamente, actualizada 19/06/2026): CIP 6795 / SIA 3133803, declaración responsable de operadores (hasta 6 puntos por declaración), sin tasa, sin plazo de resolución y cambios en 10 días (alta). Pendiente de variable de acceso público."
   ],
   "fuentes": [
     {

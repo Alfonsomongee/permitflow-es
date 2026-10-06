@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "castilla_leon",
-  "version": "0.10.0",
-  "ultima_revision": "2026-10-05",
+  "version": "0.10.1",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "No se ha localizado normativa autonómica de Castilla y León específica de legalización de gas más allá de la ley general de industria",
     "Tasas y plazos legales no verificados con detalle",
     "Umbral de 2.000 kW para instalaciones comunes (ITC-ICG-07) no modelado por falta de campo que distinga instalación individual/común en el schema",
-    "Verificación Prompt B (2026-10-05): BLOQUEANTE resuelto (alta, ficha IAPA1496 leída directamente): se quitó la inscripción y la MTG ante la Junta de CYL-GBP-002 (≤ 5 bar y ≤ 70 kW sin proyecto); ver ADR 0003. Documentos de la ficha para instalaciones con proyecto añadidos. Sin modelar: comunes y acometidas > 2.000 kW (el fichero exige proyecto > 70 kW sin distinguir clase). El tipo de presion_bar es una cadena («normal»/«5+») que el clasificador convierte, no un error. Tasa 308.1 sin importe localizado."
+    "Verificación Prompt B (2026-10-05): BLOQUEANTE resuelto (alta, ficha IAPA1496 leída directamente): se quitó la inscripción y la MTG ante la Junta de CYL-GBP-002 (≤ 5 bar y ≤ 70 kW sin proyecto); ver ADR 0003. Documentos de la ficha para instalaciones con proyecto añadidos. Sin modelar: comunes y acometidas > 2.000 kW (el fichero exige proyecto > 70 kW sin distinguir clase). El tipo de presion_bar es una cadena («normal»/«5+») que el clasificador convierte, no un error. Tasa 308.1 sin importe localizado.",
+    "Verificación humana asistida (2026-10-06): ficha IAPA 1496 (leída directamente, actualizada 29/09/2026): solo documentación de instalaciones con proyecto; resolución inmediata y silencio positivo (alta)."
   ],
   "fuentes": [
     {

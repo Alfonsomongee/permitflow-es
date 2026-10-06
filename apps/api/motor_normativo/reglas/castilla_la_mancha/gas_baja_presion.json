@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "castilla_la_mancha",
-  "version": "0.9.1",
-  "ultima_revision": "2026-10-05",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar",
     "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso residencial/comercial/colectivo; si esa distinción es normativamente relevante, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw",
     "Tasas y plazos legales no verificados con detalle",
-    "Verificación Prompt B (2026-10-05): Castilla-La Mancha gas (Prompt B): ficha 1002260 CONFIRMA que sin proyecto no hay comunicación («no es precisa ninguna comunicación», alta). Los 30 días son el plazo de presentación del titular, no de resolución; documentos y tasa 8.2 de 2026 añadidos. La corrección de 1002259 a 1002260 es correcta. Organismo: la ficha solo dice «órgano competente de la Comunidad Autónoma». PENDIENTE: el umbral de 70 kW es solo para individuales; comunes y acometidas interiores requieren proyecto por encima de 2.000 kW, además de más de 5 bar y ampliaciones de más del 30 %, por lo que una instalación común de 70 a 2.000 kW recibe hoy proyecto y comunicación sin necesitarlos."
+    "Verificación Prompt B (2026-10-05): Castilla-La Mancha gas (Prompt B): ficha 1002260 CONFIRMA que sin proyecto no hay comunicación («no es precisa ninguna comunicación», alta). Los 30 días son el plazo de presentación del titular, no de resolución; documentos y tasa 8.2 de 2026 añadidos. La corrección de 1002259 a 1002260 es correcta. Organismo: la ficha solo dice «órgano competente de la Comunidad Autónoma». PENDIENTE: el umbral de 70 kW es solo para individuales; comunes y acometidas interiores requieren proyecto por encima de 2.000 kW, además de más de 5 bar y ampliaciones de más del 30 %, por lo que una instalación común de 70 a 2.000 kW recibe hoy proyecto y comunicación sin necesitarlos.",
+    "Verificación humana asistida (2026-10-06): ficha 1002260 (leída directamente): reproduce la ITC-ICG 07 §3.6 (sin proyecto no hay comunicación), confirmando la regla de ≤ 70 kW (alta). Declara 3 meses con silencio estimatorio para el registro con proyecto: pendiente de decisión editorial sobre plazo_legal_dias."
   ],
   "fuentes": [
     {

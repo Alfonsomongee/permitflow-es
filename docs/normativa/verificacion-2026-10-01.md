@@ -337,3 +337,17 @@ Dos resultados de herramienta externa; el de Extremadura llegó cortado y se vol
 Abrir a mano las fichas CL y CLM, GN-GL, IBT (n=24196) y AUTee (n=24593) de La Rioja, y las fichas 5625, 5873 y 5083 (legionela ACS) de Extremadura. Con esto, las 17 comunidades han pasado el Prompt B.
 
 - **Extremadura (completo):** térmicas y gas con proyecto por el CIP 5625 (no 5873); nueva `EXT-ACS-003` de notificación de legionela en ACS con acumulación y retorno (Orden de 01/12/2017).
+
+---
+
+## Verificación de fichas asistida — primera pasada (2026-10-06)
+
+Dos prompts de lectura de fichas (grupos 1 y 2). **Cobertura baja:** solo se abrieron de verdad unas 25 fichas (Madrid D50 y 431, Canarias 3158, Baleares UDIT-045, Castilla y León IAPA 13/1468/1496, Castilla-La Mancha 1002270/1002272/1002260/eDice, Cataluña 11420, Extremadura 5625/5873/6795, Galicia IN614C/IN622B/IN625A, País Vasco gas, Aragón 2459). El resto de las fichas siguió bloqueado por robots.txt o devolvió solo la cáscara JavaScript (Andalucía, Asturias, Cantabria, Comunitat Valenciana, La Rioja, Navarra, Murcia y casi todas las de Aragón y Cataluña); archive.org no estuvo disponible.
+
+### Resultado
+- **Sin cambios de reglas.** Lo leído coincide con lo ya aplicado (tasas de Castilla-La Mancha, plazos de Madrid, alcance de UDIT-045, gas sin registro bajo el umbral de proyecto en Cataluña, Castilla y León, Castilla-La Mancha, Galicia y País Vasco). Solo se añadieron notas de confirmación en `huecos_verificacion` y se subió el parche de versión de esos ficheros.
+- **Confirmado con ficha leída (alta):** gas ≤ 70 kW sin proyecto no se registra en Cataluña, Castilla-La Mancha, Galicia, Castilla y León y País Vasco; Extremadura tiene registro de IRVE de acceso público (CIP 6795, sin tasa, declaración responsable).
+- **Aún sin cerrar:** Madrid (¿es exigible `MAD-GAS-SIN-PROYECTO`?), Extremadura (¿gas sin proyecto?), y las tres variables transversales en las comunidades no leídas.
+
+### Siguiente paso concreto
+Repetir la lectura solo de las fichas no abiertas, con una herramienta de navegación real (no un lector que respete robots.txt), o abrirlas a mano con `docs/normativa/checklist-verificacion-humana.md`.

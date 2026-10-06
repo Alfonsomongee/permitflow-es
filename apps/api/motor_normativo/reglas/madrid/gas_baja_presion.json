@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "madrid",
-  "version": "1.1.1",
-  "ultima_revision": "2026-10-01",
+  "version": "1.1.2",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "Una presión resultante superior a 5 bar debe revisarse también respecto del alcance semántico del vertical gas_baja_presion.",
     "RESUELTO (2026-07-28): importes de tasa por tramos de inversión incorporados (51,32 €/91,67 €/164,95 €/238,23 €/256,11 € y tramo superior) y plazo legal de 15 días hábiles fijado, según ficha oficial de sede.comunidad.madrid, secciones 'Pago de tasas' y 'Tramitación' del trámite de instalaciones receptoras de gas natural/GLP.",
     "Verificación Prompt B Madrid (2026-10-01): la sede fija 15 días hábiles desde la puesta en servicio para presentar la documentación; el art. 5.7 del RD 919/2006 dice 30 días «exceptuando los casos contemplados en las ITC». No se leyó la ITC-ICG 07. El RD 919/2006 tiene modificaciones publicadas el 04/04/2025 y el 03/09/2025 cuyo contenido no se revisó.",
-    "La ficha habla de «acometidas interiores» (> 2.000 kW), no de «conexión de servicio»: revisar el mapeo de clase_instalacion_gas. La ampliación se formula como instalación resultante > 30 % de la potencia de diseño, con redacción ambigua frente a incremento_potencia_pct. El RD 1085/1992 que cita la sede está derogado en lo que se opone al RD 919/2006."
+    "La ficha habla de «acometidas interiores» (> 2.000 kW), no de «conexión de servicio»: revisar el mapeo de clase_instalacion_gas. La ampliación se formula como instalación resultante > 30 % de la potencia de diseño, con redacción ambigua frente a incremento_potencia_pct. El RD 1085/1992 que cita la sede está derogado en lo que se opone al RD 919/2006.",
+    "Verificación humana asistida (2026-10-06): ficha 431 (leída directamente, actualizada 04/04/2024): comunicación con 15 días hábiles de presentación y tasa del epígrafe 31200 confirmadas (alta). La ficha describe la comunicación «así como construcción y diseño de aquellas que requieren proyecto» y lista siempre «Proyecto» entre los documentos: no se puede afirmar ni negar que MAD-GAS-SIN-PROYECTO (≤ 70 kW sin proyecto) sea exigible; confirmar con la Dirección General. El órgano aparece con dos nombres en el texto de la ficha."
   ],
   "fuentes": [
     {

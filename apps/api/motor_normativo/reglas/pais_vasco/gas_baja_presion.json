@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "pais_vasco",
-  "version": "0.10.0",
-  "ultima_revision": "2026-10-05",
+  "version": "0.10.1",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "No se ha localizado normativa autonómica vasca específica de gas más allá del marco general de simplificación industrial (Decreto 229/2012)",
     "Tasas y plazos legales no verificados con detalle",
     "CORREGIDO 2026-08-20: 'paralelo_con' en PV-GAS-001/002/003 apuntaba al 'id' de la propia regla en vez de al 'orden' numérico del trámite paralelo, que es lo que espera TramiteOutput; se resolvía en silencio a null y el trámite de acometida se mostraba en serie en vez de en paralelo. Corregido a 'paralelo_con: 2' (Certificado de Instalación), tal como ya describía la propia 'descripcion' del documento de cada trámite.",
-    "Verificación Prompt B (2026-10-05): País Vasco gas (Prompt B): BLOQUEANTE resuelto (alta, ficha de la sede «puesta en servicio de una instalación receptora de gas con proyecto»): se quitó el certificado y puesta en servicio de PV-GAS-002 (≤ 5 bar y ≤ 70 kW); ver ADR 0003. ECA sustituida por la Delegación Territorial (declaración responsable); plazos legales a null; Decreto 229/2012 derogado por el Decreto 81/2020; distribuidora Nortegas (media, web corporativa). Omisiones: modificación y baja. Umbral de 70 kW y 5 bar solo en fuentes secundarias."
+    "Verificación Prompt B (2026-10-05): País Vasco gas (Prompt B): BLOQUEANTE resuelto (alta, ficha de la sede «puesta en servicio de una instalación receptora de gas con proyecto»): se quitó el certificado y puesta en servicio de PV-GAS-002 (≤ 5 bar y ≤ 70 kW); ver ADR 0003. ECA sustituida por la Delegación Territorial (declaración responsable); plazos legales a null; Decreto 229/2012 derogado por el Decreto 81/2020; distribuidora Nortegas (media, web corporativa). Omisiones: modificación y baja. Umbral de 70 kW y 5 bar solo en fuentes secundarias.",
+    "Verificación humana asistida (2026-10-06): ficha «Instalación receptora de gas» (euskadi.eus, leída directamente, 14/07/2022): solo puesta en servicio «con proyecto» (alta)."
   ],
   "fuentes": [
     {

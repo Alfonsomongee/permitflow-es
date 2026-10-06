@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "galicia",
-  "version": "0.10.0",
-  "ultima_revision": "2026-10-05",
+  "version": "0.10.1",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "No se ha aplicado aquí el hallazgo de Castilla y León sobre presion_bar='5+' porque este fichero no usa el campo presion_bar en absoluto (usa potencia_kw y uso) — revisar si debería incorporarse",
     "Tasas y plazos legales no verificados",
     "coste_estimado marcado NO VERIFICADO: una fuente oficial (Oficina Virtual de Industria) indica que el trámite SÍ tiene tasas asociadas a la primera inscripción y a modificaciones; no se ha confirmado el importe exacto en esta revisión, se mantiene como hueco abierto",
-    "Verificación Prompt B (2026-10-05): BLOQUEANTE resuelto (alta, ficha IN625A en extracto de buscador): se quitaron el certificado por OCA y el registro de GAL-GBP-001 (≤ 70 kW sin otros supuestos); ver ADR 0003. La ficha IN625A exige proyecto y registro también por presión de servicio superior a 4 BAR (no 5, como el marco de la ITC-ICG 07: contrastar) y por GLP en botellas (más de 350 kg totales, o más de 200 kg con envases de menos de 15 kg); esos supuestos no están modelados, de modo que una instalación de ≤ 70 kW con GLP o más de 4 bar queda sin registro en el fichero. Omisión: IN623A (depósitos fijos de GLP). La Orden de 28/04/2008 está confirmada (media)."
+    "Verificación Prompt B (2026-10-05): BLOQUEANTE resuelto (alta, ficha IN625A en extracto de buscador): se quitaron el certificado por OCA y el registro de GAL-GBP-001 (≤ 70 kW sin otros supuestos); ver ADR 0003. La ficha IN625A exige proyecto y registro también por presión de servicio superior a 4 BAR (no 5, como el marco de la ITC-ICG 07: contrastar) y por GLP en botellas (más de 350 kg totales, o más de 200 kg con envases de menos de 15 kg); esos supuestos no están modelados, de modo que una instalación de ≤ 70 kW con GLP o más de 4 bar queda sin registro en el fichero. Omisión: IN623A (depósitos fijos de GLP). La Orden de 28/04/2008 está confirmada (media).",
+    "Verificación humana asistida (2026-10-06): ficha IN625A (leída directamente): confirma que el registro solo aplica a instalaciones con proyecto, pero pide proyecto para comunes y acometidas > 700 kW y presiones > 4 bar, frente a 2.000 kW y 5 bar de la ITC-ICG 07 (media): contrastar con la Orde de 28/04/2008."
   ],
   "fuentes": [
     {
