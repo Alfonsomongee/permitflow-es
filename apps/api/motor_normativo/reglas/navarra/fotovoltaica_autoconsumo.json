@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "navarra",
-  "version": "0.10.0",
-  "ultima_revision": "2026-10-05",
+  "version": "0.10.1",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -14,7 +14,8 @@
     "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
     "plataforma_url 'https://www.navarra.es/sede' (AAP/AAC de FV >100 kW) sigue siendo genérica: no se localizó la ficha específica de trámite en navarra.es dentro del presupuesto de la auditoría — PENDIENTE",
     "Verificación Prompt B (2026-10-05): Navarra FV (Prompt B): proyecto por encima de 10 kW (media; no se halló norma foral que cambie el corte, la OF 60/2015 solo regula procedimiento): NAV-FV-001 pasa a «hasta 10 kW» y se añade NAV-FV-001P (10-100 kW). Confirmados DLF 1/2022 art. 11.1 (≤ 100 kW sin autorización previa ni de construcción) y OF 60/2015 (deroga la OF 181/2003, la 424/2009 y la 425/2009). Organismo: Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas. URL de NAV-FV-002 corregida al procedimiento de producción. El CIE lo emite la empresa instaladora, no un OCA; la OF 64/2022 no regula el registro de autoconsumo (es de fomento de comunidades de energía); base legal del registro: RD 244/2019, Resolución 81/2019, RD 413/2014.",
-    "Verificación Prompt B (2026-10-05): Sin cerrar (Navarra FV): el paso de OCA de las dos reglas se sustituyó por un aviso (la ITC-BT-05 §4.1 no incluye generadoras; fuente secundaria, media); plazo y silencio de la autorización > 100 kW (el catálogo SIA da 3 meses con silencio positivo a instancia de parte; norma no localizada); si el autoconsumo SIN excedentes de más de 100 kW necesita autorización (la ficha distingue sección primera y segunda; falta la variable); corte de 500 kW; Decreto Foral 56/2019 (parques eólicos) sin confirmar para FV; nombre vigente de la dirección general. OMISIONES: declaración responsable o comunicación previa municipal (Ley Foral 4/2021, art. 192.1.g del TRLFOTU), inscripción en el registro de producción (RD 413/2014) y garantía del RD 1183/2020 art. 23. Importes de tasas sin localizar."
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Navarra FV): el paso de OCA de las dos reglas se sustituyó por un aviso (la ITC-BT-05 §4.1 no incluye generadoras; fuente secundaria, media); plazo y silencio de la autorización > 100 kW (el catálogo SIA da 3 meses con silencio positivo a instancia de parte; norma no localizada); si el autoconsumo SIN excedentes de más de 100 kW necesita autorización (la ficha distingue sección primera y segunda; falta la variable); corte de 500 kW; Decreto Foral 56/2019 (parques eólicos) sin confirmar para FV; nombre vigente de la dirección general. OMISIONES: declaración responsable o comunicación previa municipal (Ley Foral 4/2021, art. 192.1.g del TRLFOTU), inscripción en el registro de producción (RD 413/2014) y garantía del RD 1183/2020 art. 23. Importes de tasas sin localizar.",
+    "Verificación humana asistida (2026-10-06): ficha de autoconsumo (resumen de lectura directa, sin cita literal): el Registro de Autoconsumo de Navarra no se aplica a instalaciones de menos de 100 kW conectadas en baja tensión; apoyo en RD 244/2019, RD 1183/2020, RD 413/2014 y RD 1955/2000. Comprobar el texto literal: podría hacer innecesario el paso «Registro de la instalación de autoconsumo» por debajo de 100 kW en BT."
   ],
   "fuentes": [
     {

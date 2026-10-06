@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "la_rioja",
-  "version": "0.10.0",
-  "ultima_revision": "2026-10-05",
+  "version": "0.10.1",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,7 +13,8 @@
     "No se ha confirmado el nombre exacto ni la existencia de un registro de autoconsumo diferenciado; La Rioja tramita a través del Servicio de Industria (Registro Integrado Industrial / Registro de instalaciones de producción) según fuente oficial",
     "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
     "Verificación Prompt B (2026-10-05): La Rioja FV (Prompt B): BLOQUEANTE resuelto (media, ITC-BT-04 §3.1; fuente IDAE secundaria, sin norma riojana contraria): RIO-FV-001 pasa a «hasta 10 kW» (MTD, tasa 29,45 €) y se añade RIO-FV-001P (10-100 kW, proyecto, tasa 57,25 €). Tasas de la ficha AUTee (alta, extracto del buscador). Cita del art. 9 del RD 244/2019 sustituida por ITC-BT-04 y art. 19 (registro).",
-    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (La Rioja FV, media): la ficha AUTee exige que la instalación de BT esté INSCRITA antes de legalizar el autoconsumo (trámite IBT, n=24196; 29,45 € sin proyecto / 57,25 € con proyecto; 3 meses, silencio estimatorio; RD 842/2002 y RD 2135/1980): paso previo no modelado. Tampoco: conexión en alta tensión (certificado de AT; trámite n=25324), garantías de acceso y conexión (n=24457, 57,25 €; exentas ≤ 100 kW; RD 1183/2020 art. 23), Resolución de 11/10/2017 (NO 2017/02, autoconsumo BT; cita el RD 900/2015, derogado), umbral de 500 kW (no hay evidencia de que La Rioja lo haya elevado), silencio de la autorización y OCA > 100 kW. Resolución 128/2025 (regularización BT anterior a 18/09/2003, vigente hasta el 30/12/2026) no aplica a instalaciones nuevas."
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (La Rioja FV, media): la ficha AUTee exige que la instalación de BT esté INSCRITA antes de legalizar el autoconsumo (trámite IBT, n=24196; 29,45 € sin proyecto / 57,25 € con proyecto; 3 meses, silencio estimatorio; RD 842/2002 y RD 2135/1980): paso previo no modelado. Tampoco: conexión en alta tensión (certificado de AT; trámite n=25324), garantías de acceso y conexión (n=24457, 57,25 €; exentas ≤ 100 kW; RD 1183/2020 art. 23), Resolución de 11/10/2017 (NO 2017/02, autoconsumo BT; cita el RD 900/2015, derogado), umbral de 500 kW (no hay evidencia de que La Rioja lo haya elevado), silencio de la autorización y OCA > 100 kW. Resolución 128/2025 (regularización BT anterior a 18/09/2003, vigente hasta el 30/12/2026) no aplica a instalaciones nuevas.",
+    "Verificación humana asistida (2026-10-06): La Rioja FV: la ficha AUTee (n=24593, leída directamente, aviso del 29/09/2026 sobre la plataforma y la plantilla CNMC rev.26.1) confirma que la instalación de BT debe estar inscrita antes (IBT) y que, según modalidad, tensión y potencia, corresponde autorización previa y de construcción, autorización de explotación o inscripción. El paso IBT previo sigue sin modelarse como trámite. La ficha IBT (n=24196) confirma inscripción, modificaciones, cambio de titular, regularización y baja, con justificante de tasa."
   ],
   "fuentes": [
     {
@@ -123,7 +124,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial).\nFicha AUTee (n=24593): inscripción de puesta en servicio en 1 mes, sin norma ni silencio citados. Impresos oficiales: «Certificado de Instalación BT20» y «Memoria Técnica de Diseño BT21».",
+          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial).\nFicha AUTee (n=24593): inscripción de puesta en servicio en 1 mes, sin norma ni silencio citados. Impresos oficiales: «Certificado de Instalación BT20» y «Memoria Técnica de Diseño BT21».\nLa ficha AUTee dice que, para legalizar la instalación de autoconsumo, debe estar inscrita previamente la instalación de baja tensión (trámite IBT).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -211,7 +212,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial).\nFicha AUTee (n=24593): inscripción de puesta en servicio en 1 mes, sin norma ni silencio citados. Impresos oficiales: «Certificado de Instalación BT20» y «Memoria Técnica de Diseño BT21».",
+          "notas": "Plazo de 1 mes confirmado para la inscripción de puesta en servicio (ficha oficial).\nFicha AUTee (n=24593): inscripción de puesta en servicio en 1 mes, sin norma ni silencio citados. Impresos oficiales: «Certificado de Instalación BT20» y «Memoria Técnica de Diseño BT21».\nLa ficha AUTee dice que, para legalizar la instalación de autoconsumo, debe estar inscrita previamente la instalación de baja tensión (trámite IBT).",
           "registro_salida": null,
           "medio_presentacion": null
         }

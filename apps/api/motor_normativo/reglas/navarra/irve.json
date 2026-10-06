@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "navarra",
-  "version": "0.9.1",
-  "ultima_revision": "2026-10-05",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,7 +13,8 @@
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
     "Tasas y plazos legales no verificados",
     "VERIFICADO 2026-07-28: el valor 'via_publica' de 'ubicacion_irve' usado en las condiciones de NAV-IRVE-001/002 SÍ es válido — está en el Literal real de schemas/clasificador.py (línea 40) y ya fue añadido a VALORES_VALIDOS en motor_normativo/validar_reglas.py; no es código muerto. No se ha modificado la condición.",
-    "Verificación Prompt B (2026-10-05): Navarra IRVE (Prompt B): el aviso de que no hay normativa foral específica de IRVE ya no es cierto: la ficha de registro BT cita la Resolución 63/2025 (pautas para la tramitación de instalaciones de recarga en aparcamientos colectivos), sin leer su texto (puede cambiar umbrales y documentos). Confirmados OF 60/2015, la URL del registro BT y la inspección inicial por OCA con proyecto (ITC-BT-05, secundaria). Organismo corregido. OMISIONES: autorización previa para más de 3.000 kW (Ley 24/2013, según la ficha), documentación de desclasificación de garajes y declaración responsable municipal para puntos de recarga en el interior de edificaciones (Ley Foral 4/2021, art. 192.1.h; la guía del IDAE recuerda que el art. 48 de la Ley 24/2013 impide exigir licencia previa)."
+    "Verificación Prompt B (2026-10-05): Navarra IRVE (Prompt B): el aviso de que no hay normativa foral específica de IRVE ya no es cierto: la ficha de registro BT cita la Resolución 63/2025 (pautas para la tramitación de instalaciones de recarga en aparcamientos colectivos), sin leer su texto (puede cambiar umbrales y documentos). Confirmados OF 60/2015, la URL del registro BT y la inspección inicial por OCA con proyecto (ITC-BT-05, secundaria). Organismo corregido. OMISIONES: autorización previa para más de 3.000 kW (Ley 24/2013, según la ficha), documentación de desclasificación de garajes y declaración responsable municipal para puntos de recarga en el interior de edificaciones (Ley Foral 4/2021, art. 192.1.h; la guía del IDAE recuerda que el art. 48 de la Ley 24/2013 impide exigir licencia previa).",
+    "Verificación humana asistida (2026-10-06): ficha de registro de instalaciones eléctricas de BT (resumen de lectura directa): incluye un apartado de Registro de Punto de Recarga de Vehículo Eléctrico (PRVE) y exige autorización previa por encima de 3.000 kW."
   ],
   "fuentes": [
     {

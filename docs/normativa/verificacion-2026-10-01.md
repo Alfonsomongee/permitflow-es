@@ -351,3 +351,15 @@ Dos prompts de lectura de fichas (grupos 1 y 2). **Cobertura baja:** solo se abr
 
 ### Siguiente paso concreto
 Repetir la lectura solo de las fichas no abiertas, con una herramienta de navegación real (no un lector que respete robots.txt), o abrirlas a mano con `docs/normativa/checklist-verificacion-humana.md`.
+
+---
+
+## Verificación de fichas asistida — segunda tanda (2026-10-06)
+
+Aportación de una persona con lectura directa de varias fichas. Las de Baleares 034 y UDIT-013 llegaron con todos los campos y cita (alta); el resto, como resumen sin citas literales, y por eso solo se registran como notas en `huecos_verificacion`.
+
+- **Baleares 034 y UDIT-013:** nombre oficial, SIA 208129 y 207819, 180 días con silencio positivo y tasa 408.1.1 confirmados; sin cambios de reglas salvo el nombre y la referencia. La ficha 013 no distingue con y sin proyecto.
+- **La Rioja:** la ficha AUTee confirma que debe estar inscrita antes la instalación de BT (IBT); paso previo aún sin modelar.
+- **Navarra:** según el resumen, el Registro de Autoconsumo no se aplica a BT con menos de 100 kW (comprobar literal); el IRG-3 no basta para exigir registro bajo el umbral de proyecto; apartado PRVE y autorización por encima de 3.000 kW en IRVE.
+- **País Vasco IT, Cataluña 11428 y 21526, Murcia 19:** existencia y objeto confirmados.
+- La ficha 61 de Murcia siguió sin abrirse.

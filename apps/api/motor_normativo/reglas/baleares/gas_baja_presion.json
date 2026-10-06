@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "baleares",
-  "version": "0.9.1",
-  "ultima_revision": "2026-10-05",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -14,7 +14,8 @@
     "Tras corregir el bug de partición, el fichero ya no diferencia trámites por uso doméstico/terciario/industrial; si esa distinción es normativamente relevante en Baleares, debe modelarse como refinamiento aditivo sobre la partición de potencia_kw, no como partición base",
     "PENDIENTE (no aplicado en esta revisión, severidad MEDIO no mecánica): falta el trámite específico de GLP en depósito fijo (UDIT-027, distinto de UDIT-013) y los trámites de puesta en servicio/prueba de estanquidad por la suministradora e inspección periódica; el schema ofrece 'combustible' y 'presion_bar' sin usar todavía para esta ramificación",
     "Verificación Prompt B (2026-10-05): Baleares gas (Prompt B): confirmado (alta, portal de gas de la CAIB) que ≤ 70 kW sin proyecto no se registra ante la CAIB. UDIT-013 (con proyecto): organismo = Dirección General de Industria y Polígonos Industriales; plazo 6 meses; tasa 2024; documentos añadidos (media, ficha leída por resumen).",
-    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (Baleares gas): la ficha dice proyecto para individuales > 70 kW, comunes y acometidas > 2.000 kW, red > 5 bar y ampliaciones ≥ 30 %; la regla solo usa potencia y exige proyecto a comunes entre 70 y 2.000 kW (falta variable de clase de instalación). Sin tramitar: depósitos de GLP (UDIT-027), redes canalizadas (108) y sustitución de depósito (UDIT-106). Conviene confirmar en la guía GT.013 que no hay registro para ≤ 70 kW sin proyecto."
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (Baleares gas): la ficha dice proyecto para individuales > 70 kW, comunes y acometidas > 2.000 kW, red > 5 bar y ampliaciones ≥ 30 %; la regla solo usa potencia y exige proyecto a comunes entre 70 y 2.000 kW (falta variable de clase de instalación). Sin tramitar: depósitos de GLP (UDIT-027), redes canalizadas (108) y sustitución de depósito (UDIT-106). Conviene confirmar en la guía GT.013 que no hay registro para ≤ 70 kW sin proyecto.",
+    "Verificación humana asistida (2026-10-06): Baleares gas: ficha UDIT-013 (https://www.caib.es/seucaib/es/tramites/tramite/315206) leída directamente: comunicación a la Dirección General (la ficha usa el nombre antiguo «Política Industrial»), SIA 207819, 180 días con silencio positivo (alta). El extracto no distingue instalaciones con y sin proyecto: sigue sin cerrarse si hay registro para ≤ 70 kW sin proyecto (el portal de gas dice que se tramitan con la suministradora)."
   ],
   "fuentes": [
     {
@@ -201,7 +202,7 @@
           "plataforma": "Sede Electrónica CAIB - ficha del trámite UDIT-013",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/315206",
           "coste_estimado": "Tasa 013: uso doméstico 46,76 € o 75,35 €; otros usos 55,32 € o 92,53 €. Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
-          "formulario_ref": "UDIT-013",
+          "formulario_ref": "SIA 207819",
           "paralelo_con": null,
           "regla_id": "BAL-GAS-002",
           "documentos_requeridos": [
@@ -236,7 +237,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "La partición se basa únicamente en potencia_kw. El campo 'uso' (doméstico/terciario/industrial) puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no debe usarse como condición de disparo porque, al ser opcional, un valor ausente (None) puede dejar la instalación sin ningún trámite asignado (bug de partición ya corregido respecto al fichero original).\nLa ficha UDIT-013 fija 6 meses de plazo máximo de resolución y notificación; el extracto no indica el sentido del silencio.",
+          "notas": "La partición se basa únicamente en potencia_kw. El campo 'uso' (doméstico/terciario/industrial) puede afectar a la documentación exigida en un desarrollo posterior de esta regla, pero no debe usarse como condición de disparo porque, al ser opcional, un valor ausente (None) puede dejar la instalación sin ningún trámite asignado (bug de partición ya corregido respecto al fichero original).\nLa ficha UDIT-013 fija 6 meses de plazo máximo de resolución y notificación; el extracto no indica el sentido del silencio.\nLa ficha UDIT-013 (leída directamente) es una comunicación de puesta en servicio con inscripción en el registro, con 6 meses de plazo y silencio positivo según la ficha.",
           "registro_salida": null,
           "medio_presentacion": null
         }

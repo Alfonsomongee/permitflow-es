@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cataluna",
-  "version": "1.3.2",
-  "ultima_revision": "2026-10-02",
+  "version": "1.3.3",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "en_revision",
   "estado": "borrador_verificado_parcialmente",
   "revisado_por": null,
@@ -18,7 +18,8 @@
     "Verificación Prompt B Cataluña (2026-10-01): Casi todas las fichas de Canal Empresa y tramits.gencat.cat bloquearon la lectura automatizada: plazos, silencio, tasas y documentos de la ficha 11419/11420/21526 deben abrirse a mano.",
     "Verificación Prompt C (2026-10-02): C4: el Decret llei 22/2025 se publicó en el DOGC núm. 9531 (30/10/2025) y fue convalidado por el Pleno del Parlament el 19/11/2025 (Resolució 462/XV, DOGC núm. 9549, 25/11/2025; fuente secundaria fmc.cat). Según el expediente parlamentario (primaria) elimina la autorización previa y la de construcción entre 100 y 500 kW (queda la de explotación) y mantiene el régimen de AAP/AAC para más de 500 kW y hasta 50 MW. Sin verificar: número de artículo del Decret llei 16/2019 modificado, si cambia los tramos ≤ 10 kW y 10-100 kW, y la exención de licencia de obras. El tramo 100-500 kW sigue sin regla propia (decisión pendiente).",
     "Verificación Prompt C (2026-10-02): C3: sin abrir la ficha 21526. Una fuente secundaria (oficina de transición energética del Ripollès) enumera «autoconsum amb compensació d'excedents fins a 15 kW en sòl urbanitzat» como supuesto propio de Canal Empresa, lo que apunta a que el tramo ≤ 15 kW en suelo urbanizado se tramita por el mismo canal; confianza baja.",
-    "Verificación Prompt C (2026-10-02): C6: Canal Empresa denomina el documento «Certificat d'instal·lació elèctrica de Baixa Tensió» y lista el «justificant d'inscripció al RITSIC de la instal·lació» (primaria, extracto de buscador). Se cambió la etiqueta; el id interno «elec1» se mantiene. Inscripción en el RIPRE sin verificar."
+    "Verificación Prompt C (2026-10-02): C6: Canal Empresa denomina el documento «Certificat d'instal·lació elèctrica de Baixa Tensió» y lista el «justificant d'inscripció al RITSIC de la instal·lació» (primaria, extracto de buscador). Se cambió la etiqueta; el id interno «elec1» se mantiene. Inscripción en el RIPRE sin verificar.",
+    "Verificación humana asistida (2026-10-06): fichas 11428 (declaración responsable de BT, actualizada 29/06/2026) y 21526 (autoconsumo con compensación de excedentes, autorización de explotación definitiva; actualizada 13/03/2026, enlaza con la 11428) leídas directamente: existencia y objeto confirmados; plazos, silencio y tasas sin extraer."
   ],
   "fuentes": [
     {

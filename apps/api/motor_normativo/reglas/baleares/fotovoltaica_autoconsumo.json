@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "baleares",
-  "version": "0.10.0",
-  "ultima_revision": "2026-10-05",
+  "version": "0.10.1",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -14,7 +14,8 @@
     "No se ha verificado municipio a municipio (67 ayuntamientos) el trámite urbanístico de comunicación previa/licencia de obras; se incluye como trámite genérico sin detalle local",
     "PENDIENTE: por encima de 500 kW no está verificado si la inscripción en el registro de autoconsumo sigue practicándose de oficio; la ventanilla consultada solo cubre instalaciones de pequeña potencia.",
     "Verificación Prompt B (2026-10-05): Baleares FV (Prompt B): BLOQUEANTE resuelto (media, ITC-BT-04 §3.1): BAL-FV-001 pasa a «hasta 10 kW» y se añade BAL-FV-001P (10-500 kW) con proyecto técnico y certificado de dirección de obra; el umbral de 500 kW solo exime de autorización, no de proyecto. La autorización por encima de 500 kW es el trámite SIA 216287 (ficha 2807998), distinto de la ficha 034 (alta). Ficha 034: plazo 6 meses, silencio positivo, tasa 46,76 / 55,32 € por encima de 15 kW (tarifas 2024; media, ficha leída por resumen). Organismo: Dirección General de Economía Circular, Transición Energética y Cambio Climático (Decreto 10/2025, de 14 de julio, fuente secundaria); la propia ventanilla (pasos 6 y 7) conserva el nombre antiguo.",
-    "Verificación Prompt B (2026-10-05): Sin cerrar (Baleares FV): pasos 8 a 12 de la ventanilla (13 en total) sin leer, de modo que las referencias a «paso 8/9/11» quedan sin verificar; BAL-FV-001 orden 8 («Inscripción… paso 11») parece duplicar el orden 5 (mismo procedimiento 034) y la inscripción de oficio es el paso 7; garantía económica de acceso y conexión (paso 13; exentas las instalaciones con excedentes de hasta 100 kW; RD 1183/2020, RD-ley 29/2021); separación suelo urbano / rústico (IDEIB, autorización del Consell Insular o del ayuntamiento); categoría del instalador sin confirmar; ficha 034 cita RD 413/2014 y RD 1699/2011 y no la Ley 13/2012; la guía GT.034 y la documentación por potencia no se leyeron."
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Baleares FV): pasos 8 a 12 de la ventanilla (13 en total) sin leer, de modo que las referencias a «paso 8/9/11» quedan sin verificar; BAL-FV-001 orden 8 («Inscripción… paso 11») parece duplicar el orden 5 (mismo procedimiento 034) y la inscripción de oficio es el paso 7; garantía económica de acceso y conexión (paso 13; exentas las instalaciones con excedentes de hasta 100 kW; RD 1183/2020, RD-ley 29/2021); separación suelo urbano / rústico (IDEIB, autorización del Consell Insular o del ayuntamiento); categoría del instalador sin confirmar; ficha 034 cita RD 413/2014 y RD 1699/2011 y no la Ley 13/2012; la guía GT.034 y la documentación por potencia no se leyeron.",
+    "Verificación humana asistida (2026-10-06): Baleares FV: ficha 034 (https://www.caib.es/seucaib/es/tramites/tramite/1447066) leída directamente: nombre oficial, SIA 208129, plazo de 180 días con silencio positivo, tasa 408.1.1 (exenta hasta 15 kW; 46,76 € doméstico y 55,32 € otros usos por encima) y alcance de hasta 500 kW confirmados (alta). Norma de la tasa sin verificar."
   ],
   "fuentes": [
     {
@@ -189,15 +190,15 @@
         },
         {
           "orden": 5,
-          "nombre": "Registro de producción de energía eléctrica de pequeña potencia (procedimiento 034)",
+          "nombre": "Registro de instalaciones de producción de energía eléctrica de pequeña potencia conectadas a red (procedimiento 034)",
           "organismo": "Dirección General de Economía Circular, Transición Energética y Cambio Climático (Conselleria d'Empresa, Autònoms i Energia), Govern de les Illes Balears",
           "base_legal": "RD 244/2019; Ley 13/2012",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 180,
           "plataforma": "Sede Electrónica CAIB - ficha del trámite 034",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
-          "coste_estimado": "Exenta hasta 15 kW; por encima de 15 kW: 46,76 € (uso doméstico) o 55,32 € (otros usos). Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
-          "formulario_ref": "034",
+          "coste_estimado": "Tasa 408.1.1: exenta hasta 15 kW; por encima de 15 kW: 46,76 € (uso doméstico) o 55,32 € (otros usos). Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
+          "formulario_ref": "SIA 208129",
           "paralelo_con": null,
           "regla_id": "BAL-FV-001",
           "documentos_requeridos": [
@@ -214,7 +215,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Registro de la instalación de producción ante la Dirección General competente en energía. La inscripción en el Registro de autoconsumo de las Illes Balears NO forma parte de este trámite: la practica la propia Dirección General de oficio al completarse esta documentación, y aparece por separado en el plan.\nLa ficha 034 fija 6 meses de plazo máximo de resolución con silencio positivo.",
+          "notas": "Registro de la instalación de producción ante la Dirección General competente en energía. La inscripción en el Registro de autoconsumo de las Illes Balears NO forma parte de este trámite: la practica la propia Dirección General de oficio al completarse esta documentación, y aparece por separado en el plan.\nLa ficha 034 fija 6 meses de plazo máximo de resolución con silencio positivo.\nLa ficha 034 (leída directamente) registra las instalaciones de pequeña potencia de hasta 500 kW a partir de fuentes renovables; SIA 208129.",
           "registro_salida": null,
           "medio_presentacion": null,
           "tipo_actuacion": "accion_usuario"
@@ -432,15 +433,15 @@
         },
         {
           "orden": 5,
-          "nombre": "Registro de producción de energía eléctrica de pequeña potencia (procedimiento 034)",
+          "nombre": "Registro de instalaciones de producción de energía eléctrica de pequeña potencia conectadas a red (procedimiento 034)",
           "organismo": "Dirección General de Economía Circular, Transición Energética y Cambio Climático (Conselleria d'Empresa, Autònoms i Energia), Govern de les Illes Balears",
           "base_legal": "RD 244/2019; Ley 13/2012",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 180,
           "plataforma": "Sede Electrónica CAIB - ficha del trámite 034",
           "plataforma_url": "https://www.caib.es/seucaib/es/tramites/tramite/1447066",
-          "coste_estimado": "Exenta hasta 15 kW; por encima de 15 kW: 46,76 € (uso doméstico) o 55,32 € (otros usos). Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
-          "formulario_ref": "034",
+          "coste_estimado": "Tasa 408.1.1: exenta hasta 15 kW; por encima de 15 kW: 46,76 € (uso doméstico) o 55,32 € (otros usos). Tarifas 2024 de la Resolución del consejero de Economía, Hacienda e Innovación de 8/1/2024 (importes 2026 no localizados)",
+          "formulario_ref": "SIA 208129",
           "paralelo_con": null,
           "regla_id": "BAL-FV-001",
           "documentos_requeridos": [
@@ -457,7 +458,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Registro de la instalación de producción ante la Dirección General competente en energía. La inscripción en el Registro de autoconsumo de las Illes Balears NO forma parte de este trámite: la practica la propia Dirección General de oficio al completarse esta documentación, y aparece por separado en el plan.\nLa ficha 034 fija 6 meses de plazo máximo de resolución con silencio positivo.",
+          "notas": "Registro de la instalación de producción ante la Dirección General competente en energía. La inscripción en el Registro de autoconsumo de las Illes Balears NO forma parte de este trámite: la practica la propia Dirección General de oficio al completarse esta documentación, y aparece por separado en el plan.\nLa ficha 034 fija 6 meses de plazo máximo de resolución con silencio positivo.\nLa ficha 034 (leída directamente) registra las instalaciones de pequeña potencia de hasta 500 kW a partir de fuentes renovables; SIA 208129.",
           "registro_salida": null,
           "medio_presentacion": null,
           "tipo_actuacion": "accion_usuario"

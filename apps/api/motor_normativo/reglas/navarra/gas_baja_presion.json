@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "navarra",
-  "version": "0.9.1",
-  "ultima_revision": "2026-10-05",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-06",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,7 +13,8 @@
     "plataforma_url 'https://www.navarra.es/sede' sigue siendo genérica: no se localizó ficha específica de trámite de registro de instalación de gas en el catálogo de navarra.es dentro del presupuesto de la auditoría",
     "Tasas y plazos legales no verificados",
     "Verificación Prompt B (2026-10-05): Navarra gas (Prompt B): la OF 64/2022 solo regula inspecciones de instalaciones térmicas (RITE); se quitó de la base legal del gas (alta). Confirmado que la OF 60/2015 deroga la OF 425/2009. Certificados oficiales IRG-1/2/3 y certificado de dirección de obra con proyecto añadidos. Organismo: Servicio de Ordenación Industrial, Infraestructuras Energéticas y Minas.",
-    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (media): la ficha «Registro de instalaciones de gas» de Navarra lista «Registro de documentación de instalaciones receptoras de gas» con el modelo IRG-3 (instalación individual) y la OF 60/2015 (art. 6) exige comunicación para las instalaciones no sometidas a autorización; eso podría alcanzar a las instalaciones sin proyecto, en contra de la ITC-ICG 07 §3.6. Las fichas de navarra.es solo se leyeron por extracto. NO se añadió el registro a NAV-GAS-002. Sin modelar: comunes y acometidas > 2.000 kW y ampliaciones > 30 %. Ley Foral 4/2022 (art. 38.1): desde el 30/06/2027 no se instalarán sistemas térmicos con combustibles fósiles en edificios nuevos (desarrollo sin verificar)."
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (media): la ficha «Registro de instalaciones de gas» de Navarra lista «Registro de documentación de instalaciones receptoras de gas» con el modelo IRG-3 (instalación individual) y la OF 60/2015 (art. 6) exige comunicación para las instalaciones no sometidas a autorización; eso podría alcanzar a las instalaciones sin proyecto, en contra de la ITC-ICG 07 §3.6. Las fichas de navarra.es solo se leyeron por extracto. NO se añadió el registro a NAV-GAS-002. Sin modelar: comunes y acometidas > 2.000 kW y ampliaciones > 30 %. Ley Foral 4/2022 (art. 38.1): desde el 30/06/2027 no se instalarán sistemas térmicos con combustibles fósiles en edificios nuevos (desarrollo sin verificar).",
+    "Verificación humana asistida (2026-10-06): ficha de registro de instalaciones de gas (resumen de lectura directa): incluye el certificado de instalación individual IRG-3 y cita RD 919/2006 y Ley 34/1998; no basta para concluir que las ≤ 70 kW y ≤ 5 bar sin proyecto deban registrarse (decisión pendiente)."
   ],
   "fuentes": [
     {
