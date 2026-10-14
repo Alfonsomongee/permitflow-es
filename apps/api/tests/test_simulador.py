@@ -57,6 +57,39 @@ def test_informe_simulacion_ia_schema_valido():
     assert informe.incentivos_fiscales[1].nivel_verificacion == "verified"
 
 
+def test_escenario_ahorro_acepta_opciones_financiacion():
+    # PREM-04: contrato con apps/web/types/simulador.ts para
+    # opciones_financiacion (ver comentario en cabecera de informes_ia.py).
+    escenario = EscenarioAhorro(
+        nombre="Escenario 1",
+        coste_inicial=5000,
+        ahorro_anual=800,
+        ahorro_5_anios=4000,
+        ahorro_10_anios=8000,
+        potencia_kwp=4.5,
+        opciones_financiacion=[
+            {
+                "tipo": "prestamo",
+                "nombre": "Préstamo a 10 años",
+                "cuota_mensual": 56.79,
+                "plazo_anios": 10,
+                "coste_total_financiacion": 6814.8,
+                "ahorro_mensual_neto": 10.21,
+                "nota": "TAE estimada 6.5%.",
+            }
+        ],
+    )
+    assert escenario.opciones_financiacion[0].tipo == "prestamo"
+
+
+def test_escenario_ahorro_sin_opciones_financiacion_usa_lista_vacia():
+    escenario = EscenarioAhorro(
+        nombre="Escenario 1", coste_inicial=5000, ahorro_anual=800,
+        ahorro_5_anios=4000, ahorro_10_anios=8000, potencia_kwp=4.5,
+    )
+    assert escenario.opciones_financiacion == []
+
+
 def test_informe_simulacion_ia_invalido_niveles_verificacion():
     # Verifica que niveles de verificación no permitidos lancen error
     with pytest.raises(ValidationError):

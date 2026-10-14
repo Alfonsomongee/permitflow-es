@@ -9,6 +9,7 @@ import type {
 import { hoyIso } from "./plazos";
 import { BUCKET_DOCUMENTOS_CLIENTE } from "./documentos-cliente";
 import { construirPayloadClasificador } from "./clasificador-payload";
+import type { FaseComercial } from "./faseComercial";
 
 function fallbackOrgName(clerkOrgId: string): string {
   return `Organizacion ${clerkOrgId.slice(-6)}`;
@@ -95,6 +96,7 @@ export async function crearExpediente({
       parametros: construirPayloadClasificador(formState),
       tiempo_total_dias: plan.tiempo_total_estimado_dias,
       estado: "pendiente",
+      fase_comercial: "clasificado",
       tramites_completados: 0,
     })
     .select()
@@ -116,6 +118,77 @@ export async function contarExpedientesDesde(clerkOrgId: string, desdeIso: strin
 
   if (error) throw new Error(`Error contando expedientes: ${error.message}`);
   return count ?? 0;
+}
+
+/**
+ * Payload de inserción para clonar un expediente. Pura y separada de
+ * duplicarExpediente() (que hace el round-trip real a Supabase) para poder
+ * testearla sin red -- origen: roadmap de mejoras, QW-07.
+ *
+ * Copia el plan de tramitación ya calculado (no lo re-clasifica): una
+ * instaladora que hace proyectos casi idénticos (mismo modelo de panel,
+ * misma CCAA, misma potencia) quiere el MISMO plan verificado, no una
+ * reclasificación que podría variar sutilmente si la normativa cambió entre
+ * medias. La contrapartida -- si la normativa SÍ cambió, el duplicado
+ * hereda un plan potencialmente desactualizado -- es aceptable porque el
+ * caso de uso es duplicar en el mismo lote de trabajo, no meses después
+ * (para eso ya existe crear un expediente nuevo desde cero).
+ *
+ * referencia_cliente, municipio y notas se vacían a propósito: son datos
+ * del proyecto original que no deben arrastrarse en silencio a uno nuevo
+ * (el ejemplo real es literalmente "cambiar dirección y cliente"). El
+ * progreso (tramites_estado/tramites_completados/estado) también se
+ * reinicia: es un expediente nuevo, no ha empezado a tramitarse.
+ */
+export function payloadDuplicado(
+  original: DbExpediente
+): Omit<
+  DbExpediente,
+  "id" | "org_id" | "version" | "share_token" | "creado_en" | "actualizado_en"
+> {
+  return {
+    clerk_user_id: original.clerk_user_id,
+    tipo_instalacion: original.tipo_instalacion,
+    comunidad: original.comunidad,
+    potencia_kw: original.potencia_kw,
+    uso: original.uso,
+    numero_puntos: original.numero_puntos,
+    modo_recarga: original.modo_recarga,
+    acceso_publico: original.acceso_publico,
+    ubicacion_irve: original.ubicacion_irve,
+    requiere_nuevo_suministro: original.requiere_nuevo_suministro,
+    combustible: original.combustible,
+    presion_bar: original.presion_bar,
+    solicita_ayuda: original.solicita_ayuda,
+    parametros: original.parametros,
+    plan_tramitacion: original.plan_tramitacion,
+    tiempo_total_dias: original.tiempo_total_dias,
+    estado: "borrador",
+    fase_comercial: "clasificado",
+    tramites_completados: 0,
+    tramites_estado: {},
+    referencia_cliente: null,
+    notas: null,
+  };
+}
+
+export async function duplicarExpediente(
+  id: string,
+  clerkOrgId: string
+): Promise<DbExpediente> {
+  const orgId = await ensureOrgId(clerkOrgId);
+
+  const original = await obtenerExpediente(id, clerkOrgId);
+  if (!original) throw new Error("EXPEDIENTE_NO_ENCONTRADO");
+
+  const { data, error } = await supabaseAdmin
+    .from("expedientes")
+    .insert({ ...payloadDuplicado(original), org_id: orgId })
+    .select()
+    .single();
+
+  if (error) throw new Error(`Error duplicando expediente: ${error.message}`);
+  return data;
 }
 
 export async function listarExpedientes(clerkOrgId: string): Promise<DbExpediente[]> {
@@ -224,6 +297,7 @@ export interface PatchExpedienteInput {
   tramite?: { orden: number; estado: TramiteEstado };
   referencia_cliente?: string | null;
   notas?: string | null;
+  fase_comercial?: FaseComercial;
   /** Versión que el cliente leyó antes de mutar. Requerida en la práctica
    * para cambios de trámite: sin ella no hay protección frente a lost update. */
   version?: number;
@@ -234,6 +308,7 @@ export interface PatchExpedienteResult {
   tramites_completados: number;
   referencia_cliente: string | null;
   notas: string | null;
+  fase_comercial: FaseComercial;
   actualizado_en: string;
   version: number;
 }
@@ -299,6 +374,9 @@ export async function aplicarPatchExpediente(
   if (patch.notas !== undefined) {
     update.notas = patch.notas?.trim().slice(0, 4000) || null;
   }
+  if (patch.fase_comercial !== undefined) {
+    update.fase_comercial = patch.fase_comercial;
+  }
 
   let query = supabaseAdmin
     .from("expedientes")
@@ -315,7 +393,7 @@ export async function aplicarPatchExpediente(
 
   const { data, error } = await query
     .select(
-      "tramites_estado, tramites_completados, referencia_cliente, notas, actualizado_en, version"
+      "tramites_estado, tramites_completados, referencia_cliente, notas, fase_comercial, actualizado_en, version"
     )
     .maybeSingle();
 

@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase";
 import { AlertasBoeList } from "@/components/dashboard/AlertasBoeList";
 import { listarExpedientes } from "@/lib/expedientes";
-import { mapearAlertasAExpedientes } from "@/lib/alertas";
+import { mapearAlertasAExpedientes, alertaRelevanteParaCartera, obtenerAlertasOrg } from "@/lib/alertas";
 
 async function getAlertas(clerkOrgId: string) {
   // PostgREST no admite subqueries dentro de un filtro .or(), así que
@@ -20,14 +20,7 @@ async function getAlertas(clerkOrgId: string) {
     .eq("clerk_org_id", clerkOrgId)
     .maybeSingle();
 
-  // Alertas globales (sin org) + alertas específicas de la organización
-  let query = supabaseAdmin.from("alertas_boe").select("*");
-  query = org?.id
-    ? query.or(`org_id.is.null,org_id.eq.${org.id}`)
-    : query.is("org_id", null);
-
-  const { data } = await query.order("creado_en", { ascending: false }).limit(50);
-  const alertas = data ?? [];
+  const alertas = await obtenerAlertasOrg(clerkOrgId);
 
   // Estado de lectura por organización: sobreescribimos `leida` con el valor
   // real de este tenant (tabla alertas_leidas), sin tocar el componente.
@@ -55,6 +48,9 @@ export default async function AlertasPage() {
     listarExpedientes(orgId),
   ]);
   const expedientesPorAlerta = mapearAlertasAExpedientes(alertas, expedientes);
+  const relevantesCartera = new Set(
+    alertas.filter((a) => alertaRelevanteParaCartera(a, expedientes)).map((a) => a.id)
+  );
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-8">
@@ -64,7 +60,12 @@ export default async function AlertasPage() {
           Cambios normativos detectados automáticamente por el pipeline de IA.
         </p>
       </div>
-      <AlertasBoeList alertas={alertas} expedientesPorAlerta={expedientesPorAlerta} />
+      <AlertasBoeList
+        alertas={alertas}
+        expedientesPorAlerta={expedientesPorAlerta}
+        relevantesCartera={relevantesCartera}
+        hayCartera={expedientes.length > 0}
+      />
     </div>
   );
 }

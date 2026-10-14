@@ -271,6 +271,7 @@ class Clasificador:
                             registro_salida=t.get("registro_salida"),
                             medio_presentacion=t.get("medio_presentacion"),
                             regla_id=regla.get("id"),
+                            silencio_administrativo=t.get("silencio_administrativo"),
                         )
                         tramites_output.append(tramite)
                         origenes.append((

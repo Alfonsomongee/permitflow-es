@@ -48,7 +48,7 @@ export default async function ExpedienteDetallePage(props: PageProps) {
         comunidad={expediente.comunidad}
         tecnologia={expediente.tipo_instalacion}
       />
-      <AlertasExpedienteBanner alertas={alertasRelacionadas} />
+      <AlertasExpedienteBanner alertas={alertasRelacionadas} expediente={expediente} />
       <PlanTramitacionView
         plan={plan}
         params={instalacionParams}

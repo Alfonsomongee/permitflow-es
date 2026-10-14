@@ -1,0 +1,63 @@
+name: Deriva de migraciones — repo vs producción
+
+# AUD-07. La deriva no la introduce un push, la introduce aplicar (o dejar de
+# aplicar) algo en producción. Por eso el disparador principal es el horario:
+# un chequeo que solo corriera en PR no habría detectado que
+# estadisticas_plazos llevaba desde julio sin existir en producción.
+on:
+  schedule:
+    - cron: '0 6 * * 1-5'   # 08:00 España, de lunes a viernes
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'supabase/migrations/**'
+      - 'supabase/migrations-baseline.txt'
+      - 'apps/api/scripts/check_migration_drift.py'
+  workflow_dispatch:
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # El script solo usa la librería estándar y psql (preinstalado en el
+      # runner), así que no hace falta ni uv ni instalar dependencias.
+      - name: Comprobar deriva
+        id: drift
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "::warning title=Chequeo de deriva sin ejecutar::Falta el secreto SUPABASE_DB_URL, así que no se puede comparar el repo con producción. Configúralo en Settings > Secrets and variables > Actions (panel de Supabase > Database > Connection string)."
+            exit 0
+          fi
+          python apps/api/scripts/check_migration_drift.py
+
+      # Sin aviso, este chequeo repetiría el fallo que viene a corregir: rojo
+      # en una pestaña que nadie mira.
+      - name: Avisar por email si hay deriva
+        if: failure()
+        env:
+          RESEND_API_KEY:     ${{ secrets.RESEND_API_KEY }}
+          NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
+          RESEND_FROM_DOMAIN: ${{ secrets.RESEND_FROM_DOMAIN }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ] || [ -z "$NOTIFICATION_EMAIL" ]; then
+            echo "Sin credenciales de Resend: no se envía aviso."
+            exit 0
+          fi
+          curl -sS -X POST "https://api.resend.com/emails" \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"from\": \"PermitFlow <alertas@${RESEND_FROM_DOMAIN:-permitflow.es}>\",
+              \"to\": [\"$NOTIFICATION_EMAIL\"],
+              \"subject\": \"[PermitFlow] Deriva de migraciones detectada\",
+              \"html\": \"<p>El repositorio y el esquema de produccion han divergido: hay migraciones commiteadas sin aplicar, o aplicadas sin fichero en git.</p><p><a href='https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'>Ver el detalle</a></p>\"
+            }" || echo "No se pudo enviar el aviso (no se bloquea el workflow)."
