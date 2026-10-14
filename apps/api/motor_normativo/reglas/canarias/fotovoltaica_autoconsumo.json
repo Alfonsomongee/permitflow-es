@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "canarias",
-  "version": "0.10.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.11.0",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -18,7 +18,9 @@
     "NO VERIFICABLE — límites de vertido de excedentes de autoconsumo específicos por isla/sistema aislado (SEIE): dependen de procedimientos de operación del sistema gestionados por REE (RD 738/2015), no de fichas de tramitación administrativa del Gobierno de Canarias.",
     "NO VERIFICABLE — importe exacto de las tasas (Modelo 700-200, concepto 118 epígrafe 12) para 2026: consta en el anexo PDF de 42 páginas de la Resolución de 29-12-2025 (BOC nº 5/2026); solo se ha registrado el concepto de tasa y el mecanismo de actualización anual (+1% en 2026).",
     "NO VERIFICABLE — referencia legal exacta (articulado) de la Calificación Territorial: se confirmó su existencia y aplicabilidad vía menciones oficiales indirectas de la Dirección General de Energía, pero no se consultó directamente el articulado de la Ley 4/2017, de 13 de julio, del Suelo y de los Espacios Naturales Protegidos de Canarias.",
-    "Distinción sin_excedentes/con_excedentes/con_excedentes_con_compensacion se modela vía 'modalidad_autoconsumo' del schema; el trámite de contrato/compensación de excedentes añadido en esta revisión solo aplica cuando hay excedentes con compensación."
+    "Distinción sin_excedentes/con_excedentes/con_excedentes_con_compensacion se modela vía 'modalidad_autoconsumo' del schema; el trámite de contrato/compensación de excedentes añadido en esta revisión solo aplica cuando hay excedentes con compensación.",
+    "Verificación Prompt B (2026-10-04): Canarias FV (Prompt B): BLOQUEANTE resuelto (alta; BOC 230/2009, texto original, y guía de la sede): por encima de 10 kW se exige proyecto técnico; la memoria M.T.D.E.R. solo vale hasta 10 kW. ICAN-FV-001/001B pasan a «hasta 10 kW» y se añaden ICAN-FV-001P/001BP (10-100 kW, proyecto y certificado de dirección de obra, mismos pasos de comunicación previa). La «declaración responsable» no figura en la ficha 3158 (opcional). ICAN-FV-002: el certificado ERR se quitó de la solicitud 2721 (pertenece a la puesta en servicio) y se añadieron los documentos de la ficha.",
+    "Verificación Prompt B (2026-10-04): Sin cerrar (Canarias FV): el Anexo VII (tabla 2.1) del Decreto 141/2009 no se pudo leer (PDF bloqueado, HTML truncado, archive.org no abierto); texto leído en versión original, modificaciones posteriores no comprobadas. OMISIÓN: autorización de puesta en servicio (SICAC 2713) para > 100 kW, con conflicto sin resolver: el Decreto 141/2009 art. 14 fija 40 días y silencio estimatorio y la ficha 2713 indica 3 días y silencio desestimatorio. Umbral de 100 kW de la autorización administrativa sin prueba primaria (el art. 53 de la Ley 24/2013 solo se leyó en fuente secundaria). Contrato de mantenimiento (régimen especial sin autorización) a verificar contra la fila tipo 20. Regularización de receptoras sin antecedentes (SICAC 6703) sin modelar. Calificación territorial: para suelo rústico sin cobertura en el planeamiento la Ley 4/2017 exige declaración de interés público por el Cabildo (arts. 72 y 79), y el trigger implantacion==suelo no distingue suelo urbano. Orden TED/624/2026: solo fusiona Tenerife y La Gomera en un sistema aislado (quedan 5 desde 01/07/2026); no cambia ningún trámite. Tasas 2026 del modelo 700 sin localizar. Acceso y conexión: el paso 3 pide CAU a todos, sin reflejar la exención de 15 kW del RD 244/2019."
   ],
   "fuentes": [
     {
@@ -98,7 +100,7 @@
               {
                 "var": "potencia_kw"
               },
-              100
+              10
             ]
           },
           {
@@ -135,8 +137,8 @@
             {
               "id": "declaracion_responsable",
               "label": "Declaración Responsable",
-              "descripcion": "Del titular de la instalación.",
-              "obligatorio": true
+              "descripcion": "La ficha 3158 no la incluye.",
+              "obligatorio": false
             },
             {
               "id": "manual_instrucciones",
@@ -258,6 +260,187 @@
       ]
     },
     {
+      "id": "ICAN-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW: proyecto técnico y certificado de dirección de obra, con comunicación previa (sin autorización administrativa)",
+      "condicion": {
+        "and": [
+          {
+            "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              },
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
+              }
+            ]
+          },
+          {
+            "!=": [
+              {
+                "var": "instalacion_origen_modificada"
+              },
+              true
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "Decreto 141/2009 (Anexo VII); REBT ITC-BT-04",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director de la instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Por encima de 10 kW el Decreto 141/2009 (Anexo VII) y la guía de la sede exigen proyecto técnico, aunque la puesta en servicio siga siendo comunicación previa sin autorización hasta 100 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación de energías renovables (ERR)",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_err",
+              "label": "Certificado de instalación de energías renovables (ERR)",
+              "descripcion": "Modelo oficial ERR firmado por instalador según ITC-BT-05.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Solicitud de acceso y conexión y obtención del CAU ante la distribuidora",
+          "organismo": "e-distribución Redes Digitales (Endesa) — distribuidora en Canarias",
+          "base_legal": "RD 1183/2020 acceso y conexión; NRZ105 'Instalaciones de enlace... Generadores en baja tensión' de e-distribución",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Portal de autoconsumo de la distribuidora",
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste en el procedimiento simplificado de autoconsumo BT",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de Código de Autoconsumo (CAU)",
+              "descripcion": "Trámite previo a la puesta en servicio; obtiene el CAU necesario para la comunicación previa y el contrato de suministro.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite anterior a la puesta en servicio. Hueco confirmado en la versión anterior: no existía ningún trámite de acceso/conexión pese a citar el RD 1183/2020.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Comunicación previa a la puesta en servicio e inscripción en el registro de instalaciones eléctricas de baja tensión (SICAC 3158) — instalación receptora nueva",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Instalaciones Energéticas",
+          "base_legal": "Decreto 141/2009 art. 15-16, Anexo VII; RD 244/2019; Decreto 133/2011; Orden de 5 de febrero de 2014",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3158",
+          "coste_estimado": "Tasa Modelo 700-200: concepto (118) Tasas en materia de industria y energía, epígrafe (12) 'Solicitudes diligencia certificaciones de instalaciones'. Importe exacto no verificado (ver huecos_verificacion).",
+          "formulario_ref": "3158",
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_err",
+              "label": "Certificado de instalación de energías renovables (ERR)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Este procedimiento (3158) está reservado por la propia ficha oficial a instalaciones receptoras NUEVAS. No confirmado si existe un 'Registro de autoconsumo' de Canarias diferenciado del registro general de instalaciones de BT.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Contrato o modificación de contrato de suministro y activación de la compensación de excedentes",
+          "organismo": "Empresa comercializadora de energía eléctrica",
+          "base_legal": "RD 244/2019 art. 14",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según condiciones contractuales de la comercializadora",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "contrato_suministro_autoconsumo",
+              "label": "Contrato o modificación de contrato de suministro con compensación de excedentes",
+              "descripcion": "Trámite posterior a la puesta en servicio; sólo aplica si la modalidad de autoconsumo incluye excedentes con compensación.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Aplica cuando 'modalidad_autoconsumo' es 'con_excedentes_con_compensacion'. Hueco confirmado en la versión anterior: no existía este trámite pese a citar el RD 244/2019.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
       "id": "ICAN-FV-001B",
       "descripcion": "Autoconsumo ≤100 kW en instalación receptora YA EXISTENTE (caso mayoritario: FV añadida a vivienda ya legalizada): comunicación de modificación, reforma o reactivación SICAC 6782",
       "condicion": {
@@ -267,7 +450,7 @@
               {
                 "var": "potencia_kw"
               },
-              100
+              10
             ]
           },
           {
@@ -304,8 +487,8 @@
             {
               "id": "declaracion_responsable",
               "label": "Declaración Responsable",
-              "descripcion": "Del titular de la instalación.",
-              "obligatorio": true
+              "descripcion": "Solo si no se aporta el número de expediente BT ni el certificado de instalación de la receptora (ficha 6782).",
+              "obligatorio": false
             },
             {
               "id": "manual_instrucciones",
@@ -393,6 +576,211 @@
               "label": "Certificado de instalación de energías renovables (ERR)",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "antecedentes_receptora",
+              "label": "Acreditación de los antecedentes administrativos de la instalación receptora",
+              "descripcion": "Número de expediente BT o certificado/boletín original; si no se tiene, declaración responsable (6782) o, si es antigua sin antecedentes, procedimiento 6703.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_adaptacion_bt",
+              "label": "Certificado de adaptación de la instalación de BT",
+              "descripcion": "Cuando proceda (ficha 6782).",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Corrección crítica de auditoría: la versión anterior dirigía siempre al 3158, reservado a instalaciones receptoras NUEVAS. Cuando se añade autoconsumo a una instalación receptora ya en servicio (caso mayoritario), el procedimiento correcto es el 6782, confirmado con ficha propia (SIA 2407656, actualizada 24/07/2026).",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 5,
+          "nombre": "Contrato o modificación de contrato de suministro y activación de la compensación de excedentes",
+          "organismo": "Empresa comercializadora de energía eléctrica",
+          "base_legal": "RD 244/2019 art. 14",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Según condiciones contractuales de la comercializadora",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001B",
+          "documentos_requeridos": [
+            {
+              "id": "contrato_suministro_autoconsumo",
+              "label": "Contrato o modificación de contrato de suministro con compensación de excedentes",
+              "descripcion": "Trámite posterior a la puesta en servicio; sólo aplica si la modalidad de autoconsumo incluye excedentes con compensación.",
+              "obligatorio": false
+            }
+          ],
+          "notas": "Aplica cuando 'modalidad_autoconsumo' es 'con_excedentes_con_compensacion'.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "ICAN-FV-001BP",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW: proyecto técnico y certificado de dirección de obra, con comunicación previa (sin autorización administrativa) — instalación receptora ya existente",
+      "condicion": {
+        "and": [
+          {
+            "and": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  10
+                ]
+              },
+              {
+                "<=": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  100
+                ]
+              }
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "instalacion_origen_modificada"
+              },
+              true
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "Decreto 141/2009 (Anexo VII); REBT ITC-BT-04",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001B",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director de la instalación.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Por encima de 10 kW el Decreto 141/2009 (Anexo VII) y la guía de la sede exigen proyecto técnico, aunque la puesta en servicio siga siendo comunicación previa sin autorización hasta 100 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación de energías renovables (ERR)",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001B",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_err",
+              "label": "Certificado de instalación de energías renovables (ERR)",
+              "descripcion": "Modelo oficial ERR firmado por instalador según ITC-BT-05.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Solicitud de acceso y conexión y obtención del CAU ante la distribuidora",
+          "organismo": "e-distribución Redes Digitales (Endesa) — distribuidora en Canarias",
+          "base_legal": "RD 1183/2020 acceso y conexión; NRZ105 'Instalaciones de enlace... Generadores en baja tensión' de e-distribución",
+          "plazo_estimado_dias": 10,
+          "plazo_legal_dias": null,
+          "plataforma": "Portal de autoconsumo de la distribuidora",
+          "plataforma_url": null,
+          "coste_estimado": "Sin coste en el procedimiento simplificado de autoconsumo BT",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001B",
+          "documentos_requeridos": [
+            {
+              "id": "solicitud_cau",
+              "label": "Solicitud de Código de Autoconsumo (CAU)",
+              "descripcion": "Trámite previo a la puesta en servicio; obtiene el CAU necesario para la comunicación previa y el contrato de suministro.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Trámite anterior a la puesta en servicio.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 4,
+          "nombre": "Comunicación previa a la puesta en servicio de modificación, reforma o reactivación de instalaciones eléctricas de baja tensión (SICAC 6782) — instalación receptora ya existente",
+          "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Instalaciones Energéticas",
+          "base_legal": "Decreto 141/2009 arts. 42.4 y 45; Ley 5/2021, de 21 de diciembre; RD 244/2019",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Canarias",
+          "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/6782",
+          "coste_estimado": "Tasa Modelo 700-200: concepto (118) Tasas en materia de industria y energía, epígrafe (12) 'Solicitudes diligencia certificaciones de instalaciones'. Importe exacto no verificado (ver huecos_verificacion).",
+          "formulario_ref": "6782",
+          "paralelo_con": null,
+          "regla_id": "ICAN-FV-001B",
+          "documentos_requeridos": [
+            {
+              "id": "certificado_err",
+              "label": "Certificado de instalación de energías renovables (ERR)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "antecedentes_receptora",
+              "label": "Acreditación de los antecedentes administrativos de la instalación receptora",
+              "descripcion": "Número de expediente BT o certificado/boletín original; si no se tiene, declaración responsable (6782) o, si es antigua sin antecedentes, procedimiento 6703.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_adaptacion_bt",
+              "label": "Certificado de adaptación de la instalación de BT",
+              "descripcion": "Cuando proceda (ficha 6782).",
+              "obligatorio": false
+            },
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
             }
           ],
           "notas": "Corrección crítica de auditoría: la versión anterior dirigía siempre al 3158, reservado a instalaciones receptoras NUEVAS. Cuando se añade autoconsumo a una instalación receptora ya en servicio (caso mayoritario), el procedimiento correcto es el 6782, confirmado con ficha propia (SIA 2407656, actualizada 24/07/2026).",
@@ -467,7 +855,7 @@
           "orden": 2,
           "nombre": "Certificado de Inspección Inicial (OCA), cuando sea preceptivo",
           "organismo": "Organismo de Control Autorizado (OCA) en Canarias",
-          "base_legal": "Decreto 141/2009 art. 12-14, Anexo VII; RD 842/2002 ITC-BT-05",
+          "base_legal": "Decreto 141/2009 art. 15.2.d, Anexo VII; RD 842/2002 ITC-BT-05",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -540,19 +928,49 @@
               "obligatorio": true
             },
             {
-              "id": "certificado_err",
-              "label": "Certificado de instalación de energías renovables (ERR)",
-              "descripcion": "",
-              "obligatorio": true
-            },
-            {
               "id": "rbda",
               "label": "Resolución/garantía de acceso y conexión (RBDA)",
               "descripcion": "Justificante de acceso y conexión y, en su caso, compatibilidad urbanística conforme al art. 3 Ley 5/2021.",
               "obligatorio": true
+            },
+            {
+              "id": "solicitud_2721",
+              "label": "Solicitud de autorización (ficha 2721)",
+              "descripcion": "Modelo de la sede.",
+              "obligatorio": true
+            },
+            {
+              "id": "capacidad_legal_tecnica_economica",
+              "label": "Acreditación de capacidad legal, técnica y económica",
+              "descripcion": "Exigida por la ficha 2721.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_700_200",
+              "label": "Justificante de la tasa (modelo 700-200)",
+              "descripcion": "Autoliquidación de la tasa (concepto 118).",
+              "obligatorio": true
+            },
+            {
+              "id": "permisos_acceso_conexion",
+              "label": "Permisos de acceso y conexión",
+              "descripcion": "Exigidos por la ficha 2721.",
+              "obligatorio": true
+            },
+            {
+              "id": "garantia_rd_1183_2020",
+              "label": "Depósito de la garantía económica del RD 1183/2020",
+              "descripcion": "Exigido por la ficha 2721.",
+              "obligatorio": true
+            },
+            {
+              "id": "disponibilidad_terrenos_compatibilidad",
+              "label": "Disponibilidad de terrenos y compatibilidad urbanística",
+              "descripcion": "Art. 3 de la Ley 5/2021 (ficha 2721).",
+              "obligatorio": true
             }
           ],
-          "notas": "Corrección crítica de auditoría: se sustituye la plataforma_url genérica de la sede por la ficha SICAC 2721 confirmada (SIA 220619). Plazo de resolución 6 meses, silencio desestimatorio. El umbral exacto de potencia a partir del cual deja de estar exenta de autorización administrativa (¿100 kW estatal o 500 kW por facultad autonómica potestativa?) es NO VERIFICABLE con las fuentes de esta auditoría (ver huecos_verificacion).",
+          "notas": "Corrección crítica de auditoría: se sustituye la plataforma_url genérica de la sede por la ficha SICAC 2721 confirmada (SIA 220619). Plazo de resolución 6 meses, silencio desestimatorio. El umbral exacto de potencia a partir del cual deja de estar exenta de autorización administrativa (¿100 kW estatal o 500 kW por facultad autonómica potestativa?) es NO VERIFICABLE con las fuentes de esta auditoría (ver huecos_verificacion).\nEl certificado ERR no pertenece a la solicitud de autorización (ficha 2721): corresponde a la puesta en servicio.",
           "registro_salida": null,
           "medio_presentacion": null
         },

@@ -1,15 +1,17 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "extremadura",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
   "aviso": "Fichero generado desde cero (Extremadura no proporcionó fichero original de climatización). Confirmado real el trámite 'Registro de Instalaciones Térmicas en Edificios' de la Junta de Extremadura, con tramo específico 5-70 kW (memoria técnica) y >70 kW (proyecto visado). No se ha localizado decreto autonómico propio; se aplica el RITE nacional directamente vía el procedimiento general de instalación industrial (Decreto 49/2004, Grupo II). CORRECCIÓN 2026-07-28 (auditoría normativa): el umbral de 70 kW y los operadores <=70/>70 se confirmaron correctos (RITE exige proyecto solo si la potencia térmica nominal es MAYOR que 70 kW); se corrigió la cita de la ficha de referencia en 'fuentes' (ver nota) y se unificó el nombre del organismo.",
   "huecos_verificacion": [
     "No se ha confirmado el nombre ni número de trámite exacto en la sede electrónica de Extremadura para el registro de instalaciones térmicas",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Extremadura climatización (Prompt B): CIP 5625 confirmado (alta); nombre oficial «Documentación acreditativa del cumplimiento de normas de seguridad industrial… Grupo II», plataforma AsistenteAGILE + Sede, base legal (Decreto 49/2004 art. 5, Orden 20/07/2017, Resolución 31/10/2017), certificado oficial, FTD y tasa Modelo 050 (alta/media). Servicio: Decreto 162/2026 (DOE 14/09/2026) lo llama «Servicio de Ordenación Industrial y Energética», con efectos supeditados a la RPT (media). Umbrales RITE sin norma autonómica contraria (texto del RITE no releído).",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Extremadura climatización): plazo del CIP 5625 (3 meses, silencio desestimatorio) frente al criterio de comunicaciones: decisión editorial pendiente; código e importe de la tasa de térmicas sin localizar."
   ],
   "fuentes": [
     {
@@ -128,15 +130,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalación térmica en edificios",
-          "organismo": "Servicio de Ordenación Industrial, Energética y Minera (Badajoz/Cáceres)",
-          "base_legal": "RITE RD 1027/2007 art. 24; Decreto 49/2004",
+          "nombre": "Comunicación de documentación acreditativa del cumplimiento de normas de seguridad industrial (Grupo II): instalaciones térmicas en edificios (CIP 5625)",
+          "organismo": "Servicio de Ordenación Industrial y Energética (Mérida, con Unidades en Badajoz y Cáceres; denominación del Decreto 162/2026, que la sede aún no usa)",
+          "base_legal": "Decreto 49/2004, art. 5 (mod. Decreto 66/2016); Orden de 20/07/2017; Resolución de 31/10/2017 (mod. Resolución de 13/01/2026); RD 1027/2007 (RITE), arts. 15 y 24",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva) y Sede Electrónica (CIP 5625)",
           "plataforma_url": "https://www.juntaex.es/w/5625",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "CIP 5625",
+          "coste_estimado": "Modelo 050 (justificante de tasa); código y importe 2026 específicos de térmicas no localizados.",
+          "formulario_ref": "FTD térmicas",
           "paralelo_con": null,
           "regla_id": "EXT-AT-001",
           "documentos_requeridos": [
@@ -151,9 +153,27 @@
               "label": "Certificado del instalador (modelo oficial)",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_instalaciones_termicas",
+              "label": "Certificado de instalaciones térmicas en edificios (cualquier potencia)",
+              "descripcion": "Modelo oficial revisado el 03/05/2023.",
+              "obligatorio": true
+            },
+            {
+              "id": "ftd_termicas",
+              "label": "Ficha técnica descriptiva (código de AsistenteAGILE)",
+              "descripcion": "Se obtiene antes de la comunicación.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_050",
+              "label": "Justificante de tasa (Modelo 050)",
+              "descripcion": "",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 5625 publica plazo de 3 meses con silencio desestimatorio; se deja plazo_legal_dias sin valor porque una comunicación habilita desde su presentación (decisión pendiente, Ley 21/1992 art. 4.3).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -188,7 +208,7 @@
             {
               "id": "proyecto_tecnico",
               "label": "Proyecto Técnico visado por colegio profesional",
-              "descripcion": "",
+              "descripcion": " Si el trabajo no está visado, se acompaña declaración responsable de habilitación profesional.",
               "obligatorio": true
             },
             {
@@ -204,22 +224,22 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalación térmica en edificios (alta potencia)",
-          "organismo": "Servicio de Ordenación Industrial, Energética y Minera (Badajoz/Cáceres)",
-          "base_legal": "RITE RD 1027/2007 art. 15, 24; Decreto 49/2004",
+          "nombre": "Comunicación de documentación acreditativa del cumplimiento de normas de seguridad industrial (Grupo II): instalaciones térmicas en edificios (CIP 5625) — más de 70 kW",
+          "organismo": "Servicio de Ordenación Industrial y Energética (Mérida, con Unidades en Badajoz y Cáceres; denominación del Decreto 162/2026, que la sede aún no usa)",
+          "base_legal": "Decreto 49/2004, art. 5 (mod. Decreto 66/2016); Orden de 20/07/2017; Resolución de 31/10/2017 (mod. Resolución de 13/01/2026); RD 1027/2007 (RITE), arts. 15 y 24",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva) y Sede Electrónica (CIP 5625)",
           "plataforma_url": "https://www.juntaex.es/w/5625",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "CIP 5625",
+          "coste_estimado": "Modelo 050 (justificante de tasa); código y importe 2026 específicos de térmicas no localizados.",
+          "formulario_ref": "FTD térmicas",
           "paralelo_con": null,
           "regla_id": "EXT-AT-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_visado",
-              "label": "Proyecto visado",
-              "descripcion": "",
+              "label": "Proyecto técnico",
+              "descripcion": "El visado no es requisito general: para trabajos no visados se acompaña declaración responsable de habilitación profesional.",
               "obligatorio": true
             },
             {
@@ -227,9 +247,27 @@
               "label": "Certificado del instalador",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_instalaciones_termicas",
+              "label": "Certificado de instalaciones térmicas en edificios (cualquier potencia)",
+              "descripcion": "Modelo oficial revisado el 03/05/2023.",
+              "obligatorio": true
+            },
+            {
+              "id": "ftd_termicas",
+              "label": "Ficha técnica descriptiva (código de AsistenteAGILE)",
+              "descripcion": "Se obtiene antes de la comunicación.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_050",
+              "label": "Justificante de tasa (Modelo 050)",
+              "descripcion": "",
+              "obligatorio": true
             }
           ],
-          "notas": "Confirmado real el registro específico 'alta potencia térmica' (>5.000 kW calor / >1.000 kW frío) como categoría distinta en la sede de Extremadura; para el tramo >70kW estándar de este proyecto aplica el registro general de instalaciones térmicas con proyecto.",
+          "notas": "Confirmado real el registro específico 'alta potencia térmica' (>5.000 kW calor / >1.000 kW frío) como categoría distinta en la sede de Extremadura; para el tramo >70kW estándar de este proyecto aplica el registro general de instalaciones térmicas con proyecto.\nLa ficha 5625 publica plazo de 3 meses con silencio desestimatorio; se deja plazo_legal_dias sin valor porque una comunicación habilita desde su presentación (decisión pendiente, Ley 21/1992 art. 4.3).",
           "registro_salida": null,
           "medio_presentacion": null
         }

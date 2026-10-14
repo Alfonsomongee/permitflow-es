@@ -29,6 +29,20 @@ class Incentivo(BaseModel):
     fuente: Optional[str] = None
 
 
+class OpcionFinanciacionSchema(BaseModel):
+    """PREM-04: comparador de financiación. Ver OpcionFinanciacion en
+    servicios/calculo_financiero.py -- la matemática de amortización vive
+    ahí, este schema solo serializa el resultado ya calculado."""
+
+    tipo: Literal["prestamo", "renting"]
+    nombre: str
+    cuota_mensual: float = Field(ge=0)
+    plazo_anios: int = Field(gt=0)
+    coste_total_financiacion: float = Field(ge=0)
+    ahorro_mensual_neto: float
+    nota: str
+
+
 class EscenarioAhorro(BaseModel):
     nombre: str
     coste_inicial: float = Field(gt=0)
@@ -42,6 +56,7 @@ class EscenarioAhorro(BaseModel):
     produccion_anual_estimada_kwh: Optional[float] = None
     factura_actual_anual: float = Field(default=0.0, ge=0)
     factura_con_instalacion_anual: float = Field(default=0.0, ge=0)
+    opciones_financiacion: List[OpcionFinanciacionSchema] = Field(default_factory=list)
 
 
 class InformeSimulacionIA(BaseModel):
@@ -144,6 +159,18 @@ async def generar_informe_simulacion(
         produccion_anual_estimada_kwh=escenario_calculado.produccion_anual_estimada_kwh,
         factura_actual_anual=escenario_calculado.factura_actual_anual,
         factura_con_instalacion_anual=escenario_calculado.factura_con_instalacion_anual,
+        opciones_financiacion=[
+            OpcionFinanciacionSchema(
+                tipo=o.tipo,
+                nombre=o.nombre,
+                cuota_mensual=o.cuota_mensual,
+                plazo_anios=o.plazo_anios,
+                coste_total_financiacion=o.coste_total_financiacion,
+                ahorro_mensual_neto=o.ahorro_mensual_neto,
+                nota=o.nota,
+            )
+            for o in escenario_calculado.opciones_financiacion
+        ],
     )
 
     texto = _InformeTextoIA(

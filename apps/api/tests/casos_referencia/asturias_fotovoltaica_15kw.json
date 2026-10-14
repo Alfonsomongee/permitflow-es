@@ -10,7 +10,7 @@
     "modalidad_autoconsumo": "con_excedentes_con_compensacion"
   },
   "num_tramites_esperado": 5,
-  "tiempo_total_esperado_dias": 50,
-  "validado_por": "Antigravity - 2026-08-09",
-  "notas_validacion": "Ejecutado contra motor_normativo/reglas/asturias/fotovoltaica_autoconsumo.json reglas AST-FV-CAU, AST-FV-001-A y AST-FV-RIPRE."
+  "tiempo_total_esperado_dias": 60,
+  "validado_por": "Pendiente de revisión humana (valores actualizados el 2026-10-05 tras el Prompt B; antes: Antigravity - 2026-08-09)",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/asturias/fotovoltaica_autoconsumo.json reglas AST-FV-CAU, AST-FV-001-A-P y AST-FV-RIPRE. Desde 2026-10-05 la generación de más de 10 kW en baja tensión lleva proyecto técnico en lugar de memoria (ITC-BT-04 §3.1; ficha oficial de Asturias; ADR 0007)."
 }

@@ -763,7 +763,7 @@ function CamposClimatizacionACS() {
 
 // ─── Componente raíz del paso 2 ───────────────────────────────────────────────
 
-const STEP2_MAP: Record<string, () => JSX.Element> = {
+const STEP2_MAP: Record<string, () => React.JSX.Element> = {
   fotovoltaica_autoconsumo: CamposFotovoltaica,
   irve: CamposIRVE,
   gas_baja_presion: CamposGas,

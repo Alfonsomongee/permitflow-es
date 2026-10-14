@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "comunidad_valenciana",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,7 @@
     "'Orden de 29 de marzo de 2006' no localizada — referencia eliminada de este campo por no poder confirmarse ni desmentirse con fuente admisible.",
     "No se ha confirmado si existe una particularidad de la Comunitat Valenciana respecto al umbral general de 70 kW de la ITC-ICG-07",
     "Umbrales de proyecto obligatorio incompletos: la ficha oficial (id_proc=3192) prevé también instalación común >2.000 kW y conexión interior >2.000 kW, no modelados por falta de campo en el schema — pendiente.",
-    "Tasas y plazos legales no verificados con detalle"
+    "Verificación Prompt B (2026-10-04): BLOQUEANTE resuelto (alta, ficha 3192 en extracto de buscador e ITC-ICG 07): se quitó el paso de comunicación de CV-GAS-002 (≤ 70 kW, ≤ 5 bar, sin proyecto). Ver ADR 0003. El plazo de 30 días de CV-GAS-001/003 es el del titular tras la puesta en servicio, no de resolución (plazo_legal_dias a null). Confirmados los documentos CERINCOM, CERININD, CERACGAS y CERTEREG y los umbrales de 70 kW (individuales) y 2.000 kW (comunes y acometidas, aún sin modelar). Sin verificar: umbral de 5 bar y ampliaciones > 30 % en fuente valenciana, tasas y silencio; categorías «IG-I/IG-II» y la MTD de gas en el supuesto sin proyecto (la ficha no la menciona); no se encontró norma valenciana que exija comunicación por debajo de los umbrales de proyecto."
   ],
   "fuentes": [
     {
@@ -107,10 +107,10 @@
         {
           "orden": 3,
           "nombre": "Registro/comunicación de la instalación",
-          "organismo": "Servicio Territorial de Industria, Energía y Minas",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es)",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=3192",
           "coste_estimado": "NO VERIFICADO",
@@ -125,7 +125,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es.",
+          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es.\nLa comunicación debe presentarla el titular (o su representante) antes de que pasen 30 días desde la puesta en servicio; no hay plazo de resolución (ficha 3192).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -133,7 +133,7 @@
     },
     {
       "id": "CV-GAS-002",
-      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto",
+      "descripcion": "Instalación de gas en presión normal (≤5 bar) con potencia ≤ 70 kW: sin proyecto y sin comunicación a la Administración",
       "condicion": {
         "and": [
           {
@@ -213,32 +213,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria.",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Registro/comunicación de la instalación",
-          "organismo": "Servicio Territorial de Industria, Energía y Minas",
-          "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
-          "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
-          "plataforma": "Sede PROP electrónica (gva.es)",
-          "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=3192",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "3192",
-          "paralelo_con": null,
-          "regla_id": "CV-GAS-002",
-          "documentos_requeridos": [
-            {
-              "id": "ci_visado",
-              "label": "Certificados normalizados de instalación (CERINCOM/CERININD/CERACGAS)",
-              "descripcion": "Presentación ante el Servicio Territorial de Industria antes de que transcurran 30 días desde la puesta en servicio.",
-              "obligatorio": true
-            }
-          ],
-          "notas": "La ficha oficial (id_proc=3192) exige este trámite también para instalaciones sin proyecto (≤70 kW), con un plazo legal de 30 días.",
+          "notas": "No existe intervención preceptiva de un Organismo de Control Autorizado (OCA) en la puesta en servicio ordinaria.\nEsta instalación (individual de hasta 70 kW y hasta 5 bar) no requiere proyecto ni comunicación a la Administración: según la ficha 3192 de la Generalitat y la ITC-ICG 07, «salvo en el caso de las instalaciones que requieren proyecto, no es precisa ninguna comunicación»; el suministrador conserva la documentación a disposición de la Administración.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -327,10 +302,10 @@
         {
           "orden": 3,
           "nombre": "Registro/comunicación de la instalación",
-          "organismo": "Servicio Territorial de Industria, Energía y Minas",
+          "organismo": "Servicio Territorial de Industria, Energía y Minas (Alicante, Castellón o Valencia, según la provincia)",
           "base_legal": "RIGLO RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede PROP electrónica (gva.es)",
           "plataforma_url": "https://sede.gva.es/es/detall-tramit?id_proc=3192",
           "coste_estimado": "NO VERIFICADO",
@@ -345,7 +320,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es.",
+          "notas": "Enlace corregido a id_proc=3192 ('Instalación receptora de gas (ITC-7)'); antes apuntaba a la raíz genérica de sede.gva.es.\nLa comunicación debe presentarla el titular (o su representante) antes de que pasen 30 días desde la puesta en servicio; no hay plazo de resolución (ficha 3192).",
           "registro_salida": null,
           "medio_presentacion": null
         }

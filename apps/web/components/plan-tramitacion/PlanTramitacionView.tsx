@@ -16,8 +16,10 @@ import { TramiteCard } from "./TramiteCard";
 import { ResumenPanel } from "./ResumenPanel";
 import { ExportPdfButtons } from "./ExportPdfButton";
 import { EliminarExpedienteButton } from "./EliminarExpedienteButton";
+import { DuplicarExpedienteButton } from "./DuplicarExpedienteButton";
 import { DetallesExpediente } from "./DetallesExpediente";
 import { ValidadorPanel } from "./ValidadorPanel";
+import { SilencioAdministrativoBanner } from "./SilencioAdministrativoBanner";
 import { TimelinePlan } from "./TimelinePlan";
 import { useTramitesEstado } from "./useTramitesEstado";
 import { useEstadisticasPlazo } from "./useEstadisticasPlazo";
@@ -307,7 +309,10 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
           <div className="flex items-center gap-2">
             <ExportPdfButtons titulo={titulo} expedienteId={expediente?.id} />
             {expediente && (
-              <EliminarExpedienteButton expedienteId={expediente.id} titulo={titulo} />
+              <>
+                <DuplicarExpedienteButton expedienteId={expediente.id} />
+                <EliminarExpedienteButton expedienteId={expediente.id} titulo={titulo} />
+              </>
             )}
           </div>
         </div>
@@ -364,6 +369,13 @@ export function PlanTramitacionView({ plan, params, expediente }: PlanTramitacio
           <div className="min-w-0 space-y-6">
             <VerificacionBanner plan={plan} />
             <RiesgoNormativoBanner plan={plan} />
+            {expediente && (
+              <SilencioAdministrativoBanner
+                tramites={plan.tramites}
+                tramitesEstado={estados}
+                comunidad={params.comunidad}
+              />
+            )}
             <TimelinePlan
               tramites={plan.tramites}
               estados={expediente ? estados : undefined}

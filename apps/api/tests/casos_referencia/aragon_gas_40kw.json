@@ -9,8 +9,8 @@
     "municipio": "Zaragoza",
     "presion_bar": "normal"
   },
-  "num_tramites_esperado": 4,
-  "tiempo_total_esperado_dias": 26,
-  "validado_por": "Antigravity - 2026-08-09",
-  "notas_validacion": "Ejecutado contra motor_normativo/reglas/aragon/gas_baja_presion.json regla ARA-GAS-001."
+  "num_tramites_esperado": 3,
+  "tiempo_total_esperado_dias": 16,
+  "validado_por": "Pendiente de revisión humana (valores actualizados el 2026-10-02 tras el Prompt C; antes: Antigravity - 2026-08-09)",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/aragon/gas_baja_presion.json regla ARA-GAS-001. Desde 2026-10-02 no incluye el Trámite Nº 33: la Tabla 1 de Aragón y el RD 919/2006 no exigen comunicar las individuales de hasta 70 kW y 5 bar (ADR 0003)."
 }

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "cantabria",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -10,7 +10,9 @@
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica cántabra específica de climatización",
     "Se confirma que el trámite 49 lleva tasa asociada ('justificante de la tasa correspondiente'); el importe exacto sigue sin verificar",
-    "Tasas (importe exacto) y plazos legales de resolución no verificados"
+    "Tasas (importe exacto) y plazos legales de resolución no verificados",
+    "Verificación Prompt B (2026-10-05): Cantabria (Prompt B): trámite 49 sin leer (robots.txt); plazo, silencio, tasa 2026 (tarifa 2.4 de la Ley 9/1992) y nombres de los modelos sin verificar. Inspección inicial por OCA: potestativa (RITE arts. 24.1.c y 30.1), no se añade sin ficha. El trámite 401 («Certificación de instalaciones de climatización no industriales») puede solaparse con el 49.",
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (Cantabria climatización): la Ley de Cantabria 5/2026 fija una tarifa 1.6 de «Inscripción de instalaciones frigoríficas» (41,43 €); falta decidir si la aerotermia con gases fluorados requiere esa inscripción (RSIF, RD 552/2019)."
   ],
   "fuentes": [
     {
@@ -121,7 +123,7 @@
           "orden": 2,
           "nombre": "Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización",
           "organismo": "Servicio de Energía — Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
-          "base_legal": "RITE RD 1027/2007 art. 23-24",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1, 24.1 y 24.2 art. 23-24",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
@@ -144,7 +146,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28); modelos normalizados descargables MTD-IIA Anexo III, CI-ITE, SOL-IIA, CMI-ITE, MT-ITE.",
+          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28); modelos normalizados descargables MTD-IIA Anexo III, CI-ITE, SOL-IIA, CMI-ITE, MT-ITE.\nTasa: tarifa 2.4 de la Ley 9/1992 («Instalaciones de calefacción, climatización y agua caliente»); importe 2026 no localizado.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -197,7 +199,7 @@
           "orden": 2,
           "nombre": "Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización",
           "organismo": "Servicio de Energía — Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
-          "base_legal": "RITE RD 1027/2007 art. 15, 23-24",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1, 24.1 y 24.2 art. 15, 23-24",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
@@ -220,7 +222,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28).",
+          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28).\nTasa: tarifa 2.4 de la Ley 9/1992 («Instalaciones de calefacción, climatización y agua caliente»); importe 2026 no localizado.",
           "registro_salida": null,
           "medio_presentacion": null
         }

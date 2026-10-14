@@ -25,6 +25,7 @@ export default async function EstadisticasPage() {
     comunidad: expediente.comunidad,
     potencia_kw: expediente.potencia_kw,
     estado: expediente.estado,
+    fase_comercial: expediente.fase_comercial,
     tramites_total: expediente.plan_tramitacion?.tramites?.length ?? 0,
     tramites_completados: expediente.tramites_completados,
     fecha_creacion: expediente.creado_en,

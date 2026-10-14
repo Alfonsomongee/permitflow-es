@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
 export const dynamic = "force-dynamic";
 
-const rawUrl =
-  process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-const API_URL = rawUrl.replace(/\/+$/, "");
 
 /**
  * apps/web/app/api/ayudas/route.ts
@@ -18,7 +16,7 @@ export async function GET(req: Request) {
     const { userId, orgId } = await auth();
 
     if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Inicia sesión para consultar las ayudas." }, { status: 401 });
     }
 
     const { searchParams } = new URL(req.url);
@@ -40,7 +38,7 @@ export async function GET(req: Request) {
       method: "GET",
       headers: {
         "x-org-id": orgId || userId,
-        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+        ...cabecerasInternas(),
       },
       cache: "no-store",
     });

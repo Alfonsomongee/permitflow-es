@@ -1,15 +1,18 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "madrid",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-27",
+  "version": "1.1.1",
+  "ultima_revision": "2026-10-01",
   "nivel_verificacion": "verificada_parcialmente",
   "estado": "verificado_con_observaciones",
   "revisado_por": null,
   "aviso": "Proyecto o MTD conforme a ITC-BT-04/52. Puesta en servicio ante EICI. Vía pública requiere revisión municipal adicional.",
   "huecos_verificacion": [
     "La autorización municipal concreta para IRVE en vía pública depende del municipio y no se modela en este JSON autonómico.",
-    "Los importes de tasa y tarifa EICI dependen del expediente y deben consultarse en la ficha vigente."
+    "Los importes de tasa y tarifa EICI dependen del expediente y deben consultarse en la ficha vigente.",
+    "Verificación Prompt B Madrid (2026-10-01): el Acta XII (declaración sobre la inspección periódica de las instalaciones de garaje donde se montan IRVE) se condiciona en el fichero a ubicacion_irve == garaje_comunitario; la ficha de la sede la exige «cuando sea exigible» sin limitarla a garaje comunitario. No se leyó el contenido del Acta XII ni la Orden 9344/2003 (la web de legislación no devolvió texto).",
+    "Omisiones en alta tensión (Decreto 86/2025): IRVE de consumidor para uso exclusivo conectada en AT (grupo tercero: comunicación previa) e IRVE de más de 3.000 kW (grupo quinto: autorización administrativa). RD 88/2026 (verificación de instalaciones BT con más de 20 años en aumentos de potencia): lo aplica la distribuidora al contratar y no altera ningún trámite autonómico; puede exigir verificación y boletín del instalador.",
+    "La revisión municipal de ocupación de dominio público (MAD-IRVE-VIA-PUBLICA) es una norma municipal fuera del alcance de las fuentes autonómicas consultadas: no verificable."
   ],
   "fuentes": [
     {
@@ -139,9 +142,9 @@
           "base_legal": "Orden 9344/2003; Decreto 38/2002",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma": "Entidad de Inspección y Control Industrial (EICI) autorizada; la sede de la Comunidad de Madrid solo aloja la ficha y el pago de la tasa",
           "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
-          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
+          "coste_estimado": "Tasa de la Comunidad (ficha de la sede, 2026-10): memoria técnica en vivienda 3,12 € por vivienda; en uso no residencial 6,24 €; proyecto 15,60 € (hasta 6.000 €), 31,22 € (6.000,01 a 60.000 €) y 52,04 € (más de 60.000 €). La tarifa de la EICI es aparte.",
           "formulario_ref": "2722",
           "paralelo_con": null,
           "regla_id": "MAD-IRVE-MTD",
@@ -198,9 +201,21 @@
                   }
                 ]
               }
+            },
+            {
+              "id": "solicitud_registro_bt",
+              "label": "Solicitud de registro (modelo oficial)",
+              "descripcion": "Se presenta ante la EICI por la empresa instaladora habilitada.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Lo exige la ficha de la sede de la Comunidad de Madrid.",
+              "obligatorio": true
             }
           ],
-          "notas": "Requiere pago de tasas y tarifa EICI.",
+          "notas": "Requiere pago de tasas y tarifa EICI.\nLa presentación se hace ante la EICI, no en la sede.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -298,9 +313,9 @@
           "base_legal": "Orden 9344/2003; Decreto 38/2002",
           "plazo_estimado_dias": null,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Comunidad de Madrid",
+          "plataforma": "Entidad de Inspección y Control Industrial (EICI) autorizada; la sede de la Comunidad de Madrid solo aloja la ficha y el pago de la tasa",
           "plataforma_url": "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/tramitacion-instalaciones-electricas",
-          "coste_estimado": "Sujeto a tasa y tarifa EICI vigentes",
+          "coste_estimado": "Tasa de la Comunidad (ficha de la sede, 2026-10): memoria técnica en vivienda 3,12 € por vivienda; en uso no residencial 6,24 €; proyecto 15,60 € (hasta 6.000 €), 31,22 € (6.000,01 a 60.000 €) y 52,04 € (más de 60.000 €). La tarifa de la EICI es aparte.",
           "formulario_ref": "2722",
           "paralelo_con": null,
           "regla_id": "MAD-IRVE-PROYECTO",
@@ -323,9 +338,21 @@
               "label": "Certificado de dirección de obra",
               "descripcion": "",
               "obligatorio": false
+            },
+            {
+              "id": "solicitud_registro_bt",
+              "label": "Solicitud de registro (modelo oficial)",
+              "descripcion": "Se presenta ante la EICI por la empresa instaladora habilitada.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa",
+              "label": "Justificante de pago de la tasa",
+              "descripcion": "Lo exige la ficha de la sede de la Comunidad de Madrid.",
+              "obligatorio": true
             }
           ],
-          "notas": "Requiere pago de tasas y tarifa EICI.",
+          "notas": "Requiere pago de tasas y tarifa EICI.\nLa presentación se hace ante la EICI, no en la sede.",
           "registro_salida": null,
           "medio_presentacion": null
         }

@@ -22,7 +22,10 @@ async def verificar_clave_interna(
     request: Request,
     x_internal_key: Optional[str] = Header(default=None),
 ) -> None:
-    if request.url.path == "/health" or request.url.path.startswith("/simulador"):
+    # Único endpoint público: /health. El simulador y el resto pasan SIEMPRE por la
+    # clave interna: sus rutas proxy de Next.js la envían, así que no hay motivo
+    # para dejar FastAPI abierto a Internet (coste de IA, escritura anónima en BD).
+    if request.url.path == "/health":
         return
 
     clave = settings.INTERNAL_API_KEY

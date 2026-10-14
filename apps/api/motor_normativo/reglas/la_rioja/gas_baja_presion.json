@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "la_rioja",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "No se ha localizado normativa autonómica riojana específica de gas más allá del trámite GN-GL",
     "Tasas y plazos legales no verificados",
     "No se ha confirmado si La Rioja distingue trámite entre GL (GLP) y GN (gas natural) más allá del propio nombre del código",
-    "Corregido 2026-07-28: las condiciones de RIO-GAS-001/002/003 comparaban 'presion_bar' contra las cadenas literales \"5+\"/\"normal\", pero motor_normativo/clasificador.py normaliza ese campo a float (\"5+\"->6.0, \"normal\"->0.0) antes de evaluar json-logic, por lo que las tres reglas eran inalcanzables en producción. Se cambiaron a comparaciones numéricas (`presion_bar` > 5 / <= 5) equivalentes al umbral normativo real."
+    "Corregido 2026-07-28: las condiciones de RIO-GAS-001/002/003 comparaban 'presion_bar' contra las cadenas literales \"5+\"/\"normal\", pero motor_normativo/clasificador.py normaliza ese campo a float (\"5+\"->6.0, \"normal\"->0.0) antes de evaluar json-logic, por lo que las tres reglas eran inalcanzables en producción. Se cambiaron a comparaciones numéricas (`presion_bar` > 5 / <= 5) equivalentes al umbral normativo real.",
+    "Verificación Prompt B (2026-10-05): La Rioja gas (Prompt B): quitado el paso GN-GL de RIO-GAS-002 (hasta 70 kW y 5 bar sin proyecto): la norma estatal (RD 919/2006, art. 5.7; ITC-ICG 07 §3.6, del marco) no exige comunicación y la ficha riojana no se pudo leer (media). Si la ficha GN-GL lo impusiera para estos casos, habría que restituirlo con su texto.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (La Rioja gas): el aviso «sin norma autonómica» es incompleto: existen la Orden de 22/02/2001 (BOR nº 24; evacuación de productos de combustión, mantenimiento e inspección de aparatos de gas en instalaciones individuales de calefacción/ACS; «Modificada») y una Resolución sobre certificación de chimeneas, sin leer; falta el trámite GL (n=00289, depósitos fijos de GLP; impresos GL1 y GL3); comunes y acometidas > 2.000 kW y ampliaciones ≥ 30 % sin modelar."
   ],
   "fuentes": [
     {
@@ -96,7 +98,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es?area=INDUSTRIA+Y+ENERGIA",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GN-GL",
           "paralelo_con": null,
@@ -115,7 +117,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Es una comunicación: los 30 días siguientes a la puesta en servicio son el plazo de presentación del titular (RD 919/2006), no un plazo de resolución. Nombre oficial del trámite: «GN-GL. Inscripción de puesta en servicio de Instalaciones receptoras de combustibles gaseosos (GL/GN)».",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -197,32 +199,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
-          "registro_salida": null,
-          "medio_presentacion": null
-        },
-        {
-          "orden": 3,
-          "nombre": "Inscripción de puesta en servicio de instalación receptora de gas (trámite GN-GL)",
-          "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
-          "base_legal": "RIGLO RD 919/2006",
-          "plazo_estimado_dias": 10,
-          "plazo_legal_dias": null,
-          "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "GN-GL",
-          "paralelo_con": null,
-          "regla_id": "RIO-GAS-002",
-          "documentos_requeridos": [
-            {
-              "id": "mtd_gas",
-              "label": "Memoria Técnica de instalación de gas",
-              "descripcion": "",
-              "obligatorio": true
-            }
-          ],
-          "notas": "",
+          "notas": "Instalación sin proyecto (individual de hasta 70 kW y hasta 5 bar): según la ITC-ICG 07 (apdo. 3.6) no es precisa ninguna comunicación a la Administración. Entrega el certificado a la empresa suministradora.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -310,7 +287,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es?area=INDUSTRIA+Y+ENERGIA",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "GN-GL",
           "paralelo_con": null,
@@ -329,7 +306,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Es una comunicación: los 30 días siguientes a la puesta en servicio son el plazo de presentación del titular (RD 919/2006), no un plazo de resolución. Nombre oficial del trámite: «GN-GL. Inscripción de puesta en servicio de Instalaciones receptoras de combustibles gaseosos (GL/GN)».",
           "registro_salida": null,
           "medio_presentacion": null
         }

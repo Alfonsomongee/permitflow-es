@@ -7,6 +7,10 @@
     {
       "path": "/api/cron/estadisticas-plazos",
       "schedule": "0 3 * * 0"
+    },
+    {
+      "path": "/api/cron/radar-normativo",
+      "schedule": "0 7 * * 1"
     }
   ]
 }

@@ -8,12 +8,13 @@ import { SetChatContext } from "@/components/plan-tramitacion/SetChatContext";
 import type { InstalacionParams } from "@/types/plan";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default async function ExpedienteDetallePage({ params }: PageProps) {
+export default async function ExpedienteDetallePage(props: PageProps) {
+  const params = await props.params;
   const { orgId } = await auth();
 
   if (!orgId) {
@@ -47,7 +48,7 @@ export default async function ExpedienteDetallePage({ params }: PageProps) {
         comunidad={expediente.comunidad}
         tecnologia={expediente.tipo_instalacion}
       />
-      <AlertasExpedienteBanner alertas={alertasRelacionadas} />
+      <AlertasExpedienteBanner alertas={alertasRelacionadas} expediente={expediente} />
       <PlanTramitacionView
         plan={plan}
         params={instalacionParams}

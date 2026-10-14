@@ -7,6 +7,9 @@ import type {
   TramitesEstadoMap,
 } from "@/types/plan";
 import { hoyIso } from "./plazos";
+import { BUCKET_DOCUMENTOS_CLIENTE } from "./documentos-cliente";
+import { construirPayloadClasificador } from "./clasificador-payload";
+import type { FaseComercial } from "./faseComercial";
 
 function fallbackOrgName(clerkOrgId: string): string {
   return `Organizacion ${clerkOrgId.slice(-6)}`;
@@ -33,6 +36,17 @@ async function ensureOrgId(clerkOrgId: string): Promise<string> {
     })
     .select("id")
     .single();
+
+  // Carrera con el webhook de Clerk (organization.created): si otro proceso ya
+  // insertó la fila, la clave única falla -- se relee en vez de devolver un 500.
+  if (createError?.code === "23505") {
+    const { data: existente } = await supabaseAdmin
+      .from("organizaciones")
+      .select("id")
+      .eq("clerk_org_id", clerkOrgId)
+      .maybeSingle();
+    if (existente?.id) return existente.id;
+  }
 
   if (createError || !created?.id) {
     throw new Error(
@@ -78,14 +92,102 @@ export async function crearExpediente({
       presion_bar: formState.presion_bar || null,
       solicita_ayuda: formState.solicita_ayuda,
       plan_tramitacion: plan,
+      // Payload completo: lo necesitan /validar, el asistente y cualquier recálculo.
+      parametros: construirPayloadClasificador(formState),
       tiempo_total_dias: plan.tiempo_total_estimado_dias,
       estado: "pendiente",
+      fase_comercial: "clasificado",
       tramites_completados: 0,
     })
     .select()
     .single();
 
   if (error) throw new Error(`Error creando expediente: ${error.message}`);
+  return data;
+}
+
+/** Expedientes creados por la organización desde `desdeIso` (cuota mensual del plan Free). */
+export async function contarExpedientesDesde(clerkOrgId: string, desdeIso: string): Promise<number> {
+  const orgId = await ensureOrgId(clerkOrgId);
+
+  const { count, error } = await supabaseAdmin
+    .from("expedientes")
+    .select("id", { count: "exact", head: true })
+    .eq("org_id", orgId)
+    .gte("creado_en", desdeIso);
+
+  if (error) throw new Error(`Error contando expedientes: ${error.message}`);
+  return count ?? 0;
+}
+
+/**
+ * Payload de inserción para clonar un expediente. Pura y separada de
+ * duplicarExpediente() (que hace el round-trip real a Supabase) para poder
+ * testearla sin red -- origen: roadmap de mejoras, QW-07.
+ *
+ * Copia el plan de tramitación ya calculado (no lo re-clasifica): una
+ * instaladora que hace proyectos casi idénticos (mismo modelo de panel,
+ * misma CCAA, misma potencia) quiere el MISMO plan verificado, no una
+ * reclasificación que podría variar sutilmente si la normativa cambió entre
+ * medias. La contrapartida -- si la normativa SÍ cambió, el duplicado
+ * hereda un plan potencialmente desactualizado -- es aceptable porque el
+ * caso de uso es duplicar en el mismo lote de trabajo, no meses después
+ * (para eso ya existe crear un expediente nuevo desde cero).
+ *
+ * referencia_cliente, municipio y notas se vacían a propósito: son datos
+ * del proyecto original que no deben arrastrarse en silencio a uno nuevo
+ * (el ejemplo real es literalmente "cambiar dirección y cliente"). El
+ * progreso (tramites_estado/tramites_completados/estado) también se
+ * reinicia: es un expediente nuevo, no ha empezado a tramitarse.
+ */
+export function payloadDuplicado(
+  original: DbExpediente
+): Omit<
+  DbExpediente,
+  "id" | "org_id" | "version" | "share_token" | "creado_en" | "actualizado_en"
+> {
+  return {
+    clerk_user_id: original.clerk_user_id,
+    tipo_instalacion: original.tipo_instalacion,
+    comunidad: original.comunidad,
+    potencia_kw: original.potencia_kw,
+    uso: original.uso,
+    numero_puntos: original.numero_puntos,
+    modo_recarga: original.modo_recarga,
+    acceso_publico: original.acceso_publico,
+    ubicacion_irve: original.ubicacion_irve,
+    requiere_nuevo_suministro: original.requiere_nuevo_suministro,
+    combustible: original.combustible,
+    presion_bar: original.presion_bar,
+    solicita_ayuda: original.solicita_ayuda,
+    parametros: original.parametros,
+    plan_tramitacion: original.plan_tramitacion,
+    tiempo_total_dias: original.tiempo_total_dias,
+    estado: "borrador",
+    fase_comercial: "clasificado",
+    tramites_completados: 0,
+    tramites_estado: {},
+    referencia_cliente: null,
+    notas: null,
+  };
+}
+
+export async function duplicarExpediente(
+  id: string,
+  clerkOrgId: string
+): Promise<DbExpediente> {
+  const orgId = await ensureOrgId(clerkOrgId);
+
+  const original = await obtenerExpediente(id, clerkOrgId);
+  if (!original) throw new Error("EXPEDIENTE_NO_ENCONTRADO");
+
+  const { data, error } = await supabaseAdmin
+    .from("expedientes")
+    .insert({ ...payloadDuplicado(original), org_id: orgId })
+    .select()
+    .single();
+
+  if (error) throw new Error(`Error duplicando expediente: ${error.message}`);
   return data;
 }
 
@@ -100,6 +202,36 @@ export async function listarExpedientes(clerkOrgId: string): Promise<DbExpedient
 
   if (error) throw new Error(`Error listando expedientes: ${error.message}`);
   return data ?? [];
+}
+
+export interface ExpedienteResumen {
+  id: string;
+  referencia_cliente: string | null;
+  comunidad: string;
+  tipo_instalacion: string;
+  estado: DbExpediente["estado"];
+}
+
+/**
+ * Listado ligero para el Command Palette (Cmd+K): solo las columnas que se
+ * muestran y un tope, en vez de descargar `select("*")` -- con el
+ * `plan_tramitacion` JSONB de TODOS los expedientes -- para quedarse con 50.
+ */
+export async function listarResumenExpedientes(
+  clerkOrgId: string,
+  limite = 50
+): Promise<ExpedienteResumen[]> {
+  const orgId = await ensureOrgId(clerkOrgId);
+
+  const { data, error } = await supabaseAdmin
+    .from("expedientes")
+    .select("id, referencia_cliente, comunidad, tipo_instalacion, estado")
+    .eq("org_id", orgId)
+    .order("actualizado_en", { ascending: false })
+    .limit(limite);
+
+  if (error) throw new Error(`Error listando expedientes: ${error.message}`);
+  return (data ?? []) as ExpedienteResumen[];
 }
 
 export async function obtenerExpediente(
@@ -125,6 +257,33 @@ export async function eliminarExpediente(
 ): Promise<void> {
   const orgId = await ensureOrgId(clerkOrgId);
 
+  // Los archivos que subió el cliente final viven en Storage: el DELETE en cascada
+  // borra las filas de `documentos_cliente` pero NO los objetos, que quedarían
+  // huérfanos con datos personales (derecho de supresión, RGPD).
+  const { data: expediente } = await supabaseAdmin
+    .from("expedientes")
+    .select("id")
+    .eq("id", id)
+    .eq("org_id", orgId)
+    .maybeSingle();
+  if (!expediente) return;
+
+  const { data: documentos } = await supabaseAdmin
+    .from("documentos_cliente")
+    .select("storage_path")
+    .eq("expediente_id", id);
+  const rutas = (documentos ?? []).map((d) => d.storage_path as string).filter(Boolean);
+  if (rutas.length > 0) {
+    const { error: storageError } = await supabaseAdmin.storage
+      .from(BUCKET_DOCUMENTOS_CLIENTE)
+      .remove(rutas);
+    if (storageError) {
+      // No se borra la fila si no se pudieron borrar los archivos: así el
+      // reintento del usuario sigue encontrando las rutas.
+      throw new Error(`Error eliminando los documentos del cliente: ${storageError.message}`);
+    }
+  }
+
   const { error } = await supabaseAdmin
     .from("expedientes")
     .delete()
@@ -138,6 +297,7 @@ export interface PatchExpedienteInput {
   tramite?: { orden: number; estado: TramiteEstado };
   referencia_cliente?: string | null;
   notas?: string | null;
+  fase_comercial?: FaseComercial;
   /** Versión que el cliente leyó antes de mutar. Requerida en la práctica
    * para cambios de trámite: sin ella no hay protección frente a lost update. */
   version?: number;
@@ -148,6 +308,7 @@ export interface PatchExpedienteResult {
   tramites_completados: number;
   referencia_cliente: string | null;
   notas: string | null;
+  fase_comercial: FaseComercial;
   actualizado_en: string;
   version: number;
 }
@@ -213,6 +374,9 @@ export async function aplicarPatchExpediente(
   if (patch.notas !== undefined) {
     update.notas = patch.notas?.trim().slice(0, 4000) || null;
   }
+  if (patch.fase_comercial !== undefined) {
+    update.fase_comercial = patch.fase_comercial;
+  }
 
   let query = supabaseAdmin
     .from("expedientes")
@@ -229,7 +393,7 @@ export async function aplicarPatchExpediente(
 
   const { data, error } = await query
     .select(
-      "tramites_estado, tramites_completados, referencia_cliente, notas, actualizado_en, version"
+      "tramites_estado, tramites_completados, referencia_cliente, notas, fase_comercial, actualizado_en, version"
     )
     .maybeSingle();
 

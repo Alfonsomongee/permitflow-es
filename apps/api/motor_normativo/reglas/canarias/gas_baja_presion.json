@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "canarias",
-  "version": "0.10.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.1",
+  "ultima_revision": "2026-10-04",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,11 +13,12 @@
     "Tasas: Modelo 700, concepto 118, tasa 22 'Inscripción en registros oficiales'; importe exacto no verificado",
     "plazo_legal_dias=30 no confirmado específicamente para Canarias (la ficha 3905 indica 'Plazo de presentación: Todo el año' y 'No cabe recurso', sin confirmar un plazo de 30 días); se mantiene marcado como no verificado",
     "No se distingue en reglas separadas el supuesto de gas envasado frente a canalizado (objeto real de la ficha 3905: 'instalaciones receptoras de gas envasado y canalizado'), por no existir un campo de entrada específico en el schema para esa distinción",
-    "Sin cobertura para presion_bar='5+' ni para uso industrial: solo se verificó el fragmento residencial/terciario a presión normal. (2026-08-11: el uso terciario devolvía 404 porque la regla comparaba uso con 'comercial', valor que no existe en el enum del schema; corregido.)"
+    "Sin cobertura para presion_bar='5+' ni para uso industrial: solo se verificó el fragmento residencial/terciario a presión normal. (2026-08-11: el uso terciario devolvía 404 porque la regla comparaba uso con 'comercial', valor que no existe en el enum del schema; corregido.)",
+    "Verificación Prompt B (2026-10-04): Canarias gas (Prompt B): plazo_legal_dias de 30 a null (es el plazo del titular para comunicar tras la puesta en servicio); categorías IG-I/IG-II sustituidas por A/B/C (ITC-ICG 09). PRIORITARIO sin cerrar: la ficha 3905 no distingue instalaciones con y sin proyecto ni cita norma autonómica, y el fichero no modela los umbrales de proyecto del RD 919/2006 (individuales > 70 kW, comunes y acometidas > 2.000 kW, > 5 bar, ampliaciones > 30 %); no se localizó fuente canaria que exija o descarte la comunicación por debajo de esos umbrales, así que NO se quitó el paso (a diferencia de Aragón, Cataluña y la Comunitat Valenciana). Inspección previa por organismo de control: la ficha la declara requisito previo sin condiciones; la ITC-ICG 07 no se abrió."
   ],
   "fuentes": [
     {
-      "norma": "RD 919/2006 RIGLO (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
+      "norma": "RD 919/2006 RD 919/2006 (Reglamento técnico de distribución y utilización de combustibles gaseosos)",
       "url": "https://www.boe.es/buscar/doc.php?id=BOE-A-2006-15345",
       "fecha_consulta": "2026-08-08"
     },
@@ -67,8 +68,8 @@
         {
           "orden": 1,
           "nombre": "Memoria técnica o proyecto técnico de instalación de gas, según proceda",
-          "organismo": "Instalador habilitado (categoría IG-I o IG-II según RIGLO) o técnico competente si procede proyecto",
-          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
+          "organismo": "Instalador habilitado (carné de categoría A, B o C, ITC-ICG 09) o técnico competente si procede proyecto",
+          "base_legal": "RD 919/2006 RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -99,7 +100,7 @@
           "orden": 2,
           "nombre": "Inspección previa por Organismo de Control",
           "organismo": "Organismo de Control Autorizado (OCA) en Canarias",
-          "base_legal": "RD 919/2006 RIGLO; ficha SICAC 3905 (requisito previo)",
+          "base_legal": "RD 919/2006 RD 919/2006; ficha SICAC 3905 (requisito previo)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -124,7 +125,7 @@
           "orden": 3,
           "nombre": "Certificado de instalación (CI) de gas",
           "organismo": "Instalador habilitado",
-          "base_legal": "RD 919/2006 RIGLO",
+          "base_legal": "RD 919/2006 RD 919/2006",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -161,9 +162,9 @@
           "orden": 4,
           "nombre": "Comunicación de instalación receptora de combustibles gaseosos (SICAC 3905)",
           "organismo": "Dirección General de Energía del Gobierno de Canarias — Servicio de Transporte y Generación en Régimen Ordinario",
-          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
+          "base_legal": "RD 919/2006 RD 919/2006 ITC-ICG-07",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Canarias",
           "plataforma_url": "https://sede.gobiernodecanarias.org/sede/tramites/3905",
           "coste_estimado": "Tasa Modelo 700, concepto 118, tasa 22 'Inscripción en registros oficiales'. Importe exacto no verificado.",
@@ -190,7 +191,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Plazo legal de 30 días no confirmado específicamente para Canarias; la ficha 3905 indica 'Plazo de presentación: Todo el año' y 'No cabe recurso', sin confirmar un plazo de 30 días. El objeto real de la ficha cubre gas envasado y canalizado, con requisitos que pueden diferir según el RIGLO; esta regla no distingue ambos supuestos por falta de un campo de entrada específico.",
+          "notas": "Plazo legal de 30 días no confirmado específicamente para Canarias; la ficha 3905 indica 'Plazo de presentación: Todo el año' y 'No cabe recurso', sin confirmar un plazo de 30 días. El objeto real de la ficha cubre gas envasado y canalizado, con requisitos que pueden diferir según el RD 919/2006; esta regla no distingue ambos supuestos por falta de un campo de entrada específico.\nLos 30 días del RD 919/2006 son el plazo del titular para comunicar tras la puesta en servicio, no un plazo de resolución; la ficha 3905 (act. 23/09/2026) no fija plazo de resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }

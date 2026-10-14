@@ -107,7 +107,9 @@ def test_tool_que_lanza_no_rompe_el_turno():
     segunda_llamada_kwargs = mock_create.await_args_list[1].kwargs
     mensajes_tool = [m for m in segunda_llamada_kwargs["messages"] if m.get("role") == "tool"]
     assert len(mensajes_tool) == 1
-    assert "fallo simulado" in mensajes_tool[0]["content"]
+    # El detalle de la excepción NO debe llegar al LLM (y de ahí al usuario).
+    assert "fallo simulado" not in mensajes_tool[0]["content"]
+    assert "Error interno" in mensajes_tool[0]["content"]
 
 
 def test_agota_rondas_sin_resolver_da_mensaje_honesto():

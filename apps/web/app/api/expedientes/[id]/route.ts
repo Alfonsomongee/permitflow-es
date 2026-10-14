@@ -1,18 +1,21 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { esRespuesta, requerirAdminOrg } from "@/lib/server/roles";
 import {
   aplicarPatchExpediente,
   eliminarExpediente,
   obtenerExpediente,
   type PatchExpedienteInput,
 } from "@/lib/expedientes";
+import { esFaseComercial } from "@/lib/faseComercial";
 
 const ESTADOS_TRAMITE = new Set(["pendiente", "en_curso", "completado"]);
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
+  const params = await ctx.params;
   const { userId, orgId } = await auth();
   if (!userId || !orgId) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });
@@ -36,10 +39,15 @@ export async function PATCH(
     );
   }
 
+  if (body.fase_comercial !== undefined && !esFaseComercial(body.fase_comercial)) {
+    return NextResponse.json({ error: "Fase comercial inválida" }, { status: 400 });
+  }
+
   if (
     !body.tramite &&
     body.referencia_cliente === undefined &&
-    body.notas === undefined
+    body.notas === undefined &&
+    body.fase_comercial === undefined
   ) {
     return NextResponse.json({ error: "Nada que actualizar" }, { status: 400 });
   }
@@ -83,12 +91,13 @@ export async function PATCH(
 // P-19).
 export async function DELETE(
   _req: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
-  const { userId, orgId } = await auth();
-  if (!userId || !orgId) {
-    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-  }
+  const params = await ctx.params;
+  // Borrado irreversible: solo administradores de la organización.
+  const sesion = await requerirAdminOrg();
+  if (esRespuesta(sesion)) return sesion;
+  const { orgId } = sesion;
 
   try {
     const expediente = await obtenerExpediente(params.id, orgId);

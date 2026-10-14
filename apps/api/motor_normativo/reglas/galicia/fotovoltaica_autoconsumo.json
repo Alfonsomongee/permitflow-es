@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "galicia",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,9 @@
     "No se ha verificado si Galicia ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
     "Tasas y plazos legales no verificados con detalle",
     "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
-    "NO VERIFICABLE: el código IN429A citado en 'fuentes' (pública concurrencia con OCA) no se ha podido confirmar como ficha real en sede.xunta.gal; único resultado real para '429A' es SI429A (Programa Emega, ayudas al emprendimiento femenino, sin relación con instalaciones eléctricas). No se toca hasta confirmación adicional."
+    "NO VERIFICABLE: el código IN429A citado en 'fuentes' (pública concurrencia con OCA) no se ha podido confirmar como ficha real en sede.xunta.gal; único resultado real para '429A' es SI429A (Programa Emega, ayudas al emprendimiento femenino, sin relación con instalaciones eléctricas). No se toca hasta confirmación adicional.",
+    "Verificación Prompt B (2026-10-05): Galicia FV (Prompt B): la ficha IN614C exige proyecto y certificado de dirección de obra por encima de 10 kW (alta). GAL-FV-001 pasa a «hasta 10 kW» y se añade GAL-FV-001P (10-100 kW); se añade el paso IN614C (registro de BT obligatorio, Orden 23/07/2003 e Instrucciones 2/2021 y 1/2022) y se corrige IN407B (gratuito; aplica a MENOR de 100 kW, el valor exacto de 100 kW queda en GAL-FV-001P por no dejar hueco) y el organismo de IN408A (resuelve la DX de Planificación Enerxética e Minas).",
+    "Verificación Prompt B (2026-10-05): BLOQUEANTE sin modelar (alta, Instrucción 2/2021): en Galicia la autorización depende de que haya excedentes: sin excedentes solo registro IN614C; con excedentes hasta 10 kW sin proyecto, solo registro (Instrucción 1/2022); con excedentes de 10 a 100 kW, autorización de explotación vía IN614C; con excedentes de más de 100 kW, IN408A. El fichero no distingue la modalidad: IN408A se muestra a todo autoconsumo > 100 kW. Falta la inspección inicial por organismo de control entre 25 y 100 kW, IN407A para alta tensión y la comunicación previa urbanística municipal (Instrucción de 03/04/2023). Importes de las tasas (32.37.06, 32.19.04) sin localizar. Vigencia de las Instrucciones 2/2021 y 1/2022 sin comprobar tras 2022."
   ],
   "fuentes": [
     {
@@ -54,13 +56,13 @@
   "reglas": [
     {
       "id": "GAL-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), comunicación IN407B",
+      "descripcion": "Autoconsumo de hasta 10 kW en baja tensión: memoria técnica, registro IN614C y comunicación IN407B",
       "condicion": {
         "<=": [
           {
             "var": "potencia_kw"
           },
-          100
+          10
         ]
       },
       "tramites": [
@@ -97,14 +99,45 @@
         },
         {
           "orden": 2,
-          "nombre": "Comunicación de instalación de autoconsumo BT <100 kW (IN407B) e inscripción en el Registro de Autoconsumo",
+          "nombre": "Registro de instalaciones eléctricas de baja tensión (IN614C)",
+          "organismo": "Xefatura Territorial de la Consellería de Economía e Industria",
+          "base_legal": "Orde do 23/07/2003 (DOG 152, 07/08/2003); Instrucción 2/2021 (DOG 49, 12/03/2021), apdos. 4.2 y 5.2.2; Instrucción 1/2022 (DOG 19, 28/01/2022)",
+          "tipo_actuacion": "accion_usuario",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede electrónica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN614C",
+          "coste_estimado": "Existe tasa (código 32.19.04); importe no verificado",
+          "formulario_ref": "IN614C",
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "mtd_fotovoltaica",
+              "label": "Memoria técnica de diseño",
+              "descripcion": "Hasta 10 kW.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Firmado por el instalador autorizado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Toda instalación fotovoltaica en baja tensión debe registrarse en IN614C antes de la puesta en servicio. Con excedentes de 10 a 100 kW este expediente es además la solicitud de autorización de explotación (Instrucción 2/2021)."
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de instalaciones de autoconsumo en baja tensión y potencia menor de 100 kW (IN407B)",
           "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
           "base_legal": "Resolución de 18 de febrero de 2020",
-          "plazo_estimado_dias": 10,
+          "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
           "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?codtram=IN407B",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Sin tasa: procedimiento gratuito (art. 19.1 del RD 244/2019)",
           "formulario_ref": "IN407B",
           "paralelo_con": null,
           "regla_id": "GAL-FV-001",
@@ -122,7 +155,132 @@
               "obligatorio": true
             }
           ],
-          "notas": "La distribuidora responde en 5 días hábiles (IN407C); si no contesta, se entiende sin objeciones y se comunica al Registro Administrativo de Autoconsumo del Ministerio en el mes en curso.",
+          "notas": "La distribuidora responde en 5 días hábiles (IN407C); si no contesta, se entiende sin objeciones y se comunica al Registro Administrativo de Autoconsumo del Ministerio en el mes en curso.\nLa distribuidora responde en 5 días hábiles (IN407C; sin respuesta se entiende que no hay objeciones) y la Xefatura Territorial traslada al Registro del Ministerio en un máximo de 15 días hábiles. Aplica a potencia instalada MENOR de 100 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "GAL-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW en baja tensión: proyecto técnico y certificado de dirección de obra, registro IN614C y comunicación IN407B",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3; Instrucción 2/2021",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "GAL-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Firmado por el instalador autorizado.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Por encima de 10 kW la ficha IN614C exige «proyecto y certificado de dirección de obra firmado por el correspondiente técnico titulado competente».",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalaciones eléctricas de baja tensión (IN614C)",
+          "organismo": "Xefatura Territorial de la Consellería de Economía e Industria",
+          "base_legal": "Orde do 23/07/2003 (DOG 152, 07/08/2003); Instrucción 2/2021 (DOG 49, 12/03/2021), apdos. 4.2 y 5.2.2; Instrucción 1/2022 (DOG 19, 28/01/2022)",
+          "tipo_actuacion": "accion_usuario",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede electrónica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN614C",
+          "coste_estimado": "Existe tasa (código 32.19.04); importe no verificado",
+          "formulario_ref": "IN614C",
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "paralelo_con": null,
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Toda instalación fotovoltaica en baja tensión debe registrarse en IN614C antes de la puesta en servicio. Con excedentes de 10 a 100 kW este expediente es además la solicitud de autorización de explotación (Instrucción 2/2021).\nCon más de 25 kW la Instrucción 2/2021 somete la instalación a inspección inicial por organismo de control (emplazamiento mojado, ITC-BT-05): el fichero no la modela todavía."
+        },
+        {
+          "orden": 3,
+          "nombre": "Registro de instalaciones de autoconsumo en baja tensión y potencia menor de 100 kW (IN407B)",
+          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "base_legal": "Resolución de 18 de febrero de 2020",
+          "plazo_estimado_dias": 20,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Xunta de Galicia",
+          "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?codtram=IN407B",
+          "coste_estimado": "Sin tasa: procedimiento gratuito (art. 19.1 del RD 244/2019)",
+          "formulario_ref": "IN407B",
+          "paralelo_con": null,
+          "regla_id": "GAL-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La distribuidora responde en 5 días hábiles (IN407C); si no contesta, se entiende sin objeciones y se comunica al Registro Administrativo de Autoconsumo del Ministerio en el mes en curso.\nLa distribuidora responde en 5 días hábiles (IN407C; sin respuesta se entiende que no hay objeciones) y la Xefatura Territorial traslada al Registro del Ministerio en un máximo de 15 días hábiles. Aplica a potencia instalada MENOR de 100 kW.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -198,32 +356,32 @@
         },
         {
           "orden": 3,
-          "nombre": "Autorización administrativa e inscripción en registro (IN408A)",
-          "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
+          "nombre": "Autorización de instalaciones de producción de energía eléctrica (IN408A)",
+          "organismo": "Dirección Xeral de Planificación Enerxética e Minas (resuelve); Xefatura Territorial (informa y tramita)",
           "base_legal": "Ley 24/2013 art. 53; RD 244/2019",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
           "plataforma_url": "https://sede.xunta.gal/detalle-procedemento?langId=es_ES&codtram=IN408A",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Existe tasa (código 32.37.06); importe no verificado",
           "formulario_ref": "IN408A",
           "paralelo_con": null,
           "regla_id": "GAL-FV-002",
           "documentos_requeridos": [
             {
               "id": "proyecto_tecnico",
-              "label": "Proyecto Técnico",
-              "descripcion": "",
+              "label": "Proyecto de ejecución",
+              "descripcion": "Firmado por técnico competente, con visado colegial o declaración responsable del técnico.",
               "obligatorio": true
             },
             {
               "id": "certificado_instalacion",
-              "label": "Certificado de Instalación (CI)",
-              "descripcion": "",
+              "label": "Certificado de instalación",
+              "descripcion": "Del instalador.",
               "obligatorio": true
             }
           ],
-          "notas": "plazo_legal_dias no confirmado.",
+          "notas": "plazo_legal_dias no confirmado.\nLa autorización previa, de construcción y de explotación (IN408A) se exige al autoconsumo CON excedentes de más de 100 kW. Sin excedentes de más de 100 kW en baja tensión solo hay registro IN614C (más inspección por organismo de control): el fichero no distingue la modalidad todavía.",
           "registro_salida": null,
           "medio_presentacion": null
         }

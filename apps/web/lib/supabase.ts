@@ -8,6 +8,7 @@
  */
 import { createClient } from "@supabase/supabase-js";
 import type { PlanTramitacion, TramitesEstadoMap } from "@/types/plan";
+import type { FaseComercial } from "./faseComercial";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder";
@@ -54,8 +55,13 @@ export interface DbExpediente {
   presion_bar: string | null;
   solicita_ayuda: boolean;
   plan_tramitacion: PlanTramitacion | null;
+  /** Payload completo enviado al clasificador. null en expedientes anteriores a 2026-10. */
+  parametros: Record<string, string | number | boolean> | null;
   tiempo_total_dias: number | null;
   estado: "borrador" | "pendiente" | "en_revision" | "aprobado" | "rechazado";
+  /** Fase de venta/tramitación desde la óptica comercial, independiente de
+   * `estado` (administrativo) -- ver migración fase_comercial. */
+  fase_comercial: FaseComercial;
   tramites_completados: number;
   tramites_estado: TramitesEstadoMap;
   referencia_cliente: string | null;

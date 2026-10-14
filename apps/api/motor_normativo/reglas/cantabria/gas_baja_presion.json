@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "cantabria",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -10,7 +10,9 @@
   "huecos_verificacion": [
     "No se ha confirmado qué representan exactamente los valores 'normal' y '5+' del campo presion_bar frente a la clasificación de presión de la ITC-ICG-07 (que distingue por presión de operación en bar, con umbral relevante en 5 bar según UNE 60670)",
     "Tasas y plazos legales no verificados con detalle (más allá del plazo de 30 días desde puesta en servicio para la comunicación, confirmado en ITC-ICG-07 3.6)",
-    "PENDIENTE (no resuelto en esta ronda): CANT-GBP-001 no distingue entre instalación con proyecto (>70kW individual, requiere trámite 599) y sin proyecto (no requiere comunicación formal según ITC-ICG-07); actualmente aplica el trámite 599 a todo el rango de potencia_kw. Requiere diseño adicional (partición por potencia como en Asturias AST-GAS-001/002), no solo corrección de datos"
+    "PENDIENTE (no resuelto en esta ronda): CANT-GBP-001 no distingue entre instalación con proyecto (>70kW individual, requiere trámite 599) y sin proyecto (no requiere comunicación formal según ITC-ICG-07); actualmente aplica el trámite 599 a todo el rango de potencia_kw. Requiere diseño adicional (partición por potencia como en Asturias AST-GAS-001/002), no solo corrección de datos",
+    "Verificación Prompt B (2026-10-05): Cantabria gas (Prompt B): BLOQUEANTE resuelto (media, RIGLO ITC-ICG 07): el trámite 599 (que exige proyecto) se aplicaba a todo el uso residencial. CANT-GBP-001 queda en «hasta 70 kW y 5 bar» sin comunicación; CANT-GBP-003 (nueva) recoge uso no industrial con proyecto (> 70 kW o > 5 bar) con el 599, sin plazo legal de resolución (los 30 días son de presentación; ITC-ICG 07 §3.6); CANT-GBP-002 pasa a industrial o terciario con proyecto. La partición ya no depende del uso. Orden IND/23/2009 (regula industrias) quitada de la base legal del paso residencial.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Cantabria gas): fichas 599, 438 y 3482 sin leer (robots.txt); el 3482 («Legalización de instalaciones receptoras de combustibles gaseosos») sigue en el catálogo y podría ser la vía para ≤ 70 kW sin proyecto (no se añade: la ITC-ICG 07 dice que no se precisa comunicación); plazo legal de 30 días de CANT-GBP-002 sin verificar; tasa tarifa 2.3.5 de la Ley 9/1992 sin importe 2026; comunes y acometidas > 2.000 kW y ampliaciones ≥ 30 % sin modelar (falta variable de clase de instalación)."
   ],
   "fuentes": [
     {
@@ -42,23 +44,23 @@
   "reglas": [
     {
       "id": "CANT-GBP-001",
-      "descripcion": "Instalación de gas en presión normal y uso residencial (el uso terciario e industrial lo cubre CANT-GBP-002)",
+      "descripcion": "Instalación receptora de gas de hasta 70 kW y 5 bar sin proyecto: memoria técnica y certificado de instalación, sin comunicación a la Administración",
       "condicion": {
         "and": [
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              70
+            ]
+          },
           {
             "<=": [
               {
                 "var": "presion_bar"
               },
               5
-            ]
-          },
-          {
-            "==": [
-              {
-                "var": "uso"
-              },
-              "residencial"
             ]
           }
         ]
@@ -67,7 +69,7 @@
         {
           "orden": 1,
           "nombre": "Memoria técnica de diseño (MTD) de instalación de gas",
-          "organismo": "Instalador habilitado (categoría IG-I o IG-II según RIGLO)",
+          "organismo": "Instalador habilitado (categoría carné de categoría A, B o C, ITC-ICG 09)",
           "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
@@ -116,6 +118,105 @@
               "obligatorio": true
             }
           ],
+          "notas": "Instalación sin proyecto (individual de hasta 70 kW y hasta 5 bar): según la ITC-ICG 07 no es precisa ninguna comunicación a la Administración. Entrega el certificado a la empresa suministradora.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "CANT-GBP-003",
+      "descripcion": "Instalación receptora de gas de uso no industrial que requiere proyecto (individual de más de 70 kW o red a más de 5 bar): proyecto, certificado de instalación y comunicación",
+      "condicion": {
+        "and": [
+          {
+            "!": {
+              "in": [
+                {
+                  "var": "uso"
+                },
+                [
+                  "industrial",
+                  "terciario"
+                ]
+              ]
+            }
+          },
+          {
+            "or": [
+              {
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  70
+                ]
+              },
+              {
+                ">": [
+                  {
+                    "var": "presion_bar"
+                  },
+                  5
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico de instalación de gas",
+          "organismo": "Ingeniero competente",
+          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_gas",
+              "label": "Proyecto técnico de instalación de gas",
+              "descripcion": "Firmado por técnico competente.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "RIGLO RD 919/2006, ITC-ICG 07: requieren proyecto las instalaciones individuales de más de 70 kW, las comunes y acometidas interiores de más de 2.000 kW, las de presión superior a 5 bar y las ampliaciones del 30 % o más.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de instalación (CI) de gas",
+          "organismo": "Instalador habilitado",
+          "base_legal": "RD 919/2006 RIGLO",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CANT-GBP-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico_gas",
+              "label": "Proyecto técnico de instalación de gas",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "ci_gas",
+              "label": "Certificado de instalación de gas",
+              "descripcion": "De la empresa instaladora.",
+              "obligatorio": true
+            }
+          ],
           "notas": "",
           "registro_salida": null,
           "medio_presentacion": null
@@ -124,30 +225,30 @@
           "orden": 3,
           "nombre": "Comunicación y puesta en servicio de instalaciones receptoras de gas de uso no industrial que requieran proyecto",
           "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
-          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07; Orden IND/23/2009",
+          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
           "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/comunicacion-y-puesta-en-servicio-de-instalaciones-receptoras-de-gas-de-uso-no-industrial-que-requieran-proyecto/599",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tarifa 2.3.5 de la Ley 9/1992 («Instalaciones receptoras de gas»); importe 2026 no localizado.",
           "formulario_ref": "599",
           "paralelo_con": null,
           "regla_id": "CANT-GBP-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_gas",
-              "label": "Memoria técnica de diseño de gas",
-              "descripcion": "",
+              "id": "proyecto_tecnico_gas",
+              "label": "Proyecto técnico de instalación de gas",
+              "descripcion": "Del paso 1.",
               "obligatorio": true
             },
             {
               "id": "ci_gas",
-              "label": "Certificado de Instalación",
-              "descripcion": "",
+              "label": "Certificado de instalación de gas",
+              "descripcion": "De la empresa instaladora.",
               "obligatorio": true
             }
           ],
-          "notas": "Corregido 2026-07-28: sustituido el trámite genérico 3482 por el 599, específico para 'uso no industrial' (coincide con el ámbito residencial/comercial de esta regla). Plazo legal de 30 días desde puesta en servicio para instalaciones que requieren proyecto (ITC-ICG-07 apartado 3.6), aplicable solo cuando la instalación individual supera los 70 kW (apartado 3.2 ITC-ICG-07). Para instalaciones sin proyecto, no es precisa comunicación según la propia ITC-ICG-07 (hueco: esta regla no distingue todavía ese caso por potencia).",
+          "notas": "Corregido 2026-07-28: sustituido el trámite genérico 3482 por el 599, específico para 'uso no industrial' (coincide con el ámbito residencial/comercial de esta regla). Plazo legal de 30 días desde puesta en servicio para instalaciones que requieren proyecto (ITC-ICG-07 apartado 3.6), aplicable solo cuando la instalación individual supera los 70 kW (apartado 3.2 ITC-ICG-07). Para instalaciones sin proyecto, no es precisa comunicación según la propia ITC-ICG-07 (hueco: esta regla no distingue todavía ese caso por potencia).\nLos 30 días son el plazo de presentación del titular tras la puesta en servicio (ITC-ICG 07, apdo. 3.6), no un plazo de resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -155,31 +256,38 @@
     },
     {
       "id": "CANT-GBP-002",
-      "descripcion": "Instalación de gas de uso industrial o terciario, o en presión superior a 5 bar (cualquier uso)",
+      "descripcion": "Instalación receptora de gas de uso industrial o terciario que requiere proyecto (individual de más de 70 kW o red a más de 5 bar)",
       "condicion": {
-        "or": [
+        "and": [
           {
-            "==": [
+            "in": [
               {
                 "var": "uso"
               },
-              "industrial"
+              [
+                "industrial",
+                "terciario"
+              ]
             ]
           },
           {
-            "==": [
+            "or": [
               {
-                "var": "uso"
+                ">": [
+                  {
+                    "var": "potencia_kw"
+                  },
+                  70
+                ]
               },
-              "terciario"
-            ]
-          },
-          {
-            ">": [
               {
-                "var": "presion_bar"
-              },
-              5
+                ">": [
+                  {
+                    "var": "presion_bar"
+                  },
+                  5
+                ]
+              }
             ]
           }
         ]
@@ -244,7 +352,7 @@
           "plazo_legal_dias": 30,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
           "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/registro-y-puesta-en-servicio-de-instalaciones-receptoras-de-combustibles-gaseosos/438",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tarifa 2.3.5 de la Ley 9/1992 («Instalaciones receptoras de gas»); importe 2026 no localizado.",
           "formulario_ref": "438",
           "paralelo_con": null,
           "regla_id": "CANT-GBP-002",

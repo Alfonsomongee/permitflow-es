@@ -1,6 +1,6 @@
-import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { obtenerOCrearShareToken } from "@/lib/expedientes";
+import { esRespuesta, requerirAdminOrg, requerirSesionOrg } from "@/lib/server/roles";
 
 /**
  * Genera (o devuelve) el enlace del portal de cliente de solo lectura para
@@ -9,14 +9,16 @@ import { obtenerOCrearShareToken } from "@/lib/expedientes";
  */
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
-  const { orgId } = await auth();
-  if (!orgId) {
-    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-  }
-
+  const params = await ctx.params;
   const body = (await req.json().catch(() => ({}))) as { regenerar?: boolean };
+
+  // Ver/crear el enlace: cualquier miembro. Rotarlo (invalida el enlace ya
+  // compartido con el cliente final): solo administradores.
+  const sesion = body.regenerar === true ? await requerirAdminOrg() : await requerirSesionOrg();
+  if (esRespuesta(sesion)) return sesion;
+  const { orgId } = sesion;
 
   try {
     const token = await obtenerOCrearShareToken(params.id, orgId, body.regenerar === true);

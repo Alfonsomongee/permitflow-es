@@ -40,5 +40,24 @@
     "fecha": "2025-S1",
     "verificada": true,
     "nota": "El precio incluye impuestos y término de energía. NO incluye término fijo de potencia. S2-2025 apunta a ~0,2975 EUR/kWh según fuentes secundarias; actualizar cuando se confirme en el dataset."
+  },
+  "financiacion": {
+    "_comentario": "Añadido para PREM-04 (roadmap de mejoras, comparador de financiación). Sin acceso a ofertas reales de banca/renting en este entorno: son horquillas orientativas del segmento 'préstamo verde'/renting energético español, no una cotización. Se muestran siempre marcadas como estimadas, nunca como una oferta real -- mismo criterio que coste_eur_por_kwp.",
+    "prestamo": {
+      "tae_defecto": 0.065,
+      "tae_min": 0.045,
+      "tae_max": 0.09,
+      "plazo_anios_defecto": 10,
+      "fuente": null,
+      "verificada": false,
+      "nota": "TAE orientativa de préstamo/línea 'verde' para autoconsumo residencial en banca española; varía por entidad, perfil crediticio y importe."
+    },
+    "renting": {
+      "pct_anual_sobre_inversion": 0.14,
+      "plazo_anios_defecto": 10,
+      "fuente": null,
+      "verificada": false,
+      "nota": "Cuota todo incluido (equipo + mantenimiento + garantía) como % anual de la inversión inicial, horquilla orientativa del sector -- no una cotización real de ningún proveedor concreto."
+    }
   }
 }

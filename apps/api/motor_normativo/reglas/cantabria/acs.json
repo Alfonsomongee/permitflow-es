@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "cantabria",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "No se ha localizado normativa autonómica cántabra específica de ACS",
     "Se confirma que el trámite 49 lleva tasa asociada ('justificante de la tasa correspondiente'); el importe exacto sigue sin verificar",
     "No se ha verificado si Cantabria exige una ECA/OCA específica para ACS >70 kW",
-    "Tasas (importe exacto) y plazos legales de resolución no verificados"
+    "Tasas (importe exacto) y plazos legales de resolución no verificados",
+    "Verificación Prompt B (2026-10-05): Cantabria (Prompt B): trámite 49 sin leer (robots.txt); plazo, silencio, tasa 2026 (tarifa 2.4 de la Ley 9/1992) y nombres de los modelos sin verificar. Inspección inicial por OCA: potestativa (RITE arts. 24.1.c y 30.1), no se añade sin ficha. El trámite 401 («Certificación de instalaciones de climatización no industriales») puede solaparse con el 49."
   ],
   "fuentes": [
     {
@@ -232,7 +233,7 @@
           "orden": 2,
           "nombre": "Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización",
           "organismo": "Servicio de Energía — Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
-          "base_legal": "RITE RD 1027/2007",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1, 24.1 y 24.2",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
@@ -255,7 +256,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28); cubre expresamente 'agua caliente sanitaria'.",
+          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28); cubre expresamente 'agua caliente sanitaria'.\nTasa: tarifa 2.4 de la Ley 9/1992 («Instalaciones de calefacción, climatización y agua caliente»); importe 2026 no localizado.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -344,7 +345,7 @@
           "orden": 2,
           "nombre": "Diligencia de certificados de instalaciones de calefacción, agua caliente sanitaria y climatización",
           "organismo": "Servicio de Energía — Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
-          "base_legal": "RITE RD 1027/2007",
+          "base_legal": "RD 1027/2007 (RITE), arts. 15.1, 24.1 y 24.2",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
@@ -367,7 +368,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28). No confirmado si Cantabria exige ECA/OCA específica para este trámite.",
+          "notas": "Trámite 49 localizado en sede.cantabria.es (auditoría 2026-07-28). No confirmado si Cantabria exige ECA/OCA específica para este trámite.\nTasa: tarifa 2.4 de la Ley 9/1992 («Instalaciones de calefacción, climatización y agua caliente»); importe 2026 no localizado.",
           "registro_salida": null,
           "medio_presentacion": null
         }

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { SidebarUser } from "./SidebarUser";
 import { useSidebar } from "./SidebarContext";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 // Alertas BOE subida de la 5ª a la 3ª posición: es la única función del
 // producto con vigilancia normativa realmente automatizada (pipeline
@@ -38,6 +39,7 @@ const NAV_ITEMS = [
 export function DashboardSidebar() {
   const pathname = usePathname();
   const { isOpen, close } = useSidebar();
+  const esEscritorio = useMediaQuery("(min-width: 768px)");
 
   return (
     <>
@@ -52,6 +54,13 @@ export function DashboardSidebar() {
 
       {/* Sidebar */}
       <aside
+        // En móvil, el panel cerrado sigue en el DOM fuera de pantalla: `inert`
+        // evita que el teclado enfoque enlaces invisibles. En escritorio
+        // (md:static) siempre es visible, así que `inert` solo se aplica < md.
+        inert={!isOpen && !esEscritorio}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") close();
+        }}
         className={`
           fixed inset-y-0 left-0 z-50 flex w-[240px] flex-col border-r border-border bg-surface transition-transform duration-300 ease-smooth
           md:static md:translate-x-0

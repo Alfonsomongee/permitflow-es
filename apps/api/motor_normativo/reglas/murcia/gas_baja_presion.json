@@ -1,15 +1,17 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "murcia",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
   "aviso": "Corregido a partir de la versión 1.1.0 anterior. Se sustituyó la comparación numérica de 'presion_bar' por la comparación categórica correcta. Se eliminó 'Decreto 56/1996' como base legal: no se ha localizado. Sustituido por el Decreto 20/2003 (único decreto real confirmado en Murcia, usado por la sede electrónica de la CARM como base del 'Registro de instalaciones de gases combustibles') más el RIGLO nacional. Se aplicó el hallazgo de Castilla y León: la ITC-ICG-07 exige proyecto siempre que la presión de operación sea >5 bar. Revisión 2026-07-28: se diferenciaron los dos procedimientos electrónicos reales de la CARM para el trámite de registro — código 60 ('Registro de instalaciones de gases combustibles', declaración responsable, sin proyecto, MUR-GAS-002) y código 27 ('Registro de instalaciones receptoras de combustibles gaseosos que requieren proyecto', MUR-GAS-001 y MUR-GAS-003) — con su plataforma_url y formulario_ref propios.",
   "huecos_verificacion": [
     "Tasas exactas no verificadas",
-    "'Orden de 26 de marzo de 1998' del fichero original tampoco se ha podido confirmar — no incluida en las fuentes corregidas"
+    "'Orden de 26 de marzo de 1998' del fichero original tampoco se ha podido confirmar — no incluida en las fuentes corregidas",
+    "Verificación Prompt B (2026-10-05): Murcia gas (Prompt B): el certificado de instalación lo emite la empresa instaladora, no un OCA (RD 919/2006, art. 5; alta): organismo corregido en las tres reglas. Ficha 27 «Inscripción en el registro de instalaciones receptoras de combustibles gaseosos que requieren presentación de proyecto» (SIA 206528); no se pudo abrir directamente (404; la URL correcta lleva el parámetro RASTRO).",
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (media): la ficha 60 «Registro de instalaciones de gases combustibles» (SIA 206529; declaración responsable, tasa T610 H00001/H00002) incluye expresamente las receptoras individuales, mientras que la ITC-ICG 07 §3.6 dice que sin proyecto no hay comunicación. El modelo de declaración (.docx v4, 13/05/2026) no se pudo leer, así que NO se añadió el registro a MUR-GAS-002 ni se quitó nada. Sin modelar: comunes y acometidas > 2.000 kW y ampliaciones > 30 %."
   ],
   "fuentes": [
     {
@@ -69,7 +71,7 @@
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control (OCA) autorizado en Murcia",
+          "organismo": "Empresa instaladora autorizada (con proyecto, el director de obra emite además el certificado de dirección de obra)",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -89,24 +91,24 @@
             {
               "id": "boletin_gas",
               "label": "Boletín de instalación de gas (modelo oficial)",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "No figura como modelo en las fichas 27 y 60 de la sede.",
+              "obligatorio": false
             }
           ],
-          "notas": "",
+          "notas": "El certificado de instalación lo emite la empresa instaladora (RD 919/2006, art. 5); el organismo de control solo interviene cuando la ITC lo exige.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Registro de instalaciones receptoras de combustibles gaseosos que requieren proyecto (código 27)",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "nombre": "Inscripción en el registro de instalaciones receptoras de combustibles gaseosos que requieren presentación de proyecto",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
           "base_legal": "Decreto 20/2003; Ley 21/1992",
-          "plazo_estimado_dias": 15,
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa T610 H00002 (con proyecto); importe 2026 no verificado",
           "formulario_ref": "27",
           "paralelo_con": null,
           "regla_id": "MUR-GAS-001",
@@ -116,9 +118,15 @@
               "label": "Certificado de instalación de gas",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "proyecto_visado_o_dr",
+              "label": "Proyecto técnico y certificado de dirección de obra",
+              "descripcion": "Suscritos por técnico competente; si no están visados se presenta declaración responsable (ficha 27).",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "El RD 919/2006 (art. 5.7) da 30 días desde la puesta en servicio para presentar la documentación; la ficha 27 marca tramitación inmediata.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -151,7 +159,7 @@
         {
           "orden": 1,
           "nombre": "Memoria técnica de diseño (MTD) de gas",
-          "organismo": "Instalador habilitado (categoría IG-I o IG-II)",
+          "organismo": "Instalador habilitado (carné de categoría A, B o C, ITC-ICG 09)",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 3,
           "plazo_legal_dias": null,
@@ -182,7 +190,7 @@
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control (OCA) autorizado en Murcia",
+          "organismo": "Empresa instaladora autorizada (con proyecto, el director de obra emite además el certificado de dirección de obra)",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -202,11 +210,11 @@
             {
               "id": "boletin_gas",
               "label": "Boletín de instalación de gas (modelo oficial)",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "No figura como modelo en las fichas 27 y 60 de la sede.",
+              "obligatorio": false
             }
           ],
-          "notas": "",
+          "notas": "El certificado de instalación lo emite la empresa instaladora (RD 919/2006, art. 5); el organismo de control solo interviene cuando la ITC lo exige.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -264,7 +272,7 @@
         {
           "orden": 2,
           "nombre": "Certificado de instalación (CI) y puesta en servicio",
-          "organismo": "Organismo de Control (OCA) autorizado en Murcia",
+          "organismo": "Empresa instaladora autorizada (con proyecto, el director de obra emite además el certificado de dirección de obra)",
           "base_legal": "RIGLO RD 919/2006",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
@@ -284,24 +292,24 @@
             {
               "id": "boletin_gas",
               "label": "Boletín de instalación de gas (modelo oficial)",
-              "descripcion": "",
-              "obligatorio": true
+              "descripcion": "No figura como modelo en las fichas 27 y 60 de la sede.",
+              "obligatorio": false
             }
           ],
-          "notas": "",
+          "notas": "El certificado de instalación lo emite la empresa instaladora (RD 919/2006, art. 5); el organismo de control solo interviene cuando la ITC lo exige.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Registro de instalación de gases combustibles",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "nombre": "Inscripción en el registro de instalaciones receptoras de combustibles gaseosos que requieren presentación de proyecto",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
           "base_legal": "Decreto 20/2003; Ley 21/1992",
-          "plazo_estimado_dias": 15,
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=27&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa T610 H00002 (con proyecto); importe 2026 no verificado",
           "formulario_ref": "27",
           "paralelo_con": null,
           "regla_id": "MUR-GAS-003",
@@ -311,9 +319,15 @@
               "label": "Certificado de instalación de gas",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "proyecto_visado_o_dr",
+              "label": "Proyecto técnico y certificado de dirección de obra",
+              "descripcion": "Suscritos por técnico competente; si no están visados se presenta declaración responsable (ficha 27).",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "El RD 919/2006 (art. 5.7) da 30 días desde la puesta en servicio para presentar la documentación; la ficha 27 marca tramitación inmediata.",
           "registro_salida": null,
           "medio_presentacion": null
         }

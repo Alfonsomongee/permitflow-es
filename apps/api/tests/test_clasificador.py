@@ -323,7 +323,7 @@ def test_pais_vasco_gas_acometida_es_paralela_a_certificado_instalacion(clasific
     params = ClasificadorInput(
         tipo_instalacion="gas_baja_presion",
         comunidad="pais_vasco",
-        potencia_kw=30,
+        potencia_kw=80,  # con proyecto: hay certificado de instalación (Prompt B 2026-10-05)
         uso="residencial",
         presion_bar="normal",
     )

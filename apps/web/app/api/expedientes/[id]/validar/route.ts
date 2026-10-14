@@ -2,14 +2,14 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { obtenerExpediente } from "@/lib/expedientes";
 import { supabaseAdmin } from "@/lib/supabase";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
-const API_URL =
-  process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } }
+  ctx: { params: Promise<{ id: string }> }
 ) {
+  const params = await ctx.params;
   const { userId, orgId } = await auth();
   if (!userId || !orgId) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });
@@ -34,7 +34,11 @@ export async function GET(
     );
   }
 
-  const payload = {
+  // Payload completo con el que se generó el plan. Los expedientes anteriores a
+  // 2026-10 solo conservan 12 campos (`parametros` null): con ellos el motor
+  // rechaza o evalúa a medias muchas combinaciones (Madrid, Cataluña, ACS...).
+  const esLegado = expediente.parametros == null;
+  const payload = expediente.parametros ?? {
     tipo_instalacion: expediente.tipo_instalacion,
     comunidad: expediente.comunidad,
     potencia_kw: expediente.potencia_kw,
@@ -55,7 +59,7 @@ export async function GET(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+        ...cabecerasInternas(),
       },
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(15_000),
@@ -69,6 +73,18 @@ export async function GET(
 
   const data = await motorRes.json().catch(() => null);
   if (!motorRes.ok) {
+    if (esLegado && motorRes.status === 422) {
+      return NextResponse.json(
+        {
+          error:
+            "Este expediente se creó antes de guardar todos los datos del formulario, " +
+            "así que no se puede validar. Crea un expediente nuevo con los mismos datos " +
+            "para usar el validador.",
+          legado: true,
+        },
+        { status: 409 }
+      );
+    }
     return NextResponse.json(
       { error: data?.detail ?? `Error del validador (${motorRes.status})` },
       { status: motorRes.status }

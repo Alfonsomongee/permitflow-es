@@ -184,3 +184,26 @@ describe("nuevaInstalacionSchema — IRVE Cataluña garaje: numero_suministros_e
     expect(resultado.success).toBe(true);
   });
 });
+
+describe("nuevaInstalacionSchema — FV: nivel de tensión obligatorio", () => {
+  const fv = (overrides: Partial<typeof FORM_INITIAL> = {}) =>
+    base({ tipo_instalacion: "fotovoltaica_autoconsumo", potencia_kw: "8", ...overrides });
+
+  it("rechaza FV sin tensión (generaba y guardaba un plan de revisión manual)", () => {
+    const r = nuevaInstalacionSchema.safeParse(fv({ tension: "" }));
+    expect(r.success).toBe(false);
+    if (!r.success) expect(r.error.issues.some((i) => i.path.includes("tension"))).toBe(true);
+  });
+
+  it("acepta FV con tensión BT o AT", () => {
+    expect(nuevaInstalacionSchema.safeParse(fv({ tension: "BT", modalidad_autoconsumo: "x" })).success).toBe(true);
+    expect(nuevaInstalacionSchema.safeParse(fv({ tension: "AT", modalidad_autoconsumo: "x" })).success).toBe(true);
+  });
+
+  it("no exige tensión a otros verticales", () => {
+    const r = nuevaInstalacionSchema.safeParse(
+      base({ tipo_instalacion: "gas_baja_presion", potencia_kw: "20", tension: "" })
+    );
+    expect(r.success || !r.error.issues.some((i) => i.path.includes("tension"))).toBe(true);
+  });
+});

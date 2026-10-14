@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 import uuid
@@ -24,6 +25,10 @@ from servicios.tenant_context import TenantContext, get_tenant_context, set_tena
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/asistente", tags=["asistente"])
+
+# Referencias fuertes a las tareas de persistencia en vuelo (si no, el GC podría
+# descartarlas antes de terminar cuando el cliente ya se ha desconectado).
+_TAREAS_PERSISTENCIA: set = set()
 
 # user_id no forma parte del contexto de tenant (eso resuelve org_id vía
 # X-Org-Id); es simplemente quién de la organización escribió el mensaje,
@@ -160,45 +165,61 @@ async def chat_asistente(
                 usage_stats=usage_stats
             )
 
-        try:
-            async for chunk in generador:
-                respuesta_completa += chunk
-                # Formato Vercel AI SDK stream:
-                # texto chunk -> 0:"..."
-                yield f'0:{json.dumps(chunk)}\n'
-        except Exception as e:
-            # No reenviar str(e) al navegador: puede incluir detalles crudos del
-            # SDK del proveedor de IA (base_url, cuerpo de error, etc.).
-            logger.exception("Error en stream de asistente")
-            yield f'3:{json.dumps("Error al generar la respuesta")}\n'
+        async def _persistir() -> Optional[uuid.UUID]:
+            """Guarda la respuesta y el consumo. Se lanza como tarea aparte (y
+            blindada) para que se ejecute AUNQUE el cliente cierre la conexión a
+            mitad del stream: antes, la cancelación saltaba todo este bloque y el
+            consumo de tokens quedaba sin contabilizar (presupuesto eludible)."""
+            try:
+                async with AsyncSessionLocal() as stream_session:
+                    await set_tenant_context(stream_session, internal_org_id)
+                    nuevo_id = None
+
+                    if respuesta_completa:
+                        mensaje = AsistenteMensaje(
+                            conversacion_id=conversacion_id,
+                            rol="assistant",
+                            contenido=respuesta_completa,
+                            tokens=usage_stats.get("completion_tokens"),
+                        )
+                        stream_session.add(mensaje)
+                        await stream_session.commit()
+                        await stream_session.refresh(mensaje)
+                        nuevo_id = mensaje.id
+
+                    if usage_stats:
+                        await registrar_uso(
+                            org_id=internal_org_id,
+                            session=stream_session,
+                            tokens_entrada=usage_stats.get("prompt_tokens", 0),
+                            tokens_entrada_cache=usage_stats.get("prompt_cache_hit_tokens", 0),
+                            tokens_salida=usage_stats.get("completion_tokens", 0),
+                        )
+                    return nuevo_id
+            except Exception as e:
+                logger.error(f"No se pudo persistir el mensaje/uso de IA: {e}")
+                return None
 
         mensaje_id = None
         try:
-            async with AsyncSessionLocal() as stream_session:
-                await set_tenant_context(stream_session, internal_org_id)
+            try:
+                async for chunk in generador:
+                    respuesta_completa += chunk
+                    # Formato Vercel AI SDK stream:
+                    # texto chunk -> 0:"..."
+                    yield f'0:{json.dumps(chunk)}\n'
+            except Exception:
+                # No reenviar str(e) al navegador: puede incluir detalles crudos del
+                # SDK del proveedor de IA (base_url, cuerpo de error, etc.).
+                logger.exception("Error en stream de asistente")
+                yield f'3:{json.dumps("Error al generar la respuesta")}\n'
+        finally:
+            # Corre también si el cliente se desconecta (GeneratorExit/CancelledError).
+            persistencia = asyncio.ensure_future(_persistir())
+            _TAREAS_PERSISTENCIA.add(persistencia)
+            persistencia.add_done_callback(_TAREAS_PERSISTENCIA.discard)
 
-                if respuesta_completa:
-                    mensaje = AsistenteMensaje(
-                        conversacion_id=conversacion_id,
-                        rol="assistant",
-                        contenido=respuesta_completa,
-                        tokens=usage_stats.get("completion_tokens"),
-                    )
-                    stream_session.add(mensaje)
-                    await stream_session.commit()
-                    await stream_session.refresh(mensaje)
-                    mensaje_id = mensaje.id
-
-                if usage_stats:
-                    await registrar_uso(
-                        org_id=internal_org_id,
-                        session=stream_session,
-                        tokens_entrada=usage_stats.get("prompt_tokens", 0),
-                        tokens_entrada_cache=usage_stats.get("prompt_cache_hit_tokens", 0),
-                        tokens_salida=usage_stats.get("completion_tokens", 0)
-                    )
-        except Exception as e:
-            logger.error(f"No se pudo persistir el mensaje/uso de IA: {e}")
+        mensaje_id = await asyncio.shield(persistencia)
 
         # Metadatos de cierre: conversacion_id (para que el cliente lo
         # reutilice en el siguiente turno) y mensaje_id (para poder

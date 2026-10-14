@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "galicia",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,8 @@
     "No se ha localizado normativa autonómica gallega específica de ACS; se aplica el RITE nacional directamente",
     "Nombre exacto del trámite/registro de instalaciones térmicas en la sede de Galicia no confirmado",
     "Tasas y plazos legales no verificados",
-    "plataforma_url de la comunicación de puesta en servicio (GAL-ACS-001/002) sigue apuntando a la raíz genérica de sede.xunta.gal: no se ha identificado en esta auditoría el código de trámite específico de puesta en servicio de instalaciones térmicas en Galicia"
+    "plataforma_url de la comunicación de puesta en servicio (GAL-ACS-001/002) sigue apuntando a la raíz genérica de sede.xunta.gal: no se ha identificado en esta auditoría el código de trámite específico de puesta en servicio de instalaciones térmicas en Galicia",
+    "Verificación Prompt B (2026-10-05): Galicia (Prompt B): existe norma autonómica del RITE, la Orden de 24/02/2010 (DOG 53, 18/03/2010), añadida como base legal; el trámite IN622B se llama «Inscripción/modificación en el Registro de instalaciones térmicas en edificios» (renombrado: pierde las estadísticas de plazos del nombre antiguo). Umbrales 5-70 kW y > 70 kW y exención del art. 15.1.c confirmados. Sin verificar: umbral de inspección inicial por OCA, tasa, plazo y silencio de IN622B. Decreto Legislativo 1/2015 confirmado (deroga la Ley 9/2004). Omisión: PPCL de legionela (RD 487/2022; órgano sanitario gallego sin verificar)."
   ],
   "fuentes": [
     {
@@ -238,9 +239,9 @@
         },
         {
           "orden": 2,
-          "nombre": "Comunicación de puesta en servicio de instalación térmica",
+          "nombre": "Inscripción/modificación en el Registro de instalaciones térmicas en edificios (IN622B)",
           "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
-          "base_legal": "RITE RD 1027/2007 art. 24",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden de 24/02/2010 (DOG 53, 18/03/2010), de aplicación del RITE en Galicia",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
@@ -263,7 +264,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Se registra el certificado de la instalación (RITE art. 15.1 a) y b)); las instalaciones del art. 15.1.c) no precisan registro.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -381,15 +382,15 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "AVISO: la ficha IN622B solo habla del certificado de instalación, que firma el instalador autorizado y sella la empresa instaladora (Orden de 24/02/2010); la inspección inicial por organismo de control se limita a los supuestos de la Orden y no se localizó el umbral.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Comunicación de puesta en servicio de instalación térmica",
+          "nombre": "Inscripción/modificación en el Registro de instalaciones térmicas en edificios (IN622B)",
           "organismo": "Jefatura Territorial de la Consellería competente en materia de industria",
-          "base_legal": "RITE RD 1027/2007 art. 24",
+          "base_legal": "RITE RD 1027/2007 art. 24; Orden de 24/02/2010 (DOG 53, 18/03/2010), de aplicación del RITE en Galicia",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Xunta de Galicia",
@@ -412,7 +413,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "Se registra el certificado de la instalación (RITE art. 15.1 a) y b)); las instalaciones del art. 15.1.c) no precisan registro.",
           "registro_salida": null,
           "medio_presentacion": null
         }

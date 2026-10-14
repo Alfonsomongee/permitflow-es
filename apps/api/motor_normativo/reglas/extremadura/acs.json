@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "extremadura",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -10,7 +10,8 @@
   "huecos_verificacion": [
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024) — NO VERIFICABLE/PENDIENTE, no tocado en esta revisión",
     "No se ha confirmado el nombre ni número de trámite exacto en la sede electrónica de Extremadura",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Extremadura ACS (Prompt B): añadida EXT-ACS-003 (notificación a Salud Pública del ACS con acumulación y circuito de retorno, salvo uso exclusivo de vivienda; Orden de 01/12/2017, DOE nº 239; ficha SES actualizada el 17/04/2026; media): Extremadura sí exige notificar ACS, a diferencia del régimen estatal (RD 487/2022, art. 5.3). Se modela con uso_colectivo, acumulación y recirculación. La vigencia tras el RD 487/2022 se infiere de la ficha; la cita «RD 614/2024» sigue sin verificar. Resto: CIP 5625 y servicio como en climatización."
   ],
   "fuentes": [
     {
@@ -233,15 +234,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalación térmica en edificios",
-          "organismo": "Servicio de Ordenación Industrial, Energética y Minera (Badajoz/Cáceres)",
-          "base_legal": "RITE RD 1027/2007 art. 24; Decreto 49/2004",
+          "nombre": "Comunicación de documentación acreditativa del cumplimiento de normas de seguridad industrial (Grupo II): instalaciones térmicas en edificios (CIP 5625)",
+          "organismo": "Servicio de Ordenación Industrial y Energética (Mérida, con Unidades en Badajoz y Cáceres; denominación del Decreto 162/2026, que la sede aún no usa)",
+          "base_legal": "Decreto 49/2004, art. 5 (mod. Decreto 66/2016); Orden de 20/07/2017; Resolución de 31/10/2017 (mod. Resolución de 13/01/2026); RD 1027/2007 (RITE), arts. 15 y 24",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva) y Sede Electrónica (CIP 5625)",
           "plataforma_url": "https://www.juntaex.es/w/5625",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "CIP 5625",
+          "coste_estimado": "Modelo 050 (justificante de tasa); código y importe 2026 específicos de térmicas no localizados.",
+          "formulario_ref": "FTD térmicas",
           "paralelo_con": null,
           "regla_id": "EXT-ACS-001",
           "documentos_requeridos": [
@@ -256,9 +257,27 @@
               "label": "Certificado de instalador habilitado",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_instalaciones_termicas",
+              "label": "Certificado de instalaciones térmicas en edificios (cualquier potencia)",
+              "descripcion": "Modelo oficial revisado el 03/05/2023.",
+              "obligatorio": true
+            },
+            {
+              "id": "ftd_termicas",
+              "label": "Ficha técnica descriptiva (código de AsistenteAGILE)",
+              "descripcion": "Se obtiene antes de la comunicación.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_050",
+              "label": "Justificante de tasa (Modelo 050)",
+              "descripcion": "",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 5625 publica plazo de 3 meses con silencio desestimatorio; se deja plazo_legal_dias sin valor porque una comunicación habilita desde su presentación (decisión pendiente, Ley 21/1992 art. 4.3).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -335,7 +354,7 @@
             {
               "id": "proyecto_acs",
               "label": "Proyecto técnico de instalación térmica",
-              "descripcion": "Firmado por técnico competente.",
+              "descripcion": "Firmado por técnico competente. Si el trabajo no está visado, se acompaña declaración responsable de habilitación profesional.",
               "obligatorio": true
             }
           ],
@@ -345,15 +364,15 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalación térmica en edificios (alta potencia)",
-          "organismo": "Servicio de Ordenación Industrial, Energética y Minera (Badajoz/Cáceres)",
-          "base_legal": "RITE RD 1027/2007 art. 15, 24; Decreto 49/2004",
+          "nombre": "Comunicación de documentación acreditativa del cumplimiento de normas de seguridad industrial (Grupo II): instalaciones térmicas en edificios (CIP 5625) — más de 70 kW",
+          "organismo": "Servicio de Ordenación Industrial y Energética (Mérida, con Unidades en Badajoz y Cáceres; denominación del Decreto 162/2026, que la sede aún no usa)",
+          "base_legal": "Decreto 49/2004, art. 5 (mod. Decreto 66/2016); Orden de 20/07/2017; Resolución de 31/10/2017 (mod. Resolución de 13/01/2026); RD 1027/2007 (RITE), arts. 15 y 24",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva) y Sede Electrónica (CIP 5625)",
           "plataforma_url": "https://www.juntaex.es/w/5625",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "CIP 5625",
+          "coste_estimado": "Modelo 050 (justificante de tasa); código y importe 2026 específicos de térmicas no localizados.",
+          "formulario_ref": "FTD térmicas",
           "paralelo_con": null,
           "regla_id": "EXT-ACS-002",
           "documentos_requeridos": [
@@ -368,11 +387,82 @@
               "label": "Certificado de instalador habilitado",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "certificado_instalaciones_termicas",
+              "label": "Certificado de instalaciones térmicas en edificios (cualquier potencia)",
+              "descripcion": "Modelo oficial revisado el 03/05/2023.",
+              "obligatorio": true
+            },
+            {
+              "id": "ftd_termicas",
+              "label": "Ficha técnica descriptiva (código de AsistenteAGILE)",
+              "descripcion": "Se obtiene antes de la comunicación.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_050",
+              "label": "Justificante de tasa (Modelo 050)",
+              "descripcion": "",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 5625 publica plazo de 3 meses con silencio desestimatorio; se deja plazo_legal_dias sin valor porque una comunicación habilita desde su presentación (decisión pendiente, Ley 21/1992 art. 4.3).",
           "registro_salida": null,
           "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "EXT-ACS-003",
+      "descripcion": "ACS con acumulación y circuito de retorno en edificio que no es de uso exclusivo de vivienda: notificación a Salud Pública (Orden de 1 de diciembre de 2017)",
+      "condicion": {
+        "and": [
+          {
+            "==": [
+              {
+                "var": "uso_colectivo"
+              },
+              true
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "acumulacion"
+              },
+              true
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "recirculacion"
+              },
+              true
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Notificación de instalaciones con riesgo de dispersión de legionella (ACS con acumulador y circuito de retorno)",
+          "organismo": "Servicio Extremeño de Salud, Dirección General de Salud Pública (Consejería de Salud y Servicios Sociales)",
+          "base_legal": "Orden de 1 de diciembre de 2017 (DOE nº 239, 15/12/2017), arts. 2 a 4; RD 487/2022",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la Junta de Extremadura",
+          "plataforma_url": "https://www.juntaex.es/es/w/5083",
+          "coste_estimado": "Sin tasa localizada",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "EXT-ACS-001",
+          "documentos_requeridos": [],
+          "notas": "Hay que notificar el alta en el plazo de un mes desde la puesta en funcionamiento y la baja en un mes desde el cese; sin plazo de resolución. No se exige en edificios de uso exclusivo de vivienda. Es un trámite sanitario, no de Industria. Vigencia inferida de la ficha del SES actualizada el 17/04/2026.",
+          "registro_salida": null,
+          "medio_presentacion": null,
+          "tipo_actuacion": "accion_usuario"
         }
       ]
     }

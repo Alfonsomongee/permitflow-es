@@ -12,8 +12,9 @@ import { supabaseAdmin } from "@/lib/supabase";
  */
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string; subsanacionId: string } }
+  ctx: { params: Promise<{ id: string; subsanacionId: string }> }
 ) {
+  const params = await ctx.params;
   const { userId, orgId } = await auth();
   if (!userId || !orgId) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { verificarCron } from "@/lib/server/cron-auth";
 import { claveTramite, MUESTRA_MINIMA } from "@/lib/tramiteClave";
 import { diasEntre } from "@/lib/plazos";
 import type { PlanTramitacion } from "@/types/plan";
@@ -13,10 +14,8 @@ interface Muestra {
 }
 
 export async function POST(req: NextRequest) {
-  const auth = req.headers.get("authorization");
-  if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-  }
+  const denegado = verificarCron(req);
+  if (denegado) return denegado;
   return handle();
 }
 
@@ -25,10 +24,8 @@ export async function POST(req: NextRequest) {
 // Antes esta ruta solo aceptaba POST, así que vercel.json nunca podía
 // dispararla: el cron "existía" en el código pero no se ejecutaba nunca.
 export async function GET(req: NextRequest) {
-  const auth = req.headers.get("authorization");
-  if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-  }
+  const denegado = verificarCron(req);
+  if (denegado) return denegado;
   return handle();
 }
 
@@ -43,6 +40,7 @@ async function handle() {
       .from("expedientes")
       .select("comunidad, tipo_instalacion, plan_tramitacion, tramites_estado")
       .not("plan_tramitacion", "is", null)
+      .order("id", { ascending: true })
       .range(desde, desde + PAGE - 1);
 
     if (error) {

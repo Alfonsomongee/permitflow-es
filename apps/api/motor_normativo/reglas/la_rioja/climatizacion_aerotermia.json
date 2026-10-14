@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "la_rioja",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -12,7 +12,9 @@
     "Tasas y plazos legales no verificados",
     "No se ha confirmado si existe distinción de trámite entre 'CL' y 'CLM' (posiblemente climatización general vs. climatización con máquina, o distinción por tipo de generador) — no localizado en esta revisión",
     "Corregido 2026-07-28: el campo 'organismo' de los trámites CL/CLM usaba la denominación histórica 'Dirección General de Trabajo, Industria y Comercio', desactualizada. Se ha sustituido por 'Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja', denominación vigente confirmada en las fichas oficiales de los trámites IBT (n=24196) y AUTee (n=24593) de la sede electrónica de La Rioja. No se ha localizado ficha oficial propia del trámite CL/CLM que confirme el organismo exacto para ese trámite específico; queda como hueco pendiente si se detecta discrepancia.",
-    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero"
+    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero",
+    "Verificación Prompt B (2026-10-05): La Rioja (Prompt B): ficha CL y CLM sin leer (robots.txt): código, organismo exacto, plazo, silencio, tasa y documentos sin verificar; plataforma_url pasa al listado del área de Industria y Energía. «Resolución de desarrollo del RITE» sustituida por la Resolución de 10/11/2010 (inspección RITE; media, número de BOR sin obtener); existe además la Resolución de 30/07/2015 (sustitución de generadores ≤ 70 kW), sin leer ni modelar. Organismo de control: cualquier habilitado.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (La Rioja climatización): certificado de eficiencia energética (CEE, n=21489; 18 € / 16,2 €) cuando la obra térmica requiere proyecto; trámite «CL. Autorización para la instalación y puesta en funcionamiento de calderas» sin revisar."
   ],
   "fuentes": [
     {
@@ -133,11 +135,11 @@
           "orden": 2,
           "nombre": "Inscripción y puesta en servicio de instalación térmica (trámite CL/CLM)",
           "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
-          "base_legal": "RITE RD 1027/2007 art. 24; Resolución de desarrollo del RITE en La Rioja",
+          "base_legal": "RITE RD 1027/2007 art. 24; Resolución de 10 de noviembre de 2010 de la Dirección General de Trabajo, Industria y Comercio (procedimiento de inspección de las instalaciones del RITE)",
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es?area=INDUSTRIA+Y+ENERGIA",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "CL / CLM",
           "paralelo_con": null,
@@ -208,8 +210,8 @@
         {
           "orden": 2,
           "nombre": "Inspección inicial (obligatoria por RITE para potencia >70 kW en La Rioja)",
-          "organismo": "Organismo de Control Autorizado (OCA) en La Rioja",
-          "base_legal": "RITE RD 1027/2007 art. 15; Resolución de desarrollo del RITE en La Rioja",
+          "organismo": "Organismo de control habilitado (en La Rioja no se exige autorización para actuar)",
+          "base_legal": "RITE RD 1027/2007 art. 15; Resolución de 10 de noviembre de 2010 de la Dirección General de Trabajo, Industria y Comercio (procedimiento de inspección de las instalaciones del RITE)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -232,7 +234,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Confirmado en fuente oficial: con anterioridad a la puesta en servicio de instalaciones con potencia >70 kW debe realizarse inspección inicial; se exceptúan generadores de aire caliente y tubos radiantes a gas.",
+          "notas": "Confirmado en fuente oficial: con anterioridad a la puesta en servicio de instalaciones con potencia >70 kW debe realizarse inspección inicial; se exceptúan generadores de aire caliente y tubos radiantes a gas.\nAVISO: en La Rioja la obligatoriedad de la inspección inicial solo puede venir de la Resolución de 10/11/2010 (apartado «Obligatoriedad de la inspección inicial»), cuyo texto no se pudo leer; el RITE la deja como potestativa (arts. 24.1.c y 30.1). Umbral de 70 kW y excepción de generadores de aire caliente y tubos radiantes a gas sin confirmar.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -240,11 +242,11 @@
           "orden": 3,
           "nombre": "Inscripción y puesta en servicio de instalación térmica (trámite CL/CLM)",
           "organismo": "Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja",
-          "base_legal": "RITE RD 1027/2007 art. 24; Resolución de desarrollo del RITE en La Rioja",
+          "base_legal": "RITE RD 1027/2007 art. 24; Resolución de 10 de noviembre de 2010 de la Dirección General de Trabajo, Industria y Comercio (procedimiento de inspección de las instalaciones del RITE)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es?area=INDUSTRIA+Y+ENERGIA",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "CL / CLM",
           "paralelo_con": null,

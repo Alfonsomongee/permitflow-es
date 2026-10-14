@@ -1,5 +1,16 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+# Scripts de instalación: ninguna dependencia necesita compilar nada en el
+# build (los binarios nativos se resuelven con paquetes opcionales
+# precompilados). Declararlo explícitamente evita la advertencia de pnpm y que
+# un paquete ejecute scripts sin que alguien lo haya aprobado.
 allowBuilds:
-  unrs-resolver: set this to true or false
+  core-js: false
+  unrs-resolver: false
+
+# Next.js 15 fija postcss 8.4.31 internamente (varios avisos de seguridad en
+# tiempo de build). Se fuerza la versión parcheada para su copia anidada.
+overrides:
+  "next>postcss": "^8.5.23"

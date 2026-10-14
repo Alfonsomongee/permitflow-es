@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "castilla_la_mancha",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "No se ha localizado normativa autonómica de Castilla-La Mancha específica de IRVE; se aplica el régimen general de BT (trámite 1002270/020048) más ITC-BT-52 nacional",
     "El tratamiento de 'garaje_comunitario' se ha asimilado a 'interior' — no verificado específicamente",
     "Instalaciones en vía pública probablemente requieren permiso municipal adicional, no incluido",
-    "Tasas y plazos legales no verificados"
+    "Tasas y plazos legales no verificados",
+    "Verificación Prompt B (2026-10-05): Castilla-La Mancha IRVE (Prompt B): registro BT por eDice-bt (sin proyecto) y ventanilla SJE4 (con proyecto) confirmados; inspección inicial por OCA con proyecto confirmada en la ficha; organismo, tasa 2026 y formulario corregidos (020048 no existe). Sin verificar: los umbrales de la ITC-BT-04/ITC-BT-52 en el BOE (la ficha remite al apartado 3), garaje comunitario y vía pública."
   ],
   "fuentes": [
     {
@@ -136,14 +137,14 @@
         {
           "orden": 2,
           "nombre": "Diligenciado del certificado y registro de la instalación (eDice-bt)",
-          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "organismo": "Delegación Provincial de la Consejería de Desarrollo Sostenible (Servicio de Industria y Energía); la DG de Transición Energética gestiona la herramienta eDice",
           "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
           "plataforma": "eDice-bt (Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha)",
           "plataforma_url": "https://edice.castillalamancha.es/eDice-bt/",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "020048",
+          "coste_estimado": "Tasa (modelo 046, tarifa 3.1 de la Ley 7/2008, 2026): sin proyecto 36,48 €; con proyecto 36,48 € hasta 10.000 € de inversión + 6,14 € por cada 10.000 € adicionales (máximo 3.000 €).",
+          "formulario_ref": null,
           "paralelo_con": null,
           "regla_id": "CLM-IRVE-001",
           "documentos_requeridos": [
@@ -160,7 +161,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 1002270 indica 3 meses con silencio estimatorio; no se modela como plazo de resolución.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -281,14 +282,14 @@
         {
           "orden": 3,
           "nombre": "Diligenciado del certificado y registro de la instalación (portal con proyecto)",
-          "organismo": "Dirección General de Transición Energética (Consejería de Desarrollo Sostenible)",
+          "organismo": "Delegación Provincial de la Consejería de Desarrollo Sostenible (Servicio de Industria y Energía); la DG de Transición Energética gestiona la herramienta eDice",
           "base_legal": "Ley 21/1992 de Industria; REBT RD 842/2002",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la Junta de Comunidades de Castilla-La Mancha",
           "plataforma_url": "https://www.jccm.es/tramites/1002270",
-          "coste_estimado": "NO VERIFICADO",
-          "formulario_ref": "020048",
+          "coste_estimado": "Tasa (modelo 046, tarifa 3.1 de la Ley 7/2008, 2026): sin proyecto 36,48 €; con proyecto 36,48 € hasta 10.000 € de inversión + 6,14 € por cada 10.000 € adicionales (máximo 3.000 €).",
+          "formulario_ref": "SJE4",
           "paralelo_con": null,
           "regla_id": "CLM-IRVE-002",
           "documentos_requeridos": [
@@ -305,7 +306,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "La ficha 1002270 indica 3 meses con silencio estimatorio; no se modela como plazo de resolución.\nCon proyecto, el diligenciado se hace en la ventanilla SJE4 (https://ventanillaelectronica.jccm.es/administracion_electronica/formularios/SJE4.phtml?SER_ID=JE4&PROC=IRISI&FIRMA=S).",
           "registro_salida": null,
           "medio_presentacion": null
         }

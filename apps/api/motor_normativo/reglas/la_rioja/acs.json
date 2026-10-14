@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "la_rioja",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,7 +13,9 @@
     "Tasas y plazos legales no verificados",
     "La Orden de 22/02/2001 aplica específicamente a aparatos de gas en ACS/calefacción individual; no se ha verificado su aplicabilidad a ACS con otras fuentes de energía",
     "Corregido 2026-07-28: el campo 'organismo' de los trámites CL/CLM usaba la denominación histórica 'Dirección General de Trabajo, Industria y Comercio', desactualizada. Se ha sustituido por 'Servicio de Industria, Comercio y Transición Energética del Gobierno de La Rioja', denominación vigente confirmada en las fichas oficiales de los trámites IBT (n=24196) y AUTee (n=24593) de la sede electrónica de La Rioja. No se ha localizado ficha oficial propia del trámite CL/CLM que confirme el organismo exacto para ese trámite específico; queda como hueco pendiente si se detecta discrepancia.",
-    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero"
+    "NO VERIFICABLE (sin cambios): el umbral inferior de 5 kW del RITE (posible exención de memoria técnica/proyecto) no se ha confirmado con fuente oficial primaria (boe.es); no se ha añadido al fichero",
+    "Verificación Prompt B (2026-10-05): La Rioja (Prompt B): ficha CL y CLM sin leer (robots.txt): código, organismo exacto, plazo, silencio, tasa y documentos sin verificar; plataforma_url pasa al listado del área de Industria y Energía. «Resolución de desarrollo del RITE» sustituida por la Resolución de 10/11/2010 (inspección RITE; media, número de BOR sin obtener); existe además la Resolución de 30/07/2015 (sustitución de generadores ≤ 70 kW), sin leer ni modelar. Organismo de control: cualquier habilitado.",
+    "Verificación Prompt B (2026-10-05): La Rioja ACS (Prompt B): Orden de 22/02/2001 (gas en calefacción y ACS individual; BOR nº 24; «Modificada») y su Resolución sobre certificación de chimeneas sin modelar. El «hueco crítico» de Legionella no es una omisión de ACS: el RD 487/2022 (art. 5.3) solo obliga a notificar torres y condensadores evaporativos."
   ],
   "fuentes": [
     {
@@ -247,7 +249,7 @@
           "plazo_estimado_dias": 10,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es?area=INDUSTRIA+Y+ENERGIA",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "CL / CLM",
           "paralelo_con": null,
@@ -354,8 +356,8 @@
         {
           "orden": 2,
           "nombre": "Inspección inicial (obligatoria por RITE para potencia >70 kW en La Rioja)",
-          "organismo": "Organismo de Control Autorizado (OCA) en La Rioja",
-          "base_legal": "RITE RD 1027/2007 art. 15; Resolución de desarrollo del RITE en La Rioja",
+          "organismo": "Organismo de control habilitado (en La Rioja no se exige autorización para actuar)",
+          "base_legal": "RITE RD 1027/2007 art. 15; Resolución de 10 de noviembre de 2010 de la Dirección General de Trabajo, Industria y Comercio (procedimiento de inspección de las instalaciones del RITE)",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -378,7 +380,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Se exceptúan de esta exigencia los generadores de aire caliente y tubos radiantes a gas (confirmado en fuente oficial).",
+          "notas": "Se exceptúan de esta exigencia los generadores de aire caliente y tubos radiantes a gas (confirmado en fuente oficial).\nAVISO: en La Rioja la obligatoriedad de la inspección inicial solo puede venir de la Resolución de 10/11/2010 (apartado «Obligatoriedad de la inspección inicial»), cuyo texto no se pudo leer; el RITE la deja como potestativa (arts. 24.1.c y 30.1). Umbral de 70 kW y excepción de generadores de aire caliente y tubos radiantes a gas sin confirmar.",
           "registro_salida": null,
           "medio_presentacion": null
         },
@@ -390,7 +392,7 @@
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": "Oficina Electrónica del Gobierno de La Rioja",
-          "plataforma_url": "https://web.larioja.org/oficina-electronica/",
+          "plataforma_url": "https://www.larioja.org/oficina-electronica/es?area=INDUSTRIA+Y+ENERGIA",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "CL / CLM",
           "paralelo_con": null,

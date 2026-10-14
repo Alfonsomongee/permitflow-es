@@ -24,7 +24,8 @@ REGLAS_DIR = ROOT / "apps" / "api" / "motor_normativo" / "reglas"
 SALIDA = ROOT / "apps" / "web" / "content" / "cobertura_normativa.ts"
 
 
-def main() -> None:
+def generar() -> tuple[str, int]:
+    """Devuelve (contenido del .ts, nº de combinaciones). Sin efectos en disco."""
     data: dict[str, dict[str, dict]] = {}
     for path in sorted(REGLAS_DIR.glob("*/*.json")):
         comunidad = path.parent.name
@@ -34,6 +35,8 @@ def main() -> None:
             "nivelVerificacion": contenido.get("nivel_verificacion", "generica"),
             "estado": contenido.get("estado"),
             "huecos": len(contenido.get("huecos_verificacion", [])),
+            "ultimaRevision": contenido.get("ultima_revision"),
+            "revisadoPor": contenido.get("revisado_por"),
         }
 
     lines = [
@@ -47,6 +50,10 @@ def main() -> None:
         "  nivelVerificacion: string;",
         "  estado: string | null;",
         "  huecos: number;",
+        "  /** Fecha (ISO) de la última revisión de contenido del fichero de reglas. */",
+        "  ultimaRevision: string | null;",
+        "  /** Persona que revisó el contenido; null = sin revisor humano identificado. */",
+        "  revisadoPor: string | null;",
         "}",
         "",
         "export const COBERTURA_NORMATIVA: Record<string, Record<string, CoberturaCombo>> = {",
@@ -58,14 +65,21 @@ def main() -> None:
             estado_val = "null" if c["estado"] is None else json.dumps(c["estado"], ensure_ascii=False)
             lines.append(
                 f"    {tipo}: {{ nivelVerificacion: {json.dumps(c['nivelVerificacion'], ensure_ascii=False)}, "
-                f"estado: {estado_val}, huecos: {c['huecos']} }},"
+                f"estado: {estado_val}, huecos: {c['huecos']}, "
+                f"ultimaRevision: {json.dumps(c['ultimaRevision'])}, "
+                f"revisadoPor: {json.dumps(c['revisadoPor'], ensure_ascii=False)} }},"
             )
         lines.append("  },")
     lines.append("};")
     lines.append("")
 
-    SALIDA.write_text("\n".join(lines), encoding="utf-8")
-    print(f"Escrito {SALIDA} ({sum(len(v) for v in data.values())} combinaciones)")
+    return "\n".join(lines), sum(len(v) for v in data.values())
+
+
+def main() -> None:
+    contenido, n = generar()
+    SALIDA.write_text(contenido, encoding="utf-8")
+    print(f"Escrito {SALIDA} ({n} combinaciones)")
 
 
 if __name__ == "__main__":

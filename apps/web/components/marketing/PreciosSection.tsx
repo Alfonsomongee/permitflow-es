@@ -14,7 +14,14 @@ import { Check, Loader2 } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { crearSesionCheckoutPro } from "@/lib/stripe/checkout";
+import { LIMITE_CLASIFICACIONES_FREE_MES } from "@/lib/planes";
+import { resumenCobertura } from "@/lib/cobertura-resumen";
 
+// Cada línea de esta tabla debe corresponderse con algo que el producto hace de
+// verdad (auditoría 2026-10-01, F-01/F-11): la cuota Free se aplica en
+// app/api/clasificar (lib/planes.ts) y los documentos y el validador están
+// protegidos por plan en sus rutas. Se retiraron promesas sin respaldo ("Alertas
+// BOE en tiempo real", "Integración API propia", "Hasta 5 usuarios", "SLA").
 const PLANES = [
   {
     nombre: "Free",
@@ -25,38 +32,32 @@ const PLANES = [
     ctaHref: "/sign-up",
     destacado: false,
     features: [
-      "5 clasificaciones al mes",
-      "Andalucía — 5 verticales verificados",
-      "Plan de tramitación completo",
-      "Bot normativo DeepSeek",
-      "Sin exportar a PDF",
+      `${LIMITE_CLASIFICACIONES_FREE_MES} clasificaciones al mes`,
+      "Plan de tramitación con la base legal de cada trámite",
+      "Nivel de verificación visible por comunidad y tecnología",
+      "Alertas de cambios normativos del BOE",
+      "Asistente normativo con uso diario limitado",
+      "Presupuesto en PDF con marca PermitFlow",
     ],
-    disabled: ["Exportar PDF", "Historial de expedientes", "Alertas BOE", "Multi-usuario"],
+    disabled: ["Documentos descargables (plan, checklist, MTD, dossier)", "Validador pre-presentación"],
   },
   {
     nombre: "Pro",
     precio: "49 €",
     periodo: "/ mes por empresa",
     descripcion: "Para instaladoras y gestorías activas.",
-    cta: "Empezar prueba gratis",
-    // Si ya hay sesión, el botón dispara el checkout de Stripe directamente
-    // (ver PreciosSection() más abajo). Si no, /sign-up?redirect_url=/ajustes
-    // -- Clerk respeta ese query param por defecto y así, tras registrarse,
-    // el usuario aterriza en la pestaña Organización de Ajustes, que ya
-    // tiene el mismo botón de upgrade funcional (auditoría UX 2026-08-21;
-    // antes este enlace llevaba a "/sign-up?plan=pro", un query param que
-    // no se leía en ningún sitio del repo -- no existía ningún camino real
-    // de Free a Pro).
+    cta: "Empezar con Pro",
+    // Con sesión, el botón dispara el checkout de Stripe (ver PlanCta). Sin
+    // sesión, /sign-up respeta redirect_url y aterriza en Ajustes, que tiene el
+    // mismo botón de upgrade.
     ctaHref: "/sign-up?redirect_url=%2Fajustes",
     destacado: true,
     features: [
       "Clasificaciones ilimitadas",
-      "17 CC. AA. — motor activo en los 5 verticales, en verificación continua",
-      "Exportar plan a PDF",
-      "Historial ilimitado de expedientes",
-      "Alertas BOE en tiempo real",
-      "Bot normativo con contexto completo",
-      "Hasta 5 usuarios por empresa",
+      "Todo lo del plan Free",
+      "Documentos descargables: plan, checklist, MTD y dossier",
+      "Validador pre-presentación",
+      "Presupuesto en PDF con la marca de tu empresa",
       "Soporte por email",
     ],
     disabled: [],
@@ -67,19 +68,19 @@ const PLANES = [
     periodo: "",
     descripcion: "Para promotoras y grandes instaladoras.",
     cta: "Contactar",
-    ctaHref: "mailto:hola@permitflow.es",
+    ctaHref: "/contacto",
     destacado: false,
     features: [
       "Todo lo de Pro",
       "Usuarios ilimitados",
-      "SLA garantizado",
-      "Integración API propia",
       "Onboarding personalizado",
-      "Normativa a medida por CCAA",
+      "Normativa a medida por comunidad autónoma",
     ],
     disabled: [],
   },
 ];
+
+const RESUMEN = resumenCobertura();
 
 function PlanCta({ plan }: { plan: (typeof PLANES)[number] }) {
   const { isSignedIn } = useAuth();
@@ -122,7 +123,7 @@ function PlanCta({ plan }: { plan: (typeof PLANES)[number] }) {
 
 function FeatureItem({ text, available = true }: { text: string; available?: boolean }) {
   return (
-    <li className={`flex items-start gap-2.5 text-sm ${available ? "text-text-secondary" : "text-text-secondary/40 line-through"}`}>
+    <li className={`flex items-start gap-2.5 text-sm ${available ? "text-text-secondary" : "text-text-secondary line-through"}`}>
       <Check
         size={14}
         className={`mt-0.5 flex-shrink-0 ${available ? "text-success" : "text-border"}`}
@@ -145,7 +146,7 @@ export function PreciosSection() {
             Transparente desde el primer día
           </h2>
           <p className="mb-10 max-w-lg text-sm text-text-secondary leading-relaxed">
-            Empieza gratis con 5 clasificaciones al mes. Sin tarjeta de crédito.
+            Empieza gratis con {LIMITE_CLASIFICACIONES_FREE_MES} clasificaciones al mes. Sin tarjeta de crédito.
             Escala cuando tu equipo crezca.
           </p>
         </FadeIn>
@@ -202,9 +203,10 @@ export function PreciosSection() {
 
         <FadeIn delay={0.4}>
           <p className="mt-6 text-center text-xs text-text-secondary">
-            Todos los planes incluyen Andalucía con sus cinco verticales
-            totalmente verificados; el resto de comunidades se amplían y
-            verifican de forma continua. Precios sin IVA.
+            Todos los planes incluyen las {RESUMEN.comunidades} comunidades autónomas y las {RESUMEN.verticales} tecnologías.
+            Hoy {RESUMEN.verificadas + RESUMEN.parciales} de {RESUMEN.combinaciones} combinaciones tienen verificación
+            total o parcial; el resto son borradores que cada plan marca como tales y conviene contrastar con el
+            organismo antes de presentar. Precios sin IVA.
           </p>
         </FadeIn>
       </div>

@@ -12,6 +12,7 @@
  * sin exponer notas internas, historial de auditoría ni validación
  * normativa -- eso sigue siendo exclusivo de PlanTramitacionView.
  */
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Building2, CalendarClock, MapPin, ShieldCheck, Zap } from "lucide-react";
 import { supabaseAdmin } from "@/lib/supabase";
@@ -21,6 +22,13 @@ import { PortalTramitesList } from "@/components/plan-tramitacion/PortalTramites
 import type { DocumentoSubidoResumen } from "@/components/plan-tramitacion/DocumentoUploadControl";
 
 export const dynamic = "force-dynamic";
+
+// El enlace es una credencial: ni indexable ni con Referer hacia terceros.
+export const metadata: Metadata = {
+  title: "Seguimiento de instalación — PermitFlow",
+  robots: { index: false, follow: false, nocache: true },
+  referrer: "no-referrer",
+};
 
 const ESTADO_LABEL: Record<string, string> = {
   borrador: "Borrador",
@@ -56,11 +64,10 @@ async function obtenerDocumentosSubidos(expedienteId: string): Promise<Documento
   return data ?? [];
 }
 
-export default async function PortalClientePage({
-  params,
-}: {
-  params: { token: string };
+export default async function PortalClientePage(props: {
+  params: Promise<{ token: string }>;
 }) {
+  const params = await props.params;
   const expediente = await obtenerExpedientePorToken(params.token);
   if (!expediente) notFound();
 
@@ -72,9 +79,15 @@ export default async function PortalClientePage({
   const tramitesAccionables = tramites.filter(
     (t) => t.tipo_actuacion === "accion_usuario" || t.tipo_actuacion === undefined
   );
+  // Se cuentan solo los trámites accionables completados: el contador de BD
+  // incluye cualquier trámite completado (también los de oficio) y el cociente
+  // podía superar el 100 %.
+  const completadosAccionables = tramitesAccionables.filter(
+    (t) => estados[String(t.orden)]?.estado === "completado"
+  ).length;
   const progreso =
     tramitesAccionables.length > 0
-      ? Math.round((expediente.tramites_completados / tramitesAccionables.length) * 100)
+      ? Math.min(100, Math.round((completadosAccionables / tramitesAccionables.length) * 100))
       : 0;
 
   const titulo = TIPO_LABEL[expediente.tipo_instalacion] ?? expediente.tipo_instalacion;
@@ -117,7 +130,7 @@ export default async function PortalClientePage({
             <span className="flex-shrink-0 text-sm font-semibold text-text-primary">{progreso}%</span>
           </div>
           <p className="mt-1 text-xs text-text-secondary">
-            {expediente.tramites_completados} de {tramitesAccionables.length} trámites completados
+            {completadosAccionables} de {tramitesAccionables.length} trámites completados
           </p>
         </div>
 

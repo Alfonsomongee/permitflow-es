@@ -16,6 +16,15 @@ TipoActuacion = Literal[
     "revision_manual",
 ]
 
+# Efecto del silencio administrativo (Ley 39/2015, art. 24) cuando el
+# organismo no resuelve dentro de plazo_legal_dias. Deliberadamente sin
+# valor por defecto ni inferencia automática: es un hecho jurídico concreto
+# por procedimiento, no algo que se pueda deducir de otros campos (mismo
+# criterio que huecos_verificacion/nivel_verificacion -- si no está
+# verificado a mano contra la norma, se deja sin informar en vez de
+# arriesgar una afirmación legal incorrecta).
+SilencioAdministrativo = Literal["positivo", "negativo"]
+
 ComunidadAutonoma = Literal[
     "andalucia", "aragon", "asturias", "baleares", "canarias", "cantabria",
     "castilla_la_mancha", "castilla_leon", "cataluna", "comunidad_valenciana",
@@ -377,6 +386,13 @@ class TramiteOutput(BaseModel):
     )
     regla_id: Optional[str] = Field(
         None, description="Id de la regla del motor normativo que generó este trámite (clave estable para analítica)"
+    )
+    silencio_administrativo: Optional[SilencioAdministrativo] = Field(
+        None,
+        description=(
+            "Efecto legal si el organismo no resuelve dentro de plazo_legal_dias. "
+            "None si no está verificado para este trámite concreto (no implica que no aplique)."
+        ),
     )
 
 

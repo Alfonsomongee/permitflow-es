@@ -193,3 +193,23 @@ def test_los_enums_del_linter_coinciden_con_el_schema():
             f"'{campo}': el linter admite {sorted(esperados)} y el schema "
             f"{sorted(reales)}. Actualiza VALORES_ENUM en motor_normativo/lint.py."
         )
+
+
+def test_detecta_lenguaje_de_trabajo_interno_en_notas(tmp_path):
+    """Las notas se muestran al cliente: nada de «CORRIGE…», «Fase 0»…"""
+    (tmp_path / "andalucia").mkdir()
+    contenido = {
+        "tipo_instalacion": "acs", "comunidad": "andalucia", "version": "1.0.0",
+        "reglas": [{
+            "id": "X-1", "condicion": True,
+            "tramites": [{
+                "orden": 1, "nombre": "T", "notas": "CORRIGE la secuencia anterior (Fase 0).",
+            }],
+        }],
+        # Los campos de auditoría quedan exentos.
+        "huecos_verificacion": ["PENDIENTE: confirmar con fuente primaria (Fase 2)"],
+    }
+    (tmp_path / "andalucia" / "acs.json").write_text(json.dumps(contenido), encoding="utf-8")
+    mensajes = [str(h) for h in lint_reglas_dir(tmp_path)]
+    assert any("CORRIGE" in m for m in mensajes)
+    assert not any("huecos_verificacion" in m for m in mensajes)

@@ -48,7 +48,7 @@ const VERTICALES = [
   {
     icon: Car,
     label: "Recarga VE (IRVE)",
-    desc: "Diferenciación PUES / TECI. Registro MITECO. MOVES III.",
+    desc: "Diferenciación PUES / TECI. Registro MITECO. Ayudas autonómicas.",
     disponible: true,
     ccaa: 1,
   },

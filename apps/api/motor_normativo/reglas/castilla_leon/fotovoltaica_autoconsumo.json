@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "castilla_leon",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "No se ha confirmado si Castilla y León ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
     "Tasas y plazos legales de resolución no verificados con detalle más allá del código de tasa 308.1 confirmado",
     "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
-    "Para instalaciones >100 kW no se ha confirmado si aplica el Decreto 46/2022 (autorización) además del registro BOEL"
+    "Para instalaciones >100 kW no se ha confirmado si aplica el Decreto 46/2022 (autorización) además del registro BOEL",
+    "Verificación Prompt B (2026-10-05): Castilla y León FV (Prompt B): BLOQUEANTE resuelto (alta, ITC-BT-04 §3.1 en BOE-A-2014-13681): proyecto para generadores de más de 10 kW. CYL-FV-001 pasa a «hasta 10 kW» y se añade CYL-FV-001P (10-100 kW). BOEL → RISE (la ficha IAPA13, act. 29/09/2026, dice que BOEL solo consulta instalaciones anteriores a mayo de 2021). Organismo en plural oficial. Documentos de la ficha IAPA13 añadidos (carpeta BT, anexo de información al usuario, tasa 308.1; certificado de instalación por quintuplicado).",
+    "Verificación Prompt B (2026-10-05): DECRETO 25/2026 (media; BOCyL núm. 183, 21/09/2026, visto en extracto de boletín y memoria de la Junta): las instalaciones de hasta 500 kW pueden obtener la autorización de explotación sin previa ni de construcción. No se leyó el texto (robots.txt) ni la fecha de entrada en vigor; no se cambió CYL-FV-002 (> 100 kW), solo se añadió una nota. Decisión pendiente: elevar el umbral de la autorización a 500 kW y fijar la inscripción de oficio del autoconsumo de pequeña potencia (el proyecto hablaba de 100 kW). Guía de Tramitación del Autoconsumo de la Junta (v1.4) sin leer; importe de la tasa 308.1 sin localizar (última orden de tarifas: EYH/870/2024). Omisiones: trámite urbanístico municipal, regularización (Orden EEI/1036/2021). Reorganización orgánica 2026 (Consejería de Industria, Universidades, Empleo y Comercio / Medio Ambiente y Energía) sin confirmar."
   ],
   "fuentes": [
     {
@@ -45,7 +47,7 @@
       "fecha_consulta": "2026-08-08"
     },
     {
-      "norma": "Aplicación BOEL (Boletines Eléctricos) - tramitacastillayleon.jcyl.es",
+      "norma": "Aplicación RISE (antes BOEL, solo consulta) - tramitacastillayleon.jcyl.es",
       "url": "https://economia.jcyl.es/web/es/industria/boletin-instalaciones-electricas-boel.html",
       "fecha_consulta": "2026-08-08"
     }
@@ -53,13 +55,13 @@
   "reglas": [
     {
       "id": "CYL-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
+      "descripcion": "Autoconsumo de hasta 10 kW en baja tensión: memoria técnica e inscripción en el registro",
       "condicion": {
         "<=": [
           {
             "var": "potencia_kw"
           },
-          100
+          10
         ]
       },
       "tramites": [
@@ -96,12 +98,12 @@
         },
         {
           "orden": 2,
-          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (BOEL)",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (RISE)",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
           "base_legal": "Ley 6/2014 de Industria de Castilla y León; REBT RD 842/2002 ITC-BT-04",
           "plazo_estimado_dias": 5,
           "plazo_legal_dias": null,
-          "plataforma": "BOEL (Boletines Eléctricos)",
+          "plataforma": "RISE (Registro de Instalaciones de Seguridad Industrial) de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/1/1240837594471/Tramite",
           "coste_estimado": "Tasa código 308.1 'Inscripción y control de instalaciones eléctricas' — importe NO VERIFICADO",
           "formulario_ref": "IAPA13",
@@ -119,9 +121,139 @@
               "label": "Certificado de Instalación (CI)",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "carpeta_bt_hoja_inscripcion",
+              "label": "Carpeta de baja tensión: hoja de solicitud e inscripción y hoja resumen",
+              "descripcion": "Ficha IAPA13.",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_informacion_usuario",
+              "label": "Anexo de información al usuario",
+              "descripcion": "Un ejemplar (ficha IAPA13).",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_308_1",
+              "label": "Justificante de la tasa 308.1",
+              "descripcion": "Autoliquidación (modelo 046).",
+              "obligatorio": true
             }
           ],
-          "notas": "Inscripción inmediata a partir de la presentación de la documentación de puesta en servicio (confirmado en ficha oficial).",
+          "notas": "Inscripción inmediata a partir de la presentación de la documentación de puesta en servicio (confirmado en ficha oficial).\nLa inscripción se tramita en RISE (https://servicios3.jcyl.es/tras/rise); las aplicaciones BOEL y RITE solo permiten consultar instalaciones anteriores a mayo de 2021. Resolución inmediata (máximo 3 días desde la recepción en el Servicio Territorial) y silencio estimatorio, según la ficha.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "CYL-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW: proyecto técnico, certificado de dirección de obra e inscripción en el registro",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1; Ley 6/2014 de Industria de Castilla y León",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "CYL-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director (triplicado).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Quintuplicado, según la ficha IAPA13.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ITC-BT-04 §3.1 exige proyecto para «generadores y convertidores» de más de 10 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Inscripción en el Registro de Instalaciones Eléctricas de Baja Tensión (RISE)",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "base_legal": "Ley 6/2014 de Industria de Castilla y León; REBT RD 842/2002 ITC-BT-04",
+          "plazo_estimado_dias": 5,
+          "plazo_legal_dias": null,
+          "plataforma": "RISE (Registro de Instalaciones de Seguridad Industrial) de la Junta de Castilla y León",
+          "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/1/1240837594471/Tramite",
+          "coste_estimado": "Tasa código 308.1 'Inscripción y control de instalaciones eléctricas' — importe NO VERIFICADO",
+          "formulario_ref": "IAPA13",
+          "paralelo_con": null,
+          "regla_id": "CYL-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Quintuplicado.",
+              "obligatorio": true
+            },
+            {
+              "id": "carpeta_bt_hoja_inscripcion",
+              "label": "Carpeta de baja tensión: hoja de solicitud e inscripción y hoja resumen",
+              "descripcion": "Ficha IAPA13.",
+              "obligatorio": true
+            },
+            {
+              "id": "anexo_informacion_usuario",
+              "label": "Anexo de información al usuario",
+              "descripcion": "Un ejemplar (ficha IAPA13).",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_308_1",
+              "label": "Justificante de la tasa 308.1",
+              "descripcion": "Autoliquidación (modelo 046).",
+              "obligatorio": true
+            }
+          ],
+          "notas": "Inscripción inmediata a partir de la presentación de la documentación de puesta en servicio (confirmado en ficha oficial).\nLa inscripción se tramita en RISE (https://servicios3.jcyl.es/tras/rise); las aplicaciones BOEL y RITE solo permiten consultar instalaciones anteriores a mayo de 2021. Resolución inmediata (máximo 3 días desde la recepción en el Servicio Territorial) y silencio estimatorio, según la ficha.",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -168,7 +300,7 @@
           "orden": 2,
           "nombre": "Inspección inicial por OCA",
           "organismo": "Organismo de Control Autorizado (OCA) en Castilla y León",
-          "base_legal": "REBT RD 842/2002 ITC-BT-04 (inspección inicial >100 kW)",
+          "base_legal": "REBT RD 842/2002 ITC-BT-05 §4.1 (inspección inicial >100 kW)",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -185,18 +317,18 @@
               "obligatorio": true
             }
           ],
-          "notas": "Umbral de 100 kW para inspección inicial confirmado en la ITC-BT-04, aplicable en el resto de Castilla y León igual que en Castilla-La Mancha.",
+          "notas": "Umbral de 100 kW para inspección inicial confirmado en la ITC-BT-04, aplicable en el resto de Castilla y León igual que en Castilla-La Mancha.\nUmbral de 100 kW sin confirmar en el texto vigente del REBT: una fuente secundaria apunta a inspección inicial para generación con excedentes de más de 15 kW y sin excedentes de más de 100 kW.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
-          "nombre": "Autorización administrativa (Decreto 46/2022) e inscripción en BOEL",
-          "organismo": "Servicio Territorial de Industria, Comercio y Economía de la Junta de Castilla y León",
-          "base_legal": "Decreto 46/2022; Ley 24/2013 art. 53",
+          "nombre": "Autorización administrativa (Decreto 46/2022) e inscripción en RISE",
+          "organismo": "Servicios Territoriales de Industria, Comercio y Economía de la Junta de Castilla y León",
+          "base_legal": "Decreto 46/2022; Ley 24/2013 art. 53; Decreto 25/2026 (BOCyL 21/09/2026), que modifica el Decreto 46/2022",
           "plazo_estimado_dias": 30,
           "plazo_legal_dias": null,
-          "plataforma": "BOEL / Sede Electrónica de la Junta de Castilla y León",
+          "plataforma": "RISE (Registro de Instalaciones de Seguridad Industrial) de la Junta de Castilla y León",
           "plataforma_url": "https://www.tramitacastillayleon.jcyl.es/web/jcyl/AdministracionElectronica/es/Plantilla100Detalle/1251181050732/1/1240837594471/Tramite",
           "coste_estimado": "NO VERIFICADO",
           "formulario_ref": "IAPA13",
@@ -216,7 +348,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "plazo_legal_dias no confirmado.",
+          "notas": "plazo_legal_dias no confirmado.\nLa inscripción se tramita en RISE (https://servicios3.jcyl.es/tras/rise); las aplicaciones BOEL y RITE solo permiten consultar instalaciones anteriores a mayo de 2021. Resolución inmediata (máximo 3 días desde la recepción en el Servicio Territorial) y silencio estimatorio, según la ficha.\nNOVEDAD: el Decreto 25/2026 (BOCyL núm. 183, 21/09/2026) permite que las instalaciones de producción de hasta 500 kW obtengan solo la autorización de explotación, sin autorización previa ni de construcción, si no necesitan evaluación de impacto ambiental y cuentan con los acuerdos e informes favorables. Para 100-500 kW consulta con el Servicio Territorial antes de tramitar la autorización completa. No se leyó el texto íntegro del decreto.",
           "registro_salida": null,
           "medio_presentacion": null
         }

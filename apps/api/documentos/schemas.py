@@ -3,6 +3,7 @@ from typing import Dict, Literal, Optional
 from pydantic import BaseModel, Field
 
 from schemas.clasificador import ClasificadorOutput
+from schemas.orientacion import IdoneidadOutput
 
 
 class OrganizacionDoc(BaseModel):
@@ -50,3 +51,23 @@ class GenerarDocumentoInput(BaseModel):
     plan: ClasificadorOutput
     # Clave: orden del trámite como string (viene del JSONB del Bloque 1)
     tramites_estado: Dict[str, TramiteEstadoDoc] = Field(default_factory=dict)
+
+
+class GenerarInformeViabilidadInput(BaseModel):
+    """Informe de viabilidad geográfica (PREM-05): se genera directamente a
+    partir del resultado de /api/v1/orientacion/idoneidad, sin necesitar un
+    expediente ni una clasificación previa (mismo momento de embudo que
+    'presupuesto': disponible en el plan gratuito con marca PermitFlow)."""
+
+    organizacion: OrganizacionDoc
+    tecnologia_id: Literal[
+        "fotovoltaica_autoconsumo",
+        "climatizacion_aerotermia",
+        "irve",
+        "acs",
+        "gas_baja_presion",
+    ]
+    municipio: str
+    provincia: str
+    referencia_cliente: Optional[str] = None
+    idoneidad: IdoneidadOutput

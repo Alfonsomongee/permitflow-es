@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "extremadura",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -10,7 +10,9 @@
   "huecos_verificacion": [
     "No se ha localizado normativa autonómica extremeña específica de gas más allá del procedimiento combinado eléctrico/gas de la Resolución 20/06/2022",
     "Tasas y plazos legales no verificados",
-    "No se ha confirmado si Extremadura exige un trámite de comunicación separado del acta de puesta en servicio para instalaciones sin proyecto"
+    "No se ha confirmado si Extremadura exige un trámite de comunicación separado del acta de puesta en servicio para instalaciones sin proyecto",
+    "Verificación Prompt B (2026-10-05): Extremadura gas (Prompt B): BLOQUEANTE resuelto (alta, ficha 5873 y 5625): las instalaciones receptoras con proyecto se comunican por el CIP 5625, no por el CIP 5873 (autorización de explotación de gas canalizado). Base legal cambiada: las Resoluciones de 20/06/2022 y 09/04/2024 solo regulan la tramitación electrónica del 5873. Tasa Modelo 050 código 120565.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Extremadura gas): ≤ 70 kW y 5 bar sin proyecto sin norma autonómica localizada que exija registro (el único certificado de gas publicado es el «con proyecto»; apoya, sin demostrarlo, que no hay registro; confirmar con el Servicio); comunes y acometidas > 2.000 kW y ampliaciones ≥ 30 % sin modelar; plazo del CIP 5625 (3 meses, silencio desestimatorio) pendiente de decisión editorial."
   ],
   "fuentes": [
     {
@@ -89,14 +91,14 @@
         },
         {
           "orden": 3,
-          "nombre": "Autorización de explotación / acta de puesta en servicio",
-          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
-          "base_legal": "Resolución de 20 de junio de 2022, modificada por Resolución de 9 de abril de 2024",
+          "nombre": "Comunicación de documentación acreditativa del cumplimiento de normas de seguridad industrial (Grupo II): instalaciones receptoras de gas con proyecto (CIP 5625)",
+          "organismo": "Servicio de Ordenación Industrial y Energética (Mérida, con Unidades en Badajoz y Cáceres; denominación del Decreto 162/2026, que la sede aún no usa)",
+          "base_legal": "RD 919/2006 (RIGLO), ITC-ICG 07; Decreto 49/2004, art. 5 (mod. Decreto 66/2016); Orden de 20/07/2017; Resolución de 31/10/2017",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "https://www.juntaex.es/w/5873",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva) y Sede Electrónica (CIP 5625)",
+          "plataforma_url": "https://www.juntaex.es/w/5625",
+          "coste_estimado": "Modelo 050, código de tasa 120565 (instalaciones de gases combustibles del Grupo II); importe 2026 no localizado.",
           "formulario_ref": "CIP 5873",
           "paralelo_con": null,
           "regla_id": "EXT-GAS-001",
@@ -112,9 +114,27 @@
               "label": "Certificado de Instalación de gas",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "ftd_gas",
+              "label": "Ficha técnica descriptiva de gas (código de AsistenteAGILE)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_050",
+              "label": "Justificante de tasa (Modelo 050)",
+              "descripcion": "Código 120565.",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "El CIP 5873 solo cubre gas canalizado (transporte secundario, distribución y GLP canalizado); las instalaciones receptoras con proyecto se comunican por el CIP 5625. Documentos: ficha técnica descriptiva de gas (AsistenteAGILE), certificado de instalación «con proyecto», certificado de dirección de obra y justificante de tasa.\nLa ficha 5625 publica plazo de 3 meses con silencio desestimatorio; se deja plazo_legal_dias sin valor porque una comunicación habilita desde su presentación (decisión pendiente, Ley 21/1992 art. 4.3).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -278,14 +298,14 @@
         },
         {
           "orden": 3,
-          "nombre": "Autorización de explotación / acta de puesta en servicio",
-          "organismo": "Dirección General de Industria, Energía y Minas de la Junta de Extremadura",
-          "base_legal": "Resolución de 20 de junio de 2022, modificada por Resolución de 9 de abril de 2024",
+          "nombre": "Comunicación de documentación acreditativa del cumplimiento de normas de seguridad industrial (Grupo II): instalaciones receptoras de gas con proyecto (CIP 5625)",
+          "organismo": "Servicio de Ordenación Industrial y Energética (Mérida, con Unidades en Badajoz y Cáceres; denominación del Decreto 162/2026, que la sede aún no usa)",
+          "base_legal": "RD 919/2006 (RIGLO), ITC-ICG 07; Decreto 49/2004, art. 5 (mod. Decreto 66/2016); Orden de 20/07/2017; Resolución de 31/10/2017",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
-          "plataforma": "Sede Electrónica de la Junta de Extremadura",
-          "plataforma_url": "https://www.juntaex.es/w/5873",
-          "coste_estimado": "NO VERIFICADO",
+          "plataforma": "AsistenteAGILE (ficha técnica descriptiva) y Sede Electrónica (CIP 5625)",
+          "plataforma_url": "https://www.juntaex.es/w/5625",
+          "coste_estimado": "Modelo 050, código de tasa 120565 (instalaciones de gases combustibles del Grupo II); importe 2026 no localizado.",
           "formulario_ref": "CIP 5873",
           "paralelo_con": null,
           "regla_id": "EXT-GAS-003",
@@ -301,9 +321,27 @@
               "label": "Certificado de Instalación de gas",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "ftd_gas",
+              "label": "Ficha técnica descriptiva de gas (código de AsistenteAGILE)",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_gas",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_050",
+              "label": "Justificante de tasa (Modelo 050)",
+              "descripcion": "Código 120565.",
+              "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "El CIP 5873 solo cubre gas canalizado (transporte secundario, distribución y GLP canalizado); las instalaciones receptoras con proyecto se comunican por el CIP 5625. Documentos: ficha técnica descriptiva de gas (AsistenteAGILE), certificado de instalación «con proyecto», certificado de dirección de obra y justificante de tasa.\nLa ficha 5625 publica plazo de 3 meses con silencio desestimatorio; se deja plazo_legal_dias sin valor porque una comunicación habilita desde su presentación (decisión pendiente, Ley 21/1992 art. 4.3).",
           "registro_salida": null,
           "medio_presentacion": null
         }

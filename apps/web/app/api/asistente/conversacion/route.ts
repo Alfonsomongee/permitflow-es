@@ -9,9 +9,8 @@
  */
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { API_URL, cabecerasInternas } from "@/lib/server/api";
 
-const rawUrl = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-const API_URL = rawUrl.replace(/\/+$/, "");
 
 export async function GET(req: Request) {
   const { userId, orgId } = await auth();
@@ -28,7 +27,7 @@ export async function GET(req: Request) {
     const res = await fetch(`${API_URL}/api/v1/asistente/conversacion${qs}`, {
       method: "GET",
       headers: {
-        "X-Internal-Key": process.env.INTERNAL_API_KEY ?? "",
+        ...cabecerasInternas(),
         "x-org-id": orgId,
         "x-user-id": userId,
       },

@@ -178,6 +178,22 @@ export const nuevaInstalacionSchema = z.object({
     }
   }
 
+  // Sin el nivel de tensión el motor no puede determinar puesta en servicio ni
+  // inscripción: devolvía (y se guardaba como expediente) un plan de "revisión
+  // manual" cuyo único trámite era pedir ese dato. Se exige antes de enviar.
+  if (
+    data.tipo_instalacion === "fotovoltaica_autoconsumo" &&
+    data.tension !== "BT" &&
+    data.tension !== "AT" &&
+    !(data.nivel_tension_consumidor && data.nivel_tension_generacion && data.nivel_tension_conexion)
+  ) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Selecciona el nivel de tensión de conexión (BT o AT).",
+      path: ["tension"],
+    });
+  }
+
   if (data.comunidad === "canarias" && data.tipo_instalacion === "fotovoltaica_autoconsumo" && !data.implantacion) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Indica la implantacion de la instalacion (cubierta o suelo).", path: ["implantacion"] });
   }

@@ -1,7 +1,11 @@
+import logging
+
 from fastapi import APIRouter, HTTPException, status
 from schemas.clasificador import ClasificadorInput, ClasificadorOutput
 from motor_normativo.clasificador import Clasificador
 from motor_normativo.excepciones import NormativaNoEncontradaError
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/clasificador", tags=["clasificador"])
 clasificador = Clasificador()
@@ -16,8 +20,10 @@ async def clasificar_instalacion(params: ClasificadorInput):
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(e)
         )
-    except Exception as e:
+    except Exception:
+        # No devolver str(e): puede contener rutas, nombres de regla o datos del motor.
+        logger.exception("Error interno al clasificar")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error interno al clasificar: {str(e)}"
+            detail="No se pudo clasificar la instalación por un error interno. Inténtalo de nuevo o contacta con soporte.",
         )

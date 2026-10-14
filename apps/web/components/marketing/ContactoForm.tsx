@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +22,8 @@ const contactoSchema = z.object({
   mensaje: z.string().min(10, "Cuéntanos un poco más (mínimo 10 caracteres)."),
   // Honeypot: campo oculto para bots. Un humano nunca lo rellena.
   empresa_web: z.string().max(0, "").optional(),
+  // Consentimiento informado (art. 13 RGPD): sin él no se envía el formulario.
+  acepto: z.literal(true, { error: "Debes aceptar la política de privacidad para enviar el mensaje." }),
 });
 
 type ContactoFormValues = z.infer<typeof contactoSchema>;
@@ -47,11 +50,13 @@ export function ContactoForm() {
 
   const onSubmit = async (data: ContactoFormValues) => {
     try {
+      const { acepto: _acepto, ...datosEnviados } = data;
+      void _acepto; // la aceptación se exige en cliente; no viaja al servidor
       const response = await fetch("/api/contacto", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...data,
+          ...datosEnviados,
           tipo_instalacion: tipo || undefined,
         }),
       });
@@ -127,6 +132,25 @@ export function ContactoForm() {
       <div className="hidden" aria-hidden="true">
         <label htmlFor="empresa_web">No rellenar este campo</label>
         <input id="empresa_web" type="text" tabIndex={-1} autoComplete="off" {...register("empresa_web")} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <label className="flex items-start gap-2 text-sm text-text-secondary">
+          <input
+            type="checkbox"
+            className="mt-0.5 h-4 w-4 rounded border-input accent-primary"
+            aria-invalid={!!errors.acepto}
+            {...register("acepto")}
+          />
+          <span>
+            He leído la{" "}
+            <Link href="/privacidad" className="text-primary underline underline-offset-2" target="_blank">
+              política de privacidad
+            </Link>{" "}
+            y acepto que se traten mis datos para responder a mi consulta.
+          </span>
+        </label>
+        {errors.acepto && <p className="text-sm text-destructive">{errors.acepto.message}</p>}
       </div>
 
       <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">

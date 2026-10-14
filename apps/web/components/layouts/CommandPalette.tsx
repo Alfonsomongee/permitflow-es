@@ -241,7 +241,7 @@ export function CommandPalette() {
                         highlighted === index ? "bg-bg text-text-primary" : "text-text-secondary"
                       )}
                     >
-                      <LayoutGrid size={15} className="flex-shrink-0 text-text-secondary/70" aria-hidden />
+                      <LayoutGrid size={15} className="flex-shrink-0 text-text-secondary" aria-hidden />
                       <span className="min-w-0 flex-1 truncate">
                         {expediente.cliente ?? "Sin referencia"}
                         <span className="text-text-secondary">

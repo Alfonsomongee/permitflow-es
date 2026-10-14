@@ -1,16 +1,20 @@
 {
   "tipo_instalacion": "irve",
   "comunidad": "aragon",
-  "version": "0.9.1",
-  "ultima_revision": "2026-07-28",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-01",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
-  "aviso": "Umbrales verificados contra normativa nacional, acatados sin alteración en Aragón. Auditoría 2026-07-28: rellenada plataforma_url del Trámite Nº 26 con la ficha oficial confirmada. 'estado' se mantiene en verificado_parcialmente por los huecos restantes (ver huecos_verificacion), entre ellos la ausencia del trámite ante distribuidora para nuevo suministro.",
+  "aviso": "Umbrales verificados contra la normativa estatal (ITC-BT-04) y sin alteración en Aragón. Verificación Prompt B (2026-10-01): el Trámite Nº 26 existe; se corrigieron plazos, tasa, documentación y base legal. Faltan trámites propios de la IRVE (listado de puntos de recarga, Trámite 606 para más de 3.000 kW) y el trámite con la distribuidora (ver huecos_verificacion).",
   "huecos_verificacion": [
-    "Orden EIE/1731/2017: no se ha localizado ni verificado su texto articulado completo; se cita por aparecer en la ficha oficial del trámite, sin confirmar vigencia de los decretos de 2003/2005/2006 citados en el fichero original.",
-    "Estructura de tasas: ninguna cifra del fichero original tenía epígrafe de la Ley de Tasas de Aragón (Tasa 14) que la sustente. Se reportan como NO VERIFICADO.",
-    "AESSIA vs DIGITA: no se ha verificado si son canales alternativos para el mismo trámite o si aplican a supuestos distintos. Auditoría 2026-07-28: AESSIA es entidad colaboradora reconocida por Decreto 38/2015 (no plataforma en sí); DIGITA es la plataforma propia del Gobierno de Aragón.",
-    "Falta el trámite ante la distribuidora cuando la IRVE requiere nuevo suministro o ampliación de potencia. El schema ya expone el campo 'requiere_nuevo_suministro' (disponible en el formulario web, ver apps/web/components/nueva-instalacion/Step2ParametrosTecnicos.tsx) pero no está usado en ninguna regla de este fichero. No se ha añadido como regla nueva en esta corrección quirúrgica para no introducir una condición no verificada previamente contra fuente primaria (procedimiento y plazos exactos ante la distribuidora no localizados); requiere campo de formulario: requiere_nuevo_suministro, ya disponible, pendiente de regla dedicada verificada."
+    "Falta el trámite ante la distribuidora cuando la IRVE requiere nuevo suministro o ampliación de potencia. El schema ya expone el campo 'requiere_nuevo_suministro' (disponible en el formulario web, ver apps/web/components/nueva-instalacion/Step2ParametrosTecnicos.tsx) pero no está usado en ninguna regla de este fichero. No se ha añadido como regla nueva en esta corrección quirúrgica para no introducir una condición no verificada previamente contra fuente primaria (procedimiento y plazos exactos ante la distribuidora no localizados); requiere campo de formulario: requiere_nuevo_suministro, ya disponible, pendiente de regla dedicada verificada.",
+    "Verificación Prompt B Aragón (2026-10-01): Plazos: se quitaron los plazo_legal_dias (15 y 20) del Trámite Nº 26: las comunicaciones de BT no dan lugar a resolución expresa y se tienen por practicadas válidamente al presentarlas y pagar la tasa (cita literal, confianza media). Tasa: Tasa 14, Modelo 514 (memoria 86,35 € + (N-1)×5,65 €; proyecto 129,50 € + (N-1)×5,65 €; exento vía organismo de control o entidad colaboradora). Los importes de la Tasa 14 (Modelo 514) proceden de las guías de servicios de aragon.es; no se localizó la tarifa en el texto de la Ley 2/2016 (cap. XIV) y pueden variar con la actualización anual. No se verificó qué epígrafe aplica a cada vertical (el de IRVE y FV en BT se asimiló a la tarifa general de BT).",
+    "Verificación Prompt B Aragón (2026-10-01): Documentos: se añadieron el formulario E0001 y el justificante del Modelo 514; la memoria técnica es el Modelo C0001 (puede sustituirse por proyecto) y el certificado de instalación el C0004 (confianza media). Base legal: se añadieron la Orden ICD/302/2020 (modifica la EIE/1731/2017, BOA 13/04/2020, cita literal) y la Orden EIE/1132/2018.",
+    "Verificación Prompt B Aragón (2026-10-01): OMISIONES: (1) inscripción en el listado de puntos de recarga del Gobierno de Aragón (sin base legal identificada en la página oficial); (2) Trámite 606: solicitud de autorización administrativa previa para potencia superior a 3.000 kW; (3) remisión de información al Ministerio sobre suministro de productos petrolíferos para gestores de puntos de recarga abiertos al público; (4) acceso y conexión / nuevo suministro o ampliación de potencia ante la distribuidora (campo requiere_nuevo_suministro sin usar).",
+    "Verificación Prompt B Aragón (2026-10-01): RD 88/2026 (art. 38): obliga a la distribuidora a verificar las instalaciones en incrementos de potencia de contratos de BT de más de 20 años; no altera ningún trámite autonómico de este fichero (fuente secundaria), pero sí afectaría al trámite con la distribuidora que falta.",
+    "Verificación Prompt B Aragón (2026-10-01): Hueco lógico (no normativo): con ubicacion_irve distinta de las cuatro cadenas listadas (p. ej. vivienda unifamiliar) y modo de recarga distinto de 4, ninguna regla se activa. Los umbrales (proyecto si modo 4, interior > 50 kW o exterior > 10 kW) coinciden con el marco estatal y no se tocaron.",
+    "Verificación Prompt B Aragón (2026-10-01): AESSIA y DIGITA están confirmados como canales, pero sigue sin aclararse si cubren supuestos distintos o son alternativas. La Resolución de 23/06/2021 de la DG de Industria (incorporación de trámites a las plataformas telemáticas) debería consultarse en el BOA.",
+    "Verificación Prompt B Aragón (2026-10-01): aragon.es/tramitador bloqueó la lectura automatizada (robots.txt): existencia, plazos, silencio, tasas y documentos de los trámites Nº 26 (BT), Nº 33 (gas), Nº 39 (RITE) y de la página de energía fotovoltaica se confirmaron con el texto que aragon.es publica en buscadores, no abriendo cada ficha. Hay que abrirlas a mano. Solo hay una cita literal por fuente; el resto va parafraseado."
   ],
   "fuentes": [
     {
@@ -32,6 +36,11 @@
       "norma": "Decreto 38/2015 del Gobierno de Aragon -- reconoce a AESSIA como entidad colaboradora de la Administracion en seguridad industrial",
       "url": "https://www.boa.aragon.es/cgi-bin/EBOA/BRSCGI?CMD=VEROBJ&MLKOB=845932645757&type=pdf",
       "fecha_consulta": "2026-08-08"
+    },
+    {
+      "norma": "Orden EIE/1132/2018 y Orden ICD/302/2020 (Aragón), modificaciones de la Orden EIE/1731/2017",
+      "url": "https://aragon.es/-/instalaciones-de-baja-tension",
+      "fecha_consulta": "2026-10-01"
     }
   ],
   "reglas": [
@@ -117,8 +126,8 @@
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
-              "label": "Memoria Tecnica de Diseno para IRVE",
-              "descripcion": "Documento firmado por instalador habilitado.",
+              "label": "Memoria técnica de diseño (Modelo C0001)",
+              "descripcion": "Modelo C0001, firmada por la empresa instaladora habilitada. Puede sustituirse por proyecto.",
               "obligatorio": true
             }
           ],
@@ -142,8 +151,8 @@
           "documentos_requeridos": [
             {
               "id": "cie_irve",
-              "label": "Certificado de Instalacion Electrica",
-              "descripcion": "Boletin electrico.",
+              "label": "Certificado de instalación eléctrica (Modelo C0004)",
+              "descripcion": "Boletín eléctrico (Modelo C0004), emitido por la empresa instaladora.",
               "obligatorio": true
             }
           ],
@@ -155,30 +164,42 @@
           "orden": 3,
           "nombre": "Trámite Nº 26: Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio, modificación y baja",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RD 842/2002; Orden EIE/1731/2017",
+          "base_legal": "RD 842/2002; Orden EIE/1731/2017, modificada por la Orden EIE/1132/2018 y la Orden ICD/302/2020",
           "plazo_estimado_dias": 10,
-          "plazo_legal_dias": 15,
+          "plazo_legal_dias": null,
           "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
           "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
-          "coste_estimado": "NO VERIFICADO -- sin epigrafe de la Tasa 14 confirmado para este supuesto",
+          "coste_estimado": "Tasa 14 (autoliquidación Modelo 514), tarifa con memoria técnica: 86,35 € + (N-1)×5,65 €. Importes de la guía de servicios de aragon.es; pueden actualizarse cada año. No se exige si se tramita a través de entidad colaboradora u organismo de control.",
           "formulario_ref": "Modelo C0004 (certificado de instalacion electrica, segun ficha oficial de BT)",
           "paralelo_con": null,
           "regla_id": null,
           "documentos_requeridos": [
             {
               "id": "mtd_irve",
-              "label": "MTD",
+              "label": "Memoria técnica de diseño (Modelo C0001)",
               "descripcion": "Del paso 1.",
               "obligatorio": true
             },
             {
               "id": "cie_irve",
-              "label": "CIE",
+              "label": "Certificado de instalación eléctrica (Modelo C0004)",
               "descripcion": "Del paso 2.",
+              "obligatorio": true
+            },
+            {
+              "id": "formulario_e0001",
+              "label": "Formulario de comunicación (Modelo E0001)",
+              "descripcion": "Necesario en todas las comunicaciones de instalaciones de baja tensión.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_514",
+              "label": "Justificante de la tasa (autoliquidación Modelo 514)",
+              "descripcion": "Tasa 14 del Gobierno de Aragón. No se exige si se tramita por entidad colaboradora u organismo de control.",
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del tramitador de aragon.es (Trámite Nº 26; mismo trámite usado por fotovoltaica, denominación y número coinciden exactamente). CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial. CORRECCION: el fichero original citaba el Decreto 131/2003 y/o 131/2005 y sus órdenes de desarrollo (2003/2006) como base procedimental. La ficha oficial de 'Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio' en aragon.es cita como normativa aplicable el RD 842/2002 (REBT) y la Orden EIE/1731/2017, de 5 de octubre, de regulación de determinados procedimientos administrativos en materia de seguridad industrial de las instalaciones eléctricas de baja tensión. No se ha confirmado si esa Orden deroga expresamente los decretos anteriores o los complementa; se cita como base legal vigente a falta de esa comprobación de derogación expresa.",
+          "notas": "Trámite Nº 26 de aragon.es (comunicación de puesta en servicio de instalaciones eléctricas de baja tensión; Aragón lo lista como «Puesta en servicio de baja tensión» para los puntos de recarga). Es una comunicación: no hay plazo máximo de resolución y, presentada la documentación (y pagada la tasa), se entiende practicada válidamente (silencio positivo, según la guía de servicios de Aragón). Se presenta por DIGITA (plataforma del Gobierno de Aragón) o a través de una entidad colaboradora como AESSIA (Decreto 38/2015).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -287,8 +308,8 @@
           "documentos_requeridos": [
             {
               "id": "cie_irve",
-              "label": "CIE",
-              "descripcion": "Boletin electrico.",
+              "label": "Certificado de instalación eléctrica (Modelo C0004)",
+              "descripcion": "Boletín eléctrico (Modelo C0004), emitido por la empresa instaladora.",
               "obligatorio": true
             }
           ],
@@ -300,12 +321,12 @@
           "orden": 3,
           "nombre": "Trámite Nº 26: Instalaciones eléctricas de baja tensión: comunicación de puesta en servicio, modificación y baja",
           "organismo": "Servicio Provincial de Industria (Gobierno de Aragon)",
-          "base_legal": "RD 842/2002; Orden EIE/1731/2017",
+          "base_legal": "RD 842/2002; Orden EIE/1731/2017, modificada por la Orden EIE/1132/2018 y la Orden ICD/302/2020",
           "plazo_estimado_dias": 15,
-          "plazo_legal_dias": 20,
+          "plazo_legal_dias": null,
           "plataforma": "AESSIA (entidad colaboradora, Decreto 38/2015) o DIGITA (plataforma del Gobierno de Aragón)",
           "plataforma_url": "https://www.aragon.es/tramitador/-/tramite/instalaciones-electricas-baja-tension-comunicacion-puesta-servicio-baja",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa 14 (autoliquidación Modelo 514), tarifa con proyecto: 129,50 € + (N-1)×5,65 €. Importes de la guía de servicios de aragon.es; pueden actualizarse cada año. No se exige si se tramita a través de entidad colaboradora u organismo de control.",
           "formulario_ref": "Modelo C0004",
           "paralelo_con": null,
           "regla_id": null,
@@ -318,12 +339,24 @@
             },
             {
               "id": "cie_irve",
-              "label": "CIE",
+              "label": "Certificado de instalación eléctrica (Modelo C0004)",
               "descripcion": "Del paso 2.",
+              "obligatorio": true
+            },
+            {
+              "id": "formulario_e0001",
+              "label": "Formulario de comunicación (Modelo E0001)",
+              "descripcion": "Necesario en todas las comunicaciones de instalaciones de baja tensión.",
+              "obligatorio": true
+            },
+            {
+              "id": "justificante_tasa_514",
+              "label": "Justificante de la tasa (autoliquidación Modelo 514)",
+              "descripcion": "Tasa 14 del Gobierno de Aragón. No se exige si se tramita por entidad colaboradora u organismo de control.",
               "obligatorio": true
             }
           ],
-          "notas": "CORRECCION 2026-07-28: plataforma_url rellenada con la ficha oficial confirmada del Trámite Nº 26. CORRECCION: el fichero original citaba la plataforma 'SIRIA', que no aparece en ningun trámite oficial localizado en aragon.es. Las fuentes oficiales de Aragón describen 'DIGITA' (plataforma electrónica de tramitación del Gobierno de Aragón) y 'AESSIA' (Entidad Colaboradora de la Administración, reconocida por Decreto 38/2015) como los canales reales para comunicaciones de seguridad industrial.",
+          "notas": "Trámite Nº 26 de aragon.es (comunicación de puesta en servicio de instalaciones eléctricas de baja tensión; Aragón lo lista como «Puesta en servicio de baja tensión» para los puntos de recarga). Es una comunicación: no hay plazo máximo de resolución y, presentada la documentación (y pagada la tasa), se entiende practicada válidamente (silencio positivo, según la guía de servicios de Aragón). Se presenta por DIGITA (plataforma del Gobierno de Aragón) o a través de una entidad colaboradora como AESSIA (Decreto 38/2015).",
           "registro_salida": null,
           "medio_presentacion": null
         }

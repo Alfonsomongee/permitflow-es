@@ -1,14 +1,16 @@
 {
   "tipo_instalacion": "climatizacion_aerotermia",
   "comunidad": "asturias",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.1.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
   "aviso": "Auditoría 2026-07-28: corregido BLOQUEANTE de motor (condición comparaba 'tipo_instalacion', variable no incluida en el barrido de cobertura del validador y ausente de las reglas equivalentes ya corregidas en otras CCAA; las reglas nunca disparaban). Corregida secuencia de la tasa 046 (posterior al registro), añadido contrato de mantenimiento >70kW, y excepcionada la inspección OCA para conjuntos de instalaciones individuales <70kW en uso residencial vivienda.",
   "huecos_verificacion": [
-    "PENDIENTE: no se ha añadido cota inferior de potencia (>5kW), 'Solicitud en modelo normalizado' como documento explícito, ni las citas de RSIF (RD 138/2011) y Resolución de 21/11/2017 en 'fuentes' (hallazgos MEDIO de la auditoría); no son mecánicos y requieren diseño adicional del itinerario."
+    "PENDIENTE: no se ha añadido cota inferior de potencia (>5kW), 'Solicitud en modelo normalizado' como documento explícito, ni las citas de RSIF (RD 552/2019 (sustituye al RD 138/2011)) y Resolución de 21/11/2017 en 'fuentes' (hallazgos MEDIO de la auditoría); no son mecánicos y requieren diseño adicional del itinerario.",
+    "Verificación Prompt B (2026-10-05): Asturias (Prompt B): RECE0050T01 se llama «Registro del certificado de instalación térmica de edificios (RITE)» (alta). Organismo: Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria), según el Decreto 49/2025, de 29/04/2025, modificado por los Decretos 73/2025 y 35/2026 (resúmenes de INAP/iustel, fuente secundaria; adscripción exacta del Servicio de Fluidos y Metrología sin confirmar en el BOPA). Ficha sin leer (robots.txt): plazo de 28 días, silencio, tasa (DL 1/1998, arts. 36-39, tarifa 1) y modelos sin verificar.",
+    "Verificación Prompt B (2026-10-05): DECISIÓN PENDIENTE (Asturias aerotermia): falta el trámite frigorífico (RSIF, RD 552/2019) del equipo con refrigerante; en el catálogo constan RECE0004T05 (empresas frigoristas) y RECE0004T24 (puesta en servicio de instalaciones de industrias), sin contenido leído."
   ],
   "fuentes": [
     {
@@ -122,8 +124,8 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de la instalación térmica (RECE0050T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Fluidos y Metrología",
+          "nombre": "Registro del certificado de instalación térmica de edificios (RITE) (RECE0050T01)",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Fluidos y Metrología",
           "base_legal": "RITE RD 1027/2007 art. 23-24; Decreto 11/2015",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": 28,
@@ -198,8 +200,8 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de la instalación térmica e Inspección Inicial (RECE0050T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Fluidos y Metrología",
+          "nombre": "Registro del certificado de instalación térmica de edificios (RITE) e Inspección Inicial (RECE0050T01)",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Fluidos y Metrología",
           "base_legal": "RITE RD 1027/2007 art. 15, 23-24; Decreto 11/2015",
           "plazo_estimado_dias": 20,
           "plazo_legal_dias": 28,

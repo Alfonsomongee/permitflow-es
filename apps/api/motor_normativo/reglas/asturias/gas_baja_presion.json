@@ -1,15 +1,17 @@
 {
   "tipo_instalacion": "gas_baja_presion",
   "comunidad": "asturias",
-  "version": "1.1.0",
-  "ultima_revision": "2026-07-28",
+  "version": "1.1.1",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "verificado_parcialmente",
   "revisado_por": null,
   "aviso": "Auditoría 2026-07-28 (CRÍTICO): DECO0011T01 no procede para instalaciones que no requieren proyecto (AST-GAS-001, el caso más frecuente); la ficha oficial es taxativa: 'no es precisa ninguna comunicación a la administración' salvo que se requiera proyecto. Sustituido por entrega del certificado de instalación al suministrador. Corregidos también: secuencia de la tasa 046 (posterior), documentos faltantes de DECO0011T01, y cita errónea de RD 984/2015.",
   "huecos_verificacion": [
     "requiere campo de formulario: clase_instalacion_gas — existe en schemas/clasificador.py (individual|comun|conexion_servicio) pero Step2ParametrosTecnicos.tsx (CamposGas) no lo renderiza; no se ha podido implementar la distinción de la ITC-ICG 07 ap. 3.2 entre instalaciones individuales (>70kW), comunes (>2.000kW) y acometidas interiores (>2.000kW) que dispara el proyecto técnico. AST-GAS-002 sigue aplicando el umbral de 70kW a cualquier instalación (hallazgo ALTO no resuelto, requiere nuevo campo de formulario).",
-    "PENDIENTE (no mecánico): no se han añadido el certificado de chimeneas (edificios nueva planta), el certificado de puesta en marcha de cada aparato a gas (ITC-ICG 08 anexo 4), la inspección periódica quinquenal, ni la base legal completa (apartado 5.7 RD 919/2006, apartado 3.6 ITC-ICG-07, Ley 34/1998); requieren diseño adicional del itinerario, no solo corrección de datos."
+    "PENDIENTE (no mecánico): no se han añadido el certificado de chimeneas (edificios nueva planta), el certificado de puesta en marcha de cada aparato a gas (ITC-ICG 08 anexo 4), la inspección periódica quinquenal, ni la base legal completa (apartado 5.7 RD 919/2006, apartado 3.6 ITC-ICG-07, Ley 34/1998); requieren diseño adicional del itinerario, no solo corrección de datos.",
+    "Verificación Prompt B (2026-10-05): Asturias gas (Prompt B): organismo actualizado. Organismo: Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria), según el Decreto 49/2025, de 29/04/2025, modificado por los Decretos 73/2025 y 35/2026 (resúmenes de INAP/iustel, fuente secundaria; adscripción exacta del Servicio de Fluidos y Metrología sin confirmar en el BOPA). Plazo legal de 30 días de DECO0011T01 retirado (comunicación; baja, ficha sin leer); el portal oficial de gas solo lista comunicaciones ICG 02, 03, 04, 05 y 07 y no un registro asturiano para ≤ 70 kW sin proyecto (media). Base legal del paso 3 de AST-GAS-001: ITC-ICG 07 en lugar de la ficha.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Asturias gas): documentos y tasa de DECO0011T01 sin leer; comunes y acometidas > 2.000 kW y ampliaciones ≥ 30 % sin modelar (falta variable de clase de instalación); certificado de puesta en marcha de cada aparato (modelo oficial UNE 60670-10:2014) sin modelar."
   ],
   "fuentes": [
     {
@@ -119,7 +121,7 @@
           "nombre": "Entrega del certificado de instalación al suministrador de gas",
           "tipo_actuacion": "accion_usuario",
           "organismo": "Empresa suministradora/distribuidora de gas",
-          "base_legal": "Ficha oficial DECO0011T01 (Comunicación de instalaciones receptoras de gases combustibles, ICG 07)",
+          "base_legal": "RD 919/2006 RIGLO ITC-ICG-07",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -231,10 +233,10 @@
         {
           "orden": 3,
           "nombre": "Comunicación de instalación receptora de gases combustibles (DECO0011T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Fluidos y Metrología",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Fluidos y Metrología",
           "base_legal": "RIGLO RD 919/2006 apartado 5.7; ITC-ICG-07 apartado 3.6",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000023985654207573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998, liquidada tras el registro (carta de pago emitida de oficio)",
@@ -267,7 +269,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada.",
+          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada.\nEs una comunicación: no tiene plazo de resolución ni silencio; los 30 días son el plazo de presentación del titular tras la puesta en servicio (ITC-ICG 07, apdo. 3.6).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -344,10 +346,10 @@
         {
           "orden": 3,
           "nombre": "Comunicación de instalación receptora de gases combustibles (DECO0011T01)",
-          "organismo": "Consejería de Transición Ecológica, Industria y Desarrollo Económico – Servicio de Fluidos y Metrología",
+          "organismo": "Consejería de Ciencia, Industria y Empleo (Viceconsejería de Industria) del Principado de Asturias – Servicio de Fluidos y Metrología",
           "base_legal": "RIGLO RD 919/2006 apartado 5.7; ITC-ICG-07 apartado 3.6",
           "plazo_estimado_dias": 20,
-          "plazo_legal_dias": 30,
+          "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Principado de Asturias",
           "plataforma_url": "https://miprincipado.asturias.es/-/dboid-6269000023985654207573",
           "coste_estimado": "Tasa según Decreto Legislativo 1/1998, liquidada tras el registro (carta de pago emitida de oficio)",
@@ -380,7 +382,7 @@
               "obligatorio": true
             }
           ],
-          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Proyecto obligatorio independientemente de la potencia por superar MOP 5 bar.",
+          "notas": "Registrada la instalación, los Servicios Tributarios del Principado emitirán de oficio la carta de pago de la tasa (Modelo 046); no se aporta como documento de entrada. Proyecto obligatorio independientemente de la potencia por superar MOP 5 bar.\nEs una comunicación: no tiene plazo de resolución ni silencio; los 30 días son el plazo de presentación del titular tras la puesta en servicio (ITC-ICG 07, apdo. 3.6).",
           "registro_salida": null,
           "medio_presentacion": null
         }

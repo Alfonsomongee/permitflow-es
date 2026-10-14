@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "cantabria",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -13,7 +13,9 @@
     "Tasas y plazos legales de resolución no verificados con detalle",
     "No se ha confirmado el nombre exacto de un 'Registro de autoconsumo' diferenciado en Cantabria, más allá del registro general de instalaciones eléctricas de BT (trámites 3446/180)",
     "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
-    "NO VERIFICABLE (auditoría 2026-07-28): no se ha localizado una ficha específica de 'autorización administrativa previa' para generación eléctrica >100kW en el catálogo de sede.cantabria.es; solo se ha encontrado el trámite 59 ('Autorización y puesta en servicio de instalaciones eléctricas de alta tensión'), que no coincide con claridad con el caso de autoconsumo en baja tensión >100kW. Se mantiene la plataforma_url genérica en CANT-FV-002 orden2 en vez de enlazar a un trámite que podría no corresponder."
+    "NO VERIFICABLE (auditoría 2026-07-28): no se ha localizado una ficha específica de 'autorización administrativa previa' para generación eléctrica >100kW en el catálogo de sede.cantabria.es; solo se ha encontrado el trámite 59 ('Autorización y puesta en servicio de instalaciones eléctricas de alta tensión'), que no coincide con claridad con el caso de autoconsumo en baja tensión >100kW. Se mantiene la plataforma_url genérica en CANT-FV-002 orden2 en vez de enlazar a un trámite que podría no corresponder.",
+    "Verificación Prompt B (2026-10-05): Cantabria FV (Prompt B): BLOQUEANTE resuelto (media, ITC-BT-04 §3.1): CANT-FV-001 pasa a «hasta 10 kW» y se añade CANT-FV-001P (10-100 kW) con proyecto y certificado de dirección de obra. La cita del art. 9 del RD 244/2019 era errónea (regula contratos de suministro; alta, BOE consolidado): se sustituye por los arts. 5 y 7. Tasa: tarifa 2.2 de la Ley 9/1992.",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Cantabria FV): ninguna ficha de sede.cantabria.es (3446, 180, 59) se pudo leer (robots.txt). Umbral de autorización administrativa por encima de 100 kW sin base autonómica verificada (el extracto del Decreto 6/2003 excluye las instalaciones de hasta 1 kV; art. 53 de la Ley 24/2013 sin leer); trámite 59 solo si conecta en alta tensión; plataforma_url de CANT-FV-002 orden 2 es la portada; falta distinción con/sin excedentes, solicitud de acceso y conexión (RD 244/2019, art. 7; RD 1183/2020) y licencia o comunicación municipal; vigencia de la Orden de 17/10/2003 sin localizar."
   ],
   "fuentes": [
     {
@@ -55,13 +57,13 @@
   "reglas": [
     {
       "id": "CANT-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
+      "descripcion": "Autoconsumo de hasta 10 kW en baja tensión: memoria técnica y registro",
       "condicion": {
         "<=": [
           {
             "var": "potencia_kw"
           },
-          100
+          10
         ]
       },
       "tramites": [
@@ -69,7 +71,7 @@
           "orden": 1,
           "nombre": "Memoria Técnica de Diseño (MTD) fotovoltaica",
           "organismo": "Instalador electricista habilitado (categoría especialista en instalaciones generadoras BT)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019, arts. 5 y 7; REBT ITC-BT-04 apdo. 3.1",
           "plazo_estimado_dias": 2,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -124,7 +126,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
           "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tarifa 2.2 de la Ley 9/1992 («Instalaciones eléctricas en baja tensión»); importe 2026 no localizado.",
           "formulario_ref": "3446",
           "paralelo_con": null,
           "regla_id": "CANT-FV-001",
@@ -139,6 +141,125 @@
               "id": "certificado_instalacion",
               "label": "Certificado de Instalación",
               "descripcion": "",
+              "obligatorio": true
+            }
+          ],
+          "notas": "No confirmado si existe un 'Registro de autoconsumo' diferenciado; se usa el registro general de instalaciones BT.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "CANT-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW en baja tensión: proyecto técnico, certificado de dirección de obra y registro",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": "MTD-BT (Anexo II)",
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ITC-BT-04 §3.1 exige proyecto para «generadores y convertidores» de más de 10 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Certificado de Instalación",
+          "organismo": "Instalador electricista habilitado",
+          "base_legal": "REBT RD 842/2002",
+          "plazo_estimado_dias": 3,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Incluido en honorarios del instalador",
+          "formulario_ref": "CI-BT (Anexo IV)",
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del instalador.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 3,
+          "nombre": "Legalización e inscripción en el Registro de instalaciones eléctricas de baja tensión",
+          "organismo": "Dirección General de Industria, Energía y Minas del Gobierno de Cantabria",
+          "base_legal": "Orden de 17 de octubre de 2003; Decreto 99/1996",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica del Gobierno de Cantabria",
+          "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
+          "coste_estimado": "Tarifa 2.2 de la Ley 9/1992 («Instalaciones eléctricas en baja tensión»); importe 2026 no localizado.",
+          "formulario_ref": "3446",
+          "paralelo_con": null,
+          "regla_id": "CANT-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_instalacion",
+              "label": "Certificado de instalación",
+              "descripcion": "Del instalador.",
               "obligatorio": true
             }
           ],
@@ -164,7 +285,7 @@
           "orden": 1,
           "nombre": "Proyecto técnico de instalación fotovoltaica",
           "organismo": "Técnico titulado competente (ingeniero industrial, etc.)",
-          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019 art. 9",
+          "base_legal": "REBT RD 842/2002 ITC-BT-40; RD 244/2019, arts. 5 y 7; REBT ITC-BT-04 apdo. 3.1",
           "plazo_estimado_dias": 15,
           "plazo_legal_dias": null,
           "plataforma": null,
@@ -244,7 +365,7 @@
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica del Gobierno de Cantabria",
           "plataforma_url": "https://sede.cantabria.es/sede/catalogo-de-tramites/tramite/legalizacion-de-instalaciones-de-instalaciones-de-baja-tension/3446",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tarifa 2.2 de la Ley 9/1992 («Instalaciones eléctricas en baja tensión»); importe 2026 no localizado.",
           "formulario_ref": "3446",
           "paralelo_con": null,
           "regla_id": "CANT-FV-002",

@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "fotovoltaica_autoconsumo",
   "comunidad": "murcia",
-  "version": "0.9.0",
-  "ultima_revision": "2026-07-28",
+  "version": "0.10.0",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,9 @@
     "No se ha verificado si Murcia ha elevado el umbral de exención de autorización de 100 kW a 500 kW (facultad potestativa del RD-ley 18/2022)",
     "Tasas exactas de los subcódigos H00001/H00002/H00003 del código T610 no verificadas con importe concreto (importe remite a simulador en línea, no publicado en estático)",
     "No se ha confirmado en qué casos aplica el procedimiento 0019 frente a PRETOR con precisión — la fuente oficial distingue por modalidad de autoconsumo (con/sin excedentes, con/sin compensación), eje que no tiene campo propio en el schema",
-    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema"
+    "Distinción sin_excedentes/con_excedentes sigue sin campo propio en el schema",
+    "Verificación Prompt B (2026-10-05): Murcia FV (Prompt B): BLOQUEANTE resuelto (alta, ITC-BT-04 §3.1): proyecto por encima de 10 kW. MUR-FV-001 pasa a «hasta 10 kW» y se añade MUR-FV-001P (10-100 kW). Organismo: Dirección General de Industria, Energía y Minas. Ficha 19: «Registro de instalaciones eléctricas de baja tensión», declaración responsable con inscripción conjunta en autoconsumo y PRETOR; tasas T610 H00001/H00002/H00003 y T630 H00001; modelos oficiales (memoria IEBT 06/2021, certificado de IEBT, declaración responsable).",
+    "Verificación Prompt B (2026-10-05): Sin cerrar (Murcia FV): omisiones de la nota CARM de autoconsumo (v37, junio 2021; la ficha enlaza la v39): solicitud de CAU a la distribuidora, notificación de proyecto o memoria y permiso de acceso y conexión (salvo ≤ 15 kW en suelo urbanizado), registro de establecimientos industriales (código 1075) para excedentes no acogidos a compensación, rótulo «Instalación generadora conectada» y revisión trienal ≤ 100 kW (Resolución DGIEM, BORM 09/02/2013, vigencia no verificada). Autorización de FV en BT > 100 kW: procedimiento exacto no confirmado (0019 o 0007 para AT). Umbral de 500 kW: ninguna norma murciana lo eleva (el RDL 7/2025 fue derogado el 22/07/2025). Plazo y silencio del catálogo (3 meses, positivo) frente a la ficha (efecto inmediato). Importes de la tasa T610 de 2026 sin localizar."
   ],
   "fuentes": [
     {
@@ -48,13 +50,13 @@
   "reglas": [
     {
       "id": "MUR-FV-001",
-      "descripcion": "Autoconsumo de potencia igual o inferior a 100 kW: régimen exento de autorización administrativa (art. 53 Ley 24/2013), Memoria Técnica de Diseño",
+      "descripcion": "Autoconsumo de hasta 10 kW en baja tensión: memoria técnica y registro",
       "condicion": {
         "<=": [
           {
             "var": "potencia_kw"
           },
-          100
+          10
         ]
       },
       "tramites": [
@@ -91,32 +93,132 @@
         },
         {
           "orden": 2,
-          "nombre": "Registro de instalación BT/autoconsumo (procedimiento 0019) y, en su caso, inscripción en PRETOR",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "nombre": "Registro de instalaciones eléctricas de baja tensión (procedimiento 19), con inscripción conjunta en el registro de autoconsumo y PRETOR",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
           "base_legal": "Decreto 20/2003; RD 244/2019",
-          "plazo_estimado_dias": 15,
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=19&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO — tasa T610, subcódigo H00001 (sin proyecto); si se acoge a régimen especial (PRETOR, excedentes sin compensación) aplica adicionalmente subcódigo H00003",
+          "coste_estimado": "Tasa T610 (H00001 sin proyecto técnico; H00002 con proyecto; H00003 régimen especial) y, en su caso, T630 H00001 (diligencia de certificados). Importes 2026 no verificados; el texto refundido prevé una bonificación del 50 % en la tramitación telemática.",
           "formulario_ref": "0019",
           "paralelo_con": null,
           "regla_id": "MUR-FV-001",
           "documentos_requeridos": [
             {
-              "id": "mtd_fotovoltaica",
-              "label": "Memoria Técnica de Diseño",
-              "descripcion": "",
+              "id": "memoria_tecnica_iebt",
+              "label": "Memoria técnica de diseño IEBT (junio 2021)",
+              "descripcion": "Modelo oficial de la ficha 19.",
               "obligatorio": true
             },
             {
-              "id": "certificado_instalador",
-              "label": "Certificado del instalador",
-              "descripcion": "",
+              "id": "certificado_iebt",
+              "label": "Certificado de IEBT",
+              "descripcion": "Modelo oficial de la ficha 19.",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_19",
+              "label": "Declaración responsable (procedimiento 19)",
+              "descripcion": "Modelo oficial de la ficha 19.",
               "obligatorio": true
             }
           ],
-          "notas": "La inscripción en PRETO solo es obligatoria para instalaciones con excedentes no acogidas a compensación; no modelado por falta de campo en el schema.",
+          "notas": "La inscripción en PRETOR solo es obligatoria para instalaciones con excedentes no acogidas a compensación.\nDeclaración responsable con efecto inmediato (el catálogo de la sede muestra además 3 meses con silencio positivo; no se modela como plazo de resolución).",
+          "registro_salida": null,
+          "medio_presentacion": null
+        }
+      ]
+    },
+    {
+      "id": "MUR-FV-001P",
+      "descripcion": "Autoconsumo de más de 10 kW y hasta 100 kW en baja tensión: proyecto técnico, certificado de dirección de obra y registro",
+      "condicion": {
+        "and": [
+          {
+            ">": [
+              {
+                "var": "potencia_kw"
+              },
+              10
+            ]
+          },
+          {
+            "<=": [
+              {
+                "var": "potencia_kw"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "tramites": [
+        {
+          "orden": 1,
+          "nombre": "Proyecto técnico fotovoltaico y certificado de dirección de obra",
+          "organismo": "Técnico titulado competente",
+          "base_legal": "REBT ITC-BT-04 apdo. 3.1",
+          "plazo_estimado_dias": 15,
+          "plazo_legal_dias": null,
+          "plataforma": null,
+          "plataforma_url": null,
+          "coste_estimado": "Variable según honorarios del técnico",
+          "formulario_ref": null,
+          "paralelo_con": null,
+          "regla_id": "MUR-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Firmado por técnico titulado competente (más de 10 kW).",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_direccion_obra_fv",
+              "label": "Certificado de dirección de obra",
+              "descripcion": "Firmado por el técnico director.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La ITC-BT-04 §3.1 exige proyecto para «generadores y convertidores» de más de 10 kW.",
+          "registro_salida": null,
+          "medio_presentacion": null
+        },
+        {
+          "orden": 2,
+          "nombre": "Registro de instalaciones eléctricas de baja tensión (procedimiento 19), con inscripción conjunta en el registro de autoconsumo y PRETOR",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
+          "base_legal": "Decreto 20/2003; RD 244/2019",
+          "plazo_estimado_dias": 1,
+          "plazo_legal_dias": null,
+          "plataforma": "Sede Electrónica de la CARM",
+          "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=19&IDTIPO=240",
+          "coste_estimado": "Tasa T610 (H00001 sin proyecto técnico; H00002 con proyecto; H00003 régimen especial) y, en su caso, T630 H00001 (diligencia de certificados). Importes 2026 no verificados; el texto refundido prevé una bonificación del 50 % en la tramitación telemática.",
+          "formulario_ref": "0019",
+          "paralelo_con": null,
+          "regla_id": "MUR-FV-001",
+          "documentos_requeridos": [
+            {
+              "id": "proyecto_tecnico",
+              "label": "Proyecto técnico fotovoltaico",
+              "descripcion": "Del paso 1.",
+              "obligatorio": true
+            },
+            {
+              "id": "certificado_iebt",
+              "label": "Certificado de IEBT",
+              "descripcion": "Modelo oficial de la ficha 19.",
+              "obligatorio": true
+            },
+            {
+              "id": "declaracion_responsable_19",
+              "label": "Declaración responsable (procedimiento 19)",
+              "descripcion": "Modelo oficial de la ficha 19.",
+              "obligatorio": true
+            }
+          ],
+          "notas": "La inscripción en PRETOR solo es obligatoria para instalaciones con excedentes no acogidas a compensación.\nDeclaración responsable con efecto inmediato (el catálogo de la sede muestra además 3 meses con silencio positivo; no se modela como plazo de resolución).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -186,20 +288,20 @@
               "obligatorio": true
             }
           ],
-          "notas": "",
+          "notas": "AVISO: el apartado 4.1 de la ITC-BT-05 no incluye entre las inspecciones iniciales las instalaciones generadoras, salvo que otra característica de la instalación la exija; no se confirmó para FV en Murcia.",
           "registro_salida": null,
           "medio_presentacion": null
         },
         {
           "orden": 3,
           "nombre": "Registro de instalación (procedimiento 0019) e inscripción en PRETOR",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
           "base_legal": "Decreto 20/2003; Ley 24/2013 art. 53",
-          "plazo_estimado_dias": 20,
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=19&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO — tasa T610, subcódigo H00002 (con proyecto); si se acoge a régimen especial (PRETOR, excedentes sin compensación) aplica adicionalmente subcódigo H00003",
+          "coste_estimado": "Tasa T610 (H00001 sin proyecto técnico; H00002 con proyecto; H00003 régimen especial) y, en su caso, T630 H00001 (diligencia de certificados). Importes 2026 no verificados; el texto refundido prevé una bonificación del 50 % en la tramitación telemática.",
           "formulario_ref": "0019",
           "paralelo_con": null,
           "regla_id": "MUR-FV-002",

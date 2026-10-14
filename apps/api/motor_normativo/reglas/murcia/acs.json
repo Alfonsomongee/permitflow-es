@@ -1,8 +1,8 @@
 {
   "tipo_instalacion": "acs",
   "comunidad": "murcia",
-  "version": "0.9.1",
-  "ultima_revision": "2026-08-20",
+  "version": "0.9.2",
+  "ultima_revision": "2026-10-05",
   "nivel_verificacion": "generica",
   "estado": "borrador_no_verificado",
   "revisado_por": null,
@@ -11,7 +11,8 @@
     "FALTA POR COMPLETO la regla de Legionella/PPCL-PSL para ACS de uso colectivo (RD 487/2022 + RD 614/2024) — NO TOCADO, pendiente de implementación funcional",
     "Tasas y plazos legales no verificados",
     "RESUELTO PARCIALMENTE 2026-07-28: añadida regla MUR-ACS-000 para potencia <5 kW; el régimen exacto aplicable a ese tramo NO VERIFICADO — misma incertidumbre documentada en climatizacion_aerotermia.json",
-    "CORREGIDO 2026-08-20: MUR-ACS-000 tenía una condición imposible (potencia_kw>=5 AND potencia_kw<5, nunca disparaba). Antes de activarla se detectó que su rango real (potencia_kw<5) coincide con el de MUR-ACS-RITE-EXENTA (exención total, fuente confirmada), así que activarla produciría un plan contradictorio (exenta + memoria técnica a la vez). Se ha desactivado explícitamente (condicion=false) en vez de activarla. PENDIENTE: confirmar con fuente primaria de la CARM si <5 kW es exención total (como ya aplica MUR-ACS-RITE-EXENTA) o si existe un trámite simplificado distinto — mientras no se confirme, MUR-ACS-RITE-EXENTA es la respuesta que da el motor para ese tramo."
+    "CORREGIDO 2026-08-20: MUR-ACS-000 tenía una condición imposible (potencia_kw>=5 AND potencia_kw<5, nunca disparaba). Antes de activarla se detectó que su rango real (potencia_kw<5) coincide con el de MUR-ACS-RITE-EXENTA (exención total, fuente confirmada), así que activarla produciría un plan contradictorio (exenta + memoria técnica a la vez). Se ha desactivado explícitamente (condicion=false) en vez de activarla. PENDIENTE: confirmar con fuente primaria de la CARM si <5 kW es exención total (como ya aplica MUR-ACS-RITE-EXENTA) o si existe un trámite simplificado distinto — mientras no se confirme, MUR-ACS-RITE-EXENTA es la respuesta que da el motor para ese tramo.",
+    "Verificación Prompt B (2026-10-05): Murcia (Prompt B): ficha 61 «Registro de instalaciones térmicas en los edificios» (SIA 206530), declaración responsable con efecto inmediato y no «comunicación»; organismo corregido; plazos legales de 15/30 días a null (no existen); umbrales 5-70 kW y > 70 kW confirmados con los modelos oficiales; la ficha no menciona inspección inicial por OCA (paso conservado con aviso, RITE arts. 24.1.c y 30.1) ni el tramo < 5 kW (se mantiene el marco estatal). Contrato de mantenimiento añadido como opcional (fuente secundaria: anexo del procedimiento 0061). Tasa T610 sin importes de 2026. Plazo y silencio del catálogo (3 meses, positivo) sin modelar. Omisión: plan de autoprotección (RD 393/2007) solo cuando proceda."
   ],
   "fuentes": [
     {
@@ -168,14 +169,14 @@
         },
         {
           "orden": 2,
-          "nombre": "Comunicación de puesta en servicio",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
-          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 24",
-          "plazo_estimado_dias": 10,
+          "nombre": "Registro de instalaciones térmicas en los edificios (declaración responsable)",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
+          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 24; RD 1826/2009, RD 238/2013, RD 249/2010, Ley 2/2017 y Ley 10/2018 (según la ficha 61)",
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa T610 (H00001 sin proyecto técnico; H00002 con proyecto; H00003 régimen especial) y, en su caso, T630 H00001 (diligencia de certificados). Importes 2026 no verificados; el texto refundido prevé una bonificación del 50 % en la tramitación telemática.",
           "formulario_ref": "61",
           "paralelo_con": null,
           "regla_id": "MUR-ACS-000",
@@ -191,9 +192,15 @@
               "label": "Certificado de instalación",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento_termica",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Con empresa mantenedora de instalaciones térmicas (anexo del procedimiento 0061, fuente secundaria).",
+              "obligatorio": false
             }
           ],
-          "notas": "NO VERIFICADO si el registro es exigible por debajo de 5 kW.",
+          "notas": "NO VERIFICADO si el registro es exigible por debajo de 5 kW.\nDeclaración responsable con efecto inmediato: permite poner la instalación en funcionamiento desde su presentación (ficha 61, SIA 206530).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -298,14 +305,14 @@
         },
         {
           "orden": 2,
-          "nombre": "Comunicación de puesta en servicio",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
-          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 24",
-          "plazo_estimado_dias": 10,
+          "nombre": "Registro de instalaciones térmicas en los edificios (declaración responsable)",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
+          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 24; RD 1826/2009, RD 238/2013, RD 249/2010, Ley 2/2017 y Ley 10/2018 (según la ficha 61)",
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa T610 (H00001 sin proyecto técnico; H00002 con proyecto; H00003 régimen especial) y, en su caso, T630 H00001 (diligencia de certificados). Importes 2026 no verificados; el texto refundido prevé una bonificación del 50 % en la tramitación telemática.",
           "formulario_ref": "61",
           "paralelo_con": null,
           "regla_id": "MUR-ACS-001",
@@ -321,9 +328,15 @@
               "label": "Certificado de instalación",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento_termica",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Con empresa mantenedora de instalaciones térmicas (anexo del procedimiento 0061, fuente secundaria).",
+              "obligatorio": false
             }
           ],
-          "notas": "",
+          "notas": "Declaración responsable con efecto inmediato: permite poner la instalación en funcionamiento desde su presentación (ficha 61, SIA 206530).",
           "registro_salida": null,
           "medio_presentacion": null
         }
@@ -441,14 +454,14 @@
         },
         {
           "orden": 3,
-          "nombre": "Comunicación de puesta en servicio",
-          "organismo": "Dirección General de Energía y Actividad Industrial y Minera (CARM)",
-          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 24",
-          "plazo_estimado_dias": 10,
+          "nombre": "Registro de instalaciones térmicas en los edificios (declaración responsable)",
+          "organismo": "Dirección General de Industria, Energía y Minas (CARM)",
+          "base_legal": "Decreto 20/2003; RITE RD 1027/2007 art. 24; RD 1826/2009, RD 238/2013, RD 249/2010, Ley 2/2017 y Ley 10/2018 (según la ficha 61)",
+          "plazo_estimado_dias": 1,
           "plazo_legal_dias": null,
           "plataforma": "Sede Electrónica de la CARM",
           "plataforma_url": "https://sede.carm.es/web/pagina?IDCONTENIDO=61&IDTIPO=240",
-          "coste_estimado": "NO VERIFICADO",
+          "coste_estimado": "Tasa T610 (H00001 sin proyecto técnico; H00002 con proyecto; H00003 régimen especial) y, en su caso, T630 H00001 (diligencia de certificados). Importes 2026 no verificados; el texto refundido prevé una bonificación del 50 % en la tramitación telemática.",
           "formulario_ref": "61",
           "paralelo_con": null,
           "regla_id": "MUR-ACS-002",
@@ -464,9 +477,15 @@
               "label": "Certificado de dirección de obra",
               "descripcion": "",
               "obligatorio": true
+            },
+            {
+              "id": "contrato_mantenimiento_termica",
+              "label": "Contrato de mantenimiento",
+              "descripcion": "Con empresa mantenedora de instalaciones térmicas (anexo del procedimiento 0061, fuente secundaria).",
+              "obligatorio": false
             }
           ],
-          "notas": "",
+          "notas": "Declaración responsable con efecto inmediato: permite poner la instalación en funcionamiento desde su presentación (ficha 61, SIA 206530).",
           "registro_salida": null,
           "medio_presentacion": null
         }

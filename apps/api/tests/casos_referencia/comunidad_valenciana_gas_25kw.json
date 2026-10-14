@@ -9,8 +9,8 @@
     "municipio": "Valencia",
     "presion_bar": "normal"
   },
-  "num_tramites_esperado": 3,
-  "tiempo_total_esperado_dias": 32,
-  "validado_por": "Antigravity - 2026-08-09",
-  "notas_validacion": "Ejecutado contra motor_normativo/reglas/comunidad_valenciana/gas_baja_presion.json regla CV-GAS-002."
+  "num_tramites_esperado": 2,
+  "tiempo_total_esperado_dias": 12,
+  "validado_por": "Pendiente de revisión humana (valores actualizados el 2026-10-04 tras el Prompt B de la Comunitat Valenciana; antes: Antigravity - 2026-08-09)",
+  "notas_validacion": "Ejecutado contra motor_normativo/reglas/comunidad_valenciana/gas_baja_presion.json regla CV-GAS-002. Desde 2026-10-04 sin comunicación a la Administración para gas individual ≤ 70 kW y ≤ 5 bar (ficha 3192; ADR 0003)."
 }
